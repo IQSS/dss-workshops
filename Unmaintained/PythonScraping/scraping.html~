@@ -1,0 +1,3162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Screen Scraping: A Hands-on Introduction</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Screen Scraping: A Hands-on Introduction"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="April, 2012"/>
+<meta name="author" content="Alex Storer"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet"
+                     href="css/worg.css"
+                     type="text/css"/>
+<link rel="stylesheet" type="text/css" href="org/css/worg.css" />
+<script type="text/javascript" src="http://orgmode.org/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Screen Scraping: A Hands-on Introduction</h1>
+
+
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Goals</a>
+<ul>
+<li><a href="#sec-1-1">1.1 Who am I?</a></li>
+<li><a href="#sec-1-2">1.2 What is this page?</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Basic Python</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Installation</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1 IDE</a></li>
+<li><a href="#sec-2-1-2">2.1.2 Wing IDE 101</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2 Further Python Resources</a></li>
+<li><a href="#sec-2-3">2.3 Diving In</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1 Indexing and Slicing</a></li>
+<li><a href="#sec-2-3-2">2.3.2 Including Other Packages</a></li>
+<li><a href="#sec-2-3-3">2.3.3 Objects and methods</a></li>
+<li><a href="#sec-2-3-4">2.3.4 Defining Functions</a></li>
+<li><a href="#sec-2-3-5">2.3.5 Logical Flow</a></li>
+<li><a href="#sec-2-3-6">2.3.6 Review</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4">2.4 For Loops</a>
+<ul>
+<li><a href="#sec-2-4-1">2.4.1 Example</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5">2.5 Lists</a></li>
+<li><a href="#sec-2-6">2.6 Exercise</a>
+<ul>
+<li><a href="#sec-2-6-1">2.6.1 Exercise Solutions</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-7">2.7 <code>dict</code> type</a>
+<ul>
+<li><a href="#sec-2-7-1">2.7.1 Examples</a></li>
+<li><a href="#sec-2-7-2">2.7.2 Writing to CSV</a></li>
+<li><a href="#sec-2-7-3">2.7.3 A Note on File Objects</a></li>
+<li><a href="#sec-2-7-4">2.7.4 Exercise</a></li>
+<li><a href="#sec-2-7-5">2.7.5 Exercise Solutions</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Regular Expressions</a>
+<ul>
+<li><a href="#sec-3-1">3.1 A first example</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1 What the code does</a></li>
+<li><a href="#sec-3-1-2">3.1.2 Different expressions</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2 Further examples</a></li>
+<li><a href="#sec-3-3">3.3 Other helpful regex tools</a></li>
+<li><a href="#sec-3-4">3.4 Exercises</a></li>
+<li><a href="#sec-3-5">3.5 Solutions</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 Web Sites</a>
+<ul>
+<li><a href="#sec-4-1">4.1 Example: Egypt Independent / المصري اليوم</a>
+<ul>
+<li><a href="#sec-4-1-1">4.1.1 Aside: "Brittleness"</a></li>
+<li><a href="#sec-4-1-2">4.1.2 Metadata</a></li>
+<li><a href="#sec-4-1-3">4.1.3 Body</a></li>
+<li><a href="#sec-4-1-4">4.1.4 Scraping Articles</a></li>
+<li><a href="#sec-4-1-5">4.1.5 Scraping Exercise!</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 Web scraping in python</a>
+<ul>
+<li><a href="#sec-5-1">5.1 Using ElementTree</a></li>
+<li><a href="#sec-5-2">5.2 Using <code>lxml</code></a>
+<ul>
+<li><a href="#sec-5-2-1">5.2.1 Installing a Package</a></li>
+<li><a href="#sec-5-2-2">5.2.2 Using <code>lxml</code></a></li>
+<li><a href="#sec-5-2-3">5.2.3 XPath Examples</a></li>
+<li><a href="#sec-5-2-4">5.2.4 <code>lxml</code> Exercise</a></li>
+<li><a href="#sec-5-2-5">5.2.5 Solutions to exercise</a></li>
+<li><a href="#sec-5-2-6">5.2.6 Downloading articles from each page</a></li>
+<li><a href="#sec-5-2-7">5.2.7 Exercise</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-3">5.3 Stripping text</a></li>
+<li><a href="#sec-5-4">5.4 Parallelization to increase speed</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Goals</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li>Get a working python environment installed on your own computer
+</li>
+<li>Make python seem less scary
+</li>
+<li>Understand some of the differences between python and other languages
+</li>
+<li>Understand what screen scraping is all about
+</li>
+<li>Learn the tools to scrape web sites (and other structured text)
+  effectively
+</li>
+</ul>
+
+
+<p>
+This may take some time!  This time is available indefinitely,
+depending on how quickly we go it could take a number of sessions -
+my intention is to play it by ear to see what we need to focus on.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Who am I?</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+My name is Alex Storer, and I'm part of the <a href="http://dss.iq.harvard.edu">Data Science Services</a> team at IQSS.  I have a PhD in Computational Neuroscience,
+and have done a lot of programming and scripting to interact with
+data.
+</p>
+<p>
+Our team can help you with your research questions, both with the
+statistics and the technology.  If you want to chat with us, simply
+e-mail <a href="#support-help.hmdc.harvard.edu">support@help.hmdc.harvard.edu</a>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> What is this page?</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+This is a tutorial that I wrote using the org-mode in emacs.  It is
+hosted here:
+</p>
+<p>
+<a href="http://www.people.fas.harvard.edu/~astorer/scraping/scraping.html">http://www.people.fas.harvard.edu/~astorer/scraping/scraping.html</a>
+</p>
+<p>
+You can always find details about our ongoing workshops here:
+</p>
+<p>
+<a href="http://dss.iq.harvard.edu">http://dss.iq.harvard.edu</a>
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Basic Python</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>Python is a powerful interpreted language that people often use for
+scraping.  We'll highlight here a few of the most helpful features for
+understanding Python code and writing scrapers.  This is by no means a
+complete or thorough introduction to Python!  It's just enough to get
+by.
+</p>
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Installation</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<p>   Python comes in two modern flavors, version 2 and version 3.  There
+   are some important language differences between them, and in
+   practice, almost everyone uses version 2.  To install it, go <a href="http://python.org/download/">here</a>
+   and select the relevant operating system.
+</p>
+</div>
+
+<div id="outline-container-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> IDE</h4>
+<div class="outline-text-4" id="text-2-1-1">
+
+<p>   An <b>IDE</b>, or Integrated Development Environment, is used to
+   facilitate programming.  A good IDE does things like code
+   highlighting, error checking, one-click-running, and easy
+   integration across multiple files.  An example of a crappy IDE is
+   notepad.  I like to use emacs.  Most people prefer something else.
+</p></div>
+
+</div>
+
+<div id="outline-container-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> Wing IDE 101</h4>
+<div class="outline-text-4" id="text-2-1-2">
+
+<p>    For this session, I recommend <a href="http://wingware.com/downloads/wingide-101">Wing 101</a>.  It's a free version of a
+    more fully-featured IDE, but for beginners, it's perfect.  If you
+    don't already have an IDE that you're invested in, or you want
+    your intro to python to be as painless as possible, you should
+    install it.  It's cross platform.
+</p><ul>
+<li id="sec-2-1-2-1">Getting Started in Wing<br/>
+     Once you have Wing installed, you might want to use the tutorial
+     to learn how to navigate around in it.
+
+
+<div class="figure">
+<p><img src="./img/tutorial.jpg" title="Wing Tutorial" align="center" alt="./img/tutorial.jpg" /></p>
+<p>Opening the tutorial in Wing 101.</p>
+</div>
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Further Python Resources</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+   <b>But wait, I want to spend four months becoming a Python guru!</b>
+</p>
+<p>
+   Dude, you're awesome.  Here are some resources that will help you:
+</p>
+<ul>
+<li><a href="http://knuth.luther.edu/~leekent/IntroToComputing/">Python Programming Fundamentals</a>
+     Uses WingIDE to teach basic computer science tactics using python
+</li>
+<li><a href="http://www.pythonchallenge.com/">Python Challenge</a>
+     A fun programming riddle that will increase your chops.
+</li>
+<li><a href="http://learnpythonthehardway.org/">Learn Python The Hard Way</a>
+     The Hard Way means by actually writing code.  Maybe it should be
+     called The Good Way?
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Diving In</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<p>   In Wing, there is a window open called <b>Python Shell</b>   
+</p><ul>
+<li>If you know <b>R</b>, think of this just like the R command line
+</li>
+<li>If you've never programmed before, think of this as a graphing calculator
+</li>
+</ul>
+
+
+
+
+<pre class="src src-python"><span style="color: #cd0000;">print</span> 2+4
+</pre>
+
+
+<p>
+=6
+=*** Basic Text Handling
+</p><ul>
+<li>Of course, this graphing calculator can handle text, too!
+</li>
+</ul>
+
+
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mystr</span> = <span style="color: #008b00;">"Hello, World!"</span>
+<span style="color: #cd0000;">print</span> mystr
+<span style="color: #cd0000;">print</span> len(mystr)
+</pre>
+
+
+<pre class="example">
+Hello, World!
+13
+</pre>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left"><b>Python Code</b></td><td class="left"><b>R Code</b></td><td class="left"><b>English Translation</b></td></tr>
+<tr><td class="left"><code>print 2+4</code></td><td class="left"><code>print(2+4)</code></td><td class="left">Print the value of 2+4</td></tr>
+<tr><td class="left"><code>mystr = '`Hello World'`</code></td><td class="left"><code>mystr &lt;- '`Hello World'`</code></td><td class="left">Assign the string "Hello World" to the variable mystr</td></tr>
+<tr><td class="left"><code>len(mystr)</code></td><td class="left"><code>nchar(mystr)</code></td><td class="left">How "long" is the variable mystr?  <i>Note: R can tell you how long it is, but if you want the number of characters, that's what you need to ask for.</i></td></tr>
+</tbody>
+</table>
+
+
+<p>
+<b>Note to Stata Users:</b><br/>
+Assigning a variable is not the same as adding a "column" to your dataset.
+</p>
+
+</div>
+
+<div id="outline-container-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Indexing and Slicing</h4>
+<div class="outline-text-4" id="text-2-3-1">
+
+<p>Get the first element of a string.
+</p>
+<ul>
+<li><b>Note:</b> Python counts from 0.  This is a common convention in most
+  languages constructed by computer scientists.
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mystr</span> = <span style="color: #008b00;">"Dogs in outer space"</span>
+<span style="color: #cd0000;">print</span> mystr[0]
+</pre>
+
+
+<pre class="example">
+D
+</pre>
+
+
+<p>
+Get the last element of a string
+</p>
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mystr</span> = <span style="color: #008b00;">"Dogs in outer space"</span>
+<span style="color: #cd0000;">print</span> mystr[-1]
+<span style="color: #cd0000;">print</span> mystr[len(mystr)-1]
+</pre>
+
+
+<pre class="example">
+e
+e
+</pre>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mystr</span> = <span style="color: #008b00;">"Dogs in outer space"</span>
+<span style="color: #cd0000;">print</span> mystr[1:3]
+<span style="color: #cd0000;">print</span> mystr[3:]
+<span style="color: #cd0000;">print</span> mystr[:-3]
+</pre>
+
+
+<pre class="example">
+og
+s in outer space
+Dogs in outer sp
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Including Other Packages</h4>
+<div class="outline-text-4" id="text-2-3-2">
+
+
+<ul>
+<li>By default, python doesn't include every possible "package"
+<ul>
+<li>This is similar to R, but unlike Matlab
+</li>
+<li>Use the <code>include</code> statement to load a library
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> math
+<span style="color: #cd0000;">print</span> math.sin(math.pi)
+</pre>
+
+
+<pre class="example">
+1.22464679915e-16
+</pre>
+
+
+<p>
+After we import from a package, we have to access sub-elements of that
+package using the <code>.</code> operator.  Notice also that while the value
+<code>1.22464679915e-16</code> is very nearly <code>0</code>, the <code>math</code> module doesn't know
+that sin(&pi;) = 0.  There are smarter modules for doing math in
+Python, like <code>scipy</code> and <code>numpy</code>.  Some people love using Python for
+Math.  I think it makes more sense to use R.
+</p>
+<ul>
+<li>If you want to <code>import</code> something into your namespace
+<ul>
+<li><code>from math import &lt;myfunction&gt;</code> <b>or</b>
+</li>
+<li><code>from math import *</code>
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">from</span> math <span style="color: #4682b4; font-weight: bold;">import</span> *
+<span style="color: #cd0000;">print</span> sin(pi)
+</pre>
+
+
+<pre class="example">
+1.22464679915e-16
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> Objects and methods</h4>
+<div class="outline-text-4" id="text-2-3-3">
+
+
+<p>
+Python makes extensive use of <b>objects</b>.  An object has
+</p><ul>
+<li>Methods: functions that work only on that option
+</li>
+<li>Fields: data that only that type of object has
+</li>
+</ul>
+
+
+<p>
+For example, let's imagine a <code>fruit</code> object.  A <code>fruit</code> might have a
+field called <code>hasPeel</code>, which tells you whether this fruit is
+peeled. It could also have a method called <code>peel</code>, which alters the
+state of the fruit.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"THE World is A BIG and BEAUTIFUL place.  "</span>
+<span style="color: #cd0000;">print</span> str.upper()
+<span style="color: #000000; background-color: #ffffff;">name</span> = <span style="color: #008b00;">"Alex Storer"</span>
+<span style="color: #cd0000;">print</span> name.swapcase()
+</pre>
+
+
+<pre class="example">
+THE WORLD IS A BIG AND BEAUTIFUL PLACE.  
+aLEX sTORER
+</pre>
+
+
+<p>
+Here we defined two strings, <code>str</code> and <code>name</code>, and used these to
+invoke string methods which affect the case of the string.
+</p>
+<ul>
+<li>You can write your own objects and methods
+</li>
+<li>Objects can be sub-classes of other objects
+<ul>
+<li>e.g., a <code>psychologist</code> is a type of <code>researcher</code>, who does
+    everything a <code>researcher</code> does but also some other things only
+    a <code>pyschologist</code> does.
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3-4" class="outline-4">
+<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> Defining Functions</h4>
+<div class="outline-text-4" id="text-2-3-4">
+
+
+<p>
+You can write your own functions, pieces of code that can be used to
+take specific inputs and give outputs.  You can create a function by
+using the <code>def</code> command.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">square</span>(x):
+    <span style="color: #4682b4; font-weight: bold;">return</span> x*x
+<span style="color: #cd0000;">print</span> square(9)
+</pre>
+
+
+<pre class="example">
+81
+</pre>
+
+
+<p>
+Pay close attention to the <b>whitespace</b> that is used in Python!
+Unlike other languages, it is not ignored.  Everything with the same
+indentation is in the same level.  Above, the statement <code>return x*x</code>
+is part of the <code>square</code> function, but the following line is outside of
+the function definition.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-3-5" class="outline-4">
+<h4 id="sec-2-3-5"><span class="section-number-4">2.3.5</span> Logical Flow</h4>
+<div class="outline-text-4" id="text-2-3-5">
+
+
+<div class="figure">
+<p><img src="./img/decision-tree.png"  alt="./img/decision-tree.png" /></p>
+<p>The xkcd guide to writing good code</p>
+</div>
+
+<p>
+You can think about this logical process as being in pseudocode.
+</p>
+<pre class="example">
+IF do things right
+   ---&gt; code well
+OTHERWISE
+   ---&gt; do things fast
+</pre>
+
+
+<p>
+A lot of programming is figuring out how to fit things into this sort
+of <code>if=/=else</code> structure.  Let's look at an example in Python.
+</p>
+<ul>
+<li>The method <code>find</code> returns the index of the first location of a
+  string match
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mystr</span> = <span style="color: #008b00;">"This is one cool looking string!"</span>
+<span style="color: #4682b4; font-weight: bold;">if</span> mystr.find(<span style="color: #008b00;">"string"</span>)&gt;len(mystr)/2:
+    <span style="color: #cd0000;">print</span> <span style="color: #008b00;">"The word 'string' is in the second half"</span>
+<span style="color: #4682b4; font-weight: bold;">else:</span>
+    <span style="color: #cd0000;">print</span> <span style="color: #008b00;">"The word 'string is not in the second half"</span>
+</pre>
+
+
+<pre class="example">
+The word 'string' is in the second half
+</pre>
+
+
+<p>
+What happens if the word "string" is not there at all?
+</p>
+<ul>
+<li>The method <code>find</code> returns -1 if the string isn't found
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mystr</span> = <span style="color: #008b00;">"I don't know about you, but I only use velcro."</span>
+<span style="color: #cd0000;">print</span> mystr.find(<span style="color: #008b00;">"string"</span>)
+<span style="color: #4682b4; font-weight: bold;">if</span> mystr.find(<span style="color: #008b00;">"string"</span>)&gt;len(mystr)/2:
+    <span style="color: #cd0000;">print</span> <span style="color: #008b00;">"The word 'string' is in the second half"</span>
+<span style="color: #4682b4; font-weight: bold;">elif</span> mystr.find(<span style="color: #008b00;">"string"</span>)&gt;=0:
+    <span style="color: #cd0000;">print</span> <span style="color: #008b00;">"The word 'string is not in the second half"</span>
+<span style="color: #4682b4; font-weight: bold;">else:</span>
+    <span style="color: #cd0000;">print</span> <span style="color: #008b00;">"The word 'string' isn't there!"</span>
+</pre>
+
+
+<pre class="example">
+-1
+The word 'string' isn't there!
+</pre>
+
+
+<ul>
+<li><b>Important Note:</b> In Python, most everything evaluates to <code>True</code>.
+  Exceptions include <code>0</code> and <code>None</code>.  This means that you can say
+  things like <code>if (result)</code> where the result may be a computation, a
+  string search, or anything like that.  As long as it evaluates to
+  <code>True</code>, it will work!
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3-6" class="outline-4">
+<h4 id="sec-2-3-6"><span class="section-number-4">2.3.6</span> Review</h4>
+<div class="outline-text-4" id="text-2-3-6">
+
+<ul>
+<li><code>if</code>, <code>elif</code> and <code>else</code> can be used to control the flow of a program
+</li>
+<li>strings are a type of a object, and have a number of methods that
+  come with them, including <code>find</code>, <code>upper</code> and <code>swapcase</code>
+<ul>
+<li>methods are called using <code>mystring.method()</code>
+</li>
+<li>The list of methods for strings can be found in the <a href="http://docs.python.org/library/stdtypes.html">Python documentation</a>
+</li>
+</ul>
+
+</li>
+<li><code>def</code> can be used to define a function
+<ul>
+<li>The <code>return</code> statement determine what the function returns
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> For Loops</h3>
+<div class="outline-text-3" id="text-2-4">
+
+<p>   The for loop is a major component of how python is used.  You can
+   iterate over lots of different things, and python is smart enough
+   to know how to do it.  
+</p><ul>
+<li><b>Note:</b> the following is what's called pseudocode - something
+     that looks like code, but isn't going to run.  It's a helpful way
+     to clarify the steps that you need to take to get things to
+     work.
+</li>
+</ul>
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">for</span> (item <span style="color: #4682b4; font-weight: bold;">in</span> container):
+    process item
+    <span style="color: #cd0000;">print</span> item
+<span style="color: #cd0000;">print</span> <span style="color: #008b00;">"done processing items!"</span>
+</pre>
+
+
+
+<p>
+   Notice the use of the &lt;TAB&gt; (or spacing) - that's how python knows whether we're
+   inside the loop or not!
+</p>
+</div>
+
+<div id="outline-container-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> Example</h4>
+<div class="outline-text-4" id="text-2-4-1">
+
+
+
+
+<pre class="src src-python"><span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"Daddy ran to help Ann.  Up and down went the seesaw."</span>      
+<span style="color: #4682b4; font-weight: bold;">for</span> word <span style="color: #4682b4; font-weight: bold;">in</span> str.split():
+    <span style="color: #cd0000;">print</span> word
+</pre>
+
+
+
+<pre class="example">Daddy
+ran
+to
+help
+Ann.
+Up
+and
+down
+went
+the
+seesaw.
+</pre>
+
+
+<p>
+    Notice the use of <code>str.split()</code>: this is an example of calling a
+    <i>method</i> of a <i>string object</i>.  It returns a <b>list</b> of words after
+    splitting the string on whitespace.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Lists</h3>
+<div class="outline-text-3" id="text-2-5">
+
+
+<ul>
+<li>A <b>list</b> is a data type that can hold anything.
+</li>
+<li>Lists are iterable (you can pass them to a <code>for</code> loop
+</li>
+<li>You can <code>.append</code>, <code>.extend</code>,and otherwise manipulate lists.  <a href="http://docs.python.org/tutorial/datastructures.html">Python Documentation</a>
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mylist</span> = [<span style="color: #008b00;">'dogs'</span>,1,4,<span style="color: #008b00;">"fishes"</span>,[<span style="color: #008b00;">"hearts"</span>,<span style="color: #008b00;">"clovers"</span>],list]  
+<span style="color: #4682b4; font-weight: bold;">for</span> element <span style="color: #4682b4; font-weight: bold;">in</span> mylist:
+    <span style="color: #cd0000;">print</span> element    
+mylist.reverse()
+<span style="color: #cd0000;">print</span> mylist
+</pre>
+
+
+<pre class="example">
+dogs
+1
+4
+fishes
+['hearts', 'clovers']
+&lt;type 'list'&gt;
+[&lt;type 'list'&gt;, ['hearts', 'clovers'], 'fishes', 4, 1, 'dogs']
+</pre>
+
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Exercise</h3>
+<div class="outline-text-3" id="text-2-6">
+
+<ol>
+<li>Write a function that takes in a string, and outputs the square of
+   its length.
+</li>
+<li>Write a function that returns the number of capitalized letters in
+   a string. <i>Hint: try using =lower= and the == operator</i>
+</li>
+<li>Write a function that returns everything in a string up to "dog",
+   and returns "not found" if the string is not present.
+</li>
+</ol>
+
+
+
+
+
+</div>
+
+<div id="outline-container-2-6-1" class="outline-4">
+<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> Exercise Solutions</h4>
+<div class="outline-text-4" id="text-2-6-1">
+
+<ul>
+<li id="sec-2-6-1-1">Exercise 1:<br/>
+Write a function that takes in a string, and outputs the square of its
+length.
+
+<p>
+Notice that a function can call another function that you wrote.
+</p>
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">square</span>(x):
+    <span style="color: #4682b4; font-weight: bold;">return</span> x*x
+
+<span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">sqlen</span>(x):
+    <span style="color: #4682b4; font-weight: bold;">return</span> square(<span style="color: #cd0000;">len</span>(x))
+
+<span style="color: #cd0000;">print</span> sqlen(<span style="color: #008b00;">"Feet"</span>)
+</pre>
+
+
+<pre class="example">
+16
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-2-6-1-2">Exercise 2<br/>
+Write a function that returns the number of capitalized letters in a
+string.
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">numcaps</span>(x):
+    <span style="color: #000000; background-color: #ffffff;">lowerstr</span> = x.lower()
+    <span style="color: #000000; background-color: #ffffff;">ncaps</span> = 0
+    <span style="color: #4682b4; font-weight: bold;">for</span> i <span style="color: #4682b4; font-weight: bold;">in</span> <span style="color: #cd0000;">range</span>(len(x)):
+        <span style="color: #4682b4; font-weight: bold;">if</span> lowerstr[i]!=x[i]:
+            <span style="color: #000000; background-color: #ffffff;">ncaps</span> += 1
+    <span style="color: #4682b4; font-weight: bold;">return</span> ncaps
+
+<span style="color: #000000; background-color: #ffffff;">teststr</span> = <span style="color: #008b00;">"Dogs and Cats are both Animals"</span>
+<span style="color: #cd0000;">print</span> teststr, <span style="color: #008b00;">"has"</span>, <span style="color: #cd0000;">str</span>(numcaps(teststr)), <span style="color: #008b00;">"capital letters"</span>
+</pre>
+
+
+<pre class="example">
+Dogs and Cats are both Animals has 3 capital letters
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-2-6-1-3">Exercise 3<br/>
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">findDog</span>(x):
+    <span style="color: #000000; background-color: #ffffff;">mylist</span> = x.split(<span style="color: #008b00;">"dog"</span>)
+    <span style="color: #4682b4; font-weight: bold;">if</span> <span style="color: #cd0000;">len</span>(mylist) &lt; 2:
+        <span style="color: #4682b4; font-weight: bold;">return</span> <span style="color: #008b00;">"not found"</span>
+    <span style="color: #4682b4; font-weight: bold;">else:</span>
+        <span style="color: #4682b4; font-weight: bold;">return</span> mylist[0]    
+    <span style="color: #4682b4; font-weight: bold;">return</span> mylist
+<span style="color: #cd0000;">print</span> findDog(<span style="color: #008b00;">"i have a dog but not a cat"</span>)
+<span style="color: #cd0000;">print</span> findDog(<span style="color: #008b00;">"i have a fish but not a cat"</span>)
+<span style="color: #cd0000;">print</span> findDog(<span style="color: #008b00;">"i have a dog but not a dogwood"</span>)
+
+</pre>
+
+
+<pre class="example">
+i have a 
+not found
+i have a 
+</pre>
+
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> <code>dict</code> type</h3>
+<div class="outline-text-3" id="text-2-7">
+
+<p>   A <code>dict</code>, short for dictionary, is a helpful data structure in
+   Python for building mappings between inputs and outputs.
+</p>
+<p>
+<img src="http://code.google.com/edu/languages/google-python-class/images/dict.png"  alt="http://code.google.com/edu/languages/google-python-class/images/dict.png" />
+</p>
+
+</div>
+
+<div id="outline-container-2-7-1" class="outline-4">
+<h4 id="sec-2-7-1"><span class="section-number-4">2.7.1</span> Examples</h4>
+<div class="outline-text-4" id="text-2-7-1">
+
+
+
+
+<pre class="src src-python"><span style="color: #000000; background-color: #ffffff;">mydict</span> = <span style="color: #cd0000;">dict</span>()
+mydict[<span style="color: #008b00;">"dogs"</span>] = 14
+mydict[<span style="color: #008b00;">"fish"</span>] = <span style="color: #008b00;">"slumberland"</span>
+mydict[<span style="color: #008b00;">"dogs"</span>]+= 3
+<span style="color: #cd0000;">print</span> mydict
+</pre>
+
+
+<pre class="example">
+{'fish': 'slumberland', 'dogs': 17}
+</pre>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #cd0000;">len</span>(mydict[<span style="color: #008b00;">"fish"</span>])
+</pre>
+
+
+
+<p>
+    One of the nice things about python is that even when very
+    condensed, it is still readable.  People talk about coding in a
+    pythonic way, meaning to write very tight, readable code.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #cd0000;">print</span> dict([(x, x**2) <span style="color: #4682b4; font-weight: bold;">for</span> x <span style="color: #4682b4; font-weight: bold;">in</span> (2, 4, 6)]) 
+</pre>
+
+
+<pre class="example">
+{2: 4, 4: 16, 6: 36}
+</pre>
+
+
+<p>
+    Let's use a dictionary to store word counts from a sentence.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"Up and down went the seesaw. Up it went.  Down it went.  Up, up, up!"</span>
+<span style="color: #cd0000;">print</span> str
+<span style="color: #4682b4; font-weight: bold;">for</span> i <span style="color: #4682b4; font-weight: bold;">in</span> [<span style="color: #008b00;">","</span>,<span style="color: #008b00;">"."</span>,<span style="color: #008b00;">"!"</span>]:
+    <span style="color: #cd0000;">str</span> = str.replace(i,<span style="color: #008b00;">" "</span>)
+<span style="color: #cd0000;">print</span> str
+<span style="color: #cd0000;">str</span> = str.lower()
+<span style="color: #cd0000;">print</span> str
+<span style="color: #cd0000;">print</span> set(str.lower().split())
+</pre>
+
+
+<pre class="example">
+Up and down went the seesaw. Up it went.  Down it went.  Up, up, up!
+Up and down went the seesaw  Up it went   Down it went   Up  up  up 
+up and down went the seesaw  up it went   down it went   up  up  up 
+set(['and', 'up', 'it', 'down', 'seesaw', 'went', 'the'])
+</pre>
+
+
+<p>
+    We see that a <code>set</code> contains an unordered collection of the
+    elements of the list returned by <code>split()</code>.  Let's make a dictionary
+    with keys that are pulled from this set.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"Up and down went the seesaw. Up it went.  Down it went.  Up, up, up!"</span>
+<span style="color: #4682b4; font-weight: bold;">for</span> i <span style="color: #4682b4; font-weight: bold;">in</span> [<span style="color: #008b00;">","</span>,<span style="color: #008b00;">"."</span>,<span style="color: #008b00;">"!"</span>]:
+    <span style="color: #cd0000;">str</span> = str.replace(i,<span style="color: #008b00;">" "</span>)
+<span style="color: #000000; background-color: #ffffff;">words</span> = str.lower().split()
+d = dict.fromkeys(<span style="color: #cd0000;">set</span>(words),0)
+<span style="color: #cd0000;">print</span> d
+<span style="color: #4682b4; font-weight: bold;">for</span> w <span style="color: #4682b4; font-weight: bold;">in</span> words:
+    d[w]+=1
+<span style="color: #cd0000;">print</span> d
+</pre>
+
+
+<pre class="example">
+{'and': 0, 'down': 0, 'seesaw': 0, 'went': 0, 'the': 0, 'up': 0, 'it': 0}
+{'and': 1, 'down': 2, 'seesaw': 1, 'went': 3, 'the': 1, 'up': 5, 'it': 2}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-7-2" class="outline-4">
+<h4 id="sec-2-7-2"><span class="section-number-4">2.7.2</span> Writing to CSV</h4>
+<div class="outline-text-4" id="text-2-7-2">
+
+
+<p>
+    A very useful feature of dictionaries is that there is an easy
+    method to write them out to a CSV (comma-separated variable) file.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> csv
+f = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/blah.csv'</span>,<span style="color: #008b00;">'w'</span>)
+<span style="color: #000000; background-color: #ffffff;">nums</span> = [1,2,3]
+c = csv.DictWriter(f,nums)
+<span style="color: #4682b4; font-weight: bold;">for</span> i <span style="color: #4682b4; font-weight: bold;">in</span> <span style="color: #cd0000;">range</span>(0,10):
+    c.writerow(<span style="color: #cd0000;">dict</span>([(x, x**i) <span style="color: #4682b4; font-weight: bold;">for</span> x <span style="color: #4682b4; font-weight: bold;">in</span> nums]))
+f.close()
+</pre>
+
+
+
+<p>
+    This writes out the following csv file:
+</p>
+
+
+<pre class="example">1,1,1
+1,2,3
+1,4,9
+1,8,27
+1,16,81
+1,32,243
+1,64,729
+1,128,2187
+1,256,6561
+1,512,19683    
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-7-3" class="outline-4">
+<h4 id="sec-2-7-3"><span class="section-number-4">2.7.3</span> A Note on File Objects</h4>
+<div class="outline-text-4" id="text-2-7-3">
+
+
+<ul>
+<li>Think about file objects like a book
+<ul>
+<li>If a file is open, you don't want other people to mess with it
+</li>
+<li>Files can be opened for reading or writing
+</li>
+<li>There are methods to move around an open file
+</li>
+</ul>
+
+</li>
+<li>Close the book when you're done reading it!
+</li>
+<li>Python documentation on "File I/O" is <a href="http://docs.python.org/tutorial/inputoutput.html">here</a>
+</li>
+</ul>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">English</th><th scope="col" class="left">Python</th><th scope="col" class="left">Output</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Open <code>blah.txt</code> just for reading</td><td class="left"><code>f = open('blah.txt','r')</code></td><td class="left">file object <code>f</code></td></tr>
+<tr><td class="left">Get the next line in a file</td><td class="left"><code>str = f.readline()</code></td><td class="left">string containing a single line</td></tr>
+<tr><td class="left">Get the entire file</td><td class="left"><code>str = f.read()</code></td><td class="left">string containing entire file</td></tr>
+<tr><td class="left">Go to the beginning of a file</td><td class="left"><code>f.seek(0)</code></td><td class="left"><code>None</code></td></tr>
+<tr><td class="left">Close <code>blah.txt</code></td><td class="left"><code>f.close()</code></td><td class="left"><code>None</code></td></tr>
+</tbody>
+</table>
+
+
+<p>
+To play with this, download <a href="http://www.people.fas.harvard.edu/~astorer/scraping/gaga.txt">this file</a> somewhere on your hard drive.
+I'm putting it on my hard drive as <code>/tmp/gaga.txt</code>.  On Windows, it
+may look more like <code>C:\temp\gaga.txt</code> - just make sure you get the
+path correct when you tell Python where to look!
+</p>
+
+
+
+<pre class="src src-python">f = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/gaga.txt'</span>,<span style="color: #008b00;">'r'</span>)
+<span style="color: #cd0000;">print</span> f
+<span style="color: #cd0000;">str</span> = f.read()
+<span style="color: #cd0000;">print</span> <span style="color: #008b00;">"str has length: "</span>, <span style="color: #cd0000;">len</span>(str)
+<span style="color: #000000; background-color: #ffffff;">str2</span> = f.read()
+<span style="color: #cd0000;">print</span> <span style="color: #008b00;">"str2 has length: "</span>, <span style="color: #cd0000;">len</span>(str2)
+f.seek(0)
+<span style="color: #000000; background-color: #ffffff;">str3</span> = f.readline()
+<span style="color: #cd0000;">print</span> <span style="color: #008b00;">"str3 has length: "</span>, <span style="color: #cd0000;">len</span>(str3)
+f.close()
+</pre>
+
+
+<pre class="example">
+&lt;open file '/tmp/gaga.txt', mode 'r' at 0x10045e8a0&gt;
+str has length:  1220
+str2 has length:  0
+str3 has length:  77
+</pre>
+
+
+<p>
+You'll use file objects <i>a lot</i>.  As we see them, I'll try to point
+out what's important about them.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-7-4" class="outline-4">
+<h4 id="sec-2-7-4"><span class="section-number-4">2.7.4</span> Exercise</h4>
+<div class="outline-text-4" id="text-2-7-4">
+
+
+<ul>
+<li id="sec-2-7-4-1">Exercise 1<br/>
+Write a function that counts the number of unique letters in a word.
+
+</li>
+</ul>
+<ul>
+<li id="sec-2-7-4-2">Exercise 2<br/>
+Write a function that takes in a string, and returns a <code>dict</code> that
+tells you how many words of each number of letters there are.
+<pre class="example">
+"Dogs and cats are all animals"
+ dogs and cats are al  animls
+ 4    3   4    3   2   6
+ {2: 1, 3: 2, 4: 2, 6: 1}
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-2-7-4-3">Exercise 3<br/>
+Loop over a list of strings, and write a csv that contains a column
+for each number and a row for each string.
+<pre class="example">
+ 1,2,3,4,5,6,7,8,9,10,11,12,13
+ 2,3,2,3,4,5,2,3,2,1 , 0, 0, 0
+ 5,2,1,0,1,2,0,0,0,0 , 0, 0, 0
+ etc.
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2-7-5" class="outline-4">
+<h4 id="sec-2-7-5"><span class="section-number-4">2.7.5</span> Exercise Solutions</h4>
+<div class="outline-text-4" id="text-2-7-5">
+
+
+<ul>
+<li id="sec-2-7-5-1">Exercise 1<br/>
+Write a function that counts the number of unique letters in a word.
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">uniqueletters</span>(w):
+    d = <span style="color: #cd0000;">dict</span>()
+    <span style="color: #4682b4; font-weight: bold;">for</span> char <span style="color: #4682b4; font-weight: bold;">in</span> w:
+        d[char] = 1
+    <span style="color: #4682b4; font-weight: bold;">return</span> <span style="color: #cd0000;">len</span>(d.keys())
+<span style="color: #cd0000;">print</span> uniqueletters(<span style="color: #008b00;">"dog"</span>)
+<span style="color: #cd0000;">print</span> uniqueletters(<span style="color: #008b00;">"dogged"</span>)
+
+</pre>
+
+
+<pre class="example">
+3
+4
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-2-7-5-2">Exercise 2<br/>
+Write a function that takes in a string, and returns a <code>dict</code> that
+tells you how many words of each number of letters there are.
+<pre class="example">
+"Dogs and cats are all animals"
+ dogs and cats are al  animls
+ 4    3   4    3   2   6
+ {2: 1, 3: 2, 4: 2, 6: 1}
+</pre>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">uniqueletters</span>(w):
+    d = <span style="color: #cd0000;">dict</span>()
+    <span style="color: #4682b4; font-weight: bold;">for</span> char <span style="color: #4682b4; font-weight: bold;">in</span> w:
+        d[char] = 1
+    <span style="color: #4682b4; font-weight: bold;">return</span> <span style="color: #cd0000;">len</span>(d.keys())
+
+<span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">wordcounter</span>(str):
+    d = <span style="color: #cd0000;">dict</span>()
+    <span style="color: #4682b4; font-weight: bold;">for</span> w <span style="color: #4682b4; font-weight: bold;">in</span> str.split():
+        u = uniqueletters(w)
+        <span style="color: #4682b4; font-weight: bold;">if</span> u <span style="color: #4682b4; font-weight: bold;">in</span> d.keys():           
+            d[u]+=1
+        <span style="color: #4682b4; font-weight: bold;">else:</span>
+            d[u] = 1
+    <span style="color: #4682b4; font-weight: bold;">return</span> d
+
+<span style="color: #cd0000;">print</span> wordcounter(<span style="color: #008b00;">"Dogs and cats are all animals"</span>)
+
+</pre>
+
+
+<pre class="example">
+{2: 1, 3: 2, 4: 2, 6: 1}
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-2-7-5-3">Exercise 3<br/>
+Loop over a list of strings, and write a csv that contains a column
+for each number and a row for each string.
+<pre class="example">
+ 1,2,3,4,5,6,7,8,9,10,11,12,13
+ 2,3,2,3,4,5,2,3,2,1 , 0, 0, 0
+ 5,2,1,0,1,2,0,0,0,0 , 0, 0, 0
+ etc.
+</pre>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> csv
+<span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">uniqueletters</span>(w):
+    d = <span style="color: #cd0000;">dict</span>()
+    <span style="color: #4682b4; font-weight: bold;">for</span> char <span style="color: #4682b4; font-weight: bold;">in</span> w:
+        d[char] = 1
+    <span style="color: #4682b4; font-weight: bold;">return</span> <span style="color: #cd0000;">len</span>(d.keys())
+
+<span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">wordcounter</span>(str):
+    d = <span style="color: #cd0000;">dict</span>()
+    <span style="color: #4682b4; font-weight: bold;">for</span> w <span style="color: #4682b4; font-weight: bold;">in</span> str.split():
+        u = uniqueletters(w)
+        <span style="color: #4682b4; font-weight: bold;">if</span> u <span style="color: #4682b4; font-weight: bold;">in</span> d.keys():           
+            d[u]+=1
+        <span style="color: #4682b4; font-weight: bold;">else:</span>
+            d[u] = 1
+    <span style="color: #4682b4; font-weight: bold;">return</span> d
+
+<span style="color: #4682b4; font-weight: bold;">def</span> <span style="color: #ff0000; font-weight: bold;">listwriter</span>(l):
+    <span style="color: #000000; background-color: #ffffff;">emptydict</span> = <span style="color: #cd0000;">dict</span>([(x, 0) <span style="color: #4682b4; font-weight: bold;">for</span> x <span style="color: #4682b4; font-weight: bold;">in</span> <span style="color: #cd0000;">range</span>(1,26)])
+    f = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/blah.csv'</span>,<span style="color: #008b00;">'w'</span>)
+    c = csv.DictWriter(f,sorted(emptydict.keys())) 
+    c.writeheader()    
+    <span style="color: #4682b4; font-weight: bold;">for</span> <span style="color: #cd0000;">str</span> <span style="color: #4682b4; font-weight: bold;">in</span> l:
+        c.writerow(<span style="color: #cd0000;">dict</span>(emptydict.items()+wordcounter(str).items()))
+    f.close()
+
+listwriter([<span style="color: #008b00;">"Five score years ago, a great American, in whose symbolic shadow we stand today, signed the Emancipation Proclamation."</span>,
+            <span style="color: #008b00;">"We observe today not a victory of party, but a celebration of freedom -- symbolizing an end, as well as a beginning -- signifying renewal, as well as change."</span>, 
+            <span style="color: #008b00;">"So, first of all, let me assert my firm belief that the only thing we have to fear is fear itself -- nameless, unreasoning, unjustified terror which paralyzes needed efforts to convert retreat into advance."</span>])
+
+</pre>
+
+
+
+<p>
+Here is the resulting CSV file:
+</p>
+
+
+<pre class="example">1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25
+1,2,1,2,5,3,0,1,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,8,4,1,2,4,3,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1,7,6,9,4,2,3,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</pre>
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Regular Expressions</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+Regular expressions are a framework for doing complicated
+manipulation.  
+</p>
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> A first example</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<p>
+For example, consider the following text:
+</p><pre class="example">
+Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2019
+</pre>
+
+<p>A first guess for a rule to get the area code would be to find a
+grouping of three numbers.
+Let's look at the source code for this in python.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re  
+<span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2311"</span>  
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"\d\d\d"</span>,str)
+</pre>
+
+
+<pre class="example">
+['934', '292', '239', '295', '231']
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> What the code does</h4>
+<div class="outline-text-4" id="text-3-1-1">
+
+<ul>
+<li><code>import re</code>
+<ul>
+<li>tells python to use the regular expression library.  (Like <code>library(zelig)</code>)
+</li>
+</ul>
+
+</li>
+<li><code>str = ...</code> 
+<ul>
+<li>defines a string
+</li>
+<li>Python will figure out that the type is a string based on the fact that it's in quotes
+</li>
+<li>There is a difference between
+<pre class="example">
+foo = '333'
+</pre>
+
+<p>     and
+</p><pre class="example">
+foo = 333     
+</pre>
+
+</li>
+</ul>
+
+</li>
+<li><code>re.findall("\d\d\d",str)</code>
+<ul>
+<li>From the <code>re</code> library, call the <code>findall</code> function
+<ul>
+<li>When in doubt, <a href="https://www.google.com/search?sourceid=chrome&amp;ie=UTF-8&amp;q=re.findall">Google it</a>.
+<ul>
+<li><i>By the way, googling things effectively is the most important          modern research skill there is.</i>
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+<li>Finds all of the matched of the regular expression <code>\d\d\d</code> in <code>str</code>
+<ul>
+<li>Returns it as a list
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2311"</span>  
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"\((\d\d\d)\)"</span>,str)
+</pre>
+
+
+<pre class="example">
+['934']
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> Different expressions</h4>
+<div class="outline-text-4" id="text-3-1-2">
+
+<pre class="example">
+"Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2311"  
+</pre>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">English</th><th scope="col" class="left">Regex</th><th scope="col" class="left"><code>findall</code> Output</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Any three numbers</td><td class="left"><code>\d\d\d</code></td><td class="left"><code>['934', '292', '239', '295', '231']</code></td></tr>
+<tr><td class="left">Any three numbers that start with (</td><td class="left"><code>\(\d\d\d</code></td><td class="left"><code>['(934']</code></td></tr>
+<tr><td class="left">One or more adjacent numbers</td><td class="left"><code>\d+</code></td><td class="left"><code>['15', '934', '292', '2390', '295', '48', '2311']</code></td></tr>
+<tr><td class="left">One or more numbers in parenthesis</td><td class="left"><code>\(\d+\)</code></td><td class="left"><code>['(15)', '(934)']</code></td></tr>
+<tr><td class="left">Three numbers in parenthesis</td><td class="left"><code>\(\d\d\d\)</code></td><td class="left"><code>['(934)']</code></td></tr>
+<tr><td class="left">Three numbers in parenthesis, but group only the numbers</td><td class="left"><code>\((\d\d\d)\)</code></td><td class="left"><code>['934']</code></td></tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Further examples</h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"Joseph Schmoe, Bowling High Score:(225), Phone:(934) 292-2390"</span>  
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"\w+:\((\d+)\)"</span>,str)
+</pre>
+
+
+<pre class="example">
+['225', '934']
+</pre>
+
+
+<ul>
+<li>The <code>\w</code> is code for any alphanumeric character and the underscore.
+</li>
+<li>The <code>:</code> is code for only the character <code>:</code>.  
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"I called his phone after he phoned me, but he has two phones!"</span>  
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"phone\w*"</span>,str)
+</pre>
+
+
+<pre class="example">
+['phone', 'phoned', 'phones']
+</pre>
+
+
+<ul>
+<li>We match all instances of "phone" with any number of characters
+     after it
+<ul>
+<li>Note the difference between <code>\w+</code> (1 or more) and <code>\w*</code> (0 or more)
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"I called his phone after he phoned me, but he has two phones!"</span>  
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"phone\w+"</span>,str)
+</pre>
+
+
+<pre class="example">
+['phoned', 'phones']
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Other helpful regex tools</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<p>Regular expressions are extremely powerful, and are used extensively
+for text processing.  Here are some good places to look for regex help:
+</p><ul>
+<li><a href="http://docs.python.org/library/re.html">Python re library</a> has documentation of how to use regex in python with
+  examples
+<ul>
+<li><i>I can never remember regex syntax, so I go here all the time.</i>
+</li>
+</ul>
+
+</li>
+<li><a href="http://gskinner.com/RegExr/">Regexr</a> is an interactive regex checker
+</li>
+<li>Textbooks on regex will tell you not just how to use them, but how
+  they are implemented.  Help answer the question "what is the best
+  regex for this situation?"
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+<p>
+<a href="./example.txt">This file</a> contains 100 blogs about dogs in a structured text
+format that may be familiar to you.  
+</p>
+<ul>
+<li id="sec-3-4-1">Exercise 1<br/>
+Use regular expressions to parse
+this file and write a csv file containing the article number and
+the number of words.  (I'm going to start by downloading it to my hard
+drive, but if you're macho you want to figure out how to use the <code>urllib</code>
+module to parse it without downloading.)
+
+</li>
+</ul>
+<ul>
+<li id="sec-3-4-2">Exercise 2<br/>
+Write a CSV file that investigates whether articles contain certain
+words.  In particular, do dog bloggers write more about 'pets' or
+'companions'?
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Solutions</h3>
+<div class="outline-text-3" id="text-3-5">
+
+
+<ul>
+<li id="sec-3-5-1">Exercise 1<br/>
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> csv, re
+f = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/example.txt'</span>)
+<span style="color: #000000; background-color: #ffffff;">fp</span> = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/result.csv'</span>,<span style="color: #008b00;">'wb'</span>)
+
+c = csv.DictWriter(fp,[<span style="color: #008b00;">"Article Number"</span>,<span style="color: #008b00;">"Words"</span>]) 
+<span style="color: #000000; background-color: #ffffff;">articlenum</span> = 0
+<span style="color: #4682b4; font-weight: bold;">for</span> line <span style="color: #4682b4; font-weight: bold;">in</span> f:
+    d = <span style="color: #cd0000;">dict</span>()
+    r = re.match(<span style="color: #008b00;">"LENGTH:\s*(\d+)"</span>,line)
+    <span style="color: #4682b4; font-weight: bold;">if</span> r:
+        <span style="color: #000000; background-color: #ffffff;">articlenum</span>+=1
+        d[<span style="color: #008b00;">"Article Number"</span>] = articlenum
+        d[<span style="color: #008b00;">"Words"</span>] = r.groups()[0]
+        c.writerow(d)        
+f.close()
+fp.close()        
+
+</pre>
+
+
+
+<p>
+The <code>result.csv</code> file is:
+</p>
+
+
+<pre class="example">1,305
+2,303
+3,425
+4,275
+5,197
+6,615
+7,281
+8,466
+9,692
+10,656
+11,294
+12,674
+13,1455
+14,1454
+15,1063
+16,1066
+17,512
+18,433
+19,294
+20,528
+21,758
+22,497
+23,598
+24,957
+25,163
+26,661
+27,616
+28,521
+29,331
+30,275
+31,266
+32,762
+33,365
+34,781
+35,753
+36,442
+37,1251
+38,462
+39,230
+40,281
+41,564
+42,510
+43,316
+44,1060
+45,402
+46,990
+47,392
+48,536
+49,509
+50,636
+51,973
+52,234
+53,675
+54,416
+55,488
+56,487
+57,546
+58,596
+59,326
+60,312
+61,369
+62,1507
+63,2398
+64,183
+65,1718
+66,280
+67,302
+68,302
+69,1326
+70,549
+71,460
+72,302
+73,288
+74,288
+75,269
+76,308
+77,2241
+78,515
+79,526
+80,320
+81,400
+82,301
+83,302
+84,263
+85,297
+86,300
+87,953
+88,308
+89,1019
+90,787
+91,307
+92,371
+93,512
+94,303
+95,285
+96,302
+97,666
+98,490
+99,551
+100,411
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-3-5-2">Exercise 2<br/>
+
+<p>
+Let's begin just by checking some basic regular expressions
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #cd0000;">str</span> = <span style="color: #008b00;">"A competition between Pets and Animal Companions!  How do you refer to your dog?"</span>
+<span style="color: #cd0000;">print</span> <span style="color: #008b00;">"\w*:"</span>
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"\w*"</span>,str)
+<span style="color: #cd0000;">print</span> <span style="color: #008b00;">"[p]et:"</span>
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"[p]et"</span>,str)
+<span style="color: #cd0000;">print</span> <span style="color: #008b00;">"[pP]et:"</span>
+<span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"[pP]et"</span>,str)
+</pre>
+
+
+<pre class="example">
+\w*:
+['A', '', 'competition', '', 'between', '', 'Pets', '', 'and', '', 'Animal', '', 'Companions', '', '', '', 'How', '', 'do', '', 'you', '', 'refer', '', 'to', '', 'your', '', 'dog', '', '']
+[p]et:
+['pet']
+[pP]et:
+['pet', 'Pet']
+</pre>
+
+
+<p>
+Great!  So we know how to match "pet" or "Pet", but it still matches
+"competition"!  Let's write out some patterns that we would like to
+match:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left"><b>Do Match</b></th></tr>
+</thead>
+<tbody>
+<tr><td class="left">I own a dog - pets are great!</td></tr>
+<tr><td class="left">Do you have a pet?</td></tr>
+<tr><td class="left">Pets are wonderful.</td></tr>
+<tr><td class="left">I've got to tell you&ndash;pets are the best!</td></tr>
+</tbody>
+</table>
+
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left"><b>Don't Match</b></th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Great competition!</td></tr>
+<tr><td class="left">Petabytes of data are needed.</td></tr>
+<tr><td class="left">I went to the petting zoo with my companion!</td></tr>
+<tr><td class="left">She owns a whippet.</td></tr>
+</tbody>
+</table>
+
+
+<p>
+It looks to me like we need the word "pet" with a space or punctuation at the
+beginning or the end, with an optional s at the end.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left"><code>[-,\s.;]</code></td><td class="left"><code>[pP]</code></td><td class="left"><code>et</code></td></tr>
+<tr><td class="left">Either a dash a comma whitespace a period or a semicolon</td><td class="left">Either p or P</td><td class="left">the letters et</td></tr>
+</tbody>
+</table>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #000000; background-color: #ffffff;">strlist</span> = [<span style="color: #008b00;">"I own a dog - pets are great!"</span>,  <span style="color: #008b00;">"Do you have a pet?"</span>, <span style="color: #008b00;">"Pets are wonderful."</span>, <span style="color: #008b00;">"I've got to tell you--pets are the best!"</span>, <span style="color: #008b00;">"Great competition!"</span>, <span style="color: #008b00;">"Petabytes of data are needed."</span>, <span style="color: #008b00;">"I went to the petting zoo with my companion!"</span>, <span style="color: #008b00;">"She owns a whippet."</span>]
+<span style="color: #4682b4; font-weight: bold;">for</span> <span style="color: #cd0000;">str</span> <span style="color: #4682b4; font-weight: bold;">in</span> strlist:
+    <span style="color: #cd0000;">print</span> str    
+    <span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"[-,\s.;][pP]et"</span>,str)
+
+</pre>
+
+
+
+<pre class="example">I own a dog - pets are great!
+[' pet']
+Do you have a pet?
+[' pet']
+Pets are wonderful.
+[]
+I've got to tell you--pets are the best!
+['-pet']
+Great competition!
+[]
+Petabytes of data are needed.
+[]
+I went to the petting zoo with my companion!
+[' pet']
+She owns a whippet.
+[]
+</pre>
+
+
+<p>
+This isn't good enough!  We're going to need to change the endings, too.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left"><code>[-,\s.;]</code></td><td class="left"><code>[pP]</code></td><td class="left"><code>et</code></td><td class="left"><code>[s]?</code></td><td class="left"><code>[.\s.;-]</code></td></tr>
+<tr><td class="left">Either a dash a comma whitespace a period or a semicolon</td><td class="left">Either p or P</td><td class="left">the letters et</td><td class="left">an optional s</td><td class="left">Eith a period, whitespace, a semicolon or a dash</td></tr>
+</tbody>
+</table>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #000000; background-color: #ffffff;">strlist</span> = [<span style="color: #008b00;">"I own a dog - pets are great!"</span>,  <span style="color: #008b00;">"Do you have a pet?"</span>, <span style="color: #008b00;">"Pets are wonderful."</span>, <span style="color: #008b00;">"I've got to tell you--pets are the best!"</span>, <span style="color: #008b00;">"Great competition!"</span>, <span style="color: #008b00;">"Petabytes of data are needed."</span>, <span style="color: #008b00;">"I went to the petting zoo with my companion!"</span>, <span style="color: #008b00;">"She owns a whippet."</span>]
+<span style="color: #4682b4; font-weight: bold;">for</span> <span style="color: #cd0000;">str</span> <span style="color: #4682b4; font-weight: bold;">in</span> strlist:
+    <span style="color: #cd0000;">print</span> str    
+    <span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"[-,\s.;?][pP]et[s]?[,\s.;-?]"</span>,str)
+
+</pre>
+
+
+
+<pre class="example">I own a dog - pets are great!
+[' pets ']
+Do you have a pet?
+[' pet?']
+Pets are wonderful.
+[]
+I've got to tell you--pets are the best!
+['-pets ']
+Great competition!
+[]
+Petabytes of data are needed.
+[]
+I went to the petting zoo with my companion!
+[]
+She owns a whippet.
+[]
+</pre>
+
+
+<p>
+We're almost there!  We just need to make it so a string can also begin with Pets.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left"><code>^</code></td><td class="left"><code>[pP]</code></td><td class="left"><code>et</code></td><td class="left"><code>[s]?</code></td><td class="left"><code>[.\s.;-]</code></td></tr>
+<tr><td class="left">Only match the beginning of a string</td><td class="left">Either p or P</td><td class="left">the letters et</td><td class="left">an optional s</td><td class="left">Eith a period, whitespace, a semicolon or a dash</td></tr>
+</tbody>
+</table>
+
+
+<p>
+So we will either match the regular expression <code>^[pP]et[s]?[.\s.;-]</code> <b>or</b> the expression <code>[-,\s.;?][pP]et[s]?[,\s.;-?]</code>.  The syntax for this is the pipe operator <code>|</code>.
+</p>
+<p>
+Our regular expression just to check for pets is:
+</p>
+<p>
+<code>[-,\s.;?][pP]et[s]?[,\s.;-?]|^[pP]et[s]?[,\s.;-?]</code>
+</p>
+<p>
+This looks like a sloppy mess, but we built it up by hand ourselves, and it's really not so bad!
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> re
+<span style="color: #000000; background-color: #ffffff;">strlist</span> = [<span style="color: #008b00;">"I own a dog - pets are great!"</span>,  <span style="color: #008b00;">"Do you have a pet?"</span>, <span style="color: #008b00;">"Pets are wonderful."</span>, <span style="color: #008b00;">"I've got to tell you--pets are the best!"</span>, <span style="color: #008b00;">"Great competition!"</span>, <span style="color: #008b00;">"Petabytes of data are needed."</span>, <span style="color: #008b00;">"I went to the petting zoo with my companion!"</span>, <span style="color: #008b00;">"She owns a whippet."</span>]
+<span style="color: #4682b4; font-weight: bold;">for</span> <span style="color: #cd0000;">str</span> <span style="color: #4682b4; font-weight: bold;">in</span> strlist:
+    <span style="color: #cd0000;">print</span> str    
+    <span style="color: #cd0000;">print</span> re.findall(<span style="color: #008b00;">"[-,\s.;?][pP]et[s]?[,\s.;-?]|^[pP]et[s]?[,\s.;-?]"</span>,str)  
+</pre>
+
+
+
+<pre class="example">I own a dog - pets are great!
+[' pets ']
+Do you have a pet?
+[' pet?']
+Pets are wonderful.
+['Pets ']
+I've got to tell you--pets are the best!
+['-pets ']
+Great competition!
+[]
+Petabytes of data are needed.
+[]
+I went to the petting zoo with my companion!
+[]
+She owns a whippet.
+[]
+</pre>
+
+
+<p>
+Having constructed this regex for pets, we can now do the same for
+companion.  Because the word <i>companion</i> isn't going to be inside
+words the way <i>pet</i> is, we don't have to be as careful.  Let's say we
+need to match <i>companion</i> and <i>companions</i>, but not <i>companionship</i>.
+We can copy the same regex for <i>pets</i>, but remove the gunk from the
+beginning (although it probably can't hurt for correctness to include
+it!)
+</p>
+<p>
+Let's try:
+<code>[cC]ompanion[s]?[,\s.;-?]</code>
+</p>
+<p>
+<b>Note:</b> Remember to use <code>re.match</code> to match the beginning of the
+ string only, and <code>re.search</code> to match anywhere!
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> csv, re
+f = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/example.txt'</span>)
+<span style="color: #000000; background-color: #ffffff;">fp</span> = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/pets.csv'</span>,<span style="color: #008b00;">'wb'</span>)
+
+c = csv.DictWriter(fp,[<span style="color: #008b00;">"Article Number"</span>,<span style="color: #008b00;">"Words"</span>,<span style="color: #008b00;">"Pet"</span>,<span style="color: #008b00;">"Companion"</span>]) 
+<span style="color: #000000; background-color: #ffffff;">articlenum</span> = 0
+<span style="color: #4682b4; font-weight: bold;">for</span> line <span style="color: #4682b4; font-weight: bold;">in</span> f:
+    r = re.match(<span style="color: #008b00;">"LENGTH:\s*(\d+)"</span>,line)
+    <span style="color: #4682b4; font-weight: bold;">if</span> r:
+        <span style="color: #4682b4; font-weight: bold;">if</span> articlenum&gt;0:
+            c.writerow(d)           
+        d = <span style="color: #cd0000;">dict</span>()    
+        <span style="color: #000000; background-color: #ffffff;">articlenum</span>+=1
+        d[<span style="color: #008b00;">"Article Number"</span>] = articlenum
+        d[<span style="color: #008b00;">"Words"</span>] = r.groups()[0]
+        d[<span style="color: #008b00;">"Pet"</span>] = 0
+        d[<span style="color: #008b00;">"Companion"</span>] = 0
+    <span style="color: #4682b4; font-weight: bold;">else:</span>       
+        <span style="color: #000000; background-color: #ffffff;">pets</span> = re.search(<span style="color: #008b00;">"[-,\s.;?][pP]et[s]?[,\s.;-?]|^[pP]et[s]?[,\s.;-?]"</span>,line)
+        <span style="color: #000000; background-color: #ffffff;">companions</span> = re.search(<span style="color: #008b00;">"[cC]ompanion[s]?[,\s.;-?]"</span>,line)
+        <span style="color: #4682b4; font-weight: bold;">if</span> pets:
+            d[<span style="color: #008b00;">"Pet"</span>] = 1
+        <span style="color: #4682b4; font-weight: bold;">if</span> companions:
+            d[<span style="color: #008b00;">"Companion"</span>] = 1
+
+f.close()
+fp.close()  
+
+</pre>
+
+
+
+
+<p>
+Let's take a look at the csv file.
+</p>
+
+
+
+
+<pre class="example">1,305,0,0
+2,303,1,0
+3,425,1,0
+4,275,1,0
+5,197,0,0
+6,615,0,0
+7,281,1,1
+8,466,1,0
+9,692,1,0
+10,656,0,0
+11,294,1,0
+12,674,0,0
+13,1455,1,0
+14,1454,1,0
+15,1063,1,0
+16,1066,1,0
+17,512,0,0
+18,433,1,0
+19,294,1,0
+20,528,1,0
+21,758,1,0
+22,497,0,0
+23,598,0,0
+24,957,0,0
+25,163,0,0
+26,661,0,0
+27,616,0,1
+28,521,0,0
+29,331,0,1
+30,275,1,0
+31,266,1,0
+32,762,0,0
+33,365,0,0
+34,781,0,1
+35,753,0,0
+36,442,0,0
+37,1251,0,0
+38,462,0,0
+39,230,0,0
+40,281,0,0
+41,564,0,0
+42,510,1,0
+43,316,1,0
+44,1060,1,1
+45,402,1,0
+46,990,1,0
+47,392,0,0
+48,536,1,0
+49,509,1,0
+50,636,1,0
+51,973,1,0
+52,234,0,0
+53,675,1,0
+54,416,1,0
+55,488,1,0
+56,487,1,0
+57,546,1,0
+58,596,1,0
+59,326,1,0
+60,312,1,0
+61,369,0,0
+62,1507,0,1
+63,2398,1,0
+64,183,1,0
+65,1718,1,0
+66,280,1,0
+67,302,0,0
+68,302,1,0
+69,1326,1,0
+70,549,1,0
+71,460,1,0
+72,302,1,0
+73,288,1,0
+74,288,0,0
+75,269,0,0
+76,308,0,0
+77,2241,0,0
+78,515,1,1
+79,526,0,0
+80,320,1,0
+81,400,0,0
+82,301,1,0
+83,302,1,0
+84,263,1,0
+85,297,1,0
+86,300,0,0
+87,953,0,0
+88,308,1,0
+89,1019,1,0
+90,787,1,0
+91,307,0,0
+92,371,0,0
+93,512,1,0
+94,303,1,0
+95,285,0,0
+96,302,1,0
+97,666,0,0
+98,490,0,0
+99,551,1,1
+</pre>
+
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Web Sites</h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Example: Egypt Independent / المصري اليوم</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<ul>
+<li>Example article: <a href="http://www.egyptindependent.com/node/725861">http://www.egyptindependent.com/node/725861</a>
+<ul>
+<li>Tells us nothing about the date or content
+</li>
+<li>A node number is automatically created by a content-management
+    system
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1"><span class="section-number-4">4.1.1</span> Aside: "Brittleness"</h4>
+<div class="outline-text-4" id="text-4-1-1">
+
+<ul>
+<li>A brittle system is one that is not resistant to change
+</li>
+<li>For example, between early April and late April of 2012, Egypt
+  Independent transitioned from 
+
+
+
+
+<pre class="example">http://www.egyptindependent.com/node/725861
+</pre>
+
+
+<p>
+  to a new URL naming scheme that involves the title:
+</p>
+
+
+
+<pre class="example">http://www.egyptindependent.com/news/european-union-will-keep-mubarak-assets-ice-illicit-gains-authority-head-says
+</pre>
+
+
+<p>
+   <b>All scrapers are brittle.</b>
+</p>
+<ul>
+<li>The assumptions you're forced to make about how information is
+     organized on a given website will not hold forever.
+</li>
+<li>In fact, the legality of scraping is not entirely clear, and some
+     sites may not be interested in you hammering their servers!
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-1-2" class="outline-4">
+<h4 id="sec-4-1-2"><span class="section-number-4">4.1.2</span> Metadata</h4>
+<div class="outline-text-4" id="text-4-1-2">
+
+<p>Sometimes, metadata is included which tells us important things
+about our article
+</p>
+
+
+<pre class="src src-html">&lt;<span style="color: #ff0000; font-weight: bold;">meta</span> <span style="color: #000000;">http-equiv</span>=<span style="color: #008b00;">"Content-Type"</span> <span style="color: #000000;">content</span>=<span style="color: #008b00;">"text/html; charset=utf-8"</span> /&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">meta</span> <span style="color: #000000;">name</span>=<span style="color: #008b00;">"msvalidate.01"</span> <span style="color: #000000;">content</span>=<span style="color: #008b00;">"F1F61CF0E5EC4EC2940FCA062AB13A53"</span> /&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">meta</span> <span style="color: #000000;">name</span>=<span style="color: #008b00;">"google-site-verification"</span> <span style="color: #000000;">content</span>=<span style="color: #008b00;">"Q8FKHdNoQ2EH7SH1MzwH_JNcgVgMYeCgFnzNlXlR4N0"</span> /&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">European Union will keep Mubarak assets on ice, Illicit Gains Authority head says | Egypt Independent</span>&lt;/<span style="color: #ff0000; font-weight: bold;">title</span>&gt;
+<span style="color: #ff7f00;">&lt;!-- </span><span style="color: #ff7f00;">tC490Uh18j-7O_rp7nG0_e6U9QY </span><span style="color: #ff7f00;">--&gt;</span>
+&lt;<span style="color: #ff0000; font-weight: bold;">meta</span> <span style="color: #000000;">http-equiv</span>=<span style="color: #008b00;">"Content-Type"</span> <span style="color: #000000;">content</span>=<span style="color: #008b00;">"text/html; charset=utf-8"</span> /&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">link</span> <span style="color: #000000;">rel</span>=<span style="color: #008b00;">"canonical"</span> <span style="color: #000000;">href</span>=<span style="color: #008b00;">"http://www.egyptindependent.com/node/725861"</span> /&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">meta</span> <span style="color: #000000;">name</span>=<span style="color: #008b00;">"keywords"</span> <span style="color: #000000;">content</span>=<span style="color: #008b00;">"Assem al-Gohary, corruption, EU, freezing  Mubarak&#8217;s assets, Hosni Mubarak, Illicit Gains Authority (IGA), News, Top stories"</span> /&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">meta</span> <span style="color: #000000;">name</span>=<span style="color: #008b00;">"description"</span> <span style="color: #000000;">content</span>=<span style="color: #008b00;">"The European Union will continue to freeze the assets of former President Hosni Mubarak, his family and other former officials although Egypt has thus far been unsuccessful in recovering funds siphoned abroad by the regime."</span> /&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">meta</span> <span style="color: #000000;">name</span>=<span style="color: #008b00;">"abstract"</span> <span style="color: #000000;">content</span>=<span style="color: #008b00;">"Al-Masry Al-Youm - Egypt&amp;#039;s leading independent media group &#1575;&#1604;&#1605;&#1589;&#1585;&#1609; &#1575;&#1604;&#1610;&#1608;&#1605; &#1604;&#1604;&#1589;&#1581;&#1575;&#1601;&#1577; &#1608;&#1575;&#1604;&#1606;&#1588;&#1585; &#1607;&#1609; &#1605;&#1572;&#1587;&#1587;&#1577; &#1573;&#1593;&#1604;&#1575;&#1605;&#1610;&#1577; &#1605;&#1589;&#1585;&#1610;&#1577; &#1605;&#1587;&#1578;&#1602;&#1604;&#1577; &#1578;&#1571;&#1587;&#1587;&#1578; &#1593;&#1575;&#1605;  ,2003."</span> /&gt;
+</pre>
+
+<ul>
+<li>Keywords, abstract, description and title are all clear
+</li>
+<li>Lots of other gunk that isn't relevant to us!
+</li>
+<li>Pulling information out of this document requires that we know how
+    they organize title their metadata!
+<ul>
+<li>What if <i>keywords</i> were called <i>terms</i>?
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-1-3" class="outline-4">
+<h4 id="sec-4-1-3"><span class="section-number-4">4.1.3</span> Body</h4>
+<div class="outline-text-4" id="text-4-1-3">
+
+<p>The actual body of the article can be found by right-clicking on the
+  text we're interested in from Chrome or Firefox and selecting
+  "Insepct Element"
+</p>
+
+
+<pre class="src src-html">&lt;<span style="color: #ff0000; font-weight: bold;">div</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"panel-region-separator"</span>&gt;&lt;/<span style="color: #ff0000; font-weight: bold;">div</span>&gt;&lt;<span style="color: #ff0000; font-weight: bold;">div</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"panel-pane pane-node-body"</span> &gt;    
+  &lt;<span style="color: #ff0000; font-weight: bold;">div</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"pane-content"</span>&gt;
+    &lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;The European Union will continue to freeze the assets of former President Hosni Mubarak, his family and other former officials although Egypt has thus far been unsuccessful in recovering funds siphoned abroad by the regime.&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;The Illicit Gains Authority (IGA), the judicial committee responsible for recovering the money, on Wednesday received an official notification from the European Union, confirming its freeze on the assets would be renewed another year as of 19 March, state-run MENA news service reported on Wednesday.<span style="color: #000000;">&amp;nbsp;</span>&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;<span style="color: #000000;">&amp;ldquo;</span>This was in response to a request by Egypt,<span style="color: #000000;">&amp;rdquo;</span> the state news agency quoted IGA head Assem al-Gohary as saying.<span style="color: #000000;">&amp;nbsp;</span>&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;Egypt formally asked European Union countries earlier this month to continue freezing funds belonging to Mubarak, his two sons and other members of his administration.&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;Shortly after Mubarak was forced to step down in February 2011, the public prosecutor ordered that the foreign assets of the deposed president and his family be frozen.&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;Mubarak&amp;#39;s actual worth is still unknown after more than a year of investigations into his foreign and domestic assets. Last year claims that Mubarak, in his nearly 30-year reign as head of state, may have amassed a fortune of up to US$70 billion <span style="color: #000000;">&amp;mdash;</span> greater than that of Microsoft&amp;#39;s Bill Gates <span style="color: #000000;">&amp;mdash;</span> helped drive the protests that eventually brought him down.&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;Last year Swiss authorities also froze Mubarak<span style="color: #000000;">&amp;rsquo;</span>s assets, acting more speedily than when the EU froze the assets of another deposed North African ruler, former Tunisian President Zine al-Abidine Ben Ali.&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;On Wednesday, the IGA met with the Swiss ambassador in Cairo to discuss the difficulties it faces in recovering those funds, in light of the obligations of the United Nations Convention Against Corruption on the member states, reported MENA.&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+&lt;<span style="color: #ff0000; font-weight: bold;">p</span>&gt;Gohary once estimated the frozen assets at 410 million Swiss francs (LE2.7 billion), which Egypt is trying to repatriate in cooperation with the Foreign Ministry.&lt;/<span style="color: #ff0000; font-weight: bold;">p</span>&gt;
+  &lt;/<span style="color: #ff0000; font-weight: bold;">div</span>&gt;
+</pre>
+
+<p>
+All of the body is included in the <code>panel-pane pane-node-body</code> section
+of this site, within the sub-section <code>pane-content</code>.  Our "algorithm"
+for getting this information out will require finding the exact
+section of the site that we require pulling this data out from.  If
+you don't do this, any terms that are on the sidebar will end up being
+in your analysis!
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4-1-4" class="outline-4">
+<h4 id="sec-4-1-4"><span class="section-number-4">4.1.4</span> Scraping Articles</h4>
+<div class="outline-text-4" id="text-4-1-4">
+
+
+<p>
+Every News Feature is on a page in the following scheme:
+</p>
+
+
+
+<pre class="src src-html">http://www.egyptindependent.com/subchannel/News%20features?page=5
+</pre>
+
+
+<p>
+And this paper goes back 77 pages, to April, 2009.
+</p>
+<p>
+Investigating the source for a single search page can tell us what we
+have to do to get at the relevant information:
+</p>
+
+
+
+<pre class="src src-html">&lt;<span style="color: #ff0000; font-weight: bold;">div</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"views-row views-row-4 views-row-even"</span>&gt;
+  &lt;<span style="color: #ff0000; font-weight: bold;">div</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"views-field-field-published-date-value"</span>&gt;
+    &lt;<span style="color: #ff0000; font-weight: bold;">span</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"field-content"</span>&gt;&lt;<span style="color: #ff0000; font-weight: bold;">span</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"date-display-single"</span>&gt;09 Feb 2012&lt;/<span style="color: #ff0000; font-weight: bold;">span</span>&gt;&lt;/<span style="color: #ff0000; font-weight: bold;">span</span>&gt;
+  &lt;/<span style="color: #ff0000; font-weight: bold;">div</span>&gt;
+  &lt;<span style="color: #ff0000; font-weight: bold;">div</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"views-field-title"</span>&gt;
+    &lt;<span style="color: #ff0000; font-weight: bold;">span</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"field-content"</span>&gt;&lt;<span style="color: #ff0000; font-weight: bold;">a</span> <span style="color: #000000;">href</span>=<span style="color: #008b00;">"http://www.egyptindependent.com/node/647936"</span>&gt;Parliament Review: A week of comedy and disappointment&lt;/<span style="color: #ff0000; font-weight: bold;">a</span>&gt;&lt;/<span style="color: #ff0000; font-weight: bold;">span</span>&gt;
+  &lt;/<span style="color: #ff0000; font-weight: bold;">div</span>&gt; 
+  &lt;<span style="color: #ff0000; font-weight: bold;">div</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"views-field-body"</span>&gt;
+    &lt;<span style="color: #ff0000; font-weight: bold;">span</span> <span style="color: #000000;">class</span>=<span style="color: #008b00;">"field-content"</span>&gt;This week<span style="color: #000000;">&amp;rsquo;</span>s parliamentary sessions had the public joking about airing future sessions on comedy channels instead of news, and those who abstained from the polls telling those who participated, in hope of having a legitimate authority...&lt;/<span style="color: #ff0000; font-weight: bold;">span</span>&gt;
+  &lt;/<span style="color: #ff0000; font-weight: bold;">div</span>&gt;  
+</pre>
+
+
+<p>
+Our algorithm to scrape articles from this page will be as follows:
+</p><ol>
+<li>Initialize FOO=1
+</li>
+<li>Go to
+   <code>http://www.egyptindependent.com/subchannel/News%20features?page=FOO</code>
+</li>
+<li>Repeat until complete:
+<ol>
+<li>Find the next occurence of <code>views-row...</code>
+</li>
+<li>Find the sub-field called
+      <code>views-field-field-published-date-value</code> and retrieve its value
+      (the date)
+</li>
+<li>Find the sub-field called <code>views-field-title</code> and retrieve its
+      value (the title)
+</li>
+<li>Follow the link from above
+</li>
+<li>Within the link, find the meta-data <code>keywords</code> and retrieve
+      their values (the keywords)
+</li>
+<li>Within the link, find the <code>panel-pane pane-node-body</code> section,
+      and retrieve the test (the article itself)
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-1-5" class="outline-4">
+<h4 id="sec-4-1-5"><span class="section-number-4">4.1.5</span> Scraping Exercise!</h4>
+<div class="outline-text-4" id="text-4-1-5">
+
+<p>Not all web sites are designed in the same way.  Go to the site of
+your choice, and figure out how to get the articles you're interested
+in.  Write out pseudocode that will tell you:
+</p><ol>
+<li>How to download individual articles
+</li>
+<li>How to get the Author of an article
+</li>
+<li>How to get the Title of an article
+</li>
+<li>How to get the Date of an article
+</li>
+<li>How to get the text of the article
+</li>
+</ol>
+
+
+<p>
+If you need a site to practice on that isn't too challenging, check
+out <a href="http://blogs.suntimes.com/ebert/">Robert Ebert's Blog</a>.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Web scraping in python</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>Now that we know how we want to scrape and have some grasp on the
+tools that are necessary, let's try and pull the articles and their
+metadata off of this website.
+</p>
+<p>
+==
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> urllib
+<span style="color: #000000; background-color: #ffffff;">baseurl</span> = <span style="color: #008b00;">"http://www.egyptindependent.com/subchannel/News%20features?page="</span>
+<span style="color: #000000; background-color: #ffffff;">destpath</span> = <span style="color: #008b00;">"/tmp/"</span>
+<span style="color: #000000; background-color: #ffffff;">npages</span> = 10 <span style="color: #ff7f00;"># should be 10</span>
+<span style="color: #4682b4; font-weight: bold;">for</span> i <span style="color: #4682b4; font-weight: bold;">in</span> <span style="color: #cd0000;">range</span>(1,npages):
+    urllib.urlretrieve (baseurl+str(i),destpath+<span style="color: #008b00;">"page"</span>+str(i)+<span style="color: #008b00;">".html"</span>)   
+</pre>
+
+
+
+<b>Note:</b> Windows users, you may need your destination to be specified using two slashes, e.g. <code>C://Python27//tmp//</code>
+</p>
+
+<p>
+   If we take a look at what exists after running this script, we can
+   see that it worked.
+</p>
+
+
+
+<pre class="example">bash-3.2$ ls /tmp/page*
+/tmp/page1.html      /tmp/page3.html /tmp/page5.html /tmp/page7.html /tmp/page9.html
+/tmp/page2.html      /tmp/page4.html /tmp/page6.html /tmp/page8.html   
+</pre>
+
+
+<p>
+<b>Aside: The</b> <code>os</code> <b>module</b>
+</p>
+<p>
+If you're doing lots of things in a script that will involve files or
+paths, but you want it to work cross-platform, consider using the <code>os</code>
+and <code>os.path</code> modules.
+Do things like
+</p><ul>
+<li>change the current directory
+</li>
+<li>get the directory or filename of a file
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Using ElementTree</h3>
+<div class="outline-text-3" id="text-5-1">
+
+
+<p>
+   Here is a very basic html tree which we can work with.
+</p>
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> urllib
+<span style="color: #000000; background-color: #ffffff;">fileloc</span> = <span style="color: #008b00;">'http://www.people.fas.harvard.edu/~astorer/scraping/test.html'</span>
+f = urllib.urlopen(fileloc)
+<span style="color: #cd0000;">print</span> f.read()
+
+</pre>
+
+
+
+<pre class="example">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Example page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;Moved to &lt;a href="http://example.org/"&gt;example.org&lt;/a&gt;
+        or &lt;a href="http://example.com/"&gt;example.com&lt;/a&gt;.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+
+
+
+<ul>
+<li>The ElementTree is a hierarchical structure of Elements.
+</li>
+<li><code>list()</code> returns a list of the children of a single Element
+</li>
+<li>An <a href="http://docs.python.org/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element">Element</a> contains
+<ul>
+<li>A <code>tag</code> (what kind of element is it)
+</li>
+<li><code>text</code> of what lives in the element
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">from</span> xml.etree.ElementTree <span style="color: #4682b4; font-weight: bold;">import</span> ElementTree
+<span style="color: #000000; background-color: #ffffff;">fileloc</span> = <span style="color: #008b00;">'/Users/astorer/Work/presentations/scraping/test.html'</span>
+<span style="color: #000000; background-color: #ffffff;">tree</span> = ElementTree()
+tree.parse(fileloc)   
+<span style="color: #000000; background-color: #ffffff;">elem</span> = tree.find(<span style="color: #008b00;">'body'</span>)
+<span style="color: #cd0000;">print</span> elem
+<span style="color: #cd0000;">print</span> list(elem)
+<span style="color: #000000; background-color: #ffffff;">elem</span> = tree.find(<span style="color: #008b00;">'body/p'</span>)
+<span style="color: #cd0000;">print</span> elem
+<span style="color: #cd0000;">print</span> list(elem)
+<span style="color: #cd0000;">print</span> elem.tag
+<span style="color: #cd0000;">print</span> elem.text
+</pre>
+
+
+<pre class="example">
+&lt;Element 'body' at 0x1004c5310&gt;
+[&lt;Element 'p' at 0x1004c5350&gt;]
+&lt;Element 'p' at 0x1004c5350&gt;
+[&lt;Element 'a' at 0x1004c5390&gt;, &lt;Element 'a' at 0x1004c53d0&gt;]
+p
+Moved to 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Using <code>lxml</code></h3>
+<div class="outline-text-3" id="text-5-2">
+
+
+<p>
+   Now let's see how we can parse out the list of article URLs from
+   an xml page.  Our basic approach isn't going to work here, and we
+   need to install an external package.
+</p>
+
+</div>
+
+<div id="outline-container-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1"><span class="section-number-4">5.2.1</span> Installing a Package</h4>
+<div class="outline-text-4" id="text-5-2-1">
+
+
+<p>    
+    External packages can be easily installed in python using the
+    <code>easy_install</code> command.  The only challenge is in making sure that
+    if you have multiple version of python installed, you are
+    installing the libraries to the correct location.  I'm on a mac,
+    but the Python version on a mac is 2.6, and I prefer using 2.7.
+    Make sure you install the setuptools for 2.7 following
+    <a href="http://pypi.python.org/pypi/setuptools">these instructions</a>.  Then, run
+</p>
+<pre class="example">
+sudo easy_install-2.7 lxml
+</pre>
+
+
+<p>    
+    If you have no idea what I'm talking about, it will probably be
+    fine if you simply use the following:
+</p>
+<pre class="example">
+sudo easy_install lxml
+</pre>
+
+
+<p>
+    On windows, try doing
+</p>
+<pre class="example">
+easy_install lxml
+</pre>
+
+
+<p>
+    To verify that this installed for you, open up python, and type
+</p>
+<pre class="example">
+import lxml
+</pre>
+
+
+<p>
+    If you get an error, sheck your setup and try reinstalling.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-2-2" class="outline-4">
+<h4 id="sec-5-2-2"><span class="section-number-4">5.2.2</span> Using <code>lxml</code></h4>
+<div class="outline-text-4" id="text-5-2-2">
+
+
+<p>
+    <code>lxml</code> will generate an ElementTree for us after parsing the xml.
+    Let's review some of the functions that will be useful for us in
+    this example.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">English</th><th scope="col" class="left">Python</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Construct a parser</td><td class="left"><code>lxml.etree.HTMLParser()</code></td></tr>
+<tr><td class="left">Parse an HTML file</td><td class="left"><code>lxml.etree.parse(file,parser)</code></td></tr>
+<tr><td class="left">Get all instances of <code>&lt;span class="..."&gt;</code></td><td class="left"><code>MyTree.xpath('.//span[@class="..."]')</code></td></tr>
+<tr><td class="left">Get all instances of <code>&lt;span class="date"&gt;</code> within <code>&lt;div class="article"&gt;</code></td><td class="left"><code>MyTree.xpath('.//div[@class="article"]/span[@class="date"]')</code></td></tr>
+<tr><td class="left">Make a list of tuples that we can iterate over</td><td class="left"><code>zip(iterable1,iterable2,...)</code></td></tr>
+<tr><td class="left">Encode a string <code>foo</code> as unicode (UTF-8)</td><td class="left"><code>foo.encode("UTF-8")</code></td></tr>
+</tbody>
+</table>
+
+
+<p>
+    The <code>xpath</code> syntax is described in more detail <a href="http://effbot.org/zone/element-xpath.htm">here</a>.  Briefly, we
+    are finding every occurence of spans with the class
+    <code>date-display-single</code>, no matter where they live in the tree.
+    Then we can iterate over them to get the actual dates.  Similarly,
+    we can iterate over all links that are within the <code>&lt;span     class="field content"&gt;</code> that are within the <code>&lt;div     class="views-field-title"&gt;</code> and zip it with the dates to iterate
+    over both simultaneously.  Notice that whenever foreign characters
+    are used, Python will be unable to display them unless we encode
+    the string first as unicode.  The following code makes this explicit.
+</p>
+<p>
+==
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">from</span> lxml <span style="color: #4682b4; font-weight: bold;">import</span> etree
+<span style="color: #000000; background-color: #ffffff;">fname</span> = <span style="color: #008b00;">'/tmp/page1.html'</span>
+<span style="color: #000000; background-color: #ffffff;">fp</span> = <span style="color: #cd0000;">open</span>(fname, <span style="color: #008b00;">'rb'</span>)
+<span style="color: #000000; background-color: #ffffff;">parser</span> = etree.HTMLParser()
+<span style="color: #000000; background-color: #ffffff;">tree</span>   = etree.parse(fp, parser)
+<span style="color: #000000; background-color: #ffffff;">dateelems</span> = tree.xpath(<span style="color: #008b00;">'.//span[@class="date-display-single"]'</span>)
+<span style="color: #000000; background-color: #ffffff;">linkelems</span> = tree.xpath(<span style="color: #008b00;">'.//div[@class="views-field-title"]/span[@class="field-content"]/a'</span>)     
+<span style="color: #4682b4; font-weight: bold;">for</span> (d,l) <span style="color: #4682b4; font-weight: bold;">in</span> <span style="color: #cd0000;">zip</span>(dateelems,linkelems):
+    <span style="color: #cd0000;">print</span> d.text
+    <span style="color: #cd0000;">print</span> l.get(<span style="color: #008b00;">'href'</span>)         
+    <span style="color: #cd0000;">print</span> l.text.encode(<span style="color: #008b00;">"utf-8"</span>)
+</pre>
+
+
+
+<pre class="example">13 Apr 2012
+http://www.egyptindependent.com/news/muslim-brotherhood-returns-street-politics-fills-square
+Muslim Brotherhood returns to street politics, fills square
+12 Apr 2012
+http://www.egyptindependent.com/news/meet-your-presidential-candidate-omar-suleiman-phantom
+Meet your presidential candidate: Omar Suleiman, the phantom
+11 Apr 2012
+http://www.egyptindependent.com/news/administrative-court-ruling-leaves-transition-timetable-disarray
+Administrative court ruling leaves transition timetable in disarray
+11 Apr 2012
+http://www.egyptindependent.com/news/shater-faces-early-hiccups-campaign-trail
+Shater faces early hiccups on campaign trail
+11 Apr 2012
+http://www.egyptindependent.com/news/new-alternatives-may-bolster-moussa%E2%80%99s-chances
+New alternatives may bolster Moussa’s chances
+09 Apr 2012
+http://www.egyptindependent.com/news/profile-kamal-al-helbawy-defector-conscience
+Profile: Kamal al-Helbawy, a defector of conscience
+09 Apr 2012
+http://www.egyptindependent.com/news/suleiman-president-game-changer-or-set-plan
+Suleiman for president: Game changer or set plan?
+09 Apr 2012
+http://www.egyptindependent.com/news/despite-prison-time-revolutionaries-uniform-continue-struggle
+Despite prison time, revolutionaries in uniform continue struggle
+06 Apr 2012
+http://www.egyptindependent.com/news/parliament-review-constitution-crisis-continues-brothers-spread-their-wings
+Parliament Review: Constitution crisis continues as Brothers spread their wings
+06 Apr 2012
+http://www.egyptindependent.com/news/profile-april-6-genealogy-youth-movement
+Profile: April 6, genealogy of a youth movement
+</pre>
+
+
+</p></div>
+
+</div>
+
+<div id="outline-container-5-2-3" class="outline-4">
+<h4 id="sec-5-2-3"><span class="section-number-4">5.2.3</span> XPath Examples</h4>
+<div class="outline-text-4" id="text-5-2-3">
+
+
+<ul>
+<li id="sec-5-2-3-1">Get all links under <code>&lt;div class="views-field-title"&gt;</code><br/>
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">from</span> lxml <span style="color: #4682b4; font-weight: bold;">import</span> etree
+<span style="color: #000000; background-color: #ffffff;">fname</span> = <span style="color: #008b00;">'/tmp/page1.html'</span>
+<span style="color: #000000; background-color: #ffffff;">fp</span> = <span style="color: #cd0000;">open</span>(fname, <span style="color: #008b00;">'rb'</span>)
+<span style="color: #000000; background-color: #ffffff;">parser</span> = etree.HTMLParser()
+<span style="color: #000000; background-color: #ffffff;">tree</span>   = etree.parse(fp, parser)
+<span style="color: #000000; background-color: #ffffff;">elems</span> = tree.xpath(<span style="color: #008b00;">'.//div[@class="views-field-title"]//a'</span>)
+<span style="color: #4682b4; font-weight: bold;">for</span> e <span style="color: #4682b4; font-weight: bold;">in</span> elems:
+    <span style="color: #cd0000;">print</span> e.text.encode(<span style="color: #008b00;">'utf-8'</span>)
+</pre>
+
+
+
+<pre class="example">Muslim Brotherhood returns to street politics, fills square
+Meet your presidential candidate: Omar Suleiman, the phantom
+Administrative court ruling leaves transition timetable in disarray
+Shater faces early hiccups on campaign trail
+New alternatives may bolster Moussa’s chances
+Profile: Kamal al-Helbawy, a defector of conscience
+Suleiman for president: Game changer or set plan?
+Despite prison time, revolutionaries in uniform continue struggle
+Parliament Review: Constitution crisis continues as Brothers spread their wings
+Profile: April 6, genealogy of a youth movement
+Parliament Review: A week of political exclusion and inclusion
+Friday's protest to unite, or further divide
+On campaign trail, Moussa speaks villagers' language
+Elections commission's disqualifications dubious, say experts
+Lawyers blame flawed justice system for acquittal of protesters’ accused killers
+Halloween!
+An Ode to Love
+Letters to Treze
+علشان مننشاش المغربي
+Wedding dance of "Beja" tribe
+Egyptian protester passes out after harassment
+"Pearly Pink Flower"
+I Cry!
+"The Amazing Bibliotheca Alexandrina!"
+am agree  title
+am agree  title
+Divorce between  Margaret Scobey and Mr. Baradei
+</pre>
+
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-5-2-3-2">Get all clickable images<br/>
+
+<p>
+These will look like:
+</p><pre class="example">
+&lt;a href="www.webpage.com"&gt;&lt;img src="laksjdasldkj.jpg"&gt;&lt;/a&gt;
+</pre>
+
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">from</span> lxml <span style="color: #4682b4; font-weight: bold;">import</span> etree
+<span style="color: #000000; background-color: #ffffff;">fname</span> = <span style="color: #008b00;">'/tmp/page1.html'</span>
+<span style="color: #000000; background-color: #ffffff;">fp</span> = <span style="color: #cd0000;">open</span>(fname, <span style="color: #008b00;">'rb'</span>)
+<span style="color: #000000; background-color: #ffffff;">parser</span> = etree.HTMLParser()
+<span style="color: #000000; background-color: #ffffff;">tree</span>   = etree.parse(fp, parser)
+<span style="color: #000000; background-color: #ffffff;">elems</span> = tree.xpath(<span style="color: #008b00;">'.//a/img'</span>)
+<span style="color: #4682b4; font-weight: bold;">for</span> e <span style="color: #4682b4; font-weight: bold;">in</span> elems:
+    <span style="color: #cd0000;">print</span> e.get(<span style="color: #008b00;">'src'</span>)
+</pre>
+
+
+
+<pre class="example">/sites/default/files/img/english_logo.png
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2011/03/28/22597/lshn_mnnshsh_lmgrby_87049_1558797204.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2010/05/09/3685/wedding_dance_17135_1577232530.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2010/04/14/2252/rabw_14731_451336279.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/11/13/27866/pink_flower.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/11/09/27866/ips.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/10/29/27866/amazing.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/14/120/piioioioioi.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/13/120/wewweweww.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/05/489/separation.jpg
+/sites/default/files/W300.jpg
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-5-2-4" class="outline-4">
+<h4 id="sec-5-2-4"><span class="section-number-4">5.2.4</span> <code>lxml</code> Exercise</h4>
+<div class="outline-text-4" id="text-5-2-4">
+
+<p>Write a csv file that contains every image along with the location that it links to.
+If the webpage has:
+</p><pre class="example">
+&lt;a href="www.webpage.com"&gt;&lt;img src="laksjdasldkj.jpg"&gt;&lt;/a&gt;
+</pre>
+
+<p>Your entry in the csv file would look like:
+</p><pre class="example">
+www.webpage.com, laksjdasldkj.jpg
+</pre>
+
+
+<p>
+<b>Hint:</b> use the <code>elt.getparent()</code> method to query elements 'above' a given element <code>elt</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-2-5" class="outline-4">
+<h4 id="sec-5-2-5"><span class="section-number-4">5.2.5</span> Solutions to exercise</h4>
+<div class="outline-text-4" id="text-5-2-5">
+
+
+
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">import</span> csv
+<span style="color: #4682b4; font-weight: bold;">from</span> lxml <span style="color: #4682b4; font-weight: bold;">import</span> etree
+
+<span style="color: #000000; background-color: #ffffff;">fname</span> = <span style="color: #008b00;">'/tmp/page1.html'</span>
+<span style="color: #000000; background-color: #ffffff;">fp</span> = <span style="color: #cd0000;">open</span>(fname, <span style="color: #008b00;">'rb'</span>)
+f = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/links.csv'</span>,<span style="color: #008b00;">'w'</span>)
+<span style="color: #000000; background-color: #ffffff;">entries</span> = [<span style="color: #008b00;">"Image"</span>,<span style="color: #008b00;">"Link"</span>]
+c = csv.DictWriter(f,entries)
+
+<span style="color: #000000; background-color: #ffffff;">parser</span> = etree.HTMLParser()
+<span style="color: #000000; background-color: #ffffff;">tree</span>   = etree.parse(fp, parser)
+<span style="color: #000000; background-color: #ffffff;">lnkelems</span> = tree.xpath(<span style="color: #008b00;">'.//a/img'</span>)
+<span style="color: #4682b4; font-weight: bold;">for</span> lnk <span style="color: #4682b4; font-weight: bold;">in</span> lnkelems:
+    d = <span style="color: #cd0000;">dict</span>()
+    d[<span style="color: #008b00;">"Image"</span>] = lnk.get(<span style="color: #008b00;">'src'</span>)
+    d[<span style="color: #008b00;">"Link"</span>] = lnk.getparent().get(<span style="color: #008b00;">'href'</span>)
+    c.writerow(d)
+
+fp.close()
+f.close()
+
+</pre>
+
+
+
+
+<p>
+The resulting file is a CSV file.:
+</p>
+
+
+<pre class="example">/sites/default/files/img/english_logo.png,/
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2011/03/28/22597/lshn_mnnshsh_lmgrby_87049_1558797204.jpg,http://www.egyptindependent.com/node/377786
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2010/05/09/3685/wedding_dance_17135_1577232530.jpg,http://www.egyptindependent.com/node/40195
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2010/04/14/2252/rabw_14731_451336279.jpg,http://www.egyptindependent.com/node/26345
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/11/13/27866/pink_flower.jpg,http://www.egyptindependent.com/node/514135
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/11/09/27866/ips.jpg,http://www.egyptindependent.com/node/513040
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/10/29/27866/amazing.jpg,http://www.egyptindependent.com/node/509791
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/14/120/piioioioioi.jpg,http://www.egyptindependent.com/node/26275
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/13/120/wewweweww.jpg,http://www.egyptindependent.com/node/26269
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/05/489/separation.jpg,http://www.egyptindependent.com/node/24767
+/sites/default/files/W300.jpg,http://www.almasryalyoum.com/en/your-guide
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2-6" class="outline-4">
+<h4 id="sec-5-2-6"><span class="section-number-4">5.2.6</span> Downloading articles from each page</h4>
+<div class="outline-text-4" id="text-5-2-6">
+
+<p>    <b>Goal:</b> A file with the dates, titles and location of each
+     article.  Save each article in html form to the hard drive.
+</p>
+
+
+<pre class="src src-python"><span style="color: #4682b4; font-weight: bold;">from</span> lxml <span style="color: #4682b4; font-weight: bold;">import</span> etree
+<span style="color: #4682b4; font-weight: bold;">import</span> csv     
+<span style="color: #4682b4; font-weight: bold;">import</span> urllib
+<span style="color: #4682b4; font-weight: bold;">import</span> re
+
+f = <span style="color: #cd0000;">open</span>(<span style="color: #008b00;">'/tmp/files.csv'</span>,<span style="color: #008b00;">'w'</span>)
+<span style="color: #000000; background-color: #ffffff;">entries</span> = [<span style="color: #008b00;">"Day"</span>,<span style="color: #008b00;">"Month"</span>,<span style="color: #008b00;">"Year"</span>,<span style="color: #008b00;">"Title"</span>,<span style="color: #008b00;">"Remote"</span>,<span style="color: #008b00;">"Local"</span>]
+c = csv.DictWriter(f,entries)
+
+
+<span style="color: #000000; background-color: #ffffff;">destpath</span> = <span style="color: #008b00;">'/tmp/'</span>
+<span style="color: #000000; background-color: #ffffff;">fname</span> = <span style="color: #008b00;">'/tmp/page1.html'</span>
+<span style="color: #000000; background-color: #ffffff;">fp</span> = <span style="color: #cd0000;">open</span>(fname, <span style="color: #008b00;">'rb'</span>)
+<span style="color: #000000; background-color: #ffffff;">parser</span> = etree.HTMLParser()
+<span style="color: #000000; background-color: #ffffff;">tree</span>   = etree.parse(fp, parser)
+<span style="color: #000000; background-color: #ffffff;">dateelems</span> = tree.xpath(<span style="color: #008b00;">'.//div[@class="views-field-field-published-date-value"]/span[@class="field-content"]/span[@class="date-display-single"]'</span>)
+<span style="color: #000000; background-color: #ffffff;">linkelems</span> = tree.xpath(<span style="color: #008b00;">'.//div[@class="panel-pane pane-views pane-subchannel-news subchannel-pane"]//div[@class="views-field-title"]/span[@class="field-content"]/a'</span>)
+
+<span style="color: #4682b4; font-weight: bold;">for</span> (d,l) <span style="color: #4682b4; font-weight: bold;">in</span> <span style="color: #cd0000;">zip</span>(dateelems,linkelems):
+    <span style="color: #000000; background-color: #ffffff;">entry</span> = <span style="color: #cd0000;">dict</span>()
+    <span style="color: #000000; background-color: #ffffff;">myDate</span> = d.text.split()
+    <span style="color: #000000; background-color: #ffffff;">urlname</span> = l.get(<span style="color: #008b00;">'href'</span>)
+    <span style="color: #cd0000;">print</span> urlname
+    entry[<span style="color: #008b00;">"Day"</span>] = myDate[0]
+    entry[<span style="color: #008b00;">"Month"</span>] = myDate[1]
+    entry[<span style="color: #008b00;">"Year"</span>] = myDate[2]
+    <span style="color: #000000; background-color: #ffffff;">remotename</span> = re.match(<span style="color: #008b00;">'.*/(.*)'</span>,urlname)
+    <span style="color: #000000; background-color: #ffffff;">dest</span> = destpath+remotename.group(1)+<span style="color: #008b00;">".html"</span>
+    urllib.urlretrieve (urlname,dest)
+    entry[<span style="color: #008b00;">"Local"</span>] = dest
+    entry[<span style="color: #008b00;">"Remote"</span>] = urlname
+    entry[<span style="color: #008b00;">"Title"</span>] = l.text.encode(<span style="color: #008b00;">"utf-8"</span>)
+    c.writerow(entry)
+    <span style="color: #cd0000;">print</span> entry
+
+f.close()
+fp.close()
+
+</pre>
+
+
+
+<pre class="example">http://www.egyptindependent.com/news/muslim-brotherhood-returns-street-politics-fills-square
+{'Remote': 'http://www.egyptindependent.com/news/muslim-brotherhood-returns-street-politics-fills-square', 'Title': 'Muslim Brotherhood returns to street politics, fills square', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/muslim-brotherhood-returns-street-politics-fills-square.html', 'Day': '13'}
+http://www.egyptindependent.com/news/meet-your-presidential-candidate-omar-suleiman-phantom
+{'Remote': 'http://www.egyptindependent.com/news/meet-your-presidential-candidate-omar-suleiman-phantom', 'Title': 'Meet your presidential candidate: Omar Suleiman, the phantom', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/meet-your-presidential-candidate-omar-suleiman-phantom.html', 'Day': '12'}
+http://www.egyptindependent.com/news/administrative-court-ruling-leaves-transition-timetable-disarray
+{'Remote': 'http://www.egyptindependent.com/news/administrative-court-ruling-leaves-transition-timetable-disarray', 'Title': 'Administrative court ruling leaves transition timetable in disarray', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/administrative-court-ruling-leaves-transition-timetable-disarray.html', 'Day': '11'}
+http://www.egyptindependent.com/news/shater-faces-early-hiccups-campaign-trail
+{'Remote': 'http://www.egyptindependent.com/news/shater-faces-early-hiccups-campaign-trail', 'Title': 'Shater faces early hiccups on campaign trail', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/shater-faces-early-hiccups-campaign-trail.html', 'Day': '11'}
+http://www.egyptindependent.com/news/new-alternatives-may-bolster-moussa%E2%80%99s-chances
+{'Remote': 'http://www.egyptindependent.com/news/new-alternatives-may-bolster-moussa%E2%80%99s-chances', 'Title': 'New alternatives may bolster Moussa\xe2\x80\x99s chances', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/new-alternatives-may-bolster-moussa%E2%80%99s-chances.html', 'Day': '11'}
+http://www.egyptindependent.com/news/profile-kamal-al-helbawy-defector-conscience
+{'Remote': 'http://www.egyptindependent.com/news/profile-kamal-al-helbawy-defector-conscience', 'Title': 'Profile: Kamal al-Helbawy, a defector of conscience', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/profile-kamal-al-helbawy-defector-conscience.html', 'Day': '09'}
+http://www.egyptindependent.com/news/suleiman-president-game-changer-or-set-plan
+{'Remote': 'http://www.egyptindependent.com/news/suleiman-president-game-changer-or-set-plan', 'Title': 'Suleiman for president: Game changer or set plan?', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/suleiman-president-game-changer-or-set-plan.html', 'Day': '09'}
+http://www.egyptindependent.com/news/despite-prison-time-revolutionaries-uniform-continue-struggle
+{'Remote': 'http://www.egyptindependent.com/news/despite-prison-time-revolutionaries-uniform-continue-struggle', 'Title': 'Despite prison time, revolutionaries in uniform continue struggle', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/despite-prison-time-revolutionaries-uniform-continue-struggle.html', 'Day': '09'}
+http://www.egyptindependent.com/news/parliament-review-constitution-crisis-continues-brothers-spread-their-wings
+{'Remote': 'http://www.egyptindependent.com/news/parliament-review-constitution-crisis-continues-brothers-spread-their-wings', 'Title': 'Parliament Review: Constitution crisis continues as Brothers spread their wings', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/parliament-review-constitution-crisis-continues-brothers-spread-their-wings.html', 'Day': '06'}
+http://www.egyptindependent.com/news/profile-april-6-genealogy-youth-movement
+{'Remote': 'http://www.egyptindependent.com/news/profile-april-6-genealogy-youth-movement', 'Title': 'Profile: April 6, genealogy of a youth movement', 'Month': 'Apr', 'Year': '2012', 'Local': '/tmp/profile-april-6-genealogy-youth-movement.html', 'Day': '06'}
+</pre>
+
+
+<p>
+The resulting file is a CSV file.:
+</p>
+
+
+<pre class="example">13,Apr,2012,"Muslim Brotherhood returns to street politics, fills square",http://www.egyptindependent.com/news/muslim-brotherhood-returns-street-politics-fills-square,/tmp/muslim-brotherhood-returns-street-politics-fills-square.html
+12,Apr,2012,"Meet your presidential candidate: Omar Suleiman, the phantom",http://www.egyptindependent.com/news/meet-your-presidential-candidate-omar-suleiman-phantom,/tmp/meet-your-presidential-candidate-omar-suleiman-phantom.html
+11,Apr,2012,Administrative court ruling leaves transition timetable in disarray,http://www.egyptindependent.com/news/administrative-court-ruling-leaves-transition-timetable-disarray,/tmp/administrative-court-ruling-leaves-transition-timetable-disarray.html
+11,Apr,2012,Shater faces early hiccups on campaign trail,http://www.egyptindependent.com/news/shater-faces-early-hiccups-campaign-trail,/tmp/shater-faces-early-hiccups-campaign-trail.html
+11,Apr,2012,New alternatives may bolster Moussa’s chances,http://www.egyptindependent.com/news/new-alternatives-may-bolster-moussa%E2%80%99s-chances,/tmp/new-alternatives-may-bolster-moussa%E2%80%99s-chances.html
+09,Apr,2012,"Profile: Kamal al-Helbawy, a defector of conscience",http://www.egyptindependent.com/news/profile-kamal-al-helbawy-defector-conscience,/tmp/profile-kamal-al-helbawy-defector-conscience.html
+09,Apr,2012,Suleiman for president: Game changer or set plan?,http://www.egyptindependent.com/news/suleiman-president-game-changer-or-set-plan,/tmp/suleiman-president-game-changer-or-set-plan.html
+09,Apr,2012,"Despite prison time, revolutionaries in uniform continue struggle",http://www.egyptindependent.com/news/despite-prison-time-revolutionaries-uniform-continue-struggle,/tmp/despite-prison-time-revolutionaries-uniform-continue-struggle.html
+06,Apr,2012,Parliament Review: Constitution crisis continues as Brothers spread their wings,http://www.egyptindependent.com/news/parliament-review-constitution-crisis-continues-brothers-spread-their-wings,/tmp/parliament-review-constitution-crisis-continues-brothers-spread-their-wings.html
+06,Apr,2012,"Profile: April 6, genealogy of a youth movement",http://www.egyptindependent.com/news/profile-april-6-genealogy-youth-movement,/tmp/profile-april-6-genealogy-youth-movement.html
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2-7" class="outline-4">
+<h4 id="sec-5-2-7"><span class="section-number-4">5.2.7</span> Exercise</h4>
+<div class="outline-text-4" id="text-5-2-7">
+
+
+<p>
+Modify the above code so that instead of iterating over only the first page, it iterates over all pages.
+</p>
+<ul>
+<li>Consider using the <code>glob</code> library to look for all of the html files in a directory.
+</li>
+<li>Can you do this so you don't save the pages, but parse them directly?  
+<ul>
+<li>Use google and the python documentation to help figure it out!
+
+</li>
+</ul>
+
+<p>   Now that we've seen <code>lxml</code> in action, let's figure out how to use
+   it to pull out just the text of the article.  Recall that
+   all of the original text is in the following tags:
+</p>
+<pre class="example">
+&lt;div class="panel-pane pane-node-body" &gt;    
+&lt;div class="pane-content"&gt;
+</pre>
+
+</li>
+</ul>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Stripping text</h3>
+<div class="outline-text-3" id="text-5-3">
+
+
+<p>
+<i>Can be included if there's interest!</i>
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Parallelization to increase speed</h3>
+<div class="outline-text-3" id="text-5-4">
+
+
+<p>
+<i>Can be included if there's interest!</i>
+</p></div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="author" align:right><i>Written by
+Alex Storer: (<a
+href="mailto:support@help.hmdc.harvard.edu">support@help.hmdc.harvard.edu</a>)
+for <a href="http://iq.harvard.edu">IQSS</a> - Spring, 2012</i></p>
+
+</div>
+</body>
+</html>

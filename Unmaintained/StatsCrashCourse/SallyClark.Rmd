@@ -1,0 +1,294 @@
+Asking the right questions
+========================================================
+
+
+
+### The case of Sally Clark
+
+Sally Clark was convicted in British court of the murder of her two sons in 1999. Christopher, her first, was born on September 22nd 1996, and died three months later while home alone with his mother. Harry, her second son, was born November 29th, 1997, and died two months later, also while home alone with his mother. During the trial, an expert witness for the prosecution testified that the probability of each child independently dying of unexplained causes (sudden infant death syndrome, or SIDS) was 1/8543, and that the probability of both infants dying of SIDS was therefore around 1 in 73 million.
+
+
+DISCUSSION: how likely is it that Sally Clark murdered her children?
+
+
+The main problem with the 1 in 73 million figure is that it is an answer to the wrong question (it may have also been calculated incorrectly, but that is a relatively minor issue). In the case of Sally Clark, what we want is an answer to the question "How likely is it that Sally Clark killed her children?". Instead the prosecution answered the question "How likely is it that these deaths were both caused by SIDS?". Unfortunately, the answer to the second question is not the same as the answer to the first.
+
+To see why the probability of two cases of SIDS in the same family is not the same as the probability that the infants were murdered, consider the following probability trees:
+
+
+```{r echo=FALSE, warning=FALSE, results='hide'}
+library(ggplot2)
+library(reshape2)
+library(effects)
+library(venneuler)
+library(rockchalk)
+
+dat <- read.table(
+    text = "x y g
+    0 0 1
+    0 0 2
+    0 0 3
+    0 0 4
+    0 0 5
+    0 0 6
+    0 0 7
+    0 0 8
+    0 0 9 
+    1 8 1
+    1 8 2
+    1 8 3
+    1 0 4
+    1 0 5
+    1 0 6
+    1 -8 7
+    1 -8 8
+    1 -8 9
+    2 11 1
+    2 8 2
+    2 5 3
+    2 3 4
+    2 0 5
+    2 -3 6
+    2 -5 7
+    2 -8 8
+    2 -11 9",
+    header=TRUE)
+
+
+dat.labels <- unique(dat[1:2])
+dat.labels <- within(dat.labels, {
+    label <- c("", rep(c("Survived",  "SIDS", "Homicide"), 4))
+    h <- strheight(label, 'inches')
+    w <- strwidth(label, 'inches')
+    p.x <- c(NA, rep(.5, 3), rep(1.5, 9))
+    p.y <- c(NA, 4.5, .5, -3.5, 10, 8.5, 7, 2, .5, -1, -6, -7.5, -9)
+    p.label <- c("", rep(c("30241/30243", "1/8543", "1/21700"), 4))
+    g <- c(NA, 1,5,3, 1:9)
+})
+
+
+prob.tree <- ggplot(dat, aes(x=x, y=y)) + geom_line(aes(group=g)) +
+    geom_rect(aes(xmin=x-h/2, xmax=x+h/2, ymin=y-w/2, ymax=y+w/2),
+              fill="white",
+              data=dat.labels) +
+    geom_text(aes(label=label), size=4, data=dat.labels) +
+    geom_text(aes(x=p.x, y=p.y, label=p.label), size=4, data=dat.labels) +
+    theme_minimal() +
+    theme(axis.text = element_blank(),
+          axis.ticks=element_blank(),
+          axis.title=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank())
+
+```
+
+```{r echo=FALSE, warning=FALSE, fig.width=11, fig.height=9}
+prob.tree +
+    coord_cartesian(ylim=c(min(dat$y), max(dat$y))) +
+    scale_y_continuous(limits=c(-.75, .75)) +
+    annotate(geom="text",
+             label = "P(SIDS) = 1/(8543x8543) = 1/73 million",
+             x=1, y=-.7)
+
+```
+
+```{r echo=FALSE, warning=FALSE, fig.width=11, fig.height=9}
+
+prob.tree +
+    annotate(geom="text",
+             label = "P(SIDS) = 1/(8543x8543) = 1/73 million",
+             x=.01, y=-9,
+             hjust=0) +
+    annotate(geom="text",
+             label = "P(Homicide) = 1/(21700x21700) = 1/471 million",
+             x=.01, y=-10,
+             hjust=0) +
+    annotate(geom="text",
+             label = "P(Homicide | deaths) = 1/((1/470890000)/(1/72982849)) = 1/6",
+             x=.01, y=-11,
+             hjust=0)
+```
+
+The mistake made in this case was the failure to recognize that the impressive-sounding 1 in 73 million odds of two SIDS cases in the same family was not the same as the odds that Sally Clark was innocent. The court should have focused on the *relative* probability of SIDS vs. murder, not on the probability of SIDS alone. While double SIDS is rare, murdering children is even more so. In fact the odds are about 6:1 in favor of SIDS! 1 in 73 million was a classic type III error (the answer to the wrong question), an error that resulted in the murder conviction of a mother who was likely innocent.
+
+For those wishing for a more thorough analysis of the statistical issues in this case, [Ray Hill's walk-through](http://www.cse.salford.ac.uk/staff/RHill/ppe_5601.pdf) is highly recommended. For more on the Prosecutor's Fallacy (of which this case is an example) see [Thompson and Schumann (1987)](http://www.jstor.org/stable/1393631)
+
+
+### Berkeley gender bias case
+
+A court case brought against the University of California, Berkeley in the 1970's, claiming that female applicants were being discriminated against by the admissions system. Here are the actual admissions rates in the six largest departments at Berkeley in 1973 (from Wikipedia):
+
+```{r echo=FALSE, warning=FALSE, results="asis"}
+BerkeleyData <- read.table(text="Department  Male_Applicants  Males_Admitted	Female_Applicants	Females_Admitted
+A	825	62	108	82
+B	560	63	25	68
+C	325	37	593	34
+D	417	33	375	35
+E	191	28	393	24
+F	272	6	341	7",
+                           header=TRUE, stringsAsFactors=FALSE)
+
+BerkeleyData <- transform(BerkeleyData,
+                          Males_Admitted = as.integer(round(Male_Applicants*(Males_Admitted/100), digits=0)),
+                          Females_Admitted = as.integer(round(Female_Applicants*(Females_Admitted/100), digits=0))
+                          )
+
+BerkeleyDataFemale <- BerkeleyData[c(1, 4:5)]
+BerkeleyDataMale <- BerkeleyData[c(1:3)]
+
+library(xtable)
+cat("Female Applicant Data By Department\n")
+print(xtable(BerkeleyDataFemale), type="html", include.rownames=FALSE)
+
+cat("Male Applicant Data By Department\n")
+print(xtable(BerkeleyDataMale), type="html", include.rownames=FALSE)
+
+```
+
+EXERCISE: In groups of two, calculate admissions rate for males and females. Is there evidence of gender bias? If so, which gender appears to be discriminated against?
+
+
+The strange thing about this table is that we get different results depending on how we add things up:
+
+```{r echo=FALSE, warning=FALSE, results="asis"}
+BerkeleyDataMale <- rbind(BerkeleyDataMale, with(BerkeleyDataMale, {
+  data.frame(Department = "All", 
+             Male_Applicants = sum(Male_Applicants),
+             Males_Admitted = sum(Males_Admitted))}))
+
+BerkeleyDataMale <- transform(BerkeleyDataMale, 
+                              Percent = (Males_Admitted/Male_Applicants)*100)
+
+BerkeleyDataFemale <- rbind(BerkeleyDataFemale, with(BerkeleyDataFemale, {
+  data.frame(Department = "All", 
+             Female_Applicants = sum(Female_Applicants),
+             Females_Admitted = sum(Females_Admitted))}))
+
+BerkeleyDataFemale <- transform(BerkeleyDataFemale, 
+                              Percent = (Females_Admitted/Female_Applicants)*100)
+
+cat("Female Applicant Data By Department\n")
+print(xtable(BerkeleyDataFemale), type="html", include.rownames=FALSE)
+
+cat("Male Applicant Data By Department\n")
+print(xtable(BerkeleyDataMale), type="html", include.rownames=FALSE)
+
+```
+
+Why does this seemingly paradoxical result occur? Essentially because females applied to more competitive departments than did males.
+
+There are two different angles from which we can approach this difficult issue. Way way to think about it is as an aggregation error: by comparing rates aggregated across departments will only give the same result as comparing rates within each department under very strong (and often wrong) assumptions. Making inferences about individuals based on information about groups is known as the ecological fallacy.
+
+Another way to think about it is as an omitted variable problem. Summing the male and female columns across departments gives us the same result as if we had summed the whole university, ignoring department. From this perspective the problem is that by aggregating we have failed to account for differences across departments, and these between-department differences account for the apparent bias against female applicants.
+
+
+
+
+#### Multiple regression
+Recall the Berkely data example. Earlier we saw that we get different answers depending on how we sum across the table. 
+
+```{r echo=FALSE, warning=FALSE, results="asis"}
+
+
+tmp <- BerkeleyData
+tmp <- transform(tmp,
+                 Male_NotAdmitted = Male_Applicants - Males_Admitted,
+                 Female_NotAdmitted = Female_Applicants - Females_Admitted,
+                 Male_Applicants=NULL,
+                 Female_Applicants=NULL)
+
+bdl <- melt(tmp, id.vars="Department")
+
+
+bdl <- bdl[ rep( 1:nrow(bdl), bdl$value ), -3 ]
+
+bdl <- cbind(bdl[-2], colsplit(bdl$variable, pattern="s*_", names=c("Sex", "Admitted")))
+bdl <- transform(bdl,
+                 Sex = factor(Sex, levels = c("Male", "Female")),
+                 Admitted = factor(Admitted, levels = c("NotAdmitted", "Admitted")))
+
+m1 <- glm(Admitted ~ Sex, data=bdl, family="binomial")
+bdl$prediction <- predict(m1, type="response")
+bdl$error <- residuals(m1, type="response")
+
+tmp <- unique(bdl[-1])
+tmp$actual <- as.numeric(tmp$Admitted) - 1
+tmp$Admitted <- factor(tmp$Admitted, labels = c("Not Admitted", "Admitted"))
+tmp <- melt(tmp, measure.vars = c("prediction", "error", "actual"))
+
+
+ggplot(tmp, aes(x = Sex, y=value, color=variable, fill=variable)) + 
+  geom_text(aes(label=format(round(value, digits=2), digits=2))) +
+  scale_y_continuous("Probability of Admission") +
+  scale_color_discrete("") +
+  facet_wrap(~Admitted) +
+  ggtitle("Admission predicted from Sex")
+
+
+m2 <- glm(Admitted ~ Department, data=bdl, family="binomial")
+bdl$prediction <- predict(m2, type="response")
+bdl$error <- residuals(m2, type="response")
+
+tmp <- bdl[!duplicated(bdl[-2]), ]
+tmp$actual <- as.numeric(tmp$Admitted) - 1
+tmp$Admitted <- factor(tmp$Admitted, labels = c("Not Admitted", "Admitted"))
+tmp <- melt(tmp, measure.vars = c("prediction", "error", "actual"))
+
+
+ggplot(tmp, aes(x = Department, y=value, color=variable, fill=variable)) + 
+  geom_text(aes(label=format(round(value, digits=2), digits=2))) +
+  scale_y_continuous("Probability of Admission") +
+  scale_color_discrete("") +
+  facet_wrap(~Admitted, ncol=1) +
+  ggtitle("Admission predicted from department")
+
+
+m3 <- glm(Admitted ~ Department + Sex, data=bdl, family="binomial")
+bdl$prediction <- predict(m3, type="response")
+bdl$error <- residuals(m3, type="response")
+
+tmp <- bdl[!duplicated(bdl[-2]), ]
+tmp$actual <- as.numeric(tmp$Admitted) - 1
+tmp$Admitted <- factor(tmp$Admitted, labels = c("Not Admitted", "Admitted"))
+tmp <- melt(tmp, measure.vars = c("prediction", "error", "actual"))
+
+
+ggplot(tmp, aes(x = Department, y=value, color=variable, fill=variable)) + 
+  geom_text(aes(label=format(round(value, digits=2), digits=2))) +
+  scale_y_continuous("Probability of Admission") +
+  scale_color_discrete("") +
+  facet_grid(Sex~Admitted) +
+  ggtitle("Admission predicted from Sex and Department")
+
+## Conseptual example only
+
+vd <- venneuler(c(Sex=1, Department=1, Admitted=1, "Sex&Department"=0.4, "Sex&Admitted"=0.025, "Department&Admitted"=0.20,"Sex&Department&Admitted"=0.2))
+
+plot(vd)
+
+```
+
+
+
+
+#### Red State Blue State
+
+Another example of the ecological fallacy:
+
+Andrew Gelmans's book "Red State, Blue State, Rich State, Poor State: Why Americans Vote the Way They Do" describes a seeming paradox: richer states are more likely to vote for democrats, while richer individual people are more likely to vote for republicans. This counter-intuitive set of findings is an example of the ecological fallacy, or the fallacy of making inferences about individuals based on groups. In general it cannot be assumed that the associations between aggregated variables (e.g., averages at the state or country level) are the same (or even similar) to the associations between those variables at the individual level. In the "red state blue state" example the striking dissimilarity is (at least partly) explained by fact that at the individual level the association between wealth and voting behavior is stronger in poorer states than it is in richer ones.
+
+
+#### Length of short answer responses and exam scores
+
+DISCUSSION:
+
+As another example of how easy it can be to ask the wrong question, try answering these ones:
+
+Do you think the association between length of short-answer responses and exam grades is positive or negative? or negative? If you were taking an exam, would it be better to write a short answer or a long one?
+
+Answer: Students who write short answers get higher marks. But you should still write a long answer!
+
+
+### Education expenditures and SAT scores
+
+http://goo.gl/N6u3x0

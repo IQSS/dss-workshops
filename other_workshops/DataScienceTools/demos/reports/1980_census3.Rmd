@@ -1,0 +1,20 @@
+---
+title: "My report"
+output: word_document
+---
+
+```{r include=FALSE, echo=FALSE}
+library(DBI)
+library(RSQLite)
+
+pop_db_con <- dbConnect(SQLite(), "../data/1980_census.db")
+
+sum_total <- sum(dbReadTable(pop_db_con, "1980census")[[1]])
+```
+
+# Population of the United States in 1980
+
+The 1980 Census reported 
+$`r format(sum_total, big.mark = ",")`$ 
+people living in the United States in 1980.
+

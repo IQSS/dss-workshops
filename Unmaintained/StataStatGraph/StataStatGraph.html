@@ -1,0 +1,1729 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-06-09 Thu 10:03 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Statistics and graphics in Stata</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://tutorials.iq.harvard.edu/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://tutorials.iq.harvard.edu/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://tutorials.iq.harvard.edu/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Statistics and graphics in Stata</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline3">Introduction</a>
+<ul>
+<li><a href="#orgheadline1">Download workshop materials&#xa0;&#xa0;&#xa0;<span class="tag"><span class="setup">setup</span></span></a></li>
+<li><a href="#orgheadline2">Organization</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline34">Fitting models in Stata</a>
+<ul>
+<li><a href="#orgheadline4">Today's Dataset</a></li>
+<li><a href="#orgheadline5">Opening Files in Stata</a></li>
+<li><a href="#orgheadline6">Steps for Running Regression</a></li>
+<li><a href="#orgheadline16">Univariate regression</a>
+<ul>
+<li><a href="#orgheadline7">Univariate Regression: Preliminaries</a></li>
+<li><a href="#orgheadline8">Univariate Regression Preliminaries</a></li>
+<li><a href="#orgheadline9">Univariate Regression Preliminaries</a></li>
+<li><a href="#orgheadline10">Univariate Regression Preliminaries</a></li>
+<li><a href="#orgheadline11">Univariate Regression: SAT scores and Education Expenditures</a></li>
+<li><a href="#orgheadline12">Linear Regression Assumptions</a></li>
+<li><a href="#orgheadline13">Homoscedasticity</a></li>
+<li><a href="#orgheadline14">Testing Assumptions: Normality</a></li>
+<li><a href="#orgheadline15">Testing Assumptions: Homoscedasticity</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline21">Multiple regression</a>
+<ul>
+<li><a href="#orgheadline17">Multiple Regression</a></li>
+<li><a href="#orgheadline18">Multiple Regression Preliminaries</a></li>
+<li><a href="#orgheadline19">Multiple Regression</a></li>
+<li><a href="#orgheadline20">Exercise 1: Multiple Regression</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline27">Interactions</a>
+<ul>
+<li><a href="#orgheadline22">Interactions</a></li>
+<li><a href="#orgheadline23">Interactions</a></li>
+<li><a href="#orgheadline24">Categorical Predictors</a></li>
+<li><a href="#orgheadline25">Categorical Predictors</a></li>
+<li><a href="#orgheadline26">Exercise 2: Regression, Categorical Predictors, &amp; Interactions</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline33">Exporting and saving results</a>
+<ul>
+<li><a href="#orgheadline28">Saving and exporting regression tables</a></li>
+<li><a href="#orgheadline29">Saving and replaying</a></li>
+<li><a href="#orgheadline30">Saving and replaying</a></li>
+<li><a href="#orgheadline31">Saving and replaying</a></li>
+<li><a href="#orgheadline32">Exporting into Excel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline35">Graphing in Stata</a>
+<ul>
+<li><a href="#orgheadline36">Graphing Strategies</a>
+<ul>
+<li><a href="#orgheadline37">Terrible Graph</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline48">Univariate Graphics</a>
+<ul>
+<li><a href="#orgheadline39">Our First Dataset</a></li>
+<li><a href="#orgheadline40">Single Continuous Variables</a></li>
+<li><a href="#orgheadline41">Histogram Options</a></li>
+<li><a href="#orgheadline42">Histogram Example</a></li>
+<li><a href="#orgheadline43">Axis Titles and Labels</a></li>
+<li><a href="#orgheadline44">Axis Labels Example</a></li>
+<li><a href="#orgheadline45">Basic Graphing: Single Categorical Variables</a></li>
+<li><a href="#orgheadline46">Exercise 1: Histograms Bar Graphs</a></li>
+<li><a href="#orgheadline47">Next Dataset:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline59">Bivariate Graphics</a>
+<ul>
+<li><a href="#orgheadline49">The Twoway Family</a></li>
+<li><a href="#orgheadline50">Twoway and the "by" Statement</a></li>
+<li><a href="#orgheadline51">Twoway Title Options</a></li>
+<li><a href="#orgheadline52">Twoway Title Options Example</a></li>
+<li><a href="#orgheadline53">Twoway Symbol Options</a></li>
+<li><a href="#orgheadline54">Twoway Symbol Options</a></li>
+<li><a href="#orgheadline55">Overlaying Twoway Graphs</a></li>
+<li><a href="#orgheadline56">Overlaying Points and Lines</a></li>
+<li><a href="#orgheadline57">Overlaying Points and Labels</a></li>
+<li><a href="#orgheadline58">Exercise 2: The TwoWay Family</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline64">More Fun with Twoway Line Graphs</a>
+<ul>
+<li><a href="#orgheadline60">Line Graphs</a></li>
+<li><a href="#orgheadline61">Line Graphs</a></li>
+<li><a href="#orgheadline62">Stata Graphing Lines</a></li>
+<li><a href="#orgheadline63">Exporting Graphs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline67">Wrap-up</a>
+<ul>
+<li><a href="#orgheadline65">Help Us Make This Workshop Better</a></li>
+<li><a href="#orgheadline66">Additional resources</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3">Introduction</h2>
+<div class="outline-text-2" id="text-orgheadline3">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1">Download workshop materials&#xa0;&#xa0;&#xa0;<span class="tag"><span class="setup">setup</span></span></h3>
+<div class="outline-text-3" id="text-orgheadline1">
+<ul class="org-ul">
+<li>Lab computer log in:
+<ul class="org-ul">
+<li>USERNAME: dataclass</li>
+<li>PASSWORD: on the board to your left</li>
+</ul></li>
+<li>Download materials from <a href="http://tutorials.iq.harvard.edu/Stata/StataStatGraph.zip">http://tutorials.iq.harvard.edu/Stata/StataStatGraph.zip</a></li>
+<li>Extract materials from the <code>StataStatGraph.zip</code> file</li>
+<li>Launch Stata and open the <code>StataStatGraph.do</code> file</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">Organization</h3>
+<div class="outline-text-3" id="text-orgheadline2">
+<ul class="org-ul">
+<li>Please feel free to ask questions at any point if they are relevant to the current topic (or if you are lost!)</li>
+<li>There will be a Q&amp;A after class for more specific, personalized questions</li>
+<li>Collaboration with your neighbors is encouraged</li>
+<li>If you are using a laptop, you will need to adjust paths accordingly</li>
+<li>Make comments in your Do-file rather than on hand-outs</li>
+<li>Save on flash drive or email to yourself</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-2">
+<h2 id="orgheadline34">Fitting models in Stata</h2>
+<div class="outline-text-2" id="text-orgheadline34">
+</div><div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">Today's Dataset</h3>
+<div class="outline-text-3" id="text-orgheadline4">
+<ul class="org-ul">
+<li>We have data on a variety of variables for all 50 states</li>
+<li>Population, density, energy use, voting tendencies, graduation rates, income, etc.</li>
+<li>We're going to be predicting SAT scores</li>
+<li>Univariate Regression: SAT scores and Education Expenditures</li>
+<li>Does the amount of money spent on education affect the mean SAT score in a state?</li>
+<li>Dependent variable: csat</li>
+<li>Independent variable: expense</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Opening Files in Stata</h3>
+<div class="outline-text-3" id="text-orgheadline5">
+<ul class="org-ul">
+<li>Look at bottom left hand corner of Stata screen
+<ul class="org-ul">
+<li>This is the directory Stata is currently reading from</li>
+</ul></li>
+<li>Files are located in the StataStatistics folder on the Desktop</li>
+<li>Start by telling Stata where to look for these</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock1"><span class="org-comment">// change directory</span>
+<span class="org-keyword">cd</span> <span class="org-string">"~/tutorials/Stata/StataStatGraph"</span>
+</pre>
+</div>
+
+<pre class="example">
+set more off
+
+cd "~/tutorials/Stata/StataStatGraph"
+/nfs/www/edu-harvard-iq-tutorials/Stata/StataStatGraph
+</pre>
+
+<ul class="org-ul">
+<li>Use dir to see what is in the directory:</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock2">dir
+<span class="org-keyword">cd</span> dataSets
+dir
+<span class="org-keyword">cd</span> ..
+</pre>
+</div>
+
+<pre class="example">
+dir
+
+total 8
+drwxr-sr-x. 2 izahn tutorwww 4096 Oct 22 21:59 dataSets/
+drwxr-sr-x. 3 izahn tutorwww 4096 Oct 22 21:59 images/
+cd dataSets
+/nfs/www/edu-harvard-iq-tutorials/Stata/StataStatGraph/dataSets
+dir
+
+total 21008
+-rwxr-xr-x. 1 izahn tutorwww 21103444 Oct 22 21:59 NatNeighCrimeStudy.dta*
+-rwxr-xr-x. 1 izahn tutorwww     8977 Oct 22 21:59 states.dta*
+-rwxr-xr-x. 1 izahn tutorwww   298191 Oct 22 21:59 TimePollPubSchools.dta*
+cd ..
+/nfs/www/edu-harvard-iq-tutorials/Stata/StataStatGraph
+</pre>
+
+<ul class="org-ul">
+<li>Load the data</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock3"><span class="org-comment">// use the states data set</span>
+<span class="org-keyword">use</span> dataSets/states.dta
+</pre>
+</div>
+
+<pre class="example">
+use dataSets/states.dta
+(U.S. states data 1990-91)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">Steps for Running Regression</h3>
+<div class="outline-text-3" id="text-orgheadline6">
+<ol class="org-ol">
+<li>Examine descriptive statistics</li>
+<li>Look at relationship graphically and test correlation(s)</li>
+<li>Run and interpret regression</li>
+<li>Test regression assumptions</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16">Univariate regression</h3>
+<div class="outline-text-3" id="text-orgheadline16">
+</div><div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7">Univariate Regression: Preliminaries</h4>
+<div class="outline-text-4" id="text-orgheadline7">
+<ul class="org-ul">
+<li>We want to predict csat scores from expense</li>
+<li>First, let's look at some descriptives</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock4"><span class="org-comment">// generate summary statistics for csat and expense</span>
+sum csat expense
+</pre>
+</div>
+
+<pre class="example">
+sum csat expense
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        csat |         51     944.098    66.93497        832       1093
+     expense |         51    5235.961    1401.155       2960       9259
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8">Univariate Regression Preliminaries</h4>
+<div class="outline-text-4" id="text-orgheadline8">
+<ul class="org-ul">
+<li>We want to predict csat scores from expense</li>
+<li>First, let's look at some descriptives</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock5"><span class="org-comment">// look at codebok</span>
+<span class="org-constant">codebook</span> csat expense
+</pre>
+</div>
+
+<pre class="example">
+codebook csat expense
+
+-------------------------------------------------------------------------------
+csat                                                   Mean composite SAT score
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [832,1093]                   units:  1
+         unique values:  45                       missing .:  0/51
+
+                  mean:   944.098
+              std. dev:    66.935
+
+           percentiles:        10%       25%       50%       75%       90%
+                               874       886       926       997      1024
+
+-------------------------------------------------------------------------------
+expense                                         Per pupil expenditures prim&amp;sec
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [2960,9259]                  units:  1
+         unique values:  51                       missing .:  0/51
+
+                  mean:   5235.96
+              std. dev:   1401.16
+
+           percentiles:        10%       25%       50%       75%       90%
+                              3782      4351      5000      5865      6738
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9">Univariate Regression Preliminaries</h4>
+<div class="outline-text-4" id="text-orgheadline9">
+<ul class="org-ul">
+<li>Next, view relationship graphically</li>
+<li>Scatterplots work well for univariate relationships</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock6"><span class="org-comment">// graph expense by csat</span>
+twoway scatter expense csat
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/scatter1.png" alt="scatter1.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10">Univariate Regression Preliminaries</h4>
+<div class="outline-text-4" id="text-orgheadline10">
+<ul class="org-ul">
+<li>Next look at the correlation matrix</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock7"><span class="org-comment">// correlate csat and expense</span>
+pwcorr csat expense, star(.05)
+</pre>
+</div>
+
+<pre class="example">
+pwcorr csat expense, star(.05)
+
+             |     csat  expense
+-------------+------------------
+        csat |   1.0000 
+     expense |  -0.4663*  1.0000
+</pre>
+
+<ul class="org-ul">
+<li>Not very interesting with only one predictor</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11">Univariate Regression: SAT scores and Education Expenditures</h4>
+<div class="outline-text-4" id="text-orgheadline11">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock8">regress csat expense
+</pre>
+</div>
+
+<pre class="example">
+regress csat expense
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(1, 49)        =     13.61
+       Model |  48708.3001         1  48708.3001   Prob &gt; F        =    0.0006
+    Residual |   175306.21        49  3577.67775   R-squared       =    0.2174
+-------------+----------------------------------   Adj R-squared   =    0.2015
+       Total |   224014.51        50   4480.2902   Root MSE        =    59.814
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |  -.0222756   .0060371    -3.69   0.001    -.0344077   -.0101436
+       _cons |   1060.732    32.7009    32.44   0.000     995.0175    1126.447
+------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12">Linear Regression Assumptions</h4>
+<div class="outline-text-4" id="text-orgheadline12">
+<ul class="org-ul">
+<li>Assumption 1: Normal Distribution</li>
+<li>The errors of regression equation are normally distributed</li>
+<li>Assumption 2: Homoscedasticity (The variance around the regression line is the same for all values of the predictor variable)</li>
+<li>Assumption 3: Errors are independent</li>
+<li>Assumption 4: Relationships are linear</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13">Homoscedasticity</h4>
+<div class="outline-text-4" id="text-orgheadline13">
+
+<div class="figure">
+<p><img src="images/heteroscedasticity.png" alt="heteroscedasticity.png" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="images/homscedasticity.png" alt="homscedasticity.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14">Testing Assumptions: Normality</h4>
+<div class="outline-text-4" id="text-orgheadline14">
+<ul class="org-ul">
+<li>A simple histogram of the residuals can be informative</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock9"><span class="org-comment">// graph the residual values of csat</span>
+<span class="org-keyword">predict</span> resid, residual
+histogram resid, normal
+</pre>
+</div>
+
+<pre class="example">
+predict resid, residual
+histogram resid, normal
+(bin=7, start=-131.81111, width=38.329487)
+</pre>
+
+
+<div class="figure">
+<p><img src="images/normalHist1.png" alt="normalHist1.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15">Testing Assumptions: Homoscedasticity</h4>
+<div class="outline-text-4" id="text-orgheadline15">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock10">rvfplot
+</pre>
+</div>
+
+<pre class="example">
+rvfplot
+</pre>
+
+
+<div class="figure">
+<p><img src="images/fittedResidual1.png" alt="fittedResidual1.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21">Multiple regression</h3>
+<div class="outline-text-3" id="text-orgheadline21">
+</div><div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17">Multiple Regression</h4>
+<div class="outline-text-4" id="text-orgheadline17">
+<ul class="org-ul">
+<li>Just keep adding predictors</li>
+<li>Let's try adding some predictors to the model of SAT scores</li>
+<li id="income">% students taking SATs</li>
+<li id="percent">% adults with HS diploma (high)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18">Multiple Regression Preliminaries</h4>
+<div class="outline-text-4" id="text-orgheadline18">
+<ul class="org-ul">
+<li>As before, start with descriptive statistics and correlations</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock11"><span class="org-comment">// descriptive statistics and correlations</span>
+sum income percent high
+pwcorr csat expense income percent high
+</pre>
+</div>
+
+<pre class="example">
+sum income percent high
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      income |         51    33.95657    6.423134     23.465     48.618
+     percent |         51    35.76471    26.19281          4         81
+        high |         51    76.26078    5.588741       64.3       86.6
+pwcorr csat expense income percent high
+
+             |     csat  expense   income  percent     high
+-------------+---------------------------------------------
+        csat |   1.0000 
+     expense |  -0.4663   1.0000 
+      income |  -0.4713   0.6784   1.0000 
+     percent |  -0.8758   0.6509   0.6733   1.0000 
+        high |   0.0858   0.3133   0.5099   0.1413   1.0000
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19">Multiple Regression</h4>
+<div class="outline-text-4" id="text-orgheadline19">
+<ul class="org-ul">
+<li>regress csat on exense, income, percent, and high</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock12">regress csat expense income percent high
+</pre>
+</div>
+
+<pre class="example">
+regress csat expense income percent high
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(4, 46)        =     51.86
+       Model |  183354.603         4  45838.6508   Prob &gt; F        =    0.0000
+    Residual |  40659.9067        46  883.911016   R-squared       =    0.8185
+-------------+----------------------------------   Adj R-squared   =    0.8027
+       Total |   224014.51        50   4480.2902   Root MSE        =    29.731
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045604    .004384     1.04   0.304    -.0042641     .013385
+      income |   .4437858   1.138947     0.39   0.699    -1.848795    2.736367
+     percent |  -2.533084   .2454477   -10.32   0.000    -3.027145   -2.039024
+        high |   2.086599   .9246023     2.26   0.029     .2254712    3.947727
+       _cons |   836.6197   58.33238    14.34   0.000     719.2027    954.0366
+------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20">Exercise 1: Multiple Regression</h4>
+<div class="outline-text-4" id="text-orgheadline20">
+<p>
+Open the datafile, states.dta.
+</p>
+<ol class="org-ol">
+<li>Select a few variables to use in a multiple regression of your own.  Before running the regression, examine descriptive of the variables and generate a few scatterplots.</li>
+<li>Run your regression</li>
+<li>Examine the plausibility of the assumptions of normality and homogeneity</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27">Interactions</h3>
+<div class="outline-text-3" id="text-orgheadline27">
+</div><div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22">Interactions</h4>
+<div class="outline-text-4" id="text-orgheadline22">
+<ul class="org-ul">
+<li>What if we wanted to test an interaction between percent &amp; high?</li>
+<li>Option 1: generate product terms by hand</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock13"><span class="org-comment">// generate product of percent and high</span>
+<span class="org-keyword">gen</span> percenthigh = percent*high 
+regress csat expense income percent high percenthigh
+</pre>
+</div>
+
+<pre class="example">
+gen percenthigh = percent*high
+regress csat expense income percent high percenthigh
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(5, 45)        =     46.11
+       Model |  187430.401         5  37486.0801   Prob &gt; F        =    0.0000
+    Residual |  36584.1091        45  812.980201   R-squared       =    0.8367
+-------------+----------------------------------   Adj R-squared   =    0.8185
+       Total |   224014.51        50   4480.2902   Root MSE        =    28.513
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045575   .0042044     1.08   0.284    -.0039107    .0130256
+      income |   .0887856    1.10374     0.08   0.936    -2.134261    2.311832
+     percent |  -8.143002   2.516509    -3.24   0.002    -13.21151   -3.074493
+        high |   .4240906   1.156545     0.37   0.716    -1.905311    2.753492
+ percenthigh |   .0740926   .0330909     2.24   0.030     .0074441    .1407411
+       _cons |    972.525    82.5457    11.78   0.000     806.2695    1138.781
+------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23">Interactions</h4>
+<div class="outline-text-4" id="text-orgheadline23">
+<ul class="org-ul">
+<li>What if we wanted to test an interaction between percent &amp; high?</li>
+<li>Option 2: Let Stata do your dirty work</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock14"><span class="org-comment">// use the # sign to represent interactions </span>
+regress csat percent high c.percent#c.high
+<span class="org-comment">// same as . regress csat c.percent##high</span>
+</pre>
+</div>
+
+<pre class="example">
+regress csat percent high c.percent#c.high
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(3, 47)        =     77.39
+       Model |  186302.091         3  62100.6971   Prob &gt; F        =    0.0000
+    Residual |  37712.4186        47  802.391885   R-squared       =    0.8317
+-------------+----------------------------------   Adj R-squared   =    0.8209
+       Total |   224014.51        50   4480.2902   Root MSE        =    28.327
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     percent |   -8.15717   2.488388    -3.28   0.002    -13.16316   -3.151179
+        high |   .6674578   1.082615     0.62   0.541    -1.510482    2.845398
+             |
+   c.percent#|
+      c.high |   .0764271   .0324919     2.35   0.023     .0110619    .1417924
+             |
+       _cons |   974.9354   81.98078    11.89   0.000     810.0113    1139.859
+------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-4">
+<h4 id="orgheadline24">Categorical Predictors</h4>
+<div class="outline-text-4" id="text-orgheadline24">
+<ul class="org-ul">
+<li>For categorical variables, we first need to dummy code</li>
+<li>Use region as example
+<ul class="org-ul">
+<li>Option 1: create dummy codes before fitting regression model</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock15"><span class="org-comment">// create region dummy codes using tab </span>
+tab region, <span class="org-keyword">gen</span>(region)
+
+<span class="org-comment">//regress csat on region</span>
+regress csat region1 region2 region3
+</pre>
+</div>
+
+<pre class="example">
+tab region, gen(region)
+
+Geographica |
+   l region |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       West |         13       26.00       26.00
+    N. East |          9       18.00       44.00
+      South |         16       32.00       76.00
+    Midwest |         12       24.00      100.00
+------------+-----------------------------------
+      Total |         50      100.00
+
+
+regress csat region1 region2 region3
+
+      Source |       SS           df       MS      Number of obs   =        50
+-------------+----------------------------------   F(3, 46)        =      9.61
+       Model |  82049.4719         3   27349.824   Prob &gt; F        =    0.0000
+    Residual |  130911.908        46  2845.91105   R-squared       =    0.3853
+-------------+----------------------------------   Adj R-squared   =    0.3452
+       Total |   212961.38        49  4346.15061   Root MSE        =    53.347
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     region1 |  -63.77564   21.35592    -2.99   0.005    -106.7629    -20.7884
+     region2 |  -120.5278   23.52385    -5.12   0.000    -167.8788   -73.17672
+     region3 |  -80.08333   20.37225    -3.93   0.000    -121.0906   -39.07611
+       _cons |   1010.083   15.39998    65.59   0.000     979.0848    1041.082
+------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-4">
+<h4 id="orgheadline25">Categorical Predictors</h4>
+<div class="outline-text-4" id="text-orgheadline25">
+<ul class="org-ul">
+<li>For categorical variables, we first need to dummy code</li>
+<li>Use region as example
+<ul class="org-ul">
+<li>Option 2: Let Stata do it for you</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock16"><span class="org-comment">// regress csat on region using fvvarlist syntax</span>
+<span class="org-comment">// see help fvvarlist for details</span>
+regress csat i.region
+</pre>
+</div>
+
+<pre class="example">
+regress csat i.region
+
+      Source |       SS           df       MS      Number of obs   =        50
+-------------+----------------------------------   F(3, 46)        =      9.61
+       Model |  82049.4719         3   27349.824   Prob &gt; F        =    0.0000
+    Residual |  130911.908        46  2845.91105   R-squared       =    0.3853
+-------------+----------------------------------   Adj R-squared   =    0.3452
+       Total |   212961.38        49  4346.15061   Root MSE        =    53.347
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      region |
+    N. East  |  -56.75214   23.13285    -2.45   0.018    -103.3161   -10.18813
+      South  |  -16.30769   19.91948    -0.82   0.417    -56.40353    23.78814
+    Midwest  |   63.77564   21.35592     2.99   0.005      20.7884    106.7629
+             |
+       _cons |   946.3077   14.79582    63.96   0.000     916.5253    976.0901
+------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-4">
+<h4 id="orgheadline26">Exercise 2: Regression, Categorical Predictors, &amp; Interactions</h4>
+<div class="outline-text-4" id="text-orgheadline26">
+<p>
+Open the datafile, states.dta.
+</p>
+<ol class="org-ol">
+<li>Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.</li>
+<li>Try adding a categorical variable to your regression (remember, it will need to be dummy coded).  You could use region or generate a new categorical variable from one of the continuous variables in the dataset.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33">Exporting and saving results</h3>
+<div class="outline-text-3" id="text-orgheadline33">
+</div><div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28">Saving and exporting regression tables</h4>
+<div class="outline-text-4" id="text-orgheadline28">
+<ul class="org-ul">
+<li>Usually when we're running regression, we'll be testing multiple models at a time</li>
+<li>Can be difficult to compare results</li>
+<li>Stata offers several user-friendly options for storing and viewing regression output from multiple models</li>
+<li>First, download the necessary packages:</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock17"><span class="org-comment">// install outreg2 package</span>
+findit outreg2
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-4">
+<h4 id="orgheadline29">Saving and replaying</h4>
+<div class="outline-text-4" id="text-orgheadline29">
+<ul class="org-ul">
+<li>You can store regression model results in Stata</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock18"><span class="org-comment">// fit two regression models and store the results</span>
+regress csat expense income percent high
+estimates store Model1
+regress csat expense income percent high i.region
+estimates store Model2
+</pre>
+</div>
+
+<pre class="example">
+regress csat expense income percent high
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(4, 46)        =     51.86
+       Model |  183354.603         4  45838.6508   Prob &gt; F        =    0.0000
+    Residual |  40659.9067        46  883.911016   R-squared       =    0.8185
+-------------+----------------------------------   Adj R-squared   =    0.8027
+       Total |   224014.51        50   4480.2902   Root MSE        =    29.731
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045604    .004384     1.04   0.304    -.0042641     .013385
+      income |   .4437858   1.138947     0.39   0.699    -1.848795    2.736367
+     percent |  -2.533084   .2454477   -10.32   0.000    -3.027145   -2.039024
+        high |   2.086599   .9246023     2.26   0.029     .2254712    3.947727
+       _cons |   836.6197   58.33238    14.34   0.000     719.2027    954.0366
+------------------------------------------------------------------------------
+estimates store Model1
+regress csat expense income percent high i.region
+
+      Source |       SS           df       MS      Number of obs   =        50
+-------------+----------------------------------   F(7, 42)        =     51.07
+       Model |  190570.293         7  27224.3275   Prob &gt; F        =    0.0000
+    Residual |  22391.0874        42  533.121128   R-squared       =    0.8949
+-------------+----------------------------------   Adj R-squared   =    0.8773
+       Total |   212961.38        49  4346.15061   Root MSE        =    23.089
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   -.004375   .0044603    -0.98   0.332    -.0133763    .0046263
+      income |   1.306164    .950279     1.37   0.177    -.6115765    3.223905
+     percent |  -2.965514   .2496481   -11.88   0.000    -3.469325   -2.461704
+        high |   3.544804   1.075863     3.29   0.002     1.373625    5.715983
+             |
+      region |
+    N. East  |   80.81334    15.4341     5.24   0.000     49.66607    111.9606
+      South  |   33.61225   13.94521     2.41   0.020     5.469676    61.75483
+    Midwest  |   32.15421   10.20145     3.15   0.003     11.56686    52.74157
+             |
+       _cons |   724.8289   79.25065     9.15   0.000     564.8946    884.7631
+------------------------------------------------------------------------------
+estimates store Model2
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-4">
+<h4 id="orgheadline30">Saving and replaying</h4>
+<div class="outline-text-4" id="text-orgheadline30">
+<ul class="org-ul">
+<li>Stored models can be recalled</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock19"><span class="org-comment">// Display Model1</span>
+estimates replay Model1
+</pre>
+</div>
+
+<pre class="example">
+estimates replay Model1
+
+-------------------------------------------------------------------------------
+Model Model1
+-------------------------------------------------------------------------------
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(4, 46)        =     51.86
+       Model |  183354.603         4  45838.6508   Prob &gt; F        =    0.0000
+    Residual |  40659.9067        46  883.911016   R-squared       =    0.8185
+-------------+----------------------------------   Adj R-squared   =    0.8027
+       Total |   224014.51        50   4480.2902   Root MSE        =    29.731
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045604    .004384     1.04   0.304    -.0042641     .013385
+      income |   .4437858   1.138947     0.39   0.699    -1.848795    2.736367
+     percent |  -2.533084   .2454477   -10.32   0.000    -3.027145   -2.039024
+        high |   2.086599   .9246023     2.26   0.029     .2254712    3.947727
+       _cons |   836.6197   58.33238    14.34   0.000     719.2027    954.0366
+------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-4">
+<h4 id="orgheadline31">Saving and replaying</h4>
+<div class="outline-text-4" id="text-orgheadline31">
+<ul class="org-ul">
+<li>Stored models can be compared</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock20"><span class="org-comment">// Compare Model1 and Model2 coefficients</span>
+estimates <span class="org-constant">table</span> Model1 Model2
+</pre>
+</div>
+
+<pre class="example">
+estimates table Model1 Model2
+
+----------------------------------------
+    Variable |   Model1       Model2    
+-------------+--------------------------
+     expense |  .00456044   -.00437502  
+      income |  .44378583    1.3061642  
+     percent | -2.5330843   -2.9655142  
+        high |  2.0865991    3.5448038  
+             |
+      region |
+    N. East  |               80.813342  
+      South  |               33.612251  
+    Midwest  |               32.154215  
+             |
+       _cons |  836.61966    724.82886  
+----------------------------------------
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-4">
+<h4 id="orgheadline32">Exporting into Excel</h4>
+<div class="outline-text-4" id="text-orgheadline32">
+<ul class="org-ul">
+<li>Avoid human error when transferring coefficients into tables</li>
+<li>Excel can be used to format publication-ready tables</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock21">outreg2 [Model1 Model2] <span class="org-constant">using</span> csatprediction.xls, <span class="org-keyword">replace</span>
+</pre>
+</div>
+
+<pre class="example">
+outreg2 [Model1 Model2] using csatprediction.xls, replace
+~/ado/plus/o/outreg2.ado
+csatprediction.xls
+dir : seeout
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline35" class="outline-2">
+<h2 id="orgheadline35">Graphing in Stata</h2>
+<div class="outline-text-2" id="text-orgheadline35">
+</div>
+
+<div id="outline-container-orgheadline36" class="outline-3">
+<h3 id="orgheadline36">Graphing Strategies</h3>
+<div class="outline-text-3" id="text-orgheadline36">
+<ul class="org-ul">
+<li>Keep it simple</li>
+<li>Labels, labels, labels!!</li>
+<li>Avoid cluttered graphs</li>
+<li>Every part of the graph should be meaningful</li>
+<li>Avoid:
+<ul class="org-ul">
+<li>Shading</li>
+<li>Distracting colors</li>
+<li>Decoration</li>
+</ul></li>
+
+<li>Always know what you’re working with before you get started
+<ul class="org-ul">
+<li>Recognize scale of data</li>
+<li>If you’re using multiple variables – how do their scales align?</li>
+</ul></li>
+<li>Before any graphing procedure review variables with <code>codebook</code>, <code>sum</code>, <code>tab</code>, etc.</li>
+<li>HELPFUL STATA HINT:  If you want your command to go on multiple lines use <code>///</code> at end of each line</li>
+</ul>
+</div>
+
+
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37">Terrible Graph</h4>
+<div class="outline-text-4" id="text-orgheadline37">
+
+<div class="figure">
+<p><img src="./images/Terrible.png" alt="Terrible.png" />
+</p>
+</div>
+</div>
+
+<ul class="org-ul"><li><a id="orgheadline38"></a>Much Better Graph<br  /><div class="outline-text-6" id="text-orgheadline38">
+
+<div class="figure">
+<p><img src="./images/Good.png" alt="Good.png" />
+</p>
+</div>
+</div></li></ul>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline48" class="outline-3">
+<h3 id="orgheadline48">Univariate Graphics</h3>
+<div class="outline-text-3" id="text-orgheadline48">
+</div><div id="outline-container-orgheadline39" class="outline-4">
+<h4 id="orgheadline39">Our First Dataset</h4>
+<div class="outline-text-4" id="text-orgheadline39">
+<ul class="org-ul">
+<li>Time Magazine Public School Poll
+<ul class="org-ul">
+<li>Based on survey of 1,000 adults in U.S.</li>
+<li>Conducted in August 2010</li>
+<li>Questions regarding feelings about parental involvement, teachers union, current potential for reform</li>
+</ul></li>
+
+<li>Open Stata and call up the datafile for today</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock22"><span class="org-comment">// Step 1: tell Stata where to find data:</span>
+<span class="org-keyword">cd</span> <span class="org-string">"~/StataGraphics/dataSets"</span>
+<span class="org-comment">// Step 2: call up our dataset:</span>
+<span class="org-keyword">use</span> TimePollPubSchools.dta
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline40" class="outline-4">
+<h4 id="orgheadline40">Single Continuous Variables</h4>
+<div class="outline-text-4" id="text-orgheadline40">
+<p>
+Example: Histograms
+</p>
+<ul class="org-ul">
+<li>Stata assumes you’re working with continuous data</li>
+<li>Very simple syntax: 
+<ul class="org-ul">
+<li><code>hist varname</code></li>
+</ul></li>
+<li>Put a comma after your varname and start adding options
+<ul class="org-ul">
+<li><code>bin(#)</code> : change the number of bars that the graph displays</li>
+<li><code>normal</code> : overlay normal curve</li>
+<li><code>addlabels</code> : add actual values to bars</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline41" class="outline-4">
+<h4 id="orgheadline41">Histogram Options</h4>
+<div class="outline-text-4" id="text-orgheadline41">
+<ul class="org-ul">
+<li>To change the numeric depiction of your data add these options after the comma 
+<ul class="org-ul">
+<li>Choose one: density fraction frequency percent</li>
+</ul></li>
+<li>Be sure to properly describe your histogram:
+<ul class="org-ul">
+<li><code>title(insert name of graph)</code></li>
+<li><code>subtitle(insert subtitle of graph)</code></li>
+<li><code>note(insert note to appear at bottom of graph)</code></li>
+<li><code>caption(insert caption to appear below notes)</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline42" class="outline-4">
+<h4 id="orgheadline42">Histogram Example</h4>
+<div class="outline-text-4" id="text-orgheadline42">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock23">hist F1, bin(<span class="org-highlight-numbers-number">10</span>) percent title(TITLE) <span class="org-comment">///</span>
+  subtitle(SUBTITLE) caption(CAPTION) <span class="org-constant">note</span>(NOTES)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/hist1.png" alt="hist1.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline43" class="outline-4">
+<h4 id="orgheadline43">Axis Titles and Labels</h4>
+<div class="outline-text-4" id="text-orgheadline43">
+<p>
+Example: Histograms
+</p>
+<ul class="org-ul">
+<li>Axis title options (default is variable label):
+<ul class="org-ul">
+<li><code>xtitle(insert x axis name)</code></li>
+<li><code>ytitle(insert y axis name)</code></li>
+</ul></li>
+<li>Don’t want axis titles?
+<ul class="org-ul">
+<li><code>xtitle("")</code></li>
+<li><code>ytitle("")</code></li>
+</ul></li>
+
+<li>Add labels to X or Y axis:
+<ul class="org-ul">
+<li>xlabel(insert x axis label)</li>
+<li>ylabel(insert y axis label)</li>
+</ul></li>
+<li>Tell Stata how to scale each axis
+<ul class="org-ul">
+<li>xlabel(start#(increment)end#)</li>
+<li>xlabel(0(5)100)</li>
+</ul></li>
+<li>This would label x-axis from 0-100 in increments of 5</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-4">
+<h4 id="orgheadline44">Axis Labels Example</h4>
+<div class="outline-text-4" id="text-orgheadline44">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock24">hist F1, bin(<span class="org-highlight-numbers-number">10</span>) percent title(TITLE) subtitle(SUBTITLE) <span class="org-comment">///</span>
+    caption(CAPTION) <span class="org-constant">note</span>(NOTES) <span class="org-comment">///</span>
+    xtitle(Here's your x-axis title) <span class="org-comment">///</span>
+ytitle(here's your y-axis title)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/hist2.png" alt="hist2.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline45" class="outline-4">
+<h4 id="orgheadline45">Basic Graphing: Single Categorical Variables</h4>
+<div class="outline-text-4" id="text-orgheadline45">
+<ul class="org-ul">
+<li>We can also use the <code>hist</code> command for bar graphs
+<ul class="org-ul">
+<li>Simply specify "discrete" with options</li>
+</ul></li>
+<li>Stata will produce one bar for each level (i.e. category) of variable</li>
+<li>Use <code>xlabel</code> command to insert names of individual categories</li>
+</ul>
+
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock25">hist F4, title(Racial breakdown of Time Poll Sample) xtitle(Race) <span class="org-comment">///</span>
+ytitle(Percent) <span class="org-type">xlabel</span>(<span class="org-highlight-numbers-number">1</span> <span class="org-string">"White"</span> <span class="org-highlight-numbers-number">2</span> <span class="org-string">"Black"</span> <span class="org-highlight-numbers-number">3</span> <span class="org-string">"Asian"</span> <span class="org-highlight-numbers-number">4</span> <span class="org-string">"Hispanic"</span> <span class="org-comment">///</span>
+ <span class="org-highlight-numbers-number">5</span> <span class="org-string">"Other"</span>) discrete percent addlabels
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/bargraph.png" alt="bargraph.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline46" class="outline-4">
+<h4 id="orgheadline46">Exercise 1: Histograms Bar Graphs</h4>
+<div class="outline-text-4" id="text-orgheadline46">
+<ol class="org-ol">
+<li>Open the datafile, NatNeighCrimeStudy.dta.</li>
+<li>Create a histogram of the tract-level poverty rate (variable name: <code>T_POVRTY</code>).</li>
+<li>Insert the normal curve over the histogram</li>
+<li>Change the numeric representation on the Y-axis to "percent"</li>
+<li>Add appropriate titles to the overall graph and the x axis and y axis.  Also, add a note that states the source of this data.</li>
+<li>Open the datafile, TimePollPubSchools.dta</li>
+<li>Create  a histogram of the question, "What grade would you give your child’s school" (variable name: Q11).  Be sure to tell Stata that this is a categorical variable.</li>
+<li>Format this graph so that the axes have proper titles and labels.  Also, add an appropriate title to the overall graph that goes onto two lines.  Add a note stating the source of the data.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline47" class="outline-4">
+<h4 id="orgheadline47">Next Dataset:</h4>
+<div class="outline-text-4" id="text-orgheadline47">
+<ul class="org-ul">
+<li>National  Neighborhood Crime Study (NNCS)
+<ul class="org-ul">
+<li>N=9,593 census tracts in 2000</li>
+<li>Explore sources of variation in crime for communities in the United States</li>
+<li>Tract-level data: crime, social disorganization, disadvantage, socioeconomic inequality</li>
+<li>City-level data: labor market, socioeconomic inequality, population change</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline59" class="outline-3">
+<h3 id="orgheadline59">Bivariate Graphics</h3>
+<div class="outline-text-3" id="text-orgheadline59">
+</div><div id="outline-container-orgheadline49" class="outline-4">
+<h4 id="orgheadline49">The Twoway Family</h4>
+<div class="outline-text-4" id="text-orgheadline49">
+<ul class="org-ul">
+<li><code>twoway</code> is basic Stata command for all twoway graphs</li>
+<li>Use <code>twoway</code> anytime you want to make comparisons among variables</li>
+<li>Can be used to combine graphs (i.e., overlay one graph with another
+<ul class="org-ul">
+<li>e.g., insert line of best fit over a scatter plot</li>
+</ul></li>
+
+<li>Some basic examples:</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock26"><span class="org-keyword">use</span> NatNeighCrimeStudy.dta
+twoway scatter T_PERCAP T_VIOLNT
+twoway dropline T_PERCAP T_VIOLNT
+twoway  lfitci T_PERCAP T_VIOLNT
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline50" class="outline-4">
+<h4 id="orgheadline50">Twoway and the "by" Statement</h4>
+<div class="outline-text-4" id="text-orgheadline50">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock27">twoway scatter T_PERCAP T_VIOLNT, <span class="org-type">by</span>(DIVISION)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/twowayby.png" alt="twowayby.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline51" class="outline-4">
+<h4 id="orgheadline51">Twoway Title Options</h4>
+<div class="outline-text-4" id="text-orgheadline51">
+<ul class="org-ul">
+<li>Same title options as with histogram
+<ul class="org-ul">
+<li><code>title(insert name of graph)</code></li>
+<li><code>subtitle(insert subtitle of graph)</code></li>
+<li><code>note(insert note to appear at bottom of graph)</code></li>
+<li><code>caption(insert caption to appear below notes)</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline52" class="outline-4">
+<h4 id="orgheadline52">Twoway Title Options Example</h4>
+<div class="outline-text-4" id="text-orgheadline52">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock28">twoway scatter T_PERCAP T_VIOLNT, <span class="org-comment">///</span>
+    title(Comparison of Per Capita Income <span class="org-comment">///</span>
+          and Violent Crime Rate at Tract level) <span class="org-comment">///</span>
+xtitle(Violent Crime Rate) ytitle(Per Capita Income) <span class="org-comment">///</span>
+    <span class="org-constant">note</span>(Source: National Neighborhood Crime Study <span class="org-highlight-numbers-number">2000</span>)
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li>The title is a bit cramped&#x2013;let's fix that:</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock29">twoway scatter T_PERCAP T_VIOLNT, <span class="org-comment">///</span>
+    title(<span class="org-string">"Comparison of Per Capita Income"</span> <span class="org-comment">///</span>
+<span class="org-string">"and Violent Crime Rate at Tract level"</span>) <span class="org-comment">///</span>
+xtitle(Violent Crime Rate) ytitle(Per Capita Income) <span class="org-comment">///</span>
+note(Source: National Neighborhood Crime Study <span class="org-highlight-numbers-number">2000</span>)
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline53" class="outline-4">
+<h4 id="orgheadline53">Twoway Symbol Options</h4>
+<div class="outline-text-4" id="text-orgheadline53">
+<ul class="org-ul">
+<li>A variety of symbol shapes are available: use <code>palette symbolpalette</code> to seem them and <code>msymbol()</code> to set them</li>
+</ul>
+
+<div class="figure">
+<p><img src="./images/Symbol.png" alt="Symbol.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline54" class="outline-4">
+<h4 id="orgheadline54">Twoway Symbol Options</h4>
+<div class="outline-text-4" id="text-orgheadline54">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock30">twoway scatter T_PERCAP T_VIOLNT, <span class="org-comment">///</span>
+    title(<span class="org-string">"Comparison of Per Capita Income"</span> <span class="org-comment">///</span>
+<span class="org-string">"and Violent Crime Rate at Tract level"</span>) <span class="org-comment">///</span>
+xtitle(Violent Crime Rate) ytitle(Per Capita Income) <span class="org-comment">///</span>
+note(Source: National Neighborhood Crime Study <span class="org-highlight-numbers-number">2000</span>) <span class="org-comment">///</span>
+msymbol(Sh) mcolor(<span class="org-string">"red"</span>)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/msymbol_mcolor.png" alt="msymbol_mcolor.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline55" class="outline-4">
+<h4 id="orgheadline55">Overlaying Twoway Graphs</h4>
+<div class="outline-text-4" id="text-orgheadline55">
+<ul class="org-ul">
+<li>Very simple to combine multiple graphs…just put each graph command in parentheses
+<ul class="org-ul">
+<li><code>twoway (scatter var1 var2) (lfit var1 var2)</code></li>
+</ul></li>
+<li>Add individual options to each graph within the parentheses</li>
+<li>Add overall graph options as usual following the comma 
+<ul class="org-ul">
+<li><code>twoway (scatter var1 var2) (lfit var1 var2), options</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline56" class="outline-4">
+<h4 id="orgheadline56">Overlaying Points and Lines</h4>
+<div class="outline-text-4" id="text-orgheadline56">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock31">twoway (scatter T_PERCAP T_VIOLNT) <span class="org-comment">///</span>
+    (lfit T_PERCAP T_VIOLNT), <span class="org-comment">///</span>
+    title(<span class="org-string">"Comparison of Per Capita Income"</span> <span class="org-comment">///</span>
+          <span class="org-string">"and Violent Crime Rate at Tract level"</span>) <span class="org-comment">///</span>
+    xtitle(Violent Crime Rate) ytitle(Per Capita Income) <span class="org-comment">///</span>
+    <span class="org-constant">note</span>(Source: National  Neighborhood Crime Study <span class="org-highlight-numbers-number">2000</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline57" class="outline-4">
+<h4 id="orgheadline57">Overlaying Points and Labels</h4>
+<div class="outline-text-4" id="text-orgheadline57">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock32">twoway (scatter T_PERCAP T_VIOLNT if T_VIOLNT==<span class="org-highlight-numbers-number">1976</span>, <span class="org-comment">///</span>
+        mlabel(CITY)) (scatter T_PERCAP T_VIOLNT), <span class="org-comment">///</span>
+    title(<span class="org-string">"Comparison of Per Capita Income"</span> <span class="org-comment">///</span>
+          <span class="org-string">"and Violent Crime Rate at Tract level"</span>) <span class="org-comment">///</span>
+    <span class="org-type">xlabel</span>(<span class="org-highlight-numbers-number">0</span>(<span class="org-highlight-numbers-number">200</span>)<span class="org-highlight-numbers-number">2400</span>) <span class="org-constant">note</span>(Source: National Neighborhood <span class="org-comment">///</span>
+                            Crime Study <span class="org-highlight-numbers-number">2000</span>) legend(off)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline58" class="outline-4">
+<h4 id="orgheadline58">Exercise 2: The TwoWay Family</h4>
+<div class="outline-text-4" id="text-orgheadline58">
+<p>
+Open the datafile, NatNeighCrimeStudy.dta.
+</p>
+<ol class="org-ol">
+<li>Create a basic twoway scatterplot that compares the city unemployment rate (<code>C_UNEMP</code>) to the percent secondary sector low-wage jobs (<code>C_SSLOW</code>)</li>
+<li>Generate the same scatterplot, but this time, divide the plot by the dummy variable indicating whether the city is located in the south or not (<code>C_SOUTH</code>)</li>
+<li>Change the color of the symbol that you use in this scatter plot</li>
+<li>Change the type of symbol you use to a marker of your choice</li>
+<li>Notice in your scatterplot that is broken down by <code>C_SOUTH</code>  that there is an outlier in the upper right hand corner of the "Not South" graph.  Add the city name label to this marker.</li>
+<li>Review the options available under "help twoway<sub>options</sub>" and change one aspect of your graph using an option that we haven’t already reviewed</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline64" class="outline-3">
+<h3 id="orgheadline64">More Fun with Twoway Line Graphs</h3>
+<div class="outline-text-3" id="text-orgheadline64">
+</div><div id="outline-container-orgheadline60" class="outline-4">
+<h4 id="orgheadline60">Line Graphs</h4>
+<div class="outline-text-4" id="text-orgheadline60">
+<ul class="org-ul">
+<li>Line graphs helpful for a variety of data
+<ul class="org-ul">
+<li>Especially any type of time series data</li>
+</ul></li>
+<li>We’ll use data on US life expectancy from 1900-1999
+<ul class="org-ul">
+<li><code>webuse uslifeexp, clear</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline61" class="outline-4">
+<h4 id="orgheadline61">Line Graphs</h4>
+<div class="outline-text-4" id="text-orgheadline61">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock33">webuse uslifeexp, <span class="org-keyword">clear</span>
+twoway (line le_wm year, mcolor(<span class="org-string">"red"</span>)) <span class="org-comment">///</span>
+    (line le_bm year, mcolor(<span class="org-string">"green"</span>))
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/lineGraph1.png" alt="lineGraph1.png" />
+</p>
+</div>
+
+
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock34">twoway (line (le_wfemale le_wmale le_bf le_bm) year, <span class="org-comment">///</span>
+    lpattern(dot solid dot solid))
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/linegraph2.png" alt="linegraph2.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline62" class="outline-4">
+<h4 id="orgheadline62">Stata Graphing Lines</h4>
+<div class="outline-text-4" id="text-orgheadline62">
+<div class="org-src-container">
+
+<pre class="src src-stata" id="orgsrcblock35">palette linepalette
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/linepalette.png" alt="linepalette.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline63" class="outline-4">
+<h4 id="orgheadline63">Exporting Graphs</h4>
+<div class="outline-text-4" id="text-orgheadline63">
+<ul class="org-ul">
+<li>From Stata, right click on image and select "save as" or try syntax:
+<ul class="org-ul">
+<li><code>graph export myfig.esp, replace</code></li>
+</ul></li>
+<li>In Microsoft Word: insert &gt; picture &gt; from file
+<ul class="org-ul">
+<li>Or, right click on graph in Stata and copy and paste into Word</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline67" class="outline-2">
+<h2 id="orgheadline67">Wrap-up</h2>
+<div class="outline-text-2" id="text-orgheadline67">
+</div><div id="outline-container-orgheadline65" class="outline-3">
+<h3 id="orgheadline65">Help Us Make This Workshop Better</h3>
+<div class="outline-text-3" id="text-orgheadline65">
+<ul class="org-ul">
+<li>Please take a moment to fill out a very short feedback form</li>
+<li>These workshops exist for you&#x2013;tell us what you need!</li>
+<li><a href="http://tinyurl.com/StataRegressionFeedback">http://tinyurl.com/StataRegressionFeedback</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline66" class="outline-3">
+<h3 id="orgheadline66">Additional resources</h3>
+<div class="outline-text-3" id="text-orgheadline66">
+<ul class="org-ul">
+<li>training and consulting
+<ul class="org-ul">
+<li>IQSS workshops: <a href="http://projects.iq.harvard.edu/rtc/filter_by/workshops">http://projects.iq.harvard.edu/rtc/filter_by/workshops</a></li>
+<li>IQSS statistical consulting: <a href="http://dss.iq.harvard.edu/">http://dss.iq.harvard.edu/</a></li>
+</ul></li>
+
+<li>Stata resources
+<ul class="org-ul">
+<li>UCLA website: <a href="http://www.ats.ucla.edu/stat/Stata/">http://www.ats.ucla.edu/stat/Stata/</a></li>
+<li>Great for self-study</li>
+<li>Links to resources</li>
+</ul></li>
+<li>Stata website: <a href="http://www.stata.com/help.cgi?contents">http://www.stata.com/help.cgi?contents</a></li>
+<li>Email list: <a href="http://www.stata.com/statalist/">http://www.stata.com/statalist/</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><span xmlns:dct='http://purl.org/dc/terms/' property='dct:title'> These workshop notes </span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://dss.iq.harvard.edu' property='cc:attributionName' rel='cc:attributionURL'>Harvard University</a> are licensed <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/80x15.png' /></a>. Presented by <a href='http://dss.iq.harvard.edu'>Data Science Services</a> at <a href='http://iq.harvard.edu'> IQSS</a></p>
+</div>
+</body>
+</html>

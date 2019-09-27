@@ -1,0 +1,1605 @@
+#+TITLE: Screen Scraping: A Hands-on Introduction
+#+AUTHOR:      Alex Storer
+#+EMAIL: support@help.hmdc.harvard.edu
+#+DATE: April, 2012
+
+
+#+PROPERTY: exports both
+#+PROPERTY: results output
+#+PROPERTY: cache yes
+#+PROPERTY: html-postamble "<div id=\"show_source\"><input type=\"button\" value=\"Show Org source\" onClick='show_org_source()'></div><div id=\"license\"><p>Documentation from the http://orgmode.org/worg/ website (either in its HTML format or in its Org format) is licensed under the <a href=\"http://www.gnu.org/copyleft/fdl.html\">GNU Free Documentation License version 1.3</a> or later.  The code examples and css stylesheets are licensed under the <a href=\"http://www.gnu.org/licenses/gpl.html\">GNU General Public License v3</a> or later.</p></div>"
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t TeX:t LaTeX:nil skip:nil d:t tags:not-in-toc creator:nil
+#+INFOJS_OPT: view:info toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+STYLE:    <link rel="stylesheet" type="text/css" href="org/css/worg.css" />
+
+
+* setup								   :noexport:
+
+#+begin_src emacs-lisp :cache no
+  (setq org-export-html-postamble "<p class=\"author\" align:right><i>Written by
+  Alex Storer: (<a
+  href=\"mailto:support@help.hmdc.harvard.edu\">support@help.hmdc.harvard.edu</a>)
+  for <a href=\"http://iq.harvard.edu\">IQSS</a> - Spring, 2012</i></p>
+  ")
+#+end_src
+
+#+results[3b14f99fc068c3b2056f3fc1e1b5fdfab8b56322]:
+
+* Goals
+- Get a working python environment installed on your own computer
+- Make python seem less scary
+- Understand some of the differences between python and other languages
+- Understand what screen scraping is all about
+- Learn the tools to scrape web sites (and other structured text)
+  effectively
+
+This may take some time!  This time is available indefinitely,
+depending on how quickly we go it could take a number of sessions -
+my intention is to play it by ear to see what we need to focus on.
+
+** Who am I?
+
+My name is Alex Storer, and I'm part of the [[http://dss.iq.harvard.edu][Research Technology
+Consulting]] team at IQSS.  I have a PhD in Computational Neuroscience,
+and have done a lot of programming and scripting to interact with
+data.
+
+Our team can help you with your research questions, both with the
+statistics and the technology.  If you want to chat with us, simply
+e-mail [[support@help.hmdc.harvard.edu]].
+
+** What is this page?
+
+This is a tutorial that I wrote using the org-mode in emacs.  It is
+hosted here:
+
+http://www.people.fas.harvard.edu/~astorer/scraping/scraping.html
+
+You can always find details about our ongoing workshops here:
+
+http://dss.iq.harvard.edu
+
+* Basic Python
+Python is a powerful interpreted language that people often use for
+scraping.  We'll highlight here a few of the most helpful features for
+understanding Python code and writing scrapers.  This is by no means a
+complete or thorough introduction to Python!  It's just enough to get
+by.
+
+** Installation
+   Python comes in two modern flavors, version 2 and version 3.  There
+   are some important language differences between them, and in
+   practice, almost everyone uses version 2.  To install it, go [[http://python.org/download/][here]]
+   and select the relevant operating system.
+*** IDE
+   An *IDE*, or Integrated Development Environment, is used to
+   facilitate programming.  A good IDE does things like code
+   highlighting, error checking, one-click-running, and easy
+   integration across multiple files.  An example of a crappy IDE is
+   notepad.  I like to use emacs.  Most people prefer something else.
+*** Wing IDE 101
+    For this session, I recommend [[http://wingware.com/downloads/wingide-101][Wing 101]].  It's a free version of a
+    more fully-featured IDE, but for beginners, it's perfect.  If you
+    don't already have an IDE that you're invested in, or you want
+    your intro to python to be as painless as possible, you should
+    install it.  It's cross platform.
+**** Getting Started in Wing
+     Once you have Wing installed, you might want to use the tutorial
+     to learn how to navigate around in it.
+
+#+CAPTION: Opening the tutorial in Wing 101.
+#+ATTR_HTML: title="Wing Tutorial" align="center"
+     [[./img/tutorial.jpg]]
+
+** Further Python Resources
+
+   *But wait, I want to spend four months becoming a Python guru!*
+
+   Dude, you're awesome.  Here are some resources that will help you:
+
+   - [[http://knuth.luther.edu/~leekent/IntroToComputing/][Python Programming Fundamentals]]
+     Uses WingIDE to teach basic computer science tactics using python
+   - [[http://www.pythonchallenge.com/][Python Challenge]]
+     A fun programming riddle that will increase your chops.
+   - [[http://learnpythonthehardway.org/][Learn Python The Hard Way]]
+     The Hard Way means by actually writing code.  Maybe it should be
+     called The Good Way?
+
+** Diving In
+   In Wing, there is a window open called *Python Shell*   
+   - If you know *R*, think of this just like the R command line
+   - If you've never programmed before, think of this as a graphing calculator
+#+begin_src python
+  print 2+4
+#+end_src
+
+#+results[d1256271362c0e2f416067f6042e285cc1187ff7]:
+: 6
+*** Basic Text Handling
+   - Of course, this graphing calculator can handle text, too!
+#+begin_src python
+  mystr = "Hello, World!"
+  print mystr
+  print len(mystr)
+#+end_src
+
+#+results[c1208636478dcda9b3c18cc789483318445bb63f]:
+: Hello, World!
+: 13
+
+| *Python Code*             | *R Code*                   | *English Translation*                                                                                                                                |
+| =print 2+4=               | =print(2+4)=               | Print the value of 2+4                                                                                                                               |
+| =mystr = '`Hello World'`= | =mystr <- '`Hello World'`= | Assign the string "Hello World" to the variable mystr                                                                                                |
+| =len(mystr)=              | =nchar(mystr)=             | How "long" is the variable mystr?  /Note: R can tell you how long it is, but if you want the number of characters, that's what you need to ask for./ |
+|                           |                            |                                                                                                                                                      |
+
+*Note to Stata Users:*\\
+Assigning a variable is not the same as adding a "column" to your dataset.
+
+*** Indexing and Slicing
+Get the first element of a string.
+
+- *Note:* Python counts from 0.  This is a common convention in most
+  languages constructed by computer scientists.
+
+#+begin_src python
+mystr = "Dogs in outer space"
+print mystr[0]
+#+end_src
+
+#+results[844c7e86ee20bf21d6d090272310e3c653b86b2f]:
+: D
+
+Get the last element of a string
+#+begin_src python
+mystr = "Dogs in outer space"
+print mystr[-1]
+print mystr[len(mystr)-1]
+#+end_src
+
+#+results[0a87ac815fbef71380d1d2ddd2a0dde2c9d75dd6]:
+: e
+: e
+
+#+begin_src python
+mystr = "Dogs in outer space"
+print mystr[1:3]
+print mystr[3:]
+print mystr[:-3]
+#+end_src
+
+#+results[dd33050437527edea33bb32d9e05ddcab6466939]:
+: og
+: s in outer space
+: Dogs in outer sp
+
+
+*** Including Other Packages
+
+- By default, python doesn't include every possible "package"
+  - This is similar to R, but unlike Matlab
+  - Use the =include= statement to load a library
+
+#+begin_src python
+import math
+print math.sin(math.pi)
+#+end_src
+
+#+results[8e3f78bfbff7b8df974cf37bf2e36495bc09cd25]:
+: 1.22464679915e-16
+
+After we import from a package, we have to access sub-elements of that
+package using the =.= operator.  Notice also that while the value
+=1.22464679915e-16= is very nearly =0=, the =math= module doesn't know
+that \sin(\pi) = 0.  There are smarter modules for doing math in
+Python, like =scipy= and =numpy=.  Some people love using Python for
+Math.  I think it makes more sense to use R.
+
+- If you want to =import= something into your namespace
+  - =from math import <myfunction>= *or*
+  - =from math import *=
+
+#+begin_src python
+from math import *
+print sin(pi)
+#+end_src
+
+#+results[767682e60a31713dc13f79704c6427e77d1fb517]:
+: 1.22464679915e-16
+
+*** Objects and methods
+
+Python makes extensive use of *objects*.  An object has
+ - Methods: functions that work only on that option
+ - Fields: data that only that type of object has
+
+For example, let's imagine a =fruit= object.  A =fruit= might have a
+field called =hasPeel=, which tells you whether this fruit is
+peeled. It could also have a method called =peel=, which alters the
+state of the fruit.
+
+#+begin_src python
+str = "THE World is A BIG and BEAUTIFUL place.  "
+print str.upper()
+name = "Alex Storer"
+print name.swapcase()
+#+end_src
+
+#+results[c55b29510a9e4a74a3f4aa62c5f8e7879593d2fd]:
+: THE WORLD IS A BIG AND BEAUTIFUL PLACE.  
+: aLEX sTORER
+
+Here we defined two strings, =str= and =name=, and used these to
+invoke string methods which affect the case of the string.
+
+- You can write your own objects and methods
+- Objects can be sub-classes of other objects
+  - e.g., a =psychologist= is a type of =researcher=, who does
+    everything a =researcher= does but also some other things only
+    a =pyschologist= does.
+
+*** Defining Functions
+
+You can write your own functions, pieces of code that can be used to
+take specific inputs and give outputs.  You can create a function by
+using the =def= command.
+
+#+begin_src python
+  def square(x):
+      return x*x
+  print square(9)
+#+end_src
+
+#+results[539ffe18cfa155595faa85cda33ba7fe5011c050]:
+: 81
+
+Pay close attention to the *whitespace* that is used in Python!
+Unlike other languages, it is not ignored.  Everything with the same
+indentation is in the same level.  Above, the statement =return x*x=
+is part of the =square= function, but the following line is outside of
+the function definition.
+
+*** Logical Flow
+#+CAPTION: The xkcd guide to writing good code
+    [[./img/decision-tree.png]]
+
+You can think about this logical process as being in pseudocode.
+
+: IF do things right
+:    ---> code well
+: OTHERWISE
+:    ---> do things fast
+
+A lot of programming is figuring out how to fit things into this sort
+of =if=/=else= structure.  Let's look at an example in Python.
+
+- The method =find= returns the index of the first location of a
+  string match
+
+#+begin_src python
+mystr = "This is one cool looking string!"
+if mystr.find("string")>len(mystr)/2:
+    print "The word 'string' is in the second half"
+else:
+    print "The word 'string is not in the second half"
+#+end_src
+
+#+results[57d1e80d63304ab9de95bf0eeba2abef84071b6d]:
+: The word 'string' is in the second half
+
+What happens if the word "string" is not there at all?
+
+- The method =find= returns -1 if the string isn't found
+
+#+begin_src python
+mystr = "I don't know about you, but I only use velcro."
+print mystr.find("string")
+if mystr.find("string")>len(mystr)/2:
+    print "The word 'string' is in the second half"
+elif mystr.find("string")>=0:
+    print "The word 'string is not in the second half"
+else:
+    print "The word 'string' isn't there!"
+#+end_src
+
+#+results[466ad40d7a29253944e1117e90d3a012a6c0f39c]:
+: -1
+: The word 'string' isn't there!
+
+- *Important Note:* In Python, most everything evaluates to =True=.
+  Exceptions include =0= and =None=.  This means that you can say
+  things like =if (result)= where the result may be a computation, a
+  string search, or anything like that.  As long as it evaluates to
+  =True=, it will work!
+
+*** Review
+- =if=, =elif= and =else= can be used to control the flow of a program
+- strings are a type of a object, and have a number of methods that
+  come with them, including =find=, =upper= and =swapcase=
+  - methods are called using =mystring.method()=
+  - The list of methods for strings can be found in the [[http://docs.python.org/library/stdtypes.html][Python documentation]]
+- =def= can be used to define a function
+  - The =return= statement determine what the function returns
+
+** For Loops
+   The for loop is a major component of how python is used.  You can
+   iterate over lots of different things, and python is smart enough
+   to know how to do it.  
+   - *Note:* the following is what's called pseudocode - something
+     that looks like code, but isn't going to run.  It's a helpful way
+     to clarify the steps that you need to take to get things to
+     work.
+#+begin_src python
+  for (item in container):
+      process item
+      print item
+  print "done processing items!"
+#+end_src
+
+#+results[b41c7e112aac7171a6f309c9cdf7a3e1c10a853d]:
+
+   Notice the use of the <TAB> (or spacing) - that's how python knows whether we're
+   inside the loop or not!
+*** Example
+#+begin_src python
+      str = "Daddy ran to help Ann.  Up and down went the seesaw."      
+      for word in str.split():
+          print word
+#+end_src
+
+#+results[d09125a7aa52b71485c73cc861c3aee46d29f403]:
+#+begin_example
+    Daddy
+    ran
+    to
+    help
+    Ann.
+    Up
+    and
+    down
+    went
+    the
+    seesaw.
+#+end_example
+
+    Notice the use of =str.split()=: this is an example of calling a
+    /method/ of a /string object/.  It returns a *list* of words after
+    splitting the string on whitespace.
+
+** Lists
+
+- A *list* is a data type that can hold anything.
+- Lists are iterable (you can pass them to a =for= loop
+- You can =.append=, =.extend=,and otherwise manipulate lists.  [[http://docs.python.org/tutorial/datastructures.html][Python
+  Documentation]]
+
+#+begin_src python
+  mylist = ['dogs',1,4,"fishes",["hearts","clovers"],list]  
+  for element in mylist:
+      print element    
+  mylist.reverse()
+  print mylist
+#+end_src
+
+#+results[f2c35f9b34a0db7145ca9d7f1bfbf0153fdb3da4]:
+: dogs
+: 1
+: 4
+: fishes
+: ['hearts', 'clovers']
+: <type 'list'>
+: [<type 'list'>, ['hearts', 'clovers'], 'fishes', 4, 1, 'dogs']
+
+
+
+** Exercise
+1. Write a function that takes in a string, and outputs the square of
+   its length.
+2. Write a function that returns the number of capitalized letters in
+   a string. /Hint: try using =lower= and the == operator/
+3. Write a function that returns everything in a string up to "dog",
+   and returns "not found" if the string is not present.
+
+
+
+*** Exercise Solutions
+**** Exercise 1: 
+Write a function that takes in a string, and outputs the square of its
+length.
+
+Notice that a function can call another function that you wrote.
+#+begin_src python
+def square(x):
+    return x*x
+
+def sqlen(x):
+    return square(len(x))
+
+print sqlen("Feet")
+#+end_src
+
+#+results[5fb76a47dc34aa0d95ce56029f6b773d3136ebb2]:
+: 16
+
+**** Exercise 2 
+Write a function that returns the number of capitalized letters in a
+string.
+
+#+begin_src python
+def numcaps(x):
+    lowerstr = x.lower()
+    ncaps = 0
+    for i in range(len(x)):
+        if lowerstr[i]!=x[i]:
+            ncaps += 1
+    return ncaps
+  
+teststr = "Dogs and Cats are both Animals"
+print teststr, "has", str(numcaps(teststr)), "capital letters"
+#+end_src
+
+#+results[fb9195dd68067ef5e42a4e37e6ae39b36f8a788f]:
+: Dogs and Cats are both Animals has 3 capital letters
+
+**** Exercise 3
+
+#+begin_src python
+  def findDog(x):
+      mylist = x.split("dog")
+      if len(mylist) < 2:
+          return "not found"
+      else:
+          return mylist[0]    
+      return mylist
+  print findDog("i have a dog but not a cat")
+  print findDog("i have a fish but not a cat")
+  print findDog("i have a dog but not a dogwood")
+  
+#+end_src
+
+#+results[076636baaf46502f091e17d875855f48bc6af5c5]:
+: i have a 
+: not found
+: i have a 
+
+** =dict= type
+   A =dict=, short for dictionary, is a helpful data structure in
+   Python for building mappings between inputs and outputs.
+
+[[http://code.google.com/edu/languages/google-python-class/images/dict.png]]
+
+*** Examples
+#+begin_src python
+      mydict = dict()
+      mydict["dogs"] = 14
+      mydict["fish"] = "slumberland"
+      mydict["dogs"]+= 3
+      print mydict
+#+end_src
+
+#+results[544cec8784cf8947c602b1b38e3cdd9de9dc985b]:
+    : mydict = dict()
+    : mydict["dogs"] = 14
+    : mydict["fish"] = "slumberland"
+    : mydict["dogs"]+= 3
+    : print mydict
+    : {'fish': 'slumberland', 'dogs': 17}
+    : 
+    : 
+
+#+begin_src python
+  len(mydict["fish"])
+#+end_src
+
+#+results[d4bb9387f24158c4ae785dc5d16cd5f3292f991c]:
+
+    One of the nice things about python is that even when very
+    condensed, it is still readable.  People talk about coding in a
+    pythonic way, meaning to write very tight, readable code.
+
+#+begin_src python
+      print dict([(x, x**2) for x in (2, 4, 6)]) 
+#+end_src
+
+#+results[12372e1ee4f22acc51c96375c60facad3ceab2b0]:
+    : {2: 4, 4: 16, 6: 36}
+
+    Let's use a dictionary to store word counts from a sentence.
+
+#+begin_src python
+      str = "Up and down went the seesaw. Up it went.  Down it went.  Up, up, up!"
+      print str
+      for i in [",",".","!"]:
+          str = str.replace(i," ")
+      print str
+      str = str.lower()
+      print str
+      print set(str.lower().split())
+#+end_src
+
+#+results[fd498c55629d984e51ae0ba2acb1c63965ccab5e]:
+    : Up and down went the seesaw. Up it went.  Down it went.  Up, up, up!
+    : Up and down went the seesaw  Up it went   Down it went   Up  up  up 
+    : up and down went the seesaw  up it went   down it went   up  up  up 
+    : set(['and', 'up', 'it', 'down', 'seesaw', 'went', 'the'])
+
+    We see that a =set= contains an unordered collection of the
+    elements of the list returned by =split()=.  Let's make a dictionary
+    with keys that are pulled from this set.
+
+#+begin_src python
+      str = "Up and down went the seesaw. Up it went.  Down it went.  Up, up, up!"
+      for i in [",",".","!"]:
+          str = str.replace(i," ")
+      words = str.lower().split()
+      d = dict.fromkeys(set(words),0)
+      print d
+      for w in words:
+          d[w]+=1
+      print d
+#+end_src
+
+#+results[fd3883913b9635bdb5cd60b0591868ac7e3d8f79]:
+    : {'and': 0, 'down': 0, 'seesaw': 0, 'went': 0, 'the': 0, 'up': 0, 'it': 0}
+    : {'and': 1, 'down': 2, 'seesaw': 1, 'went': 3, 'the': 1, 'up': 5, 'it': 2}
+
+*** Writing to CSV
+
+    A very useful feature of dictionaries is that there is an easy
+    method to write them out to a CSV (comma-separated variable) file.
+
+#+begin_src python
+      import csv
+      f = open('/tmp/blah.csv','w')
+      nums = [1,2,3]
+      c = csv.DictWriter(f,nums)
+      for i in range(0,10):
+          c.writerow(dict([(x, x**i) for x in nums]))
+      f.close()
+#+end_src
+
+#+results[b63a481c232a7c7c4cde77b7469c7a09886d2962]:
+
+    This writes out the following csv file:
+#+BEGIN_EXAMPLE
+    1,1,1
+    1,2,3
+    1,4,9
+    1,8,27
+    1,16,81
+    1,32,243
+    1,64,729
+    1,128,2187
+    1,256,6561
+    1,512,19683    
+#+END_EXAMPLE
+
+#+results:
+
+*** A Note on File Objects
+
+- Think about file objects like a book
+  - If a file is open, you don't want other people to mess with it
+  - Files can be opened for reading or writing
+  - There are methods to move around an open file
+- Close the book when you're done reading it!
+- Python documentation on "File I/O" is [[http://docs.python.org/tutorial/inputoutput.html][here]]
+
+| English                          | Python                     | Output                          |
+|----------------------------------+----------------------------+---------------------------------|
+| /                                | <                          | <                               |
+| Open =blah.txt= just for reading | =f = open('blah.txt','r')= | file object =f=                 |
+| Get the next line in a file      | =str = f.readline()=       | string containing a single line |
+| Get the entire file              | =str = f.read()=           | string containing entire file   |
+| Go to the beginning of a file    | =f.seek(0)=                | =None=                          |
+| Close =blah.txt=                 | =f.close()=                | =None=                          |
+
+To play with this, download [[http://www.people.fas.harvard.edu/~astorer/scraping/gaga.txt][this file]] somewhere on your hard drive.
+I'm putting it on my hard drive as =/tmp/gaga.txt=.  On Windows, it
+may look more like =C:\temp\gaga.txt= - just make sure you get the
+path correct when you tell Python where to look!
+
+#+begin_src python
+f = open('/tmp/gaga.txt','r')
+print f
+str = f.read()
+print "str has length: ", len(str)
+str2 = f.read()
+print "str2 has length: ", len(str2)
+f.seek(0)
+str3 = f.readline()
+print "str3 has length: ", len(str3)
+f.close()
+#+end_src
+
+#+results[573e18bfb2bf64ebcd03d3a468c9573fd9d23ef6]:
+: <open file '/tmp/gaga.txt', mode 'r' at 0x10045e8a0>
+: str has length:  1220
+: str2 has length:  0
+: str3 has length:  77
+: None
+
+You'll use file objects /a lot/.  As we see them, I'll try to point
+out what's important about them.
+
+*** Exercise
+
+**** Exercise 1
+Write a function that counts the number of unique letters in a word.
+
+**** Exercise 2
+Write a function that takes in a string, and returns a =dict= that
+tells you how many words of each number of letters there are.
+: "Dogs and cats are all animals"
+:  dogs and cats are al  animls
+:  4    3   4    3   2   6
+:  {2: 1, 3: 2, 4: 2, 6: 1}
+
+**** Exercise 3
+Loop over a list of strings, and write a csv that contains a column
+for each number and a row for each string.
+:  1,2,3,4,5,6,7,8,9,10,11,12,13
+:  2,3,2,3,4,5,2,3,2,1 , 0, 0, 0
+:  5,2,1,0,1,2,0,0,0,0 , 0, 0, 0
+:  etc.
+
+*** Exercise Solutions
+
+**** Exercise 1
+Write a function that counts the number of unique letters in a word.
+
+#+begin_src python
+  def uniqueletters(w):
+      d = dict()
+      for char in w:
+          d[char] = 1
+      return len(d.keys())
+  print uniqueletters("dog")
+  print uniqueletters("dogged")
+  
+#+end_src
+
+#+results[8183038ce1444586fe883ae04d24589cf7c52bbe]:
+: 3
+: 4
+
+**** Exercise 2
+Write a function that takes in a string, and returns a =dict= that
+tells you how many words of each number of letters there are.
+: "Dogs and cats are all animals"
+:  dogs and cats are al  animls
+:  4    3   4    3   2   6
+:  {2: 1, 3: 2, 4: 2, 6: 1}
+
+#+begin_src python
+  def uniqueletters(w):
+      d = dict()
+      for char in w:
+          d[char] = 1
+      return len(d.keys())
+  
+  def wordcounter(str):
+      d = dict()
+      for w in str.split():
+          u = uniqueletters(w)
+          if u in d.keys():           
+              d[u]+=1
+          else:
+              d[u] = 1
+      return d
+  
+  print wordcounter("Dogs and cats are all animals")
+  
+#+end_src
+
+#+results[43b732d2a02f7259615177d80b4af5b8cd6160e6]:
+: {2: 1, 3: 2, 4: 2, 6: 1}
+
+**** Exercise 3
+Loop over a list of strings, and write a csv that contains a column
+for each number and a row for each string.
+:  1,2,3,4,5,6,7,8,9,10,11,12,13
+:  2,3,2,3,4,5,2,3,2,1 , 0, 0, 0
+:  5,2,1,0,1,2,0,0,0,0 , 0, 0, 0
+:  etc.
+
+#+begin_src python :cache no
+  import csv
+  def uniqueletters(w):
+      d = dict()
+      for char in w:
+          d[char] = 1
+      return len(d.keys())
+  
+  def wordcounter(str):
+      d = dict()
+      for w in str.split():
+          u = uniqueletters(w)
+          if u in d.keys():           
+              d[u]+=1
+          else:
+              d[u] = 1
+      return d
+  
+  def listwriter(l):
+      emptydict = dict([(x, 0) for x in range(1,26)])
+      f = open('/tmp/blah.csv','w')
+      c = csv.DictWriter(f,sorted(emptydict.keys())) 
+      c.writeheader()    
+      for str in l:
+          c.writerow(dict(emptydict.items()+wordcounter(str).items()))
+      f.close()
+  
+  listwriter(["Five score years ago, a great American, in whose symbolic shadow we stand today, signed the Emancipation Proclamation.",
+              "We observe today not a victory of party, but a celebration of freedom -- symbolizing an end, as well as a beginning -- signifying renewal, as well as change.", 
+              "So, first of all, let me assert my firm belief that the only thing we have to fear is fear itself -- nameless, unreasoning, unjustified terror which paralyzes needed efforts to convert retreat into advance."])
+  
+#+end_src
+
+#+results[59ef27bb00e15ccb133d3005e64ea6a0e167deed]:
+
+Here is the resulting CSV file:
+#+INCLUDE: "/tmp/blah.csv" example
+
+* Regular Expressions
+
+Regular expressions are a framework for doing complicated
+manipulation.  
+
+
+** A first example
+
+For example, consider the following text:
+: Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2019
+A first guess for a rule to get the area code would be to find a
+grouping of three numbers.
+Let's look at the source code for this in python.
+
+#+begin_src python :results output :exports both
+  import re  
+  str = "Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2311"  
+  print re.findall("\d\d\d",str)
+#+end_src
+
+#+results[1e611bb548d9f2f27e20527600275b62ec69cd63]:
+: ['934', '292', '239', '295', '231']
+
+*** What the code does
+ - =import re=
+   - tells python to use the regular expression library.  (Like =library(zelig)=)
+ - =str = ...= 
+   - defines a string
+   - Python will figure out that the type is a string based on the fact that it's in quotes
+   - There is a difference between
+     : foo = '333'
+     and
+     : foo = 333     
+ - =re.findall("\d\d\d",str)=
+   - From the =re= library, call the =findall= function
+     - When in doubt, [[https://www.google.com/search?sourceid=chrome&ie=UTF-8&q=re.findall][Google it]].
+       - /By the way, googling things effectively is the most important
+         modern research skill there is./
+   - Finds all of the matched of the regular expression =\d\d\d= in =str=
+     - Returns it as a list
+
+#+begin_src python :results output :exports both
+  import re
+  str = "Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2311"  
+  print re.findall("\((\d\d\d)\)",str)
+#+end_src
+
+#+results[cb9ead90330bbc0ed1f9d563b19ded9a708e15bd]:
+: ['934']
+
+    
+*** Different expressions
+: "Joseph Schmoe (15), Phone:(934) 292-2390, SSN:295-48-2311"  
+| English                                                  | Regex          | =findall= Output                                    |
+|----------------------------------------------------------+----------------+-----------------------------------------------------|
+| /                                                        | <              | <                                                   |
+| Any three numbers                                        | =\d\d\d=       | =['934', '292', '239', '295', '231']=               |
+| Any three numbers that start with (                      | =\(\d\d\d=     | =['(934']=                                          |
+| One or more adjacent numbers                             | =\d+=          | =['15', '934', '292', '2390', '295', '48', '2311']= |
+| One or more numbers in parenthesis                       | =\(\d+\)=      | =['(15)', '(934)']=                                 |
+| Three numbers in parenthesis                             | =\(\d\d\d\)=   | =['(934)']=                                         |
+| Three numbers in parenthesis, but group only the numbers | =\((\d\d\d)\)= | =['934']=                                           |
+    
+** Further examples
+#+begin_src python
+     import re
+     str = "Joseph Schmoe, Bowling High Score:(225), Phone:(934) 292-2390"  
+     print re.findall("\w+:\((\d+)\)",str)
+#+end_src
+
+#+results[c24bdb542bbaabd964e1701cb24aa8011f65fd44]:
+   : ['225', '934']
+
+   - The =\w= is code for any alphanumeric character and the underscore.
+   - The =:= is code for only the character =:=.  
+
+#+begin_src python
+     import re
+     str = "I called his phone after he phoned me, but he has two phones!"  
+     print re.findall("phone\w*",str)
+#+end_src
+
+#+results[8f847b5c0639381d9b5cace280709900b60d71f0]:
+   : ['phone', 'phoned', 'phones']
+
+   - We match all instances of "phone" with any number of characters
+     after it
+     - Note the difference between =\w+= (1 or more) and =\w*= (0 or more)
+
+#+begin_src python
+     import re
+     str = "I called his phone after he phoned me, but he has two phones!"  
+     print re.findall("phone\w+",str)
+#+end_src
+
+#+results[498e3452c262ae699f5e1c34aaed9bc286e29ebc]:
+   : ['phoned', 'phones']
+
+   
+** Other helpful regex tools
+Regular expressions are extremely powerful, and are used extensively
+for text processing.  Here are some good places to look for regex help:
+- [[http://docs.python.org/library/re.html][Python re library]] has documentation of how to use regex in python with
+  examples
+  - /I can never remember regex syntax, so I go here all the time./
+- [[http://gskinner.com/RegExr/][Regexr]] is an interactive regex checker
+- Textbooks on regex will tell you not just how to use them, but how
+  they are implemented.  Help answer the question "what is the best
+  regex for this situation?"
+
+** Exercises
+
+[[./example.txt][This file]] contains 100 blogs about dogs in a structured text
+format that may be familiar to you.  
+
+**** Exercise 1
+Use regular expressions to parse
+this file and write a csv file containing the article number and
+the number of words.  (I'm going to start by downloading it to my hard
+drive, but if you're macho you want to figure out how to use the =urllib=
+module to parse it without downloading.)
+
+**** Exercise 2
+Write a CSV file that investigates whether articles contain certain
+words.  In particular, do dog bloggers write more about 'pets' or
+'companions'?
+
+** Solutions
+
+**** Exercise 1
+
+#+begin_src python :cache no
+  import csv, re
+  f = open('/tmp/example.txt')
+  fp = open('/tmp/result.csv','wb')
+  
+  c = csv.DictWriter(fp,["Article Number","Words"]) 
+  articlenum = 0
+  for line in f:
+      d = dict()
+      r = re.match("LENGTH:\s*(\d+)",line)
+      if r:
+          articlenum+=1
+          d["Article Number"] = articlenum
+          d["Words"] = r.groups()[0]
+          c.writerow(d)        
+  f.close()
+  fp.close()        
+  
+#+end_src
+
+#+results[86a1bdfa3cf1bb3fba2dd66fd97f9d6f50ecc600]:
+
+The =result.csv= file is:
+#+INCLUDE: "/tmp/result.csv" example
+
+**** Exercise 2
+
+Let's begin just by checking some basic regular expressions
+
+#+begin_src python :cache no
+import re
+str = "A competition between Pets and Animal Companions!  How do you refer to your dog?"
+print "\w*:"
+print re.findall("\w*",str)
+print "[p]et:"
+print re.findall("[p]et",str)
+print "[pP]et:"
+print re.findall("[pP]et",str)
+#+end_src
+
+#+results[0ff78b3a6621598cf93ef855aadf88816cdd6a02]:
+: \w*:
+: ['A', '', 'competition', '', 'between', '', 'Pets', '', 'and', '', 'Animal', '', 'Companions', '', '', '', 'How', '', 'do', '', 'you', '', 'refer', '', 'to', '', 'your', '', 'dog', '', '']
+: [p]et:
+: ['pet']
+: [pP]et:
+: ['pet', 'Pet']
+
+Great!  So we know how to match "pet" or "Pet", but it still matches
+"competition"!  Let's write out some patterns that we would like to
+match:
+
+| *Do Match*                                   |
+|----------------------------------------------|
+| I own a dog - pets are great!                |
+| Do you have a pet?                           |
+| Pets are wonderful.                          |
+| I've got to tell you--pets are the best!     |
+
+
+| *Don't Match*                                |
+|----------------------------------------------|
+| Great competition!                           |
+| Petabytes of data are needed.                |
+| I went to the petting zoo with my companion! |
+| She owns a whippet.                          |
+
+It looks to me like we need the word "pet" with a space or punctuation at the
+beginning or the end, with an optional s at the end.
+
+| ~[-,\s.;]~                                               | ~[pP]~        | ~et~           |
+| Either a dash a comma whitespace a period or a semicolon | Either p or P | the letters et |
+
+#+begin_src python :cache no
+  import re
+  strlist = ["I own a dog - pets are great!",  "Do you have a pet?", "Pets are wonderful.", "I've got to tell you--pets are the best!", "Great competition!", "Petabytes of data are needed.", "I went to the petting zoo with my companion!", "She owns a whippet."]
+  for str in strlist:
+      print str    
+      print re.findall("[-,\s.;][pP]et",str)
+  
+#+end_src
+
+#+results:
+#+begin_example
+I own a dog - pets are great!
+[' pet']
+Do you have a pet?
+[' pet']
+Pets are wonderful.
+[]
+I've got to tell you--pets are the best!
+['-pet']
+Great competition!
+[]
+Petabytes of data are needed.
+[]
+I went to the petting zoo with my companion!
+[' pet']
+She owns a whippet.
+[]
+#+end_example
+
+This isn't good enough!  We're going to need to change the endings, too.
+
+| ~[-,\s.;]~                                               | ~[pP]~        | ~et~           | ~[s]?~        | ~[.\s.;-]~                                       |
+| Either a dash a comma whitespace a period or a semicolon | Either p or P | the letters et | an optional s | Eith a period, whitespace, a semicolon or a dash |
+|                                                          |               |                |               |                                                  |
+
+#+begin_src python :cache no
+  import re
+  strlist = ["I own a dog - pets are great!",  "Do you have a pet?", "Pets are wonderful.", "I've got to tell you--pets are the best!", "Great competition!", "Petabytes of data are needed.", "I went to the petting zoo with my companion!", "She owns a whippet."]
+  for str in strlist:
+      print str    
+      print re.findall("[-,\s.;?][pP]et[s]?[,\s.;-?]",str)
+  
+#+end_src
+
+#+results:
+#+begin_example
+I own a dog - pets are great!
+[' pets ']
+Do you have a pet?
+[' pet?']
+Pets are wonderful.
+[]
+I've got to tell you--pets are the best!
+['-pets ']
+Great competition!
+[]
+Petabytes of data are needed.
+[]
+I went to the petting zoo with my companion!
+[]
+She owns a whippet.
+[]
+#+end_example
+
+We're almost there!  We just need to make it so a string can also begin with Pets.
+
+| ~^~                                  | ~[pP]~        | ~et~           | ~[s]?~        | ~[.\s.;-]~                                       |
+| Only match the beginning of a string | Either p or P | the letters et | an optional s | Eith a period, whitespace, a semicolon or a dash |
+
+So we will either match the regular expression =^[pP]et[s]?[.\s.;-]= *or* the expression =[-,\s.;?][pP]et[s]?[,\s.;-?]=.  The syntax for this is the pipe operator =|=.
+
+Our regular expression just to check for pets is:
+
+=[-,\s.;?][pP]et[s]?[,\s.;-?]|^[pP]et[s]?[,\s.;-?]=
+
+This looks like a sloppy mess, but we built it up by hand ourselves, and it's really not so bad!
+
+#+begin_src python :cache no
+  import re
+  strlist = ["I own a dog - pets are great!",  "Do you have a pet?", "Pets are wonderful.", "I've got to tell you--pets are the best!", "Great competition!", "Petabytes of data are needed.", "I went to the petting zoo with my companion!", "She owns a whippet."]
+  for str in strlist:
+      print str    
+      print re.findall("[-,\s.;?][pP]et[s]?[,\s.;-?]|^[pP]et[s]?[,\s.;-?]",str)  
+#+end_src
+
+#+results:
+#+begin_example
+I own a dog - pets are great!
+[' pets ']
+Do you have a pet?
+[' pet?']
+Pets are wonderful.
+['Pets ']
+I've got to tell you--pets are the best!
+['-pets ']
+Great competition!
+[]
+Petabytes of data are needed.
+[]
+I went to the petting zoo with my companion!
+[]
+She owns a whippet.
+[]
+#+end_example
+
+Having constructed this regex for pets, we can now do the same for
+companion.  Because the word /companion/ isn't going to be inside
+words the way /pet/ is, we don't have to be as careful.  Let's say we
+need to match /companion/ and /companions/, but not /companionship/.
+We can copy the same regex for /pets/, but remove the gunk from the
+beginning (although it probably can't hurt for correctness to include
+it!)
+
+Let's try:
+~[cC]ompanion[s]?[,\s.;-?]~
+
+*Note:* Remember to use =re.match= to match the beginning of the
+ string only, and =re.search= to match anywhere!
+
+#+begin_src python :cache no
+  import csv, re
+  f = open('/tmp/example.txt')
+  fp = open('/tmp/pets.csv','wb')
+  
+  c = csv.DictWriter(fp,["Article Number","Words","Pet","Companion"]) 
+  articlenum = 0
+  for line in f:
+      r = re.match("LENGTH:\s*(\d+)",line)
+      if r:
+          if articlenum>0:
+              c.writerow(d)           
+          d = dict()    
+          articlenum+=1
+          d["Article Number"] = articlenum
+          d["Words"] = r.groups()[0]
+          d["Pet"] = 0
+          d["Companion"] = 0
+      else:       
+          pets = re.search("[-,\s.;?][pP]et[s]?[,\s.;-?]|^[pP]et[s]?[,\s.;-?]",line)
+          companions = re.search("[cC]ompanion[s]?[,\s.;-?]",line)
+          if pets:
+              d["Pet"] = 1
+          if companions:
+              d["Companion"] = 1
+          
+  f.close()
+  fp.close()  
+  
+#+end_src
+
+#+results:
+
+
+Let's take a look at the csv file.
+
+
+#+INCLUDE: "/tmp/pets.csv" example
+
+* Web Sites
+** Example: Egypt Independent / المصري اليوم
+- Example article: http://www.egyptindependent.com/node/725861
+  - Tells us nothing about the date or content
+  - A node number is automatically created by a content-management
+    system
+*** Metadata
+Sometimes, metadata is included which tells us important things
+about our article
+#+begin_src html
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          <meta name="msvalidate.01" content="F1F61CF0E5EC4EC2940FCA062AB13A53" />
+          <meta name="google-site-verification" content="Q8FKHdNoQ2EH7SH1MzwH_JNcgVgMYeCgFnzNlXlR4N0" />
+          <title>European Union will keep Mubarak assets on ice, Illicit Gains Authority head says | Egypt Independent</title>
+          <!-- tC490Uh18j-7O_rp7nG0_e6U9QY -->
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          <link rel="canonical" href="http://www.egyptindependent.com/node/725861" />
+          <meta name="keywords" content="Assem al-Gohary, corruption, EU, freezing  Mubarak’s assets, Hosni Mubarak, Illicit Gains Authority (IGA), News, Top stories" />
+          <meta name="description" content="The European Union will continue to freeze the assets of former President Hosni Mubarak, his family and other former officials although Egypt has thus far been unsuccessful in recovering funds siphoned abroad by the regime." />
+          <meta name="abstract" content="Al-Masry Al-Youm - Egypt&#039;s leading independent media group المصرى اليوم للصحافة والنشر هى مؤسسة إعلامية مصرية مستقلة تأسست عام  ,2003." />
+#+end_src
+  - Keywords, abstract, description and title are all clear
+  - Lots of other gunk that isn't relevant to us!
+  - Pulling information out of this document requires that we know how
+    they organize title their metadata!
+    - What if /keywords/ were called /terms/?
+
+*** Body
+The actual body of the article can be found by right-clicking on the
+  text we're interested in from Chrome or Firefox and selecting
+  "Insepct Element"
+#+begin_src html
+<div class="panel-region-separator"></div><div class="panel-pane pane-node-body" >    
+  <div class="pane-content">
+    <p>The European Union will continue to freeze the assets of former President Hosni Mubarak, his family and other former officials although Egypt has thus far been unsuccessful in recovering funds siphoned abroad by the regime.</p>
+<p>The Illicit Gains Authority (IGA), the judicial committee responsible for recovering the money, on Wednesday received an official notification from the European Union, confirming its freeze on the assets would be renewed another year as of 19 March, state-run MENA news service reported on Wednesday.&nbsp;</p>
+<p>&ldquo;This was in response to a request by Egypt,&rdquo; the state news agency quoted IGA head Assem al-Gohary as saying.&nbsp;</p>
+<p>Egypt formally asked European Union countries earlier this month to continue freezing funds belonging to Mubarak, his two sons and other members of his administration.</p>
+<p>Shortly after Mubarak was forced to step down in February 2011, the public prosecutor ordered that the foreign assets of the deposed president and his family be frozen.</p>
+<p>Mubarak&#39;s actual worth is still unknown after more than a year of investigations into his foreign and domestic assets. Last year claims that Mubarak, in his nearly 30-year reign as head of state, may have amassed a fortune of up to US$70 billion &mdash; greater than that of Microsoft&#39;s Bill Gates &mdash; helped drive the protests that eventually brought him down.</p>
+<p>Last year Swiss authorities also froze Mubarak&rsquo;s assets, acting more speedily than when the EU froze the assets of another deposed North African ruler, former Tunisian President Zine al-Abidine Ben Ali.</p>
+<p>On Wednesday, the IGA met with the Swiss ambassador in Cairo to discuss the difficulties it faces in recovering those funds, in light of the obligations of the United Nations Convention Against Corruption on the member states, reported MENA.</p>
+<p>Gohary once estimated the frozen assets at 410 million Swiss francs (LE2.7 billion), which Egypt is trying to repatriate in cooperation with the Foreign Ministry.</p>
+  </div>
+#+end_src
+All of the body is included in the =panel-pane pane-node-body= section
+of this site, within the sub-section =pane-content=.  Our "algorithm"
+for getting this information out will require finding the exact
+section of the site that we require pulling this data out from.  If
+you don't do this, any terms that are on the sidebar will end up being
+in your analysis!
+
+*** Scraping Articles
+
+Every News Feature is on a page in the following scheme:
+
+#+begin_src html
+  http://www.egyptindependent.com/subchannel/News%20features?page=5
+#+end_src
+
+And this paper goes back 77 pages, to April, 2009.
+
+Investigating the source for a single search page can tell us what we
+have to do to get at the relevant information:
+
+#+begin_src html  
+<div class="views-row views-row-4 views-row-even">
+  <div class="views-field-field-published-date-value">
+    <span class="field-content"><span class="date-display-single">09 Feb 2012</span></span>
+  </div>
+  <div class="views-field-title">
+    <span class="field-content"><a href="http://www.egyptindependent.com/node/647936">Parliament Review: A week of comedy and disappointment</a></span>
+  </div> 
+  <div class="views-field-body">
+    <span class="field-content">This week&rsquo;s parliamentary sessions had the public joking about airing future sessions on comedy channels instead of news, and those who abstained from the polls telling those who participated, in hope of having a legitimate authority...</span>
+  </div>  
+#+end_src
+
+Our algorithm to scrape articles from this page will be as follows:
+1) Initialize FOO=1
+2) Go to
+   =http://www.egyptindependent.com/subchannel/News%20features?page=FOO=
+3) Repeat until complete:
+   1) Find the next occurence of =views-row...=
+   2) Find the sub-field called
+      =views-field-field-published-date-value= and retrieve its value
+      (the date)
+   3) Find the sub-field called =views-field-title= and retrieve its
+      value (the title)
+   4) Follow the link from above
+   5) Within the link, find the meta-data =keywords= and retrieve
+      their values (the keywords)
+   6) Within the link, find the =panel-pane pane-node-body= section,
+      and retrieve the test (the article itself)
+
+*** Scraping Exercise!
+Not all web sites are designed in the same way.  Go to the site of
+your choice, and figure out how to get the articles you're interested
+in.  Write out pseudocode that will tell you:
+1)  How to download individual articles
+2)  How to get the Author of an article
+3)  How to get the Title of an article
+4)  How to get the Date of an article
+5)  How to get the text of the article
+
+If you need a site to practice on that isn't too challenging, check
+out [[http://blogs.suntimes.com/ebert/][Robert Ebert's Blog]].
+
+* Web scraping in python
+Now that we know how we want to scrape and have some grasp on the
+tools that are necessary, let's try and pull the articles and their
+metadata off of this website.
+
+** Downloading files in python
+#+NAME: download pages
+#+begin_src python :cache yes
+     import urllib
+     baseurl = "http://www.egyptindependent.com/subchannel/News%20features?page="
+     destpath = "/tmp/"
+     npages = 1 # should be 10
+     for i in range(1,npages):
+         urllib.urlretrieve (baseurl+str(i),destpath+"page"+str(i)+".html")   
+#+end_src
+
+#+results[3c3470eef9005c949d6c3f61fbbf0cac70a9e01f]:
+
+   If we take a look at what exists after running this script, we can
+   see that it worked.
+
+#+begin_example
+   bash-3.2$ ls /tmp/page*
+   /tmp/page1.html	/tmp/page3.html	/tmp/page5.html	/tmp/page7.html	/tmp/page9.html
+   /tmp/page2.html	/tmp/page4.html	/tmp/page6.html	/tmp/page8.html   
+#+end_example
+
+** Using ElementTree
+
+   Here is a very basic html tree which we can work with.
+
+#+begin_src python
+  import urllib
+  fileloc = 'http://www.people.fas.harvard.edu/~astorer/scraping/test.html'
+  f = urllib.urlopen(fileloc)
+  print f.read()
+  
+#+end_src
+
+#+results[a1aeaa242fd07f7e2df741205d3c59ae5f466c14]:
+#+begin_example
+<html>
+    <head>
+        <title>Example page</title>
+    </head>
+    <body>
+        <p>Moved to <a href="http://example.org/">example.org</a>
+        or <a href="http://example.com/">example.com</a>.</p>
+    </body>
+</html>
+
+#+end_example
+
+
+   - The ElementTree is a hierarchical structure of Elements.
+   - =list()= returns a list of the children of a single Element
+   - An [[http://docs.python.org/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element][Element]] contains
+     - A =tag= (what kind of element is it)
+     - =text= of what lives in the element
+
+#+NAME: elementtree basics
+#+begin_src python
+     from xml.etree.ElementTree import ElementTree
+     fileloc = '/Users/astorer/Work/presentations/scraping/test.html'
+     tree = ElementTree()
+     tree.parse(fileloc)   
+     elem = tree.find('body')
+     print elem
+     print list(elem)
+     elem = tree.find('body/p')
+     print elem
+     print list(elem)
+     print elem.tag
+     print elem.text
+#+end_src
+
+#+results:
+   : <Element 'body' at 0x1004b9e50>
+   : [<Element 'p' at 0x1004b9e90>]
+   : <Element 'p' at 0x1004b9e90>
+   : [<Element 'a' at 0x1004b9ed0>, <Element 'a' at 0x1004b9f10>]
+   : p
+   : Moved to 
+
+** Using =lxml=
+
+   Now let's see how we can parse out the list of article URLs from
+   an xml page.  Our basic approach isn't going to work here, and we
+   need to install an external package.
+
+*** Installing a Package
+    
+    External packages can be easily installed in python using the
+    =easy_install= command.  The only challenge is in making sure that
+    if you have multiple version of python installed, you are
+    installing the libraries to the correct location.  I'm on a mac,
+    but the Python version on a mac is 2.6, and I prefer using 2.7.
+    Make sure you install the setuptools for 2.7 following
+    [[http://pypi.python.org/pypi/setuptools][these instructions]].  Then, run
+
+    : sudo easy_install-2.7 lxml
+    
+    If you have no idea what I'm talking about, it will probably be
+    fine if you simply use the following:
+
+    : sudo easy_install lxml
+
+    On windows, try doing
+
+    : easy_install lxml
+
+    To verify that this installed for you, open up python, and type
+
+    : import lxml
+
+    If you get an error, sheck your setup and try reinstalling.
+    
+*** Using =lxml=
+
+    =lxml= will generate an ElementTree for us after parsing the xml.
+    Let's review some of the functions that will be useful for us in
+    this example.
+
+| English                                                                   | Python                                                         |
+|---------------------------------------------------------------------------+----------------------------------------------------------------|
+| /                                                                         | <                                                              |
+| Construct a parser                                                        | =lxml.etree.HTMLParser()=                                      |
+| Parse an HTML file                                                        | =lxml.etree.parse(file,parser)=                                |
+| Get all instances of ~<span class="...">~                                 | ~MyTree.xpath('.//span[@class="..."]')~                        |
+| Get all instances of ~<span class="date">~ within ~<div class="article">~ | ~MyTree.xpath('.//div[@class="article"]/span[@class="date"]')~ |
+| Make a list of tuples that we can iterate over                            | =zip(iterable1,iterable2,...)=                                 |
+| Encode a string ~foo~ as unicode (UTF-8)                                  | ~foo.encode("UTF-8")~                                          |
+
+    The =xpath= syntax is described in more detail [[http://effbot.org/zone/element-xpath.htm][here]].  Briefly, we
+    are finding every occurence of spans with the class
+    =date-display-single=, no matter where they live in the tree.
+    Then we can iterate over them to get the actual dates.  Similarly,
+    we can iterate over all links that are within the ~<span
+    class="field content">~ that are within the ~<div
+    class="views-field-title">~ and zip it with the dates to iterate
+    over both simultaneously.  Notice that whenever foreign characters
+    are used, Python will be unable to display them unless we encode
+    the string first as unicode.  The following code makes this explicit.
+
+#+NAME: lxml basics
+#+begin_src python
+     from lxml import etree
+     fname = '/tmp/page1.html'
+     fp = open(fname, 'rb')
+     parser = etree.HTMLParser()
+     tree   = etree.parse(fp, parser)
+     dateelems = tree.xpath('.//span[@class="date-display-single"]')
+     linkelems = tree.xpath('.//div[@class="views-field-title"]/span[@class="field-content"]/a')     
+     for (d,l) in zip(dateelems,linkelems):
+         print d.text
+         print l.get('href')         
+         print l.text.encode("utf-8")
+#+end_src
+
+#+results[780225c0214f8696a7018c15ce2dcd196d299fa1]:
+#+begin_example
+   27 Mar 2012
+   http://www.egyptindependent.com/node/736356
+   Secular forces withdraw from constituent assembly, but next step unclear
+   26 Mar 2012
+   http://www.egyptindependent.com/node/735431
+   Old tensions between Brotherhood and SCAF resurface in game of chicken
+   23 Mar 2012
+   http://www.egyptindependent.com/node/728621
+   Parliament Review: Constitutional mayhem and critical legislation
+   22 Mar 2012
+   http://www.egyptindependent.com/node/727691
+   Path set by constitutional referendum seems unlikely
+   21 Mar 2012
+   http://www.egyptindependent.com/node/726096
+   Meet your presidential candidates: The outsiders
+   21 Mar 2012
+   http://www.egyptindependent.com/node/723986
+   Meet your presidential candidate: Abul Ezz al-Hariry, the rabble rouser
+   20 Mar 2012
+   http://www.egyptindependent.com/node/724126
+   With tears and crowds, Copts say goodbye to Shenouda
+   19 Mar 2012
+   http://www.egyptindependent.com/node/722396
+   Unofficial Abouel Fotouh supporters lay foundation for official campaign
+   19 Mar 2012
+   http://www.egyptindependent.com/node/721161
+   Copts fear implications after Shenouda, disagree on papal political role
+   19 Mar 2012
+   http://www.egyptindependent.com/node/720471
+   Women's movement: A stop at Egypt's socialist era
+#+end_example
+
+*** XPath Examples
+
+**** Get all links under ~<div class="views-field-title">~
+
+#+NAME: xpath example
+#+begin_src python :cache yes
+     from lxml import etree
+     fname = '/tmp/page1.html'
+     fp = open(fname, 'rb')
+     parser = etree.HTMLParser()
+     tree   = etree.parse(fp, parser)
+     elems = tree.xpath('.//div[@class="views-field-title"]//a')
+     for e in elems:
+         print e.text.encode('utf-8')
+#+end_src
+
+#+results[7180e27a9ea66e47980532a5039941cea8e5ae1f]:
+#+begin_example
+Despite strict regulations, campaigning is a free for all
+What lies behind the Brotherhood’s nomination of Shater
+Beyond the walls of the church
+Local councils provide basic services, and hope for revolutionaries
+Impassioned Abu Ismail campaigners extol candidate’s moral qualifications
+Parliament Review: Who will write the constitution?
+Democracy not enough to uproot corruption, academics say
+US continues military aid to Egypt, but future ambiguous
+At Parliament sit-in, ultras 'will never stop singing' for demands
+Political and economic battles grip Central Auditing Organization
+Abu Ismail aims for legal loophole to stay in race
+Meet your presidential candidate: Omar Suleiman, the phantom
+Maspero case lawyers resign to protest military justice
+Administrative court ruling leaves transition timetable in disarray
+IMF loan stalled by FJP and government politicking
+Halloween!
+An Ode to Love
+Letters to Treze
+علشان مننشاش المغربي
+Wedding dance of "Beja" tribe
+Egyptian protester passes out after harassment
+"Pearly Pink Flower"
+I Cry!
+"The Amazing Bibliotheca Alexandrina!"
+am agree  title
+am agree  title
+Divorce between  Margaret Scobey and Mr. Baradei
+#+end_example
+
+**** Get all clickable images
+
+These will look like:
+: <a href="www.webpage.com"><img src="laksjdasldkj.jpg"></a>
+
+
+#+begin_src python :cache no
+     from lxml import etree
+     fname = '/tmp/page1.html'
+     fp = open(fname, 'rb')
+     parser = etree.HTMLParser()
+     tree   = etree.parse(fp, parser)
+     elems = tree.xpath('.//a/img')
+     for e in elems:
+         print e.get('src')
+#+end_src
+
+#+results[7180e27a9ea66e47980532a5039941cea8e5ae1f]:
+#+begin_example
+/sites/default/files/img/english_logo.png
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2011/03/28/22597/lshn_mnnshsh_lmgrby_87049_1558797204.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2010/05/09/3685/wedding_dance_17135_1577232530.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/video_thumbnail/video/2010/04/14/2252/rabw_14731_451336279.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/11/13/27866/pink_flower.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/11/09/27866/ips.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/photo/2011/10/29/27866/amazing.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/14/120/piioioioioi.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/13/120/wewweweww.jpg
+http://www.egyptindependent.com//sites/default/files/imagecache/news-featured/caricature/2010/04/05/489/separation.jpg
+/sites/default/files/W300.jpg
+#+end_example
+
+*** =lxml= Exercise
+Write a csv file that contains every image along with the location that it links to.
+If the webpage has:
+: <a href="www.webpage.com"><img src="laksjdasldkj.jpg"></a>
+Your entry in the csv file would look like:
+: www.webpage.com, laksjdasldkj.jpg
+
+*Hint:* use the =elt.getparent()= method to query elements 'above' a given element =elt=.
+
+*** Solutions to exercise
+
+#+NAME: lxml
+#+begin_src python 
+  import csv
+  from lxml import etree
+  
+  fname = '/tmp/page1.html'
+  fp = open(fname, 'rb')
+  f = open('/tmp/links.csv','w')
+  entries = ["Image","Link"]
+  c = csv.DictWriter(f,entries)
+  
+  parser = etree.HTMLParser()
+  tree   = etree.parse(fp, parser)
+  lnkelems = tree.xpath('.//a/img')
+  for lnk in lnkelems:
+      d = dict()
+      d["Image"] = lnk.get('src')
+      d["Link"] = lnk.getparent().get('href')
+      c.writerow(d)
+  
+  fp.close()
+  f.close()
+  
+#+end_src
+
+#+results[e70827a488b5e7ec9ef811fe8fa735afc345532f]:
+
+The resulting file is a CSV file.:
+#+INCLUDE: "/tmp/links.csv" example
+
+
+*** Downloading articles from each page
+    *Goal:* A file with the dates, titles and location of each
+     article.  Save each article in html form to the hard drive.
+#+NAME: basescraper
+#+begin_src python :cache yes :tangle basescraper.py
+     from lxml import etree
+     import csv     
+     import urllib
+     import re
+     f = open('/tmp/files.csv','w')
+     entries = ["Day","Month","Year","Title","Remote","Local"]
+     c = csv.DictWriter(f,entries)
+     
+     
+     destpath = '/tmp/'
+     fname = '/tmp/page1.html'
+     fp = open(fname, 'rb')
+     parser = etree.HTMLParser()
+     tree   = etree.parse(fp, parser)
+     dateelems = tree.xpath('.//span[@class="date-display-single"]')
+     linkelems = tree.xpath('.//div[@class="views-field-title"]/span[@class="field-content"]/a')
+     for (d,l) in zip(dateelems,linkelems):
+         entry = dict()
+         myDate = d.text.split()
+         urlname = l.get('href')
+         nodenum = re.search("\d+",urlname).group()
+         dest = destpath+nodenum+".html"
+         urllib.urlretrieve (urlname,dest)
+         entry["Day"] = myDate[0]
+         entry["Month"] = myDate[1]
+         entry["Year"] = myDate[2]
+         entry["Local"] = dest
+         entry["Remote"] = urlname
+         entry["Title"] = l.text.encode("utf-8")
+         c.writerow(entry)
+         print entry
+          
+     f.close()
+     fp.close()
+     
+#+end_src
+
+#+results[fcaa1c01512561cd34a39e250280eaa73f6fb48f]: basescraper
+
+#+results:
+#+begin_example
+   {'Remote': 'http://www.egyptindependent.com/node/720426', 'Title': "Shenouda leaves Copts divided on his legacy and church's future", 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/720426.html', 'Day': '18'}
+   {'Remote': 'http://www.egyptindependent.com/node/718906', 'Title': 'The embattled new National Council for Women', 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/718906.html', 'Day': '18'}
+   {'Remote': 'http://www.egyptindependent.com/node/718491', 'Title': 'Who is the pope\xe2\x80\x99s successor?', 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/718491.html', 'Day': '18'}
+   {'Remote': 'http://www.egyptindependent.com/node/715431', 'Title': 'Parliament Review: Chasing a turbulent policeman and a vote of no-confidence', 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/715431.html', 'Day': '16'}
+   {'Remote': 'http://www.egyptindependent.com/node/714506', 'Title': "SCAF's investment law offers impunity in corruption cases", 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/714506.html', 'Day': '15'}
+   {'Remote': 'http://www.egyptindependent.com/node/713231', 'Title': 'What\xe2\x80\x99s left of Tahrir today', 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/713231.html', 'Day': '14'}
+   {'Remote': 'http://www.egyptindependent.com/node/711221', 'Title': "Students object to minister's intervention in university bylaws", 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/711221.html', 'Day': '13'}
+   {'Remote': 'http://www.egyptindependent.com/node/707721', 'Title': 'Meet your presidential candidate: Mansour Hassan, the resuscitated', 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/707721.html', 'Day': '12'}
+   {'Remote': 'http://www.egyptindependent.com/node/707961', 'Title': 'GUC strike moves protest to new territory, private universities', 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/707961.html', 'Day': '12'}
+   {'Remote': 'http://www.egyptindependent.com/node/707556', 'Title': '\xe2\x80\x98Virginity test\xe2\x80\x99 doctor acquittal reveals military judiciary shortcomings', 'Month': 'Mar', 'Year': '2012', 'Local': '/tmp/707556.html', 'Day': '11'}
+#+end_example
+
+The resulting file is a CSV file.:
+#+INCLUDE: "/tmp/files.csv" example
+
+*** Exercise
+
+Modify the above code so that instead of iterating over only the first page, it iterates over all pages.
+
+ - Consider using the =glob= library to look for all of the html files in a directory.
+ - Can you do this so you don't save the pages, but parse them directly?  
+   - Use google and the python documentation to help figure it out!
+
+   Now that we've seen =lxml= in action, let's figure out how to use
+   it to pull out just the text of the article.  Recall that
+   all of the original text is in the following tags:
+   
+   : <div class="panel-pane pane-node-body" >    
+   : <div class="pane-content">
+     
+
+** Stripping text   

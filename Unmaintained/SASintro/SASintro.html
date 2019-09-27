@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Introduction to SAS</title>
+<!-- 2014-10-02 Thu 21:17 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="https://rawgit.com/fniessen/org-html-themes/master/styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Introduction to SAS</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Introduction</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Documents for Today&#xa0;&#xa0;&#xa0;<span class="tag"><span class="labsetup">labsetup</span></span></a></li>
+<li><a href="#sec-1-2">1.2. Workshop Description</a></li>
+<li><a href="#sec-1-3">1.3. Why SAS?</a></li>
+<li><a href="#sec-1-4">1.4. SAS history</a></li>
+<li><a href="#sec-1-5">1.5. The SAS Environment</a></li>
+<li><a href="#sec-1-6">1.6. SAS Basics</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Data Import and Export</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Working With SAS Data</a></li>
+<li><a href="#sec-2-2">2.2. Libraries and Datasets</a></li>
+<li><a href="#sec-2-3">2.3. What if my file is not a SAS file?</a></li>
+<li><a href="#sec-2-4">2.4. Where is my data?</a></li>
+<li><a href="#sec-2-5">2.5. How do I get my data out of SAS?</a></li>
+<li><a href="#sec-2-6">2.6. Exercise 1: Importing Data</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Descriptive Statistics</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Means, standard deviations, etc.</a></li>
+<li><a href="#sec-3-2">3.2. Frequency Tables</a></li>
+<li><a href="#sec-3-3">3.3. Correlation and Regression</a></li>
+<li><a href="#sec-3-4">3.4. Exercise 2: Correlation and regression</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Variable and Value Labels</a>
+<ul>
+<li><a href="#sec-4-1">4.1. Variable and Value Labels</a></li>
+<li><a href="#sec-4-2">4.2. Variable Labels</a></li>
+<li><a href="#sec-4-3">4.3. Creating Value Labels</a></li>
+<li><a href="#sec-4-4">4.4. Using Value labels</a></li>
+<li><a href="#sec-4-5">4.5. Dropping and Renaming Variables</a></li>
+<li><a href="#sec-4-6">4.6. SAS variable names</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. Data Manipulation</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Logic Statements Useful For Data Manipulation</a></li>
+<li><a href="#sec-5-2">5.2. Generate New Variables</a></li>
+<li><a href="#sec-5-3">5.3. Saving Subsets of Data</a></li>
+<li><a href="#sec-5-4">5.4. Missing Values</a></li>
+<li><a href="#sec-5-5">5.5. Exercise 3: Data Manipulation</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. Wrap-up</a>
+<ul>
+<li><a href="#sec-6-1">6.1. Help us make this workshop better!</a></li>
+<li><a href="#sec-6-2">6.2. Other Services Available</a></li>
+<li><a href="#sec-6-3">6.3. Additional Resources</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Documents for Today&#xa0;&#xa0;&#xa0;<span class="tag"><span class="labsetup">labsetup</span></span></h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Lab computer log in:
+<ul class="org-ul">
+<li>USERNAME: dataclass
+</li>
+<li>PASSWORD: on the board to your left
+</li>
+</ul>
+</li>
+<li>Download class materials from <a href="http://tutorials.iq.harvard.edu/SAS/SASintro.zip">http://tutorials.iq.harvard.eu/SAS/SASintro.zip</a>
+</li>
+<li>Includes data, presentation slides, exercises
+</li>
+<li>Extract (on lab machines right-click ==&gt; WinZip ==&gt; Extract here) and move materials to your desktop!
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Workshop Description</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>This is an INTRODUCTION to SAS &#x2013; assumes no knowledge of SAS!
+</li>
+<li>Not appropriate for people already well familiar with SAS
+</li>
+<li>Learning Objectives:
+<ul class="org-ul">
+<li>Import and export data in a varity of formats
+</li>
+<li>Create and use variable and value labels
+</li>
+<li>Perform basic data manipulation
+</li>
+<li>Compoute descriptive statistics
+</li>
+<li>Wrap-up
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Why SAS?</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>If you know SAS, it is likely you will not need any other software packages
+</li>
+<li>Among the most powerful statistical software packages available
+</li>
+<li>Great user community: macros, websites, etc.
+</li>
+<li>Online documentation: <a href="http://support.sas.com/documentation/93/index.html">http://support.sas.com/documentation/93/index.html</a>
+</li>
+</ul>
+
+<p>
+That said, it is my opinion that SAS is not cool. Only use it if you have to&#x2026;
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> SAS history</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+SAS was first developed in the 1970's. The world was a lot different then!
+(Image source: <a href="http://en.wikipedia.org/wiki/Moore's_law">http://en.wikipedia.org/wiki/Moore's_law</a>)
+</p>
+
+<div class="figure">
+<p><img src="./images/SASinContext.png" alt="SASinContext.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> The SAS Environment</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>Five basic SAS windows:
+<ul class="org-ul">
+<li>Results
+</li>
+<li>Explorer
+</li>
+<li>Editor
+</li>
+<li>Log
+</li>
+<li>Output
+</li>
+</ul>
+</li>
+<li>Set up your SAS window so it fits your own preferences
+</li>
+<li>Viewing options (Windows only):
+<ul class="org-ul">
+<li>Window &gt; Tile Vertically
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> SAS Basics</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>SAS has point-and-click interfaces, but most users write command-driven SAS programs
+</li>
+<li>Command syntax is not case sensitive, but file names may be
+</li>
+<li>Commands can run on multiple lines (but you can't split words across lines)
+</li>
+<li>Follow every command with RUN ;
+</li>
+<li>Comments can be written as:
+<ul class="org-ul">
+<li><code>/* comment comment comment */</code> OR
+</li>
+<li><code>* comment comment comment;</code>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Data Import and Export</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Working With SAS Data</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>SAS data sets are stored in files on your hard drive, usually with the extension ".sas7bdat"
+</li>
+<li>Under Unix/Linux SAS data file names must be all lowercase&#x2013;best to observe this restriction on Windows as well
+</li>
+<li>In SAS there is no concept of "opening" a data set&#x2013;Instead we use <i>libraries</i> to point to directories on the hard drive that contain SAS data sets
+</li>
+<li>Unless you specify otherwise, SAS copies your data temporarily in a library called "work"
+</li>
+<li>The work library is temporary, so
+<ul class="org-ul">
+<li>use the work library for temporary data sets
+</li>
+<li>create and use your own library for any data you wish to save
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Libraries and Datasets</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Tell SAS where our data is on our hard drive by creating a library &#x2013; I'm going to name my library <i>introSAS</i> and point SAS to the <i>dataSets</i> folder
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="libsdata"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> initialize a SAS library in the dataSets folder </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #0000FF;">LIBNAME</span> introSAS <span style="color: #008000;">"C:/Users/dataclass/Desktop/SASintro/dataSets"</span>;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> list sas datasets in the introSAS library / dataSets folder </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC DATASETS</span> library=introSAS;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> initialize a SAS library in the SASintroLib folder </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #0000FF;">LIBNAME</span> mylib <span style="color: #008000;">"C:/Users/dataclass/Desktop/SASintro/SASintroLib"</span>;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> copy pubschool to the "work" library </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span> pubschool;
+     <span style="color: #0000FF;">SET</span> <span style="color: #008000;">"C:/Users/dataclass/Desktop/SASintro/dataSets/pubschool"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>The DATA command is actually saving our dataset as a new  file called "pubschool" in the "work" library
+</li>
+<li>The SET command is just telling SAS what dataset to save
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> What if my file is not a SAS file?</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+In SAS "import" means "convert to SAS format, copy to library/folder"
+</p>
+
+<ul class="org-ul">
+<li>Import Stata files with <i>dbms=dta</i>
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="importstata"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> import from stata format </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC IMPORT</span> out = pubschool
+    DATAFILE = <span style="color: #008000;">"C:/Users/dataclass/Desktop/SASintro/dataSets/pubschool.dta"</span>
+    DBMS = dta replace;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>Importing ASCII files with (e.g.) <i>dbms=csv</i>
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="importascii"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> import csv file </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC IMPORT</span> out = pubschool
+     DATAFILE = <span style="color: #008000;">"C:/Users/dataclass/Desktop/SASintro/dataSets/pubschool.csv"</span>
+     DBMS = csv   replace;
+     GETNAMES = yes;
+     DATAROW = 2;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Where is my data?</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+You can "view" you data in a couple of ways:
+</p>
+<ul class="org-ul">
+<li>Proc contents
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="contents"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> list contents of pubschool data </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC CONTENTS</span> <span style="color: #D0372D;">data</span> = pubschool;
+     <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Public school contents"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>Data viewer
+<ol class="org-ol">
+<li>Go to explorer
+</li>
+<li>Select your "work" library
+</li>
+<li>Click on your dataset (opens in SAS Universal Viewer)
+</li>
+</ol>
+</li>
+<li>Your dataset is named in the library as "pubschool" because that's what you named it when you originally opened the dataset
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> How do I get my data out of SAS?</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+In SAS "export" means "convert to a non-SAS format"
+</p>
+
+<ul class="org-ul">
+<li>Exporting CSV files:
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="exportCSV"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> export to .csv </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC EXPORT</span> <span style="color: #D0372D;">data</span> = introSAS.ntcs
+     OUTFILE = <span style="color: #008000;">"C:/Users/dataclass/Desktop/SASintro/SASintroLib/NeighCrime_NEW_EXPORT.csv"</span>
+     DBMS = csv;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>Exporting tab delimited files:
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="exportdelim"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> export to tab delimited </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC EXPORT</span> <span style="color: #D0372D;">data</span> = introSAS.ntcs
+     OUTFILE = <span style="color: #008000;">"C:/Users/dataclass/Desktop/SASintro/SASintroLib/NeighCrime_NEW_EXPORT.txt"</span>
+     DBMS = tab;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Exercise 1: Importing Data</h3>
+<div class="outline-text-3" id="text-2-6">
+<ol class="org-ol">
+<li>Create a library named "mylib" in the SASintroLib folder if it doesn't already exist
+</li>
+<li>Import the Stata file, "ntcs.dta" to the mylib library
+</li>
+<li>Import the ASCII file, "ntcs.csv" to the mylib library
+</li>
+<li>Use "proc datasets" to list the datasets in the mylib libary
+</li>
+<li>Use "proc contents" to review the data you imported in step 2
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Descriptive Statistics</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Means, standard deviations, etc.</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Compute averages for q1 and q2 using proc means
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="procmeans"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> means of vars q1 and q2 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC MEANS</span> <span style="color: #D0372D;">data</span> = pubschool;
+     <span style="color: #0000FF;">VAR</span> q1 q2;
+     <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Public school means"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+
+<p>
+Compute averages for q1 separately by timezone
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="meansByTZ"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> means separatly by timezone </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> need to sort first </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC SORT</span> <span style="color: #D0372D;">data</span> = pubschool;
+    <span style="color: #0000FF;">by</span> timezone;
+<span style="color: #D0372D;">RUN;</span>
+
+<span style="color: #D0372D;">PROC MEANS</span> <span style="color: #D0372D;">data</span> = pubschool;
+    <span style="color: #0000FF;">by</span> timezone;
+    <span style="color: #0000FF;">VAR</span> q1;
+    <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Public school means by timezone"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Frequency Tables</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Frequency tables for q1 and q2 using proc freq
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="freq"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> counts of responses to q3, q4, and q5 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC FREQ</span> <span style="color: #D0372D;">data</span> = pubschool;
+     <span style="color: #0000FF;">TABLE</span> q3 q4 q5;
+     <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Public school frequencies"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<p>
+Frequency tables for q1 by timezone
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="freq"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> counts by timezone </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC FREQ</span> <span style="color: #D0372D;">data</span> = pubschool;
+     <span style="color: #0000FF;">TABLE</span> q3*timezone;
+     <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Public school frequencies"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Correlation and Regression</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+We're interested in looking at the relationship between City Crime Rate (C_CRIMRT) and Percent of High School Grads in the City (C_HSGRAD)
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="scatterplot"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> Scatterplot of relationship between high school</span>
+<span style="color: #8D8D84; font-style: italic;">   graduation rate and crime rate </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC GPLOT</span> <span style="color: #D0372D;">data</span> = introSAS.ntcs;
+     <span style="color: #0000FF;">PLOT</span>    C_HSGRAD * C_CRIMRT;
+     <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Percent of High School Graduates and Crime Rates"</span>;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> correlation between graduation and crime rates </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC CORR</span> <span style="color: #D0372D;">data</span> = introSAS.ntcs;
+   <span style="color: #0000FF;">VAR</span>     C_HSGRAD C_CRIMRT;
+      <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Percent of High School Graduates and Crime Rates"</span>;
+<span style="color: #D0372D;">RUN;</span>
+ <span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> Regression predicting crime rate </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC REG</span> <span style="color: #D0372D;">data</span> = introSAS.ntcs;
+     <span style="color: #0000FF;">MODEL</span> C_CRIMRT = C_HSGRAD C_PERCAP C_POVRTY;
+     <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"Percent of High School Graduates and Crime Rates"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Exercise 2: Correlation and regression</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Use the ntcs data set
+</p>
+
+<ol class="org-ol">
+<li>Take a look around the ntcs dataset and identify an outcome you'd like to predict and few variables (4-6) that you believe would serve as relevant predictor variables
+</li>
+<li>Run relevant descriptive statistics on your variables and look at histograms and scatterplots
+</li>
+<li>Test correlations leading up to ultimately testing a regression
+</li>
+<li>Run and interpret a regression using your selected variables
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Variable and Value Labels</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Variable and Value Labels</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>Variable labels refer to the titles associated with each variable
+</li>
+<li>Value labels refer to the titles you assign to the different levels (i.e., values) of each variable
+</li>
+<li>EXAMPLE:
+<ul class="org-ul">
+<li>Variable name: Marital
+</li>
+<li>Variable label: Marital status of participant
+</li>
+<li>Value labels: 1 = Married, 2 = Separated, 3= Divorced, 4 = Single, etc.
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Variable Labels</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Adding variable labels is a <i>data step</i> command:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="labels"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> copy pubschool to pubschool2 and label resp and status </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span> pubschool2;
+  <span style="color: #0000FF;">SET</span> pubschool;
+  <span style="color: #0000FF;">LABEL</span>
+     resp = <span style="color: #008000;">"Participant Identifier"</span>
+     status = <span style="color: #008000;">"Did participant complete survey?"</span>
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> Check output </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC CONTENTS</span> <span style="color: #D0372D;">data</span> = pubschool2;
+   <span style="color: #0000FF;">TITLE</span> <span style="color: #008000;">"pubschool2 contents"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Creating Value Labels</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Creating value labels is a <i>proc</i> command
+</p>
+<ul class="org-ul">
+<li>Start by creating the label format
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="valuelables"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> create value label named q1label </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC FORMAT</span>;
+ <span style="color: #0000FF;">VALUE</span> q1label
+       1 = <span style="color: #008000;">"best"</span>
+       2 = <span style="color: #008000;">"top 5"</span>
+       3 = <span style="color: #008000;">"top 10"</span>
+       4 = <span style="color: #008000;">"top 20"</span>
+       5 = <span style="color: #008000;">"Bottom 80"</span>
+       9 = <span style="color: #008000;">"Don't know"</span>;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Using Value labels</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Now we can use this value scheme creating tables,output, etc.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="usevalueLabs"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> display fequencies, using value labels </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC FREQ</span> <span style="color: #D0372D;">data</span> = pubschool;
+      <span style="color: #0000FF;">TABLES</span> q1;
+      <span style="color: #0000FF;">FORMAT</span> q1 q1label.;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> NOTE: There is a "." after q1label. This alerts SAS</span>
+<span style="color: #8D8D84; font-style: italic;"> that you're referring to a value scheme Saving Value</span>
+<span style="color: #8D8D84; font-style: italic;"> Labels in your Dataset </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+</pre>
+</div>
+<p>
+We can also save a value label in a data set,
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="savingvaluelabels"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> add value label to SAS data set </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC DATASETS</span> library = work;
+     <span style="color: #0000FF;">MODIFY</span> pubschool2;
+<span style="color: #0000FF;">format</span>     q1 q1label.;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> confirm that our formats were correctly applied: </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC FREQ</span> <span style="color: #D0372D;">data</span> = pubschool2;
+<span style="color: #0000FF;">TABLES</span>    q1 q3;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> Dropping and Renaming Variables</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Keeping a subset  of variables is simple&#x2013;use the "drop" or "keep" command:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="dropKeep"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> create new dataset "pubschoolKeep" with only q1-q5 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span>   pubschoolKeep (<span style="color: #0000FF;">keep</span> = q1 q2 q3 q4 q5);
+     <span style="color: #0000FF;">SET</span> pubschool;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> create new dataset pubschoolDrop, excluding q1-q5 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span>   pubschoolDrop       (<span style="color: #0000FF;">drop</span> = q1 q2 q3 q4 q5);
+     <span style="color: #0000FF;">SET</span> pubschool;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<p>
+Renameing variables is done in a data step: just put the rename syntax right after your data command
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="rename"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> change the name of q2 to q2newName </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span> pubschool2 (<span style="color: #0000FF;">rename</span> = (q2 = q2newName));
+     <span style="color: #0000FF;">SET</span> pubschool2;
+<span style="color: #D0372D;">RUN;</span>
+<span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> View the dataset: </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">PROC CONTENTS</span> <span style="color: #D0372D;">data</span> = pubschool2;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> SAS variable names</h3>
+<div class="outline-text-3" id="text-4-6">
+<ul class="org-ul">
+<li>Must be <code>&lt;=</code> 32 characters in length
+</li>
+<li>Must start with a letter or underscore
+</li>
+<li>Can contain only numbers, letters or underscores
+<ul class="org-ul">
+<li>No special characters: <code>@#$%^&amp;*</code>
+</li>
+</ul>
+</li>
+<li>Can contain upper and lowercase letters
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Data Manipulation</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Logic Statements Useful For Data Manipulation</h3>
+<div class="outline-text-3" id="text-5-1">
+<dl class="org-dl">
+<dt> <code>=</code> (EQ) </dt><dd>equal to
+</dd>
+<dt> <code>^=</code> (NE) </dt><dd>not equal to
+</dd>
+<dt> <code>&gt;</code> (GT) </dt><dd>greater than
+</dd>
+<dt> <code>&lt;</code> (LT) </dt><dd>less than
+</dd>
+<dt> <code>&gt;=</code> (GE) </dt><dd>greater than or equal to
+</dd>
+<dt> <code>&lt;=</code> (LE) </dt><dd>less than or equal to
+</dd>
+<dt> <code>&amp;</code> (AND) </dt><dd>and
+</dd>
+<dt> <code>|</code> (OR) </dt><dd>or
+</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Generate New Variables</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+A data command - simply put new variable name followed by variable condition.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="creatNewVars"><span style="color: #D0372D;">DATA</span> pubschool2;
+    <span style="color: #0000FF;">SET</span> pubschool;
+    <span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> create variable "myvar" equal to q1 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+    myvar = q1;
+    <span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> create variable newvar2 equal to 1 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+    newvar2 = 1;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<p>
+Create new variable based on values of existing variable
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="newvars2"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> generate newvar4 based on q1 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span> pubschool2;
+    <span style="color: #0000FF;">SET</span> pubschool;
+    <span style="color: #0000FF;">if</span> q1=1 <span style="color: #0000FF;">then</span> newvar3=1;
+    <span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> q1=2 <span style="color: #0000FF;">then</span> newvar3=2;
+    <span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> q1=3 <span style="color: #0000FF;">then</span> newvar3=3;
+    <span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> q1=4 <span style="color: #0000FF;">then</span> newvar3=4;
+    <span style="color: #0000FF;">else</span> newvar3=.;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Saving Subsets of Data</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Subsets are created with in a <i>data step</i>
+</p>
+
+<ul class="org-ul">
+<li>Create a subset of data including only participants who had a child attending a public school
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-sas" id="savesubset"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> keep only rows where q10 is 1 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span> CurrentPublic;
+     <span style="color: #0000FF;">SET</span> pubschool;
+     <span style="color: #0000FF;">if</span> q10=1;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>Create a subset of data including participants in timezone 1 or 2
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sas" id="savesubset3"><span style="color: #8D8D84; font-style: italic;">/*</span><span style="color: #8D8D84; font-style: italic;"> keep only rows where timezone is 1 or 2 </span><span style="color: #8D8D84; font-style: italic;">*/</span>
+<span style="color: #D0372D;">DATA</span> CurrentPublic;
+     <span style="color: #0000FF;">SET</span> pubschool;
+     <span style="color: #0000FF;">if</span> timezone=1 | timezone=2;
+<span style="color: #D0372D;">RUN;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Missing Values</h3>
+<div class="outline-text-3" id="text-5-4">
+<ul class="org-ul">
+<li>SAS's symbol for a missing value is "."
+</li>
+<li>SAS interprets "." as a small value
+</li>
+<li>Need to be aware of this when you are manipulating data!
+<ul class="org-ul">
+<li>What will happen when you use the &lt; or &lt;= commands?
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> Exercise 3: Data Manipulation</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+Use the ntcs.sas7bdat
+</p>
+
+<ol class="org-ol">
+<li>Attach variable labels using the following codebook:
+<ul class="org-ul">
+<li>REGION =  "Region in United States"
+</li>
+<li>CITY = "Name of City and State"
+</li>
+</ul>
+</li>
+<li>Create formats in SAS using the codebook below:
+<ul class="org-ul">
+<li>C_SOUTH: 1 = Southern City, 0=Non-Southern City
+</li>
+<li>C_WEST: 1=Western City 0=Non-Western City
+</li>
+</ul>
+</li>
+<li>Run "proc freq" on C_SOUTH and C_WEST and use formats from step 2
+</li>
+<li>Assign the formats for C_SOUTH and C_WEST permanently in your ntcs dataset
+</li>
+<li>Confirm with "proc freq" that your labels were correctly assigned
+</li>
+<li>Generate new variables based on the city-level crime variables "C_MURDRT" and "C_ROBBRT". Choose values on which to dichotomize each variable and create new variables that have a score of "1" if the original variable is above that value, and a score of "0" otherwise.
+</li>
+<li>Confirm that your new variables were properly created using "proc freq"
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Wrap-up</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Help us make this workshop better!</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>Please take a moment to fill out a very short feedback form
+</li>
+
+<li>These workshops exist for you – tell us what you need!
+</li>
+
+<li><a href="http://tinyurl.com/akyvzle">http://tinyurl.com/akyvzle</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Other Services Available</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Institute for Quantitative Social Science
+</p>
+<ul class="org-ul">
+<li>www.iq.harvard.edu
+</li>
+</ul>
+<p>
+Computer labs
+</p>
+<ul class="org-ul">
+<li>www.iq.harvard.edu/facilities
+</li>
+</ul>
+<p>
+Data Science Services
+</p>
+<ul class="org-ul">
+<li>www.iq.harvard.edu/researchconsulting
+</li>
+</ul>
+<p>
+Training
+</p>
+<ul class="org-ul">
+<li><a href="http://projects.iq.harvard.edu/rtc/filter_by/workshops">http://projects.iq.harvard.edu/rtc/filter_by/workshops</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> Additional Resources</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+How do I get SAS?
+</p>
+<ul class="org-ul">
+<li>Your Department IT
+</li>
+<li>HMDC labs
+</li>
+<li>RCE (Research Computing Environment)
+</li>
+<li>Buy it: educational or grad plan
+</li>
+</ul>
+
+<p>
+The RCE
+</p>
+<ul class="org-ul">
+<li>Research Computing Enviroment (RCE) service available to
+Harvard &amp; MIT users
+</li>
+<li>www.iq.harvard.edu/research_computing
+</li>
+<li>Supplies persistent desktop environment accessible from
+any computer with an internet connection
+</li>
+<li>Includes SAS, Stata, R etc.
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2014-10-02 Thu 21:17</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.7c)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

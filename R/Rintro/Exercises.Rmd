@@ -1,0 +1,114 @@
+---
+title: "Exercises"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Exercise 0 {.smaller}
+
+The purpose of this exercise is to give you an opportunity to explore
+the interface provided by RStudio (or whichever GUI you've decided to
+use). You may not know how to do these things; that's fine! This is an
+opportunity to figure it out.
+
+Also keep in mind that we are living in a golden age of tab completion.
+If you don't know the name of an R function, try guessing the first two
+or three letters and pressing TAB. If you guessed correctly the function
+you are looking for should appear in a pop up!
+
+1.  Try to get R to add 2 plus 2.
+
+2.  Try to calculate the square root of 10.
+
+3.  R includes extensive documentation, including a manual named "An
+    introduction to R". Use the RStudio help pane. to locate this manual.
+
+
+## Exercise 1: Import baby names data {.smaller}
+
+Make sure you have installed the `readr` package and attached it with `library(readr)`.
+
+Baby names data are available at `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`.
+1. Open the `read_csv` help page to determine how to use it to read in data.
+
+2. Read the baby names data using the `read_csv` function and assign the result 
+with the name `baby.names`. Make sure you name the columns `Name`, `Sex`, 
+`Count`, and `Year`.
+
+3. BONUS (optional): Save the `baby.names` data as a Stata data set `babynames.dta` 
+and as an R data set `babynames.rds`.
+
+
+## Exercise 2: Peak popularity of your name {.smaller}
+
+In this exercise you will discover the year your name reached its maximum popularity.
+
+Read in the "babyNames.csv" file if you have not already done so,
+assigning the result to `baby.names`. The file is located at 
+`"http://tutorials.iq.harvard.edu/data/babyNames.csv"`
+
+Make sure you have installed the `dplyr` package and attached it with `library(dplyr)`.
+
+1.  Use `filter` to extract data for your name (or another name of your choice).  
+
+2.  Arrange the data you produced in step 1 above by `Count`. 
+    In which year was the name most popular?
+
+3.  BONUS (optional): Filter the data to extract *only* the 
+     row containing the most popular boys name in 1999.
+
+
+
+## Exercise 3: Plotting peak popularity of your name {.smaller}
+
+Make sure the `ggplot2` package is installed, and that you 
+have attached it using `library(ggplot2)`.
+
+1.  Use `filter` to extract data for your name (same as previous exercise)
+
+2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
+    and `Count` on the y-axis.
+    
+3. Adjust the plot so that is shows boys and girls in different colors.
+
+4. BONUS (Optional): Adust the plot to use lines instead of points.   
+     
+     
+     
+## Exercise 4: Most popular names {.smaller}
+
+In this exercise your goal is to identify the most popular names for each year.
+
+1.  Use `mutate` and `group_by` to create a column named "Proportion"
+    where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
+
+2.  Use `mutate` and `group_by` to create a column named "Rank" where 
+    `Rank = rank(-Count)` for each `Year X Sex` group. 
+
+3.  Filter the baby names data to display only the most popular name 
+    for each `Year X Sex` group.
+
+4. Plot the data produced in step 4, putting `Year` on the x-axis
+    and `Proportion` on the y-axis. How has the proportion of babies
+    given the most popular name changed over time?
+    
+5. BONUS (optional): Which names are the most popular for both boys and girls?
+    
+
+## Exercise 5: Popularity of the most popular names {.smaller}
+
+In this exercise we will plot trends in the proportion of boys and girls given one of the 10 most popular names each year.
+
+1.  Filter the baby.names data, retaining only the 10 most popular girl
+    and boy names for each year.
+
+2.  Summarize the data produced in step one to calculate the total
+    Proportion of boys and girls given one of the top 10 names
+    each year.
+
+3.  Plot the data produced in step 2, with year on the x-axis
+    and total proportion on the y axis. Color by sex.
+    
