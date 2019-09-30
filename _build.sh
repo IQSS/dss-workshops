@@ -5,6 +5,9 @@
 
 set -ev
 
+# remove docs and _bookdown_files directories before re-compiling
+rm -rf docs _bookdown_files
+
 Rscript -e "bookdown::render_book('rmd_files', 'bookdown::gitbook')"
 Rscript -e "bookdown::render_book('rmd_files', 'bookdown::pdf_book')"
 Rscript -e "bookdown::render_book('rmd_files', 'bookdown::epub_book')"
