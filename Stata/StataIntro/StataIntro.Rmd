@@ -12,8 +12,7 @@
  Saving data.
 
 
-Materials and setup
--------------------
+## Setup instructions
 
 Laptop users: you will need a copy of Stata installed on your machine. Harvard FAS affiliates can install a licensed version from <http://downloads.fas.harvard.edu/download>
 
@@ -29,8 +28,11 @@ Everyone:
 -   Find class materials at <http://tutorials.iq.harvard.edu/Stata/StataIntro.zip>
 -   Download and extract to your desktop!
 
-Organization
-------------
+```{r eval=TRUE}
+knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+### Organization
 
 -   Please feel free to ask questions at any point if they are relevant to the current topic (or if you are lost!)
     -   There will be a Q&A after class for more specific, personalized questions
@@ -39,8 +41,7 @@ Organization
 -   Make comments in your Do-file rather than on hand-outs
     -   save on flash drive or email to yourself
 
-Workshop description
--------------------
+### Workshop description
 
 -   This is an **introduction** to Stata
 -   Assumes no/very little knowledge of Stata
@@ -51,24 +52,21 @@ Workshop description
     -   Compute statistics and construct graphical displays
     -   Compute new variables and transformations
 
-Why stata?
-----------
+### Why stata?
 
 -   Used in a variety of disciplines
 -   User-friendly
 -   Great guides available on web (as well as in HMDC computer lab library)
 -   Student and other discount packages available at reasonable cost
 
-Stata interface
----------------
+### Stata interface
 
 ![](Stata/StataIntro/images/StataInterface.png)
 
 -   Review and Variable windows can be closed (user preference)
 -   Command window can be shortened (recommended)
 
-Do-files
---------
+### Do-files
 
 -   You can type all the same commands into the Do-file that you would type into the command window
 -   BUT...the Do-file allows you to **save** your commands
@@ -78,18 +76,15 @@ Do-files
     -   Allows easy replication
     -   Allows you to go back and re-run commands, analyses and make modifications
 
-Stata help
-----------
+### Stata help
 
 To get help in Stata type `help` followed by topic or command, e.g., `help codebook`.
 
-General Stata command syntax
-----------------------------
+### General Stata command syntax
 
 Most Stata commands follow the same basic syntax: `Command varlist, options`.
 
-Commenting and formatting syntax
---------------------------------
+### Commenting and formatting syntax
 
 Start with comment describing your Do-file and use comments throughout
 
@@ -123,8 +118,7 @@ disp "Hello" ///
     Hello World!
 
 
-Let's get started
------------------
+### Let's get started
 
 -   Launch the Stata program (MP or SE, does not matter unless doing computationally intensive work)
     -   Open up a new Do-file
@@ -137,11 +131,9 @@ Let's get started
 ```
 
 
-Getting data into Stata
-=======================
+## Getting data into Stata
 
-Data file commands
-------------------
+### Data file commands
 
 -   Next, we want to open our data file
 -   Open/save data sets with "use" and "save":
@@ -164,15 +156,13 @@ save newgss.dta, replace // "replace" option means OK to overwrite existing file
     file newgss.dta saved
 
 
-A note about path names
------------------------
+### A note about path names
 
 -   If your path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the path as is
 -   If there are spaces, you need to put your pathname in quotes
 -   Best to get in the habit of quoting paths
 
-Where's my data?
-----------------
+### Where's my data?
 
 -   Data editor (**browse**)
 -   Data editor (**edit**)
@@ -180,8 +170,7 @@ Where's my data?
 -   Always keep any changes to your data in your Do-file
 -   Avoid temptation of making manual changes by viewing data via the browser rather than editor
 
-What if my data is not a Stata file?
-------------------------------------
+### What if my data is not a Stata file?
 
 -   Import delimited text files
 
@@ -217,16 +206,14 @@ export sasxport gss_new, replace
     file gss_new.xpt saved
 
 
-What if my data is from another statistical software program?
--------------------------------------------------------------
+### What if my data is from another statistical software program?
 
 -   SPSS/PASW will allow you to save your data as a Stata file
     -   Go to: file &gt; save as &gt; Stata (use most recent version available)
     -   Then you can just go into Stata and open it
 -   Another option is **StatTransfer**, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more
 
-Exercise 1: Importing data
---------------------------
+### Exercise 1: Importing data
 
 1.  Save any work you've done so far. Close down Stata and open a new session.
 2.  Start Stata and open your `.do` file. 
@@ -235,11 +222,10 @@ Exercise 1: Importing data
     -   A comma separated value file: gss.csv
     -   An Excel file: gss.xlsx
 
-Statistics and graphs
-=====================
 
-Frequently used commands
-------------------------
+## Statistics and graphs
+
+### Frequently used commands
 
 -   Commands for reviewing and inspecting data:
     -   describe // labels, storage type etc.
@@ -303,8 +289,7 @@ tab sex // numbers of male and female participants
 
 -   If you run these commands without specifying variables, Stata will produce output for every variable
 
-Basic graphing commands
------------------------
+### Basic graphing commands
 
 -   Univariate distribution(s) using **hist**
 
@@ -344,10 +329,7 @@ graph matrix educ age inc
 ```
 
 
-
-
-The "by" command
-----------------
+### The "by" command
 
 -   Sometimes, you'd like to generate output based on different categories of a grouping variable
 -   The "by" command does just this
@@ -428,8 +410,7 @@ bysort marital: sum educ // summarize eudcation by marital status
     
 
 
-Exercise 2: Descriptive statistics
-----------------------------------
+### Exercise 2: Descriptive statistics
 
 1.  Use the dataset, gss.dta
 2.  Examine a few selected variables using the describe, sum and codebook commands
@@ -439,19 +420,16 @@ Exercise 2: Descriptive statistics
 6.  Summarize the variable `happy` for married individuals only
 
 
-Basic data management
-=====================
+## Basic data management
 
-Labels
-------
+### Labels
 
 -   You never know why and when your data may be reviewed
 -   ALWAYS label every variable no matter how insignificant it may seem
 -   Stata uses two sets of labels: **variable labels** and **value labels**
 -   Variable labels are very easy to use -- value labels are a little more complicated
 
-Variable and value labels
--------------------------
+### Variable and value labels
 
 -   Variable labels
 
@@ -488,8 +466,7 @@ Variable and value labels
   label val sex  mySexLabel
 ```
 
-Exercise 3: Variable labels and value labels
---------------------------------------------
+### Exercise 3: Variable labels and value labels
 
 1.  Open the data set **gss.csv**
 2.  Familiarize yourself with the data using describe, sum, etc.
@@ -515,8 +492,7 @@ Exercise 3: Variable labels and value labels
 | 4         | "separated"     |
 | 5         | "never married" |
 
-Working on subsets
-------------------
+### Working on subsets
 
 -   It is often useful to select just those rows of your data where some condition holds--for example select only rows where sex is 1 (male)
 -   The following operators allow you to do this:
@@ -534,8 +510,7 @@ Working on subsets
 
 -   Note the double equals signs for testing equality
 
-Generating and replacing variables
-----------------------------------
+### Generating and replacing variables
 
 -   Create new variables using "gen"
 
@@ -579,19 +554,16 @@ Generating and replacing variables
     (45 real changes made)
 
 
-Exercise 4: Manipulating variables
-----------------------------------
+### Exercise 4: Manipulating variables
 
 1.  Use the dataset, gss.dta
 2.  Generate a new variable, age2 equal to age squared
 3.  Generate a new "high income" variable that will take on a value of "1" if a person has an income value greater than "15" and "0" otherwise
 4.  Generate a new divorced/separated dummy variable that will take on a value of "1" if a person is either divorced or separated and "0" otherwise
 
-Wrap-up
-=======
+## Wrap-up
 
-Help us make this workshop better!
-----------------------------------
+### Help us make this workshop better!
 
 -   Please take a moment to fill out a very short feedback form
 
@@ -599,8 +571,7 @@ Help us make this workshop better!
 
 -   <http://tinyurl.com/6h3cxnz>
 
-Additional resources
---------------------
+### Additional resources
 
 -   IQSS workshops: <http://projects.iq.harvard.edu/rtc/filter_by/workshops>
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>IQSS Workshops</title>
+  <title>4 R Data Wrangling | IQSS Workshops</title>
   <meta name="description" content="IQSS Data Science Workshops" />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="IQSS Workshops" />
+  <meta property="og:title" content="4 R Data Wrangling | IQSS Workshops" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="IQSS/dss-workshops-redux" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="IQSS Workshops" />
+  <meta name="twitter:title" content="4 R Data Wrangling | IQSS Workshops" />
   
   <meta name="twitter:description" content="IQSS Data Science Workshops" />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="Rintro.html"/>
+<link rel="prev" href="Rgraphics.html"/>
+<link rel="next" href="PythonIntro.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -431,29 +431,317 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">IQSS Workshops</h1>
-<p class="date"><em>September 2019</em></p>
+<div id="r-data-wrangling" class="section level1">
+<h1><span class="header-section-number">4</span> R Data Wrangling</h1>
+<p><strong>Topics</strong> - R ggplot2 package - Setup basic plots - Add and modify scales and legends - Manipulate plot labels</p>
+<div id="setup-instructions-3" class="section level2">
+<h2><span class="header-section-number">4.1</span> Setup instructions</h2>
+<p>Prior to the workshop you should:</p>
+<ul>
+<li>install R from <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a></li>
+<li>install RStudio from <a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></li>
+<li>install the tidyverse package in R with <code>install.packages(&quot;tidyverse&quot;)</code> and attach it with <code>library(tidyverse)</code></li>
+</ul>
+<p>To start the workshop: - Download and extract the materials from <a href="http://tutorials.iq.harvard.edu/R/RDataManagement.zip" class="uri">http://tutorials.iq.harvard.edu/R/RDataManagement.zip</a>. - Open Rstudio and create a new project (<code>File ==&gt; New Project ==&gt; Existing Directory</code> and select the <code>RDataManagement</code> folder you downloaded and extracted earlier. - Open a new R script (<code>File ==&gt; New File ==&gt; R script</code>) and save it as <code>Notes.R</code>.</p>
+<div id="workshop-description" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Workshop description</h3>
+<p>Data scientists are known and celebrated for modeling and visually displaying information, but down in the data science engine room there is a lot of less glamorous work to be done. Before data can be used effectively it must often be cleaned, corrected, and reformatted. This workshop introduces the basic tools needed to make your data behave, including data reshaping, regular expressions and other text manipulation tools.</p>
+<p>This is an intermediate/advanced R course appropriate for those with basic knowledge of R. If you need a refresher we recommend the <a href="http://tutorials.iq.harvard.edu/R/Rintro/Rintro.html">the IQSS R intro</a>.</p>
+<p>The lesson notes are available at <a href="http://tutorials.iq.harvard.edu/R/RDataManagement/RDataManagement.html" class="uri">http://tutorials.iq.harvard.edu/R/RDataManagement/RDataManagement.html</a></p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
-<div id="table-of-contents" class="section level2 unnumbered">
-<h2>Table of Contents</h2>
-<p>Materials for the <a href="http://dss.iq.harvard.edu">Data Science Services</a> statistical software workshops from the <a href="http://iq.harvard.edu">Institute for Quantitative Social Science</a> at Harvard.</p>
+</div>
+<div id="example-project-overview" class="section level2">
+<h2><span class="header-section-number">4.2</span> Example project overview</h2>
+<p>It is common for data to be made available on a website somewhere, either by a government agency, research group, or other organizations and entities. Often the data you want is spread over many files, and retrieving it all one file at a time is tedious and time consuming. Such is the case with the baby names data we will be using today.</p>
+<p>The UK <a href="https://www.ons.gov.uk">Office for National Statistics</a> provides yearly data on the most popular baby names going back to 1996. The data is provided separately for boys and girls and is stored in Excel spreadsheets.</p>
+<p>I have downloaded all the excel files containing boys names data from <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys</a> and made them available at <a href="http://tutorials.iq.harvard.edu/R/RDataManagement/data/boysNames.zip" class="uri">http://tutorials.iq.harvard.edu/R/RDataManagement/data/boysNames.zip</a>.</p>
+<p>Our mission is to extract and graph the <strong>top 100</strong> boys names in England and Wales for every year since 1996. There are several things that make this challenging.</p>
+<div id="problems-with-the-data" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Problems with the data</h3>
+<p>While it was good of the UK Office for National Statistics to provide baby name data, they were not very diligent about arranging it in a convenient or consistent format.</p>
+</div>
+<div id="exercise-0-1" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Exercise 0</h3>
+<p>Our mission is to extract and graph the <strong>top 100</strong> boys names in England and Wales for every year since 1996. There are several things that make this challenging.</p>
 <ol style="list-style-type: decimal">
-<li><a href="./Rintro.html">Introduction to R</a></li>
-<li><a href="./Rmodels.html">Regression models in R</a></li>
-<li><a href="./Rgraphics.html">Graphics in R using ggplot2</a></li>
-<li><a href="./RDataWrangling.html">R data wrangling</a></li>
-<li><a href="./PythonIntro.html">Introduction to Python</a></li>
-<li><a href="./PythonWebScrape.html">Python web-scraping</a></li>
-<li><a href="./StataIntro.html">Introduction to Stata</a></li>
+<li><p>Locate the file named <code>1996boys_tcm77-254026.xlsx</code> and open it in a spreadsheet. (If you don’t have a spreadsheet program installed on your computer you can downloads one from <a href="https://www.libreoffice.org/download/download/" class="uri">https://www.libreoffice.org/download/download/</a>). What issues can you identify that might make working with these data more difficult?</p></li>
+<li><p>Locate the file named <code>2015boysnamesfinal.xlsx</code> and open it in a spreadsheet. In what ways is the format different than the format of <code>1996boys_tcm77-254026.xlsx</code>? How might these differences make it more difficult to work with these data?</p></li>
 </ol>
-<p>These workshops are a work-in-progress, please provide feedback! Email: <a href="mailto:help@iq.harvard.edu">help@iq.harvard.edu</a></p>
 </div>
-<div id="authors-and-sources" class="section level2 unnumbered">
-<h2>Authors and Sources</h2>
-<p>These content of these workshops are almost entirely the work of Ista Zahn, now at Harvard’s School of Public Health. The current workshop materials have been modified by Steve Worthington, Jinjie Liu, and Yihan Wang, at Harvard’s Institute for Quantitative Social Science.</p>
+<div id="exercise-0-prototype-1" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Exercise 0 Prototype</h3>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Locate the file named <code>1996boys_tcm77-254026.xlsx</code> and open it in a spreadsheet. (If you don’t have a spreadsheet program installed on your computer you can downloads one from <a href="https://www.libreoffice.org/download/download/" class="uri">https://www.libreoffice.org/download/download/</a>). What issues can you identify that might make working with these data more difficult?</li>
+</ol>
+</blockquote>
+<p>The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.</p>
+<p>The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a separate set of columns.</p>
+<p>There are notes below the data.</p>
+<blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li>Locate the file named <code>2015boysnamesfinal.xlsx</code> and open it in a spreadsheet. In what ways is the format different than the format of <code>1996boys_tcm77-254026.xlsx</code>? How might these differences make it more difficult to work with these data?</li>
+</ol>
+</blockquote>
+<p>The worksheet containing the data of interest is in different positions and has different names from one year to the next. However, it always includes “Table 1” in the worksheet name.</p>
+<p>Some years include columns for “changes in rank”, others do not.</p>
+<p>These differences will make it more difficult to automate re-arranging the data since we have to write code that can handle different input formats.</p>
+</div>
+</div>
+<div id="useful-data-manipulation-packages" class="section level2">
+<h2><span class="header-section-number">4.3</span> Useful data manipulation packages</h2>
+<p>As you can see, the data is in quite a messy state. Note that this is not a contrived example; this is exactly the way the data came to us from the UK government website! Let’s start cleaning and organizing it. The <code>tidyverse</code> suite of packages provides many modern conveniences that will make this job easier.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+</div>
+<div id="working-with-excel-worksheets" class="section level2">
+<h2><span class="header-section-number">4.4</span> Working with Excel worksheets</h2>
+<p>Each Excel file contains a worksheet with the baby names data we want. Each file also contains additional supplemental worksheets that we are not currently interested in. As noted above, the worksheet of interest differs from year to year, but always has “Table 1” in the sheet name.</p>
+<p>The first step is to get a vector of file names.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boy.file.names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;R/RDataWrangling/dataSets/boys&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Now that we’ve told R the names of the data files we can start working with them. For example, the first file is</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boy.file.names[[<span class="dv">1</span>]]</code></pre></div>
+<p>and we can use the <code>excel_sheets</code> function from the <em>readxl</em> package to list the worksheet names from this file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
+
+<span class="kw">excel_sheets</span>(boy.file.names[[<span class="dv">1</span>]])</code></pre></div>
+<div id="iterating-over-file-names-with-map" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Iterating over file names with <code>map</code></h3>
+<p>Now that we know how to retrieve the names of the worksheets in an Excel file we could start writing code to extract the sheet names from each file, e.g.,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">excel_sheets</span>(boy.file.names[[<span class="dv">1</span>]])
+<span class="kw">excel_sheets</span>(boy.file.names[[<span class="dv">2</span>]])
+## ...
+<span class="kw">excel_sheets</span>(boy.file.names[[<span class="dv">20</span>]])</code></pre></div>
+<p>This is not a terrible idea for a small number of files, but it is more convenient to let R do the iteration for us. We could use a <code>for</code> loop, or <code>sapply</code>, but the <code>map</code> family of functions from the <em>purrr</em> package gives us a more consistent alternative, so we’ll use that.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)
+<span class="kw">map</span>(boy.file.names, excel_sheets)</code></pre></div>
+</div>
+<div id="filtering-strings-using-regular-expressions" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> Filtering strings using regular expressions</h3>
+<p>In order extract the correct worksheet names we need a way to extract strings containing “Table 1”. Base R provides some string manipulation capabilities (see <code>?regex</code>, <code>?sub</code> and <code>?grep</code>), but we will use the <em>stringr</em> package because it is more user-friendly.</p>
+<p>The <em>stringr</em> package provides functions to <em>detect</em>, <em>locate</em>, <em>extract</em>, <em>match</em>, <em>replace</em>, <em>combine</em> and <em>split</em> strings (among other things).</p>
+<p>Here we want to detect the pattern “Table 1”, and only return elements with this pattern. We can do that using the <code>str_subset</code> function. The first argument to <code>str_subset</code> is character vector we want to search in. The second argument is a <em>regular expression</em> matching the pattern we want to retain.</p>
+<p>If you are not familiar with regular expressions, <a href="http://www.regexr.com/" class="uri">http://www.regexr.com/</a> is a good place to start.</p>
+<p>Now that we know how to filter character vectors using <code>str_subset</code> we can identify the correct sheet in a particular Excel file. For example,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
+<span class="kw">str_subset</span>(<span class="kw">excel_sheets</span>(boy.file.names[[<span class="dv">1</span>]]), <span class="st">&quot;Table 1&quot;</span>)</code></pre></div>
+</div>
+<div id="writing-your-own-functions" class="section level3">
+<h3><span class="header-section-number">4.4.3</span> Writing your own functions</h3>
+<p>The <code>map*</code> functions are useful when you want to apply a function to a list or vector of inputs and obtain the return values. This is very convenient when a function already exists that does exactly what you want. In the examples above we mapped the <code>excel_sheets</code> function to the elements of a vector containing file names. But now there is no function that both retrieves worksheet names and subsets them. Fortunately, writing functions in R is easy.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get.data.sheet.name &lt;-<span class="st"> </span><span class="cf">function</span>(file, pattern) {
+    <span class="kw">str_subset</span>(<span class="kw">excel_sheets</span>(file), pattern)
+}</code></pre></div>
+<p>Now we can map this new function over our vector of file names.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(boy.file.names,
+    get.data.sheet.name,
+    <span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>)</code></pre></div>
+</div>
+</div>
+<div id="reading-excel-data-files" class="section level2">
+<h2><span class="header-section-number">4.5</span> Reading Excel data files</h2>
+<p>Now that we know the correct worksheet from each file we can actually read those data into R. We can do that using the <code>read_excel</code> function.</p>
+<p>We’ll start by reading the data from the first file, just to check that it works. Recall that the actual data starts on row 7, so we want to skip the first 6 rows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span><span class="kw">read_excel</span>(
+    boy.file.names[<span class="dv">1</span>],
+    <span class="dt">sheet =</span> <span class="kw">get.data.sheet.name</span>(boy.file.names[<span class="dv">1</span>],
+                                <span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>),
+    <span class="dt">skip =</span> <span class="dv">6</span>)
+
+<span class="kw">library</span>(dplyr, <span class="dt">quietly=</span><span class="ot">TRUE</span>)
+<span class="kw">glimpse</span>(tmp)</code></pre></div>
+<div id="exercise-1" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Exercise 1</h3>
+<ol style="list-style-type: decimal">
+<li><p>Write a function that takes a file name as an argument and reads the worksheet containing “Table 1” from that file. Don’t forget to skip the first 6 rows.</p></li>
+<li><p>Test your function by using it to read <em>one</em> of the boys names Excel files.</p></li>
+<li><p>Use the <code>map</code> function to read data from all the Excel files, using the function you wrote in step 1.</p></li>
+</ol>
+</div>
+<div id="exercise-1-solution-1" class="section level3">
+<h3><span class="header-section-number">4.5.2</span> Exercise 1 solution</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ## 1. Write a function that takes a file name as an argument and reads
+  ##    the worksheet containing &quot;Table 1&quot; from that file.
+  read.baby.names &lt;-<span class="st"> </span><span class="cf">function</span>(file) {
+      sheet.name &lt;-<span class="st"> </span><span class="kw">str_subset</span>(<span class="kw">excel_sheets</span>(file), <span class="st">&quot;Table 1&quot;</span>)
+      <span class="kw">read_excel</span>(file, <span class="dt">sheet =</span> sheet.name, <span class="dt">skip =</span> <span class="dv">6</span>)
+  }
+  
+  ## 2. Test your function by using it to read *one* of the boys names
+  ##    Excel files.
+  <span class="kw">glimpse</span>(<span class="kw">read.baby.names</span>(boy.file.names[<span class="dv">1</span>]))
+     
+  ## 3. Use the `map` function to read data from all the Excel files,
+  ##    using the function you wrote in step 1.
+  boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy.file.names, read.baby.names)</code></pre></div>
+</div>
+</div>
+<div id="data-cleanup" class="section level2">
+<h2><span class="header-section-number">4.6</span> Data cleanup</h2>
+<p>Now that we’ve read in the data we still have some cleanup to do. Specifically, we need to:</p>
+<ol style="list-style-type: decimal">
+<li>fix column names</li>
+<li>get rid of blank row and the top and the notes at the bottom</li>
+<li>get rid of extraneous “changes in rank” columns if they exist</li>
+<li>transform the side-by-side tables layout to a single table.</li>
+</ol>
+<p>In short, we want to go from this:</p>
+<div class="figure">
+<img src="R/RDataWrangling/images/messy.png" alt="messy" />
+<p class="caption">messy</p>
+</div>
+<p>to this:</p>
+<div class="figure">
+<img src="R/RDataWrangling/images/clean.png" alt="tidy" />
+<p class="caption">tidy</p>
+</div>
+<p>There are many ways to do this kind of data manipulation in R. We’re going to use the <em>dplyr</em> and <em>tidyr</em> packages to make our lives easier. (Both packages were installed as dependencies of the <em>tidyverse</em> package.)</p>
+<div id="selecting-columns" class="section level3">
+<h3><span class="header-section-number">4.6.1</span> Selecting columns</h3>
+<p>Next we want to retain just the <code>Name</code>, <code>Name__1</code> and <code>Count</code>, <code>Count__1</code> columns. We can do that using the <code>select</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames[[<span class="dv">1</span>]]
+
+boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], Name, Name__<span class="dv">1</span>, Count, Count__<span class="dv">1</span>)
+boysNames[[<span class="dv">1</span>]]</code></pre></div>
+</div>
+<div id="dropping-missing-values" class="section level3">
+<h3><span class="header-section-number">4.6.2</span> Dropping missing values</h3>
+<p>Next we want to remove blank rows and rows used for notes. An easy way to do that is to use <code>drop_na</code> to remove rows with missing values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames[[<span class="dv">1</span>]]
+
+boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">drop_na</span>(boysNames[[<span class="dv">1</span>]])
+boysNames[[<span class="dv">1</span>]]</code></pre></div>
+<p>Finally, we will want to filter out missing do this for all the elements in <code>boysNames</code>, a task I leave to you.</p>
+</div>
+<div id="exercise-2" class="section level3">
+<h3><span class="header-section-number">4.6.3</span> Exercise 2</h3>
+<ol style="list-style-type: decimal">
+<li><p>Write a function that takes a <code>data.frame</code> as an argument and returns a modified version including only columns named <code>Name</code>, <code>Name__1</code>, <code>Count</code>, or <code>Count__1</code>.</p></li>
+<li><p>Test your function on the first <code>data.frame</code> in the list of baby names data.</p></li>
+<li><p>Use the <code>map</code> function to each <code>data.frame</code> in the list of baby names data.</p></li>
+</ol>
+</div>
+<div id="exercise-2-prototype-1" class="section level3">
+<h3><span class="header-section-number">4.6.4</span> Exercise 2 prototype</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ## 1. Write a function that takes a `data.frame` as an argument and
+  ##    returns a modified version including only columns named `Name`,
+  ##    `Name__1`, `Count`, or `Count__1`.
+
+  namecount &lt;-<span class="st"> </span><span class="cf">function</span>(data) {
+      <span class="kw">select</span>(data, Name, Name__<span class="dv">1</span>, Count, Count__<span class="dv">1</span>)
+  }
+     
+  ## 2. Test your function on the first `data.frame` in the list of baby
+  ##    names data.
+
+  <span class="kw">namecount</span>(boysNames[[<span class="dv">1</span>]])
+  
+  ## 3. Use the `map` function to each `data.frame` in the list of baby
+  ##    names data.
+
+  babyNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, namecount)</code></pre></div>
+</div>
+<div id="re-arranging-into-a-single-table" class="section level3">
+<h3><span class="header-section-number">4.6.5</span> Re-arranging into a single table</h3>
+<p>Our final task is to re-arrange to data so that it is all in a single table instead of in two side-by-side tables. For many similar tasks the <code>gather</code> function in the <em>tidyr</em> package is useful, but in this case we will be better off using a combination of <code>select</code> and <code>bind_rows</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames[[<span class="dv">1</span>]]
+<span class="kw">bind_rows</span>(<span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], Name, Count),
+          <span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name =</span> Name__<span class="dv">1</span>, <span class="dt">Count =</span> Count__<span class="dv">1</span>))</code></pre></div>
+</div>
+<div id="exercise-3-cleanup-all-the-data" class="section level3">
+<h3><span class="header-section-number">4.6.6</span> Exercise 3: Cleanup all the data</h3>
+<p>In the previous examples we learned how to drop empty rows with <code>filter</code>, select only relevant columns with <code>select</code>, and re-arrange our data with <code>select</code> and <code>bind_rows</code>. In each case we applied the changes only to the first element of our <code>boysNames</code> list.</p>
+<p>Your task now is to use the <code>map</code> function to apply each of these transformations to all the elements in <code>boysNames</code>.</p>
+</div>
+<div id="exercise-prototype" class="section level3">
+<h3><span class="header-section-number">4.6.7</span> Exercise prototype</h3>
+<p>There are different ways you can go about it. Here is one:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## write a function that does all the cleanup
+cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+    filtered &lt;-<span class="st"> </span><span class="kw">filter</span>(x, <span class="op">!</span><span class="kw">is.na</span>(Name)) <span class="co"># drop rows with no Name value</span>
+    selected &lt;-<span class="st"> </span><span class="kw">select</span>(filtered, Name, Count, Name__<span class="dv">1</span>, Count__<span class="dv">1</span>) <span class="co"># select just Name and Count columns</span>
+    <span class="kw">bind_rows</span>(<span class="kw">select</span>(selected, Name,  Count), <span class="co"># re-arrange into two columns</span>
+              <span class="kw">select</span>(selected, <span class="dt">Name =</span> Name__<span class="dv">1</span>, <span class="dt">Count =</span> Count__<span class="dv">1</span>))
+}
+
+## test it out on the second data.frame in the list
+<span class="kw">glimpse</span>(boysNames[[<span class="dv">2</span>]]) <span class="co"># before cleanup</span>
+<span class="kw">glimpse</span>(<span class="kw">cleanupNamesData</span>(boysNames[[<span class="dv">2</span>]])) <span class="co"># after cleanup</span>
+
+## apply the cleanup function to all the data.frames in the list
+boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</code></pre></div>
+</div>
+</div>
+<div id="data-organization-and-storage" class="section level2">
+<h2><span class="header-section-number">4.7</span> Data organization and storage</h2>
+<p>Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.</p>
+<div id="one-table-for-each-year" class="section level3">
+<h3><span class="header-section-number">4.7.1</span> One table for each year</h3>
+<p>Right now we have a list of tables, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds too.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(<span class="kw">head</span>(boysNames))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy.file.names, <span class="st">&quot;[0-9]{4}&quot;</span>)
+boysNames &lt;-<span class="st"> </span><span class="kw">setNames</span>(boysNames, years)
+<span class="kw">glimpse</span>(<span class="kw">head</span>(boysNames))</code></pre></div>
+</div>
+<div id="one-big-table" class="section level3">
+<h3><span class="header-section-number">4.7.2</span> One big table</h3>
+<p>While storing the data in separate tables by year makes some sense, many operations will be easier if the data is simply stored in one big table. We’ve already seen how to turn a list of data.frames into a single data.frame using <code>bind_rows</code>, but there is a problem; The year information is stored in the names of the list elements, and so flattening the tables into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each table before flattening.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames,
+                  <span class="cf">function</span>(data, name) {
+                      <span class="kw">mutate</span>(data, <span class="dt">Year =</span> <span class="kw">as.integer</span>(name))
+                      })
+boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)
+
+<span class="kw">glimpse</span>(boysNames)</code></pre></div>
+</div>
+<div id="exercise-make-one-big-table" class="section level3">
+<h3><span class="header-section-number">4.7.3</span> Exercise: Make one big table</h3>
+<p>Turn the list of boys names data.frames into a single table.</p>
+<p>Create a directory under <code>data/all</code> and write the data to a <code>.csv</code> file.</p>
+<p>Finally, repeat the previous exercise, this time working with the data in one big table.</p>
+</div>
+<div id="exercise-prototype-1" class="section level3">
+<h3><span class="header-section-number">4.7.4</span> Exercise prototype</h3>
+<p>Working with the data in one big table is often easier.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)
+
+<span class="kw">dir.create</span>(<span class="st">&quot;data/all&quot;</span>)
+
+<span class="kw">write_csv</span>(boysNames, <span class="st">&quot;data/all/boys_names.csv&quot;</span>)
+
+## What where the five most popular names in 2013?
+<span class="kw">slice</span>(<span class="kw">arrange</span>(<span class="kw">filter</span>(boysNames, Year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>),
+              <span class="kw">desc</span>(Count)),
+      <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
+
+## How has the popularity of the name &quot;ANDREW&quot; changed over time?
+andrew &lt;-<span class="st"> </span><span class="kw">filter</span>(boysNames, Name <span class="op">==</span><span class="st"> &quot;ANDREW&quot;</span>)
+
+<span class="kw">ggplot</span>(andrew, <span class="kw">aes</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of </span><span class="ch">\&quot;</span><span class="st">Andrew</span><span class="ch">\&quot;</span><span class="st">, over time&quot;</span>)</code></pre></div>
+</div>
+</div>
+<div id="additional-reading-and-resources" class="section level2">
+<h2><span class="header-section-number">4.8</span> Additional reading and resources</h2>
+<ul>
+<li>Learn from the best: <a href="http://adv-r.had.co.nz/" class="uri">http://adv-r.had.co.nz/</a>; <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a></li>
+<li>R documentation: <a href="http://cran.r-project.org/manuals.html" class="uri">http://cran.r-project.org/manuals.html</a></li>
+<li><p>Collection of R tutorials: <a href="http://cran.r-project.org/other-docs.html" class="uri">http://cran.r-project.org/other-docs.html</a></p></li>
+<li><p>R for Programmers (by Norman Matloff, UC–Davis)</p></li>
+</ul>
+<p><a href="http://heather.cs.ucdavis.edu/~matloff/R/RProg.pdf" class="uri">http://heather.cs.ucdavis.edu/~matloff/R/RProg.pdf</a></p>
+<ul>
+<li>Calling C and Fortran from R (by Charles Geyer, UMinn)</li>
+</ul>
+<p><a href="http://www.stat.umn.edu/~charlie/rc/" class="uri">http://www.stat.umn.edu/~charlie/rc/</a></p>
+<ul>
+<li>State of the Art in Parallel Computing with R (Schmidberger et al.)</li>
+</ul>
+<p><a href="http://www.jstatso" class="uri">http://www.jstatso</a>|.org/v31/i01/paper</p>
+<ul>
+<li>Institute for Quantitative Social Science: <a href="http://iq.harvard.edu" class="uri">http://iq.harvard.edu</a></li>
+<li>IQSS Data Science Services: <a href="http://dss.iq.harvard.edu/" class="uri">http://dss.iq.harvard.edu/</a></li>
+</ul>
 
 </div>
 </div>
@@ -465,8 +753,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="Rintro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="Rgraphics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="PythonIntro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -496,7 +784,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/IQSS/dss-workshops-redux/edit/master/index.Rmd",
+"link": "https://github.com/IQSS/dss-workshops-redux/edit/master/R/RDataWrangling/RDataWrangling.Rmd",
 "text": "Edit"
 },
 "history": {
