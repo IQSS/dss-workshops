@@ -1,23 +1,22 @@
 
+# R Regression Models
 
-Introduction
-============
-
-Workshop description
---------------------
-
-- This is an intermediate/advanced R course
-- Appropriate for those with basic knowledge of R
-- This is not a statistics course!
-- Learning objectives:
-  - Learn the R formula interface
-  - Specify factor contrasts to test specific hypotheses
-  - Perform model comparisons
-  - Run and interpret variety of regression models in R
+**Topics**
+ - R formula interface
+ - Factor contrasts to test specific hypotheses
+ - Model comparisons
+ - Run and interpret variety of regression models in R
 
 
-Materials and Setup 
---------------------------
+```{r, echo=FALSE, results='hide', eval = FALSE}
+options(max.print = 100)
+# knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(eval = FALSE, results = FALSE, message = FALSE, warning = FALSE, error = FALSE)
+```
+
+## Setup instructions
+
+This is an intermediate/advanced R course and is appropriate for those with basic knowledge of R. This is not a statistics course!
 
 Lab computer users: Log in using the user name and password on the board to your left.
 
@@ -31,15 +30,13 @@ Everyone:
 - Download materials from <http://tutorials.iq.harvard.edu/R/Rstatistics.zip>
 - Extract materials from RStatistics.zip (on lab machines *right-click -&gt; WinZip -&gt; Extract to here*) and move to your desktop.
 
-Launch RStudio<span class="tag" data-tag-name="labsetup"></span>
-----------------------------------------------------------------
+### Launch RStudio
 
 - Open the RStudio program from the Windows start menu
 - Create a project in the Rstatistics folder you downloaded earlier:
   - `File => New Project => Existing Directory => Browse` and select the Rstatistics folder.
 
-Set working directory
----------------------
+### Set working directory
 
 It is often helpful to start your R session by setting your working directory so you don't have to type the full path names to your data and other files
 
@@ -56,8 +53,7 @@ You might also start by listing the files in your working directory
   list.files("dataSets") # files in the dataSets folder
 ```
 
-Load the states data
---------------------
+### Load the states data
 
 The *states.dta* data comes from <http://anawida.de/teach/SS14/anawida/4.linReg/data/states.dta.txt> and appears to have originally appeared in *Statistics with Stata* by Lawrence C. Hamilton.
 
@@ -70,11 +66,9 @@ The *states.dta* data comes from <http://anawida.de/teach/SS14/anawida/4.linReg/
   tail(states.info, 8)
 ```
 
-Linear regression
-=================
+## Ordinary least squares (OLS) regression
 
-Examine the data before fitting models
---------------------------------------
+### Examine the data before fitting models
 
 Start by examining the data to check for problems.
 
@@ -86,8 +80,7 @@ Start by examining the data to check for problems.
   cor(sts.ex.sat) 
 ```
 
-Plot the data before fitting models
------------------------------------
+### Plot the data before fitting models
 
 Plot the data to look for multivariate outliers, non-linear relationships etc.
 
@@ -98,10 +91,9 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 
 ![](R/Rmodels/images/statesCorr1.png)
 
-Linear regression example
--------------------------
+### OLS example
 
--   Linear regression models can be fit with the `lm()` function
+-   OLS regression models can be fit with the `lm()` function
 -   For example, we can use `lm` to predict SAT scores based on per-pupal expenditures:
 
 ```{r}
@@ -112,8 +104,7 @@ Linear regression example
   summary(sat.mod) # show regression coefficients table
 ```
 
-Why is the association between expense and SAT scores *negative*?
------------------------------------------------------------------
+### Why is the association between expense and SAT scores *negative*?
 
 Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?
 
@@ -121,8 +112,7 @@ Many people find it surprising that the per-capita expenditure on students is ne
   summary(lm(csat ~ expense + percent, data = states.data))
 ```
 
-The lm class and methods
-------------------------
+### The lm class and methods
 
 OK, we fit our model. Now what?
 
@@ -141,10 +131,9 @@ OK, we fit our model. Now what?
   # hist(residuals(sat.mod))
 ```
 
-Linear Regression Assumptions
------------------------------
+### OLS Regression Assumptions
 
--   Ordinary least squares regression relies on several assumptions, including that the residuals are normally distributed and homoscedastic, the errors are independent and the relationships are linear.
+-   OLS regression relies on several assumptions, including that the residuals are normally distributed and homoscedastic, the errors are independent and the relationships are linear.
 -   Investigate these assumptions visually by plotting your model:
 
 ```{r}
@@ -152,8 +141,7 @@ Linear Regression Assumptions
   plot(sat.mod, which = c(1, 2)) # "which" argument optional
 ```
 
-Comparing models
-----------------
+### Comparing models
 
 Do congressional voting patterns predict SAT scores over and above expense? Fit two models and compare them:
 
@@ -167,8 +155,7 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
   coef(summary(sat.voting.mod))
 ```
 
-Exercise 0: least squares regression
-------------------------------------
+### Exercise 0: ordinary least squares regression
 
 Use the *states.rds* data set. Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to
 
@@ -178,11 +165,9 @@ Use the *states.rds* data set. Fit a model predicting energy consumed per capita
 
 Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
 
-Interactions and factors
-========================
+## Interactions and factors
 
-Modeling interactions
----------------------
+### Modeling interactions
 
 Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
 
@@ -194,8 +179,7 @@ Interactions allow us assess the extent to which the association between one pre
     coef(summary(sat.expense.by.percent)) # show regression coefficients table
 ```
 
-Regression with categorical predictors
---------------------------------------
+### Regression with categorical predictors
 
 Let's try to predict SAT scores from region, a categorical variable. Note that you must make sure R does not think your categorical variable is numeric.
 
@@ -213,8 +197,7 @@ Let's try to predict SAT scores from region, a categorical variable. Note that y
 
 Again, **make sure to tell R which variables are categorical by converting them to factors!**
 
-Setting factor reference groups and contrasts
----------------------------------------------
+### Setting factor reference groups and contrasts
 
 In the previous example we use the default contrasts for region. The default in R is treatment contrasts, with the first level as the reference. We can change the reference group or use another coding scheme using the `C` function.
 
@@ -231,8 +214,7 @@ In the previous example we use the default contrasts for region. The default in 
 
 See also `?contrasts`, `?contr.treatment`, and `?relevel`.
 
-Exercise 1: interactions and factors
-------------------------------------
+### Exercise 1: interactions and factors
 
 Use the states data set.
 
@@ -240,11 +222,10 @@ Use the states data set.
 
 2.  Try adding region to the model. Are there significant differences across the four regions?
 
-Regression with binary outcomes
-===============================
 
-Logistic regression
--------------------
+## Regression with binary outcomes
+
+### Logistic regression
 
 This far we have used the `lm` function to fit our regression models. `lm` is great, but limited--in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
 
@@ -259,8 +240,7 @@ Load the National Health Interview Survey data:
   labs <- attributes(NH11)$labels
 ```
 
-Logistic regression example
----------------------------
+### Logistic regression example
 
 Let's predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi
 
@@ -275,8 +255,7 @@ Let's predict the probability of being diagnosed with hypertension based on age,
   coef(summary(hyp.out))
 ```
 
-Logistic regression coefficients
---------------------------------
+### Logistic regression coefficients
 
 Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the age coefficient of .06 in the previous model tells us that for every one unit increase in age, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 
@@ -288,8 +267,7 @@ One solution is to transform the coefficients to make them easier to interpret
   hyp.out.tab
 ```
 
-Generating predicted values
----------------------------
+### Generating predicted values
 
 In addition to transforming the log-odds produced by `glm` to odds, we can use the `predict()` function to make direct statements about the predictors in our model. For example, we can ask "How much more likely is a 63 year old female to have hypertension compared to a 33 year old female?".
 
@@ -308,8 +286,7 @@ In addition to transforming the log-odds produced by `glm` to odds, we can use t
 
 This tells us that a 33 year old female has a 13% probability of having been diagnosed with hypertension, while and 63 year old female has a 48% probability of having been diagnosed.
 
-Packages for computing and graphing predicted values
-----------------------------------------------------
+### Packages for computing and graphing predicted values
 
 Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us (cf. the Zelig package).
 
@@ -320,8 +297,7 @@ Instead of doing all this ourselves, we can use the effects package to compute q
 
 ![](R/Rmodels/images/effects1.png)
 
-Exercise 2: logistic regression
--------------------------------
+### Exercise 2: logistic regression
 
 Use the NH11 data set that we loaded earlier.
 
@@ -330,11 +306,10 @@ Use the NH11 data set that we loaded earlier.
 
 Note that the data is not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
-Multilevel Modeling
-===================
 
-Multilevel modeling overview
-----------------------------
+## Multilevel Modeling
+
+### Multilevel modeling overview
 
 - Multi-level (AKA hierarchical) models are a type of mixed-effects models
 - Used to model variation due to group membership where the goal is to generalize to a population of groups
@@ -349,8 +324,7 @@ Multilevel modeling overview
   library(lme4)
 ```
 
-The Exam data
--------------
+### The Exam data
 
 The Exam data set contans exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
 
@@ -371,8 +345,7 @@ The Exam data set contans exam scores of 4,059 students from 65 schools in Inner
   Exam <- readRDS("dataSets/Exam.rds")
 ```
 
-The null model and ICC
-----------------------
+### The null model and ICC
 
 As a preliminary step it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors).
 
@@ -385,8 +358,7 @@ As a preliminary step it is often useful to partition the variance in the depend
 
 The is .169/(.169 + .848) = .17: 17% of the variance is at the school level.
 
-Adding fixed-effects predictors
--------------------------------
+### Adding fixed-effects predictors
 
 Predict exam scores from student's standardized tests scores
 
@@ -397,8 +369,7 @@ Predict exam scores from student's standardized tests scores
   summary(Norm2) 
 ```
 
-Multiple degree of freedom comparisons
---------------------------------------
+### Multiple degree of freedom comparisons
 
 As with `lm` and `glm` models, you can compare the two `lmer` models using the `anova` function.
 
@@ -406,8 +377,7 @@ As with `lm` and `glm` models, you can compare the two `lmer` models using the `
   anova(Norm1, Norm2)
 ```
 
-Random slopes
--------------
+### Random slopes
 
 Add a random effect of students' standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.
 
@@ -418,8 +388,7 @@ Add a random effect of students' standardized test scores as well. Now in additi
   summary(Norm3) 
 ```
 
-Test the significance of the random slope
------------------------------------------
+### Test the significance of the random slope
 
 To test the significance of a random slope just compare models with and without the random slope term
 
@@ -427,8 +396,7 @@ To test the significance of a random slope just compare models with and without 
   anova(Norm2, Norm3) 
 ```
 
-Exercise 3: multilevel modeling
--------------------------------
+### Exercise 3: multilevel modeling
 
 Use the dataset, bh1996: `data(bh1996, package="multilevel")`
 
@@ -441,11 +409,10 @@ From the data documentation:
 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked ("HRS") and leadership skills ("LEAD") to the model and interpret your output.
 4.  Now, add a random effect of average number of hours worked ("HRS") to the model and interpret your output. Test the significance of this random term.
 
-Exercise solutions<span class="tag" data-tag-name="prototype"></span>
-=====================================================================
 
-Exercise 0 prototype
---------------------
+## Exercise solutions
+
+### Exercise 0 prototype
 
 Use the *states.rds* data set.
 
@@ -489,8 +456,7 @@ Select one or more additional predictors to add to your model and repeat steps 1
   anova(mod.en.met, mod.en.met.pop.waste)
 ```
 
-Exercise 1: prototype
----------------------
+### Exercise 1: prototype
 
 Use the states data set.
 
@@ -507,8 +473,7 @@ Use the states data set.
   anova(mod.en.region)
 ```
 
-Exercise 2 prototype
---------------------
+### Exercise 2 prototype
 
 Use the NH11 data set that we loaded earlier. Note that the data is not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
@@ -535,8 +500,7 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
   data.frame(Effect("r_maritl", mod.wk.age.mar))
 ```
 
-Exercise 3 prototype
---------------------
+### Exercise 3 prototype
 
 Use the dataset, bh1996:
 
@@ -572,11 +536,9 @@ Note that the group identifier is named "GRP".
   anova(mod.grp1, mod.grp2)
 ```
 
-Wrap-up
-=======
+## Wrap-up
 
-Help us make this workshop better!
-----------------------------------
+### Help us make this workshop better!
 
 -   Please take a moment to fill out a very short
 
@@ -585,8 +547,7 @@ feedback form
 -   These workshops exist for you -- tell us what you need!
 -   <http://tinyurl.com/RstatisticsFeedback>
 
-Additional resources
---------------------
+### Additional resources
 
 -   IQSS workshops: <http://projects.iq.harvard.edu/rtc/filter_by/workshops>
 -   IQSS statistical consulting: <http://dss.iq.harvard.edu>

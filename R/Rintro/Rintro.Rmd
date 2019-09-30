@@ -1,17 +1,16 @@
 
 # (PART) R {-}
 
-Welcome
-========
+# Introduction to R
 
 **Topics**
- Assignment;
- Function arguments;
- Finding help;
- Reading data;
- Filtering and arranging data;
- Conditional operations;
- Saving data.
+- Assignment
+- Function arguments
+- Finding help
+- Reading data
+- Filtering and arranging data
+- Conditional operations
+- Saving data
 
 
 ```{r, echo=FALSE, results='hide', eval = FALSE}
@@ -20,9 +19,7 @@ options(max.print = 100)
 knitr::opts_chunk$set(eval = FALSE, results = FALSE, message = FALSE, warning = FALSE, error = FALSE)
 ```
 
-
-Materials and setup 
--------------------
+## Setup instructions
 
 **NOTE: skip this section if you are not running R locally** (e.g., if you are
 running R in your browser using a remote Jupyter server)
@@ -42,8 +39,8 @@ Start RStudio create a new project:
 -   Choose `New Directory` and `New Project`.
 -   Choose a name and location for your new project directory.
 
-Workshop goals and approach
----------------------------
+
+### Workshop goals and approach
 
 In this workshop you will
 
@@ -62,8 +59,7 @@ As an example project we will analyze the popularity of baby names in the US fro
 -  What are the most popular names overall? For girls? For Boys?
 
 
-Graphical User Interfaces (GUIs)
-================================
+## Graphical User Interfaces (GUIs)
 
 There are many different ways you can interact with R. See the
 [Data Science Tools workshop notes](http://tutorials.iq.harvard.edu/DataScienceTools/DataScienceTools.html) 
@@ -72,8 +68,9 @@ for details.
 For this workshop I encourage you to use RStudio; it is a good
 R-specific IDE that mostly just works.
 
-Launch RStudio (skip if not using Rstudio)
-------------------------------------------
+
+### Launch RStudio (skip if not using Rstudio)
+
 **Note: skip this section if you are not using Rstudio (e.g., if you are running
 these examples in a Jupyter notebook).**
 
@@ -86,8 +83,8 @@ write instructions for R to carry out.
 The window in the lower-left is the R console. This is where results
 will be displayed.
 
-Exercise 0
-----------
+
+### Exercise 0
 
 The purpose of this exercise is to give you an opportunity to explore
 the interface provided by RStudio (or whichever GUI you've decided to
@@ -113,8 +110,7 @@ you are looking for should appear in a pop up!
     introduction to R". Use the RStudio help pane. to locate this manual.
 
 
-Exercise 0 solution
-----------------------------------------------------------------------
+### Exercise 0 solution
 
 
 ```{r, eval = FALSE}
@@ -145,12 +141,10 @@ sqrt(10)
 
 ```
 
-R basics
-========
+## R basics
 
 
-Function calls
----------
+### Function calls
 
 The general form for calling R functions is
 
@@ -160,8 +154,7 @@ The general form for calling R functions is
 
 Arguments can be matched by name; unnamed arguments will be matched by position.
 
-Assignment
-----------
+### Assignment
 
 Values can be assigned names and used in subsequent operations
 
@@ -177,8 +170,7 @@ x <- sqrt(10) # assign result to a variable named x
 Names should start with a letter, and contain only letters, numbers, underscores, and periods.
 
 
-Asking R for help
----------------------
+### Asking R for help
 
 You can ask R for help using the `help` function, or the `?` shortcut.
 
@@ -195,8 +187,7 @@ help(package = "stats")
 ```
 
 
-Getting data into R
-===================
+## Getting data into R
 
 R has data reading functionality built-in -- see e.g.,
 `help(read.table)`. However, faster and more robust tools are
@@ -204,8 +195,7 @@ available, and so to make things easier on ourselves we will use a
 *contributed package* called `readr` instead. This requires that we
 learn a little bit about packages in R.
 
-Installing and using R packages
-----------------------------------------------------
+### Installing and using R packages
 
 A large number of contributed packages are available. If you are
 looking for a package for a specific task,
@@ -221,8 +211,7 @@ function to attach it so that it can be used.
 library(readr)
 ```
 
-Readers for common file types
------------------------------
+### Readers for common file types
 
 In order to read data from a file, you have to know what kind of file
 it is. The table below lists functions that can import data from
@@ -243,8 +232,7 @@ underscores in their names (e.g., `read_csv`) while the older
 functions us dots (e.g., `read.csv`). My advice is to use the more
 robust newer versions, i.e., the ones with underscores.
 
-Baby names data
----------------
+### Baby names data
 
 The examples in this workshop use US baby names data retrieved from
 https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data
@@ -252,8 +240,7 @@ A cleaned and merged version of these data is available at
 `http://tutorials.iq.harvard.edu/data/babyNames.csv`.
 
 
-Exercise 1: Reading the baby names data
----------------------------------------
+### Exercise 1: Reading the baby names data
 
 Make sure you have installed the `readr` package and attached it with `library(readr)`.
 
@@ -268,8 +255,7 @@ with the name `baby.names`.
 and as an R data set `babynames.rds`.
 
 
-Exercise 1 solution
-----------------------------------------------------------------------
+### Exercise 1 solution
 
 ```{r, eval = FALSE}
 ## read ?read_csv
@@ -279,8 +265,7 @@ Exercise 1 solution
 baby.names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
 ```
 
-Popularity of your name
-=======================
+## Popularity of your name
 
 In this section we will pull out specific names and examine changes in 
 their popularity over time. 
@@ -299,8 +284,7 @@ use a *contributed package* called `dplyr` instead.
 library(dplyr)
 ```
 
-Filtering and arranging data
-----------------------------
+## Filtering and arranging data
 
 One way to find the year in which your name was the most popular
 is to filter out just the rows corresponding to your name, and 
@@ -334,8 +318,7 @@ arrange(am, desc(Count))
 ```
 
 
-Other logical operators
------------------------
+## Other logical operators
 
 In the previous example we used `==` to filter rows. Other relational
 and logical operators are listed below.
@@ -353,8 +336,7 @@ and logical operators are listed below.
 These operators may be combined with `&` (and) or `|` (or).
 
 
-Exercise 2: Peak popularity of your name
------------------------------
+### Exercise 2: Peak popularity of your name
 
 In this exercise you will discover the year your name reached its maximum popularity.
 
@@ -382,8 +364,7 @@ Make sure you have installed the `dplyr` package and attached it with `library(d
 ```
 
 
-Exercise 2 solution
-----------------------------------------------------------------------
+### Exercise 2 solution
 
 ```{r, eval = FALSE}
 # 1.  Use `filter` to extract data for your name (or another name of your choice).  
@@ -416,8 +397,7 @@ boys.1999 <- filter(baby.names,
 filter(boys.1999, Count == max(Count))
 ```
 
-Plotting baby name trends over time
-===================================
+## Plotting baby name trends over time
 
 It can be difficult to spot trends when looking at summary tables.
 Plotting the data makes it easier to identify interesting patterns.
@@ -452,8 +432,7 @@ qplot(x = Year, y = Count, color = Sex,
 ```
 
 
-Exercise 3: Plotting peak popularity of your name
------------------------------
+### Exercise 3: Plotting peak popularity of your name
 
 Make sure the `ggplot2` package is installed, and that you 
 have attached it using `library(ggplot2)`.
@@ -477,8 +456,7 @@ have attached it using `library(ggplot2)`.
 4. BONUS (Optional): Adust the plot to use lines instead of points.
 
 
-Exercise 3 solution
-----------------------------------------------------------------------
+### Exercise 3 solution
 
 ```{r, eval = FALSE}
 # 1. Use `filter` to extract data for your name (same as previous exercise)  
@@ -517,13 +495,11 @@ qplot(x = Year, y = Count, color = Sex, data = george, geom = "line")
 
 ```
 
-Finding the most popular names
-==============================
+## Finding the most popular names
 
 Our next goal is to find out which names have been the most popular.
 
-Computing better measures of popularity
----------------------------------------
+### Computing better measures of popularity
 
 So far we've used `Count` as a measure of popularity. A better
 approach is to use proportion or rank to avoid confounding 
@@ -538,8 +514,7 @@ baby.names <- mutate(baby.names, logCount = Count/1000)
 baby.names
 ```
 
-Operating by group
-------------------
+### Operating by group
 
 Because of the nested nature of out data, we want to compute rank 
 or proportion  within each `Sex` `X` `Year` group. The `dplyr` 
@@ -555,8 +530,7 @@ Note that the data remains grouped until you change the groups by
 running `group_by` again or remove grouping information with
 `ungroup`.
 
-Exercise 4: Most popular names
------------------------------
+### Exercise 4: Most popular names
 
 In this exercise your goal is to identify the most popular names for each year.
 
@@ -588,8 +562,7 @@ In this exercise your goal is to identify the most popular names for each year.
 
 5. BONUS (optional): Which names are the most popular for both boys and girls?
 
-Exercise 4 solution
-----------------------------------------------------------------------
+### Exercise 4 solution
 
 ```{r, eval = FALSE}
 ## 1.  Use `mutate` and `group_by` to create a column named "Proportion"
@@ -653,8 +626,7 @@ girls.and.boys <- mutate(girls.and.boys,
 filter(girls.and.boys, Rank == 1)
 ```
 
-Percent choosing one of the top 10 names
-========================================
+## Percent choosing one of the top 10 names
 
 You may have noticed that the percentage of babies given the most 
 popular name of the year appears to have decreases over time. We can
@@ -675,8 +647,7 @@ bn.by.year
 ```
 
 
-Exercise 4: Popularity of the most popular names
-------------------------------------------------
+### Exercise 4: Popularity of the most popular names
 
 In this exercise we will plot trends in the proportion of boys and girls given one of the 10 most popular names each year.
 
@@ -699,8 +670,7 @@ In this exercise we will plot trends in the proportion of boys and girls given o
 ##
 ```
 
-Exercise 4 solution
-----------------------------------------------------------------------
+### Exercise 4 solution
 
 ```{r, eval = FALSE}
 ## 1.  Filter the baby.names data, retaining only the 10 most 
@@ -735,14 +705,12 @@ qplot(x = Year, y = TotalProportion, color = Sex,
 ```
 
 
-Saving our Work
-==============
+## Saving our Work
 
 Now that we have made some changes to our data set, we might want to
 save those changes to a file.
 
-Saving individual datasets
---------------------------
+### Saving individual datasets
 
 ```{r, eval = FALSE}
 # write data to a .csv file
@@ -754,8 +722,7 @@ write_csv(baby.names, "babyNames.csv")
 write_rds(baby.names, "babyNames.rds")
 ```
 
-Saving and loading R workspaces
--------------------------------
+### Saving and loading R workspaces
 
 In addition to importing individual datasets, R can save and load entire
 workspaces
@@ -774,18 +741,15 @@ ls() # list objects
 ```
 
 
-Wrap-up
-=======
+## Wrap-up
 
-Help us make this workshop better!
-----------------------------------
+### Help us make this workshop better!
 
 Please take a moment to fill out a very short feedback form. These
 workshops exist for you -- tell us what you need!
 <http://tinyurl.com/R-intro-feedback>
 
-Additional resources
---------------------
+### Additional resources
 
 -   IQSS workshops:
     <http://projects.iq.harvard.edu/rtc/filter_by/workshops>
