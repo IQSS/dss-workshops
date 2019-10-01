@@ -2,10 +2,10 @@
 # R Regression Models
 
 **Topics**
- - R formula interface
- - Factor contrasts to test specific hypotheses
- - Model comparisons
- - Run and interpret variety of regression models in R
+* R formula interface
+* Factor contrasts to test specific hypotheses
+* Model comparisons
+* Run and interpret variety of regression models in R
 
 
 ```{r, echo=FALSE, results=FALSE, eval=TRUE}
@@ -59,7 +59,7 @@ The *states.dta* data comes from <http://anawida.de/teach/SS14/anawida/4.linReg/
 
 ```{r}
   # read the states data
-  states.data <- readRDS("R/Rmodels/dataSets/states.rds") 
+  states.data <- readRDS("dataSets/states.rds") 
   #get labels
   states.info <- data.frame(attributes(states.data)[c("names", "var.labels")])
   #look at last few labels
@@ -236,7 +236,7 @@ For these models we will use a different dataset, drawn from the National Health
 Load the National Health Interview Survey data:
 
 ```{r}
-  NH11 <- readRDS("R/Rmodels/dataSets/NatHealth2011.rds")
+  NH11 <- readRDS("dataSets/NatHealth2011.rds")
   labs <- attributes(NH11)$labels
 ```
 
@@ -311,14 +311,14 @@ Note that the data is not perfectly clean and ready to be modeled. You will need
 
 ### Multilevel modeling overview
 
-- Multi-level (AKA hierarchical) models are a type of mixed-effects models
-- Used to model variation due to group membership where the goal is to generalize to a population of groups
-- Can model different intercepts and/or slopes for each group
-- Mixed-effecs models include two types of predictors: fixed-effects and random effects
-  -   Fixed-effects -- observed levels are of direct interest (.e.g, sex, political party...)
-  -   Random-effects -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
-  -   In R the lme4 package is the most popular for mixed effects models
-  -   Use the `lmer` function for liner mixed models, `glmer` for generalized mixed models
+* Multi-level (AKA hierarchical) models are a type of mixed-effects models
+* Used to model variation due to group membership where the goal is to generalize to a population of groups
+* Can model different intercepts and/or slopes for each group
+* Mixed-effecs models include two types of predictors: fixed-effects and random effects
+  + Fixed-effects -- observed levels are of direct interest (.e.g, sex, political party...)
+  + Random-effects -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
+  + In R the lme4 package is the most popular for mixed effects models
+  + Use the `lmer` function for liner mixed models, `glmer` for generalized mixed models
 
 ```{r}
   library(lme4)
@@ -342,7 +342,7 @@ The Exam data set contans exam scores of 4,059 students from 65 schools in Inner
 | student  | Student id (within school) - a factor                                                              |
 
 ```{r}
-  Exam <- readRDS("R/Rmodels/dataSets/Exam.rds")
+  Exam <- readRDS("dataSets/Exam.rds")
 ```
 
 ### The null model and ICC
@@ -417,7 +417,7 @@ From the data documentation:
 Use the *states.rds* data set.
 
 ```{r}
-  states <- readRDS("R/Rmodels/dataSets/states.rds")
+  states <- readRDS("dataSets/states.rds")
 ```
 
 Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to
@@ -540,20 +540,13 @@ Note that the group identifier is named "GRP".
 
 ### Help us make this workshop better!
 
--   Please take a moment to fill out a very short
+* Please take a moment to fill out a very short
 
 feedback form
 
--   These workshops exist for you -- tell us what you need!
--   <http://tinyurl.com/RstatisticsFeedback>
+* These workshops exist for you -- tell us what you need!
 
 ### Additional resources
 
--   IQSS workshops: <http://projects.iq.harvard.edu/rtc/filter_by/workshops>
--   IQSS statistical consulting: <http://dss.iq.harvard.edu>
--   Zelig
-    -   Website: <http://gking.harvard.edu/zelig>
-    -   Documentation: <http://r.iq.harvard.edu/docs/zelig.pdf>
--   Ameila
-    -   Website: <http://gking.harvard.edu/Amelia/>
-    -   Documetation: <http://r.iq.harvard.edu/docs/amelia/amelia.pdf>
+* IQSS workshops: <http://projects.iq.harvard.edu/rtc/filter_by/workshops>
+* IQSS statistical consulting: <http://dss.iq.harvard.edu>

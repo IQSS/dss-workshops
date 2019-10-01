@@ -2,10 +2,10 @@
 # R Graphics
 
 **Topics**
- - R ggplot2 package
- - Setup basic plots
- - Add and modify scales and legends
- - Manipulate plot labels
+* R ggplot2 package
+* Setup basic plots
+* Add and modify scales and legends
+* Manipulate plot labels
 
 
 ```{r, echo=FALSE, results=FALSE, eval=TRUE}
@@ -43,15 +43,15 @@ library(tidyverse)
 
 Class Structure and Organization:
 
--   Ask questions at any time. Really!
--   Collaboration is encouraged
--   This is your class! Special requests are encouraged
+* Ask questions at any time. Really!
+* Collaboration is encouraged
+* This is your class! Special requests are encouraged
 
 This is an intermediate R course:
 
--   Assumes working knowledge of R
--   Relatively fast-paced
--   Focus is on `ggplot2` graphics&#x2013;other packages will not be covered
+* Assumes working knowledge of R
+* Relatively fast-paced
+* Focus is on `ggplot2` graphics&#x2013;other packages will not be covered
 
 ### Starting At The End
 
@@ -64,31 +64,31 @@ My goal: by the end of the workshop you will be able to reproduce this graphic f
 
 Advantages of ggplot2
 
--   consistent underlying `grammar of graphics` (Wilkinson, 2005)
--   plot specification at a high level of abstraction
--   very flexible
--   theme system for polishing plot appearance
--   mature and complete graphics system
--   many users, active mailing list
+* consistent underlying `grammar of graphics` (Wilkinson, 2005)
+* plot specification at a high level of abstraction
+* very flexible
+* theme system for polishing plot appearance
+* mature and complete graphics system
+* many users, active mailing list
 
 That said, there are some things you cannot (or should not) do With ggplot2:
 
--   3-dimensional graphics (see the rgl package)
--   Graph-theory type graphs (nodes/edges layout; see the igraph package)
--   Interactive graphics (see the ggvis package)
+* 3-dimensional graphics (see the rgl package)
+* Graph-theory type graphs (nodes/edges layout; see the igraph package)
+* Interactive graphics (see the ggvis package)
 
 ### What Is The Grammar Of Graphics?
 
 The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include:
 
--   data
--   aesthetic mapping
--   geometric object
--   statistical transformations
--   scales
--   coordinate system
--   position adjustments
--   faceting
+* data
+* aesthetic mapping
+* geometric object
+* statistical transformations
+* scales
+* coordinate system
+* position adjustments
+* faceting
 
 
 ### Example Data: `Housing prices`
@@ -96,7 +96,7 @@ The basic idea: independently specify plot building blocks and combine them to c
 Let's look at housing prices.
 
 ```{r}
-housing <- read_csv("R/Rgraphics/dataSets/landdata-states.csv")
+housing <- read_csv("dataSets/landdata-states.csv")
 head(housing[1:5])
 ```
 
@@ -158,12 +158,12 @@ ggplot(filter(housing, State %in% c("MA", "TX")),
 
 In ggplot land *aesthetic* means "something you can see". Examples include:
 
--   position (i.e., on the x and y axes)
--   color ("outside" color)
--   fill ("inside" color)
--   shape (of points)
--   linetype
--   size
+* position (i.e., on the x and y axes)
+* color ("outside" color)
+* fill ("inside" color)
+* shape (of points)
+* linetype
+* size
 
 Each type of geom accepts only a subset of all aesthetics&#x2013;refer to the geom help pages to see what mappings each geom accepts. Aesthetic mappings are set with the `aes()` function.
 
@@ -171,9 +171,9 @@ Each type of geom accepts only a subset of all aesthetics&#x2013;refer to the ge
 
 Geometric objects are the actual marks we put on a plot. Examples include:
 
--   points (`geom_point`, for scatter plots, dot plots, etc)
--   lines (`geom_line`, for time series, trend lines, etc)
--   boxplot (`geom_boxplot`, for, well, boxplots!)
+* points (`geom_point`, for scatter plots, dot plots, etc)
+* lines (`geom_line`, for time series, trend lines, etc)
+* boxplot (`geom_boxplot`, for, well, boxplots!)
 
 A plot must have at least one geom; there is no upper limit. You can add a geom to a plot using the `+` operator
 
@@ -274,7 +274,7 @@ p1 +
 The data for the exercises is available in the `dataSets/EconomistData.csv` file. Read it in with
 
 ```{r}
-dat <- read_csv("R/Rgraphics/dataSets/EconomistData.csv")
+dat <- read_csv("dataSets/EconomistData.csv")
 ```
 
 Original sources for these data are <http://www.transparency.org/content/download/64476/1031428> <http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&lang=en>
@@ -331,8 +331,8 @@ geom_point(aes(color = Region, size =  HDI.Rank))
 
 Some plot types (such as scatterplots) do not require transformations; each point is plotted at x and y coordinates equal to the original value. Other plots, such as boxplots, histograms, prediction lines etc. require statistical transformations:
 
--   for a boxplot the y values must be transformed to the median and 1.5(IQR)
--   for a smoother smother the y values must be transformed into predicted values
+* for a boxplot the y values must be transformed to the median and 1.5(IQR)
+* for a smoother smother the y values must be transformed into predicted values
 
 Each `geom` has a default statistic, but these can be changed. For example, the default statistic for `geom_bar` is `stat_bin`:
 
@@ -437,11 +437,11 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 
 Aesthetic mapping (i.e., with `aes()`) only says that a variable should be mapped to an aesthetic. It doesn't say *how* that should happen. For example, when mapping a variable to *shape* with `aes(shape = x)` you don't say *what* shapes should be used. Similarly, `aes(color = z)` doesn't say *what* colors should be used. Describing what colors/shapes/sizes etc. to use is done by modifying the corresponding *scale*. In `ggplot2` scales include
 
--   position
--   color and fill
--   size
--   shape
--   line type
+* position
+* color and fill
+* size
+* shape
+* line type
 
 Scales are modified with a series of functions using a `scale_<aesthetic>_<type>` naming scheme. Try typing `scale_<tab>` to see a list of scale modification functions.
 
@@ -449,10 +449,10 @@ Scales are modified with a series of functions using a `scale_<aesthetic>_<type>
 
 The following arguments are common to most scales in ggplot2:
 
--   **name:** the first argument gives the axis or legend title
--   **limits:** the minimum and maximum of the scale
--   **breaks:** the points along the scale where labels should appear
--   **labels:** the labels that appear at each break
+* **name:** the first argument gives the axis or legend title
+* **limits:** the minimum and maximum of the scale
+* **breaks:** the points along the scale where labels should appear
+* **labels:** the labels that appear at each break
 
 Specific scale functions may have additional arguments; for example, the `scale_color_continuous` function has arguments `low` and `high` for setting the colors at the low and high end of the scale.
 
@@ -594,16 +594,16 @@ scale_y_continuous(name = "Human Development Index") +
 
 ### Faceting
 
--   Faceting is `ggplot2` parlance for **small multiples**
--   The idea is to create separate graphs for subsets of data
--   `ggplot2` offers two functions for creating small multiples:
+* Faceting is `ggplot2` parlance for **small multiples**
+* The idea is to create separate graphs for subsets of data
+* `ggplot2` offers two functions for creating small multiples:
     1.  `facet_wrap()`: define subsets as the levels of a single grouping variable
     2.  `facet_grid()`: define subsets as the crossing of two grouping variables
--   Facilitates comparison among plots, not just of geoms within a plot
+* Facilitates comparison among plots, not just of geoms within a plot
 
 ### What is the trend in housing prices in each state?
 
--   Start by using a technique we already know&#x2013;map State to color:
+* Start by using a technique we already know&#x2013;map State to color:
 
 ```{r}
 p5 <- ggplot(housing, aes(x = Date, y = Home.Value))
@@ -631,16 +631,16 @@ There is also a `facet_grid()` function for faceting in two dimensions.
 
 The `ggplot2` theme system handles non-data plot elements such as
 
--   Axis labels
--   Plot background
--   Facet label backround
--   Legend appearance
+* Axis labels
+* Plot background
+* Facet label backround
+* Legend appearance
 
 Built-in themes include:
 
--   `theme_gray()` (default)
--   `theme_bw()`
--   `theme_classc()`
+* `theme_gray()` (default)
+* `theme_bw()`
+* `theme_classc()`
 
 ```{r}
 p5 + theme_linedraw()
@@ -730,7 +730,7 @@ Building off of the graphics you created in the previous exercises, put the fini
 Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot loogs like this:
 
 ```{r}
-dat <- read_csv("R/Rgraphics/dataSets/EconomistData.csv")
+dat <- read_csv("dataSets/EconomistData.csv")
 
 pc1 <- ggplot(dat, aes(x = CPI, y = HDI, color = Region))
 pc1 + geom_point()
@@ -738,17 +738,17 @@ pc1 + geom_point()
 
 To complete this graph we need to:
 
--   [ ] add a trend line
--   [ ] change the point shape to open circle
--   [ ] change the order and labels of Region
--   [ ] label select points
--   [ ] fix up the tick marks and labels
--   [ ] move color legend to the top
--   [ ] title, label axes, remove legend title
--   [ ] theme the graph with no vertical guides
--   [ ] add model R<sup>2</sup> (hard)
--   [ ] add sources note (hard)
--   [ ] final touches to make it perfect (use image editor for this)
+* [ ] add a trend line
+* [ ] change the point shape to open circle
+* [ ] change the order and labels of Region
+* [ ] label select points
+* [ ] fix up the tick marks and labels
+* [ ] move color legend to the top
+* [ ] title, label axes, remove legend title
+* [ ] theme the graph with no vertical guides
+* [ ] add model R<sup>2</sup> (hard)
+* [ ] add sources note (hard)
+* [ ] final touches to make it perfect (use image editor for this)
 
 ### Adding the trend line
 
@@ -1021,18 +1021,18 @@ Comparing it to the original suggests that we've got most of the important eleme
 
 ### Help Us Make This Workshop Better!
 
--   Please take a moment to fill out a very short feedback form
--   These workshops exist for you &#x2013; tell us what you need!
--   <http://tinyurl.com/R-graphics-feedback>
+* Please take a moment to fill out a very short feedback form
+* These workshops exist for you &#x2013; tell us what you need!
+* <http://tinyurl.com/R-graphics-feedback>
 
 ### Additional resources
 
--   ggplot2 resources
-    -   Mailing list: <http://groups.google.com/group/ggplot2>
-    -   Wiki: <https://github.com/hadley/ggplot2/wiki>
-    -   Website: <http://had.co.nz/ggplot2/>
-    -   StackOverflow: <http://stackoverflow.com/questions/tagged/ggplot>
--   IQSS resources
-    -   Research technology consulting: <http://dss.iq.harvard.edu>
-    -   Workshops materials: <http://dss.iq.harvard.edu/workshop-materials>
-    -   Workshop schedule and registration: <http://dss.iq.harvard.edu/workshop-registration>
+* ggplot2 resources
+    + Mailing list: <http://groups.google.com/group/ggplot2>
+    + Wiki: <https://github.com/hadley/ggplot2/wiki>
+    + Website: <http://had.co.nz/ggplot2/>
+    + StackOverflow: <http://stackoverflow.com/questions/tagged/ggplot>
+* IQSS resources
+    + Research technology consulting: <http://dss.iq.harvard.edu>
+    + Workshops materials: <http://dss.iq.harvard.edu/workshop-materials>
+    + Workshop schedule and registration: <http://dss.iq.harvard.edu/workshop-registration>
