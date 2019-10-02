@@ -160,14 +160,14 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1.2" data-path="Rmodels.html"><a href="Rmodels.html#goals-1"><i class="fa fa-check"></i><b>2.1.2</b> Goals</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="Rmodels.html"><a href="Rmodels.html#before-fitting-a-model"><i class="fa fa-check"></i><b>2.2</b> Before fitting a model</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="Rmodels.html"><a href="Rmodels.html#inspect-and-load-data"><i class="fa fa-check"></i><b>2.2.1</b> Inspect and load data</a></li>
+<li class="chapter" data-level="2.2.1" data-path="Rmodels.html"><a href="Rmodels.html#load-the-data"><i class="fa fa-check"></i><b>2.2.1</b> Load the data</a></li>
 <li class="chapter" data-level="2.2.2" data-path="Rmodels.html"><a href="Rmodels.html#examine-the-data"><i class="fa fa-check"></i><b>2.2.2</b> Examine the data</a></li>
 <li class="chapter" data-level="2.2.3" data-path="Rmodels.html"><a href="Rmodels.html#plot-the-data"><i class="fa fa-check"></i><b>2.2.3</b> Plot the data</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="Rmodels.html"><a href="Rmodels.html#regression-with-continuous-outcomes"><i class="fa fa-check"></i><b>2.3</b> Regression with continuous outcomes</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="Rmodels.html"><a href="Rmodels.html#why-is-the-association-between-expense-and-sat-scores-negative"><i class="fa fa-check"></i><b>2.3.1</b> Why is the association between expense and SAT scores <em>negative</em>?</a></li>
-<li class="chapter" data-level="2.3.2" data-path="Rmodels.html"><a href="Rmodels.html#the-lm-class-and-methods"><i class="fa fa-check"></i><b>2.3.2</b> The lm class and methods</a></li>
-<li class="chapter" data-level="2.3.3" data-path="Rmodels.html"><a href="Rmodels.html#ols-regression-assumptions"><i class="fa fa-check"></i><b>2.3.3</b> OLS Regression Assumptions</a></li>
+<li class="chapter" data-level="2.3.2" data-path="Rmodels.html"><a href="Rmodels.html#the-lm-class-and-methods"><i class="fa fa-check"></i><b>2.3.2</b> The <code>lm</code> class and methods</a></li>
+<li class="chapter" data-level="2.3.3" data-path="Rmodels.html"><a href="Rmodels.html#ols-regression-assumptions"><i class="fa fa-check"></i><b>2.3.3</b> OLS regression assumptions</a></li>
 <li class="chapter" data-level="2.3.4" data-path="Rmodels.html"><a href="Rmodels.html#comparing-models"><i class="fa fa-check"></i><b>2.3.4</b> Comparing models</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="Rmodels.html"><a href="Rmodels.html#exercise-0-1"><i class="fa fa-check"></i><b>2.4</b> Exercise 0</a></li>
@@ -466,9 +466,11 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li>Choose <code>Existing Directory</code> and browse to the <code>Rmodels</code> directory.</li>
 <li>Choose <code>File -&gt; Open File</code> and select the blank version of the <code>.Rmd</code> file.</li>
 </ul>
-<p>Install the <a href="https://www.tidyverse.org/">tidyverse</a> suite of packages:</p>
+<p>Install the <a href="https://www.tidyverse.org/">tidyverse</a> suite of packages and the <code>readr</code> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;tidyverse&quot;)</span>
-<span class="kw">library</span>(tidyverse)</code></pre></div>
+<span class="kw">library</span>(tidyverse)
+<span class="co"># install.packages(&quot;readr&quot;)</span>
+<span class="kw">library</span>(readr)</code></pre></div>
 <p>Set your working directory so you don’t have to type the full path names to your data and other files</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># set the working directory</span>
   <span class="co"># setwd(&quot;~/Desktop/Rmodels&quot;) # UNIX-based</span>
@@ -491,13 +493,13 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="before-fitting-a-model" class="section level2">
 <h2><span class="header-section-number">2.2</span> Before fitting a model</h2>
-<div id="inspect-and-load-data" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Inspect and load data</h3>
+<div id="load-the-data" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Load the data</h3>
 <p>List the data files we’re going to work with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="st">&quot;dataSets/&quot;</span>)</code></pre></div>
 <p>We’re going to use the <code>states</code> data first. The <em>states.dta</em> data comes from <a href="http://anawida.de/teach/SS14/anawida/4.linReg/data/states.dta.txt" class="uri">http://anawida.de/teach/SS14/anawida/4.linReg/data/states.dta.txt</a> and appears to have originally appeared in <em>Statistics with Stata</em> by Lawrence C. Hamilton.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># read the states data</span>
-  states.data &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;dataSets/states.rds&quot;</span>) 
+  states.data &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/states.rds&quot;</span>) 
   <span class="co">#get labels</span>
   states.info &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">attributes</span>(states.data)[<span class="kw">c</span>(<span class="st">&quot;names&quot;</span>, <span class="st">&quot;var.labels&quot;</span>)])
   <span class="co">#look at last few labels</span>
@@ -531,7 +533,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Fit our regression model</span>
   sat.mod &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>expense, <span class="co"># regression formula</span>
-                <span class="dt">data=</span>states.data) <span class="co"># data set</span>
+                <span class="dt">data=</span>states.data) <span class="co"># data </span>
+                
   <span class="co"># Summarize and print the results</span>
   <span class="kw">summary</span>(sat.mod) <span class="co"># show regression coefficients table</span></code></pre></div>
 <div id="why-is-the-association-between-expense-and-sat-scores-negative" class="section level3">
@@ -540,28 +543,31 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">summary</span>(<span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>expense <span class="op">+</span><span class="st"> </span>percent, <span class="dt">data =</span> states.data))</code></pre></div>
 </div>
 <div id="the-lm-class-and-methods" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> The lm class and methods</h3>
+<h3><span class="header-section-number">2.3.2</span> The <code>lm</code> class and methods</h3>
 <p>OK, we fit our model. Now what?</p>
 <ul>
 <li>Examine the model object:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">class</span>(sat.mod)
+  <span class="kw">str</span>(sat.mod)
   <span class="kw">names</span>(sat.mod)
-  <span class="kw">methods</span>(<span class="dt">class =</span> <span class="kw">class</span>(sat.mod))[<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>]</code></pre></div>
+  <span class="kw">methods</span>(<span class="dt">class =</span> <span class="kw">class</span>(sat.mod))</code></pre></div>
 <ul>
 <li>Use function methods to get more information about the fit</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">confint</span>(sat.mod)
-  <span class="co"># hist(residuals(sat.mod))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">summary</span>(sat.mod)
+  <span class="kw">coef</span>(<span class="kw">summary</span>(sat.mod))
+  <span class="kw">methods</span>(<span class="st">&quot;summary&quot;</span>)
+  <span class="kw">confint</span>(sat.mod)</code></pre></div>
 </div>
 <div id="ols-regression-assumptions" class="section level3">
-<h3><span class="header-section-number">2.3.3</span> OLS Regression Assumptions</h3>
+<h3><span class="header-section-number">2.3.3</span> OLS regression assumptions</h3>
 <ul>
 <li>OLS regression relies on several assumptions, including that the residuals are normally distributed and homoscedastic, the errors are independent and the relationships are linear.</li>
 <li>Investigate these assumptions visually by plotting your model:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co">#optional</span>
-  <span class="kw">plot</span>(sat.mod, <span class="dt">which =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># &quot;which&quot; argument optional</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) 
+  <span class="kw">plot</span>(sat.mod)</code></pre></div>
 </div>
 <div id="comparing-models" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> Comparing models</h3>
@@ -570,6 +576,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
   sat.voting.mod &lt;-<span class="st">  </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>expense <span class="op">+</span><span class="st"> </span>house <span class="op">+</span><span class="st"> </span>senate,
                         <span class="dt">data =</span> <span class="kw">na.omit</span>(states.data))
   sat.mod &lt;-<span class="st"> </span><span class="kw">update</span>(sat.mod, <span class="dt">data=</span><span class="kw">na.omit</span>(states.data))
+
   <span class="co"># compare using the anova() function</span>
   <span class="kw">anova</span>(sat.mod, sat.voting.mod)
   <span class="kw">coef</span>(<span class="kw">summary</span>(sat.voting.mod))</code></pre></div>
@@ -591,10 +598,10 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="modeling-interactions" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Modeling interactions</h3>
 <p>Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co">#Add the interaction to the model</span>
-  sat.expense.by.percent &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>expense<span class="op">*</span>income,
-                               <span class="dt">data=</span>states.data) 
-  <span class="co">#Show the results</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># Add the interaction to the model</span>
+  sat.expense.by.percent &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>expense <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>expense <span class="op">:</span><span class="st"> </span>income, <span class="dt">data=</span>states.data)
+  sat.expense.by.percent &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>expense <span class="op">*</span><span class="st"> </span>income, <span class="dt">data=</span>states.data) 
+  <span class="co"># Show the results</span>
     <span class="kw">coef</span>(<span class="kw">summary</span>(sat.expense.by.percent)) <span class="co"># show regression coefficients table</span></code></pre></div>
 </div>
 <div id="regression-with-categorical-predictors" class="section level3">
@@ -603,10 +610,11 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># make sure R knows region is categorical</span>
   <span class="kw">str</span>(states.data<span class="op">$</span>region)
   states.data<span class="op">$</span>region &lt;-<span class="st"> </span><span class="kw">factor</span>(states.data<span class="op">$</span>region)
-  <span class="co">#Add region to the model</span>
-  sat.region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>region,
-                   <span class="dt">data=</span>states.data) 
-  <span class="co">#Show the results</span>
+
+  <span class="co"># Add region to the model</span>
+  sat.region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>region, <span class="dt">data=</span>states.data) 
+
+  <span class="co"># Show the results</span>
   <span class="kw">coef</span>(<span class="kw">summary</span>(sat.region)) <span class="co"># show regression coefficients table</span>
   <span class="kw">anova</span>(sat.region) <span class="co"># show ANOVA table</span></code></pre></div>
 <p>Again, <strong>make sure to tell R which variables are categorical by converting them to factors!</strong></p>
@@ -618,7 +626,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
   <span class="kw">contrasts</span>(states.data<span class="op">$</span>region)
 
   <span class="co"># change the reference group</span>
-  states.data<span class="op">$</span>region &lt;-<span class="st"> </span><span class="kw">relevel</span>(states.data<span class="op">$</span>region, <span class="dt">ref =</span> <span class="st">&quot;NorthEast&quot;</span>)
+  states.data<span class="op">$</span>region &lt;-<span class="st"> </span><span class="kw">relevel</span>(states.data<span class="op">$</span>region, <span class="dt">ref =</span> <span class="st">&quot;Midwest&quot;</span>)
   m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>region, <span class="dt">data=</span>states.data)
   <span class="kw">coef</span>(<span class="kw">summary</span>(m1))
 
@@ -655,8 +663,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <p>The National Health Interview Survey (NHIS) has monitored the health of the nation since 1957. NHIS data on a broad range of health topics are collected through personal household interviews. For over 50 years, the U.S. Census Bureau has been the data collection agent for the National Health Interview Survey. Survey results have been instrumental in providing data to track health status, health care access, and progress toward achieving national health objectives.</p>
 </blockquote>
 <p>Load the National Health Interview Survey data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  NH11 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;dataSets/NatHealth2011.rds&quot;</span>)
-  labs &lt;-<span class="st"> </span><span class="kw">attributes</span>(NH11)<span class="op">$</span>labels</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  NH11 &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/NatHealth2011.rds&quot;</span>)</code></pre></div>
 </div>
 <div id="logistic-regression-example" class="section level3">
 <h3><span class="header-section-number">2.7.2</span> Logistic regression example</h3>
@@ -666,8 +673,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
   <span class="co"># collapse all missing values to NA</span>
   NH11<span class="op">$</span>hypev &lt;-<span class="st"> </span><span class="kw">factor</span>(NH11<span class="op">$</span>hypev, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;2 No&quot;</span>, <span class="st">&quot;1 Yes&quot;</span>))
   <span class="co"># run our regression model</span>
-  hyp.out &lt;-<span class="st"> </span><span class="kw">glm</span>(hypev<span class="op">~</span>age_p<span class="op">+</span>sex<span class="op">+</span>sleep<span class="op">+</span>bmi,
-                <span class="dt">data=</span>NH11, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)
+  hyp.out &lt;-<span class="st"> </span><span class="kw">glm</span>(hypev <span class="op">~</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sleep <span class="op">+</span><span class="st"> </span>bmi,
+                <span class="dt">data =</span> NH11, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))
   <span class="kw">coef</span>(<span class="kw">summary</span>(hyp.out))</code></pre></div>
 </div>
 <div id="logistic-regression-coefficients" class="section level3">
@@ -680,10 +687,10 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="packages-for-computing-and-graphing-predicted-values" class="section level3">
 <h3><span class="header-section-number">2.7.4</span> Packages for computing and graphing predicted values</h3>
-<p>Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us (cf. the Zelig package).</p>
+<p>Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">library</span>(effects)
   eff &lt;-<span class="st"> </span><span class="kw">allEffects</span>(hyp.out)
-  eff2 &lt;-<span class="st"> </span><span class="kw">allEffects</span>(hyp.out, <span class="dt">xlevels =</span> <span class="kw">list</span>(age_b, <span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)))
+  eff2 &lt;-<span class="st"> </span><span class="kw">allEffects</span>(hyp.out, <span class="dt">xlevels =</span> <span class="kw">list</span>(age_p, <span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)))
   <span class="kw">plot</span>(eff)
   <span class="kw">as.data.frame</span>(eff) <span class="co"># confidence intervals</span></code></pre></div>
 <div class="figure">
@@ -722,10 +729,6 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">2.9.2</span> The Exam data</h3>
 <p>The Exam data set contans exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:</p>
 <table>
-<colgroup>
-<col width="9%" />
-<col width="90%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>variable</th>
@@ -742,32 +745,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <td>Normalized exam score.</td>
 </tr>
 <tr class="odd">
-<td>schgend</td>
-<td>School gender - a factor. Levels are ‘mixed’, ‘boys’, and ‘girls’.</td>
-</tr>
-<tr class="even">
-<td>schavg</td>
-<td>School average of intake score.</td>
-</tr>
-<tr class="odd">
-<td>vr</td>
-<td>Student level Verbal Reasoning (VR) score band at intake - ‘bottom 25%’, ‘mid 50%’, and ‘top 25%’.</td>
-</tr>
-<tr class="even">
-<td>intake</td>
-<td>Band of student’s intake score - a factor. Levels are ‘bottom 25%’, ‘mid 50%’ and ‘top 25%’./</td>
-</tr>
-<tr class="odd">
 <td>standLRT</td>
 <td>Standardised LR test score.</td>
-</tr>
-<tr class="even">
-<td>sex</td>
-<td>Sex of the student - levels are ‘F’ and ‘M’.</td>
-</tr>
-<tr class="odd">
-<td>type</td>
-<td>School type - levels are ‘Mxd’ and ‘Sngl’.</td>
 </tr>
 <tr class="even">
 <td>student</td>
@@ -775,7 +754,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  Exam &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;dataSets/Exam.rds&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  Exam &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/Exam.rds&quot;</span>)</code></pre></div>
 </div>
 <div id="the-null-model-and-icc" class="section level3">
 <h3><span class="header-section-number">2.9.3</span> The null model and ICC</h3>
@@ -785,11 +764,12 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
                 <span class="dt">data=</span><span class="kw">na.omit</span>(Exam), <span class="dt">REML =</span> <span class="ot">FALSE</span>)
   <span class="kw">summary</span>(Norm1)</code></pre></div>
 <p>The is .169/(.169 + .848) = .17: 17% of the variance is at the school level.</p>
+<p>There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the <code>lme4</code> output. But, we can calculate approximate p-values using the <code>lmerTest</code> package.</p>
 </div>
 <div id="adding-fixed-effects-predictors" class="section level3">
 <h3><span class="header-section-number">2.9.4</span> Adding fixed-effects predictors</h3>
 <p>Predict exam scores from student’s standardized tests scores</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  Norm2 &lt;-<span class="kw">lmer</span>(normexam<span class="op">~</span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>school),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  Norm2 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school),
                <span class="dt">data=</span><span class="kw">na.omit</span>(Exam), <span class="dt">REML =</span> <span class="ot">FALSE</span>) 
   <span class="kw">summary</span>(Norm2) </code></pre></div>
 </div>
@@ -801,7 +781,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="random-slopes" class="section level3">
 <h3><span class="header-section-number">2.9.6</span> Random slopes</h3>
 <p>Add a random effect of students’ standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  Norm3 &lt;-<span class="st"> </span><span class="kw">lmer</span>(normexam<span class="op">~</span>standLRT <span class="op">+</span><span class="st"> </span>(standLRT<span class="op">|</span>school), 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  Norm3 &lt;-<span class="st"> </span><span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">|</span><span class="st"> </span>school), 
                 <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam), <span class="dt">REML =</span> <span class="ot">FALSE</span>) 
   <span class="kw">summary</span>(Norm3) </code></pre></div>
 </div>
@@ -814,10 +794,11 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="exercise-3-1" class="section level2">
 <h2><span class="header-section-number">2.10</span> Exercise 3</h2>
 <p><strong>Multilevel modeling</strong></p>
-<p>Use the dataset, bh1996: <code>data(bh1996, package=&quot;multilevel&quot;)</code></p>
+<p>Use the dataset, bh1996:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</code></pre></div>
 <p>From the data documentation:</p>
 <blockquote>
-<p>Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours (HRS), and group (GRP). Each of these variables has two variants - a group mean version that replicates each group mean for every individual, and a within-group version where the group mean is subtracted from each individual response. The group mean version is designated with a G. (e.g., G.HRS), and the within-group version is designated with a W. (e.g., W.HRS).</p>
+<p>Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours (HRS), and cluster group (GRP).</p>
 </blockquote>
 <ol style="list-style-type: decimal">
 <li>Create a null model predicting wellbeing (“WBEING”)</li>
@@ -831,7 +812,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="ex-0-prototype-1" class="section level3">
 <h3><span class="header-section-number">2.11.1</span> Ex 0: prototype</h3>
 <p>Use the <em>states.rds</em> data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  states &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;dataSets/states.rds&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  states &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/states.rds&quot;</span>)</code></pre></div>
 <p>Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to</p>
 <ol style="list-style-type: decimal">
 <li>Examine/plot the data before fitting the model</li>
@@ -865,7 +846,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li>Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mod.en.metro.by.waste &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste, <span class="dt">data =</span> states)</code></pre></div>
-<ol style="list-style-type: decimal">
+<ol start="2" style="list-style-type: decimal">
 <li>Try adding a region to the model. Are there significant differences across the four regions?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mod.en.region &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states)
@@ -879,16 +860,16 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  nh11.wrk.age.mar &lt;-<span class="st"> </span><span class="kw">subset</span>(NH11, <span class="dt">select =</span> <span class="kw">c</span>(<span class="st">&quot;everwrk&quot;</span>, <span class="st">&quot;age_p&quot;</span>, <span class="st">&quot;r_maritl&quot;</span>))
   <span class="kw">summary</span>(nh11.wrk.age.mar)
+
   NH11 &lt;-<span class="st"> </span><span class="kw">transform</span>(NH11,
-                    <span class="dt">everwrk =</span> <span class="kw">factor</span>(everwrk,
-                        <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;1 Yes&quot;</span>, <span class="st">&quot;2 No&quot;</span>)),
+                    <span class="dt">everwrk =</span> <span class="kw">factor</span>(everwrk, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;1 Yes&quot;</span>, <span class="st">&quot;2 No&quot;</span>)),
                     <span class="dt">r_maritl =</span> <span class="kw">droplevels</span>(r_maritl))
 
   mod.wk.age.mar &lt;-<span class="st"> </span><span class="kw">glm</span>(everwrk <span class="op">~</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>r_maritl, <span class="dt">data =</span> NH11,
-                        <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
+                        <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))
 
   <span class="kw">summary</span>(mod.wk.age.mar)</code></pre></div>
-<ol style="list-style-type: decimal">
+<ol start="2" style="list-style-type: decimal">
 <li>Predict the probability of working for each level of marital status.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">library</span>(effects)

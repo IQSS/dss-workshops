@@ -1457,12 +1457,14 @@ Start RStudio and create a new project:
 \end{itemize}
 
 Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
-packages:
+packages and the \texttt{readr} package:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
+\CommentTok{# install.packages("readr")}
+\KeywordTok{library}\NormalTok{(readr)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1505,7 +1507,7 @@ This is an intermediate R course:
 
 \section{Before fitting a model}\label{before-fitting-a-model}
 
-\subsection{Inspect and load data}\label{inspect-and-load-data}
+\subsection{Load the data}\label{load-the-data}
 
 List the data files we're going to work with:
 
@@ -1524,7 +1526,7 @@ by Lawrence C. Hamilton.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# read the states data}
-\NormalTok{  states.data <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{) }
+\NormalTok{  states.data <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{) }
   \CommentTok{#get labels}
 \NormalTok{  states.info <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{attributes}\NormalTok{(states.data)[}\KeywordTok{c}\NormalTok{(}\StringTok{"names"}\NormalTok{, }\StringTok{"var.labels"}\NormalTok{)])}
   \CommentTok{#look at last few labels}
@@ -1581,7 +1583,8 @@ outcomes}\label{regression-with-continuous-outcomes}
 \begin{Highlighting}[]
   \CommentTok{# Fit our regression model}
 \NormalTok{  sat.mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense, }\CommentTok{# regression formula}
-                \DataTypeTok{data=}\NormalTok{states.data) }\CommentTok{# data set}
+                \DataTypeTok{data=}\NormalTok{states.data) }\CommentTok{# data }
+                
   \CommentTok{# Summarize and print the results}
   \KeywordTok{summary}\NormalTok{(sat.mod) }\CommentTok{# show regression coefficients table}
 \end{Highlighting}
@@ -1604,7 +1607,8 @@ SAT?
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{The lm class and methods}\label{the-lm-class-and-methods}
+\subsection{\texorpdfstring{The \texttt{lm} class and
+methods}{The lm class and methods}}\label{the-lm-class-and-methods}
 
 OK, we fit our model. Now what?
 
@@ -1617,8 +1621,9 @@ OK, we fit our model. Now what?
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{class}\NormalTok{(sat.mod)}
+  \KeywordTok{str}\NormalTok{(sat.mod)}
   \KeywordTok{names}\NormalTok{(sat.mod)}
-  \KeywordTok{methods}\NormalTok{(}\DataTypeTok{class =} \KeywordTok{class}\NormalTok{(sat.mod))[}\DecValTok{1}\OperatorTok{:}\DecValTok{9}\NormalTok{]}
+  \KeywordTok{methods}\NormalTok{(}\DataTypeTok{class =} \KeywordTok{class}\NormalTok{(sat.mod))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1630,13 +1635,15 @@ OK, we fit our model. Now what?
 
 \begin{Shaded}
 \begin{Highlighting}[]
+  \KeywordTok{summary}\NormalTok{(sat.mod)}
+  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.mod))}
+  \KeywordTok{methods}\NormalTok{(}\StringTok{"summary"}\NormalTok{)}
   \KeywordTok{confint}\NormalTok{(sat.mod)}
-  \CommentTok{# hist(residuals(sat.mod))}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{OLS Regression
-Assumptions}\label{ols-regression-assumptions}
+\subsection{OLS regression
+assumptions}\label{ols-regression-assumptions}
 
 \begin{itemize}
 \tightlist
@@ -1650,8 +1657,8 @@ Assumptions}\label{ols-regression-assumptions}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{#optional}
-  \KeywordTok{plot}\NormalTok{(sat.mod, }\DataTypeTok{which =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{# "which" argument optional}
+  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) }
+  \KeywordTok{plot}\NormalTok{(sat.mod)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1666,6 +1673,7 @@ expense? Fit two models and compare them:
 \NormalTok{  sat.voting.mod <-}\StringTok{  }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{house }\OperatorTok{+}\StringTok{ }\NormalTok{senate,}
                         \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states.data))}
 \NormalTok{  sat.mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat.mod, }\DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(states.data))}
+
   \CommentTok{# compare using the anova() function}
   \KeywordTok{anova}\NormalTok{(sat.mod, sat.voting.mod)}
   \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.voting.mod))}
@@ -1707,10 +1715,10 @@ the median income in the state?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-    \CommentTok{#Add the interaction to the model}
-\NormalTok{  sat.expense.by.percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense}\OperatorTok{*}\NormalTok{income,}
-                               \DataTypeTok{data=}\NormalTok{states.data) }
-  \CommentTok{#Show the results}
+    \CommentTok{# Add the interaction to the model}
+\NormalTok{  sat.expense.by.percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states.data)}
+\NormalTok{  sat.expense.by.percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states.data) }
+  \CommentTok{# Show the results}
     \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.expense.by.percent)) }\CommentTok{# show regression coefficients table}
 \end{Highlighting}
 \end{Shaded}
@@ -1727,10 +1735,11 @@ is numeric.
   \CommentTok{# make sure R knows region is categorical}
   \KeywordTok{str}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region)}
 \NormalTok{  states.data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region)}
-  \CommentTok{#Add region to the model}
-\NormalTok{  sat.region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region,}
-                   \DataTypeTok{data=}\NormalTok{states.data) }
-  \CommentTok{#Show the results}
+
+  \CommentTok{# Add region to the model}
+\NormalTok{  sat.region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states.data) }
+
+  \CommentTok{# Show the results}
   \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.region)) }\CommentTok{# show regression coefficients table}
   \KeywordTok{anova}\NormalTok{(sat.region) }\CommentTok{# show ANOVA table}
 \end{Highlighting}
@@ -1753,7 +1762,7 @@ scheme using the \texttt{C} function.
   \KeywordTok{contrasts}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region)}
 
   \CommentTok{# change the reference group}
-\NormalTok{  states.data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"NorthEast"}\NormalTok{)}
+\NormalTok{  states.data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"Midwest"}\NormalTok{)}
 \NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states.data)}
   \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(m1))}
 
@@ -1818,8 +1827,7 @@ Load the National Health Interview Survey data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  NH11 <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"dataSets/NatHealth2011.rds"}\NormalTok{)}
-\NormalTok{  labs <-}\StringTok{ }\KeywordTok{attributes}\NormalTok{(NH11)}\OperatorTok{$}\NormalTok{labels}
+\NormalTok{  NH11 <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/NatHealth2011.rds"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1836,8 +1844,8 @@ on age, sex, sleep, and bmi
   \CommentTok{# collapse all missing values to NA}
 \NormalTok{  NH11}\OperatorTok{$}\NormalTok{hypev <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(NH11}\OperatorTok{$}\NormalTok{hypev, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\StringTok{"2 No"}\NormalTok{, }\StringTok{"1 Yes"}\NormalTok{))}
   \CommentTok{# run our regression model}
-\NormalTok{  hyp.out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev}\OperatorTok{~}\NormalTok{age_p}\OperatorTok{+}\NormalTok{sex}\OperatorTok{+}\NormalTok{sleep}\OperatorTok{+}\NormalTok{bmi,}
-                \DataTypeTok{data=}\NormalTok{NH11, }\DataTypeTok{family=}\StringTok{"binomial"}\NormalTok{)}
+\NormalTok{  hyp.out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{sleep }\OperatorTok{+}\StringTok{ }\NormalTok{bmi,}
+                \DataTypeTok{data =}\NormalTok{ NH11, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
   \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(hyp.out))}
 \end{Highlighting}
 \end{Shaded}
@@ -1866,13 +1874,13 @@ interpret
 values}\label{packages-for-computing-and-graphing-predicted-values}
 
 Instead of doing all this ourselves, we can use the effects package to
-compute quantities of interest for us (cf.~the Zelig package).
+compute quantities of interest for us.
 
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{library}\NormalTok{(effects)}
 \NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp.out)}
-\NormalTok{  eff2 <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp.out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(age_b, }\KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
+\NormalTok{  eff2 <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp.out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(age_p, }\KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
   \KeywordTok{plot}\NormalTok{(eff)}
   \KeywordTok{as.data.frame}\NormalTok{(eff) }\CommentTok{# confidence intervals}
 \end{Highlighting}
@@ -1948,71 +1956,19 @@ in Inner London. The variable names are as follows:
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-\begin{minipage}[b]{0.09\columnwidth}\raggedright\strut
-variable\strut
-\end{minipage} & \begin{minipage}[b]{0.85\columnwidth}\raggedright\strut
-Description\strut
-\end{minipage}\tabularnewline
+variable & Description\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-school\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-School ID - a factor.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-normexam\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-Normalized exam score.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-schgend\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-School gender - a factor. Levels are `mixed', `boys', and `girls'.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-schavg\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-School average of intake score.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-vr\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-Student level Verbal Reasoning (VR) score band at intake - `bottom
-25\%', `mid 50\%', and `top 25\%'.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-intake\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-Band of student's intake score - a factor. Levels are `bottom 25\%',
-`mid 50\%' and `top 25\%'./\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-standLRT\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-Standardised LR test score.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-sex\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-Sex of the student - levels are `F' and `M'.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-type\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-School type - levels are `Mxd' and `Sngl'.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-student\strut
-\end{minipage} & \begin{minipage}[t]{0.85\columnwidth}\raggedright\strut
-Student id (within school) - a factor\strut
-\end{minipage}\tabularnewline
+school & School ID - a factor.\tabularnewline
+normexam & Normalized exam score.\tabularnewline
+standLRT & Standardised LR test score.\tabularnewline
+student & Student id (within school) - a factor\tabularnewline
 \bottomrule
 \end{longtable}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  Exam <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"dataSets/Exam.rds"}\NormalTok{)}
+\NormalTok{  Exam <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/Exam.rds"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2035,6 +1991,10 @@ structure, but no fixed-effects predictors).
 The is .169/(.169 + .848) = .17: 17\% of the variance is at the school
 level.
 
+There is no consensus on how to calculate p-values for MLMs; hence why
+they are omitted from the \texttt{lme4} output. But, we can calculate
+approximate p-values using the \texttt{lmerTest} package.
+
 \subsection{Adding fixed-effects
 predictors}\label{adding-fixed-effects-predictors}
 
@@ -2042,7 +2002,7 @@ Predict exam scores from student's standardized tests scores
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  Norm2 <-}\KeywordTok{lmer}\NormalTok{(normexam}\OperatorTok{~}\NormalTok{standLRT }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{school),}
+\NormalTok{  Norm2 <-}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{standLRT }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school),}
                \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
   \KeywordTok{summary}\NormalTok{(Norm2) }
 \end{Highlighting}
@@ -2069,7 +2029,7 @@ test.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  Norm3 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(normexam}\OperatorTok{~}\NormalTok{standLRT }\OperatorTok{+}\StringTok{ }\NormalTok{(standLRT}\OperatorTok{|}\NormalTok{school), }
+\NormalTok{  Norm3 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{standLRT }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{standLRT }\OperatorTok{|}\StringTok{ }\NormalTok{school), }
                 \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
   \KeywordTok{summary}\NormalTok{(Norm3) }
 \end{Highlighting}
@@ -2091,18 +2051,19 @@ without the random slope term
 
 \textbf{Multilevel modeling}
 
-Use the dataset, bh1996: \texttt{data(bh1996,\ package="multilevel")}
+Use the dataset, bh1996:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(bh1996, }\DataTypeTok{package=}\StringTok{"multilevel"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 From the data documentation:
 
 \begin{quote}
 Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours
-(HRS), and group (GRP). Each of these variables has two variants - a
-group mean version that replicates each group mean for every individual,
-and a within-group version where the group mean is subtracted from each
-individual response. The group mean version is designated with a G.
-(e.g., G.HRS), and the within-group version is designated with a W.
-(e.g., W.HRS).
+(HRS), and cluster group (GRP).
 \end{quote}
 
 \begin{enumerate}
@@ -2130,7 +2091,7 @@ Use the \emph{states.rds} data set.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  states <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{)}
+\NormalTok{  states <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2219,6 +2180,7 @@ Use the states data set.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \tightlist
 \item
   Try adding a region to the model. Are there significant differences
@@ -2250,13 +2212,13 @@ least some of the variables before fitting the model.
 \begin{Highlighting}[]
 \NormalTok{  nh11.wrk.age.mar <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(NH11, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"everwrk"}\NormalTok{, }\StringTok{"age_p"}\NormalTok{, }\StringTok{"r_maritl"}\NormalTok{))}
   \KeywordTok{summary}\NormalTok{(nh11.wrk.age.mar)}
+
 \NormalTok{  NH11 <-}\StringTok{ }\KeywordTok{transform}\NormalTok{(NH11,}
-                    \DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk,}
-                        \DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
+                    \DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
                     \DataTypeTok{r_maritl =} \KeywordTok{droplevels}\NormalTok{(r_maritl))}
 
 \NormalTok{  mod.wk.age.mar <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(everwrk }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{r_maritl, }\DataTypeTok{data =}\NormalTok{ NH11,}
-                        \DataTypeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+                        \DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
 
   \KeywordTok{summary}\NormalTok{(mod.wk.age.mar)}
 \end{Highlighting}
@@ -2264,6 +2226,7 @@ least some of the variables before fitting the model.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \tightlist
 \item
   Predict the probability of working for each level of marital status.

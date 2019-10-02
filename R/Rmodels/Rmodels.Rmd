@@ -38,11 +38,13 @@ Start RStudio and create a new project:
 * Choose `Existing Directory` and browse to the `Rmodels` directory.
 * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
 
-Install the [tidyverse](https://www.tidyverse.org/) suite of packages:
+Install the [tidyverse](https://www.tidyverse.org/) suite of packages and the `readr` package:
 
 ```{r}
 # install.packages("tidyverse")
 library(tidyverse)
+# install.packages("readr")
+library(readr)
 ```
 
 Set your working directory so you don't have to type the full path names to your data and other files
@@ -69,7 +71,7 @@ This is an intermediate R course:
 
 ## Before fitting a model
 
-### Inspect and load data
+### Load the data
 
 List the data files we're going to work with:
 
@@ -81,7 +83,7 @@ We're going to use the `states` data first. The *states.dta* data comes from <ht
 
 ```{r}
   # read the states data
-  states.data <- readRDS("dataSets/states.rds") 
+  states.data <- read_rds("dataSets/states.rds") 
   #get labels
   states.info <- data.frame(attributes(states.data)[c("names", "var.labels")])
   #look at last few labels
@@ -120,7 +122,8 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 ```{r}
   # Fit our regression model
   sat.mod <- lm(csat ~ expense, # regression formula
-                data=states.data) # data set
+                data=states.data) # data 
+                
   # Summarize and print the results
   summary(sat.mod) # show regression coefficients table
 ```
@@ -133,7 +136,7 @@ Many people find it surprising that the per-capita expenditure on students is ne
   summary(lm(csat ~ expense + percent, data = states.data))
 ```
 
-### The lm class and methods
+### The `lm` class and methods
 
 OK, we fit our model. Now what?
 
@@ -141,25 +144,28 @@ OK, we fit our model. Now what?
 
 ```{r}
   class(sat.mod)
+  str(sat.mod)
   names(sat.mod)
-  methods(class = class(sat.mod))[1:9]
+  methods(class = class(sat.mod))
 ```
 
 * Use function methods to get more information about the fit
 
 ```{r}
+  summary(sat.mod)
+  coef(summary(sat.mod))
+  methods("summary")
   confint(sat.mod)
-  # hist(residuals(sat.mod))
 ```
 
-### OLS Regression Assumptions
+### OLS regression assumptions
 
 * OLS regression relies on several assumptions, including that the residuals are normally distributed and homoscedastic, the errors are independent and the relationships are linear.
 * Investigate these assumptions visually by plotting your model:
 
 ```{r}
-  par(mar = c(4, 4, 2, 2), mfrow = c(1, 2)) #optional
-  plot(sat.mod, which = c(1, 2)) # "which" argument optional
+  par(mfrow = c(2, 2)) 
+  plot(sat.mod)
 ```
 
 ### Comparing models
@@ -171,6 +177,7 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
   sat.voting.mod <-  lm(csat ~ expense + house + senate,
                         data = na.omit(states.data))
   sat.mod <- update(sat.mod, data=na.omit(states.data))
+
   # compare using the anova() function
   anova(sat.mod, sat.voting.mod)
   coef(summary(sat.voting.mod))
@@ -196,10 +203,10 @@ Select one or more additional predictors to add to your model and repeat steps 1
 Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
 
 ```{r}
-    #Add the interaction to the model
-  sat.expense.by.percent <- lm(csat ~ expense*income,
-                               data=states.data) 
-  #Show the results
+    # Add the interaction to the model
+  sat.expense.by.percent <- lm(csat ~ expense + income + expense : income, data=states.data)
+  sat.expense.by.percent <- lm(csat ~ expense * income, data=states.data) 
+  # Show the results
     coef(summary(sat.expense.by.percent)) # show regression coefficients table
 ```
 
@@ -211,10 +218,11 @@ Let's try to predict SAT scores from region, a categorical variable. Note that y
   # make sure R knows region is categorical
   str(states.data$region)
   states.data$region <- factor(states.data$region)
-  #Add region to the model
-  sat.region <- lm(csat ~ region,
-                   data=states.data) 
-  #Show the results
+
+  # Add region to the model
+  sat.region <- lm(csat ~ region, data=states.data) 
+
+  # Show the results
   coef(summary(sat.region)) # show regression coefficients table
   anova(sat.region) # show ANOVA table
 ```
@@ -230,7 +238,7 @@ In the previous example we use the default contrasts for region. The default in 
   contrasts(states.data$region)
 
   # change the reference group
-  states.data$region <- relevel(states.data$region, ref = "NorthEast")
+  states.data$region <- relevel(states.data$region, ref = "Midwest")
   m1 <- lm(csat ~ region, data=states.data)
   coef(summary(m1))
 
@@ -273,8 +281,7 @@ For these models we will use a different dataset, drawn from the National Health
 Load the National Health Interview Survey data:
 
 ```{r}
-  NH11 <- readRDS("dataSets/NatHealth2011.rds")
-  labs <- attributes(NH11)$labels
+  NH11 <- read_rds("dataSets/NatHealth2011.rds")
 ```
 
 ### Logistic regression example
@@ -287,8 +294,8 @@ Let's predict the probability of being diagnosed with hypertension based on age,
   # collapse all missing values to NA
   NH11$hypev <- factor(NH11$hypev, levels=c("2 No", "1 Yes"))
   # run our regression model
-  hyp.out <- glm(hypev~age_p+sex+sleep+bmi,
-                data=NH11, family="binomial")
+  hyp.out <- glm(hypev ~ age_p + sex + sleep + bmi,
+                data = NH11, family = binomial(link = "logit"))
   coef(summary(hyp.out))
 ```
 
@@ -306,12 +313,12 @@ One solution is to transform the coefficients to make them easier to interpret
 
 ### Packages for computing and graphing predicted values
 
-Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us (cf. the Zelig package).
+Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
 
 ```{r}
   library(effects)
   eff <- allEffects(hyp.out)
-  eff2 <- allEffects(hyp.out, xlevels = list(age_b, seq(20, 80, by = 5)))
+  eff2 <- allEffects(hyp.out, xlevels = list(age_p, seq(20, 80, by = 5)))
   plot(eff)
   as.data.frame(eff) # confidence intervals
 ```
@@ -355,17 +362,11 @@ The Exam data set contans exam scores of 4,059 students from 65 schools in Inner
 |----------|----------------------------------------------------------------------------------------------------|
 | school   | School ID - a factor.                                                                              |
 | normexam | Normalized exam score.                                                                             |
-| schgend  | School gender - a factor. Levels are 'mixed', 'boys', and 'girls'.                                 |
-| schavg   | School average of intake score.                                                                    |
-| vr       | Student level Verbal Reasoning (VR) score band at intake - 'bottom 25%', 'mid 50%', and 'top 25%'. |
-| intake   | Band of student's intake score - a factor. Levels are 'bottom 25%', 'mid 50%' and 'top 25%'./      |
 | standLRT | Standardised LR test score.                                                                        |
-| sex      | Sex of the student - levels are 'F' and 'M'.                                                       |
-| type     | School type - levels are 'Mxd' and 'Sngl'.                                                         |
 | student  | Student id (within school) - a factor                                                              |
 
 ```{r}
-  Exam <- readRDS("dataSets/Exam.rds")
+  Exam <- read_rds("dataSets/Exam.rds")
 ```
 
 ### The null model and ICC
@@ -379,14 +380,18 @@ As a preliminary step it is often useful to partition the variance in the depend
   summary(Norm1)
 ```
 
-The is .169/(.169 + .848) = .17: 17% of the variance is at the school level.
+The is .169/(.169 + .848) = .17: 17% of the variance is at the school level. 
+
+There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. 
+But, we can calculate approximate p-values using the `lmerTest` package.
+
 
 ### Adding fixed-effects predictors
 
 Predict exam scores from student's standardized tests scores
 
 ```{r}
-  Norm2 <-lmer(normexam~standLRT + (1|school),
+  Norm2 <-lmer(normexam ~ 1 + standLRT + (1 | school),
                data=na.omit(Exam), REML = FALSE) 
   summary(Norm2) 
 ```
@@ -404,7 +409,7 @@ As with `lm` and `glm` models, you can compare the two `lmer` models using the `
 Add a random effect of students' standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.
 
 ```{r}
-  Norm3 <- lmer(normexam~standLRT + (standLRT|school), 
+  Norm3 <- lmer(normexam ~ 1 + standLRT + (1 + standLRT | school), 
                 data = na.omit(Exam), REML = FALSE) 
   summary(Norm3) 
 ```
@@ -421,11 +426,15 @@ To test the significance of a random slope just compare models with and without 
 
 **Multilevel modeling**
 
-Use the dataset, bh1996: `data(bh1996, package="multilevel")`
+Use the dataset, bh1996: 
+
+```{r}
+data(bh1996, package="multilevel")
+```
 
 From the data documentation:
 
-> Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours (HRS), and group (GRP). Each of these variables has two variants - a group mean version that replicates each group mean for every individual, and a within-group version where the group mean is subtracted from each individual response. The group mean version is designated with a G. (e.g., G.HRS), and the within-group version is designated with a W. (e.g., W.HRS).
+> Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours (HRS), and cluster group (GRP). 
 
 1.  Create a null model predicting wellbeing ("WBEING")
 2.  Calculate the ICC for your null model
@@ -441,7 +450,7 @@ From the data documentation:
 Use the *states.rds* data set.
 
 ```{r}
-  states <- readRDS("dataSets/states.rds")
+  states <- read_rds("dataSets/states.rds")
 ```
 
 Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to
@@ -490,7 +499,7 @@ Use the states data set.
   mod.en.metro.by.waste <- lm(energy ~ metro * waste, data = states)
 ```
 
-1.  Try adding a region to the model. Are there significant differences across the four regions?
+2.  Try adding a region to the model. Are there significant differences across the four regions?
 
 ```{r}
   mod.en.region <- lm(energy ~ metro * waste + region, data = states)
@@ -506,18 +515,18 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 ```{r}
   nh11.wrk.age.mar <- subset(NH11, select = c("everwrk", "age_p", "r_maritl"))
   summary(nh11.wrk.age.mar)
+
   NH11 <- transform(NH11,
-                    everwrk = factor(everwrk,
-                        levels = c("1 Yes", "2 No")),
+                    everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
                     r_maritl = droplevels(r_maritl))
 
   mod.wk.age.mar <- glm(everwrk ~ age_p + r_maritl, data = NH11,
-                        family = "binomial")
+                        family = binomial(link = "logit"))
 
   summary(mod.wk.age.mar)
 ```
 
-1.  Predict the probability of working for each level of marital status.
+2.  Predict the probability of working for each level of marital status.
 
 ```{r}
   library(effects)
