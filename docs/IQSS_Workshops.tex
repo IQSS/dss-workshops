@@ -277,28 +277,10 @@ Start RStudio and create a new project:
 \item
   Choose \texttt{Existing\ Directory} and browse to the \texttt{Rintro}
   directory.
+\item
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank
+  version of the \texttt{.Rmd} file.
 \end{itemize}
-
-Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
-packages:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("tidyverse")}
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\end{Highlighting}
-\end{Shaded}
-
-Set your working directory so you don't have to type the full path names
-to your data and other files
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{# set the working directory}
-  \CommentTok{# setwd("~/Desktop/Rintro") # UNIX-based}
-  \CommentTok{# setwd("C:/Users/dataclass/Desktop/Rintro") # MS Windows}
-\end{Highlighting}
-\end{Shaded}
 
 \subsection{Goals}\label{goals}
 
@@ -358,27 +340,6 @@ We will also use Rmarkdown --- a type of R file that allows you to
 combine plain text with R code. It is easy to later convert Rmarkdown
 into MS Word, LaTeX, a pdf, or webpage.
 
-\subsection{Launch RStudio (skip if not using
-Rstudio)}\label{launch-rstudio-skip-if-not-using-rstudio}
-
-\textbf{Note: skip this section if you are not using Rstudio (e.g., if
-you are running these examples in a Jupyter notebook).}
-
-\begin{itemize}
-\tightlist
-\item
-  Start the RStudio program
-\item
-  In RStudio, go to \textbf{File =\textgreater{} New File
-  =\textgreater{} R Script}
-\end{itemize}
-
-The window in the upper-left is your R script. This is where you will
-write instructions for R to carry out.
-
-The window in the lower-left is the R console. This is where results
-will be displayed.
-
 \section{Ex 0}\label{ex-0}
 
 The purpose of this exercise is to give you an opportunity to explore
@@ -429,40 +390,18 @@ you are looking for should appear in a pop up!
   introduction to R''. Use the RStudio help pane. to locate this manual.
 \end{enumerate}
 
-\subsection{Ex 0: solution}\label{ex-0-solution}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## 1. 2 plus 2}
-\DecValTok{2} \OperatorTok{+}\StringTok{ }\DecValTok{2}
-\NormalTok{## or}
-\KeywordTok{sum}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## 2. square root of 10:}
-\KeywordTok{sqrt}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\NormalTok{## or}
-\DecValTok{10}\OperatorTok{^}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## 3. Find "An Introduction to R".}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## Go to the main help page by running 'help.start() or using the GUI}
-\NormalTok{## menu, find and click on the link to "An Introduction to R".}
-\end{Highlighting}
-\end{Shaded}
-
 \section{R basics}\label{r-basics}
+
+Set your working directory so you don't have to type the full path names
+to your data and other files
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# set the working directory}
+  \CommentTok{# setwd("~/Desktop/Rintro") # UNIX-based}
+  \CommentTok{# setwd("C:/Users/Desktop/Rintro") # MS Windows}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Function calls}\label{function-calls}
 
@@ -542,9 +481,14 @@ You can install a package in R using the \texttt{install.packages()}
 function. Once a package is installed you may use the \texttt{library}
 function to attach it so that it can be used.
 
+Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
+packages and the \texttt{readr} package:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## install.packages("readr")}
+\CommentTok{# install.packages("tidyverse")}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\CommentTok{# install.packages("readr")}
 \KeywordTok{library}\NormalTok{(readr)}
 \end{Highlighting}
 \end{Shaded}
@@ -605,20 +549,6 @@ Baby names data are available at
   set \texttt{babynames.dta} and as an R data set
   \texttt{babynames.rds}.
 \end{enumerate}
-
-\subsection{Ex 1: solution}\label{ex-1-solution}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## read ?read_csv}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{baby.names <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Popularity of your name}\label{popularity-of-your-name}
 
@@ -760,53 +690,6 @@ with \texttt{library(dplyr)}.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ex 2: solution}\label{ex-2-solution}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 1.  Use `filter` to extract data for your name (or another name of your choice).  }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 2.  Arrange the data you produced in step 1 above by `Count`. }
-\CommentTok{#     In which year was the name most popular?}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{arrange}\NormalTok{(george, }\KeywordTok{desc}\NormalTok{(Count))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 3.  BONUS (optional): Filter the data to extract _only_ the }
-\CommentTok{#     row containing the most popular boys name in 1999.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{boys.}\DecValTok{1999}\NormalTok{ <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, }
-\NormalTok{                    Year }\OperatorTok{==}\StringTok{ }\DecValTok{1999} \OperatorTok{&}\StringTok{ }\NormalTok{Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(boys.}\DecValTok{1999}\NormalTok{, Count }\OperatorTok{==}\StringTok{ }\KeywordTok{max}\NormalTok{(Count))}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Plotting baby name trends over
 time}\label{plotting-baby-name-trends-over-time}
 
@@ -908,57 +791,6 @@ attached it using \texttt{library(ggplot2)}.
 \item
   BONUS (Optional): Adust the plot to use lines instead of points.
 \end{enumerate}
-
-\subsection{Ex 3: solution}\label{ex-3-solution}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 1. Use `filter` to extract data for your name (same as previous exercise)  }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis}
-\CommentTok{#     and `Count` on the y-axis.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{data =}\NormalTok{ george)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 3. Adjust the plot so that is shows boys and girls in different colors.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ george)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 4.  BONUS (Optional): Adust the plot to use lines instead of points.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ george, }\DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Finding the most popular
 names}\label{finding-the-most-popular-names}
@@ -1076,6 +908,271 @@ each year.
   girls?
 \end{enumerate}
 
+\section{Percent choosing one of the top 10
+names}\label{percent-choosing-one-of-the-top-10-names}
+
+You may have noticed that the percentage of babies given the most
+popular name of the year appears to have decreases over time. We can
+compute a more robust measure of the popularity of the most popular
+names by calculating the number of babies given one of the top 10 girl
+or boy names of the year.
+
+In order to compute this measure we need to operate within goups, as we
+did using \texttt{mutate} above, but this time we need to collapse each
+group into a single summary statistic. We can achive this using the
+\texttt{summarize} function. For example, we can calculate the number of
+babies born each year:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bn.by.year <-}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(baby.names, Year),}
+                       \DataTypeTok{Total =} \KeywordTok{sum}\NormalTok{(Count))}
+\NormalTok{bn.by.year}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Ex 5: Popularity of most popular
+names}\label{ex-5-popularity-of-most-popular-names}
+
+In this exercise we will plot trends in the proportion of boys and girls
+given one of the 10 most popular names each year.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Filter the baby.names data, retaining only the 10 most popular girl
+  and boy names for each year.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Summarize the data produced in step one to calculate the total
+  Proportion of boys and girls given one of the top 10 names each year.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Plot the data produced in step 2, with year on the x-axis and total
+  proportion on the y axis. Color by sex.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Saving our Work}\label{saving-our-work}
+
+Now that we have made some changes to our data set, we might want to
+save those changes to a file.
+
+\subsection{Saving individual
+datasets}\label{saving-individual-datasets}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# write data to a .csv file}
+\KeywordTok{write_csv}\NormalTok{(baby.names, }\StringTok{"babyNames.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# write data to an R file}
+\KeywordTok{write_rds}\NormalTok{(baby.names, }\StringTok{"babyNames.rds"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Saving and loading R
+workspaces}\label{saving-and-loading-r-workspaces}
+
+In addition to importing individual datasets, R can save and load entire
+workspaces
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects in our workspace}
+\KeywordTok{save.image}\NormalTok{(}\DataTypeTok{file=}\StringTok{"myWorkspace.RData"}\NormalTok{) }\CommentTok{# save workspace }
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# remove all objects from our workspace }
+\KeywordTok{ls}\NormalTok{() }\CommentTok{# list stored objects to make sure they are deleted}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Load the "myWorkspace.RData" file and check that it is restored}
+\KeywordTok{load}\NormalTok{(}\StringTok{"myWorkspace.RData"}\NormalTok{) }\CommentTok{# load myWorkspace.RData}
+\KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Exercise solutions}\label{exercise-solutions}
+
+\subsection{Ex 0: prototype}\label{ex-0-prototype}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## 1. 2 plus 2}
+\DecValTok{2} \OperatorTok{+}\StringTok{ }\DecValTok{2}
+\NormalTok{## or}
+\KeywordTok{sum}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## 2. square root of 10:}
+\KeywordTok{sqrt}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\NormalTok{## or}
+\DecValTok{10}\OperatorTok{^}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## 3. Find "An Introduction to R".}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Go to the main help page by running 'help.start() or using the GUI}
+\NormalTok{## menu, find and click on the link to "An Introduction to R".}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 1: prototype}\label{ex-1-prototype}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## read ?read_csv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baby.names <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 2: prototype}\label{ex-2-prototype}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1.  Use `filter` to extract data for your name (or another name of your choice).  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.  Arrange the data you produced in step 1 above by `Count`. }
+\CommentTok{#     In which year was the name most popular?}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{arrange}\NormalTok{(george, }\KeywordTok{desc}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 3.  BONUS (optional): Filter the data to extract _only_ the }
+\CommentTok{#     row containing the most popular boys name in 1999.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boys.}\DecValTok{1999}\NormalTok{ <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, }
+\NormalTok{                    Year }\OperatorTok{==}\StringTok{ }\DecValTok{1999} \OperatorTok{&}\StringTok{ }\NormalTok{Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{filter}\NormalTok{(boys.}\DecValTok{1999}\NormalTok{, Count }\OperatorTok{==}\StringTok{ }\KeywordTok{max}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 3: prototype}\label{ex-3-prototype}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1. Use `filter` to extract data for your name (same as previous exercise)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis}
+\CommentTok{#     and `Count` on the y-axis.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{data =}\NormalTok{ george)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 3. Adjust the plot so that is shows boys and girls in different colors.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ george)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 4.  BONUS (Optional): Adust the plot to use lines instead of points.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ george, }\DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsection{Ex 4: solution}\label{ex-4-solution}
 
 \begin{Shaded}
@@ -1164,79 +1261,6 @@ each year.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Percent choosing one of the top 10
-names}\label{percent-choosing-one-of-the-top-10-names}
-
-You may have noticed that the percentage of babies given the most
-popular name of the year appears to have decreases over time. We can
-compute a more robust measure of the popularity of the most popular
-names by calculating the number of babies given one of the top 10 girl
-or boy names of the year.
-
-In order to compute this measure we need to operate within goups, as we
-did using \texttt{mutate} above, but this time we need to collapse each
-group into a single summary statistic. We can achive this using the
-\texttt{summarize} function. For example, we can calculate the number of
-babies born each year:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bn.by.year <-}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(baby.names, Year),}
-                       \DataTypeTok{Total =} \KeywordTok{sum}\NormalTok{(Count))}
-\NormalTok{bn.by.year}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Ex 5: Popularity of most popular
-names}\label{ex-5-popularity-of-most-popular-names}
-
-In this exercise we will plot trends in the proportion of boys and girls
-given one of the 10 most popular names each year.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Filter the baby.names data, retaining only the 10 most popular girl
-  and boy names for each year.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Summarize the data produced in step one to calculate the total
-  Proportion of boys and girls given one of the top 10 names each year.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Plot the data produced in step 2, with year on the x-axis and total
-  proportion on the y axis. Color by sex.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
 \subsection{Ex 5: solution}\label{ex-5-solution}
 
 \begin{Shaded}
@@ -1283,57 +1307,12 @@ given one of the 10 most popular names each year.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Saving our Work}\label{saving-our-work}
-
-Now that we have made some changes to our data set, we might want to
-save those changes to a file.
-
-\subsection{Saving individual
-datasets}\label{saving-individual-datasets}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# write data to a .csv file}
-\KeywordTok{write_csv}\NormalTok{(baby.names, }\StringTok{"babyNames.csv"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# write data to an R file}
-\KeywordTok{write_rds}\NormalTok{(baby.names, }\StringTok{"babyNames.rds"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{Saving and loading R
-workspaces}\label{saving-and-loading-r-workspaces}
-
-In addition to importing individual datasets, R can save and load entire
-workspaces
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects in our workspace}
-\KeywordTok{save.image}\NormalTok{(}\DataTypeTok{file=}\StringTok{"myWorkspace.RData"}\NormalTok{) }\CommentTok{# save workspace }
-\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# remove all objects from our workspace }
-\KeywordTok{ls}\NormalTok{() }\CommentTok{# list stored objects to make sure they are deleted}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## Load the "myWorkspace.RData" file and check that it is restored}
-\KeywordTok{load}\NormalTok{(}\StringTok{"myWorkspace.RData"}\NormalTok{) }\CommentTok{# load myWorkspace.RData}
-\KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Wrap-up}\label{wrap-up}
 
 \subsection{Feedback}\label{feedback}
 
-Please take 60 seconds to fill out a very short feedback
-\href{http://bit.ly/training_class_eval}{form}
+These workshops are a work in progress, please provide any feedback to:
+\href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
 \subsection{Resources}\label{resources}
 
@@ -1468,6 +1447,9 @@ Start RStudio and create a new project:
 \item
   Choose \texttt{Existing\ Directory} and browse to the \texttt{Rmodels}
   directory.
+\item
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank
+  version of the \texttt{.Rmd} file.
 \end{itemize}
 
 Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
@@ -1520,9 +1502,18 @@ This is an intermediate R course:
 \section{Ordinary least squares (OLS)
 regression}\label{ordinary-least-squares-ols-regression}
 
-\subsection{Load the states data}\label{load-the-states-data}
+\subsection{Inspect and load data}\label{inspect-and-load-data}
 
-The \emph{states.dta} data comes from
+List the data files we're going to work with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{list.files}\NormalTok{(}\StringTok{"dataSets/"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We're going to use the \texttt{states} data first. The \emph{states.dta}
+data comes from
 \url{http://anawida.de/teach/SS14/anawida/4.linReg/data/states.dta.txt}
 and appears to have originally appeared in \emph{Statistics with Stata}
 by Lawrence C. Hamilton.
@@ -1678,8 +1669,8 @@ expense? Fit two models and compare them:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 0: ordinary least squares
-regression}\label{exercise-0-ordinary-least-squares-regression}
+\section{Ex 0: ordinary least squares
+regression}\label{ex-0-ordinary-least-squares-regression}
 
 Use the \emph{states.rds} data set. Fit a model predicting energy
 consumed per capita (energy) from the percentage of residents living in
@@ -1756,20 +1747,31 @@ scheme using the \texttt{C} function.
 \begin{Highlighting}[]
   \CommentTok{# print default contrasts}
   \KeywordTok{contrasts}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region)}
+
   \CommentTok{# change the reference group}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\KeywordTok{C}\NormalTok{(region, }\DataTypeTok{base=}\DecValTok{4}\NormalTok{),}
-                  \DataTypeTok{data=}\NormalTok{states.data)))}
+\NormalTok{  states.data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"NorthEast"}\NormalTok{)}
+\NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states.data)}
+  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(m1))}
+
+  \CommentTok{# drop the intercept to get group means}
+  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{0} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states.data)))}
+
+  \CommentTok{# get all pairwise contrasts between means}
+  \CommentTok{# install.packages("emmeans")}
+  \KeywordTok{library}\NormalTok{(emmeans)}
+\NormalTok{  means <-}\StringTok{ }\KeywordTok{emmeans}\NormalTok{(m1, }\DataTypeTok{specs =} \OperatorTok{~}\StringTok{ }\NormalTok{region)}
+  \KeywordTok{contrast}\NormalTok{(means, }\DataTypeTok{method =} \StringTok{"pairwise"}\NormalTok{)}
+
   \CommentTok{# change the coding scheme}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\KeywordTok{C}\NormalTok{(region, contr.helmert),}
-                  \DataTypeTok{data=}\NormalTok{states.data)))}
+  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\KeywordTok{C}\NormalTok{(region, contr.helmert), }\DataTypeTok{data=}\NormalTok{states.data)))}
 \end{Highlighting}
 \end{Shaded}
 
 See also \texttt{?contrasts}, \texttt{?contr.treatment}, and
 \texttt{?relevel}.
 
-\subsection{Exercise 1: interactions and
-factors}\label{exercise-1-interactions-and-factors}
+\section{Ex 1: interactions and
+factors}\label{ex-1-interactions-and-factors}
 
 Use the states data set.
 
@@ -1855,34 +1857,6 @@ interpret
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Generating predicted
-values}\label{generating-predicted-values}
-
-In addition to transforming the log-odds produced by \texttt{glm} to
-odds, we can use the \texttt{predict()} function to make direct
-statements about the predictors in our model. For example, we can ask
-``How much more likely is a 63 year old female to have hypertension
-compared to a 33 year old female?''.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{# Create a dataset with predictors set at desired levels}
-\NormalTok{  predDat <-}\StringTok{ }\KeywordTok{with}\NormalTok{(NH11,}
-                  \KeywordTok{expand.grid}\NormalTok{(}\DataTypeTok{age_p =} \KeywordTok{c}\NormalTok{(}\DecValTok{33}\NormalTok{, }\DecValTok{63}\NormalTok{),}
-                              \DataTypeTok{sex =} \StringTok{"2 Female"}\NormalTok{,}
-                              \DataTypeTok{bmi =} \KeywordTok{mean}\NormalTok{(bmi, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
-                              \DataTypeTok{sleep =} \KeywordTok{mean}\NormalTok{(sleep, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)))}
-  \CommentTok{# predict hypertension at those levels}
-  \KeywordTok{cbind}\NormalTok{(predDat, }\KeywordTok{predict}\NormalTok{(hyp.out, }\DataTypeTok{type =} \StringTok{"response"}\NormalTok{,}
-                         \DataTypeTok{se.fit =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{interval=}\StringTok{"confidence"}\NormalTok{,}
-                         \DataTypeTok{newdata =}\NormalTok{ predDat))}
-\end{Highlighting}
-\end{Shaded}
-
-This tells us that a 33 year old female has a 13\% probability of having
-been diagnosed with hypertension, while and 63 year old female has a
-48\% probability of having been diagnosed.
-
 \subsection{Packages for computing and graphing predicted
 values}\label{packages-for-computing-and-graphing-predicted-values}
 
@@ -1892,7 +1866,10 @@ compute quantities of interest for us (cf.~the Zelig package).
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{library}\NormalTok{(effects)}
-  \KeywordTok{plot}\NormalTok{(}\KeywordTok{allEffects}\NormalTok{(hyp.out))}
+\NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp.out)}
+\NormalTok{  eff2 <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp.out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(age_b, }\KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
+  \KeywordTok{plot}\NormalTok{(eff)}
+  \KeywordTok{as.data.frame}\NormalTok{(eff) }\CommentTok{# confidence intervals}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1902,8 +1879,7 @@ compute quantities of interest for us (cf.~the Zelig package).
 \caption{}
 \end{figure}
 
-\subsection{Exercise 2: logistic
-regression}\label{exercise-2-logistic-regression}
+\section{Ex 2: logistic regression}\label{ex-2-logistic-regression}
 
 Use the NH11 data set that we loaded earlier.
 
@@ -2060,8 +2036,7 @@ Predict exam scores from student's standardized tests scores
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  Norm2 <-}\KeywordTok{lmer}\NormalTok{(normexam}\OperatorTok{~}\NormalTok{standLRT }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{school),}
-               \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam),}
-               \DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
+               \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
   \KeywordTok{summary}\NormalTok{(Norm2) }
 \end{Highlighting}
 \end{Shaded}
@@ -2088,8 +2063,7 @@ test.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  Norm3 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(normexam}\OperatorTok{~}\NormalTok{standLRT }\OperatorTok{+}\StringTok{ }\NormalTok{(standLRT}\OperatorTok{|}\NormalTok{school), }
-                \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(Exam),}
-                \DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
+                \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
   \KeywordTok{summary}\NormalTok{(Norm3) }
 \end{Highlighting}
 \end{Shaded}
@@ -2106,21 +2080,20 @@ without the random slope term
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3: multilevel
-modeling}\label{exercise-3-multilevel-modeling}
+\section{Ex 3: multilevel modeling}\label{ex-3-multilevel-modeling}
 
 Use the dataset, bh1996: \texttt{data(bh1996,\ package="multilevel")}
 
 From the data documentation:
 
 \begin{quote}
-Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being
-(WBEING) and Work Hours (HRS). Each of these variables has two variants
-- a group mean version that replicates each group mean for every
-individual, and a within-group version where the group mean is
-subtracted from each individual response. The group mean version is
-designated with a G. (e.g., G.HRS), and the within-group version is
-designated with a W. (e.g., W.HRS).
+Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours
+(HRS), and group (GRP). Each of these variables has two variants - a
+group mean version that replicates each group mean for every individual,
+and a within-group version where the group mean is subtracted from each
+individual response. The group mean version is designated with a G.
+(e.g., G.HRS), and the within-group version is designated with a W.
+(e.g., W.HRS).
 \end{quote}
 
 \begin{enumerate}
@@ -2140,9 +2113,9 @@ designated with a W. (e.g., W.HRS).
   random term.
 \end{enumerate}
 
-\section{Exercise solutions}\label{exercise-solutions}
+\section{Exercise solutions}\label{exercise-solutions-1}
 
-\subsection{Exercise 0 prototype}\label{exercise-0-prototype}
+\subsection{Ex 0: prototype}\label{ex-0-prototype-1}
 
 Use the \emph{states.rds} data set.
 
@@ -2217,7 +2190,7 @@ steps 1-3. Is this model significantly better than the model with
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 1: prototype}\label{exercise-1-prototype}
+\subsection{Ex 1: prototype}\label{ex-1-prototype-1}
 
 Use the states data set.
 
@@ -2250,7 +2223,7 @@ Use the states data set.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2 prototype}\label{exercise-2-prototype}
+\subsection{Ex 2: prototype}\label{ex-2-prototype-1}
 
 Use the NH11 data set that we loaded earlier. Note that the data is not
 perfectly clean and ready to be modeled. You will need to clean up at
@@ -2294,7 +2267,7 @@ least some of the variables before fitting the model.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3 prototype}\label{exercise-3-prototype}
+\subsection{Ex 3: prototype}\label{ex-3-prototype-1}
 
 Use the dataset, bh1996:
 
@@ -2371,8 +2344,8 @@ Note that the group identifier is named ``GRP''.
 
 \subsection{Feedback}\label{feedback-1}
 
-Please take 60 seconds to fill out a very short feedback
-\href{http://bit.ly/training_class_eval}{form}
+These workshops are a work in progress, please provide any feedback to:
+\href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
 \subsection{Resources}\label{resources-1}
 
@@ -2407,6 +2380,8 @@ Please take 60 seconds to fill out a very short feedback
   Add and modify scales and legends
 \item
   Manipulate plot labels
+\item
+  Change and create plot themes
 \end{itemize}
 
 \section{Setup}\label{setup-2}
@@ -2448,6 +2423,9 @@ Start RStudio and create a new project:
 \item
   Choose \texttt{Existing\ Directory} and browse to the
   \texttt{Rgraphics} directory.
+\item
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank
+  version of the \texttt{.Rmd} file.
 \end{itemize}
 
 Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
@@ -2675,7 +2653,7 @@ Examples include:
   size
 \end{itemize}
 
-Each type of geom accepts only a subset of all aesthetics--refer to the
+Each type of geom accepts only a subset of all aesthetics;refer to the
 geom help pages to see what mappings each geom accepts. Aesthetic
 mappings are set with the \texttt{aes()} function.
 
@@ -2688,9 +2666,9 @@ include:
 \begin{itemize}
 \tightlist
 \item
-  points (\texttt{geom\_point}, for scatter plots, dot plots, etc)
+  points (\texttt{geom\_point}, for scatter plots, dot plots, etc.)
 \item
-  lines (\texttt{geom\_line}, for time series, trend lines, etc)
+  lines (\texttt{geom\_line}, for time series, trend lines, etc.)
 \item
   boxplot (\texttt{geom\_boxplot}, for, well, boxplots!)
 \end{itemize}
@@ -2814,7 +2792,7 @@ example.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise I}\label{exercise-i}
+\section{Ex 1}\label{ex-1}
 
 The data for the exercises is available in the
 \texttt{dataSets/EconomistData.csv} file. Read it in with
@@ -2846,82 +2824,6 @@ These data consist of \emph{Human Development Index} and
 \item
   Map the size of the points to HDI.Rank
 \end{enumerate}
-
-\subsection{Exercise I prototype:}\label{exercise-i-prototype}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Create a scatter plot with CPI on the x axis and HDI on the y axis.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Color the points in the previous plot blue.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Color the points in the previous plot according to \emph{Region}.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Make the points bigger by setting size to 2
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region), }\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  Make the points bigger by setting size to 2
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region, }\DataTypeTok{size =}\NormalTok{  HDI.Rank))}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Statistical Transformations}\label{statistical-transformations}
 
@@ -3013,7 +2915,7 @@ different statistical transformation function:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise II}\label{exercise-ii}
+\section{Ex 2}\label{ex-2}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3036,94 +2938,6 @@ different statistical transformation function:
   default \emph{loess} method, but make it less smooth. Hint: see
   \texttt{?loess}.
 \end{enumerate}
-
-\subsection{Exercise II prototype:}\label{exercise-ii-prototype}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Re-create a scatter plot with CPI on the x axis and HDI on the y axis
-  (as you did in the previous exercise).
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Overlay a smoothing line on top of the scatter plot using
-  \texttt{geom\_smooth}
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Overlay a smoothing line on top of the scatter plot using
-  \texttt{geom\_smooth}, but use a linear model for the predictions.
-  Hint: see \texttt{?stat\_smooth}.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Overlay a loess (method = ``loess'') smoothling line on top of the
-  scatter plot using \texttt{geom\_line}. Hint: change the statistical
-  transformation.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"smooth"}\NormalTok{, }\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  BONUS: Overlay a smoothing line on top of the scatter plot using the
-  \emph{loess} method, but make it less smooth. Hint: see
-  \texttt{?loess}.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{span =}\NormalTok{ .}\DecValTok{4}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Scales}\label{scales}
 
@@ -3296,7 +3110,7 @@ colors.
 Note that in RStudio you can type \texttt{scale\_} followed by TAB to
 get the whole list of available scales.
 
-\subsection{Exercise III}\label{exercise-iii}
+\section{Ex 3}\label{ex-3}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3312,69 +3126,6 @@ get the whole list of available scales.
   Modify the color scale to use specific values of your choosing. Hint:
   see \texttt{?scale\_color\_manual}.
 \end{enumerate}
-
-\subsection{Exercise III prototype
-:prototype:}\label{exercise-iii-prototype-prototype}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Create a scatter plot with CPI on the x axis and HDI on the y axis.
-  Color the points to indicate region.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Modify the x, y, and color scales so that they have more
-  easily-understood names (e.g., spell out ``Human development Index''
-  instead of ``HDI'').
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
-\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index"}\NormalTok{) }\OperatorTok{+}
-\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index"}\NormalTok{) }\OperatorTok{+}
-\KeywordTok{scale_color_discrete}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Region of the world"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Modify the color scale to use specific values of your choosing. Hint:
-  see \texttt{?scale\_color\_manual}.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
-\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index"}\NormalTok{) }\OperatorTok{+}
-\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Region of the world"}\NormalTok{,}
-                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"#24576D"}\NormalTok{,}
-                                \StringTok{"#099DD7"}\NormalTok{,}
-                                \StringTok{"#28AADC"}\NormalTok{,}
-                                \StringTok{"#248E84"}\NormalTok{,}
-                                \StringTok{"#F2583F"}\NormalTok{,}
-                                \StringTok{"#96503F"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Faceting}\label{faceting}
 
@@ -3419,7 +3170,7 @@ state?}\label{what-is-the-trend-in-housing-prices-in-each-state}
 \end{Highlighting}
 \end{Shaded}
 
-There are two problems here--there are too many states to distinguish
+There are two problems here;there are too many states to distinguish
 each one by color, and the lines obscure one another.
 
 \subsection{Faceting to the rescue}\label{faceting-to-the-rescue}
@@ -3607,7 +3358,7 @@ To complete this graph we need to:
   {[} {]} final touches to make it perfect (use image editor for this)
 \end{itemize}
 
-\subsection{Adding the trend line}\label{adding-the-trend-line}
+\subsubsection{Adding the trend line}\label{adding-the-trend-line}
 
 Adding the trend line is not too difficult, though we need to guess at
 the model being displyed on the graph. A little bit of trial and error
@@ -3627,7 +3378,7 @@ leads to
 Notice that we put the \texttt{geom\_line} layer first so that it will
 be plotted underneath the points, as was done on the original graph.
 
-\subsection{Use open points}\label{use-open-points}
+\subsubsection{Use open points}\label{use-open-points}
 
 This one is a little tricky. We know that we can change the shape with
 the \texttt{shape} argument, what what value do we set shape to? The
@@ -3666,7 +3417,7 @@ is much narrower than on the original.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Labelling points}\label{labelling-points}
+\subsubsection{Labelling points}\label{labelling-points}
 
 This one is tricky in a couple of ways. First, there is no attribute in
 the data that separates points that should be labelled from points that
@@ -3710,7 +3461,7 @@ do some hand-adjustment.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Change the region labels and
+\subsubsection{Change the region labels and
 order}\label{change-the-region-labels-and-order}
 
 Thinkgs are starting to come together. There are just a couple more
@@ -3750,7 +3501,8 @@ as it does in the original.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Add title and format axes}\label{add-title-and-format-axes}
+\subsubsection{Add title and format
+axes}\label{add-title-and-format-axes}
 
 The next step is to add the title and format the axes. We do that using
 the \texttt{scales} system in ggplot2.
@@ -3776,7 +3528,7 @@ the \texttt{scales} system in ggplot2.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Theme tweaks}\label{theme-tweaks}
+\subsubsection{Theme tweaks}\label{theme-tweaks}
 
 Our graph is almost there. To finish up, we need to adjust some of the
 theme elements, and label the axes and legends. This part usually
@@ -3806,7 +3558,7 @@ them and observe the results.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Add model R2 and source
+\subsubsection{Add model R2 and source
 note}\label{add-model-r2-and-source-note}
 
 The last bit of information that we want to have on the graph is the
@@ -3918,12 +3670,240 @@ And here it is, our final version!
 Comparing it to the original suggests that we've got most of the
 important elements.
 
+\section{Exercise solutions}\label{exercise-solutions-2}
+
+\subsection{Ex 1 prototype:}\label{ex-1-prototype-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a scatter plot with CPI on the x axis and HDI on the y axis.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Color the points in the previous plot blue.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Color the points in the previous plot according to \emph{Region}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Make the points bigger by setting size to 2
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region), }\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Make the points bigger by setting size to 2
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region, }\DataTypeTok{size =}\NormalTok{  HDI.Rank))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 2 prototype:}\label{ex-2-prototype-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Re-create a scatter plot with CPI on the x axis and HDI on the y axis
+  (as you did in the previous exercise).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Overlay a smoothing line on top of the scatter plot using
+  \texttt{geom\_smooth}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Overlay a smoothing line on top of the scatter plot using
+  \texttt{geom\_smooth}, but use a linear model for the predictions.
+  Hint: see \texttt{?stat\_smooth}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Overlay a loess (method = ``loess'') smoothling line on top of the
+  scatter plot using \texttt{geom\_line}. Hint: change the statistical
+  transformation.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"smooth"}\NormalTok{, }\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  BONUS: Overlay a smoothing line on top of the scatter plot using the
+  \emph{loess} method, but make it less smooth. Hint: see
+  \texttt{?loess}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{span =}\NormalTok{ .}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 3 prototype}\label{ex-3-prototype-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a scatter plot with CPI on the x axis and HDI on the y axis.
+  Color the points to indicate region.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Modify the x, y, and color scales so that they have more
+  easily-understood names (e.g., spell out ``Human development Index''
+  instead of ``HDI'').
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
+\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index"}\NormalTok{) }\OperatorTok{+}
+\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index"}\NormalTok{) }\OperatorTok{+}
+\KeywordTok{scale_color_discrete}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Region of the world"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Modify the color scale to use specific values of your choosing. Hint:
+  see \texttt{?scale\_color\_manual}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
+\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index"}\NormalTok{) }\OperatorTok{+}
+\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Region of the world"}\NormalTok{,}
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"#24576D"}\NormalTok{,}
+                                \StringTok{"#099DD7"}\NormalTok{,}
+                                \StringTok{"#28AADC"}\NormalTok{,}
+                                \StringTok{"#248E84"}\NormalTok{,}
+                                \StringTok{"#F2583F"}\NormalTok{,}
+                                \StringTok{"#96503F"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Wrap-up}\label{wrap-up-2}
 
 \subsection{Feedback}\label{feedback-2}
 
-Please take 60 seconds to fill out a very short feedback
-\href{http://bit.ly/training_class_eval}{form}
+These workshops are a work in progress, please provide any feedback to:
+\href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
 \subsection{Resources}\label{resources-2}
 
@@ -3966,13 +3946,15 @@ Please take 60 seconds to fill out a very short feedback
 \begin{itemize}
 \tightlist
 \item
-  R ggplot2 package
+  Iterating over files
 \item
-  Setup basic plots
+  Filtering with regular expressions (regex)
 \item
-  Add and modify scales and legends
+  Writing your own functions
 \item
-  Manipulate plot labels
+  Reshaping data
+\item
+  Loading Excel worksheets
 \end{itemize}
 
 \section{Setup}\label{setup-3}
@@ -4014,6 +3996,9 @@ Start RStudio and create a new project:
 \item
   Choose \texttt{Existing\ Directory} and browse to the
   \texttt{RDataWrangling} directory.
+\item
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank
+  version of the \texttt{.Rmd} file.
 \end{itemize}
 
 Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
@@ -4096,7 +4081,7 @@ While it was good of the UK Office for National Statistics to provide
 baby name data, they were not very diligent about arranging it in a
 convenient or consistent format.
 
-\subsection{Exercise 0}\label{exercise-0}
+\section{Ex 0}\label{ex-0-1}
 
 Our mission is to extract and graph the \textbf{top 100} boys names in
 England and Wales for every year since 1996. There are several things
@@ -4116,52 +4101,6 @@ that make this challenging.
   \texttt{1996boys\_tcm77-254026.xlsx}? How might these differences make
   it more difficult to work with these data?
 \end{enumerate}
-
-\subsection{Exercise 0 Prototype}\label{exercise-0-prototype-1}
-
-\begin{quote}
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Locate the file named \texttt{1996boys\_tcm77-254026.xlsx} and open it
-  in a spreadsheet. (If you don't have a spreadsheet program installed
-  on your computer you can downloads one from
-  \url{https://www.libreoffice.org/download/download/}). What issues can
-  you identify that might make working with these data more difficult?
-\end{enumerate}
-\end{quote}
-
-The data does not start on row one. Headers are on row 7, followed by a
-blank line, followed by the actual data.
-
-The data is stored in an inconvenient way, with ranks 1-50 in the first
-set of columns and ranks 51-100 in a separate set of columns.
-
-There are notes below the data.
-
-\begin{quote}
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Locate the file named \texttt{2015boysnamesfinal.xlsx} and open it in
-  a spreadsheet. In what ways is the format different than the format of
-  \texttt{1996boys\_tcm77-254026.xlsx}? How might these differences make
-  it more difficult to work with these data?
-\end{enumerate}
-\end{quote}
-
-The worksheet containing the data of interest is in different positions
-and has different names from one year to the next. However, it always
-includes ``Table 1'' in the worksheet name.
-
-Some years include columns for ``changes in rank'', others do not.
-
-These differences will make it more difficult to automate re-arranging
-the data since we have to write code that can handle different input
-formats.
 
 \section{Useful data manipulation
 packages}\label{useful-data-manipulation-packages}
@@ -4328,7 +4267,7 @@ skip the first 6 rows.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 1}\label{exercise-1}
+\section{Ex 1}\label{ex-1-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4343,27 +4282,6 @@ skip the first 6 rows.
   Use the \texttt{map} function to read data from all the Excel files,
   using the function you wrote in step 1.
 \end{enumerate}
-
-\subsection{Exercise 1 solution}\label{exercise-1-solution}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{  ## 1. Write a function that takes a file name as an argument and reads}
-\NormalTok{  ##    the worksheet containing "Table 1" from that file.}
-\NormalTok{  read.baby.names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file) \{}
-\NormalTok{      sheet.name <-}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\KeywordTok{excel_sheets}\NormalTok{(file), }\StringTok{"Table 1"}\NormalTok{)}
-      \KeywordTok{read_excel}\NormalTok{(file, }\DataTypeTok{sheet =}\NormalTok{ sheet.name, }\DataTypeTok{skip =} \DecValTok{6}\NormalTok{)}
-\NormalTok{  \}}
-  
-\NormalTok{  ## 2. Test your function by using it to read *one* of the boys names}
-\NormalTok{  ##    Excel files.}
-  \KeywordTok{glimpse}\NormalTok{(}\KeywordTok{read.baby.names}\NormalTok{(boy.file.names[}\DecValTok{1}\NormalTok{]))}
-     
-\NormalTok{  ## 3. Use the `map` function to read data from all the Excel files,}
-\NormalTok{  ##    using the function you wrote in step 1.}
-\NormalTok{  boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy.file.names, read.baby.names)}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Data cleanup}\label{data-cleanup}
 
@@ -4437,7 +4355,7 @@ values.
 Finally, we will want to filter out missing do this for all the elements
 in \texttt{boysNames}, a task I leave to you.
 
-\subsection{Exercise 2}\label{exercise-2}
+\section{Ex 2}\label{ex-2-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4452,30 +4370,6 @@ in \texttt{boysNames}, a task I leave to you.
   Use the \texttt{map} function to each \texttt{data.frame} in the list
   of baby names data.
 \end{enumerate}
-
-\subsection{Exercise 2 prototype}\label{exercise-2-prototype-1}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{  ## 1. Write a function that takes a `data.frame` as an argument and}
-\NormalTok{  ##    returns a modified version including only columns named `Name`,}
-\NormalTok{  ##    `Name__1`, `Count`, or `Count__1`.}
-
-\NormalTok{  namecount <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data) \{}
-      \KeywordTok{select}\NormalTok{(data, Name, Name__}\DecValTok{1}\NormalTok{, Count, Count__}\DecValTok{1}\NormalTok{)}
-\NormalTok{  \}}
-     
-\NormalTok{  ## 2. Test your function on the first `data.frame` in the list of baby}
-\NormalTok{  ##    names data.}
-
-  \KeywordTok{namecount}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]])}
-  
-\NormalTok{  ## 3. Use the `map` function to each `data.frame` in the list of baby}
-\NormalTok{  ##    names data.}
-
-\NormalTok{  babyNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, namecount)}
-\end{Highlighting}
-\end{Shaded}
 
 \subsection{Re-arranging into a single
 table}\label{re-arranging-into-a-single-table}
@@ -4494,8 +4388,7 @@ and \texttt{bind\_rows}.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3: Cleanup all the
-data}\label{exercise-3-cleanup-all-the-data}
+\section{Ex 3: cleanup all the data}\label{ex-3-cleanup-all-the-data}
 
 In the previous examples we learned how to drop empty rows with
 \texttt{filter}, select only relevant columns with \texttt{select}, and
@@ -4505,29 +4398,6 @@ each case we applied the changes only to the first element of our
 
 Your task now is to use the \texttt{map} function to apply each of these
 transformations to all the elements in \texttt{boysNames}.
-
-\subsection{Exercise prototype}\label{exercise-prototype}
-
-There are different ways you can go about it. Here is one:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## write a function that does all the cleanup}
-\NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
-\NormalTok{    filtered <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(x, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(Name)) }\CommentTok{# drop rows with no Name value}
-\NormalTok{    selected <-}\StringTok{ }\KeywordTok{select}\NormalTok{(filtered, Name, Count, Name__}\DecValTok{1}\NormalTok{, Count__}\DecValTok{1}\NormalTok{) }\CommentTok{# select just Name and Count columns}
-    \KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(selected, Name,  Count), }\CommentTok{# re-arrange into two columns}
-              \KeywordTok{select}\NormalTok{(selected, }\DataTypeTok{Name =}\NormalTok{ Name__}\DecValTok{1}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count__}\DecValTok{1}\NormalTok{))}
-\NormalTok{\}}
-
-\NormalTok{## test it out on the second data.frame in the list}
-\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{2}\NormalTok{]]) }\CommentTok{# before cleanup}
-\KeywordTok{glimpse}\NormalTok{(}\KeywordTok{cleanupNamesData}\NormalTok{(boysNames[[}\DecValTok{2}\NormalTok{]])) }\CommentTok{# after cleanup}
-
-\NormalTok{## apply the cleanup function to all the data.frames in the list}
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, cleanupNamesData)}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Data organization and
 storage}\label{data-organization-and-storage}
@@ -4581,8 +4451,7 @@ information to each table before flattening.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise: Make one big
-table}\label{exercise-make-one-big-table}
+\section{Ex 4: make one big table}\label{ex-4-make-one-big-table}
 
 Turn the list of boys names data.frames into a single table.
 
@@ -4592,7 +4461,123 @@ Create a directory under \texttt{data/all} and write the data to a
 Finally, repeat the previous exercise, this time working with the data
 in one big table.
 
-\subsection{Exercise prototype}\label{exercise-prototype-1}
+\section{Exercise solutions}\label{exercise-solutions-3}
+
+\subsection{Ex 0: Prototype}\label{ex-0-prototype-2}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Locate the file named \texttt{1996boys\_tcm77-254026.xlsx} and open it
+  in a spreadsheet. (If you don't have a spreadsheet program installed
+  on your computer you can downloads one from
+  \url{https://www.libreoffice.org/download/download/}). What issues can
+  you identify that might make working with these data more difficult?
+\end{enumerate}
+\end{quote}
+
+The data does not start on row one. Headers are on row 7, followed by a
+blank line, followed by the actual data.
+
+The data is stored in an inconvenient way, with ranks 1-50 in the first
+set of columns and ranks 51-100 in a separate set of columns.
+
+There are notes below the data.
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Locate the file named \texttt{2015boysnamesfinal.xlsx} and open it in
+  a spreadsheet. In what ways is the format different than the format of
+  \texttt{1996boys\_tcm77-254026.xlsx}? How might these differences make
+  it more difficult to work with these data?
+\end{enumerate}
+\end{quote}
+
+The worksheet containing the data of interest is in different positions
+and has different names from one year to the next. However, it always
+includes ``Table 1'' in the worksheet name.
+
+Some years include columns for ``changes in rank'', others do not.
+
+These differences will make it more difficult to automate re-arranging
+the data since we have to write code that can handle different input
+formats.
+
+\subsection{Ex 1: prototype}\label{ex-1-prototype-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  ## 1. Write a function that takes a file name as an argument and reads}
+\NormalTok{  ##    the worksheet containing "Table 1" from that file.}
+\NormalTok{  read.baby.names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file) \{}
+\NormalTok{      sheet.name <-}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\KeywordTok{excel_sheets}\NormalTok{(file), }\StringTok{"Table 1"}\NormalTok{)}
+      \KeywordTok{read_excel}\NormalTok{(file, }\DataTypeTok{sheet =}\NormalTok{ sheet.name, }\DataTypeTok{skip =} \DecValTok{6}\NormalTok{)}
+\NormalTok{  \}}
+  
+\NormalTok{  ## 2. Test your function by using it to read *one* of the boys names}
+\NormalTok{  ##    Excel files.}
+  \KeywordTok{glimpse}\NormalTok{(}\KeywordTok{read.baby.names}\NormalTok{(boy.file.names[}\DecValTok{1}\NormalTok{]))}
+     
+\NormalTok{  ## 3. Use the `map` function to read data from all the Excel files,}
+\NormalTok{  ##    using the function you wrote in step 1.}
+\NormalTok{  boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy.file.names, read.baby.names)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 2: prototype}\label{ex-2-prototype-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  ## 1. Write a function that takes a `data.frame` as an argument and}
+\NormalTok{  ##    returns a modified version including only columns named `Name`,}
+\NormalTok{  ##    `Name__1`, `Count`, or `Count__1`.}
+
+\NormalTok{  namecount <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data) \{}
+      \KeywordTok{select}\NormalTok{(data, Name, Name__}\DecValTok{1}\NormalTok{, Count, Count__}\DecValTok{1}\NormalTok{)}
+\NormalTok{  \}}
+     
+\NormalTok{  ## 2. Test your function on the first `data.frame` in the list of baby}
+\NormalTok{  ##    names data.}
+
+  \KeywordTok{namecount}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]])}
+  
+\NormalTok{  ## 3. Use the `map` function to each `data.frame` in the list of baby}
+\NormalTok{  ##    names data.}
+
+\NormalTok{  babyNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, namecount)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 3: prototype}\label{ex-3-prototype-3}
+
+There are different ways you can go about it. Here is one:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## write a function that does all the cleanup}
+\NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{    filtered <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(x, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(Name)) }\CommentTok{# drop rows with no Name value}
+\NormalTok{    selected <-}\StringTok{ }\KeywordTok{select}\NormalTok{(filtered, Name, Count, Name__}\DecValTok{1}\NormalTok{, Count__}\DecValTok{1}\NormalTok{) }\CommentTok{# select just Name and Count columns}
+    \KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(selected, Name,  Count), }\CommentTok{# re-arrange into two columns}
+              \KeywordTok{select}\NormalTok{(selected, }\DataTypeTok{Name =}\NormalTok{ Name__}\DecValTok{1}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count__}\DecValTok{1}\NormalTok{))}
+\NormalTok{\}}
+
+\NormalTok{## test it out on the second data.frame in the list}
+\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{2}\NormalTok{]]) }\CommentTok{# before cleanup}
+\KeywordTok{glimpse}\NormalTok{(}\KeywordTok{cleanupNamesData}\NormalTok{(boysNames[[}\DecValTok{2}\NormalTok{]])) }\CommentTok{# after cleanup}
+
+\NormalTok{## apply the cleanup function to all the data.frames in the list}
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, cleanupNamesData)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 4: prototype}\label{ex-4-prototype}
 
 Working with the data in one big table is often easier.
 
@@ -4622,8 +4607,8 @@ Working with the data in one big table is often easier.
 
 \subsection{Feedback}\label{feedback-3}
 
-Please take 60 seconds to fill out a very short feedback
-\href{http://bit.ly/training_class_eval}{form}
+These workshops are a work in progress, please provide any feedback to:
+\href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
 \subsection{Resources}\label{resources-3}
 

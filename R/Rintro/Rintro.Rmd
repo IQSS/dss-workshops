@@ -40,21 +40,8 @@ Start RStudio and create a new project:
     RStudio will be in your applications folder.
 * In Rstudio go to `File -> New Project`.
 * Choose `Existing Directory` and browse to the `Rintro` directory.
+* Choose `File -> Open File` and select the blank version of the `.Rmd` file.
 
-Install the [tidyverse](https://www.tidyverse.org/) suite of packages:
-
-```{r}
-# install.packages("tidyverse")
-library(tidyverse)
-```
-
-Set your working directory so you don't have to type the full path names to your data and other files
-
-```{r}
-  # set the working directory
-  # setwd("~/Desktop/Rintro") # UNIX-based
-  # setwd("C:/Users/dataclass/Desktop/Rintro") # MS Windows
-```
 
 ### Goals
 
@@ -90,21 +77,6 @@ We will also use Rmarkdown --- a type of R file that allows you to combine plain
 with R code. It is easy to later convert Rmarkdown into MS Word, LaTeX, a pdf, or webpage.
 
 
-### Launch RStudio (skip if not using Rstudio)
-
-**Note: skip this section if you are not using Rstudio (e.g., if you are running
-these examples in a Jupyter notebook).**
-
-* Start the RStudio program
-* In RStudio, go to **File => New File => R Script**
-
-The window in the upper-left is your R script. This is where you will
-write instructions for R to carry out.
-
-The window in the lower-left is the R console. This is where results
-will be displayed.
-
-
 ## Ex 0
 
 The purpose of this exercise is to give you an opportunity to explore
@@ -131,39 +103,15 @@ you are looking for should appear in a pop up!
     introduction to R". Use the RStudio help pane. to locate this manual.
 
 
-### Ex 0: solution
-
-
-```{r, eval = FALSE}
-## 1. 2 plus 2
-2 + 2
-## or
-sum(2, 2)
-```
-
-```{r, eval = FALSE}
-## 2. square root of 10:
-sqrt(10)
-## or
-10^(1/2)
-```
-
-
-```{r, eval = FALSE}
-## 3. Find "An Introduction to R".
-```
-
-```{r, eval = FALSE}
-## Go to the main help page by running 'help.start() or using the GUI
-## menu, find and click on the link to "An Introduction to R".
-```
-
-```{r, eval = FALSE}
-
-```
-
 ## R basics
 
+Set your working directory so you don't have to type the full path names to your data and other files
+
+```{r}
+  # set the working directory
+  # setwd("~/Desktop/Rintro") # UNIX-based
+  # setwd("C:/Users/Desktop/Rintro") # MS Windows
+```
 
 ### Function calls
 
@@ -215,6 +163,7 @@ available, and so to make things easier on ourselves we will use a
 *contributed package* called `readr` instead. This requires that we
 learn a little bit about packages in R.
 
+
 ### Installing and using R packages
 
 A large number of contributed packages are available. If you are
@@ -226,8 +175,13 @@ You can install a package in R using the `install.packages()`
 function. Once a package is installed you may use the `library`
 function to attach it so that it can be used.
 
+Install the [tidyverse](https://www.tidyverse.org/) suite of packages
+and the `readr` package:
+
 ```{r, eval = FALSE}
-## install.packages("readr")
+# install.packages("tidyverse")
+library(tidyverse)
+# install.packages("readr")
 library(readr)
 ```
 
@@ -274,16 +228,6 @@ with the name `baby.names`.
 3. BONUS (optional): Save the `baby.names` data as a Stata data set `babynames.dta` 
 and as an R data set `babynames.rds`.
 
-
-### Ex 1: solution
-
-```{r, eval = FALSE}
-## read ?read_csv
-```
-
-```{r, eval = FALSE}
-baby.names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
-```
 
 ## Popularity of your name
 
@@ -384,39 +328,6 @@ Make sure you have installed the `dplyr` package and attached it with `library(d
 ```
 
 
-### Ex 2: solution
-
-```{r, eval = FALSE}
-# 1.  Use `filter` to extract data for your name (or another name of your choice).  
-```
-
-```{r, eval = FALSE}
-george <- filter(baby.names, Name == "George")
-```
-
-```{r, eval = FALSE}
-# 2.  Arrange the data you produced in step 1 above by `Count`. 
-#     In which year was the name most popular?
-```
-
-```{r, eval = FALSE}
-arrange(george, desc(Count))
-```
-
-```{r, eval = FALSE}
-# 3.  BONUS (optional): Filter the data to extract _only_ the 
-#     row containing the most popular boys name in 1999.
-```
-
-```{r, eval = FALSE}
-boys.1999 <- filter(baby.names, 
-                    Year == 1999 & Sex == "Boys")
-```
-
-```{r, eval = FALSE}
-filter(boys.1999, Count == max(Count))
-```
-
 ## Plotting baby name trends over time
 
 It can be difficult to spot trends when looking at summary tables.
@@ -476,44 +387,6 @@ have attached it using `library(ggplot2)`.
 4. BONUS (Optional): Adust the plot to use lines instead of points.
 
 
-### Ex 3: solution
-
-```{r, eval = FALSE}
-# 1. Use `filter` to extract data for your name (same as previous exercise)  
-```
-
-```{r, eval = FALSE}
-george <- filter(baby.names, Name == "George")
-```
-
-```{r, eval = FALSE}
-# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
-#     and `Count` on the y-axis.
-```
-
-```{r, eval = FALSE}
-qplot(x = Year, y = Count, data = george)
-```
-
-```{r, eval = FALSE}
-# 3. Adjust the plot so that is shows boys and girls in different colors.
-```
-
-```{r, eval = FALSE}
-qplot(x = Year, y = Count, color = Sex, data = george)
-```
-
-```{r, eval = FALSE}
-# 4.  BONUS (Optional): Adust the plot to use lines instead of points.
-```
-
-```{r, eval = FALSE}
-qplot(x = Year, y = Count, color = Sex, data = george, geom = "line")
-```
-
-```{r, eval = FALSE}
-
-```
 
 ## Finding the most popular names
 
@@ -582,6 +455,203 @@ In this exercise your goal is to identify the most popular names for each year.
 
 5. BONUS (optional): Which names are the most popular for both boys and girls?
 
+
+
+## Percent choosing one of the top 10 names
+
+You may have noticed that the percentage of babies given the most 
+popular name of the year appears to have decreases over time. We can
+compute a more robust measure of the popularity of the most popular
+names by calculating the number of babies given one of the top 10 girl
+or boy names of the year.
+
+In order to compute this measure we need to operate within goups, as
+we did using `mutate` above, but this time we need to collapse each
+group into a single summary statistic. We can achive this using the
+`summarize` function. For example, we can calculate the number of
+babies born each year:
+
+```{r, eval = FALSE}
+bn.by.year <- summarize(group_by(baby.names, Year),
+                       Total = sum(Count))
+bn.by.year
+```
+
+
+## Ex 5: Popularity of most popular names
+
+In this exercise we will plot trends in the proportion of boys and girls given one of the 10 most popular names each year.
+
+1.  Filter the baby.names data, retaining only the 10 most popular girl
+    and boy names for each year.
+```{r, eval = FALSE}
+##
+```
+
+2.  Summarize the data produced in step one to calculate the total
+    Proportion of boys and girls given one of the top 10 names
+    each year.
+```{r, eval = FALSE}
+##
+```
+
+3.  Plot the data produced in step 2, with year on the x-axis
+    and total proportion on the y axis. Color by sex.
+```{r, eval = FALSE}
+##
+```
+
+
+## Saving our Work
+
+Now that we have made some changes to our data set, we might want to
+save those changes to a file.
+
+### Saving individual datasets
+
+```{r, eval = FALSE}
+# write data to a .csv file
+write_csv(baby.names, "babyNames.csv")
+```
+
+```{r, eval = FALSE}
+# write data to an R file
+write_rds(baby.names, "babyNames.rds")
+```
+
+### Saving and loading R workspaces
+
+In addition to importing individual datasets, R can save and load entire
+workspaces
+
+```{r, eval = FALSE}
+ls() # list objects in our workspace
+save.image(file="myWorkspace.RData") # save workspace 
+rm(list=ls()) # remove all objects from our workspace 
+ls() # list stored objects to make sure they are deleted
+```
+
+```{r, eval = FALSE}
+## Load the "myWorkspace.RData" file and check that it is restored
+load("myWorkspace.RData") # load myWorkspace.RData
+ls() # list objects
+```
+
+## Exercise solutions
+
+### Ex 0: prototype
+
+
+```{r, eval = FALSE}
+## 1. 2 plus 2
+2 + 2
+## or
+sum(2, 2)
+```
+
+```{r, eval = FALSE}
+## 2. square root of 10:
+sqrt(10)
+## or
+10^(1/2)
+```
+
+
+```{r, eval = FALSE}
+## 3. Find "An Introduction to R".
+```
+
+```{r, eval = FALSE}
+## Go to the main help page by running 'help.start() or using the GUI
+## menu, find and click on the link to "An Introduction to R".
+```
+
+```{r, eval = FALSE}
+
+```
+
+### Ex 1: prototype
+
+```{r, eval = FALSE}
+## read ?read_csv
+```
+
+```{r, eval = FALSE}
+baby.names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
+```
+
+### Ex 2: prototype
+
+```{r, eval = FALSE}
+# 1.  Use `filter` to extract data for your name (or another name of your choice).  
+```
+
+```{r, eval = FALSE}
+george <- filter(baby.names, Name == "George")
+```
+
+```{r, eval = FALSE}
+# 2.  Arrange the data you produced in step 1 above by `Count`. 
+#     In which year was the name most popular?
+```
+
+```{r, eval = FALSE}
+arrange(george, desc(Count))
+```
+
+```{r, eval = FALSE}
+# 3.  BONUS (optional): Filter the data to extract _only_ the 
+#     row containing the most popular boys name in 1999.
+```
+
+```{r, eval = FALSE}
+boys.1999 <- filter(baby.names, 
+                    Year == 1999 & Sex == "Boys")
+```
+
+```{r, eval = FALSE}
+filter(boys.1999, Count == max(Count))
+```
+
+### Ex 3: prototype
+
+```{r, eval = FALSE}
+# 1. Use `filter` to extract data for your name (same as previous exercise)  
+```
+
+```{r, eval = FALSE}
+george <- filter(baby.names, Name == "George")
+```
+
+```{r, eval = FALSE}
+# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
+#     and `Count` on the y-axis.
+```
+
+```{r, eval = FALSE}
+qplot(x = Year, y = Count, data = george)
+```
+
+```{r, eval = FALSE}
+# 3. Adjust the plot so that is shows boys and girls in different colors.
+```
+
+```{r, eval = FALSE}
+qplot(x = Year, y = Count, color = Sex, data = george)
+```
+
+```{r, eval = FALSE}
+# 4.  BONUS (Optional): Adust the plot to use lines instead of points.
+```
+
+```{r, eval = FALSE}
+qplot(x = Year, y = Count, color = Sex, data = george, geom = "line")
+```
+
+```{r, eval = FALSE}
+
+```
+
 ### Ex 4: solution
 
 ```{r, eval = FALSE}
@@ -646,50 +716,6 @@ girls.and.boys <- mutate(girls.and.boys,
 filter(girls.and.boys, Rank == 1)
 ```
 
-## Percent choosing one of the top 10 names
-
-You may have noticed that the percentage of babies given the most 
-popular name of the year appears to have decreases over time. We can
-compute a more robust measure of the popularity of the most popular
-names by calculating the number of babies given one of the top 10 girl
-or boy names of the year.
-
-In order to compute this measure we need to operate within goups, as
-we did using `mutate` above, but this time we need to collapse each
-group into a single summary statistic. We can achive this using the
-`summarize` function. For example, we can calculate the number of
-babies born each year:
-
-```{r, eval = FALSE}
-bn.by.year <- summarize(group_by(baby.names, Year),
-                       Total = sum(Count))
-bn.by.year
-```
-
-
-## Ex 5: Popularity of most popular names
-
-In this exercise we will plot trends in the proportion of boys and girls given one of the 10 most popular names each year.
-
-1.  Filter the baby.names data, retaining only the 10 most popular girl
-    and boy names for each year.
-```{r, eval = FALSE}
-##
-```
-
-2.  Summarize the data produced in step one to calculate the total
-    Proportion of boys and girls given one of the top 10 names
-    each year.
-```{r, eval = FALSE}
-##
-```
-
-3.  Plot the data produced in step 2, with year on the x-axis
-    and total proportion on the y axis. Color by sex.
-```{r, eval = FALSE}
-##
-```
-
 ### Ex 5: solution
 
 ```{r, eval = FALSE}
@@ -725,47 +751,11 @@ qplot(x = Year, y = TotalProportion, color = Sex,
 ```
 
 
-## Saving our Work
-
-Now that we have made some changes to our data set, we might want to
-save those changes to a file.
-
-### Saving individual datasets
-
-```{r, eval = FALSE}
-# write data to a .csv file
-write_csv(baby.names, "babyNames.csv")
-```
-
-```{r, eval = FALSE}
-# write data to an R file
-write_rds(baby.names, "babyNames.rds")
-```
-
-### Saving and loading R workspaces
-
-In addition to importing individual datasets, R can save and load entire
-workspaces
-
-```{r, eval = FALSE}
-ls() # list objects in our workspace
-save.image(file="myWorkspace.RData") # save workspace 
-rm(list=ls()) # remove all objects from our workspace 
-ls() # list stored objects to make sure they are deleted
-```
-
-```{r, eval = FALSE}
-## Load the "myWorkspace.RData" file and check that it is restored
-load("myWorkspace.RData") # load myWorkspace.RData
-ls() # list objects
-```
-
-
 ## Wrap-up
 
 ### Feedback
 
-Please take 60 seconds to fill out a very short feedback [form](http://bit.ly/training_class_eval)
+These workshops are a work in progress, please provide any feedback to: help@iq.harvard.edu
 
 ### Resources
 

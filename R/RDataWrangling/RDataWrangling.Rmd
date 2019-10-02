@@ -9,10 +9,11 @@ knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, e
 
 **Topics**
 
-* R ggplot2 package
-* Setup basic plots
-* Add and modify scales and legends
-* Manipulate plot labels
+* Iterating over files
+* Filtering with regular expressions (regex)
+* Writing your own functions
+* Reshaping data
+* Loading Excel worksheets
 
 
 ## Setup 
@@ -35,6 +36,7 @@ Start RStudio and create a new project:
     RStudio will be in your applications folder.
 * In Rstudio go to `File -> New Project`.
 * Choose `Existing Directory` and browse to the `RDataWrangling` directory.
+* Choose `File -> Open File` and select the blank version of the `.Rmd` file.
 
 Install the [tidyverse](https://www.tidyverse.org/) suite of packages:
 
@@ -99,7 +101,7 @@ baby name data, they were not very diligent about arranging it in a
 convenient or consistent format.
 
 
-### Exercise 0
+## Ex 0
 Our mission is to extract and graph the **top 100** boys names in England and Wales for every year since 1996. There are several things that make this challenging.
 
 1.  Locate the file named `1996boys_tcm77-254026.xlsx` and open it in
@@ -113,38 +115,6 @@ Our mission is to extract and graph the **top 100** boys names in England and Wa
     of `1996boys_tcm77-254026.xlsx`? How might these differences make
     it more difficult to work with these data?
 
-
-
-### Exercise 0 Prototype
-
-> 1.  Locate the file named `1996boys_tcm77-254026.xlsx` and open it in
->     a spreadsheet. (If you don't have a spreadsheet program installed on
->     your computer you can downloads one from
->     https://www.libreoffice.org/download/download/). What issues can you
->     identify that might make working with these data more difficult?
-
-The data does not start on row one. Headers are on row 7, followed by
-a blank line, followed by the actual data.
-
-The data is stored in an inconvenient way, with ranks 1-50 in the
-first set of columns and ranks 51-100 in a separate set of columns.
-
-There are notes below the data.
-
-> 3.  Locate the file named `2015boysnamesfinal.xlsx` and open it in a
->     spreadsheet. In what ways is the format different than the format
->     of `1996boys_tcm77-254026.xlsx`? How might these differences make
->     it more difficult to work with these data?
-
-The worksheet containing the data of interest is in different
-positions and has different names from one year to the next. However,
-it always includes "Table 1" in the worksheet name.
-
-Some years include columns for "changes in rank", others do not.
-
-These differences will make it more difficult to automate
-re-arranging the data since we have to write code that can handle
-different input formats.
 
 
 ## Useful data manipulation packages
@@ -284,7 +254,7 @@ library(dplyr, quietly=TRUE)
 glimpse(tmp)
 ```
 
-### Exercise 1
+## Ex 1
 
   1. Write a function that takes a file name as an argument and reads
      the worksheet containing "Table 1" from that file. Don't forget
@@ -297,25 +267,6 @@ glimpse(tmp)
      using the function you wrote in step 1.
 
 
-
-### Exercise 1 solution
-
-```{r}
-  ## 1. Write a function that takes a file name as an argument and reads
-  ##    the worksheet containing "Table 1" from that file.
-  read.baby.names <- function(file) {
-      sheet.name <- str_subset(excel_sheets(file), "Table 1")
-      read_excel(file, sheet = sheet.name, skip = 6)
-  }
-  
-  ## 2. Test your function by using it to read *one* of the boys names
-  ##    Excel files.
-  glimpse(read.baby.names(boy.file.names[1]))
-     
-  ## 3. Use the `map` function to read data from all the Excel files,
-  ##    using the function you wrote in step 1.
-  boysNames <- map(boy.file.names, read.baby.names)
-```
 
 ## Data cleanup
 
@@ -368,7 +319,7 @@ boysNames[[1]]
 Finally, we will want to filter out missing do this for all the
 elements in `boysNames`, a task I leave to you.
 
-### Exercise 2
+## Ex 2
 
   1. Write a function that takes a `data.frame` as an argument and
      returns a modified version including only columns named `Name`,
@@ -381,28 +332,6 @@ elements in `boysNames`, a task I leave to you.
      names data.
 
 
-
-### Exercise 2 prototype
-
-```{r}
-  ## 1. Write a function that takes a `data.frame` as an argument and
-  ##    returns a modified version including only columns named `Name`,
-  ##    `Name__1`, `Count`, or `Count__1`.
-
-  namecount <- function(data) {
-      select(data, Name, Name__1, Count, Count__1)
-  }
-     
-  ## 2. Test your function on the first `data.frame` in the list of baby
-  ##    names data.
-
-  namecount(boysNames[[1]])
-  
-  ## 3. Use the `map` function to each `data.frame` in the list of baby
-  ##    names data.
-
-  babyNames <- map(boysNames, namecount)
-```
 
 ### Re-arranging into a single table
 
@@ -418,7 +347,8 @@ bind_rows(select(boysNames[[1]], Name, Count),
           select(boysNames[[1]], Name = Name__1, Count = Count__1))
 ```
 
-### Exercise 3: Cleanup all the data
+
+## Ex 3: cleanup all the data
 
 In the previous examples we learned how to drop empty rows with
 `filter`, select only relevant columns with `select`, and re-arrange
@@ -428,28 +358,6 @@ changes only to the first element of our `boysNames` list.
 Your task now is to use the `map` function to apply each of these
 transformations to all the elements in `boysNames`.
 
-
-### Exercise prototype
-
-There are different ways you can go about it. Here is one:
-
-
-```{r}
-## write a function that does all the cleanup
-cleanupNamesData <- function(x) {
-    filtered <- filter(x, !is.na(Name)) # drop rows with no Name value
-    selected <- select(filtered, Name, Count, Name__1, Count__1) # select just Name and Count columns
-    bind_rows(select(selected, Name,  Count), # re-arrange into two columns
-              select(selected, Name = Name__1, Count = Count__1))
-}
-
-## test it out on the second data.frame in the list
-glimpse(boysNames[[2]]) # before cleanup
-glimpse(cleanupNamesData(boysNames[[2]])) # after cleanup
-
-## apply the cleanup function to all the data.frames in the list
-boysNames <- map(boysNames, cleanupNamesData)
-```
 
 ## Data organization and storage
 
@@ -491,7 +399,7 @@ boysNames <- bind_rows(boysNames)
 glimpse(boysNames)
 ```
 
-### Exercise: Make one big table
+## Ex 4: make one big table
 
 Turn the list of boys names data.frames into a single table. 
 
@@ -502,7 +410,104 @@ file.
 Finally, repeat the previous exercise, this time working with the data
 in one big table.
 
-### Exercise prototype
+
+## Exercise solutions
+
+### Ex 0: Prototype
+
+> 1.  Locate the file named `1996boys_tcm77-254026.xlsx` and open it in
+>     a spreadsheet. (If you don't have a spreadsheet program installed on
+>     your computer you can downloads one from
+>     https://www.libreoffice.org/download/download/). What issues can you
+>     identify that might make working with these data more difficult?
+
+The data does not start on row one. Headers are on row 7, followed by
+a blank line, followed by the actual data.
+
+The data is stored in an inconvenient way, with ranks 1-50 in the
+first set of columns and ranks 51-100 in a separate set of columns.
+
+There are notes below the data.
+
+> 3.  Locate the file named `2015boysnamesfinal.xlsx` and open it in a
+>     spreadsheet. In what ways is the format different than the format
+>     of `1996boys_tcm77-254026.xlsx`? How might these differences make
+>     it more difficult to work with these data?
+
+The worksheet containing the data of interest is in different
+positions and has different names from one year to the next. However,
+it always includes "Table 1" in the worksheet name.
+
+Some years include columns for "changes in rank", others do not.
+
+These differences will make it more difficult to automate
+re-arranging the data since we have to write code that can handle
+different input formats.
+
+### Ex 1: prototype
+
+```{r}
+  ## 1. Write a function that takes a file name as an argument and reads
+  ##    the worksheet containing "Table 1" from that file.
+  read.baby.names <- function(file) {
+      sheet.name <- str_subset(excel_sheets(file), "Table 1")
+      read_excel(file, sheet = sheet.name, skip = 6)
+  }
+  
+  ## 2. Test your function by using it to read *one* of the boys names
+  ##    Excel files.
+  glimpse(read.baby.names(boy.file.names[1]))
+     
+  ## 3. Use the `map` function to read data from all the Excel files,
+  ##    using the function you wrote in step 1.
+  boysNames <- map(boy.file.names, read.baby.names)
+```
+
+### Ex 2: prototype
+
+```{r}
+  ## 1. Write a function that takes a `data.frame` as an argument and
+  ##    returns a modified version including only columns named `Name`,
+  ##    `Name__1`, `Count`, or `Count__1`.
+
+  namecount <- function(data) {
+      select(data, Name, Name__1, Count, Count__1)
+  }
+     
+  ## 2. Test your function on the first `data.frame` in the list of baby
+  ##    names data.
+
+  namecount(boysNames[[1]])
+  
+  ## 3. Use the `map` function to each `data.frame` in the list of baby
+  ##    names data.
+
+  babyNames <- map(boysNames, namecount)
+```
+
+### Ex 3: prototype
+
+There are different ways you can go about it. Here is one:
+
+
+```{r}
+## write a function that does all the cleanup
+cleanupNamesData <- function(x) {
+    filtered <- filter(x, !is.na(Name)) # drop rows with no Name value
+    selected <- select(filtered, Name, Count, Name__1, Count__1) # select just Name and Count columns
+    bind_rows(select(selected, Name,  Count), # re-arrange into two columns
+              select(selected, Name = Name__1, Count = Count__1))
+}
+
+## test it out on the second data.frame in the list
+glimpse(boysNames[[2]]) # before cleanup
+glimpse(cleanupNamesData(boysNames[[2]])) # after cleanup
+
+## apply the cleanup function to all the data.frames in the list
+boysNames <- map(boysNames, cleanupNamesData)
+```
+
+### Ex 4: prototype
 
 Working with the data in one big table is often easier.
 
@@ -526,12 +531,11 @@ ggplot(andrew, aes(x = Year, y = Count)) +
     ggtitle("Popularity of \"Andrew\", over time")
 ```
 
-
 ## Wrap-up
 
 ### Feedback
 
-Please take 60 seconds to fill out a very short feedback [form](http://bit.ly/training_class_eval)
+These workshops are a work in progress, please provide any feedback to: help@iq.harvard.edu
 
 ### Resources
 
