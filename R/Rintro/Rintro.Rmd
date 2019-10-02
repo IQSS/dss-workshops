@@ -15,7 +15,7 @@ knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, e
 * Function arguments
 * Finding help
 * Reading data
-* Filtering and arranging data
+* Filtering rows, selecting columns, and arranging data
 * Conditional operations
 * Saving data
 
@@ -24,35 +24,51 @@ knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, e
 
 ### Software & Materials
 
-**NOTE: skip this section if you are not running R locally** (e.g., if you are
-running R in your browser using a remote Jupyter server)
-
-You should have R installed --- if not:
+You should have R and RStudio installed --- if not:
 
 * Download and install [R](http://cran.r-project.org)
 * Download and install [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
 
+Download materials:
+
+* [Download workshop materials](http://tutorials.iq.harvard.edu/R/Rintro.zip)
+* Extract materials from `Rintro.zip` and move to your desktop.
 
 Start RStudio and create a new project:
 
-* On Windows click the start button and search for rstudio. On Mac
+* On Windows click the start button and search for RStudio. On Mac
     RStudio will be in your applications folder.
 * In Rstudio go to `File -> New Project`.
-* Choose `New Directory` and `New Project`.
-* Choose a name and location for your new project directory.
+* Choose `Existing Directory` and browse to the `Rintro` directory.
 
+Install the [tidyverse](https://www.tidyverse.org/) suite of packages:
+
+```{r}
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+Set your working directory so you don't have to type the full path names to your data and other files
+
+```{r}
+  # set the working directory
+  # setwd("~/Desktop/Rintro") # UNIX-based
+  # setwd("C:/Users/dataclass/Desktop/Rintro") # MS Windows
+```
 
 ### Goals
 
-In this workshop you will
+Class Structure and Organization:
 
-* learn R basics,
-* learn about the R package ecosystem,
-* practice reading files and manipulating data in R
+* Ask questions at any time. Really!
+* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 
-A more general goal is to get you comfortable with R so that it seems less scary and mystifying than it perhaps does now. Note that this is by no means a complete or thorough introduction to R! It's just enough to get you started.
+This is an introductory R course:
 
-This workshop is relatively informal, example-oriented, and hands-on. We won't spend much time examining language features in detail. Instead we will work through an example, and learn some things about R along the way.
+* Assumes no prior knowledge of R
+* Relatively slow-paced
+* The workshop covers R basics, the R package ecosystem, and practice reading files and manipulating data in R
+* A more general goal is to get you comfortable with R so that it seems less scary and mystifying than it perhaps does now. Note that this is by no means a complete or thorough introduction to R! It's just enough to get you started.
 
 As an example project we will analyze the popularity of baby names in the US from 1960 through 2017. Among the questions we will answer using R are:
 
@@ -67,8 +83,11 @@ There are many different ways you can interact with R. See the
 [Data Science Tools workshop notes](http://tutorials.iq.harvard.edu/DataScienceTools/DataScienceTools.html) 
 for details.
 
-For this workshop I encourage you to use RStudio; it is a good
-R-specific IDE that mostly just works.
+For this workshop we will use RStudio; it is a good
+R-specific integrated development environment (IDE) that mostly just works.
+
+We will also use Rmarkdown --- a type of R file that allows you to combine plain text
+with R code. It is easy to later convert Rmarkdown into MS Word, LaTeX, a pdf, or webpage.
 
 
 ### Launch RStudio (skip if not using Rstudio)
@@ -86,7 +105,7 @@ The window in the lower-left is the R console. This is where results
 will be displayed.
 
 
-### Exercise 0
+## Ex 0
 
 The purpose of this exercise is to give you an opportunity to explore
 the interface provided by RStudio (or whichever GUI you've decided to
@@ -112,7 +131,7 @@ you are looking for should appear in a pop up!
     introduction to R". Use the RStudio help pane. to locate this manual.
 
 
-### Exercise 0 solution
+### Ex 0: solution
 
 
 ```{r, eval = FALSE}
@@ -241,7 +260,7 @@ A cleaned and merged version of these data is available at
 `http://tutorials.iq.harvard.edu/data/babyNames.csv`.
 
 
-### Exercise 1: Reading the baby names data
+## Ex 1: Reading the baby names data
 
 Make sure you have installed the `readr` package and attached it with `library(readr)`.
 
@@ -256,7 +275,7 @@ with the name `baby.names`.
 and as an R data set `babynames.rds`.
 
 
-### Exercise 1 solution
+### Ex 1: solution
 
 ```{r, eval = FALSE}
 ## read ?read_csv
@@ -337,7 +356,7 @@ and logical operators are listed below.
 These operators may be combined with `&` (and) or `|` (or).
 
 
-### Exercise 2: Peak popularity of your name
+## Ex 2: Peak popularity of your name
 
 In this exercise you will discover the year your name reached its maximum popularity.
 
@@ -365,7 +384,7 @@ Make sure you have installed the `dplyr` package and attached it with `library(d
 ```
 
 
-### Exercise 2 solution
+### Ex 2: solution
 
 ```{r, eval = FALSE}
 # 1.  Use `filter` to extract data for your name (or another name of your choice).  
@@ -433,7 +452,7 @@ qplot(x = Year, y = Count, color = Sex,
 ```
 
 
-### Exercise 3: Plotting peak popularity of your name
+## Ex 3: Plotting peak popularity of your name
 
 Make sure the `ggplot2` package is installed, and that you 
 have attached it using `library(ggplot2)`.
@@ -457,7 +476,7 @@ have attached it using `library(ggplot2)`.
 4. BONUS (Optional): Adust the plot to use lines instead of points.
 
 
-### Exercise 3 solution
+### Ex 3: solution
 
 ```{r, eval = FALSE}
 # 1. Use `filter` to extract data for your name (same as previous exercise)  
@@ -531,7 +550,7 @@ Note that the data remains grouped until you change the groups by
 running `group_by` again or remove grouping information with
 `ungroup`.
 
-### Exercise 4: Most popular names
+## Ex 4: Most popular names
 
 In this exercise your goal is to identify the most popular names for each year.
 
@@ -563,7 +582,7 @@ In this exercise your goal is to identify the most popular names for each year.
 
 5. BONUS (optional): Which names are the most popular for both boys and girls?
 
-### Exercise 4 solution
+### Ex 4: solution
 
 ```{r, eval = FALSE}
 ## 1.  Use `mutate` and `group_by` to create a column named "Proportion"
@@ -648,7 +667,7 @@ bn.by.year
 ```
 
 
-### Exercise 4: Popularity of the most popular names
+## Ex 5: Popularity of most popular names
 
 In this exercise we will plot trends in the proportion of boys and girls given one of the 10 most popular names each year.
 
@@ -671,7 +690,7 @@ In this exercise we will plot trends in the proportion of boys and girls given o
 ##
 ```
 
-### Exercise 4 solution
+### Ex 5: solution
 
 ```{r, eval = FALSE}
 ## 1.  Filter the baby.names data, retaining only the 10 most 

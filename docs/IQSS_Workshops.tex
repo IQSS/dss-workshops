@@ -232,7 +232,7 @@ Yihan Wang.
 \item
   Reading data
 \item
-  Filtering and arranging data
+  Filtering rows, selecting columns, and arranging data
 \item
   Conditional operations
 \item
@@ -243,10 +243,7 @@ Yihan Wang.
 
 \subsection{Software \& Materials}\label{software-materials}
 
-\textbf{NOTE: skip this section if you are not running R locally} (e.g.,
-if you are running R in your browser using a remote Jupyter server)
-
-You should have R installed --- if not:
+You should have R and RStudio installed --- if not:
 
 \begin{itemize}
 \tightlist
@@ -257,44 +254,82 @@ You should have R installed --- if not:
   \href{https://www.rstudio.com/products/rstudio/download/\#download}{RStudio}
 \end{itemize}
 
+Download materials:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://tutorials.iq.harvard.edu/R/Rintro.zip}{Download workshop
+  materials}
+\item
+  Extract materials from \texttt{Rintro.zip} and move to your desktop.
+\end{itemize}
+
 Start RStudio and create a new project:
 
 \begin{itemize}
 \tightlist
 \item
-  On Windows click the start button and search for rstudio. On Mac
+  On Windows click the start button and search for RStudio. On Mac
   RStudio will be in your applications folder.
 \item
   In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
 \item
-  Choose \texttt{New\ Directory} and \texttt{New\ Project}.
-\item
-  Choose a name and location for your new project directory.
+  Choose \texttt{Existing\ Directory} and browse to the \texttt{Rintro}
+  directory.
 \end{itemize}
+
+Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
+packages:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("tidyverse")}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+Set your working directory so you don't have to type the full path names
+to your data and other files
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# set the working directory}
+  \CommentTok{# setwd("~/Desktop/Rintro") # UNIX-based}
+  \CommentTok{# setwd("C:/Users/dataclass/Desktop/Rintro") # MS Windows}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Goals}\label{goals}
 
-In this workshop you will
+Class Structure and Organization:
 
 \begin{itemize}
 \tightlist
 \item
-  learn R basics,
+  Ask questions at any time. Really!
 \item
-  learn about the R package ecosystem,
-\item
-  practice reading files and manipulating data in R
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
 \end{itemize}
 
-A more general goal is to get you comfortable with R so that it seems
-less scary and mystifying than it perhaps does now. Note that this is by
-no means a complete or thorough introduction to R! It's just enough to
-get you started.
+This is an introductory R course:
 
-This workshop is relatively informal, example-oriented, and hands-on. We
-won't spend much time examining language features in detail. Instead we
-will work through an example, and learn some things about R along the
-way.
+\begin{itemize}
+\tightlist
+\item
+  Assumes no prior knowledge of R
+\item
+  Relatively slow-paced
+\item
+  The workshop covers R basics, the R package ecosystem, and practice
+  reading files and manipulating data in R
+\item
+  A more general goal is to get you comfortable with R so that it seems
+  less scary and mystifying than it perhaps does now. Note that this is
+  by no means a complete or thorough introduction to R! It's just enough
+  to get you started.
+\end{itemize}
 
 As an example project we will analyze the popularity of baby names in
 the US from 1960 through 2017. Among the questions we will answer using
@@ -316,8 +351,12 @@ There are many different ways you can interact with R. See the
 \href{http://tutorials.iq.harvard.edu/DataScienceTools/DataScienceTools.html}{Data
 Science Tools workshop notes} for details.
 
-For this workshop I encourage you to use RStudio; it is a good
-R-specific IDE that mostly just works.
+For this workshop we will use RStudio; it is a good R-specific
+integrated development environment (IDE) that mostly just works.
+
+We will also use Rmarkdown --- a type of R file that allows you to
+combine plain text with R code. It is easy to later convert Rmarkdown
+into MS Word, LaTeX, a pdf, or webpage.
 
 \subsection{Launch RStudio (skip if not using
 Rstudio)}\label{launch-rstudio-skip-if-not-using-rstudio}
@@ -340,7 +379,7 @@ write instructions for R to carry out.
 The window in the lower-left is the R console. This is where results
 will be displayed.
 
-\subsection{Exercise 0}\label{exercise-0}
+\section{Ex 0}\label{ex-0}
 
 The purpose of this exercise is to give you an opportunity to explore
 the interface provided by RStudio (or whichever GUI you've decided to
@@ -390,7 +429,7 @@ you are looking for should appear in a pop up!
   introduction to R''. Use the RStudio help pane. to locate this manual.
 \end{enumerate}
 
-\subsection{Exercise 0 solution}\label{exercise-0-solution}
+\subsection{Ex 0: solution}\label{ex-0-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -544,8 +583,8 @@ The examples in this workshop use US baby names data retrieved from
 A cleaned and merged version of these data is available at
 \texttt{http://tutorials.iq.harvard.edu/data/babyNames.csv}.
 
-\subsection{Exercise 1: Reading the baby names
-data}\label{exercise-1-reading-the-baby-names-data}
+\section{Ex 1: Reading the baby names
+data}\label{ex-1-reading-the-baby-names-data}
 
 Make sure you have installed the \texttt{readr} package and attached it
 with \texttt{library(readr)}.
@@ -567,7 +606,7 @@ Baby names data are available at
   \texttt{babynames.rds}.
 \end{enumerate}
 
-\subsection{Exercise 1 solution}\label{exercise-1-solution}
+\subsection{Ex 1: solution}\label{ex-1-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -664,8 +703,8 @@ Operator & Meaning\tabularnewline
 These operators may be combined with \texttt{\&} (and) or
 \texttt{\textbar{}} (or).
 
-\subsection{Exercise 2: Peak popularity of your
-name}\label{exercise-2-peak-popularity-of-your-name}
+\section{Ex 2: Peak popularity of your
+name}\label{ex-2-peak-popularity-of-your-name}
 
 In this exercise you will discover the year your name reached its
 maximum popularity.
@@ -721,7 +760,7 @@ with \texttt{library(dplyr)}.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2 solution}\label{exercise-2-solution}
+\subsection{Ex 2: solution}\label{ex-2-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -813,8 +852,8 @@ Sex is very easy:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3: Plotting peak popularity of your
-name}\label{exercise-3-plotting-peak-popularity-of-your-name}
+\section{Ex 3: Plotting peak popularity of your
+name}\label{ex-3-plotting-peak-popularity-of-your-name}
 
 Make sure the \texttt{ggplot2} package is installed, and that you have
 attached it using \texttt{library(ggplot2)}.
@@ -870,7 +909,7 @@ attached it using \texttt{library(ggplot2)}.
   BONUS (Optional): Adust the plot to use lines instead of points.
 \end{enumerate}
 
-\subsection{Exercise 3 solution}\label{exercise-3-solution}
+\subsection{Ex 3: solution}\label{ex-3-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -961,8 +1000,7 @@ Note that the data remains grouped until you change the groups by
 running \texttt{group\_by} again or remove grouping information with
 \texttt{ungroup}.
 
-\subsection{Exercise 4: Most popular
-names}\label{exercise-4-most-popular-names}
+\section{Ex 4: Most popular names}\label{ex-4-most-popular-names}
 
 In this exercise your goal is to identify the most popular names for
 each year.
@@ -1038,7 +1076,7 @@ each year.
   girls?
 \end{enumerate}
 
-\subsection{Exercise 4 solution}\label{exercise-4-solution}
+\subsection{Ex 4: solution}\label{ex-4-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1149,8 +1187,8 @@ babies born each year:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4: Popularity of the most popular
-names}\label{exercise-4-popularity-of-the-most-popular-names}
+\section{Ex 5: Popularity of most popular
+names}\label{ex-5-popularity-of-most-popular-names}
 
 In this exercise we will plot trends in the proportion of boys and girls
 given one of the 10 most popular names each year.
@@ -1199,7 +1237,7 @@ given one of the 10 most popular names each year.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4 solution}\label{exercise-4-solution-1}
+\subsection{Ex 5: solution}\label{ex-5-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1383,88 +1421,104 @@ Please take 60 seconds to fill out a very short feedback
 \item
   R formula interface
 \item
+  Run and interpret variety of regression models in R
+\item
   Factor contrasts to test specific hypotheses
 \item
   Model comparisons
 \item
-  Run and interpret variety of regression models in R
+  Predicted marginal effects
 \end{itemize}
 
 \section{Setup}\label{setup-1}
 
 \subsection{Software \& Materials}\label{software-materials-1}
 
-Lab computer users: Log in using the user name and password on the board
-to your left.
-
-Laptop users:
+You should have R and RStudio installed --- if not:
 
 \begin{itemize}
 \tightlist
 \item
-  you should have R installed--if not, open a web browser and go to
-  \url{http://cran.r-project.org} and download and install it
+  Download and install \href{http://cran.r-project.org}{R}
 \item
-  also helpful to install RStudo (download from
-  \url{http://rstudio.com})
+  Download and install
+  \href{https://www.rstudio.com/products/rstudio/download/\#download}{RStudio}
 \end{itemize}
 
-Everyone:
+Download materials:
 
 \begin{itemize}
 \tightlist
 \item
-  Download materials from
-  \url{http://tutorials.iq.harvard.edu/R/Rstatistics.zip}
+  \href{http://tutorials.iq.harvard.edu/R/Rmodels.zip}{Download workshop
+  materials}
 \item
-  Extract materials from RStatistics.zip (on lab machines
-  \emph{right-click -\textgreater{} WinZip -\textgreater{} Extract to
-  here}) and move to your desktop.
+  Extract materials from \texttt{Rmodels.zip} and move to your desktop.
 \end{itemize}
 
-\subsection{Goals}\label{goals-1}
-
-This is an intermediate/advanced R workshop and is appropriate for those
-with basic knowledge of R. This is not a statistics course! This
-workshop introduces the R modeling ecosystem, providing an overview of
-how to specify and estimate models, as well as extract quantities of
-interest in post-estimation.
-
-\subsection{Launch RStudio}\label{launch-rstudio}
+Start RStudio and create a new project:
 
 \begin{itemize}
 \tightlist
 \item
-  Open the RStudio program from the Windows start menu
+  On Windows click the start button and search for RStudio. On Mac
+  RStudio will be in your applications folder.
 \item
-  Create a project in the Rstatistics folder you downloaded earlier:
+  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
 \item
-  \texttt{File\ =\textgreater{}\ New\ Project\ =\textgreater{}\ Existing\ Directory\ =\textgreater{}\ Browse}
-  and select the Rstatistics folder.
+  Choose \texttt{Existing\ Directory} and browse to the \texttt{Rmodels}
+  directory.
 \end{itemize}
 
-\subsection{Set working directory}\label{set-working-directory}
+Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
+packages:
 
-It is often helpful to start your R session by setting your working
-directory so you don't have to type the full path names to your data and
-other files
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("tidyverse")}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+Set your working directory so you don't have to type the full path names
+to your data and other files
 
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# set the working directory}
-  \CommentTok{# setwd("~/Desktop/Rstatistics")}
-  \CommentTok{# setwd("C:/Users/dataclass/Desktop/Rstatistics")}
+  \CommentTok{# setwd("~/Desktop/Rmodels") # UNIX-based}
+  \CommentTok{# setwd("C:/Users/dataclass/Desktop/Rmodels") # MS Windows}
 \end{Highlighting}
 \end{Shaded}
 
-You might also start by listing the files in your working directory
+\subsection{Goals}\label{goals-1}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-  \KeywordTok{getwd}\NormalTok{() }\CommentTok{# where am I?}
-  \KeywordTok{list.files}\NormalTok{(}\StringTok{"dataSets"}\NormalTok{) }\CommentTok{# files in the dataSets folder}
-\end{Highlighting}
-\end{Shaded}
+Class Structure and Organization:
+
+\begin{itemize}
+\tightlist
+\item
+  Ask questions at any time. Really!
+\item
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
+\end{itemize}
+
+This is an intermediate R course:
+
+\begin{itemize}
+\tightlist
+\item
+  Assumes working knowledge of R
+\item
+  Relatively fast-paced
+\item
+  This is not a statistics course! We assume you know the theory behind
+  the models
+\end{itemize}
+
+\section{Ordinary least squares (OLS)
+regression}\label{ordinary-least-squares-ols-regression}
 
 \subsection{Load the states data}\label{load-the-states-data}
 
@@ -1483,9 +1537,6 @@ by Lawrence C. Hamilton.
   \KeywordTok{tail}\NormalTok{(states.info, }\DecValTok{8}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\section{Ordinary least squares (OLS)
-regression}\label{ordinary-least-squares-ols-regression}
 
 \subsection{Examine the data before fitting
 models}\label{examine-the-data-before-fitting-models}
@@ -2362,45 +2413,61 @@ Please take 60 seconds to fill out a very short feedback
 
 \subsection{Software \& Materials}\label{software-materials-2}
 
-\subsubsection{Laptop users: You should have R installed; if
-not:}\label{laptop-users-you-should-have-r-installed-if-not}
+You should have R and RStudio installed --- if not:
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
+\tightlist
 \item
-  Open a web browser and go to \url{http://cran.r-project.org} and
-  download and install it
+  Download and install \href{http://cran.r-project.org}{R}
 \item
-  Also helpful to install RStudio (download from
-  \url{http://rstudio.com})
-\item
-  In R, type \texttt{install.packages("tidyverse")} to install a suite
-  of usefull packages including \texttt{ggplot2}
-\end{enumerate}
+  Download and install
+  \href{https://www.rstudio.com/products/rstudio/download/\#download}{RStudio}
+\end{itemize}
 
-\subsubsection{Everyone: Download workshop
-materials:}\label{everyone-download-workshop-materials}
+Download materials:
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
+\tightlist
 \item
-  Download materials from
-  \url{http://tutorials.iq.harvard.edu/R/Rgraphics.zip}
+  \href{http://tutorials.iq.harvard.edu/R/Rgraphics.zip}{Download
+  workshop materials}
 \item
-  Extract the zip file containing the materials to your desktop
-\end{enumerate}
+  Extract materials from \texttt{Rgraphics.zip} and move to your
+  desktop.
+\end{itemize}
 
-\subsubsection{Everyone: install the tidyverse
-package}\label{everyone-install-the-tidyverse-package}
+Start RStudio and create a new project:
 
-The \texttt{ggplot2} packages is included in a popular collection of
-packages called ``the \emph{tidyverse}''. Take a moment to ensure that
-it is installed, and that we have attached the \texttt{ggplot2} package.
+\begin{itemize}
+\tightlist
+\item
+  On Windows click the start button and search for RStudio. On Mac
+  RStudio will be in your applications folder.
+\item
+  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
+\item
+  Choose \texttt{Existing\ Directory} and browse to the
+  \texttt{Rgraphics} directory.
+\end{itemize}
+
+Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
+packages:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+Set your working directory so you don't have to type the full path names
+to your data and other files
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# set the working directory}
+  \CommentTok{# setwd("~/Desktop/Rgraphics") # UNIX-based}
+  \CommentTok{# setwd("C:/Users/dataclass/Desktop/Rgraphics") # MS Windows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2413,9 +2480,8 @@ Class Structure and Organization:
 \item
   Ask questions at any time. Really!
 \item
-  Collaboration is encouraged
-\item
-  This is your class! Special requests are encouraged
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
 \end{itemize}
 
 This is an intermediate R course:
@@ -2427,14 +2493,14 @@ This is an intermediate R course:
 \item
   Relatively fast-paced
 \item
-  Focus is on \texttt{ggplot2} graphics--other packages will not be
+  Focus is on \texttt{ggplot2} graphics; other packages will not be
   covered
 \end{itemize}
 
 \subsection{Starting At The End}\label{starting-at-the-end}
 
-My goal: by the end of the workshop you will be able to reproduce this
-graphic from the Economist:
+By the end of the workshop you will be able to reproduce this graphic
+from the Economist:
 
 \begin{figure}
 \centering
@@ -3913,47 +3979,94 @@ Please take 60 seconds to fill out a very short feedback
 
 \subsection{Software \& Materials}\label{software-materials-3}
 
-Prior to the workshop you should:
+You should have R and RStudio installed --- if not:
 
 \begin{itemize}
 \tightlist
 \item
-  install R from \url{https://cran.r-project.org/}
+  Download and install \href{http://cran.r-project.org}{R}
 \item
-  install RStudio from
-  \url{https://www.rstudio.com/products/rstudio/download/\#download}
-\item
-  install the tidyverse package in R with
-  \texttt{install.packages("tidyverse")} and attach it with
-  \texttt{library(tidyverse)}
+  Download and install
+  \href{https://www.rstudio.com/products/rstudio/download/\#download}{RStudio}
 \end{itemize}
 
-To start the workshop: * Download and extract the materials from
-\url{http://tutorials.iq.harvard.edu/R/RDataManagement.zip}. * Open
-Rstudio and create a new project
-(\texttt{File\ ==\textgreater{}\ New\ Project\ ==\textgreater{}\ Existing\ Directory}
-and select the \texttt{RDataManagement} folder you downloaded and
-extracted earlier. * Open a new R script
-(\texttt{File\ ==\textgreater{}\ New\ File\ ==\textgreater{}\ R\ script})
-and save it as \texttt{Notes.R}.
+Download materials:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://tutorials.iq.harvard.edu/R/RDataWrangling.zip}{Download
+  workshop materials}
+\item
+  Extract materials from \texttt{RDataWrangling.zip} and move to your
+  desktop.
+\end{itemize}
+
+Start RStudio and create a new project:
+
+\begin{itemize}
+\tightlist
+\item
+  On Windows click the start button and search for RStudio. On Mac
+  RStudio will be in your applications folder.
+\item
+  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
+\item
+  Choose \texttt{Existing\ Directory} and browse to the
+  \texttt{RDataWrangling} directory.
+\end{itemize}
+
+Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
+packages:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("tidyverse")}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+Set your working directory so you don't have to type the full path names
+to your data and other files
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# set the working directory}
+  \CommentTok{# setwd("~/Desktop/RDataWrangling") # UNIX-based}
+  \CommentTok{# setwd("C:/Users/dataclass/Desktop/RDataWrangling") # MS Windows}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Goals}\label{goals-3}
 
-Data scientists are known and celebrated for modeling and visually
-displaying information, but down in the data science engine room there
-is a lot of less glamorous work to be done. Before data can be used
-effectively it must often be cleaned, corrected, and reformatted. This
-workshop introduces the basic tools needed to make your data behave,
-including data reshaping, regular expressions and other text
-manipulation tools.
+Class Structure and Organization:
 
-This is an intermediate/advanced R course appropriate for those with
-basic knowledge of R. If you need a refresher we recommend the
-\href{http://tutorials.iq.harvard.edu/R/Rintro/Rintro.html}{the IQSS R
-intro}.
+\begin{itemize}
+\tightlist
+\item
+  Ask questions at any time. Really!
+\item
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
+\end{itemize}
 
-The lesson notes are available at
-\url{http://tutorials.iq.harvard.edu/R/RDataManagement/RDataManagement.html}
+This is an intermediate R course:
+
+\begin{itemize}
+\tightlist
+\item
+  Assumes working knowledge of R
+\item
+  Relatively fast-paced
+\item
+  Data scientists are known and celebrated for modeling and visually
+  displaying information, but down in the data science engine room there
+  is a lot of less glamorous work to be done. Before data can be used
+  effectively it must often be cleaned, corrected, and reformatted. This
+  workshop introduces the basic tools needed to make your data behave,
+  including data reshaping, regular expressions and other text
+  manipulation tools.
+\end{itemize}
 
 \section{Example project}\label{example-project}
 
@@ -3983,7 +4096,7 @@ While it was good of the UK Office for National Statistics to provide
 baby name data, they were not very diligent about arranging it in a
 convenient or consistent format.
 
-\subsection{Exercise 0}\label{exercise-0-1}
+\subsection{Exercise 0}\label{exercise-0}
 
 Our mission is to extract and graph the \textbf{top 100} boys names in
 England and Wales for every year since 1996. There are several things
@@ -4231,7 +4344,7 @@ skip the first 6 rows.
   using the function you wrote in step 1.
 \end{enumerate}
 
-\subsection{Exercise 1 solution}\label{exercise-1-solution-1}
+\subsection{Exercise 1 solution}\label{exercise-1-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]

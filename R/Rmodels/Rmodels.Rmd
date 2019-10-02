@@ -10,55 +10,63 @@ knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, e
 **Topics**
 
 * R formula interface
+* Run and interpret variety of regression models in R
 * Factor contrasts to test specific hypotheses
 * Model comparisons
-* Run and interpret variety of regression models in R
+* Predicted marginal effects
 
 
 ## Setup
 
 ### Software & Materials
 
-Lab computer users: Log in using the user name and password on the board to your left.
+You should have R and RStudio installed --- if not:
 
-Laptop users:
+* Download and install [R](http://cran.r-project.org)
+* Download and install [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
 
-* you should have R installed--if not, open a web browser and go to <http://cran.r-project.org> and download and install it
-* also helpful to install RStudo (download from <http://rstudio.com>)
+Download materials:
 
-Everyone:
+* [Download workshop materials](http://tutorials.iq.harvard.edu/R/Rmodels.zip)
+* Extract materials from `Rmodels.zip` and move to your desktop.
 
-* Download materials from <http://tutorials.iq.harvard.edu/R/Rstatistics.zip>
-* Extract materials from RStatistics.zip (on lab machines *right-click -&gt; WinZip -&gt; Extract to here*) and move to your desktop.
+Start RStudio and create a new project:
 
+* On Windows click the start button and search for RStudio. On Mac
+    RStudio will be in your applications folder.
+* In Rstudio go to `File -> New Project`.
+* Choose `Existing Directory` and browse to the `Rmodels` directory.
 
-### Goals
+Install the [tidyverse](https://www.tidyverse.org/) suite of packages:
 
-This is an intermediate/advanced R workshop and is appropriate for those with basic knowledge of R. This is not a statistics course! This workshop introduces the R modeling ecosystem, providing an overview of how to specify and estimate models, as well as extract quantities of interest in post-estimation.
+```{r}
+# install.packages("tidyverse")
+library(tidyverse)
+```
 
-
-### Launch RStudio
-
-* Open the RStudio program from the Windows start menu
-* Create a project in the Rstatistics folder you downloaded earlier:
-  + `File => New Project => Existing Directory => Browse` and select the Rstatistics folder.
-
-### Set working directory
-
-It is often helpful to start your R session by setting your working directory so you don't have to type the full path names to your data and other files
+Set your working directory so you don't have to type the full path names to your data and other files
 
 ```{r}
   # set the working directory
-  # setwd("~/Desktop/Rstatistics")
-  # setwd("C:/Users/dataclass/Desktop/Rstatistics")
+  # setwd("~/Desktop/Rmodels") # UNIX-based
+  # setwd("C:/Users/dataclass/Desktop/Rmodels") # MS Windows
 ```
 
-You might also start by listing the files in your working directory
+### Goals
 
-```{r}
-  getwd() # where am I?
-  list.files("dataSets") # files in the dataSets folder
-```
+Class Structure and Organization:
+
+* Ask questions at any time. Really!
+* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
+This is an intermediate R course:
+
+* Assumes working knowledge of R
+* Relatively fast-paced
+* This is not a statistics course! We assume you know the theory behind the models
+
+
+## Ordinary least squares (OLS) regression
 
 ### Load the states data
 
@@ -72,9 +80,6 @@ The *states.dta* data comes from <http://anawida.de/teach/SS14/anawida/4.linReg/
   #look at last few labels
   tail(states.info, 8)
 ```
-
-
-## Ordinary least squares (OLS) regression
 
 ### Examine the data before fitting models
 
