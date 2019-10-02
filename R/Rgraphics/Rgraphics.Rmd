@@ -18,7 +18,7 @@ knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, e
 
 ## Setup
 
-### Software & Materials
+### Software & materials
 
 You should have R and RStudio installed --- if not:
 
@@ -67,7 +67,7 @@ This is an intermediate R course:
 * Focus is on `ggplot2` graphics; other packages will not be covered
 
 
-### Starting At The End
+### Starting at the end
 
 By the end of the workshop you will be able to reproduce this graphic from the Economist:
 
@@ -91,7 +91,7 @@ That said, there are some things you cannot (or should not) do With ggplot2:
 * Graph-theory type graphs (nodes/edges layout; see the igraph package)
 * Interactive graphics (see the ggvis package)
 
-### What Is The Grammar Of Graphics?
+### What is the Grammar Of Graphics?
 
 The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include:
 
@@ -105,7 +105,7 @@ The basic idea: independently specify plot building blocks and combine them to c
 * faceting
 
 
-### Example Data: `Housing prices`
+### Example data: `housing prices`
 
 Let's look at housing prices.
 
@@ -114,7 +114,7 @@ housing <- read_csv("dataSets/landdata-states.csv")
 head(housing[1:5])
 ```
 
-### `ggplot2` VS Base Graphics
+### `ggplot2` VS base graphics
 
 Compared to base graphics, `ggplot2`
 
@@ -123,7 +123,7 @@ Compared to base graphics, `ggplot2`
 -   does not have methods (data should always be in a `data.frame`)
 -   uses a different system for adding plot elements
 
-### `ggplot2` VS Base for simple graphs
+### For simple graphs
 
 Base graphics histogram example:
 
@@ -140,7 +140,7 @@ ggplot(housing, aes(x = Home.Value)) +
   geom_histogram()
 ```
 
-### `ggplot2` Base graphics VS `ggplot` for more complex graphs:
+### For more complex graphs:
 
 Base graphics colored scatter plot example:
 
@@ -167,9 +167,9 @@ ggplot(filter(housing, State %in% c("MA", "TX")),
 `ggplot2` wins!
 
 
-## Geometric Objects And Aesthetics
+## Geometric objects and aesthetics
 
-### Aesthetic Mapping
+### Aesthetic mapping
 
 In ggplot land *aesthetic* means "something you can see". Examples include:
 
@@ -182,7 +182,7 @@ In ggplot land *aesthetic* means "something you can see". Examples include:
 
 Each type of geom accepts only a subset of all aesthetics;refer to the geom help pages to see what mappings each geom accepts. Aesthetic mappings are set with the `aes()` function.
 
-### Geometic Objects (`geom`)
+### Geometic objects (`geom`)
 
 Geometric objects are the actual marks we put on a plot. Examples include:
 
@@ -200,7 +200,7 @@ help.search("geom_", package = "ggplot2")
 
 or simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
 
-### Points (Scatterplot)
+### Points (scatterplot)
 
 Now that we know about geometric objects and aesthetic mapping, we can make a ggplot. `geom_point` requires mappings for x and y, all others are optional.
 
@@ -219,7 +219,7 @@ ggplot(hp2001Q1,
 ```
 
 
-### Lines (Prediction Line)
+### Lines (prediction line)
 
 A plot constructed with `ggplot` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden. Our plot could use a regression line:
 
@@ -244,7 +244,7 @@ p1 +
 ```
 
 
-### Text (Label Points)
+### Text (label points)
 
 Each `geom` accepts a particualar set of mappings;for example `geom_text()` accepts a `labels` mapping.
 
@@ -263,7 +263,7 @@ p1 +
 ```
 
 
-### Aesthetic Mapping VS Assignment
+### Aesthetic mapping VS assignment
 
 Note that variables are mapped to aesthetics with the `aes()` function, while fixed aesthetics are set outside the `aes()` call. This sometimes leads to confusion, as in this example:
 
@@ -274,7 +274,7 @@ p1 +
 ```
 
 
-### Mapping Variables To Other Aesthetics
+### Mapping variables to other aesthetics
 
 Other aesthetics are mapped in the same way as x and y in the previous example.
 
@@ -303,9 +303,9 @@ These data consist of *Human Development Index* and *Corruption Perception Index
 5.  Map the size of the points to HDI.Rank
 
 
-## Statistical Transformations
+## Statistical transformations
 
-### Statistical Transformations
+### Why transform data?
 
 Some plot types (such as scatterplots) do not require transformations; each point is plotted at x and y coordinates equal to the original value. Other plots, such as boxplots, histograms, prediction lines etc. require statistical transformations:
 
@@ -319,7 +319,7 @@ args(geom_histogram)
 args(stat_bin)
 ```
 
-### Setting Statistical Transformation Arguments
+### Setting arguments
 
 Arguments to `stat_` functions can be passed through `geom_` functions. This can be slightly annoying because in order to change it you have to first determine which stat the geom uses, then determine the arguments to that stat.
 
@@ -337,7 +337,7 @@ p2 + geom_histogram(stat = "bin", binwidth=4000)
 ```
 
 
-### Changing The Statistical Transformation
+### Changing the transformation
 
 Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:
 
@@ -370,7 +370,7 @@ ggplot(housing.sum, aes(x=State, y=Home.Value)) +
 
 ## Scales
 
-### Scales: Controlling Aesthetic Mapping
+### Controlling aesthetic mapping
 
 Aesthetic mapping (i.e., with `aes()`) only says that a variable should be mapped to an aesthetic. It doesn't say *how* that should happen. For example, when mapping a variable to *shape* with `aes(shape = x)` you don't say *what* shapes should be used. Similarly, `aes(color = z)` doesn't say *what* colors should be used. Describing what colors/shapes/sizes etc. to use is done by modifying the corresponding *scale*. In `ggplot2` scales include
 
@@ -382,7 +382,7 @@ Aesthetic mapping (i.e., with `aes()`) only says that a variable should be mappe
 
 Scales are modified with a series of functions using a `scale_<aesthetic>_<type>` naming scheme. Try typing `scale_<tab>` to see a list of scale modification functions.
 
-### Common Scale Arguments
+### Common scale arguments
 
 The following arguments are common to most scales in ggplot2:
 
@@ -393,7 +393,7 @@ The following arguments are common to most scales in ggplot2:
 
 Specific scale functions may have additional arguments; for example, the `scale_color_continuous` function has arguments `low` and `high` for setting the colors at the low and high end of the scale.
 
-### Scale Modification Examples
+### Scale modification examples
 
 Start by constructing a dotplot showing the distribution of home values by Date and State.
 
@@ -460,7 +460,7 @@ p4 +
 ```
 
 
-### Available Scales
+### Available scales
 
 -   Partial combination matrix of available scales
 
@@ -494,7 +494,7 @@ Note that in RStudio you can type `scale_` followed by TAB to get the whole list
 
 ## Faceting
 
-### Faceting
+### What is faceting?
 
 * Faceting is `ggplot2` parlance for **small multiples**
 * The idea is to create separate graphs for subsets of data
@@ -528,7 +528,7 @@ There is also a `facet_grid()` function for faceting in two dimensions.
 
 ## Themes
 
-### Themes
+### What are themes?
 
 The `ggplot2` theme system handles non-data plot elements such as
 
@@ -584,7 +584,7 @@ p5 + theme_new
 
 ## The #1 FAQ
 
-### Map Aesthetic To Different Columns
+### Map aesthetic to different columns
 
 The most frequently asked question goes something like this: *I have two variables in my data.frame, and I'd like to plot them as separate points, with different color depending on which variable it is. How do I do that?*
 
@@ -616,9 +616,9 @@ ggplot(home.land.byyear,
 ```
 
 
-## Putting It All Together
+## Putting it all together
 
-### Challenge: Recreate This `Economist` Graph
+### Challenge: recreate this `Economist` graph
 
 <R/Rgraphics/images/Economist1.pdf>
 
@@ -626,7 +626,7 @@ Graph source: <http://www.economist.com/node/21541178>
 
 Building off of the graphics you created in the previous exercises, put the finishing touches to make it as close as possible to the original economist graph.
 
-### Challenge Solution:
+### Challenge solution:
 
 Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot loogs like this:
 
@@ -921,7 +921,7 @@ Comparing it to the original suggests that we've got most of the important eleme
 
 ## Exercise solutions
 
-### Ex 0 prototype:
+### Ex 0: prototype
 
 1.  Create a scatter plot with CPI on the x axis and HDI on the y axis.
 
@@ -958,7 +958,7 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 geom_point(aes(color = Region, size =  HDI.Rank))
 ```
 
-### Ex 1 prototype:
+### Ex 1: prototype
 
 1.  Re-create a scatter plot with CPI on the x axis and HDI on the y axis (as you did in the previous exercise).
 
@@ -999,7 +999,7 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_smooth(span = .4)
 ```
 
-### Ex 2 prototype
+### Ex 2: prototype
 
 1.  Create a scatter plot with CPI on the x axis and HDI on the y axis. Color the points to indicate region.
 
