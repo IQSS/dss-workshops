@@ -93,11 +93,11 @@ you are looking for should appear in a pop up!
 
 1.  Try to get R to add 2 plus 2.
 ```{r}
-
+##
 ```
 2.  Try to calculate the square root of 10.
 ```{r}
-
+##
 ```
 3.  R includes extensive documentation, including a manual named "An
     introduction to R". Use the RStudio help pane. to locate this manual.
@@ -223,12 +223,21 @@ A cleaned and merged version of these data is available at
 Make sure you have installed the `readr` package and attached it with `library(readr)`. Baby names data are available at `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`.
 
 1. Open the `read_csv` help page to determine how to use it to read in data.
+```{r}
+##
+```
 
 2. Read the baby names data using the `read_csv` function and assign the result 
 with the name `baby_names`.
+```{r}
+##
+```
 
 3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
 and as an R data set `babynames.rds`.
+```{r}
+##
+```
 
 
 ## Popularity of your name
@@ -320,19 +329,19 @@ Make sure you have installed the `dplyr` package and attached it with `library(d
 
 1.  Use `filter` to extract data for your name (or another name of your choice).  
 ```{r}
-
+##
 ```
 
 2.  Arrange the data you produced in step 1 above by `Count`. 
     In which year was the name most popular?
 ```{r}
-
+##
 ```
 
 3.  BONUS (optional): Filter the data to extract *only* the 
      row containing the most popular boys name in 1999.
 ```{r}
-
+##
 ```
 
 
@@ -368,7 +377,7 @@ for the year your name reached its maximum popularity. For that, we filtered
 the data and then arranged by `Count.`
 
 ```{r}
-
+##
 ```
 
 
@@ -416,13 +425,13 @@ have attached it using `library(ggplot2)`.
 
 1.  Use `filter` to extract data for your name (same as previous exercise)
 ```{r}
-#
+##
 ```
 
 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
     and `Count` on the y-axis.
 ```{r}
-#
+##
 ```
 
 3. Adjust the plot so that is shows boys and girls in different colors.
@@ -448,26 +457,55 @@ The `mutate` function makes it easy to add or modify the columns
 of a `data.frame`. For example, we can use it compute the 
 log of the number of boys and girls given each name in each year:
 
-```{r, eval = FALSE}
-baby.names <- mutate(baby.names, logCount = Count/1000)
-baby.names
+```{r}
+baby_names <- mutate(baby_names, logCount = Count/1000)
+baby_names # same as print(baby_names)
+```
+
+Notice that executing the second line led to printing all 1.35 mln
+rows in our `data.frame`! If we would just like to glance at the
+first 6 lines we can use `head()`:
+
+```{r}
+head(baby_names) 
+```
+
+Finally, the `select()` function allows us to subset the `data.frame`
+by columns. We can then assign the output to a new object.  
+
+```{r}
+baby_names_logCount <- select(baby_names, Name, Sex, Year, logCount)
+head(baby_names_logCount)
+```
+
+`select` can also be used with pipes.
+
+```{r}
+baby_names %>% 
+  select(Name, Sex, Year, logCount) %>%
+  head
 ```
 
 ### Operating by group
 
 Because of the nested nature of out data, we want to compute rank 
-or proportion  within each `Sex` `X` `Year` group. The `dplyr` 
-package makes this relatively easy.
+or proportion  within each `Sex` by `Year` group. The `dplyr` 
+package makes this relatively straightforward.
 
 
-```{r, eval = FALSE}
-baby.names <- mutate(group_by(baby.names, Year, Sex),
-                     Rank = rank(Count))
+```{r}
+baby_names <- 
+  baby_names %>%
+  group_by(Year, Sex) %>%
+  mutate(Rank = rank(Count))
+
+head(baby_names)
 ```
 
 Note that the data remains grouped until you change the groups by
-running `group_by` again or remove grouping information with
-`ungroup`.
+running `group_by()` again or remove grouping information with
+`ungroup()`.
+
 
 ## Exercise 4
 
@@ -475,34 +513,33 @@ running `group_by` again or remove grouping information with
 
 In this exercise your goal is to identify the most popular names for each year.
 
-1.  Use `mutate` and `group_by` to create a column named "Proportion"
+1.  Use `mutate()` and `group_by()` to create a column named "Proportion"
     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
-```{r, eval = FALSE}
-##
+    Use pipes wherever it makes sense.
+```{r}
+## baby_names <- baby_names %>% ungroup
 ```
 
-2.  Use `mutate` and `group_by` to create a column named "Rank" where 
+2.  Use `mutate()` and `group_by()` to create a column named "Rank" where 
     `Rank = rank(-Count)` for each `Year X Sex` group. 
-
-```{r, eval = FALSE}
+```{r}
 ##
 ```
 
 3.  Filter the baby names data to display only the most popular name 
     for each `Year X Sex` group.
-```{r, eval = FALSE}
+```{r}
 ##
 ```
 
 4. Plot the data produced in step 4, putting `Year` on the x-axis
     and `Proportion` on the y-axis. How has the proportion of babies
     given the most popular name changed over time?
-```{r, eval = FALSE}
+```{r}
 ##
 ```
 
 5. BONUS (optional): Which names are the most popular for both boys and girls?
-
 
 
 ## Percent choosing one of the top 10 names
@@ -513,16 +550,29 @@ compute a more robust measure of the popularity of the most popular
 names by calculating the number of babies given one of the top 10 girl
 or boy names of the year.
 
-In order to compute this measure we need to operate within goups, as
-we did using `mutate` above, but this time we need to collapse each
-group into a single summary statistic. We can achive this using the
-`summarize` function. For example, we can calculate the number of
-babies born each year:
+In order to compute this measure we need to operate within groups, as
+we did using `mutate()` above, but this time we need to collapse each
+group into a single summary statistic. We can achieve this using the
+`summarize()` function. 
 
-```{r, eval = FALSE}
-bn.by.year <- summarize(group_by(baby.names, Year),
-                       Total = sum(Count))
-bn.by.year
+First, let's see how this funciton works without grouping. The following 
+code outputs the total number of girls and boys in the data:
+```{r}
+baby_names %>% 
+  summarize(Girls_n = sum(Sex=="Girls"),
+            Boys_n = sum(Sex=="Boys"))
+```
+
+Next, using `group_by()` and `summarize()` together, we can calculate the 
+number of babies born each year:
+
+```{r}
+bn_by_year <-
+  baby_names %>%
+  group_by(Year) %>%
+  summarize(Total = sum(Count))
+
+head(bn_by_year)
 ```
 
 
@@ -530,24 +580,26 @@ bn.by.year
 
 **Popularity of most popular names**
 
-In this exercise we will plot trends in the proportion of boys and girls given one of the 10 most popular names each year.
+In this exercise we will plot trends in the proportion of boys and girls 
+given one of the 10 most popular names each year.
 
-1.  Filter the baby.names data, retaining only the 10 most popular girl
+1.  Filter the `baby_names` data, retaining only the 10 most popular girl
     and boy names for each year.
-```{r, eval = FALSE}
+```{r}
 ##
 ```
 
 2.  Summarize the data produced in step one to calculate the total
     Proportion of boys and girls given one of the top 10 names
     each year.
-```{r, eval = FALSE}
+```{r}
 ##
 ```
 
 3.  Plot the data produced in step 2, with year on the x-axis
-    and total proportion on the y axis. Color by sex.
-```{r, eval = FALSE}
+    and total proportion on the y axis. Color by sex and notice
+    the trend.
+```{r}
 ##
 ```
 
@@ -559,12 +611,15 @@ save those changes to a file.
 
 ### Saving individual datasets
 
-```{r, eval = FALSE}
+You might find functions `write_csv()` and `write_rds()` from package 
+`readr` handy!
+
+```{r}
 # write data to a .csv file
 write_csv(baby.names, "babyNames.csv")
 ```
 
-```{r, eval = FALSE}
+```{r}
 # write data to an R file
 write_rds(baby.names, "babyNames.rds")
 ```
@@ -574,14 +629,14 @@ write_rds(baby.names, "babyNames.rds")
 In addition to importing individual datasets, R can save and load entire
 workspaces
 
-```{r, eval = FALSE}
+```{r}
 ls() # list objects in our workspace
 save.image(file="myWorkspace.RData") # save workspace 
 rm(list=ls()) # remove all objects from our workspace 
 ls() # list stored objects to make sure they are deleted
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## Load the "myWorkspace.RData" file and check that it is restored
 load("myWorkspace.RData") # load myWorkspace.RData
 ls() # list objects
@@ -591,14 +646,14 @@ ls() # list objects
 
 ### Ex 0: prototype
 
-```{r, eval = FALSE}
+```{r}
 ## 1. 2 plus 2
 2 + 2
 ## or
 sum(2, 2)
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## 2. square root of 10:
 sqrt(10)
 ## or
@@ -606,59 +661,59 @@ sqrt(10)
 ```
 
 
-```{r, eval = FALSE}
+```{r}
 ## 3. Find "An Introduction to R".
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## Go to the main help page by running 'help.start() or using the GUI
 ## menu, find and click on the link to "An Introduction to R".
 ```
 
-```{r, eval = FALSE}
-
+```{r}
+##
 ```
 
 ### Ex 1: prototype
 
-```{r, eval = FALSE}
+```{r}
 ## read ?read_csv
 ```
 
-```{r, eval = FALSE}
+```{r}
 baby_names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
 ```
 
 ### Ex 2: prototype
 
-```{r, eval = FALSE}
+```{r}
 # 1.  Use `filter` to extract data for your name (or another name of your choice).  
 ```
 
-```{r, eval = FALSE}
+```{r}
 baby_names_george <- filter(baby_names, Name == "George")
 ```
 
-```{r, eval = FALSE}
+```{r}
 # 2.  Arrange the data you produced in step 1 above by `Count`. 
 #     In which year was the name most popular?
 ```
 
-```{r, eval = FALSE}
+```{r}
 arrange(baby_names_george, desc(Count))
 ```
 
-```{r, eval = FALSE}
+```{r}
 # 3.  BONUS (optional): Filter the data to extract _only_ the 
 #     row containing the most popular boys name in 1999.
 ```
 
-```{r, eval = FALSE}
+```{r}
 baby_names_boys_1999 <- filter(baby_names, 
                     Year == 1999 & Sex == "Boys")
 ```
 
-```{r, eval = FALSE}
+```{r}
 filter(baby_names_boys_1999, Count == max(Count))
 ```
 
@@ -673,136 +728,136 @@ baby_names %>%
 
 ### Ex 3: prototype
 
-```{r, eval = FALSE}
+```{r}
 # 1. Use `filter` to extract data for your name (same as previous exercise)  
 ```
 
-```{r, eval = FALSE}
+```{r}
 george <- filter(baby.names, Name == "George")
 ```
 
-```{r, eval = FALSE}
+```{r}
 # 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
 #     and `Count` on the y-axis.
 ```
 
-```{r, eval = FALSE}
+```{r}
 qplot(x = Year, y = Count, data = george)
 ```
 
-```{r, eval = FALSE}
+```{r}
 # 3. Adjust the plot so that is shows boys and girls in different colors.
 ```
 
-```{r, eval = FALSE}
+```{r}
 qplot(x = Year, y = Count, color = Sex, data = george)
 ```
 
-```{r, eval = FALSE}
+```{r}
 # 4.  BONUS (Optional): Adust the plot to use lines instead of points.
 ```
 
-```{r, eval = FALSE}
+```{r}
 qplot(x = Year, y = Count, color = Sex, data = george, geom = "line")
 ```
 
-```{r, eval = FALSE}
-
+```{r}
+##
 ```
 
 ### Ex 4: prototype
 
-```{r, eval = FALSE}
+```{r}
 ## 1.  Use `mutate` and `group_by` to create a column named "Proportion"
 ##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 ```
 
-```{r, eval = FALSE}
+```{r}
 baby.names <- mutate(group_by(baby.names, Year, Sex),
                      Proportion = Count/sum(Count))
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## 2.  Use `mutate` and `group_by` to create a column named "Rank" where 
 ##     `Rank = rank(-Count)` for each `Year X Sex` group.
 ```
 
-```{r, eval = FALSE}
+```{r}
 baby.names <- mutate(group_by(baby.names, Year, Sex),
                      Rank = rank(-Count))
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## 3.  Filter the baby names data to display only the most popular name 
 ##     for each `Year X Sex` group.
 ```
 
-```{r, eval = FALSE}
+```{r}
 top1 <- filter(baby.names, Rank == 1)
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## 4. Plot the data produced in step 3, putting `Year` on the x-axis
 ##    and `Proportion` on the y-axis. How has the proportion of babies
 ##    given the most popular name changed over time?
 ```
 
-```{r, eval = FALSE}
+```{r}
 qplot(x = Year, y = Proportion, color = Sex, 
       data = top1, 
       geom = "line")
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## 5. BONUS (optional): Which names are the most popular for both boys 
 ##    and girls?
 ```
 
-```{r, eval = FALSE}
+```{r}
 girls.and.boys <- inner_join(filter(baby.names, Sex == "Boys"), 
                              filter(baby.names, Sex == "Girls"),
                              by = c("Year", "Name"))
 ```
 
-```{r, eval = FALSE}
+```{r}
 girls.and.boys <- mutate(girls.and.boys,
                          Product = Count.x * Count.y,
                          Rank = rank(-Product))
 ```
 
-```{r, eval = FALSE}
+```{r}
 filter(girls.and.boys, Rank == 1)
 ```
 
 ### Ex 5: prototype
 
-```{r, eval = FALSE}
+```{r}
 ## 1.  Filter the baby.names data, retaining only the 10 most 
 ##     popular girl and boy names for each year.
 ```
 
-```{r, eval = FALSE}
+```{r}
 most.popular <- filter(group_by(baby.names, Year, Sex),
                        Rank <= 10)
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## 2.  Summarize the data produced in step one to calculate the total
 ##     Proportion of boys and girls given one of the top 10 names
 ##     each year.
 ```
 
-```{r, eval = FALSE}
+```{r}
 top10 <- summarize(group_by(most.popular, Year, Sex),
                    TotalProportion = sum(Proportion))
 ```
 
-```{r, eval = FALSE}
+```{r}
 ## 3.  Plot the data produced in step 2, with year on the x-axis
 ##     and total proportion on the y axis. Color by sex.
 ```
 
-```{r, eval = FALSE}
+```{r}
 qplot(x = Year, y = TotalProportion, color = Sex,
       data = top10,
       geom = "line")

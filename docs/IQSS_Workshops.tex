@@ -356,10 +356,35 @@ you are looking for should appear in a pop up!
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   Try to get R to add 2 plus 2.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Try to calculate the square root of 10.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   R includes extensive documentation, including a manual named ``An
   introduction to R''. Use the RStudio help pane. to locate this manual.
@@ -514,17 +539,48 @@ with \texttt{library(readr)}. Baby names data are available at
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   Open the \texttt{read\_csv} help page to determine how to use it to
   read in data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Read the baby names data using the \texttt{read\_csv} function and
   assign the result with the name \texttt{baby\_names}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   BONUS (optional): Save the \texttt{baby\_names} data as a Stata data
   set \texttt{babynames.dta} and as an R data set
   \texttt{babynames.rds}.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Popularity of your name}\label{popularity-of-your-name}
 
@@ -631,16 +687,47 @@ with \texttt{library(dplyr)}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   Use \texttt{filter} to extract data for your name (or another name of
   your choice).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Arrange the data you produced in step 1 above by \texttt{Count}. In
   which year was the name most popular?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   BONUS (optional): Filter the data to extract \emph{only} the row
   containing the most popular boys name in 1999.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Pipe operator in R}\label{pipe-operator-in-r}
 
@@ -675,6 +762,12 @@ entire task in just ``one line''!
 Rewrite the solution to Exercise 2 using pipes. Remember that we were
 looking for the year your name reached its maximum popularity. For that,
 we filtered the data and then arranged by \texttt{Count.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Plotting baby name trends over
 time}\label{plotting-baby-name-trends-over-time}
@@ -738,7 +831,7 @@ attached it using \texttt{library(ggplot2)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#}
+\NormalTok{##}
 \end{Highlighting}
 \end{Shaded}
 
@@ -753,7 +846,7 @@ attached it using \texttt{library(ggplot2)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#}
+\NormalTok{##}
 \end{Highlighting}
 \end{Shaded}
 
@@ -797,27 +890,62 @@ the number of boys and girls given each name in each year:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby.names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(baby.names, }\DataTypeTok{logCount =}\NormalTok{ Count}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}
-\NormalTok{baby.names}
+\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(baby_names, }\DataTypeTok{logCount =}\NormalTok{ Count}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}
+\NormalTok{baby_names }\CommentTok{# same as print(baby_names)}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that executing the second line led to printing all 1.35 mln rows
+in our \texttt{data.frame}! If we would just like to glance at the first
+6 lines we can use \texttt{head()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(baby_names) }
+\end{Highlighting}
+\end{Shaded}
+
+Finally, the \texttt{select()} function allows us to subset the
+\texttt{data.frame} by columns. We can then assign the output to a new
+object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baby_names_logCount <-}\StringTok{ }\KeywordTok{select}\NormalTok{(baby_names, Name, Sex, Year, logCount)}
+\KeywordTok{head}\NormalTok{(baby_names_logCount)}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{select} can also be used with pipes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Sex, Year, logCount) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{head}
 \end{Highlighting}
 \end{Shaded}
 
 \subsection{Operating by group}\label{operating-by-group}
 
 Because of the nested nature of out data, we want to compute rank or
-proportion within each \texttt{Sex} \texttt{X} \texttt{Year} group. The
-\texttt{dplyr} package makes this relatively easy.
+proportion within each \texttt{Sex} by \texttt{Year} group. The
+\texttt{dplyr} package makes this relatively straightforward.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby.names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(baby.names, Year, Sex),}
-                     \DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(Count))}
+\NormalTok{baby_names <-}\StringTok{ }
+\StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(Count))}
+
+\KeywordTok{head}\NormalTok{(baby_names)}
 \end{Highlighting}
 \end{Shaded}
 
 Note that the data remains grouped until you change the groups by
-running \texttt{group\_by} again or remove grouping information with
-\texttt{ungroup}.
+running \texttt{group\_by()} again or remove grouping information with
+\texttt{ungroup()}.
 
 \section{Exercise 4}\label{exercise-4}
 
@@ -830,14 +958,15 @@ each year.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use \texttt{mutate} and \texttt{group\_by} to create a column named
-  ``Proportion'' where \texttt{Proportion\ =\ Count/sum(Count)} for each
-  \texttt{Year\ X\ Sex} group.
+  Use \texttt{mutate()} and \texttt{group\_by()} to create a column
+  named ``Proportion'' where \texttt{Proportion\ =\ Count/sum(Count)}
+  for each \texttt{Year\ X\ Sex} group. Use pipes wherever it makes
+  sense.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{##}
+\NormalTok{## baby_names <- baby_names %>% ungroup}
 \end{Highlighting}
 \end{Shaded}
 
@@ -846,8 +975,8 @@ each year.
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Use \texttt{mutate} and \texttt{group\_by} to create a column named
-  ``Rank'' where \texttt{Rank\ =\ rank(-Count)} for each
+  Use \texttt{mutate()} and \texttt{group\_by()} to create a column
+  named ``Rank'' where \texttt{Rank\ =\ rank(-Count)} for each
   \texttt{Year\ X\ Sex} group.
 \end{enumerate}
 
@@ -906,17 +1035,33 @@ compute a more robust measure of the popularity of the most popular
 names by calculating the number of babies given one of the top 10 girl
 or boy names of the year.
 
-In order to compute this measure we need to operate within goups, as we
-did using \texttt{mutate} above, but this time we need to collapse each
-group into a single summary statistic. We can achive this using the
-\texttt{summarize} function. For example, we can calculate the number of
-babies born each year:
+In order to compute this measure we need to operate within groups, as we
+did using \texttt{mutate()} above, but this time we need to collapse
+each group into a single summary statistic. We can achieve this using
+the \texttt{summarize()} function.
+
+First, let's see how this funciton works without grouping. The following
+code outputs the total number of girls and boys in the data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bn.by.year <-}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(baby.names, Year),}
-                       \DataTypeTok{Total =} \KeywordTok{sum}\NormalTok{(Count))}
-\NormalTok{bn.by.year}
+\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Girls_n =} \KeywordTok{sum}\NormalTok{(Sex}\OperatorTok{==}\StringTok{"Girls"}\NormalTok{),}
+            \DataTypeTok{Boys_n =} \KeywordTok{sum}\NormalTok{(Sex}\OperatorTok{==}\StringTok{"Boys"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Next, using \texttt{group\_by()} and \texttt{summarize()} together, we
+can calculate the number of babies born each year:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bn_by_year <-}
+\StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Year) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Total =} \KeywordTok{sum}\NormalTok{(Count))}
+
+\KeywordTok{head}\NormalTok{(bn_by_year)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -931,8 +1076,8 @@ given one of the 10 most popular names each year.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Filter the baby.names data, retaining only the 10 most popular girl
-  and boy names for each year.
+  Filter the \texttt{baby\_names} data, retaining only the 10 most
+  popular girl and boy names for each year.
 \end{enumerate}
 
 \begin{Shaded}
@@ -962,7 +1107,7 @@ given one of the 10 most popular names each year.
 \tightlist
 \item
   Plot the data produced in step 2, with year on the x-axis and total
-  proportion on the y axis. Color by sex.
+  proportion on the y axis. Color by sex and notice the trend.
 \end{enumerate}
 
 \begin{Shaded}
@@ -978,6 +1123,9 @@ save those changes to a file.
 
 \subsection{Saving individual
 datasets}\label{saving-individual-datasets}
+
+You might find functions \texttt{write\_csv()} and \texttt{write\_rds()}
+from package \texttt{readr} handy!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1048,6 +1196,12 @@ workspaces
 \begin{Highlighting}[]
 \NormalTok{## Go to the main help page by running 'help.start() or using the GUI}
 \NormalTok{## menu, find and click on the link to "An Introduction to R".}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1170,6 +1324,12 @@ workspaces
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ george, }\DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
 \end{Highlighting}
 \end{Shaded}
 
