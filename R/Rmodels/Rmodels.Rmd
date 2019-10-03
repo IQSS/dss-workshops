@@ -76,19 +76,29 @@ This is an intermediate R course:
 List the data files we're going to work with:
 
 ```{r}
-list.files("dataSets/")
+list.files("dataSets")
 ```
 
-We're going to use the `states` data first. The *states.dta* data comes from <http://anawida.de/teach/SS14/anawida/4.linReg/data/states.dta.txt> and appears to have originally appeared in *Statistics with Stata* by Lawrence C. Hamilton.
+We're going to use the `states` data first, which originally appeared in *Statistics with Stata* by Lawrence C. Hamilton.
 
 ```{r}
   # read the states data
   states.data <- read_rds("dataSets/states.rds") 
-  #get labels
-  states.info <- data.frame(attributes(states.data)[c("names", "var.labels")])
-  #look at last few labels
-  tail(states.info, 8)
 ```
+
+| variable | Description                                                                                        |
+|----------|----------------------------------------------------------------------------------------------------|
+| csat     | Mean composite SAT score                                                                           |
+| expense  | Per pupil expenditures                                                                             |
+| percent  | % HS graduates taking SAT                                                                          |
+| income   | Median household income, $1,000                                                                    |
+| region   | Geographic region: West, N. East, South, Midwest                                                   |
+| house    | House '91 environ. voting, %                                                                       |
+| senate   | Senate '91 environ. voting, %                                                                      |
+| energy   | Per capita energy consumed, Btu                                                                    |
+| metro    | Metropolitan area population, %                                                                    |
+| waste    | Per capita solid waste, tons                                                                       |
+
 
 ### Examine the data
 
