@@ -356,35 +356,10 @@ you are looking for should appear in a pop up!
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   Try to get R to add 2 plus 2.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
 \item
   Try to calculate the square root of 10.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
 \item
   R includes extensive documentation, including a manual named ``An
   introduction to R''. Use the RStudio help pane. to locate this manual.
@@ -409,7 +384,7 @@ The general form for calling R functions is
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)}
+\CommentTok{# FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -423,10 +398,10 @@ Values can be assigned names and used in subsequent operations
 \begin{itemize}
 \tightlist
 \item
-  The ``gets'' \texttt{\textless{}-} operator (less than followed by a
-  dash) is used to save values
+  The \textbf{gets} \texttt{\textless{}-} operator (less than followed
+  by a dash) is used to save values
 \item
-  The name on the left gets the value on the right.
+  The name on the left \textbf{gets} the value on the right.
 \end{itemize}
 
 \begin{Shaded}
@@ -447,6 +422,8 @@ You can ask R for help using the \texttt{help} function, or the
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{help}\NormalTok{(help)}
+\NormalTok{?help}
+\NormalTok{?sqrt}
 \end{Highlighting}
 \end{Shaded}
 
@@ -478,7 +455,7 @@ for a package for a specific task,
 are good places to start.
 
 You can install a package in R using the \texttt{install.packages()}
-function. Once a package is installed you may use the \texttt{library}
+function. Once a package is installed you may use the \texttt{library()}
 function to attach it so that it can be used.
 
 Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
@@ -542,9 +519,9 @@ with \texttt{library(readr)}. Baby names data are available at
   read in data.
 \item
   Read the baby names data using the \texttt{read\_csv} function and
-  assign the result with the name \texttt{baby.names}.
+  assign the result with the name \texttt{baby\_names}.
 \item
-  BONUS (optional): Save the \texttt{baby.names} data as a Stata data
+  BONUS (optional): Save the \texttt{baby\_names} data as a Stata data
   set \texttt{babynames.dta} and as an R data set
   \texttt{babynames.rds}.
 \end{enumerate}
@@ -554,18 +531,24 @@ with \texttt{library(readr)}. Baby names data are available at
 In this section we will pull out specific names and examine changes in
 their popularity over time.
 
-The \texttt{baby.names} object we created in the last exercise is a
+The \texttt{baby\_names} object we created in the last exercise is a
 \texttt{data.frame}. There are many other data structures in R, but for
 now we'll focus on working with \texttt{data.frames}.
 
 R has decent data manipulation tools built-in -- see e.g.,
-\texttt{help(Extract)}. However, these tools are powerful and complex
-and often overwhelm beginners. To make things easier on ourselves we
-will use a \emph{contributed package} called \texttt{dplyr} instead.
+\texttt{help(Extract)}. However, in recent years there has been a big
+surge in well-designed \emph{contributed packages} for R. In fact, the
+package \texttt{readr} is part of a powerful collection of R packages
+called \texttt{tidyverse}, which are designed specifically for data
+science . All packages included in \texttt{tidyverse} share an
+underlying design philosophy, grammar, and data structures.
+
+For this part we will load another \texttt{tidyverse} package called
+\texttt{dplyr}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## install.packages("dplyr")}
+\CommentTok{# install.packages("dplyr")}
 \KeywordTok{library}\NormalTok{(dplyr)}
 \end{Highlighting}
 \end{Shaded}
@@ -584,9 +567,9 @@ either ``Alex'' or ``Mark''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{am <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, }
+\NormalTok{baby_names_alexmark <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, }
 \NormalTok{             Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
-\NormalTok{am}
+\NormalTok{baby_names_alexmark}
 \end{Highlighting}
 \end{Shaded}
 
@@ -599,13 +582,13 @@ name is listed first.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{arrange}\NormalTok{(am, Count)}
+\KeywordTok{arrange}\NormalTok{(baby_names_alexmark, Count)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{arrange}\NormalTok{(am, }\KeywordTok{desc}\NormalTok{(Count))}
+\KeywordTok{arrange}\NormalTok{(baby_names_alexmark, }\KeywordTok{desc}\NormalTok{(Count))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -640,7 +623,7 @@ In this exercise you will discover the year your name reached its
 maximum popularity.
 
 Read in the ``babyNames.csv'' file if you have not already done so,
-assigning the result to \texttt{baby.names}. The file is located at
+assigning the result to \texttt{baby\_names}. The file is located at
 \texttt{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}
 
 Make sure you have installed the \texttt{dplyr} package and attached it
@@ -648,47 +631,50 @@ with \texttt{library(dplyr)}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   Use \texttt{filter} to extract data for your name (or another name of
   your choice).
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
 \item
   Arrange the data you produced in step 1 above by \texttt{Count}. In
   which year was the name most popular?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
 \item
   BONUS (optional): Filter the data to extract \emph{only} the row
   containing the most popular boys name in 1999.
 \end{enumerate}
 
+\section{Pipe operator in R}\label{pipe-operator-in-r}
+
+There is one very special operator in R called a ``pipe'' operator which
+looks like this: \texttt{\%\textgreater{}\%}. It allows to ``chain''
+several function calls and, as each funciton returns an object, feed it
+into the next call in a single statement, without needing extra
+variables to store the intermediate results. The point of the pipe is to
+help you write code in a way that is easier to read and understand as we
+will see below.
+
+There is no need to load any additional packages as the operator is made
+available via the \texttt{magrittr} package installed as part of
+\texttt{dplyr}. Let's rewrite the sequence of commands to output ordered
+counts for names ``Alex'' or ``Mark''.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{##}
+\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count))}
 \end{Highlighting}
 \end{Shaded}
+
+Hint: try pronouncing ``then'' whenever you see
+\texttt{\%\textgreater{}\%}. Notice that we avoided creating an
+intermediate variable \texttt{baby\_names\_alexmark} and performed the
+entire task in just ``one line''!
+
+\section{Exercise 2.2}\label{exercise-2.2}
+
+Rewrite the solution to Exercise 2 using pipes. Remember that we were
+looking for the year your name reached its maximum popularity. For that,
+we filtered the data and then arranged by \texttt{Count.}
 
 \section{Plotting baby name trends over
 time}\label{plotting-baby-name-trends-over-time}
@@ -697,12 +683,12 @@ It can be difficult to spot trends when looking at summary tables.
 Plotting the data makes it easier to identify interesting patterns.
 
 R has decent plotting tools built-in -- see e.g., \texttt{help(plot)}.
-However, To make things easier on ourselves we will use a
-\emph{contributed package} called \texttt{ggplot2} instead.
+However, again, we will make use of an excelent \emph{contributed
+package} from \texttt{tidyverse} called \texttt{ggplot2}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## install.packages("ggplot2")}
+\CommentTok{# install.packages("ggplot2")}
 \KeywordTok{library}\NormalTok{(ggplot2)}
 \end{Highlighting}
 \end{Shaded}
@@ -713,14 +699,14 @@ time like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diana <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Name }\OperatorTok{==}\StringTok{ "Diana"}\NormalTok{)}
+\NormalTok{baby_names_diana <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Name }\OperatorTok{==}\StringTok{ "Diana"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count,}
-     \DataTypeTok{data =}\NormalTok{ diana)}
+     \DataTypeTok{data =}\NormalTok{ baby_names_diana)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -731,7 +717,7 @@ Sex is very easy:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex,}
-      \DataTypeTok{data =}\NormalTok{ diana)}
+      \DataTypeTok{data =}\NormalTok{ baby_names_diana)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -752,7 +738,7 @@ attached it using \texttt{library(ggplot2)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{##}
+\CommentTok{#}
 \end{Highlighting}
 \end{Shaded}
 
@@ -767,7 +753,7 @@ attached it using \texttt{library(ggplot2)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{##}
+\CommentTok{#}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1075,7 +1061,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby.names <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}\NormalTok{)}
+\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1089,7 +1075,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
+\NormalTok{baby_names_george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1102,7 +1088,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{arrange}\NormalTok{(george, }\KeywordTok{desc}\NormalTok{(Count))}
+\KeywordTok{arrange}\NormalTok{(baby_names_george, }\KeywordTok{desc}\NormalTok{(Count))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1115,14 +1101,24 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{boys.}\DecValTok{1999}\NormalTok{ <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, }
+\NormalTok{baby_names_boys_}\DecValTok{1999}\NormalTok{ <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, }
 \NormalTok{                    Year }\OperatorTok{==}\StringTok{ }\DecValTok{1999} \OperatorTok{&}\StringTok{ }\NormalTok{Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(boys.}\DecValTok{1999}\NormalTok{, Count }\OperatorTok{==}\StringTok{ }\KeywordTok{max}\NormalTok{(Count))}
+\KeywordTok{filter}\NormalTok{(baby_names_boys_}\DecValTok{1999}\NormalTok{, Count }\OperatorTok{==}\StringTok{ }\KeywordTok{max}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ex 2.2: prototype}\label{ex-2.2-prototype}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1529,7 +1525,7 @@ appeared in \emph{Statistics with Stata} by Lawrence C. Hamilton.
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-variable & Description\tabularnewline
+Variable & Description\tabularnewline
 \midrule
 \endhead
 csat & Mean composite SAT score\tabularnewline
@@ -1967,7 +1963,7 @@ in Inner London. The variable names are as follows:
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-variable & Description\tabularnewline
+Variable & Description\tabularnewline
 \midrule
 \endhead
 school & School ID - a factor.\tabularnewline

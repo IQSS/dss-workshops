@@ -92,12 +92,12 @@ you are looking for should appear in a pop up!
 -------------------------------------------
 
 1.  Try to get R to add 2 plus 2.
-```{r, eval = FALSE}
-##
+```{r}
+
 ```
 2.  Try to calculate the square root of 10.
-```{r, eval = FALSE}
-##
+```{r}
+
 ```
 3.  R includes extensive documentation, including a manual named "An
     introduction to R". Use the RStudio help pane. to locate this manual.
@@ -117,8 +117,8 @@ Set your working directory so you don't have to type the full path names to your
 
 The general form for calling R functions is
 
-```{r, eval = FALSE}
-## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
+```{r}
+# FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
 ```
 
 Arguments can be matched by name; unnamed arguments will be matched by position.
@@ -127,10 +127,10 @@ Arguments can be matched by name; unnamed arguments will be matched by position.
 
 Values can be assigned names and used in subsequent operations
 
-* The "gets" `<-` operator (less than followed by a dash) is used to save values
-* The name on the left gets the value on the right.
+* The **gets** `<-` operator (less than followed by a dash) is used to save values
+* The name on the left **gets** the value on the right.
 
-```{r, eval = FALSE}
+```{r}
 sqrt(10) ## calculate square root of 10; result is not stored anywhere
 x <- sqrt(10) # assign result to a variable named x
 ```
@@ -142,15 +142,17 @@ Names should start with a letter, and contain only letters, numbers, underscores
 
 You can ask R for help using the `help` function, or the `?` shortcut.
 
-```{r, eval = FALSE}
+```{r}
 help(help)
+?help
+?sqrt
 ```
 
 The `help` function can be used to look up the documentation for a function, or
 to look up the documentation to a package. We can learn how to use the `stats`
 package by reading its documentation like this:
 
-```{r, eval = FALSE}
+```{r}
 help(package = "stats")
 ```
 
@@ -172,13 +174,13 @@ https://cran.r-project.org/web/views/ and https://r-pkg.org are good
 places to start.
 
 You can install a package in R using the `install.packages()`
-function. Once a package is installed you may use the `library`
+function. Once a package is installed you may use the `library()`
 function to attach it so that it can be used.
 
 Install the [tidyverse](https://www.tidyverse.org/) suite of packages
 and the `readr` package:
 
-```{r, eval = FALSE}
+```{r}
 # install.packages("tidyverse")
 library(tidyverse)
 # install.packages("readr")
@@ -223,9 +225,9 @@ Make sure you have installed the `readr` package and attached it with `library(r
 1. Open the `read_csv` help page to determine how to use it to read in data.
 
 2. Read the baby names data using the `read_csv` function and assign the result 
-with the name `baby.names`.
+with the name `baby_names`.
 
-3. BONUS (optional): Save the `baby.names` data as a Stata data set `babynames.dta` 
+3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
 and as an R data set `babynames.rds`.
 
 
@@ -234,17 +236,21 @@ and as an R data set `babynames.rds`.
 In this section we will pull out specific names and examine changes in 
 their popularity over time. 
 
-The `baby.names` object we created in the last exercise is a `data.frame`.
+The `baby_names` object we created in the last exercise is a `data.frame`.
 There are many other data structures in R, but for now we'll focus on 
 working with `data.frames`. 
 
 R has decent data manipulation tools built-in -- see e.g.,
-`help(Extract)`. However, these tools are powerful and complex and
-often overwhelm beginners. To make things easier on ourselves we will
-use a *contributed package* called `dplyr` instead.
+`help(Extract)`. However, in recent years there has been a big surge in 
+well-designed *contributed packages* for R. In fact, the package `readr` 
+is part of a powerful collection of R packages called `tidyverse`, which are 
+designed specifically for data science . All packages included in `tidyverse`
+share an underlying design philosophy, grammar, and data structures.
 
-```{r, eval = FALSE}
-## install.packages("dplyr")
+For this part we will load another `tidyverse` package called `dplyr`.
+
+```{r}
+# install.packages("dplyr")
 library(dplyr)
 ```
 
@@ -260,9 +266,9 @@ data so that we keep only rows where Year is equal to `1992` and Name is
 either "Alex" or "Mark".
 
 ```{r, eval = FALSE}
-am <- filter(baby.names, 
+baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
-am
+baby_names_alexmark
 ```
 
 
@@ -273,12 +279,12 @@ In this case it's pretty easy to see that "Mark" is more popular,
 but to make it even easier we can arrange the data so that the 
 most popular name is listed first.
 
-```{r, eval = FALSE}
-arrange(am, Count)
+```{r}
+arrange(baby_names_alexmark, Count)
 ```
 
-```{r, eval = FALSE}
-arrange(am, desc(Count))
+```{r}
+arrange(baby_names_alexmark, desc(Count))
 ```
 
 
@@ -307,26 +313,62 @@ These operators may be combined with `&` (and) or `|` (or).
 In this exercise you will discover the year your name reached its maximum popularity.
 
 Read in the "babyNames.csv" file if you have not already done so,
-assigning the result to `baby.names`. The file is located at 
+assigning the result to `baby_names`. The file is located at 
 `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`
 
 Make sure you have installed the `dplyr` package and attached it with `library(dplyr)`.
 
 1.  Use `filter` to extract data for your name (or another name of your choice).  
-```{r, eval = FALSE}
-##
+```{r}
+
 ```
 
 2.  Arrange the data you produced in step 1 above by `Count`. 
     In which year was the name most popular?
-```{r, eval = FALSE}
-##
+```{r}
+
 ```
 
 3.  BONUS (optional): Filter the data to extract *only* the 
      row containing the most popular boys name in 1999.
-```{r, eval = FALSE}
-##
+```{r}
+
+```
+
+
+## Pipe operator in R
+
+There is one very special operator in R called a "pipe" operator which 
+looks like this: `%>%`. It allows to "chain" several function calls and, 
+as each funciton returns an object, feed it into the next call in a single 
+statement, without needing extra variables to store the intermediate 
+results. The point of the pipe is to help you write code in a way that is
+easier to read and understand as we will see below.
+
+There is no need to load any additional packages as the operator is made 
+available via the `magrittr` package installed as part of `dplyr`. Let's 
+rewrite the sequence of commands to output ordered counts for names 
+"Alex" or "Mark".
+
+```{r}
+baby_names %>% 
+  filter(Year == 1992 & (Name == "Alex" | Name == "Mark")) %>%
+  arrange(desc(Count))
+```
+
+Hint: try pronouncing "then" whenever you see `%>%`. Notice that we avoided 
+creating an intermediate variable `baby_names_alexmark` and performed the 
+entire task in just "one line"!
+
+
+## Exercise 2.2
+
+Rewrite the solution to Exercise 2 using pipes. Remember that we were looking
+for the year your name reached its maximum popularity. For that, we filtered 
+the data and then arranged by `Count.`
+
+```{r}
+
 ```
 
 
@@ -336,32 +378,32 @@ It can be difficult to spot trends when looking at summary tables.
 Plotting the data makes it easier to identify interesting patterns.
 
 R has decent plotting tools built-in -- see e.g., `help(plot)`.
-However, To make things easier on ourselves we will use a *contributed
-package* called `ggplot2` instead.
+However, again, we will make use of an excelent *contributed
+package* from `tidyverse` called `ggplot2`.
 
-```{r, eval = FALSE}
-## install.packages("ggplot2")
+```{r}
+# install.packages("ggplot2")
 library(ggplot2)
 ```
 
 For quick and simple plots we can use the `qplot` function. For example,
 we can plot the number of babies given the name "Diana" over time like this:
 
-```{r, eval = FALSE}
-diana <- filter(baby.names, Name == "Diana")
+```{r}
+baby_names_diana <- filter(baby_names, Name == "Diana")
 ```
 
-```{r, eval = FALSE}
+```{r}
 qplot(x = Year, y = Count,
-     data = diana)
+     data = baby_names_diana)
 ```
 
 Interetingly there are usually some gender-atypical names, even for very strongly 
 gendered names like "Diana". Splitting these trends out by Sex is very easy:
 
-```{r, eval = FALSE}
+```{r}
 qplot(x = Year, y = Count, color = Sex,
-      data = diana)
+      data = baby_names_diana)
 ```
 
 
@@ -373,18 +415,18 @@ Make sure the `ggplot2` package is installed, and that you
 have attached it using `library(ggplot2)`.
 
 1.  Use `filter` to extract data for your name (same as previous exercise)
-```{r, eval = FALSE}
-##
+```{r}
+#
 ```
 
 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
     and `Count` on the y-axis.
-```{r, eval = FALSE}
-##
+```{r}
+#
 ```
 
 3. Adjust the plot so that is shows boys and girls in different colors.
-```{r, eval = FALSE}
+```{r}
 ##
 ```
 
@@ -584,7 +626,7 @@ sqrt(10)
 ```
 
 ```{r, eval = FALSE}
-baby.names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
+baby_names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
 ```
 
 ### Ex 2: prototype
@@ -594,7 +636,7 @@ baby.names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
 ```
 
 ```{r, eval = FALSE}
-george <- filter(baby.names, Name == "George")
+baby_names_george <- filter(baby_names, Name == "George")
 ```
 
 ```{r, eval = FALSE}
@@ -603,7 +645,7 @@ george <- filter(baby.names, Name == "George")
 ```
 
 ```{r, eval = FALSE}
-arrange(george, desc(Count))
+arrange(baby_names_george, desc(Count))
 ```
 
 ```{r, eval = FALSE}
@@ -612,13 +654,22 @@ arrange(george, desc(Count))
 ```
 
 ```{r, eval = FALSE}
-boys.1999 <- filter(baby.names, 
+baby_names_boys_1999 <- filter(baby_names, 
                     Year == 1999 & Sex == "Boys")
 ```
 
 ```{r, eval = FALSE}
-filter(boys.1999, Count == max(Count))
+filter(baby_names_boys_1999, Count == max(Count))
 ```
+
+### Ex 2.2: prototype
+
+```{r}
+baby_names %>% 
+  filter(Name == "George") %>%
+  arrange(desc(Count))
+```
+
 
 ### Ex 3: prototype
 
