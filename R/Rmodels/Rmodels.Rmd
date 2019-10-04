@@ -38,13 +38,18 @@ Start RStudio and create a new project:
 * Choose `Existing Directory` and browse to the `Rmodels` directory.
 * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
 
-Install the [tidyverse](https://www.tidyverse.org/) suite of packages and the `readr` package:
+While R's built-in packages are powerful, in recent years there has
+been a big surge in well-designed *contributed packages* for R.  
+In particular, a collection of R packages called 
+[tidyverse](https://www.tidyverse.org/) have been 
+designed specifically for data science. All packages included in 
+`tidyverse` share an underlying design philosophy, grammar, and 
+data structures. We will use `tidyverse` packages throughout the 
+workshop, so let's install them now:
 
 ```{r}
 # install.packages("tidyverse")
 library(tidyverse)
-# install.packages("readr")
-library(readr)
 ```
 
 Set your working directory so you don't have to type the full path names to your data and other files
@@ -87,7 +92,7 @@ We're going to use the `states` data first, which originally appeared in *Statis
 ```
 
 | Variable | Description                                        |
-|----------|----------------------------------------------------|
+|:---------|:---------------------------------------------------|
 | csat     | Mean composite SAT score                           |
 | expense  | Per pupil expenditures                             |
 | percent  | % HS graduates taking SAT                          |
@@ -369,7 +374,7 @@ Note that the data is not perfectly clean and ready to be modeled. You will need
 The Exam data set contans exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
 
 | Variable | Description                             |
-|----------|-----------------------------------------|
+|:---------|:----------------------------------------|
 | school   | School ID - a factor.                   |
 | normexam | Normalized exam score.                  |
 | standLRT | Standardised LR test score.             |
@@ -547,7 +552,7 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 
 Use the dataset, bh1996:
 
-```{r eval=FALSE}
+```{r}
   data(bh1996, package="multilevel")
 ```
 
@@ -559,7 +564,7 @@ Note that the group identifier is named "GRP".
 
 1.  Create a null model predicting wellbeing ("WBEING")
 
-```{r eval=FALSE}
+```{r}
   library(lme4)
   mod.grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
   summary(mod.grp0)
@@ -567,14 +572,14 @@ Note that the group identifier is named "GRP".
 
 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked ("HRS") and leadership skills ("LEAD") to the model and interpret your output.
 
-```{r eval=FALSE}
+```{r}
   mod.grp1 <- lmer(WBEING ~ HRS + LEAD + (1 | GRP), data = bh1996)
   summary(mod.grp1)
 ```
 
 3.  Now, add a random effect of average number of hours worked ("HRS") to the model and interpret your output. Test the significance of this random term.
 
-```{r eval=FALSE}
+```{r}
   mod.grp2 <- lmer(WBEING ~ HRS + LEAD + (1 + HRS | GRP), data = bh1996)
   anova(mod.grp1, mod.grp2)
 ```
