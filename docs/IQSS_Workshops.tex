@@ -769,7 +769,7 @@ entire task in just ``one line''!
 
 \section{Exercise 2.2}\label{exercise-2.2}
 
-Rewrite the solution to Exercise 2 using pipes. Remember that we were
+Rewrite the solution to Exercise 2.1 using pipes. Remember that we were
 looking for the year your name reached its maximum popularity. For that,
 we filtered the data and then arranged by \texttt{Count.}
 
@@ -874,6 +874,12 @@ that you have attached them using \texttt{library(tidyverse)}.
 \item
   BONUS (Optional): Adust the plot to use lines instead of points.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Finding the most popular
 names}\label{finding-the-most-popular-names}
@@ -1018,6 +1024,12 @@ each year.
   BONUS (optional): Which names are the most popular for both boys and
   girls?
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Percent choosing one of the top 10
 names}\label{percent-choosing-one-of-the-top-10-names}
@@ -1721,7 +1733,7 @@ appeared in \emph{Statistics with Stata} by Lawrence C. Hamilton.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# read the states data}
-\NormalTok{  states.data <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{) }
+\NormalTok{  states_data <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1750,10 +1762,10 @@ Start by examining the data to check for problems.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# summary of expense and csat columns, all rows}
-\NormalTok{  sts.ex.sat <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states.data, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"expense"}\NormalTok{, }\StringTok{"csat"}\NormalTok{))}
+\NormalTok{  sts_ex_sat <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states_data, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"expense"}\NormalTok{, }\StringTok{"csat"}\NormalTok{))}
   \KeywordTok{summary}\NormalTok{(sts.ex.sat)}
   \CommentTok{# correlation between expense and csat}
-  \KeywordTok{cor}\NormalTok{(sts.ex.sat) }
+  \KeywordTok{cor}\NormalTok{(sts_ex_sat) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1765,7 +1777,7 @@ relationships etc.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# scatter plot of expense vs csat}
-  \KeywordTok{plot}\NormalTok{(sts.ex.sat)}
+  \KeywordTok{plot}\NormalTok{(sts_ex_sat)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1791,11 +1803,11 @@ outcomes}\label{regression-with-continuous-outcomes}
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# Fit our regression model}
-\NormalTok{  sat.mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense, }\CommentTok{# regression formula}
-                \DataTypeTok{data=}\NormalTok{states.data) }\CommentTok{# data }
+\NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense, }\CommentTok{# regression formula}
+                \DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# data }
                 
   \CommentTok{# Summarize and print the results}
-  \KeywordTok{summary}\NormalTok{(sat.mod) }\CommentTok{# show regression coefficients table}
+  \KeywordTok{summary}\NormalTok{(sat_mod) }\CommentTok{# show regression coefficients table}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1812,7 +1824,8 @@ SAT?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{percent, }\DataTypeTok{data =}\NormalTok{ states.data))}
+  \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{percent, }\DataTypeTok{data =}\NormalTok{ states_data) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summary}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1829,10 +1842,10 @@ OK, we fit our model. Now what?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{class}\NormalTok{(sat.mod)}
-  \KeywordTok{str}\NormalTok{(sat.mod)}
-  \KeywordTok{names}\NormalTok{(sat.mod)}
-  \KeywordTok{methods}\NormalTok{(}\DataTypeTok{class =} \KeywordTok{class}\NormalTok{(sat.mod))}
+  \KeywordTok{class}\NormalTok{(sat_mod)}
+  \KeywordTok{str}\NormalTok{(sat_mod)}
+  \KeywordTok{names}\NormalTok{(sat_mod)}
+  \KeywordTok{methods}\NormalTok{(}\DataTypeTok{class =} \KeywordTok{class}\NormalTok{(sat_mod))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1844,10 +1857,10 @@ OK, we fit our model. Now what?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{summary}\NormalTok{(sat.mod)}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.mod))}
+  \KeywordTok{summary}\NormalTok{(sat_mod)}
+  \KeywordTok{summary}\NormalTok{(sat_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
   \KeywordTok{methods}\NormalTok{(}\StringTok{"summary"}\NormalTok{)}
-  \KeywordTok{confint}\NormalTok{(sat.mod)}
+  \KeywordTok{confint}\NormalTok{(sat_mod)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1867,7 +1880,7 @@ assumptions}\label{ols-regression-assumptions}
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) }
-  \KeywordTok{plot}\NormalTok{(sat.mod)}
+  \KeywordTok{plot}\NormalTok{(sat_mod)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1879,13 +1892,14 @@ expense? Fit two models and compare them:
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# fit another model, adding house and senate as predictors}
-\NormalTok{  sat.voting.mod <-}\StringTok{  }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{house }\OperatorTok{+}\StringTok{ }\NormalTok{senate,}
-                        \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states.data))}
-\NormalTok{  sat.mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat.mod, }\DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(states.data))}
+\NormalTok{  sat_voting_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{house }\OperatorTok{+}\StringTok{ }\NormalTok{senate,}
+                        \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states_data))}
+
+\NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat_mod, }\DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(states_data))}
 
   \CommentTok{# compare using the anova() function}
-  \KeywordTok{anova}\NormalTok{(sat.mod, sat.voting.mod)}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.voting.mod))}
+  \KeywordTok{anova}\NormalTok{(sat_mod, sat_voting_mod)}
+  \KeywordTok{summary}\NormalTok{(sat_voting_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1925,10 +1939,11 @@ the median income in the state?
 \begin{Shaded}
 \begin{Highlighting}[]
     \CommentTok{# Add the interaction to the model}
-\NormalTok{  sat.expense.by.percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states.data)}
-\NormalTok{  sat.expense.by.percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states.data) }
-  \CommentTok{# Show the results}
-    \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.expense.by.percent)) }\CommentTok{# show regression coefficients table}
+\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data)}
+\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# same as above, but shorter syntax}
+
+  \CommentTok{# Show the regression coefficients table}
+  \KeywordTok{summary}\NormalTok{(sat_expense_by_percent) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1942,15 +1957,15 @@ is numeric.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# make sure R knows region is categorical}
-  \KeywordTok{str}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region)}
-\NormalTok{  states.data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region)}
+  \KeywordTok{str}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
+\NormalTok{  states_data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
 
   \CommentTok{# Add region to the model}
-\NormalTok{  sat.region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states.data) }
+\NormalTok{  sat_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data) }
 
   \CommentTok{# Show the results}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(sat.region)) }\CommentTok{# show regression coefficients table}
-  \KeywordTok{anova}\NormalTok{(sat.region) }\CommentTok{# show ANOVA table}
+  \KeywordTok{summary}\NormalTok{(sat_region) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }\CommentTok{# show the regression coefficients table}
+  \KeywordTok{anova}\NormalTok{(sat_region) }\CommentTok{# show ANOVA table}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1968,29 +1983,29 @@ scheme using the \texttt{C} function.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# print default contrasts}
-  \KeywordTok{contrasts}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region)}
+  \KeywordTok{contrasts}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
 
   \CommentTok{# change the reference group}
-\NormalTok{  states.data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states.data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"Midwest"}\NormalTok{)}
-\NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states.data)}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(m1))}
-
-  \CommentTok{# drop the intercept to get group means}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{0} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states.data)))}
+\NormalTok{  states_data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"Midwest"}\NormalTok{)}
+\NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data)}
+  \KeywordTok{summary}\NormalTok{(m1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 
   \CommentTok{# get all pairwise contrasts between means}
   \CommentTok{# install.packages("emmeans")}
   \KeywordTok{library}\NormalTok{(emmeans)}
 \NormalTok{  means <-}\StringTok{ }\KeywordTok{emmeans}\NormalTok{(m1, }\DataTypeTok{specs =} \OperatorTok{~}\StringTok{ }\NormalTok{region)}
+\NormalTok{  means}
   \KeywordTok{contrast}\NormalTok{(means, }\DataTypeTok{method =} \StringTok{"pairwise"}\NormalTok{)}
 
   \CommentTok{# change the coding scheme}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\KeywordTok{C}\NormalTok{(region, contr.helmert), }\DataTypeTok{data=}\NormalTok{states.data)))}
+  \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\KeywordTok{C}\NormalTok{(region, contr.helmert), }\DataTypeTok{data=}\NormalTok{states_data) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summary}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-See also \texttt{?contrasts}, \texttt{?contr.treatment}, and
-\texttt{?relevel}.
+See \texttt{?contr.treatment} for other coding schemes and also
+\texttt{?contrasts} and \texttt{?relevel}.
 
 \section{Exercise 1}\label{exercise-1-1}
 
@@ -2050,12 +2065,14 @@ on age, sex, sleep, and bmi
 \begin{Highlighting}[]
   \KeywordTok{str}\NormalTok{(NH11}\OperatorTok{$}\NormalTok{hypev) }\CommentTok{# check stucture of hypev}
   \KeywordTok{levels}\NormalTok{(NH11}\OperatorTok{$}\NormalTok{hypev) }\CommentTok{# check levels of hypev}
+
   \CommentTok{# collapse all missing values to NA}
 \NormalTok{  NH11}\OperatorTok{$}\NormalTok{hypev <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(NH11}\OperatorTok{$}\NormalTok{hypev, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\StringTok{"2 No"}\NormalTok{, }\StringTok{"1 Yes"}\NormalTok{))}
+
   \CommentTok{# run our regression model}
-\NormalTok{  hyp.out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{sleep }\OperatorTok{+}\StringTok{ }\NormalTok{bmi,}
+\NormalTok{  hyp_out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{sleep }\OperatorTok{+}\StringTok{ }\NormalTok{bmi,}
                 \DataTypeTok{data =}\NormalTok{ NH11, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
-  \KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(hyp.out))}
+  \KeywordTok{summary}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2073,9 +2090,9 @@ interpret
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  hyp.out.tab <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(hyp.out))}
-\NormalTok{  hyp.out.tab[, }\StringTok{"Estimate"}\NormalTok{] <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(hyp.out))}
-\NormalTok{  hyp.out.tab}
+\NormalTok{  hyp_out_tab <-}\StringTok{ }\KeywordTok{summary}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
+\NormalTok{  hyp_out_tab[, }\StringTok{"Estimate"}\NormalTok{] <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{exp}\NormalTok{()}
+\NormalTok{  hyp_out_tab}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2088,8 +2105,8 @@ compute quantities of interest for us.
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{library}\NormalTok{(effects)}
-\NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp.out)}
-\NormalTok{  eff2 <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp.out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(age_p, }\KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
+\NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out)}
+\NormalTok{  eff2 <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(age_p, }\KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
   \KeywordTok{plot}\NormalTok{(eff)}
   \KeywordTok{as.data.frame}\NormalTok{(eff) }\CommentTok{# confidence intervals}
 \end{Highlighting}
@@ -2191,7 +2208,7 @@ structure, but no fixed-effects predictors).
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# null model, grouping by school but not fixed effects.}
-\NormalTok{  Norm1 <-}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{school),}
+\NormalTok{  Norm1 <-}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school),}
                 \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
   \KeywordTok{summary}\NormalTok{(Norm1)}
 \end{Highlighting}
@@ -2201,8 +2218,19 @@ The is .169/(.169 + .848) = .17: 17\% of the variance is at the school
 level.
 
 There is no consensus on how to calculate p-values for MLMs; hence why
-they are omitted from the \texttt{lme4} output. But, we can calculate
-approximate p-values using the \texttt{lmerTest} package.
+they are omitted from the \texttt{lme4} output. But, if you really need
+p-values, the \texttt{lmerTest} package will calculate p-values for you
+(using the Satterthwaite approximation) and you can use the same model
+syntax:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# install.packages("lmerTest")}
+\NormalTok{  Norm1_test <-}\StringTok{ }\NormalTok{lmerTest}\OperatorTok{::}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school),}
+                      \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
+  \KeywordTok{summary}\NormalTok{(Norm1_test)}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Adding fixed-effects
 predictors}\label{adding-fixed-effects-predictors}
@@ -2271,8 +2299,8 @@ Use the dataset, bh1996:
 From the data documentation:
 
 \begin{quote}
-Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours
-(HRS), and cluster group (GRP).
+Variables are Leadership Climate (LEAD), Well-Being (WBEING), and Work
+Hours (HRS). The group identifier is named ``GRP''.
 \end{quote}
 
 \begin{enumerate}
@@ -2316,10 +2344,10 @@ percentage of residents living in metropolitan areas (metro). Be sure to
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  states.en.met <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"metro"}\NormalTok{, }\StringTok{"energy"}\NormalTok{))}
-  \KeywordTok{summary}\NormalTok{(states.en.met)}
-  \KeywordTok{plot}\NormalTok{(states.en.met)}
-  \KeywordTok{cor}\NormalTok{(states.en.met, }\DataTypeTok{use=}\StringTok{"pairwise"}\NormalTok{)}
+\NormalTok{  states_en_met <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"metro"}\NormalTok{, }\StringTok{"energy"}\NormalTok{))}
+  \KeywordTok{summary}\NormalTok{(states_en_met)}
+  \KeywordTok{plot}\NormalTok{(states_en_met)}
+  \KeywordTok{cor}\NormalTok{(states_en_met, }\DataTypeTok{use=}\StringTok{"pairwise"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2333,8 +2361,8 @@ percentage of residents living in metropolitan areas (metro). Be sure to
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod.en.met <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro, }\DataTypeTok{data =}\NormalTok{ states)}
-  \KeywordTok{summary}\NormalTok{(mod.en.met)}
+\NormalTok{  mod_en_met <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro, }\DataTypeTok{data =}\NormalTok{ states)}
+  \KeywordTok{summary}\NormalTok{(mod_en_met)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2349,7 +2377,7 @@ percentage of residents living in metropolitan areas (metro). Be sure to
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{plot}\NormalTok{(mod.en.met)}
+  \KeywordTok{plot}\NormalTok{(mod_en_met)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2359,13 +2387,14 @@ steps 1-3. Is this model significantly better than the model with
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  states.en.met.pop.wst <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"energy"}\NormalTok{, }\StringTok{"metro"}\NormalTok{, }\StringTok{"pop"}\NormalTok{, }\StringTok{"waste"}\NormalTok{))}
-  \KeywordTok{summary}\NormalTok{(states.en.met.pop.wst)}
-  \KeywordTok{plot}\NormalTok{(states.en.met.pop.wst)}
-  \KeywordTok{cor}\NormalTok{(states.en.met.pop.wst, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{)}
-\NormalTok{  mod.en.met.pop.waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{+}\StringTok{ }\NormalTok{pop }\OperatorTok{+}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
-  \KeywordTok{summary}\NormalTok{(mod.en.met.pop.waste)}
-  \KeywordTok{anova}\NormalTok{(mod.en.met, mod.en.met.pop.waste)}
+\NormalTok{  states_en_met_pop_wst <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"energy"}\NormalTok{, }\StringTok{"metro"}\NormalTok{, }\StringTok{"pop"}\NormalTok{, }\StringTok{"waste"}\NormalTok{))}
+  \KeywordTok{summary}\NormalTok{(states_en_met_pop_wst)}
+  \KeywordTok{plot}\NormalTok{(states_en_met_pop_wst)}
+  \KeywordTok{cor}\NormalTok{(states_en_met_pop_wst, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{)}
+
+\NormalTok{  mod_en_met_pop_waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{+}\StringTok{ }\NormalTok{pop }\OperatorTok{+}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
+  \KeywordTok{summary}\NormalTok{(mod_en_met_pop_waste)}
+  \KeywordTok{anova}\NormalTok{(mod_en_met, mod_en_met_pop_waste)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2383,7 +2412,7 @@ Use the states data set.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod.en.metro.by.waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
+\NormalTok{  mod_en_metro_by_waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2398,8 +2427,8 @@ Use the states data set.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod.en.region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste }\OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states)}
-  \KeywordTok{anova}\NormalTok{(mod.en.region)}
+\NormalTok{  mod_en_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste }\OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states)}
+  \KeywordTok{anova}\NormalTok{(mod_en_region)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2419,17 +2448,17 @@ least some of the variables before fitting the model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  nh11.wrk.age.mar <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(NH11, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"everwrk"}\NormalTok{, }\StringTok{"age_p"}\NormalTok{, }\StringTok{"r_maritl"}\NormalTok{))}
-  \KeywordTok{summary}\NormalTok{(nh11.wrk.age.mar)}
+\NormalTok{  nh11_wrk_age_mar <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(NH11, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"everwrk"}\NormalTok{, }\StringTok{"age_p"}\NormalTok{, }\StringTok{"r_maritl"}\NormalTok{))}
+  \KeywordTok{summary}\NormalTok{(nh11_wrk_age_mar)}
 
 \NormalTok{  NH11 <-}\StringTok{ }\KeywordTok{transform}\NormalTok{(NH11,}
                     \DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
                     \DataTypeTok{r_maritl =} \KeywordTok{droplevels}\NormalTok{(r_maritl))}
 
-\NormalTok{  mod.wk.age.mar <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(everwrk }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{r_maritl, }\DataTypeTok{data =}\NormalTok{ NH11,}
+\NormalTok{  mod_wk_age_mar <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(everwrk }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{r_maritl, }\DataTypeTok{data =}\NormalTok{ NH11,}
                         \DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
 
-  \KeywordTok{summary}\NormalTok{(mod.wk.age.mar)}
+  \KeywordTok{summary}\NormalTok{(mod_wk_age_mar)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2444,7 +2473,7 @@ least some of the variables before fitting the model.
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{library}\NormalTok{(effects)}
-  \KeywordTok{data.frame}\NormalTok{(}\KeywordTok{Effect}\NormalTok{(}\StringTok{"r_maritl"}\NormalTok{, mod.wk.age.mar))}
+  \KeywordTok{data.frame}\NormalTok{(}\KeywordTok{Effect}\NormalTok{(}\StringTok{"r_maritl"}\NormalTok{, mod_wk_age_mar))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2462,15 +2491,8 @@ From the data documentation:
 
 \begin{quote}
 Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being
-(WBEING) and Work Hours (HRS). Each of these variables has two variants
-- a group mean version that replicates each group mean for every
-individual, and a within-group version where the group mean is
-subtracted from each individual response. The group mean version is
-designated with a G. (e.g., G.HRS), and the within-group version is
-designated with a W. (e.g., W.HRS).
+(WBEING) and Work Hours (HRS). The group identifier is named ``GRP''.
 \end{quote}
-
-Note that the group identifier is named ``GRP''.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2482,8 +2504,8 @@ Note that the group identifier is named ``GRP''.
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{library}\NormalTok{(lme4)}
-\NormalTok{  mod.grp0 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
-  \KeywordTok{summary}\NormalTok{(mod.grp0)}
+\NormalTok{  mod_grp0 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+  \KeywordTok{summary}\NormalTok{(mod_grp0)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2499,8 +2521,8 @@ Note that the group identifier is named ``GRP''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod.grp1 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
-  \KeywordTok{summary}\NormalTok{(mod.grp1)}
+\NormalTok{  mod_grp1 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+  \KeywordTok{summary}\NormalTok{(mod_grp1)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2516,8 +2538,8 @@ Note that the group identifier is named ``GRP''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod.grp2 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
-  \KeywordTok{anova}\NormalTok{(mod.grp1, mod.grp2)}
+\NormalTok{  mod_grp2 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+  \KeywordTok{anova}\NormalTok{(mod_grp1, mod_grp2)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2544,6 +2566,20 @@ These workshops are a work in progress, please provide any feedback to:
   \item
     \href{https://iqss.github.io/dss-rce/}{Research Computing
     Environment}
+  \end{itemize}
+\item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://training.rcs.hbs.org/workshops}{Research Computing
+    Services workshops}
+  \item
+    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
+    resources}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}
 \end{itemize}
 
@@ -4105,6 +4141,20 @@ These workshops are a work in progress, please provide any feedback to:
     Environment}
   \end{itemize}
 \item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://training.rcs.hbs.org/workshops}{Research Computing
+    Services workshops}
+  \item
+    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
+    resources}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
+  \end{itemize}
+\item
   ggplot2
 
   \begin{itemize}
@@ -4818,6 +4868,20 @@ These workshops are a work in progress, please provide any feedback to:
   \item
     \href{https://iqss.github.io/dss-rce/}{Research Computing
     Environment}
+  \end{itemize}
+\item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://training.rcs.hbs.org/workshops}{Research Computing
+    Services workshops}
+  \item
+    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
+    resources}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}
 \item
   R
@@ -6290,20 +6354,6 @@ Harvard FAS affiliates can install a licensed version from
   Download and extract to your desktop!
 \end{itemize}
 
-Laptop users: you will need a copy of Stata installed on your machine
-Lab computer users: log in using your Harvard user name and password
-
-Everyone:
-
-\begin{itemize}
-\tightlist
-\item
-  Find class materials at
-  \url{http://tutorials.iq.harvard.edu/Stata/StataIntro.zip}
-\item
-  Download and extract to your desktop!
-\end{itemize}
-
 \subsection{Organization}\label{organization}
 
 \begin{itemize}
@@ -6311,25 +6361,15 @@ Everyone:
 \item
   Please feel free to ask questions at any point if they are relevant to
   the current topic (or if you are lost!)
-
-  \begin{itemize}
-  \tightlist
-  \item
-    There will be a Q\&A after class for more specific, personalized
-    questions
-  \end{itemize}
 \item
-  Collaboration with your neighbors is encouraged
+  Collaboration is encouraged - please introduce yourself to your
+  neighbors!
 \item
-  If you are using a laptop, you will need to adjust paths accordingly
+  If you are using a laptop, you will need to adjust file paths
+  accordingly
 \item
-  Make comments in your Do-file rather than on hand-outs
-
-  \begin{itemize}
-  \tightlist
-  \item
-    save on flash drive or email to yourself
-  \end{itemize}
+  Make comments in your Do-file - save on flash drive or email to
+  yourself
 \end{itemize}
 
 \subsection{Goals}\label{goals-6}
@@ -6341,7 +6381,7 @@ Everyone:
 \item
   Assumes no/very little knowledge of Stata
 \item
-  Not appropriate for people already well familiar with Stata
+  Not appropriate for people already familiar with Stata
 \item
   Learning Objectives:
 
@@ -6367,8 +6407,9 @@ Everyone:
 \item
   User-friendly
 \item
-  Great guides available on web (as well as in HMDC computer lab
-  library)
+  Great guides available on web
+\item
+  Excellent modeling capabilities
 \item
   Student and other discount packages available at reasonable cost
 \end{itemize}
@@ -6441,10 +6482,6 @@ Start with comment describing your Do-file and use comments throughout
 disp "Hello " "World!" // 'disp' is short for 'display'
 \end{verbatim}
 
-\begin{verbatim}
-Hello World!
-\end{verbatim}
-
 \begin{itemize}
 \tightlist
 \item
@@ -6454,10 +6491,6 @@ Hello World!
 \begin{verbatim}
 disp "Hello" ///
      " World!"
-\end{verbatim}
-
-\begin{verbatim}
-Hello World!
 \end{verbatim}
 
 \subsection{Let's get started}\label{lets-get-started}
@@ -6502,13 +6535,6 @@ use gss.dta, clear
 
 // save data file:
 save newgss.dta, replace // "replace" option means OK to overwrite existing file
-\end{verbatim}
-
-\begin{verbatim}
-/home/izahn/Documents/Work/Classes/IQSS_Stats_Workshops/Stata/StataIntro/dataSets
-
-
-file newgss.dta saved
 \end{verbatim}
 
 \subsection{A note about path names}\label{a-note-about-path-names}
@@ -6563,17 +6589,10 @@ import delimited gss.csv, clear
 export delimited gss_new.csv, replace
 \end{verbatim}
 
-\begin{verbatim}
-Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=gasp -Dswing.aatext=true -Dsun.java2d.opengl=true
-(7 vars, 451 obs)
-
-file gss_new.csv saved
-\end{verbatim}
-
 \begin{itemize}
 \tightlist
 \item
-  Import data from SAS and Excel
+  Import data from SAS
 \end{itemize}
 
 \begin{verbatim}
@@ -6583,8 +6602,17 @@ import sasxport gss.xpt
 export sasxport gss_new, replace
 \end{verbatim}
 
+\begin{itemize}
+\tightlist
+\item
+  Import data from Excel
+\end{itemize}
+
 \begin{verbatim}
-file gss_new.xpt saved
+* import/export Excel files
+clear
+import excel gss.xlsx
+export excel gss_new, replace
 \end{verbatim}
 
 \subsection{What if my data is from another statistical software
@@ -6608,7 +6636,7 @@ program?}\label{what-if-my-data-is-from-another-statistical-software-program}
   from/to many common formats, including SAS, SPSS, Stata, and many more
 \end{itemize}
 
-\subsection{Exercise 1: Importing data}\label{exercise-1-importing-data}
+\subsection{Exercise 0: Importing data}\label{exercise-0-importing-data}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6626,9 +6654,9 @@ program?}\label{what-if-my-data-is-from-another-statistical-software-program}
   \begin{itemize}
   \tightlist
   \item
-    A comma separated value file: gss.csv
+    A comma separated value file: \texttt{gss.csv}
   \item
-    An Excel file: gss.xlsx
+    An Excel file: \texttt{gss.xlsx}
   \end{itemize}
 \end{enumerate}
 
@@ -6656,9 +6684,13 @@ program?}\label{what-if-my-data-is-from-another-statistical-software-program}
   \item
     browse // view the data in a spreadsheet-like window
   \end{itemize}
-\item
-  Examples
 \end{itemize}
+
+First, let's ask Stata for help about these commands:
+
+\begin{verbatim}
+help sum
+\end{verbatim}
 
 \begin{verbatim}
 use gss.dta, clear
@@ -6667,43 +6699,11 @@ sum educ // statistical summary of education
 \end{verbatim}
 
 \begin{verbatim}
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-        educ |        217    13.52995      3.0687          1         20
-\end{verbatim}
-
-\begin{verbatim}
 codebook region // information about how region is coded
 \end{verbatim}
 
 \begin{verbatim}
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-region                                                                                                                                                                                                                                              (unlabeled)
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-                  type:  string (str5)
-
-         unique values:  4                        missing "":  0/217
-
-            tabulation:  Freq.  Value
-                            54  "east"
-                            48  "north"
-                            48  "south"
-                            67  "west"
-\end{verbatim}
-
-\begin{verbatim}
 tab sex // numbers of male and female participants
-\end{verbatim}
-
-\begin{verbatim}
-respondents |
-        sex |      Freq.     Percent        Cum.
-------------+-----------------------------------
-       male |        114       52.53       52.53
-     female |        103       47.47      100.00
-------------+-----------------------------------
-      Total |        217      100.00
 \end{verbatim}
 
 \begin{itemize}
@@ -6727,16 +6727,8 @@ respondents |
 \end{verbatim}
 
 \begin{verbatim}
-(bin=14, start=1, width=1.3571429)
-\end{verbatim}
-
-\begin{verbatim}
-  // histogram with normal curve; see 'help hist' for other options
+  // histogram with normal curve; see "help hist" for other options
   hist age, normal  
-\end{verbatim}
-
-\begin{verbatim}
-(bin=14, start=18, width=4.2142857)
 \end{verbatim}
 
 \begin{itemize}
@@ -6772,80 +6764,17 @@ bysort sex: tab happy // tabulate happy separately for men and women
 \end{verbatim}
 
 \begin{verbatim}
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--> sex = male
-
-      general |
-    happiness |      Freq.     Percent        Cum.
---------------+-----------------------------------
-   very happy |         32       28.07       28.07
- pretty happy |         68       59.65       87.72
-not too happy |         14       12.28      100.00
---------------+-----------------------------------
-        Total |        114      100.00
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--> sex = female
-
-      general |
-    happiness |      Freq.     Percent        Cum.
---------------+-----------------------------------
-   very happy |         33       32.04       32.04
- pretty happy |         61       59.22       91.26
-not too happy |          9        8.74      100.00
---------------+-----------------------------------
-        Total |        103      100.00
-\end{verbatim}
-
-\begin{verbatim}
 bysort marital: sum educ // summarize eudcation by marital status
 \end{verbatim}
 
-\begin{verbatim}
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--> marital = married
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-        educ |        103    13.65049    3.374381          1         20
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--> marital = widowed
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-        educ |          6    12.33333     1.36626         11         15
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--> marital = divorced
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-        educ |         39    13.46154    2.501012          6         19
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--> marital = separate
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-        educ |          9    12.11111    2.803767          6         14
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--> marital = never ma
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-        educ |         60        13.7    3.004516          6         20
-\end{verbatim}
-
-\subsection{Exercise 2: Descriptive
-statistics}\label{exercise-2-descriptive-statistics}
+\subsection{Exercise 1: Descriptive
+statistics}\label{exercise-1-descriptive-statistics}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use the dataset, gss.dta
+  Use the dataset, \texttt{gss.dta}
 \item
   Examine a few selected variables using the describe, sum and codebook
   commands
@@ -6897,13 +6826,6 @@ statistics}\label{exercise-2-descriptive-statistics}
   lookfor household
 \end{verbatim}
 
-\begin{verbatim}
-              storage   display    value
-variable name   type    format     label      variable label
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-inc             byte    %8.0g      rincom06   household income
-\end{verbatim}
-
 \begin{itemize}
 \tightlist
 \item
@@ -6914,18 +6836,19 @@ inc             byte    %8.0g      rincom06   household income
 \begin{verbatim}
   /*define a value label for sex */
   label define mySexLabel 1 "Male" 2 "Female"
+
   /* assign our label set to the sex variable*/
   label val sex  mySexLabel
 \end{verbatim}
 
-\subsection{Exercise 3: Variable labels and value
-labels}\label{exercise-3-variable-labels-and-value-labels}
+\section{Exercise 2: Variable labels and value
+labels}\label{exercise-2-variable-labels-and-value-labels}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Open the data set \textbf{gss.csv}
+  Open the data set \texttt{gss.csv}
 \item
   Familiarize yourself with the data using describe, sum, etc.
 \item
@@ -6951,7 +6874,8 @@ v7 & region & region of interview\tabularnewline
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Add value labels to your ``marital'' variable using this codebook:
+  Add value labels to your \texttt{marital} variable using this
+  codebook:
 \end{enumerate}
 
 \begin{longtable}[]{@{}ll@{}}
@@ -6990,7 +6914,7 @@ Operator & Meaning\tabularnewline
 \textless{} & less than\tabularnewline
 \textless{}= & less than or equal to\tabularnewline
 \& & and\tabularnewline
-& or\tabularnewline
+&\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -7006,7 +6930,7 @@ variables}\label{generating-and-replacing-variables}
 \begin{itemize}
 \tightlist
 \item
-  Create new variables using ``gen''
+  Create new variables using \texttt{gen}
 \end{itemize}
 
 \begin{verbatim}
@@ -7026,6 +6950,7 @@ variables}\label{generating-and-replacing-variables}
   /* the 'generate and replace' strategy */ 
   // generate a column of missings
   gen age_wealth = .
+
   // Next, start adding your qualifications
   replace age_wealth=1 if age<30 & inc < 10
   replace age_wealth=2 if age<30 & inc > 10
@@ -7037,39 +6962,24 @@ variables}\label{generating-and-replacing-variables}
   replace young=1 if age_wealth==1 | age_wealth==2
 \end{verbatim}
 
-\begin{verbatim}
-(217 missing values generated)
-
-(19 real changes made)
-
-(26 real changes made)
-
-(22 real changes made)
-
-(134 real changes made)
-
-
-(45 real changes made)
-\end{verbatim}
-
-\subsection{Exercise 4: Manipulating
-variables}\label{exercise-4-manipulating-variables}
+\section{Exercise 3: Manipulating
+variables}\label{exercise-3-manipulating-variables}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use the dataset, gss.dta
+  Use the dataset, \texttt{gss.dta}
 \item
-  Generate a new variable, age2 equal to age squared
+  Generate a new variable, \texttt{age2} equal to \texttt{age} squared
 \item
-  Generate a new ``high income'' variable that will take on a value of
-  ``1'' if a person has an income value greater than ``15'' and ``0''
-  otherwise
+  Generate a new \texttt{high\_income} variable that will take on a
+  value of ``1'' if a person has an income value greater than ``15'' and
+  ``0'' otherwise
 \item
-  Generate a new divorced/separated dummy variable that will take on a
-  value of ``1'' if a person is either divorced or separated and ``0''
-  otherwise
+  Generate a new \texttt{divorced\_separated} dummy variable that will
+  take on a value of ``1'' if a person is either divorced or separated
+  and ``0'' otherwise
 \end{enumerate}
 
 \section{Wrap-up}\label{wrap-up-6}
@@ -7095,6 +7005,20 @@ Please take 60 seconds to fill out a very short feedback
   \item
     \href{https://iqss.github.io/dss-rce/}{Research Computing
     Environment}
+  \end{itemize}
+\item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://training.rcs.hbs.org/workshops}{Research Computing
+    Services workshops}
+  \item
+    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
+    resources}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}
 \end{itemize}
 

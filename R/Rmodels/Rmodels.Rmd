@@ -88,7 +88,7 @@ We're going to use the `states` data first, which originally appeared in *Statis
 
 ```{r}
   # read the states data
-  states.data <- read_rds("dataSets/states.rds") 
+  states_data <- read_rds("dataSets/states.rds") 
 ```
 
 | Variable | Description                                        |
@@ -111,10 +111,10 @@ Start by examining the data to check for problems.
 
 ```{r}
   # summary of expense and csat columns, all rows
-  sts.ex.sat <- subset(states.data, select = c("expense", "csat"))
+  sts_ex_sat <- subset(states_data, select = c("expense", "csat"))
   summary(sts.ex.sat)
   # correlation between expense and csat
-  cor(sts.ex.sat) 
+  cor(sts_ex_sat) 
 ```
 
 ### Plot the data
@@ -123,7 +123,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 
 ```{r}
   # scatter plot of expense vs csat
-  plot(sts.ex.sat)
+  plot(sts_ex_sat)
 ```
 
 ![](R/Rmodels/images/statesCorr1.png)
@@ -136,11 +136,11 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 
 ```{r}
   # Fit our regression model
-  sat.mod <- lm(csat ~ expense, # regression formula
-                data=states.data) # data 
+  sat_mod <- lm(csat ~ expense, # regression formula
+                data=states_data) # data 
                 
   # Summarize and print the results
-  summary(sat.mod) # show regression coefficients table
+  summary(sat_mod) # show regression coefficients table
 ```
 
 ### Why is the association between expense and SAT scores *negative*?
@@ -148,7 +148,8 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?
 
 ```{r}
-  summary(lm(csat ~ expense + percent, data = states.data))
+  lm(csat ~ expense + percent, data = states_data) %>% 
+  summary()
 ```
 
 ### The `lm` class and methods
@@ -158,19 +159,19 @@ OK, we fit our model. Now what?
 * Examine the model object:
 
 ```{r}
-  class(sat.mod)
-  str(sat.mod)
-  names(sat.mod)
-  methods(class = class(sat.mod))
+  class(sat_mod)
+  str(sat_mod)
+  names(sat_mod)
+  methods(class = class(sat_mod))
 ```
 
 * Use function methods to get more information about the fit
 
 ```{r}
-  summary(sat.mod)
-  coef(summary(sat.mod))
+  summary(sat_mod)
+  summary(sat_mod) %>% coef()
   methods("summary")
-  confint(sat.mod)
+  confint(sat_mod)
 ```
 
 ### OLS regression assumptions
@@ -180,7 +181,7 @@ OK, we fit our model. Now what?
 
 ```{r}
   par(mfrow = c(2, 2)) 
-  plot(sat.mod)
+  plot(sat_mod)
 ```
 
 ### Comparing models
@@ -189,13 +190,14 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 
 ```{r}
   # fit another model, adding house and senate as predictors
-  sat.voting.mod <-  lm(csat ~ expense + house + senate,
-                        data = na.omit(states.data))
-  sat.mod <- update(sat.mod, data=na.omit(states.data))
+  sat_voting_mod <- lm(csat ~ expense + house + senate,
+                        data = na.omit(states_data))
+
+  sat_mod <- update(sat_mod, data=na.omit(states_data))
 
   # compare using the anova() function
-  anova(sat.mod, sat.voting.mod)
-  coef(summary(sat.voting.mod))
+  anova(sat_mod, sat_voting_mod)
+  summary(sat_voting_mod) %>% coef()
 ```
 
 ## Exercise 0
@@ -219,27 +221,29 @@ Interactions allow us assess the extent to which the association between one pre
 
 ```{r}
     # Add the interaction to the model
-  sat.expense.by.percent <- lm(csat ~ expense + income + expense : income, data=states.data)
-  sat.expense.by.percent <- lm(csat ~ expense * income, data=states.data) 
-  # Show the results
-    coef(summary(sat.expense.by.percent)) # show regression coefficients table
+  sat_expense_by_percent <- lm(csat ~ expense + income + expense : income, data=states_data)
+  sat_expense_by_percent <- lm(csat ~ expense * income, data=states_data) # same as above, but shorter syntax
+
+  # Show the regression coefficients table
+  summary(sat_expense_by_percent) %>% coef() 
 ```
 
 ### Regression with categorical predictors
 
-Let's try to predict SAT scores from region, a categorical variable. Note that you must make sure R does not think your categorical variable is numeric.
+Let's try to predict SAT scores from region, a categorical variable. 
+Note that you must make sure R does not think your categorical variable is numeric.
 
 ```{r}
   # make sure R knows region is categorical
-  str(states.data$region)
-  states.data$region <- factor(states.data$region)
+  str(states_data$region)
+  states_data$region <- factor(states_data$region)
 
   # Add region to the model
-  sat.region <- lm(csat ~ region, data=states.data) 
+  sat_region <- lm(csat ~ region, data=states_data) 
 
   # Show the results
-  coef(summary(sat.region)) # show regression coefficients table
-  anova(sat.region) # show ANOVA table
+  summary(sat_region) %>% coef() # show the regression coefficients table
+  anova(sat_region) # show ANOVA table
 ```
 
 Again, **make sure to tell R which variables are categorical by converting them to factors!**
@@ -250,27 +254,28 @@ In the previous example we use the default contrasts for region. The default in 
 
 ```{r}
   # print default contrasts
-  contrasts(states.data$region)
+  contrasts(states_data$region)
 
   # change the reference group
-  states.data$region <- relevel(states.data$region, ref = "Midwest")
-  m1 <- lm(csat ~ region, data=states.data)
-  coef(summary(m1))
-
-  # drop the intercept to get group means
-  coef(summary(lm(csat ~ 0 + region, data=states.data)))
+  states_data$region <- relevel(states_data$region, ref = "Midwest")
+  m1 <- lm(csat ~ region, data=states_data)
+  summary(m1) %>% coef()
 
   # get all pairwise contrasts between means
   # install.packages("emmeans")
   library(emmeans)
   means <- emmeans(m1, specs = ~ region)
+  means
   contrast(means, method = "pairwise")
 
   # change the coding scheme
-  coef(summary(lm(csat ~ C(region, contr.helmert), data=states.data)))
+  lm(csat ~ C(region, contr.helmert), data=states_data) %>%
+  summary() %>%
+  coef()
 ```
 
-See also `?contrasts`, `?contr.treatment`, and `?relevel`.
+See `?contr.treatment` for other coding schemes and also `?contrasts` and `?relevel`.
+
 
 ## Exercise 1
 
@@ -306,12 +311,14 @@ Let's predict the probability of being diagnosed with hypertension based on age,
 ```{r}
   str(NH11$hypev) # check stucture of hypev
   levels(NH11$hypev) # check levels of hypev
+
   # collapse all missing values to NA
   NH11$hypev <- factor(NH11$hypev, levels=c("2 No", "1 Yes"))
+
   # run our regression model
-  hyp.out <- glm(hypev ~ age_p + sex + sleep + bmi,
+  hyp_out <- glm(hypev ~ age_p + sex + sleep + bmi,
                 data = NH11, family = binomial(link = "logit"))
-  coef(summary(hyp.out))
+  summary(hyp_out) %>% coef()
 ```
 
 ### Logistic regression coefficients
@@ -321,9 +328,9 @@ Generalized linear models use link functions, so raw coefficients are difficult 
 One solution is to transform the coefficients to make them easier to interpret
 
 ```{r}
-  hyp.out.tab <- coef(summary(hyp.out))
-  hyp.out.tab[, "Estimate"] <- exp(coef(hyp.out))
-  hyp.out.tab
+  hyp_out_tab <- summary(hyp_out) %>% coef()
+  hyp_out_tab[, "Estimate"] <- coef(hyp_out) %>% exp()
+  hyp_out_tab
 ```
 
 ### Packages for computing and graphing predicted values
@@ -332,13 +339,14 @@ Instead of doing all this ourselves, we can use the effects package to compute q
 
 ```{r}
   library(effects)
-  eff <- allEffects(hyp.out)
-  eff2 <- allEffects(hyp.out, xlevels = list(age_p, seq(20, 80, by = 5)))
+  eff <- allEffects(hyp_out)
+  eff2 <- allEffects(hyp_out, xlevels = list(age_p, seq(20, 80, by = 5)))
   plot(eff)
   as.data.frame(eff) # confidence intervals
 ```
 
 ![](R/Rmodels/images/effects1.png)
+
 
 ## Exercise 2 
 
@@ -390,7 +398,7 @@ As a preliminary step it is often useful to partition the variance in the depend
 
 ```{r}
   # null model, grouping by school but not fixed effects.
-  Norm1 <-lmer(normexam ~ 1 + (1|school),
+  Norm1 <-lmer(normexam ~ 1 + (1 | school),
                 data=na.omit(Exam), REML = FALSE)
   summary(Norm1)
 ```
@@ -398,7 +406,15 @@ As a preliminary step it is often useful to partition the variance in the depend
 The is .169/(.169 + .848) = .17: 17% of the variance is at the school level. 
 
 There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. 
-But, we can calculate approximate p-values using the `lmerTest` package.
+But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite 
+approximation) and you can use the same model syntax:
+
+```{r}
+  # install.packages("lmerTest")
+  Norm1_test <- lmerTest::lmer(normexam ~ 1 + (1 | school),
+                      data=na.omit(Exam), REML = FALSE)
+  summary(Norm1_test)
+```
 
 
 ### Adding fixed-effects predictors
@@ -449,7 +465,7 @@ data(bh1996, package="multilevel")
 
 From the data documentation:
 
-> Variables are Leadership Climate (LEAD), Well-Being (WBEING), Work Hours (HRS), and cluster group (GRP). 
+> Variables are Leadership Climate (LEAD), Well-Being (WBEING), and Work Hours (HRS). The group identifier is named "GRP".
 
 1.  Create a null model predicting wellbeing ("WBEING")
 2.  Calculate the ICC for your null model
@@ -473,35 +489,36 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 1.  Examine/plot the data before fitting the model
 
 ```{r}
-  states.en.met <- subset(states, select = c("metro", "energy"))
-  summary(states.en.met)
-  plot(states.en.met)
-  cor(states.en.met, use="pairwise")
+  states_en_met <- subset(states, select = c("metro", "energy"))
+  summary(states_en_met)
+  plot(states_en_met)
+  cor(states_en_met, use="pairwise")
 ```
 
 2.  Print and interpret the model `summary`
 
 ```{r}
-  mod.en.met <- lm(energy ~ metro, data = states)
-  summary(mod.en.met)
+  mod_en_met <- lm(energy ~ metro, data = states)
+  summary(mod_en_met)
 ```
 
 3.  `plot` the model to look for deviations from modeling assumptions
 
 ```{r}
-  plot(mod.en.met)
+  plot(mod_en_met)
 ```
 
 Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
 
 ```{r}
-  states.en.met.pop.wst <- subset(states, select = c("energy", "metro", "pop", "waste"))
-  summary(states.en.met.pop.wst)
-  plot(states.en.met.pop.wst)
-  cor(states.en.met.pop.wst, use = "pairwise")
-  mod.en.met.pop.waste <- lm(energy ~ metro + pop + waste, data = states)
-  summary(mod.en.met.pop.waste)
-  anova(mod.en.met, mod.en.met.pop.waste)
+  states_en_met_pop_wst <- subset(states, select = c("energy", "metro", "pop", "waste"))
+  summary(states_en_met_pop_wst)
+  plot(states_en_met_pop_wst)
+  cor(states_en_met_pop_wst, use = "pairwise")
+
+  mod_en_met_pop_waste <- lm(energy ~ metro + pop + waste, data = states)
+  summary(mod_en_met_pop_waste)
+  anova(mod_en_met, mod_en_met_pop_waste)
 ```
 
 ### Ex 1: prototype
@@ -511,14 +528,14 @@ Use the states data set.
 1.  Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.
 
 ```{r}
-  mod.en.metro.by.waste <- lm(energy ~ metro * waste, data = states)
+  mod_en_metro_by_waste <- lm(energy ~ metro * waste, data = states)
 ```
 
 2.  Try adding a region to the model. Are there significant differences across the four regions?
 
 ```{r}
-  mod.en.region <- lm(energy ~ metro * waste + region, data = states)
-  anova(mod.en.region)
+  mod_en_region <- lm(energy ~ metro * waste + region, data = states)
+  anova(mod_en_region)
 ```
 
 ### Ex 2: prototype
@@ -528,24 +545,24 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 1.  Use glm to conduct a logistic regression to predict ever worked (everwrk) using age (age_p) and marital status (r_maritl).
 
 ```{r}
-  nh11.wrk.age.mar <- subset(NH11, select = c("everwrk", "age_p", "r_maritl"))
-  summary(nh11.wrk.age.mar)
+  nh11_wrk_age_mar <- subset(NH11, select = c("everwrk", "age_p", "r_maritl"))
+  summary(nh11_wrk_age_mar)
 
   NH11 <- transform(NH11,
                     everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
                     r_maritl = droplevels(r_maritl))
 
-  mod.wk.age.mar <- glm(everwrk ~ age_p + r_maritl, data = NH11,
+  mod_wk_age_mar <- glm(everwrk ~ age_p + r_maritl, data = NH11,
                         family = binomial(link = "logit"))
 
-  summary(mod.wk.age.mar)
+  summary(mod_wk_age_mar)
 ```
 
 2.  Predict the probability of working for each level of marital status.
 
 ```{r}
   library(effects)
-  data.frame(Effect("r_maritl", mod.wk.age.mar))
+  data.frame(Effect("r_maritl", mod_wk_age_mar))
 ```
 
 ### Ex 3: prototype
@@ -558,30 +575,28 @@ Use the dataset, bh1996:
 
 From the data documentation:
 
-> Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being (WBEING) and Work Hours (HRS). Each of these variables has two variants - a group mean version that replicates each group mean for every individual, and a within-group version where the group mean is subtracted from each individual response. The group mean version is designated with a G. (e.g., G.HRS), and the within-group version is designated with a W. (e.g., W.HRS).
-
-Note that the group identifier is named "GRP".
+> Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being (WBEING) and Work Hours (HRS). The group identifier is named "GRP".
 
 1.  Create a null model predicting wellbeing ("WBEING")
 
 ```{r}
   library(lme4)
-  mod.grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
-  summary(mod.grp0)
+  mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
+  summary(mod_grp0)
 ```
 
 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked ("HRS") and leadership skills ("LEAD") to the model and interpret your output.
 
 ```{r}
-  mod.grp1 <- lmer(WBEING ~ HRS + LEAD + (1 | GRP), data = bh1996)
-  summary(mod.grp1)
+  mod_grp1 <- lmer(WBEING ~ HRS + LEAD + (1 | GRP), data = bh1996)
+  summary(mod_grp1)
 ```
 
 3.  Now, add a random effect of average number of hours worked ("HRS") to the model and interpret your output. Test the significance of this random term.
 
 ```{r}
-  mod.grp2 <- lmer(WBEING ~ HRS + LEAD + (1 + HRS | GRP), data = bh1996)
-  anova(mod.grp1, mod.grp2)
+  mod_grp2 <- lmer(WBEING ~ HRS + LEAD + (1 + HRS | GRP), data = bh1996)
+  anova(mod_grp1, mod_grp2)
 ```
 
 ## Wrap-up
@@ -596,3 +611,8 @@ These workshops are a work in progress, please provide any feedback to: help@iq.
     + [Workshops](https://dss.iq.harvard.edu/workshop-materials)
     + [Data Science Services](https://dss.iq.harvard.edu/)
     + [Research Computing Environment](https://iqss.github.io/dss-rce/)
+
+* HBS
+    + [Research Computing Services workshops](https://training.rcs.hbs.org/workshops)
+    + [other HBS RCS resources](https://training.rcs.hbs.org/workshop-materials)
+    + RCS consulting email: <mailto:research@hbs.edu>
