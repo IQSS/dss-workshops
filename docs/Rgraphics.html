@@ -441,7 +441,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">3</span> R Graphics</h1>
 <p><strong>Topics</strong></p>
 <ul>
-<li>R ggplot2 package</li>
+<li>R <code>ggplot2</code> package</li>
 <li>Setup basic plots</li>
 <li>Add and modify scales and legends</li>
 <li>Manipulate plot labels</li>
@@ -513,9 +513,9 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 </ul>
 <p>That said, there are some things you cannot (or should not) do With ggplot2:</p>
 <ul>
-<li>3-dimensional graphics (see the rgl package)</li>
-<li>Graph-theory type graphs (nodes/edges layout; see the igraph package)</li>
-<li>Interactive graphics (see the ggvis package)</li>
+<li>3-dimensional graphics (see the <code>rgl</code> package)</li>
+<li>Graph-theory type graphs (nodes/edges layout; see the <code>igraph</code> package)</li>
+<li>Interactive graphics (see the <code>ggvis</code> package)</li>
 </ul>
 <div id="what-is-the-grammar-of-graphics" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> What is the Grammar Of Graphics?</h3>
@@ -601,12 +601,12 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <p>A plot <strong>must have at least one geom</strong>; there is no upper limit. You can add a geom to a plot using the <code>+</code> operator. You can get a list of available geometric objects using the code below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
 <p>or simply type <code>geom_&lt;tab&gt;</code> in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with <code>geom_</code>.</p>
-<p>Each <code>geom_</code> has a particular set of aesthetic mappings associated with it, some of which are required and some optional:</p>
+<p>Each <code>geom_</code> has a particular set of aesthetic mappings associated with it. Some examples are provided below, with required aesthetics in <strong>bold</strong> and optional aesthetics in plain text:</p>
 <table>
 <colgroup>
-<col width="18%" />
-<col width="17%" />
-<col width="64%" />
+<col width="14%" />
+<col width="14%" />
+<col width="71%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -619,37 +619,32 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <tr class="odd">
 <td align="left"><code>geom_point()</code></td>
 <td align="left">Scatter plot</td>
-<td align="left"><strong><code>x</code></strong>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>shape</code>,<code>size</code>,<code>stroke</code></td>
+<td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>shape</code>,<code>size</code>,<code>stroke</code></td>
 </tr>
 <tr class="even">
 <td align="left"><code>geom_line()</code></td>
 <td align="left">Line plot</td>
-<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>linetype</code>,<code>size</code></td>
+<td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<code>alpha</code>,<code>color</code>,<code>linetype</code>,<code>size</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><code>geom_bar()</code></td>
 <td align="left">Bar chart</td>
-<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code></td>
+<td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code></td>
 </tr>
 <tr class="even">
 <td align="left"><code>geom_boxplot()</code></td>
 <td align="left">Boxplot</td>
-<td align="left"><code>x</code>,<code>lower</code>,<code>upper</code>,<code>middle</code>,<code>ymin</code>,<code>ymax</code>,<code>alpha</code>,<code>color</code>,<code>fill</code></td>
+<td align="left"><strong><code>x</code></strong>,<strong><code>lower</code></strong>,<strong><code>upper</code></strong>,<strong><code>middle</code></strong>,<strong><code>ymin</code></strong>,<strong><code>ymax</code></strong>,<code>alpha</code>,<code>color</code>,<code>fill</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><code>geom_density()</code></td>
 <td align="left">Density plot</td>
-<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code>,<code>weight</code></td>
+<td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code>,<code>weight</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>geom_smooth()</code></td>
-<td align="left">Smoothed means</td>
-<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code>,<code>weight</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><code>geom_jitter()</code></td>
-<td align="left">Jittered points</td>
-<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>shape</code>,<code>size</code>,<code>stroke</code></td>
+<td align="left"><code>geom_label()</code></td>
+<td align="left">Text</td>
+<td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<strong><code>label</code></strong>,<code>alpha</code>,<code>angle</code>,<code>color</code>,<code>family</code>,<code>fontface</code>,<code>size</code></td>
 </tr>
 </tbody>
 </table>
@@ -841,91 +836,86 @@ p4 <span class="op">+</span>
 <table>
 <thead>
 <tr class="header">
-<th><strong>Scale</strong></th>
-<th><strong>Types</strong></th>
-<th><strong>Examples</strong></th>
+<th><code>scale_</code></th>
+<th align="left">Types</th>
+<th align="left">Examples</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><code>scale_color_</code></td>
-<td><code>identity</code></td>
-<td><code>scale_fill_continuous</code></td>
+<td align="left"><code>identity</code></td>
+<td align="left"><code>scale_fill_continuous()</code></td>
 </tr>
 <tr class="even">
 <td><code>scale_fill_</code></td>
-<td><code>manual</code></td>
-<td><code>scale_color_discrete</code></td>
+<td align="left"><code>manual</code></td>
+<td align="left"><code>scale_color_discrete()</code></td>
 </tr>
 <tr class="odd">
 <td><code>scale_size_</code></td>
-<td><code>continuous</code></td>
-<td><code>scale_size_manual</code></td>
+<td align="left"><code>continuous</code></td>
+<td align="left"><code>scale_size_manual()</code></td>
 </tr>
 <tr class="even">
 <td></td>
-<td><code>discrete</code></td>
-<td><code>scale_size_discrete</code></td>
+<td align="left"><code>discrete</code></td>
+<td align="left"><code>scale_size_discrete()</code></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td></td>
-<td></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td><code>scale_shape_</code></td>
-<td><code>discrete</code></td>
-<td><code>scale_shape_discrete</code></td>
+<td align="left"><code>discrete</code></td>
+<td align="left"><code>scale_shape_discrete()</code></td>
 </tr>
 <tr class="odd">
 <td><code>scale_linetype_</code></td>
-<td><code>identity</code></td>
-<td><code>scale_shape_manual</code></td>
+<td align="left"><code>identity</code></td>
+<td align="left"><code>scale_shape_manual()</code></td>
 </tr>
 <tr class="even">
 <td></td>
-<td><code>manual</code></td>
-<td><code>scale_linetype_discrete</code></td>
+<td align="left"><code>manual</code></td>
+<td align="left"><code>scale_linetype_discrete()</code></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td></td>
-<td></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td><code>scale_x_</code></td>
-<td><code>continuous</code></td>
-<td><code>scale_x_continuous</code></td>
+<td align="left"><code>continuous</code></td>
+<td align="left"><code>scale_x_continuous()</code></td>
 </tr>
 <tr class="odd">
 <td><code>scale_y_</code></td>
-<td><code>discrete</code></td>
-<td><code>scale_y_discrete</code></td>
+<td align="left"><code>discrete</code></td>
+<td align="left"><code>scale_y_discrete()</code></td>
 </tr>
 <tr class="even">
 <td></td>
-<td><code>reverse</code></td>
-<td><code>scale_x_log</code></td>
+<td align="left"><code>reverse</code></td>
+<td align="left"><code>scale_x_log()</code></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td><code>log</code></td>
-<td><code>scale_y_reverse</code></td>
+<td align="left"><code>log</code></td>
+<td align="left"><code>scale_y_reverse()</code></td>
 </tr>
 <tr class="even">
 <td></td>
-<td><code>date</code></td>
-<td><code>scale_x_date</code></td>
+<td align="left"><code>date</code></td>
+<td align="left"><code>scale_x_date()</code></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td><code>datetime</code></td>
-<td><code>scale_y_datetime</code></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
+<td align="left"><code>datetime</code></td>
+<td align="left"><code>scale_y_datetime()</code></td>
 </tr>
 </tbody>
 </table>

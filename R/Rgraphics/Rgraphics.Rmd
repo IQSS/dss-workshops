@@ -9,7 +9,7 @@ knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, e
 
 **Topics**
 
-* R ggplot2 package
+* R `ggplot2` package
 * Setup basic plots
 * Add and modify scales and legends
 * Manipulate plot labels
@@ -94,9 +94,9 @@ Advantages of ggplot2
 
 That said, there are some things you cannot (or should not) do With ggplot2:
 
-* 3-dimensional graphics (see the rgl package)
-* Graph-theory type graphs (nodes/edges layout; see the igraph package)
-* Interactive graphics (see the ggvis package)
+* 3-dimensional graphics (see the `rgl` package)
+* Graph-theory type graphs (nodes/edges layout; see the `igraph` package)
+* Interactive graphics (see the `ggvis` package)
 
 ### What is the Grammar Of Graphics?
 
@@ -125,10 +125,10 @@ head(housing[1:5])
 
 Compared to base graphics, `ggplot2`
 
--   is more verbose for simple / canned graphics
--   is less verbose for complex / custom graphics
--   does not have methods (data should always be in a `data.frame`)
--   uses a different system for adding plot elements
+* is more verbose for simple / canned graphics
+* is less verbose for complex / custom graphics
+* does not have methods (data should always be in a `data.frame`)
+* uses a different system for adding plot elements
 
 ### For simple graphs
 
@@ -206,18 +206,18 @@ help.search("geom_", package = "ggplot2")
 
 or simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
 
-Each `geom_` has a particular set of aesthetic mappings associated with it, some of which are required and some optional:
+Each `geom_` has a particular set of aesthetic mappings associated with it. Some examples are provided below, 
+with required aesthetics in **bold** and optional aesthetics in plain text:
 
 
-| `geom_`          | Usage           | Possible Aesthetics                                              |
-|:-----------------|:----------------|:-----------------------------------------------------------------|
-| `geom_point()`   | Scatter plot    |**`x`**,`y`,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`|
-| `geom_line()`    | Line plot       |`x`,`y`,`alpha`,`color`,`linetype`,`size`                         |
-| `geom_bar()`     | Bar chart       |`x`,`y`,`alpha`,`color`,`fill`,`group`,`linetype`,`size`          |
-| `geom_boxplot()` | Boxplot         |`x`,`lower`,`upper`,`middle`,`ymin`,`ymax`,`alpha`,`color`,`fill` |
-| `geom_density()` | Density plot    |`x`,`y`,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight` |
-| `geom_smooth()`  | Smoothed means  |`x`,`y`,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight` |
-| `geom_jitter()`  | Jittered points |`x`,`y`,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`    |
+| `geom_`          | Usage           | Possible Aesthetics                                                                      |
+|:-----------------|:----------------|:-----------------------------------------------------------------------------------------|
+| `geom_point()`   | Scatter plot    |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`                    |
+| `geom_line()`    | Line plot       |**`x`**,**`y`**,`alpha`,`color`,`linetype`,`size`                                         |
+| `geom_bar()`     | Bar chart       |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`                          |
+| `geom_boxplot()` | Boxplot         |**`x`**,**`lower`**,**`upper`**,**`middle`**,**`ymin`**,**`ymax`**,`alpha`,`color`,`fill` |
+| `geom_density()` | Density plot    |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
+| `geom_label()`   | Text            |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
 
 
 #### Points (scatterplot)
@@ -484,24 +484,23 @@ p4 +
 
 -   Partial combination matrix of available scales
 
-| **Scale**         | **Types**    | **Examples**              |
-|----------------- |------------ |------------------------- |
-| `scale_color_`    | `identity`   | `scale_fill_continuous`   |
-| `scale_fill_`     | `manual`     | `scale_color_discrete`    |
-| `scale_size_`     | `continuous` | `scale_size_manual`       |
-|                   | `discrete`   | `scale_size_discrete`     |
-|                   |              |                           |
-| `scale_shape_`    | `discrete`   | `scale_shape_discrete`    |
-| `scale_linetype_` | `identity`   | `scale_shape_manual`      |
-|                   | `manual`     | `scale_linetype_discrete` |
-|                   |              |                           |
-| `scale_x_`        | `continuous` | `scale_x_continuous`      |
-| `scale_y_`        | `discrete`   | `scale_y_discrete`        |
-|                   | `reverse`    | `scale_x_log`             |
-|                   | `log`        | `scale_y_reverse`         |
-|                   | `date`       | `scale_x_date`            |
-|                   | `datetime`   | `scale_y_datetime`        |
-|                   |              |                           |
+| `scale_`          | Types        |  Examples                   |
+|-------------------|:-------------|:----------------------------|
+| `scale_color_`    | `identity`   | `scale_fill_continuous()`   |
+| `scale_fill_`     | `manual`     | `scale_color_discrete()`    |
+| `scale_size_`     | `continuous` | `scale_size_manual()`       |
+|                   | `discrete`   | `scale_size_discrete()`     |
+|                   |              |                             |
+| `scale_shape_`    | `discrete`   | `scale_shape_discrete()`    |
+| `scale_linetype_` | `identity`   | `scale_shape_manual()`      |
+|                   | `manual`     | `scale_linetype_discrete()` |
+|                   |              |                             |
+| `scale_x_`        | `continuous` | `scale_x_continuous()`      |
+| `scale_y_`        | `discrete`   | `scale_y_discrete()`        |
+|                   | `reverse`    | `scale_x_log()`             |
+|                   | `log`        | `scale_y_reverse()`         |
+|                   | `date`       | `scale_x_date()`            |
+|                   | `datetime`   | `scale_y_datetime()`        |
 
 Note that in RStudio you can type `scale_` followed by TAB to get the whole list of available scales.
 
