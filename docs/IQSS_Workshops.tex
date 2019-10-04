@@ -330,7 +330,7 @@ R are:
 \section{R Interfaces}\label{r-interfaces}
 
 There are many different ways you can interact with R. See the
-\href{http://tutorials.iq.harvard.edu/DataScienceTools/DataScienceTools.html}{Data
+\href{http://tutorials.iq.harvard.edu/Other/DataScienceTools/DataScienceTools.html}{Data
 Science Tools workshop notes} for details.
 
 For this workshop we will use RStudio; it is a good R-specific
@@ -530,7 +530,7 @@ e.g., \texttt{read.csv} and \texttt{read.delim}. These are legacy
 functions that tend to be slower and less robust than the \texttt{readr}
 functions. One way to tell them apart is that the faster more robust
 versions use underscores in their names (e.g., \texttt{read\_csv}) while
-the older functions us dots (e.g., \texttt{read.csv}). My advice is to
+the older functions use dots (e.g., \texttt{read.csv}). My advice is to
 use the more robust newer versions, i.e., the ones with underscores.
 
 \subsection{Baby names data}\label{baby-names-data}
@@ -608,8 +608,8 @@ R has decent data manipulation tools built-in -- see e.g.,
 more intuitive syntax for accomplishing the same task. In particular, we
 will use the \texttt{dplyr} package to filter, select, and arrange data.
 
-\subsection{Filtering and arranging
-data}\label{filtering-and-arranging-data}
+\subsection{Filtering, selecting, and arranging
+data}\label{filtering-selecting-and-arranging-data}
 
 One way to find the year in which your name was the most popular is to
 filter out just the rows corresponding to your name, and then arrange
@@ -628,7 +628,18 @@ either ``Alex'' or ``Mark''.
 \end{Highlighting}
 \end{Shaded}
 
-Notice that we can we can combine conditons using \texttt{\&} (AND) and
+We can also use the \texttt{select()} function to subset the
+\texttt{data.frame} by columns. We can then assign the output to a new
+object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baby_names_subset <-}\StringTok{ }\KeywordTok{select}\NormalTok{(baby_names, Name, Count)}
+\KeywordTok{head}\NormalTok{(baby_names_subset)}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that we can combine conditions using \texttt{\&} (AND) and
 \texttt{\textbar{}} (OR).
 
 In this case it's pretty easy to see that ``Mark'' is more popular, but
@@ -877,17 +888,17 @@ approach is to use proportion or rank to avoid confounding popularity
 with the number of babies born in a given year.
 
 The \texttt{mutate} function makes it easy to add or modify the columns
-of a \texttt{data.frame}. For example, we can use it compute the log of
-the number of boys and girls given each name in each year:
+of a \texttt{data.frame}. For example, we can use it to compute the log
+of the number of boys and girls given each name in each year:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(baby_names, }\DataTypeTok{logCount =}\NormalTok{ Count}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}
+\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(baby_names, }\DataTypeTok{logCount =} \KeywordTok{log10}\NormalTok{(Count))}
 \NormalTok{baby_names }\CommentTok{# same as print(baby_names)}
 \end{Highlighting}
 \end{Shaded}
 
-Notice that executing the second line led to printing all 1.35 mln rows
+Notice that executing the second line led to printing all 1 million rows
 in our \texttt{data.frame}! If we would just like to glance at the first
 6 lines we can use \texttt{head()}:
 
@@ -897,30 +908,20 @@ in our \texttt{data.frame}! If we would just like to glance at the first
 \end{Highlighting}
 \end{Shaded}
 
-Finally, the \texttt{select()} function allows us to subset the
-\texttt{data.frame} by columns. We can then assign the output to a new
-object.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{baby_names_logCount <-}\StringTok{ }\KeywordTok{select}\NormalTok{(baby_names, Name, Sex, Year, logCount)}
-\KeywordTok{head}\NormalTok{(baby_names_logCount)}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{select} can also be used with pipes.
+We can also \texttt{select} a subset of columns from the baby names
+data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{select}\NormalTok{(Name, Sex, Year, logCount) }\OperatorTok{%>%}
-\StringTok{  }\NormalTok{head}
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \subsection{Operating by group}\label{operating-by-group}
 
-Because of the nested nature of out data, we want to compute rank or
+Because of the nested nature of our data, we want to compute rank or
 proportion within each \texttt{Sex} by \texttt{Year} group. The
 \texttt{dplyr} package makes this relatively straightforward.
 
@@ -1133,6 +1134,22 @@ from package \texttt{readr} handy!
 \end{Highlighting}
 \end{Shaded}
 
+\subsection{Saving multiple datasets}\label{saving-multiple-datasets}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects in our workspace}
+\KeywordTok{save}\NormalTok{(girls_and_boys, bn_by_year, most_popular, }\DataTypeTok{file=}\StringTok{"myDataFiles.RData"}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Load the "myDataFiles.RData"}
+\NormalTok{## load("myDataFiles.RData") }
+\end{Highlighting}
+\end{Shaded}
+
 \subsection{Saving and loading R
 workspaces}\label{saving-and-loading-r-workspaces}
 
@@ -1309,7 +1326,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# 4.  BONUS (Optional): Adust the plot to use lines instead of points.}
+\CommentTok{# 4.  BONUS (Optional): Adjust the plot to use lines instead of points.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1400,6 +1417,8 @@ workspaces
                              \KeywordTok{filter}\NormalTok{(baby_names, Sex }\OperatorTok{==}\StringTok{ "Girls"}\NormalTok{),}
                              \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"Year"}\NormalTok{, }\StringTok{"Name"}\NormalTok{))}
 \KeywordTok{head}\NormalTok{(girls_and_boys)}
+
+\NormalTok{girls_and_boys <-}\StringTok{ }\NormalTok{girls_and_boys }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ungroup}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 

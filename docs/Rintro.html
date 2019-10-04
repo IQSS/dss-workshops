@@ -125,7 +125,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="1.6" data-path="Rintro.html"><a href="Rintro.html#exercise-1"><i class="fa fa-check"></i><b>1.6</b> Exercise 1</a></li>
 <li class="chapter" data-level="1.7" data-path="Rintro.html"><a href="Rintro.html#popularity-of-your-name"><i class="fa fa-check"></i><b>1.7</b> Popularity of your name</a><ul>
-<li class="chapter" data-level="1.7.1" data-path="Rintro.html"><a href="Rintro.html#filtering-and-arranging-data"><i class="fa fa-check"></i><b>1.7.1</b> Filtering and arranging data</a></li>
+<li class="chapter" data-level="1.7.1" data-path="Rintro.html"><a href="Rintro.html#filtering-selecting-and-arranging-data"><i class="fa fa-check"></i><b>1.7.1</b> Filtering, selecting, and arranging data</a></li>
 <li class="chapter" data-level="1.7.2" data-path="Rintro.html"><a href="Rintro.html#other-logical-operators"><i class="fa fa-check"></i><b>1.7.2</b> Other logical operators</a></li>
 </ul></li>
 <li class="chapter" data-level="1.8" data-path="Rintro.html"><a href="Rintro.html#exercise-2.1"><i class="fa fa-check"></i><b>1.8</b> Exercise 2.1</a></li>
@@ -142,7 +142,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.16" data-path="Rintro.html"><a href="Rintro.html#exercise-5"><i class="fa fa-check"></i><b>1.16</b> Exercise 5</a></li>
 <li class="chapter" data-level="1.17" data-path="Rintro.html"><a href="Rintro.html#saving-our-work"><i class="fa fa-check"></i><b>1.17</b> Saving our Work</a><ul>
 <li class="chapter" data-level="1.17.1" data-path="Rintro.html"><a href="Rintro.html#saving-individual-datasets"><i class="fa fa-check"></i><b>1.17.1</b> Saving individual datasets</a></li>
-<li class="chapter" data-level="1.17.2" data-path="Rintro.html"><a href="Rintro.html#saving-and-loading-r-workspaces"><i class="fa fa-check"></i><b>1.17.2</b> Saving and loading R workspaces</a></li>
+<li class="chapter" data-level="1.17.2" data-path="Rintro.html"><a href="Rintro.html#saving-multiple-datasets"><i class="fa fa-check"></i><b>1.17.2</b> Saving multiple datasets</a></li>
+<li class="chapter" data-level="1.17.3" data-path="Rintro.html"><a href="Rintro.html#saving-and-loading-r-workspaces"><i class="fa fa-check"></i><b>1.17.3</b> Saving and loading R workspaces</a></li>
 </ul></li>
 <li class="chapter" data-level="1.18" data-path="Rintro.html"><a href="Rintro.html#exercise-solutions"><i class="fa fa-check"></i><b>1.18</b> Exercise solutions</a><ul>
 <li class="chapter" data-level="1.18.1" data-path="Rintro.html"><a href="Rintro.html#ex-0-prototype"><i class="fa fa-check"></i><b>1.18.1</b> Ex 0: prototype</a></li>
@@ -497,7 +498,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="r-interfaces" class="section level2">
 <h2><span class="header-section-number">1.2</span> R Interfaces</h2>
-<p>There are many different ways you can interact with R. See the <a href="http://tutorials.iq.harvard.edu/DataScienceTools/DataScienceTools.html">Data Science Tools workshop notes</a> for details.</p>
+<p>There are many different ways you can interact with R. See the <a href="http://tutorials.iq.harvard.edu/Other/DataScienceTools/DataScienceTools.html">Data Science Tools workshop notes</a> for details.</p>
 <p>For this workshop we will use RStudio; it is a good R-specific integrated development environment (IDE) that mostly just works.</p>
 <p>We will also use Rmarkdown — a type of R file that allows you to combine plain text with R code. It is easy to later convert Rmarkdown into MS Word, LaTeX, a pdf, or webpage.</p>
 </div>
@@ -595,7 +596,7 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 </tr>
 </tbody>
 </table>
-<p><strong>Note</strong> You may be confused by the existence of similar functions, e.g., <code>read.csv</code> and <code>read.delim</code>. These are legacy functions that tend to be slower and less robust than the <code>readr</code> functions. One way to tell them apart is that the faster more robust versions use underscores in their names (e.g., <code>read_csv</code>) while the older functions us dots (e.g., <code>read.csv</code>). My advice is to use the more robust newer versions, i.e., the ones with underscores.</p>
+<p><strong>Note</strong> You may be confused by the existence of similar functions, e.g., <code>read.csv</code> and <code>read.delim</code>. These are legacy functions that tend to be slower and less robust than the <code>readr</code> functions. One way to tell them apart is that the faster more robust versions use underscores in their names (e.g., <code>read_csv</code>) while the older functions use dots (e.g., <code>read.csv</code>). My advice is to use the more robust newer versions, i.e., the ones with underscores.</p>
 </div>
 <div id="baby-names-data" class="section level3">
 <h3><span class="header-section-number">1.5.3</span> Baby names data</h3>
@@ -624,14 +625,17 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <p>In this section we will pull out specific names and examine changes in their popularity over time.</p>
 <p>The <code>baby_names</code> object we created in the last exercise is a <code>data.frame</code>. There are many other data structures in R, but for now we’ll focus on working with <code>data.frames</code>.</p>
 <p>R has decent data manipulation tools built-in – see e.g., <code>help(Extract)</code>. But, <code>tidyverse</code> packages often provide more intuitive syntax for accomplishing the same task. In particular, we will use the <code>dplyr</code> package to filter, select, and arrange data.</p>
-<div id="filtering-and-arranging-data" class="section level3">
-<h3><span class="header-section-number">1.7.1</span> Filtering and arranging data</h3>
+<div id="filtering-selecting-and-arranging-data" class="section level3">
+<h3><span class="header-section-number">1.7.1</span> Filtering, selecting, and arranging data</h3>
 <p>One way to find the year in which your name was the most popular is to filter out just the rows corresponding to your name, and then arrange (sort) by Count.</p>
 <p>To demonstrate these techniques we’ll try to determine whether “Alex”&quot; or “Jim” was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to <code>1992</code> and Name is either “Alex” or “Mark”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_alexmark &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, 
              Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))
 baby_names_alexmark</code></pre></div>
-<p>Notice that we can we can combine conditons using <code>&amp;</code> (AND) and <code>|</code> (OR).</p>
+<p>We can also use the <code>select()</code> function to subset the <code>data.frame</code> by columns. We can then assign the output to a new object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_subset &lt;-<span class="st"> </span><span class="kw">select</span>(baby_names, Name, Count)
+<span class="kw">head</span>(baby_names_subset)</code></pre></div>
+<p>Notice that we can combine conditions using <code>&amp;</code> (AND) and <code>|</code> (OR).</p>
 <p>In this case it’s pretty easy to see that “Mark” is more popular, but to make it even easier we can arrange the data so that the most popular name is listed first.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(baby_names_alexmark, Count)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(baby_names_alexmark, <span class="kw">desc</span>(Count))</code></pre></div>
@@ -751,22 +755,19 @@ baby_names_alexmark</code></pre></div>
 <div id="computing-better-measures-of-popularity" class="section level3">
 <h3><span class="header-section-number">1.13.1</span> Computing better measures of popularity</h3>
 <p>So far we’ve used <code>Count</code> as a measure of popularity. A better approach is to use proportion or rank to avoid confounding popularity with the number of babies born in a given year.</p>
-<p>The <code>mutate</code> function makes it easy to add or modify the columns of a <code>data.frame</code>. For example, we can use it compute the log of the number of boys and girls given each name in each year:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span><span class="kw">mutate</span>(baby_names, <span class="dt">logCount =</span> Count<span class="op">/</span><span class="dv">1000</span>)
+<p>The <code>mutate</code> function makes it easy to add or modify the columns of a <code>data.frame</code>. For example, we can use it to compute the log of the number of boys and girls given each name in each year:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span><span class="kw">mutate</span>(baby_names, <span class="dt">logCount =</span> <span class="kw">log10</span>(Count))
 baby_names <span class="co"># same as print(baby_names)</span></code></pre></div>
-<p>Notice that executing the second line led to printing all 1.35 mln rows in our <code>data.frame</code>! If we would just like to glance at the first 6 lines we can use <code>head()</code>:</p>
+<p>Notice that executing the second line led to printing all 1 million rows in our <code>data.frame</code>! If we would just like to glance at the first 6 lines we can use <code>head()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(baby_names) </code></pre></div>
-<p>Finally, the <code>select()</code> function allows us to subset the <code>data.frame</code> by columns. We can then assign the output to a new object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_logCount &lt;-<span class="st"> </span><span class="kw">select</span>(baby_names, Name, Sex, Year, logCount)
-<span class="kw">head</span>(baby_names_logCount)</code></pre></div>
-<p><code>select</code> can also be used with pipes.</p>
+<p>We can also <code>select</code> a subset of columns from the baby names data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(Name, Sex, Year, logCount) <span class="op">%&gt;%</span>
-<span class="st">  </span>head</code></pre></div>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
 </div>
 <div id="operating-by-group" class="section level3">
 <h3><span class="header-section-number">1.13.2</span> Operating by group</h3>
-<p>Because of the nested nature of out data, we want to compute rank or proportion within each <code>Sex</code> by <code>Year</code> group. The <code>dplyr</code> package makes this relatively straightforward.</p>
+<p>Because of the nested nature of our data, we want to compute rank or proportion within each <code>Sex</code> by <code>Year</code> group. The <code>dplyr</code> package makes this relatively straightforward.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span>
 <span class="st">  </span>baby_names <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span>
@@ -844,8 +845,15 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write data to an R file</span>
 <span class="kw">write_rds</span>(baby_names, <span class="st">&quot;babyNames.rds&quot;</span>)</code></pre></div>
 </div>
+<div id="saving-multiple-datasets" class="section level3">
+<h3><span class="header-section-number">1.17.2</span> Saving multiple datasets</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>() <span class="co"># list objects in our workspace</span>
+<span class="kw">save</span>(girls_and_boys, bn_by_year, most_popular, <span class="dt">file=</span><span class="st">&quot;myDataFiles.RData&quot;</span>)  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load the &quot;myDataFiles.RData&quot;
+## load(&quot;myDataFiles.RData&quot;) </code></pre></div>
+</div>
 <div id="saving-and-loading-r-workspaces" class="section level3">
-<h3><span class="header-section-number">1.17.2</span> Saving and loading R workspaces</h3>
+<h3><span class="header-section-number">1.17.3</span> Saving and loading R workspaces</h3>
 <p>In addition to importing individual datasets, R can save and load entire workspaces</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>() <span class="co"># list objects in our workspace</span>
 <span class="kw">save.image</span>(<span class="dt">file=</span><span class="st">&quot;myWorkspace.RData&quot;</span>) <span class="co"># save workspace </span>
@@ -906,7 +914,7 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">data =</span> baby_names_george)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 3. Adjust the plot so that is shows boys and girls in different colors.</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex, <span class="dt">data =</span> baby_names_george)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 4.  BONUS (Optional): Adust the plot to use lines instead of points.</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 4.  BONUS (Optional): Adjust the plot to use lines instead of points.</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex, <span class="dt">data =</span> baby_names_george, <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
 </div>
 <div id="ex-4-prototype" class="section level3">
@@ -942,7 +950,9 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">girls_and_boys &lt;-<span class="st"> </span><span class="kw">inner_join</span>(<span class="kw">filter</span>(baby_names, Sex <span class="op">==</span><span class="st"> &quot;Boys&quot;</span>), 
                              <span class="kw">filter</span>(baby_names, Sex <span class="op">==</span><span class="st"> &quot;Girls&quot;</span>),
                              <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Name&quot;</span>))
-<span class="kw">head</span>(girls_and_boys)</code></pre></div>
+<span class="kw">head</span>(girls_and_boys)
+
+girls_and_boys &lt;-<span class="st"> </span>girls_and_boys <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">girls_and_boys &lt;-<span class="st"> </span><span class="kw">mutate</span>(girls_and_boys,
                          <span class="dt">Product =</span> Count.x <span class="op">*</span><span class="st"> </span>Count.y,
                          <span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="op">-</span>Product))

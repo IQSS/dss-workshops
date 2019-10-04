@@ -67,7 +67,7 @@ As an example project we will analyze the popularity of baby names in the US fro
 ## R Interfaces
 
 There are many different ways you can interact with R. See the
-[Data Science Tools workshop notes](http://tutorials.iq.harvard.edu/DataScienceTools/DataScienceTools.html) 
+[Data Science Tools workshop notes](http://tutorials.iq.harvard.edu/Other/DataScienceTools/DataScienceTools.html) 
 for details.
 
 For this workshop we will use RStudio; it is a good
@@ -212,7 +212,7 @@ e.g., `read.csv` and `read.delim`. These are legacy functions that
 tend to be slower and less robust than the `readr` functions. One way
 to tell them apart is that the faster more robust versions use
 underscores in their names (e.g., `read_csv`) while the older
-functions us dots (e.g., `read.csv`). My advice is to use the more
+functions use dots (e.g., `read.csv`). My advice is to use the more
 robust newer versions, i.e., the ones with underscores.
 
 ### Baby names data
@@ -264,7 +264,7 @@ particular, we will use the `dplyr` package to filter,
 select, and arrange data.
 
 
-### Filtering and arranging data
+### Filtering, selecting, and arranging data
 
 One way to find the year in which your name was the most popular
 is to filter out just the rows corresponding to your name, and 
@@ -281,7 +281,15 @@ baby_names_alexmark <- filter(baby_names,
 baby_names_alexmark
 ```
 
-Notice that we can we can combine conditons using `&` (AND) 
+We can also use the `select()` function to subset the `data.frame`
+by columns. We can then assign the output to a new object.  
+
+```{r}
+baby_names_subset <- select(baby_names, Name, Count)
+head(baby_names_subset)
+```
+
+Notice that we can combine conditions using `&` (AND) 
 and `|` (OR). 
 
 In this case it's pretty easy to see that "Mark" is more popular, 
@@ -449,15 +457,15 @@ approach is to use proportion or rank to avoid confounding
 popularity with the number of babies born in a given year. 
 
 The `mutate` function makes it easy to add or modify the columns 
-of a `data.frame`. For example, we can use it compute the 
+of a `data.frame`. For example, we can use it to compute the 
 log of the number of boys and girls given each name in each year:
 
 ```{r}
-baby_names <- mutate(baby_names, logCount = Count/1000)
+baby_names <- mutate(baby_names, logCount = log10(Count))
 baby_names # same as print(baby_names)
 ```
 
-Notice that executing the second line led to printing all 1.35 mln
+Notice that executing the second line led to printing all 1 million
 rows in our `data.frame`! If we would just like to glance at the
 first 6 lines we can use `head()`:
 
@@ -465,25 +473,17 @@ first 6 lines we can use `head()`:
 head(baby_names) 
 ```
 
-Finally, the `select()` function allows us to subset the `data.frame`
-by columns. We can then assign the output to a new object.  
-
-```{r}
-baby_names_logCount <- select(baby_names, Name, Sex, Year, logCount)
-head(baby_names_logCount)
-```
-
-`select` can also be used with pipes.
+We can also `select` a subset of columns from the baby names data:
 
 ```{r}
 baby_names %>% 
   select(Name, Sex, Year, logCount) %>%
-  head
+  head()
 ```
 
 ### Operating by group
 
-Because of the nested nature of out data, we want to compute rank 
+Because of the nested nature of our data, we want to compute rank 
 or proportion  within each `Sex` by `Year` group. The `dplyr` 
 package makes this relatively straightforward.
 
@@ -619,6 +619,19 @@ write_csv(baby_names, "babyNames.csv")
 write_rds(baby_names, "babyNames.rds")
 ```
 
+### Saving multiple datasets
+
+```{r}
+ls() # list objects in our workspace
+save(girls_and_boys, bn_by_year, most_popular, file="myDataFiles.RData")  
+```
+
+```{r}
+## Load the "myDataFiles.RData"
+## load("myDataFiles.RData") 
+```
+
+
 ### Saving and loading R workspaces
 
 In addition to importing individual datasets, R can save and load entire
@@ -749,7 +762,7 @@ qplot(x = Year, y = Count, color = Sex, data = baby_names_george)
 ```
 
 ```{r}
-# 4.  BONUS (Optional): Adust the plot to use lines instead of points.
+# 4.  BONUS (Optional): Adjust the plot to use lines instead of points.
 ```
 
 ```{r}
@@ -819,6 +832,8 @@ girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"),
                              filter(baby_names, Sex == "Girls"),
                              by = c("Year", "Name"))
 head(girls_and_boys)
+
+girls_and_boys <- girls_and_boys %>% ungroup()
 ```
 
 ```{r}
