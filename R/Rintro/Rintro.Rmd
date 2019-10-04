@@ -177,21 +177,28 @@ You can install a package in R using the `install.packages()`
 function. Once a package is installed you may use the `library()`
 function to attach it so that it can be used.
 
-Install the [tidyverse](https://www.tidyverse.org/) suite of packages
-and the `readr` package:
+While R's built-in packages are powerful, in recent years there has
+been a big surge in well-designed *contributed packages* for R.  
+In particular, a collection of R packages called 
+[tidyverse](https://www.tidyverse.org/) have been 
+designed specifically for data science. All packages included in 
+`tidyverse` share an underlying design philosophy, grammar, and 
+data structures. We will use `tidyverse` packages throughout the 
+workshop, so let's install them now:
 
 ```{r}
 # install.packages("tidyverse")
 library(tidyverse)
-# install.packages("readr")
-library(readr)
 ```
+
+![](R/Rintro/images/tidyverse.png)
+
 
 ### Readers for common file types
 
 In order to read data from a file, you have to know what kind of file
-it is. The table below lists functions that can import data from
-common plain-text formats.
+it is. The table below lists functions from the `readr` package, which
+is part of `tidyverse`, that can import data from common plain-text formats.
 
 | Data Type                 | Function        |
 | ------------------------- | --------------- |
@@ -220,7 +227,8 @@ A cleaned and merged version of these data is available at
 
 **Reading the baby names data** 
 
-Make sure you have installed the `readr` package and attached it with `library(readr)`. Baby names data are available at `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`.
+Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`. 
+Baby names data are available at `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`.
 
 1. Open the `read_csv` help page to determine how to use it to read in data.
 ```{r}
@@ -250,20 +258,13 @@ There are many other data structures in R, but for now we'll focus on
 working with `data.frames`. 
 
 R has decent data manipulation tools built-in -- see e.g.,
-`help(Extract)`. However, in recent years there has been a big surge in 
-well-designed *contributed packages* for R. In fact, the package `readr` 
-is part of a powerful collection of R packages called `tidyverse`, which are 
-designed specifically for data science . All packages included in `tidyverse`
-share an underlying design philosophy, grammar, and data structures.
+`help(Extract)`. But, `tidyverse` packages often provide
+more intuitive syntax for accomplishing the same task. In
+particular, we will use the `dplyr` package to filter,
+select, and arrange data.
 
-For this part we will load another `tidyverse` package called `dplyr`.
 
-```{r}
-# install.packages("dplyr")
-library(dplyr)
-```
-
-## Filtering and arranging data
+### Filtering and arranging data
 
 One way to find the year in which your name was the most popular
 is to filter out just the rows corresponding to your name, and 
@@ -274,12 +275,11 @@ To demonstrate these techniques we'll try to determine whether
 data so that we keep only rows where Year is equal to `1992` and Name is
 either "Alex" or "Mark".
 
-```{r, eval = FALSE}
+```{r}
 baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
 baby_names_alexmark
 ```
-
 
 Notice that we can we can combine conditons using `&` (AND) 
 and `|` (OR). 
@@ -297,13 +297,13 @@ arrange(baby_names_alexmark, desc(Count))
 ```
 
 
-## Other logical operators
+### Other logical operators
 
 In the previous example we used `==` to filter rows. Other relational
 and logical operators are listed below.
 
  | Operator  | Meaning                   | 
- | ----------| --------------------------| 
+ |:----------|:--------------------------| 
  | `==`      | equal to                  | 
  | `!=`      | not equal to              | 
  | `>`       | greater than              | 
@@ -315,7 +315,7 @@ and logical operators are listed below.
 These operators may be combined with `&` (and) or `|` (or).
 
 
-## Exercise 2
+## Exercise 2.1
 
 **Peak popularity of your name**
 
@@ -347,15 +347,15 @@ Make sure you have installed the `dplyr` package and attached it with `library(d
 
 ## Pipe operator in R
 
-There is one very special operator in R called a "pipe" operator which 
-looks like this: `%>%`. It allows to "chain" several function calls and, 
+There is one very special operator in R called a "pipe" operator that 
+looks like this: `%>%`. It allows us to "chain" several function calls and, 
 as each funciton returns an object, feed it into the next call in a single 
 statement, without needing extra variables to store the intermediate 
 results. The point of the pipe is to help you write code in a way that is
 easier to read and understand as we will see below.
 
 There is no need to load any additional packages as the operator is made 
-available via the `magrittr` package installed as part of `dplyr`. Let's 
+available via the `magrittr` package installed as part of `tidyverse`. Let's 
 rewrite the sequence of commands to output ordered counts for names 
 "Alex" or "Mark".
 
@@ -390,12 +390,7 @@ R has decent plotting tools built-in -- see e.g., `help(plot)`.
 However, again, we will make use of an excelent *contributed
 package* from `tidyverse` called `ggplot2`.
 
-```{r}
-# install.packages("ggplot2")
-library(ggplot2)
-```
-
-For quick and simple plots we can use the `qplot` function. For example,
+For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example,
 we can plot the number of babies given the name "Diana" over time like this:
 
 ```{r}
@@ -420,8 +415,8 @@ qplot(x = Year, y = Count, color = Sex,
 
 **Plotting peak popularity of your name**
 
-Make sure the `ggplot2` package is installed, and that you 
-have attached it using `library(ggplot2)`.
+Make sure the `tidyverse` suite of packages is installed, and that you 
+have attached them using `library(tidyverse)`.
 
 1.  Use `filter` to extract data for your name (same as previous exercise)
 ```{r}
@@ -616,12 +611,12 @@ You might find functions `write_csv()` and `write_rds()` from package
 
 ```{r}
 # write data to a .csv file
-write_csv(baby.names, "babyNames.csv")
+write_csv(baby_names, "babyNames.csv")
 ```
 
 ```{r}
 # write data to an R file
-write_rds(baby.names, "babyNames.rds")
+write_rds(baby_names, "babyNames.rds")
 ```
 
 ### Saving and loading R workspaces
@@ -684,7 +679,7 @@ sqrt(10)
 baby_names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
 ```
 
-### Ex 2: prototype
+### Ex 2.1: prototype
 
 ```{r}
 # 1.  Use `filter` to extract data for your name (or another name of your choice).  
@@ -729,11 +724,11 @@ baby_names %>%
 ### Ex 3: prototype
 
 ```{r}
-# 1. Use `filter` to extract data for your name (same as previous exercise)  
+# 1. Use `filter()` to extract data for your name (same as previous exercise)  
 ```
 
 ```{r}
-george <- filter(baby.names, Name == "George")
+baby_names_george <- filter(baby_names, Name == "George")
 ```
 
 ```{r}
@@ -742,7 +737,7 @@ george <- filter(baby.names, Name == "George")
 ```
 
 ```{r}
-qplot(x = Year, y = Count, data = george)
+qplot(x = Year, y = Count, data = baby_names_george)
 ```
 
 ```{r}
@@ -750,7 +745,7 @@ qplot(x = Year, y = Count, data = george)
 ```
 
 ```{r}
-qplot(x = Year, y = Count, color = Sex, data = george)
+qplot(x = Year, y = Count, color = Sex, data = baby_names_george)
 ```
 
 ```{r}
@@ -758,33 +753,36 @@ qplot(x = Year, y = Count, color = Sex, data = george)
 ```
 
 ```{r}
-qplot(x = Year, y = Count, color = Sex, data = george, geom = "line")
+qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
 ```
 
-```{r}
-##
-```
 
 ### Ex 4: prototype
 
 ```{r}
-## 1.  Use `mutate` and `group_by` to create a column named "Proportion"
+## 1.  Use `mutate()` and `group_by()` to create a column named "Proportion"
 ##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 ```
 
 ```{r}
-baby.names <- mutate(group_by(baby.names, Year, Sex),
-                     Proportion = Count/sum(Count))
+baby_names <- 
+  baby_names %>%
+  ungroup %>%
+  group_by(Year, Sex) %>%
+  mutate(Proportion = Count/sum(Count))
 ```
 
 ```{r}
-## 2.  Use `mutate` and `group_by` to create a column named "Rank" where 
+## 2.  Use `mutate()` and `group_by()` to create a column named "Rank" where 
 ##     `Rank = rank(-Count)` for each `Year X Sex` group.
 ```
 
 ```{r}
-baby.names <- mutate(group_by(baby.names, Year, Sex),
-                     Rank = rank(-Count))
+baby_names <- 
+  baby_names %>%
+  ungroup %>%
+  group_by(Year, Sex) %>%
+  mutate(Rank = rank(-Count))
 ```
 
 ```{r}
@@ -793,7 +791,8 @@ baby.names <- mutate(group_by(baby.names, Year, Sex),
 ```
 
 ```{r}
-top1 <- filter(baby.names, Rank == 1)
+top1 <- filter(baby_names, Rank == 1)
+head(top1)
 ```
 
 ```{r}
@@ -803,7 +802,9 @@ top1 <- filter(baby.names, Rank == 1)
 ```
 
 ```{r}
-qplot(x = Year, y = Proportion, color = Sex, 
+qplot(x = Year, 
+      y = Proportion, 
+      color = Sex, 
       data = top1, 
       geom = "line")
 ```
@@ -814,31 +815,38 @@ qplot(x = Year, y = Proportion, color = Sex,
 ```
 
 ```{r}
-girls.and.boys <- inner_join(filter(baby.names, Sex == "Boys"), 
-                             filter(baby.names, Sex == "Girls"),
+girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"), 
+                             filter(baby_names, Sex == "Girls"),
                              by = c("Year", "Name"))
+head(girls_and_boys)
 ```
 
 ```{r}
-girls.and.boys <- mutate(girls.and.boys,
+girls_and_boys <- mutate(girls_and_boys,
                          Product = Count.x * Count.y,
                          Rank = rank(-Product))
+head(girls_and_boys)
 ```
 
 ```{r}
-filter(girls.and.boys, Rank == 1)
+filter(girls_and_boys, Rank == 1)
 ```
+
 
 ### Ex 5: prototype
 
 ```{r}
-## 1.  Filter the baby.names data, retaining only the 10 most 
+## 1.  Filter the baby_names data, retaining only the 10 most 
 ##     popular girl and boy names for each year.
 ```
 
 ```{r}
-most.popular <- filter(group_by(baby.names, Year, Sex),
-                       Rank <= 10)
+most_popular <- 
+  baby_names %>% 
+  group_by(Year, Sex) %>%
+  filter(Rank <= 10)
+
+most_popular
 ```
 
 ```{r}
@@ -848,8 +856,9 @@ most.popular <- filter(group_by(baby.names, Year, Sex),
 ```
 
 ```{r}
-top10 <- summarize(group_by(most.popular, Year, Sex),
-                   TotalProportion = sum(Proportion))
+top10 <- 
+  most_popular %>% # it is already grouped by Year and Sex
+  summarize(TotalProportion = sum(Proportion))
 ```
 
 ```{r}
@@ -858,7 +867,9 @@ top10 <- summarize(group_by(most.popular, Year, Sex),
 ```
 
 ```{r}
-qplot(x = Year, y = TotalProportion, color = Sex,
+qplot(x = Year, 
+      y = TotalProportion, 
+      color = Sex,
       data = top10,
       geom = "line")
 ```
@@ -877,6 +888,11 @@ These workshops are a work in progress, please provide any feedback to: help@iq.
     + [Data Science Services](https://dss.iq.harvard.edu/)
     + [Research Computing Environment](https://iqss.github.io/dss-rce/)
 
+* HBS
+    + [Research Computing Services workshops](https://training.rcs.hbs.org/workshops)
+    + [other HBS RCS resources](https://training.rcs.hbs.org/workshop-materials)
+    + RCS consulting email: <mailto:research@hbs.edu>
+
 * Software (all free!):
     + R and R package download: <http://cran.r-project.org>
     + Rstudio download: <http://rstudio.org>
@@ -893,10 +909,11 @@ These workshops are a work in progress, please provide any feedback to: help@iq.
     + Recommended R packages by topic: <http://cran.r-project.org/web/views/>
     + Mailing list: <https://stat.ethz.ch/mailman/listinfo/r-help>
     + StackOverflow: <http://stackoverflow.com/questions/tagged/r>
+    + R-Bloggers: <https://www.r-bloggers.com/>
 
 * Coming from ...
     + Stata: <http://www.princeton.edu/~otorres/RStata.pdf>
-    + SAS/SPSS: <http://www.et.bs.ehu.es/~etptupaf/pub/R/RforSAS&SPSSusers.pdf>
+    + SAS/SPSS: <http://r4stats.com/books/free-version/>
     + Matlab: <http://www.math.umaine.edu/~hiebeler/comp/matlabR.pdf>
     + Python: <http://mathesaurus.sourceforge.net/matlab-python-xref.pdf>
 

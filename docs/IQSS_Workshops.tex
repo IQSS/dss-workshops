@@ -483,23 +483,34 @@ You can install a package in R using the \texttt{install.packages()}
 function. Once a package is installed you may use the \texttt{library()}
 function to attach it so that it can be used.
 
-Install the \href{https://www.tidyverse.org/}{tidyverse} suite of
-packages and the \texttt{readr} package:
+While R's built-in packages are powerful, in recent years there has been
+a big surge in well-designed \emph{contributed packages} for R.\\
+In particular, a collection of R packages called
+\href{https://www.tidyverse.org/}{tidyverse} have been designed
+specifically for data science. All packages included in
+\texttt{tidyverse} share an underlying design philosophy, grammar, and
+data structures. We will use \texttt{tidyverse} packages throughout the
+workshop, so let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
-\CommentTok{# install.packages("readr")}
-\KeywordTok{library}\NormalTok{(readr)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidyverse.png}
+\caption{}
+\end{figure}
 
 \subsection{Readers for common file
 types}\label{readers-for-common-file-types}
 
 In order to read data from a file, you have to know what kind of file it
-is. The table below lists functions that can import data from common
+is. The table below lists functions from the \texttt{readr} package,
+which is part of \texttt{tidyverse}, that can import data from common
 plain-text formats.
 
 \begin{longtable}[]{@{}ll@{}}
@@ -533,8 +544,9 @@ A cleaned and merged version of these data is available at
 
 \textbf{Reading the baby names data}
 
-Make sure you have installed the \texttt{readr} package and attached it
-with \texttt{library(readr)}. Baby names data are available at
+Make sure you have installed the \texttt{tidyverse} suite of packages
+and attached them with \texttt{library(tidyverse)}. Baby names data are
+available at
 \texttt{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}.
 
 \begin{enumerate}
@@ -592,24 +604,11 @@ The \texttt{baby\_names} object we created in the last exercise is a
 now we'll focus on working with \texttt{data.frames}.
 
 R has decent data manipulation tools built-in -- see e.g.,
-\texttt{help(Extract)}. However, in recent years there has been a big
-surge in well-designed \emph{contributed packages} for R. In fact, the
-package \texttt{readr} is part of a powerful collection of R packages
-called \texttt{tidyverse}, which are designed specifically for data
-science . All packages included in \texttt{tidyverse} share an
-underlying design philosophy, grammar, and data structures.
+\texttt{help(Extract)}. But, \texttt{tidyverse} packages often provide
+more intuitive syntax for accomplishing the same task. In particular, we
+will use the \texttt{dplyr} package to filter, select, and arrange data.
 
-For this part we will load another \texttt{tidyverse} package called
-\texttt{dplyr}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("dplyr")}
-\KeywordTok{library}\NormalTok{(dplyr)}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Filtering and arranging
+\subsection{Filtering and arranging
 data}\label{filtering-and-arranging-data}
 
 One way to find the year in which your name was the most popular is to
@@ -648,7 +647,7 @@ name is listed first.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Other logical operators}\label{other-logical-operators}
+\subsection{Other logical operators}\label{other-logical-operators}
 
 In the previous example we used \texttt{==} to filter rows. Other
 relational and logical operators are listed below.
@@ -671,7 +670,7 @@ Operator & Meaning\tabularnewline
 These operators may be combined with \texttt{\&} (and) or
 \texttt{\textbar{}} (or).
 
-\section{Exercise 2}\label{exercise-2}
+\section{Exercise 2.1}\label{exercise-2.1}
 
 \textbf{Peak popularity of your name}
 
@@ -731,8 +730,8 @@ with \texttt{library(dplyr)}.
 
 \section{Pipe operator in R}\label{pipe-operator-in-r}
 
-There is one very special operator in R called a ``pipe'' operator which
-looks like this: \texttt{\%\textgreater{}\%}. It allows to ``chain''
+There is one very special operator in R called a ``pipe'' operator that
+looks like this: \texttt{\%\textgreater{}\%}. It allows us to ``chain''
 several function calls and, as each funciton returns an object, feed it
 into the next call in a single statement, without needing extra
 variables to store the intermediate results. The point of the pipe is to
@@ -741,8 +740,8 @@ will see below.
 
 There is no need to load any additional packages as the operator is made
 available via the \texttt{magrittr} package installed as part of
-\texttt{dplyr}. Let's rewrite the sequence of commands to output ordered
-counts for names ``Alex'' or ``Mark''.
+\texttt{tidyverse}. Let's rewrite the sequence of commands to output
+ordered counts for names ``Alex'' or ``Mark''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -779,16 +778,9 @@ R has decent plotting tools built-in -- see e.g., \texttt{help(plot)}.
 However, again, we will make use of an excelent \emph{contributed
 package} from \texttt{tidyverse} called \texttt{ggplot2}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("ggplot2")}
-\KeywordTok{library}\NormalTok{(ggplot2)}
-\end{Highlighting}
-\end{Shaded}
-
-For quick and simple plots we can use the \texttt{qplot} function. For
-example, we can plot the number of babies given the name ``Diana'' over
-time like this:
+For quick and simple plots we can use the \texttt{qplot()} function from
+\texttt{ggplot2}. For example, we can plot the number of babies given
+the name ``Diana'' over time like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -818,8 +810,8 @@ Sex is very easy:
 
 \textbf{Plotting peak popularity of your name}
 
-Make sure the \texttt{ggplot2} package is installed, and that you have
-attached it using \texttt{library(ggplot2)}.
+Make sure the \texttt{tidyverse} suite of packages is installed, and
+that you have attached them using \texttt{library(tidyverse)}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1130,14 +1122,14 @@ from package \texttt{readr} handy!
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# write data to a .csv file}
-\KeywordTok{write_csv}\NormalTok{(baby.names, }\StringTok{"babyNames.csv"}\NormalTok{)}
+\KeywordTok{write_csv}\NormalTok{(baby_names, }\StringTok{"babyNames.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# write data to an R file}
-\KeywordTok{write_rds}\NormalTok{(baby.names, }\StringTok{"babyNames.rds"}\NormalTok{)}
+\KeywordTok{write_rds}\NormalTok{(baby_names, }\StringTok{"babyNames.rds"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1219,7 +1211,7 @@ workspaces
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ex 2: prototype}\label{ex-2-prototype}
+\subsection{Ex 2.1: prototype}\label{ex-2.1-prototype}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1280,13 +1272,13 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# 1. Use `filter` to extract data for your name (same as previous exercise)  }
+\CommentTok{# 1. Use `filter()` to extract data for your name (same as previous exercise)  }
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
+\NormalTok{baby_names_george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1299,7 +1291,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{data =}\NormalTok{ george)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{data =}\NormalTok{ baby_names_george)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1311,7 +1303,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ george)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ baby_names_george)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1323,13 +1315,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ george, }\DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ baby_names_george, }\DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1337,29 +1323,35 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 1.  Use `mutate` and `group_by` to create a column named "Proportion"}
+\NormalTok{## 1.  Use `mutate()` and `group_by()` to create a column named "Proportion"}
 \NormalTok{##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby.names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(baby.names, Year, Sex),}
-                     \DataTypeTok{Proportion =}\NormalTok{ Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
+\NormalTok{baby_names <-}\StringTok{ }
+\StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{ungroup }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Proportion =}\NormalTok{ Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 2.  Use `mutate` and `group_by` to create a column named "Rank" where }
+\NormalTok{## 2.  Use `mutate()` and `group_by()` to create a column named "Rank" where }
 \NormalTok{##     `Rank = rank(-Count)` for each `Year X Sex` group.}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby.names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(baby.names, Year, Sex),}
-                     \DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Count))}
+\NormalTok{baby_names <-}\StringTok{ }
+\StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{ungroup }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Count))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1372,7 +1364,8 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{top1 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby.names, Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{top1 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(top1)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1386,7 +1379,9 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Proportion, }\DataTypeTok{color =}\NormalTok{ Sex, }
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }
+      \DataTypeTok{y =}\NormalTok{ Proportion, }
+      \DataTypeTok{color =}\NormalTok{ Sex, }
       \DataTypeTok{data =}\NormalTok{ top1, }
       \DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
 \end{Highlighting}
@@ -1401,23 +1396,25 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{girls.and.boys <-}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(}\KeywordTok{filter}\NormalTok{(baby.names, Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{), }
-                             \KeywordTok{filter}\NormalTok{(baby.names, Sex }\OperatorTok{==}\StringTok{ "Girls"}\NormalTok{),}
+\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(}\KeywordTok{filter}\NormalTok{(baby_names, Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{), }
+                             \KeywordTok{filter}\NormalTok{(baby_names, Sex }\OperatorTok{==}\StringTok{ "Girls"}\NormalTok{),}
                              \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"Year"}\NormalTok{, }\StringTok{"Name"}\NormalTok{))}
+\KeywordTok{head}\NormalTok{(girls_and_boys)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{girls.and.boys <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(girls.and.boys,}
+\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(girls_and_boys,}
                          \DataTypeTok{Product =}\NormalTok{ Count.x }\OperatorTok{*}\StringTok{ }\NormalTok{Count.y,}
                          \DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Product))}
+\KeywordTok{head}\NormalTok{(girls_and_boys)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(girls.and.boys, Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\KeywordTok{filter}\NormalTok{(girls_and_boys, Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1425,15 +1422,19 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 1.  Filter the baby.names data, retaining only the 10 most }
+\NormalTok{## 1.  Filter the baby_names data, retaining only the 10 most }
 \NormalTok{##     popular girl and boy names for each year.}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{most.popular <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(baby.names, Year, Sex),}
-\NormalTok{                       Rank }\OperatorTok{<=}\StringTok{ }\DecValTok{10}\NormalTok{)}
+\NormalTok{most_popular <-}\StringTok{ }
+\StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Rank }\OperatorTok{<=}\StringTok{ }\DecValTok{10}\NormalTok{)}
+
+\NormalTok{most_popular}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1447,8 +1448,9 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{top10 <-}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(most.popular, Year, Sex),}
-                   \DataTypeTok{TotalProportion =} \KeywordTok{sum}\NormalTok{(Proportion))}
+\NormalTok{top10 <-}\StringTok{ }
+\StringTok{  }\NormalTok{most_popular }\OperatorTok{%>%}\StringTok{ }\CommentTok{# it is already grouped by Year and Sex}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{TotalProportion =} \KeywordTok{sum}\NormalTok{(Proportion))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1461,7 +1463,9 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ TotalProportion, }\DataTypeTok{color =}\NormalTok{ Sex,}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }
+      \DataTypeTok{y =}\NormalTok{ TotalProportion, }
+      \DataTypeTok{color =}\NormalTok{ Sex,}
       \DataTypeTok{data =}\NormalTok{ top10,}
       \DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
 \end{Highlighting}
@@ -1490,6 +1494,20 @@ These workshops are a work in progress, please provide any feedback to:
   \item
     \href{https://iqss.github.io/dss-rce/}{Research Computing
     Environment}
+  \end{itemize}
+\item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://training.rcs.hbs.org/workshops}{Research Computing
+    Services workshops}
+  \item
+    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
+    resources}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}
 \item
   Software (all free!):
@@ -1532,6 +1550,8 @@ These workshops are a work in progress, please provide any feedback to:
     Mailing list: \url{https://stat.ethz.ch/mailman/listinfo/r-help}
   \item
     StackOverflow: \url{http://stackoverflow.com/questions/tagged/r}
+  \item
+    R-Bloggers: \url{https://www.r-bloggers.com/}
   \end{itemize}
 \item
   Coming from \ldots{}
@@ -1541,8 +1561,7 @@ These workshops are a work in progress, please provide any feedback to:
   \item
     Stata: \url{http://www.princeton.edu/~otorres/RStata.pdf}
   \item
-    SAS/SPSS:
-    \url{http://www.et.bs.ehu.es/~etptupaf/pub/R/RforSAS\&SPSSusers.pdf}
+    SAS/SPSS: \url{http://r4stats.com/books/free-version/}
   \item
     Matlab: \url{http://www.math.umaine.edu/~hiebeler/comp/matlabR.pdf}
   \item
@@ -2059,7 +2078,7 @@ compute quantities of interest for us.
 \caption{}
 \end{figure}
 
-\section{Exercise 2}\label{exercise-2-1}
+\section{Exercise 2}\label{exercise-2}
 
 \textbf{Logistic regression}
 
@@ -2361,7 +2380,7 @@ Use the states data set.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ex 2: prototype}\label{ex-2-prototype-1}
+\subsection{Ex 2: prototype}\label{ex-2-prototype}
 
 Use the NH11 data set that we loaded earlier. Note that the data is not
 perfectly clean and ready to be modeled. You will need to clean up at
@@ -3244,7 +3263,7 @@ colors.
 Note that in RStudio you can type \texttt{scale\_} followed by TAB to
 get the whole list of available scales.
 
-\section{Exercise 2}\label{exercise-2-2}
+\section{Exercise 2}\label{exercise-2-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3970,7 +3989,7 @@ important elements.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ex 2: prototype}\label{ex-2-prototype-2}
+\subsection{Ex 2: prototype}\label{ex-2-prototype-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4489,7 +4508,7 @@ values.
 Finally, we will want to filter out missing do this for all the elements
 in \texttt{boysNames}, a task I leave to you.
 
-\section{Exercise 2}\label{exercise-2-3}
+\section{Exercise 2}\label{exercise-2-2}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4668,7 +4687,7 @@ formats.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ex 2: prototype}\label{ex-2-prototype-3}
+\subsection{Ex 2: prototype}\label{ex-2-prototype-2}
 
 \begin{Shaded}
 \begin{Highlighting}[]
