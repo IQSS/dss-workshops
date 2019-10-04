@@ -195,10 +195,9 @@ Geometric objects are the actual marks we put on a plot. Examples include:
 
 * points (`geom_point`, for scatter plots, dot plots, etc.)
 * lines (`geom_line`, for time series, trend lines, etc.)
-* boxplot (`geom_boxplot`, for, well, boxplots!)
+* boxplot (`geom_boxplot`, for boxplots!)
 
-A plot must have at least one geom; there is no upper limit. You can add a geom to a plot using the `+` operator
-
+A plot **must have at least one geom**; there is no upper limit. You can add a geom to a plot using the `+` operator.
 You can get a list of available geometric objects using the code below:
 
 ```{r}
@@ -207,7 +206,21 @@ help.search("geom_", package = "ggplot2")
 
 or simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
 
-### Points (scatterplot)
+Each `geom_` has a particular set of aesthetic mappings associated with it, some of which are required and some optional:
+
+
+| `geom_`          | Usage           | Possible Aesthetics                                              |
+|:-----------------|:----------------|:-----------------------------------------------------------------|
+| `geom_point()`   | Scatter plot    |**`x`**,`y`,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`|
+| `geom_line()`    | Line plot       |`x`,`y`,`alpha`,`color`,`linetype`,`size`                         |
+| `geom_bar()`     | Bar chart       |`x`,`y`,`alpha`,`color`,`fill`,`group`,`linetype`,`size`          |
+| `geom_boxplot()` | Boxplot         |`x`,`lower`,`upper`,`middle`,`ymin`,`ymax`,`alpha`,`color`,`fill` |
+| `geom_density()` | Density plot    |`x`,`y`,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight` |
+| `geom_smooth()`  | Smoothed means  |`x`,`y`,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight` |
+| `geom_jitter()`  | Jittered points |`x`,`y`,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`    |
+
+
+#### Points (scatterplot)
 
 Now that we know about geometric objects and aesthetic mapping, we can make a ggplot. `geom_point` requires mappings for x and y, all others are optional.
 
@@ -226,7 +239,7 @@ ggplot(hp2001Q1,
 ```
 
 
-### Lines (prediction line)
+#### Lines (prediction line)
 
 A plot constructed with `ggplot` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden. Our plot could use a regression line:
 
@@ -240,7 +253,7 @@ p1 + geom_point(aes(color = Home.Value)) +
 ```
 
 
-### Smoothers
+#### Smoothers
 
 Not all geometric objects are simple shapes&#x2013;the smooth geom includes a line and a ribbon.
 
@@ -251,7 +264,7 @@ p1 +
 ```
 
 
-### Text (label points)
+#### Text (label points)
 
 Each `geom` accepts a particualar set of mappings;for example `geom_text()` accepts a `labels` mapping.
 

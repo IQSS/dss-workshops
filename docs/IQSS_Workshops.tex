@@ -2890,13 +2890,12 @@ include:
 \item
   lines (\texttt{geom\_line}, for time series, trend lines, etc.)
 \item
-  boxplot (\texttt{geom\_boxplot}, for, well, boxplots!)
+  boxplot (\texttt{geom\_boxplot}, for boxplots!)
 \end{itemize}
 
-A plot must have at least one geom; there is no upper limit. You can add
-a geom to a plot using the \texttt{+} operator
-
-You can get a list of available geometric objects using the code below:
+A plot \textbf{must have at least one geom}; there is no upper limit.
+You can add a geom to a plot using the \texttt{+} operator. You can get
+a list of available geometric objects using the code below:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2908,7 +2907,73 @@ or simply type \texttt{geom\_\textless{}tab\textgreater{}} in any good R
 IDE (such as Rstudio or ESS) to see a list of functions starting with
 \texttt{geom\_}.
 
-\subsection{Points (scatterplot)}\label{points-scatterplot}
+Each \texttt{geom\_} has a particular set of aesthetic mappings
+associated with it, some of which are required and some optional:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_}\strut
+\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright\strut
+Usage\strut
+\end{minipage} & \begin{minipage}[b]{0.59\columnwidth}\raggedright\strut
+Possible Aesthetics\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_point()}\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Scatter plot\strut
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\texttt{y},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{shape},\texttt{size},\texttt{stroke}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_line()}\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Line plot\strut
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright\strut
+\texttt{x},\texttt{y},\texttt{alpha},\texttt{color},\texttt{linetype},\texttt{size}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_bar()}\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Bar chart\strut
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright\strut
+\texttt{x},\texttt{y},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_boxplot()}\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Boxplot\strut
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright\strut
+\texttt{x},\texttt{lower},\texttt{upper},\texttt{middle},\texttt{ymin},\texttt{ymax},\texttt{alpha},\texttt{color},\texttt{fill}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_density()}\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Density plot\strut
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright\strut
+\texttt{x},\texttt{y},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size},\texttt{weight}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_smooth()}\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Smoothed means\strut
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright\strut
+\texttt{x},\texttt{y},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size},\texttt{weight}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{geom\_jitter()}\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Jittered points\strut
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright\strut
+\texttt{x},\texttt{y},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{shape},\texttt{size},\texttt{stroke}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{Points (scatterplot)}\label{points-scatterplot}
 
 Now that we know about geometric objects and aesthetic mapping, we can
 make a ggplot. \texttt{geom\_point} requires mappings for x and y, all
@@ -2931,7 +2996,7 @@ others are optional.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Lines (prediction line)}\label{lines-prediction-line}
+\subsubsection{Lines (prediction line)}\label{lines-prediction-line}
 
 A plot constructed with \texttt{ggplot} can have more than one geom. In
 that case the mappings established in the \texttt{ggplot()} call are
@@ -2949,7 +3014,7 @@ regression line:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Smoothers}\label{smoothers}
+\subsubsection{Smoothers}\label{smoothers}
 
 Not all geometric objects are simple shapes--the smooth geom includes a
 line and a ribbon.
@@ -2962,7 +3027,7 @@ line and a ribbon.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Text (label points)}\label{text-label-points}
+\subsubsection{Text (label points)}\label{text-label-points}
 
 Each \texttt{geom} accepts a particualar set of mappings;for example
 \texttt{geom\_text()} accepts a \texttt{labels} mapping.
@@ -6883,7 +6948,7 @@ labels}\label{exercise-2-variable-labels-and-value-labels}
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
-\textbf{var} & \textbf{rename to} & \textbf{label with}\tabularnewline
+Var & Rename to & Label with\tabularnewline
 \midrule
 \endhead
 v1 & marital & marital status\tabularnewline
@@ -6906,7 +6971,7 @@ v7 & region & region of interview\tabularnewline
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-\textbf{value} & \textbf{label}\tabularnewline
+Value & Label\tabularnewline
 \midrule
 \endhead
 1 & ``married''\tabularnewline

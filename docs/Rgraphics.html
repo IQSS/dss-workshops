@@ -226,12 +226,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="Rgraphics.html"><a href="Rgraphics.html#geometric-objects-and-aesthetics"><i class="fa fa-check"></i><b>3.3</b> Geometric objects and aesthetics</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="Rgraphics.html"><a href="Rgraphics.html#aesthetic-mapping"><i class="fa fa-check"></i><b>3.3.1</b> Aesthetic mapping</a></li>
 <li class="chapter" data-level="3.3.2" data-path="Rgraphics.html"><a href="Rgraphics.html#geometic-objects-geom"><i class="fa fa-check"></i><b>3.3.2</b> Geometic objects (<code>geom</code>)</a></li>
-<li class="chapter" data-level="3.3.3" data-path="Rgraphics.html"><a href="Rgraphics.html#points-scatterplot"><i class="fa fa-check"></i><b>3.3.3</b> Points (scatterplot)</a></li>
-<li class="chapter" data-level="3.3.4" data-path="Rgraphics.html"><a href="Rgraphics.html#lines-prediction-line"><i class="fa fa-check"></i><b>3.3.4</b> Lines (prediction line)</a></li>
-<li class="chapter" data-level="3.3.5" data-path="Rgraphics.html"><a href="Rgraphics.html#smoothers"><i class="fa fa-check"></i><b>3.3.5</b> Smoothers</a></li>
-<li class="chapter" data-level="3.3.6" data-path="Rgraphics.html"><a href="Rgraphics.html#text-label-points"><i class="fa fa-check"></i><b>3.3.6</b> Text (label points)</a></li>
-<li class="chapter" data-level="3.3.7" data-path="Rgraphics.html"><a href="Rgraphics.html#aesthetic-mapping-vs-assignment"><i class="fa fa-check"></i><b>3.3.7</b> Aesthetic mapping VS assignment</a></li>
-<li class="chapter" data-level="3.3.8" data-path="Rgraphics.html"><a href="Rgraphics.html#mapping-variables-to-other-aesthetics"><i class="fa fa-check"></i><b>3.3.8</b> Mapping variables to other aesthetics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Rgraphics.html"><a href="Rgraphics.html#aesthetic-mapping-vs-assignment"><i class="fa fa-check"></i><b>3.3.3</b> Aesthetic mapping VS assignment</a></li>
+<li class="chapter" data-level="3.3.4" data-path="Rgraphics.html"><a href="Rgraphics.html#mapping-variables-to-other-aesthetics"><i class="fa fa-check"></i><b>3.3.4</b> Mapping variables to other aesthetics</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="Rgraphics.html"><a href="Rgraphics.html#exercise-0-2"><i class="fa fa-check"></i><b>3.4</b> Exercise 0</a></li>
 <li class="chapter" data-level="3.5" data-path="Rgraphics.html"><a href="Rgraphics.html#statistical-transformations"><i class="fa fa-check"></i><b>3.5</b> Statistical transformations</a><ul>
@@ -600,15 +596,65 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <ul>
 <li>points (<code>geom_point</code>, for scatter plots, dot plots, etc.)</li>
 <li>lines (<code>geom_line</code>, for time series, trend lines, etc.)</li>
-<li>boxplot (<code>geom_boxplot</code>, for, well, boxplots!)</li>
+<li>boxplot (<code>geom_boxplot</code>, for boxplots!)</li>
 </ul>
-<p>A plot must have at least one geom; there is no upper limit. You can add a geom to a plot using the <code>+</code> operator</p>
-<p>You can get a list of available geometric objects using the code below:</p>
+<p>A plot <strong>must have at least one geom</strong>; there is no upper limit. You can add a geom to a plot using the <code>+</code> operator. You can get a list of available geometric objects using the code below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
 <p>or simply type <code>geom_&lt;tab&gt;</code> in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with <code>geom_</code>.</p>
-</div>
-<div id="points-scatterplot" class="section level3">
-<h3><span class="header-section-number">3.3.3</span> Points (scatterplot)</h3>
+<p>Each <code>geom_</code> has a particular set of aesthetic mappings associated with it, some of which are required and some optional:</p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="17%" />
+<col width="64%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><code>geom_</code></th>
+<th align="left">Usage</th>
+<th align="left">Possible Aesthetics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>geom_point()</code></td>
+<td align="left">Scatter plot</td>
+<td align="left"><strong><code>x</code></strong>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>shape</code>,<code>size</code>,<code>stroke</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>geom_line()</code></td>
+<td align="left">Line plot</td>
+<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>linetype</code>,<code>size</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>geom_bar()</code></td>
+<td align="left">Bar chart</td>
+<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>geom_boxplot()</code></td>
+<td align="left">Boxplot</td>
+<td align="left"><code>x</code>,<code>lower</code>,<code>upper</code>,<code>middle</code>,<code>ymin</code>,<code>ymax</code>,<code>alpha</code>,<code>color</code>,<code>fill</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>geom_density()</code></td>
+<td align="left">Density plot</td>
+<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code>,<code>weight</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>geom_smooth()</code></td>
+<td align="left">Smoothed means</td>
+<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code>,<code>weight</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>geom_jitter()</code></td>
+<td align="left">Jittered points</td>
+<td align="left"><code>x</code>,<code>y</code>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>shape</code>,<code>size</code>,<code>stroke</code></td>
+</tr>
+</tbody>
+</table>
+<div id="points-scatterplot" class="section level4">
+<h4><span class="header-section-number">3.3.2.1</span> Points (scatterplot)</h4>
 <p>Now that we know about geometric objects and aesthetic mapping, we can make a ggplot. <code>geom_point</code> requires mappings for x and y, all others are optional.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hp2001Q1 &lt;-<span class="st"> </span><span class="kw">filter</span>(housing, Date <span class="op">==</span><span class="st"> </span><span class="fl">2001.25</span>) 
 <span class="kw">ggplot</span>(hp2001Q1,
@@ -618,8 +664,8 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
        <span class="kw">aes</span>(<span class="dt">y =</span> Structure.Cost, <span class="dt">x =</span> <span class="kw">log</span>(Land.Value))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 </div>
-<div id="lines-prediction-line" class="section level3">
-<h3><span class="header-section-number">3.3.4</span> Lines (prediction line)</h3>
+<div id="lines-prediction-line" class="section level4">
+<h4><span class="header-section-number">3.3.2.2</span> Lines (prediction line)</h4>
 <p>A plot constructed with <code>ggplot</code> can have more than one geom. In that case the mappings established in the <code>ggplot()</code> call are plot defaults that can be added to or overridden. Our plot could use a regression line:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hp2001Q1<span class="op">$</span>pred.SC &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="kw">lm</span>(Structure.Cost <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(Land.Value), <span class="dt">data =</span> hp2001Q1))
 
@@ -628,15 +674,15 @@ p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hp2001Q1, <span 
 p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home.Value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred.SC))</code></pre></div>
 </div>
-<div id="smoothers" class="section level3">
-<h3><span class="header-section-number">3.3.5</span> Smoothers</h3>
+<div id="smoothers" class="section level4">
+<h4><span class="header-section-number">3.3.2.3</span> Smoothers</h4>
 <p>Not all geometric objects are simple shapes–the smooth geom includes a line and a ribbon.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home.Value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>()</code></pre></div>
 </div>
-<div id="text-label-points" class="section level3">
-<h3><span class="header-section-number">3.3.6</span> Text (label points)</h3>
+<div id="text-label-points" class="section level4">
+<h4><span class="header-section-number">3.3.2.4</span> Text (label points)</h4>
 <p>Each <code>geom</code> accepts a particualar set of mappings;for example <code>geom_text()</code> accepts a <code>labels</code> mapping.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
@@ -646,15 +692,16 @@ p1 <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
 </div>
+</div>
 <div id="aesthetic-mapping-vs-assignment" class="section level3">
-<h3><span class="header-section-number">3.3.7</span> Aesthetic mapping VS assignment</h3>
+<h3><span class="header-section-number">3.3.3</span> Aesthetic mapping VS assignment</h3>
 <p>Note that variables are mapped to aesthetics with the <code>aes()</code> function, while fixed aesthetics are set outside the <code>aes()</code> call. This sometimes leads to confusion, as in this example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="dv">2</span>),<span class="co"># incorrect! 2 is not a variable</span>
              <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="co"># this is fine -- all points red</span></code></pre></div>
 </div>
 <div id="mapping-variables-to-other-aesthetics" class="section level3">
-<h3><span class="header-section-number">3.3.8</span> Mapping variables to other aesthetics</h3>
+<h3><span class="header-section-number">3.3.4</span> Mapping variables to other aesthetics</h3>
 <p>Other aesthetics are mapped in the same way as x and y in the previous example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Home.Value, <span class="dt">shape =</span> region))</code></pre></div>
