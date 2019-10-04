@@ -198,26 +198,27 @@ Geometric objects are the actual marks we put on a plot. Examples include:
 * boxplot (`geom_boxplot`, for boxplots!)
 
 A plot **must have at least one geom**; there is no upper limit. You can add a geom to a plot using the `+` operator.
-You can get a list of available geometric objects using the code below:
+
+Each `geom_` has a particular set of aesthetic mappings associated with it. Some examples are provided below, 
+with required aesthetics in **bold** and optional aesthetics in plain text:
+
+| `geom_`          | Usage             | Aesthetics                                                                      |
+|:-----------------|:------------------|:-----------------------------------------------------------------------------------------|
+| `geom_point()`   | Scatter plot      |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`                    |
+| `geom_line()`    | Line plot         |**`x`**,**`y`**,`alpha`,`color`,`linetype`,`size`                                         |
+| `geom_bar()`     | Bar chart         |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`                          |
+| `geom_boxplot()` | Boxplot           |**`x`**,**`lower`**,**`upper`**,**`middle`**,**`ymin`**,**`ymax`**,`alpha`,`color`,`fill` |
+| `geom_density()` | Density plot      |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
+| `geom_smooth()`  | Conditional means |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
+| `geom_label()`   | Text              |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
+
+You can get a list of all available geometric objects and their associated aesthetics using the code below:
 
 ```{r}
 help.search("geom_", package = "ggplot2")
 ```
 
 or simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
-
-Each `geom_` has a particular set of aesthetic mappings associated with it. Some examples are provided below, 
-with required aesthetics in **bold** and optional aesthetics in plain text:
-
-
-| `geom_`          | Usage           | Possible Aesthetics                                                                      |
-|:-----------------|:----------------|:-----------------------------------------------------------------------------------------|
-| `geom_point()`   | Scatter plot    |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`                    |
-| `geom_line()`    | Line plot       |**`x`**,**`y`**,`alpha`,`color`,`linetype`,`size`                                         |
-| `geom_bar()`     | Bar chart       |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`                          |
-| `geom_boxplot()` | Boxplot         |**`x`**,**`lower`**,**`upper`**,**`middle`**,**`ymin`**,**`ymax`**,`alpha`,`color`,`fill` |
-| `geom_density()` | Density plot    |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
-| `geom_label()`   | Text            |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
 
 
 #### Points (scatterplot)
@@ -418,32 +419,26 @@ Specific scale functions may have additional arguments; for example, the `scale_
 Start by constructing a dotplot showing the distribution of home values by Date and State.
 
 ```{r}
-p3 <- ggplot(housing,
-             aes(x = State,
-                 y = Home.Price.Index)) + 
-        theme(legend.position="top",
-              axis.text=element_text(size = 6))
-(p4 <- p3 + geom_point(aes(color = Date),
-                       alpha = 0.5,
-                       size = 1.5,
-                       position = position_jitter(width = 0.25, height = 0)))
+base_plot <- ggplot(housing, aes(x = State, y = Home.Price.Index)) + 
+    geom_point(aes(color = Date), alpha = 0.5, size = 1.5,
+               position = position_jitter(width = 0.25, height = 0)))
 ```
 
 
 Now modify the breaks for the x axis and color scales
 
 ```{r}
-p4 + scale_x_discrete(name="State Abbreviation") +
+base_plot + 
+  scale_x_discrete(name="State Abbreviation") +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
                          labels = c("'76", "'94", "'13"))
 ```
 
-
 Next change the low and high values to blue and red:
 
 ```{r}
-p4 +
+base_plot +
   scale_x_discrete(name="State Abbreviation") +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
@@ -451,11 +446,12 @@ p4 +
                          low = "blue", high = "red")
 
 ```
-
+Now mute the colors:
 
 ```{r}
 library(scales)
-p4 +
+
+base_plot +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
                          labels = c("'76", "'94", "'13"),

@@ -2895,8 +2895,77 @@ include:
 \end{itemize}
 
 A plot \textbf{must have at least one geom}; there is no upper limit.
-You can add a geom to a plot using the \texttt{+} operator. You can get
-a list of available geometric objects using the code below:
+You can add a geom to a plot using the \texttt{+} operator.
+
+Each \texttt{geom\_} has a particular set of aesthetic mappings
+associated with it. Some examples are provided below, with required
+aesthetics in \textbf{bold} and optional aesthetics in plain text:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_}\strut
+\end{minipage} & \begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
+Usage\strut
+\end{minipage} & \begin{minipage}[b]{0.64\columnwidth}\raggedright\strut
+Aesthetics\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_point()}\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Scatter plot\strut
+\end{minipage} & \begin{minipage}[t]{0.64\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{shape},\texttt{size},\texttt{stroke}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_line()}\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Line plot\strut
+\end{minipage} & \begin{minipage}[t]{0.64\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{linetype},\texttt{size}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_bar()}\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Bar chart\strut
+\end{minipage} & \begin{minipage}[t]{0.64\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_boxplot()}\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Boxplot\strut
+\end{minipage} & \begin{minipage}[t]{0.64\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\textbf{\texttt{lower}},\textbf{\texttt{upper}},\textbf{\texttt{middle}},\textbf{\texttt{ymin}},\textbf{\texttt{ymax}},\texttt{alpha},\texttt{color},\texttt{fill}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_density()}\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Density plot\strut
+\end{minipage} & \begin{minipage}[t]{0.64\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size},\texttt{weight}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_smooth()}\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Conditional means\strut
+\end{minipage} & \begin{minipage}[t]{0.64\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size},\texttt{weight}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\texttt{geom\_label()}\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Text\strut
+\end{minipage} & \begin{minipage}[t]{0.64\columnwidth}\raggedright\strut
+\textbf{\texttt{x}},\textbf{\texttt{y}},\textbf{\texttt{label}},\texttt{alpha},\texttt{angle},\texttt{color},\texttt{family},\texttt{fontface},\texttt{size}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+You can get a list of all available geometric objects and their
+associated aesthetics using the code below:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2907,66 +2976,6 @@ a list of available geometric objects using the code below:
 or simply type \texttt{geom\_\textless{}tab\textgreater{}} in any good R
 IDE (such as Rstudio or ESS) to see a list of functions starting with
 \texttt{geom\_}.
-
-Each \texttt{geom\_} has a particular set of aesthetic mappings
-associated with it. Some examples are provided below, with required
-aesthetics in \textbf{bold} and optional aesthetics in plain text:
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule
-\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
-\texttt{geom\_}\strut
-\end{minipage} & \begin{minipage}[b]{0.13\columnwidth}\raggedright\strut
-Usage\strut
-\end{minipage} & \begin{minipage}[b]{0.65\columnwidth}\raggedright\strut
-Possible Aesthetics\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-\texttt{geom\_point()}\strut
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
-Scatter plot\strut
-\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright\strut
-\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{shape},\texttt{size},\texttt{stroke}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-\texttt{geom\_line()}\strut
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
-Line plot\strut
-\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright\strut
-\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{linetype},\texttt{size}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-\texttt{geom\_bar()}\strut
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
-Bar chart\strut
-\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright\strut
-\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-\texttt{geom\_boxplot()}\strut
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
-Boxplot\strut
-\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright\strut
-\textbf{\texttt{x}},\textbf{\texttt{lower}},\textbf{\texttt{upper}},\textbf{\texttt{middle}},\textbf{\texttt{ymin}},\textbf{\texttt{ymax}},\texttt{alpha},\texttt{color},\texttt{fill}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-\texttt{geom\_density()}\strut
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
-Density plot\strut
-\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright\strut
-\textbf{\texttt{x}},\textbf{\texttt{y}},\texttt{alpha},\texttt{color},\texttt{fill},\texttt{group},\texttt{linetype},\texttt{size},\texttt{weight}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-\texttt{geom\_label()}\strut
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
-Text\strut
-\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright\strut
-\textbf{\texttt{x}},\textbf{\texttt{y}},\textbf{\texttt{label}},\texttt{alpha},\texttt{angle},\texttt{color},\texttt{family},\texttt{fontface},\texttt{size}\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
 
 \subsubsection{Points (scatterplot)}\label{points-scatterplot}
 
@@ -3279,15 +3288,9 @@ by Date and State.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing,}
-             \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ State,}
-                 \DataTypeTok{y =}\NormalTok{ Home.Price.Index)) }\OperatorTok{+}\StringTok{ }
-\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"top"}\NormalTok{,}
-              \DataTypeTok{axis.text=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{6}\NormalTok{))}
-\NormalTok{(p4 <-}\StringTok{ }\NormalTok{p3 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Date),}
-                       \DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
-                       \DataTypeTok{size =} \FloatTok{1.5}\NormalTok{,}
-                       \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{)))}
+\NormalTok{base_plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ State, }\DataTypeTok{y =}\NormalTok{ Home.Price.Index)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Date), }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{size =} \FloatTok{1.5}\NormalTok{,}
+               \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{))}\ErrorTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3295,7 +3298,8 @@ Now modify the breaks for the x axis and color scales
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p4 }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_discrete}\NormalTok{(}\DataTypeTok{name=}\StringTok{"State Abbreviation"}\NormalTok{) }\OperatorTok{+}
+\NormalTok{base_plot }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_x_discrete}\NormalTok{(}\DataTypeTok{name=}\StringTok{"State Abbreviation"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
                          \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"'76"}\NormalTok{, }\StringTok{"'94"}\NormalTok{, }\StringTok{"'13"}\NormalTok{))}
@@ -3306,7 +3310,7 @@ Next change the low and high values to blue and red:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p4 }\OperatorTok{+}
+\NormalTok{base_plot }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_x_discrete}\NormalTok{(}\DataTypeTok{name=}\StringTok{"State Abbreviation"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
@@ -3315,10 +3319,13 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
+Now mute the colors:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(scales)}
-\NormalTok{p4 }\OperatorTok{+}
+
+\NormalTok{base_plot }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
                          \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"'76"}\NormalTok{, }\StringTok{"'94"}\NormalTok{, }\StringTok{"'13"}\NormalTok{),}

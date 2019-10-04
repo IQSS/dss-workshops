@@ -598,21 +598,19 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <li>lines (<code>geom_line</code>, for time series, trend lines, etc.)</li>
 <li>boxplot (<code>geom_boxplot</code>, for boxplots!)</li>
 </ul>
-<p>A plot <strong>must have at least one geom</strong>; there is no upper limit. You can add a geom to a plot using the <code>+</code> operator. You can get a list of available geometric objects using the code below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
-<p>or simply type <code>geom_&lt;tab&gt;</code> in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with <code>geom_</code>.</p>
+<p>A plot <strong>must have at least one geom</strong>; there is no upper limit. You can add a geom to a plot using the <code>+</code> operator.</p>
 <p>Each <code>geom_</code> has a particular set of aesthetic mappings associated with it. Some examples are provided below, with required aesthetics in <strong>bold</strong> and optional aesthetics in plain text:</p>
 <table>
 <colgroup>
 <col width="14%" />
-<col width="14%" />
-<col width="71%" />
+<col width="15%" />
+<col width="70%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left"><code>geom_</code></th>
 <th align="left">Usage</th>
-<th align="left">Possible Aesthetics</th>
+<th align="left">Aesthetics</th>
 </tr>
 </thead>
 <tbody>
@@ -642,12 +640,20 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code>,<code>weight</code></td>
 </tr>
 <tr class="even">
+<td align="left"><code>geom_smooth()</code></td>
+<td align="left">Conditional means</td>
+<td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<code>alpha</code>,<code>color</code>,<code>fill</code>,<code>group</code>,<code>linetype</code>,<code>size</code>,<code>weight</code></td>
+</tr>
+<tr class="odd">
 <td align="left"><code>geom_label()</code></td>
 <td align="left">Text</td>
 <td align="left"><strong><code>x</code></strong>,<strong><code>y</code></strong>,<strong><code>label</code></strong>,<code>alpha</code>,<code>angle</code>,<code>color</code>,<code>family</code>,<code>fontface</code>,<code>size</code></td>
 </tr>
 </tbody>
 </table>
+<p>You can get a list of all available geometric objects and their associated aesthetics using the code below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
+<p>or simply type <code>geom_&lt;tab&gt;</code> in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with <code>geom_</code>.</p>
 <div id="points-scatterplot" class="section level4">
 <h4><span class="header-section-number">3.3.2.1</span> Points (scatterplot)</h4>
 <p>Now that we know about geometric objects and aesthetic mapping, we can make a ggplot. <code>geom_point</code> requires mappings for x and y, all others are optional.</p>
@@ -788,29 +794,26 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 <div id="scale-modification-examples" class="section level3">
 <h3><span class="header-section-number">3.7.3</span> Scale modification examples</h3>
 <p>Start by constructing a dotplot showing the distribution of home values by Date and State.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing,
-             <span class="kw">aes</span>(<span class="dt">x =</span> State,
-                 <span class="dt">y =</span> Home.Price.Index)) <span class="op">+</span><span class="st"> </span>
-<span class="st">        </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;top&quot;</span>,
-              <span class="dt">axis.text=</span><span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>))
-(p4 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date),
-                       <span class="dt">alpha =</span> <span class="fl">0.5</span>,
-                       <span class="dt">size =</span> <span class="fl">1.5</span>,
-                       <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home.Price.Index)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,
+               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))<span class="er">)</span></code></pre></div>
 <p>Now modify the breaks for the x axis and color scales</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_discrete</span>(<span class="dt">name=</span><span class="st">&quot;State Abbreviation&quot;</span>) <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name=</span><span class="st">&quot;State Abbreviation&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,
                          <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),
                          <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>))</code></pre></div>
 <p>Next change the low and high values to blue and red:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name=</span><span class="st">&quot;State Abbreviation&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,
                          <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),
                          <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),
                          <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p>Now mute the colors:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
-p4 <span class="op">+</span>
+
+base_plot <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,
                          <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),
                          <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),
