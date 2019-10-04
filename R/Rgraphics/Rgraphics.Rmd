@@ -102,14 +102,15 @@ That said, there are some things you cannot (or should not) do With ggplot2:
 
 The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include:
 
-* data
-* aesthetic mapping
-* geometric object
+* **data**
+* **aesthetic mapping**
+* **geometric object**
 * statistical transformations
 * scales
 * coordinate system
 * position adjustments
 * faceting
+* theme
 
 
 ### Example data: `housing prices`
@@ -212,11 +213,7 @@ with required aesthetics in **bold** and optional aesthetics in plain text:
 | `geom_smooth()`  | Conditional means |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
 | `geom_label()`   | Text              |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
 
-You can get a list of all available geometric objects and their associated aesthetics using the code below:
-
-```{r}
-help.search("geom_", package = "ggplot2")
-```
+You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>
 
 or simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
 
@@ -301,7 +298,7 @@ Other aesthetics are mapped in the same way as x and y in the previous example.
 
 ```{r}
 p1 +
-  geom_point(aes(color=Home.Value, shape = region))
+  geom_point(aes(color = Home.Value, shape = region))
 ```
 
 
@@ -339,6 +336,9 @@ Each `geom` has a default statistic, but these can be changed. For example, the 
 args(geom_histogram)
 args(stat_bin)
 ```
+
+Here is a list of `geom`s and their default statistics <https://ggplot2.tidyverse.org/reference/>
+
 
 ### Setting arguments
 
@@ -478,7 +478,7 @@ p4 +
 
 ### Available scales
 
--   Partial combination matrix of available scales
+* Partial combination matrix of available scales
 
 | `scale_`          | Types        |  Examples                   |
 |-------------------|:-------------|:----------------------------|
@@ -498,7 +498,9 @@ p4 +
 |                   | `date`       | `scale_x_date()`            |
 |                   | `datetime`   | `scale_y_datetime()`        |
 
-Note that in RStudio you can type `scale_` followed by TAB to get the whole list of available scales.
+Note that in RStudio you can type `scale_` followed by TAB to get the whole list of available scales. 
+For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>
+
 
 ## Exercise 2
 
@@ -562,10 +564,10 @@ Built-in themes include:
 p5 + theme_linedraw()
 ```
 
-
 ```{r}
 p5 + theme_light()
 ```
+You can see a list of available built-in themes here <https://ggplot2.tidyverse.org/reference/>
 
 
 ### Overriding theme defaults
@@ -577,8 +579,8 @@ p5 + theme_minimal() +
   theme(text = element_text(color = "turquoise"))
 ```
 
+All theme options are documented in `?theme`. 
 
-All theme options are documented in `?theme`.
 
 ### Creating and saving new themes
 
@@ -672,7 +674,7 @@ Adding the trend line is not too difficult, though we need to guess at the model
 
 ```{r}
 pc2 <- pc1 +
-  geom_smooth(mapping = aes(linetype = "r2"),
+  geom_smooth(mapping = aes(linetype = "solid"),
               method = "lm",
               formula = y ~ x + log(x), se = FALSE,
               color = "red")
@@ -684,17 +686,20 @@ Notice that we put the `geom_line` layer first so that it will be plotted undern
 
 #### Use open points
 
-This one is a little tricky. We know that we can change the shape with the `shape` argument, what what value do we set shape to? The example shown in `?shape` can help us:
+This one is a little tricky. We know that we can change the shape with the `shape` argument, what value do we set shape to? The example shown in `?shape` can help us:
 
 ```{r}
 ## A look at all 25 symbols
 df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
+
 s <- ggplot(df2, aes(x = x, y = y))
 s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
+
 ## While all symbols have a foreground colour, symbols 19-25 also take a
 ## background colour (fill)
 s + geom_point(aes(shape = z), size = 4, colour = "Red") +
   scale_shape_identity()
+
 s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
   scale_shape_identity()
 
@@ -1069,6 +1074,8 @@ These workshops are a work in progress, please provide any feedback to: help@iq.
     + RCS consulting email: <mailto:research@hbs.edu>
     
 * ggplot2
+    + Reference: <https://ggplot2.tidyverse.org/reference/>
+    + Cheatsheets: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
     + Mailing list: <http://groups.google.com/group/ggplot2>
     + Wiki: <https://github.com/hadley/ggplot2/wiki>
     + Website: <http://had.co.nz/ggplot2/>

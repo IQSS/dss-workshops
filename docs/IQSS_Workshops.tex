@@ -2754,11 +2754,11 @@ Building blocks of a graph include:
 \begin{itemize}
 \tightlist
 \item
-  data
+  \textbf{data}
 \item
-  aesthetic mapping
+  \textbf{aesthetic mapping}
 \item
-  geometric object
+  \textbf{geometric object}
 \item
   statistical transformations
 \item
@@ -2769,6 +2769,8 @@ Building blocks of a graph include:
   position adjustments
 \item
   faceting
+\item
+  theme
 \end{itemize}
 
 \subsection{\texorpdfstring{Example data:
@@ -2965,13 +2967,7 @@ Text\strut
 \end{longtable}
 
 You can get a list of all available geometric objects and their
-associated aesthetics using the code below:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{help.search}\NormalTok{(}\StringTok{"geom_"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"ggplot2"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+associated aesthetics at \url{https://ggplot2.tidyverse.org/reference/}
 
 or simply type \texttt{geom\_\textless{}tab\textgreater{}} in any good R
 IDE (such as Rstudio or ESS) to see a list of functions starting with
@@ -3077,7 +3073,7 @@ example.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{p1 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{Home.Value, }\DataTypeTok{shape =}\NormalTok{ region))}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home.Value, }\DataTypeTok{shape =}\NormalTok{ region))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3143,6 +3139,9 @@ For example, the default statistic for \texttt{geom\_bar} is
 \KeywordTok{args}\NormalTok{(stat_bin)}
 \end{Highlighting}
 \end{Shaded}
+
+Here is a list of \texttt{geom}s and their default statistics
+\url{https://ggplot2.tidyverse.org/reference/}
 
 \subsection{Setting arguments}\label{setting-arguments}
 
@@ -3392,7 +3391,8 @@ colors.
 \end{longtable}
 
 Note that in RStudio you can type \texttt{scale\_} followed by TAB to
-get the whole list of available scales.
+get the whole list of available scales. For a complete list of available
+scales see \url{https://ggplot2.tidyverse.org/reference/}
 
 \section{Exercise 2}\label{exercise-2-1}
 
@@ -3513,6 +3513,9 @@ Built-in themes include:
 \NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_light}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+You can see a list of available built-in themes here
+\url{https://ggplot2.tidyverse.org/reference/}
 
 \subsection{Overriding theme defaults}\label{overriding-theme-defaults}
 
@@ -3651,7 +3654,7 @@ leads to
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{pc2 <-}\StringTok{ }\NormalTok{pc1 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =} \StringTok{"r2"}\NormalTok{),}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =} \StringTok{"solid"}\NormalTok{),}
               \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{,}
               \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\KeywordTok{log}\NormalTok{(x), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
               \DataTypeTok{color =} \StringTok{"red"}\NormalTok{)}
@@ -3665,19 +3668,22 @@ be plotted underneath the points, as was done on the original graph.
 \subsubsection{Use open points}\label{use-open-points}
 
 This one is a little tricky. We know that we can change the shape with
-the \texttt{shape} argument, what what value do we set shape to? The
-example shown in \texttt{?shape} can help us:
+the \texttt{shape} argument, what value do we set shape to? The example
+shown in \texttt{?shape} can help us:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## A look at all 25 symbols}
 \NormalTok{df2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{ , }\DataTypeTok{y =} \DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{, }\DataTypeTok{z =} \DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{)}
+
 \NormalTok{s <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(df2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y))}
 \NormalTok{s }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =}\NormalTok{ z), }\DataTypeTok{size =} \DecValTok{4}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_shape_identity}\NormalTok{()}
+
 \NormalTok{## While all symbols have a foreground colour, symbols 19-25 also take a}
 \NormalTok{## background colour (fill)}
 \NormalTok{s }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =}\NormalTok{ z), }\DataTypeTok{size =} \DecValTok{4}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"Red"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_shape_identity}\NormalTok{()}
+
 \NormalTok{s }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =}\NormalTok{ z), }\DataTypeTok{size =} \DecValTok{4}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"Red"}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"Black"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_shape_identity}\NormalTok{()}
 \end{Highlighting}
@@ -4225,6 +4231,11 @@ These workshops are a work in progress, please provide any feedback to:
 
   \begin{itemize}
   \tightlist
+  \item
+    Reference: \url{https://ggplot2.tidyverse.org/reference/}
+  \item
+    Cheatsheets:
+    \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
   \item
     Mailing list: \url{http://groups.google.com/group/ggplot2}
   \item
