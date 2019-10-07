@@ -345,9 +345,8 @@ into MS Word, LaTeX, a pdf, or webpage.
 \section{Exercise 0}\label{exercise-0}
 
 The purpose of this exercise is to give you an opportunity to explore
-the interface provided by RStudio (or whichever GUI you've decided to
-use). You may not know how to do these things; that's fine! This is an
-opportunity to figure it out.
+the interface provided by RStudio. You may not know how to do these
+things; that's fine! This is an opportunity to figure it out.
 
 Also keep in mind that we are living in a golden age of tab completion.
 If you don't know the name of an R function, try guessing the first two
@@ -394,17 +393,6 @@ you are looking for should appear in a pop up!
 
 \section{R basics}\label{r-basics}
 
-Set your working directory so you don't have to type the full path names
-to your data and other files
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{# set the working directory}
-  \CommentTok{# setwd("~/Desktop/Rintro") # UNIX-based}
-  \CommentTok{# setwd("C:/Users/Desktop/Rintro") # MS Windows}
-\end{Highlighting}
-\end{Shaded}
-
 \subsection{Function calls}\label{function-calls}
 
 The general form for calling R functions is
@@ -417,6 +405,16 @@ The general form for calling R functions is
 
 Arguments can be matched by name; unnamed arguments will be matched by
 position.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{values <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.45}\NormalTok{, }\FloatTok{2.34}\NormalTok{, }\FloatTok{5.68}\NormalTok{)}
+\KeywordTok{round}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ values, }\DataTypeTok{digits =} \DecValTok{1}\NormalTok{) }\CommentTok{# match by name}
+\KeywordTok{round}\NormalTok{(values, }\DecValTok{1}\NormalTok{) }\CommentTok{# match by position}
+\KeywordTok{round}\NormalTok{(}\DecValTok{1}\NormalTok{, values) }\CommentTok{# be careful when matching by position!}
+\KeywordTok{round}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{1}\NormalTok{, }\DataTypeTok{x =}\NormalTok{ values) }\CommentTok{# matching by name is safer!}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Assignment}\label{assignment}
 
@@ -470,8 +468,8 @@ this:
 R has data reading functionality built-in -- see e.g.,
 \texttt{help(read.table)}. However, faster and more robust tools are
 available, and so to make things easier on ourselves we will use a
-\emph{contributed package} called \texttt{readr} instead. This requires
-that we learn a little bit about packages in R.
+\emph{contributed package} instead. This requires that we learn a little
+bit about packages in R.
 
 \subsection{Installing and using R
 packages}\label{installing-and-using-r-packages}
@@ -488,7 +486,7 @@ function to attach it so that it can be used.
 While R's built-in packages are powerful, in recent years there has been
 a big surge in well-designed \emph{contributed packages} for R. In
 particular, a collection of R packages called
-\href{https://www.tidyverse.org/}{tidyverse} have been designed
+\href{https://www.tidyverse.org/}{\texttt{tidyverse}} have been designed
 specifically for data science. All packages included in
 \texttt{tidyverse} share an underlying design philosophy, grammar, and
 data structures. We will use \texttt{tidyverse} packages throughout the
@@ -510,10 +508,10 @@ workshop, so let's install them now:
 \subsection{Readers for common file
 types}\label{readers-for-common-file-types}
 
-In order to read data from a file, you have to know what kind of file it
-is. The table below lists functions from the \texttt{readr} package,
-which is part of \texttt{tidyverse}, that can import data from common
-plain-text formats.
+To read data from a file, you have to know what kind of file it is. The
+table below lists functions from the \texttt{readr} package, which is
+part of \texttt{tidyverse}, that can import data from common plain-text
+formats.
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -580,22 +578,6 @@ available at
 \end{Highlighting}
 \end{Shaded}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  BONUS (optional): Save the \texttt{baby\_names} data as a Stata data
-  set \texttt{babynames.dta} and as an R data set
-  \texttt{babynames.rds}.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Popularity of your name}\label{popularity-of-your-name}
 
 In this section we will pull out specific names and examine changes in
@@ -608,7 +590,8 @@ now we'll focus on working with \texttt{data.frames}.
 R has decent data manipulation tools built-in -- see e.g.,
 \texttt{help(Extract)}. But, \texttt{tidyverse} packages often provide
 more intuitive syntax for accomplishing the same task. In particular, we
-will use the \texttt{dplyr} package to filter, select, and arrange data.
+will use the \texttt{dplyr} package from \texttt{tidyverse} to filter,
+select, and arrange data.
 
 \subsection{Filtering, selecting, and arranging
 data}\label{filtering-selecting-and-arranging-data}
@@ -618,7 +601,7 @@ filter out just the rows corresponding to your name, and then arrange
 (sort) by Count.
 
 To demonstrate these techniques we'll try to determine whether ``Alex''"
-or ``Jim'' was more popular in 1992. We start by filtering the data so
+or ``Mark'' was more popular in 1992. We start by filtering the data so
 that we keep only rows where Year is equal to \texttt{1992} and Name is
 either ``Alex'' or ``Mark''.
 
@@ -627,17 +610,6 @@ either ``Alex'' or ``Mark''.
 \NormalTok{baby_names_alexmark <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, }
 \NormalTok{             Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
 \NormalTok{baby_names_alexmark}
-\end{Highlighting}
-\end{Shaded}
-
-We can also use the \texttt{select()} function to subset the
-\texttt{data.frame} by columns. We can then assign the output to a new
-object.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{baby_names_subset <-}\StringTok{ }\KeywordTok{select}\NormalTok{(baby_names, Name, Count)}
-\KeywordTok{head}\NormalTok{(baby_names_subset)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -657,6 +629,17 @@ name is listed first.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{arrange}\NormalTok{(baby_names_alexmark, }\KeywordTok{desc}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+We can also use the \texttt{select()} function to subset the
+\texttt{data.frame} by columns. We can then assign the output to a new
+object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baby_names_subset <-}\StringTok{ }\KeywordTok{select}\NormalTok{(baby_names, Name, Count)}
+\KeywordTok{head}\NormalTok{(baby_names_subset)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -694,8 +677,8 @@ Read in the ``babyNames.csv'' file if you have not already done so,
 assigning the result to \texttt{baby\_names}. The file is located at
 \texttt{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}
 
-Make sure you have installed the \texttt{dplyr} package and attached it
-with \texttt{library(dplyr)}.
+Make sure you have installed the \texttt{tidyverse} suite of packages
+and attached them with \texttt{library(tidyverse)}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -745,7 +728,7 @@ with \texttt{library(dplyr)}.
 
 There is one very special operator in R called a ``pipe'' operator that
 looks like this: \texttt{\%\textgreater{}\%}. It allows us to ``chain''
-several function calls and, as each funciton returns an object, feed it
+several function calls and, as each function returns an object, feed it
 into the next call in a single statement, without needing extra
 variables to store the intermediate results. The point of the pipe is to
 help you write code in a way that is easier to read and understand as we
@@ -791,9 +774,9 @@ R has decent plotting tools built-in -- see e.g., \texttt{help(plot)}.
 However, again, we will make use of an excelent \emph{contributed
 package} from \texttt{tidyverse} called \texttt{ggplot2}.
 
-For quick and simple plots we can use the \texttt{qplot()} function from
-\texttt{ggplot2}. For example, we can plot the number of babies given
-the name ``Diana'' over time like this:
+For quick and simple plots we can use the \texttt{qplot()} function. For
+example, we can plot the number of babies given the name ``Diana'' over
+time like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -808,9 +791,9 @@ the name ``Diana'' over time like this:
 \end{Highlighting}
 \end{Shaded}
 
-Interetingly there are usually some gender-atypical names, even for very
-strongly gendered names like ``Diana''. Splitting these trends out by
-Sex is very easy:
+Interestingly, there are usually some gender-atypical names, even for
+very strongly gendered names like ``Diana''. Splitting these trends out
+by Sex is very easy:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -895,20 +878,20 @@ So far we've used \texttt{Count} as a measure of popularity. A better
 approach is to use proportion or rank to avoid confounding popularity
 with the number of babies born in a given year.
 
-The \texttt{mutate} function makes it easy to add or modify the columns
-of a \texttt{data.frame}. For example, we can use it to compute the log
-of the number of boys and girls given each name in each year:
+The \texttt{mutate()} function makes it easy to add or modify the
+columns of a \texttt{data.frame}. For example, we can use it to rescale
+the count of each name in each year:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(baby_names, }\DataTypeTok{logCount =} \KeywordTok{log10}\NormalTok{(Count))}
+\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(baby_names, }\DataTypeTok{Count_1k =}\NormalTok{ Count}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}
 \NormalTok{baby_names }\CommentTok{# same as print(baby_names)}
 \end{Highlighting}
 \end{Shaded}
 
 Notice that executing the second line led to printing all 1 million rows
 in our \texttt{data.frame}! If we would just like to glance at the first
-6 lines we can use \texttt{head()}:
+6 lines we can use the \texttt{head()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -916,13 +899,13 @@ in our \texttt{data.frame}! If we would just like to glance at the first
 \end{Highlighting}
 \end{Shaded}
 
-We can also \texttt{select} a subset of columns from the baby names
-data:
+If we like, we can also \texttt{select()} a subset of columns from the
+baby names data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Sex, Year, logCount) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Sex, Year, Count_1k) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -938,7 +921,8 @@ proportion within each \texttt{Sex} by \texttt{Year} group. The
 \NormalTok{baby_names <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(Count))}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(Count_1k)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
 \KeywordTok{head}\NormalTok{(baby_names)}
 \end{Highlighting}
@@ -967,7 +951,7 @@ each year.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## baby_names <- baby_names %>% ungroup}
+\NormalTok{## }
 \end{Highlighting}
 \end{Shaded}
 
@@ -993,7 +977,8 @@ each year.
 \tightlist
 \item
   Filter the baby names data to display only the most popular name for
-  each \texttt{Year\ X\ Sex} group.
+  each \texttt{Year\ X\ Sex} group. Keep only the columns: Name, Sex,
+  and Proportion.
 \end{enumerate}
 
 \begin{Shaded}
@@ -1037,17 +1022,17 @@ each year.
 names}\label{percent-choosing-one-of-the-top-10-names}
 
 You may have noticed that the percentage of babies given the most
-popular name of the year appears to have decreases over time. We can
+popular name of the year appears to have decreased over time. We can
 compute a more robust measure of the popularity of the most popular
 names by calculating the number of babies given one of the top 10 girl
 or boy names of the year.
 
-In order to compute this measure we need to operate within groups, as we
-did using \texttt{mutate()} above, but this time we need to collapse
-each group into a single summary statistic. We can achieve this using
-the \texttt{summarize()} function.
+To compute this measure we need to operate within groups, as we did
+using \texttt{mutate()} above, but this time we need to collapse each
+group into a single summary statistic. We can achieve this using the
+\texttt{summarize()} function.
 
-First, let's see how this funciton works without grouping. The following
+First, let's see how this function works without grouping. The following
 code outputs the total number of girls and boys in the data:
 
 \begin{Shaded}
@@ -1074,7 +1059,7 @@ can calculate the number of babies born each year:
 
 \section{Exercise 5}\label{exercise-5}
 
-\textbf{Popularity of most popular names}
+\textbf{Popularity of the most popular names}
 
 In this exercise we will plot trends in the proportion of boys and girls
 given one of the 10 most popular names each year.
@@ -1363,9 +1348,11 @@ workspaces
 \begin{Highlighting}[]
 \NormalTok{baby_names <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
-\StringTok{  }\NormalTok{ungroup }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Proportion =}\NormalTok{ Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Proportion =}\NormalTok{ Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
+
+\KeywordTok{head}\NormalTok{(baby_names)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1380,9 +1367,11 @@ workspaces
 \begin{Highlighting}[]
 \NormalTok{baby_names <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
-\StringTok{  }\NormalTok{ungroup }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Count))}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Count)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
+
+\KeywordTok{head}\NormalTok{(baby_names)   }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1395,7 +1384,11 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{top1 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{top1 <-}\StringTok{ }
+\StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Sex, Proportion)}
+
 \KeywordTok{head}\NormalTok{(top1)}
 \end{Highlighting}
 \end{Shaded}
@@ -1427,27 +1420,30 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(}\KeywordTok{filter}\NormalTok{(baby_names, Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{), }
-                             \KeywordTok{filter}\NormalTok{(baby_names, Sex }\OperatorTok{==}\StringTok{ "Girls"}\NormalTok{),}
+\NormalTok{bn_girls <-}\StringTok{ }\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Year, Count)}
+
+\NormalTok{bn_boys <-}\StringTok{ }\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Sex }\OperatorTok{==}\StringTok{ "Girls"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Year, Count)}
+
+\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(bn_girls, }
+\NormalTok{                             bn_boys,}
                              \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"Year"}\NormalTok{, }\StringTok{"Name"}\NormalTok{))}
 \KeywordTok{head}\NormalTok{(girls_and_boys)}
-
-\NormalTok{girls_and_boys <-}\StringTok{ }\NormalTok{girls_and_boys }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ungroup}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(girls_and_boys,}
-                         \DataTypeTok{Product =}\NormalTok{ Count.x }\OperatorTok{*}\StringTok{ }\NormalTok{Count.y,}
-                         \DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Product))}
+\NormalTok{girls_and_boys <-}\StringTok{ }
+\StringTok{  }\NormalTok{girls_and_boys }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Product =}\NormalTok{ Count.x }\OperatorTok{*}\StringTok{ }\NormalTok{Count.y,}
+         \DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Product)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
+
 \KeywordTok{head}\NormalTok{(girls_and_boys)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(girls_and_boys, Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1467,7 +1463,7 @@ workspaces
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(Rank }\OperatorTok{<=}\StringTok{ }\DecValTok{10}\NormalTok{)}
 
-\NormalTok{most_popular}
+\KeywordTok{head}\NormalTok{(most_popular, }\DataTypeTok{n =} \DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1508,7 +1504,7 @@ workspaces
 
 \subsection{Feedback}\label{feedback}
 
-These workshops are a work in progress, please provide any feedback to:
+These workshops are a work-in-progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
 \subsection{Resources}\label{resources}
@@ -1521,12 +1517,12 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://dss.iq.harvard.edu/workshop-materials}{Workshops}
+    Workshops: \url{https://dss.iq.harvard.edu/workshop-materials}
   \item
-    \href{https://dss.iq.harvard.edu/}{Data Science Services}
+    Data Science Services: \url{https://dss.iq.harvard.edu/}
   \item
-    \href{https://iqss.github.io/dss-rce/}{Research Computing
-    Environment}
+    Research Computing Environment:
+    \url{https://iqss.github.io/dss-rce/}
   \end{itemize}
 \item
   HBS
@@ -1534,11 +1530,11 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://training.rcs.hbs.org/workshops}{Research Computing
-    Services workshops}
+    Research Computing Services workshops:
+    \url{https://training.rcs.hbs.org/workshops}
   \item
-    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
-    resources}
+    Other HBS RCS resources:
+    \url{https://training.rcs.hbs.org/workshop-materials}
   \item
     RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}
@@ -2562,12 +2558,12 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://dss.iq.harvard.edu/workshop-materials}{Workshops}
+    Workshops: \url{https://dss.iq.harvard.edu/workshop-materials}
   \item
-    \href{https://dss.iq.harvard.edu/}{Data Science Services}
+    Data Science Services: \url{https://dss.iq.harvard.edu/}
   \item
-    \href{https://iqss.github.io/dss-rce/}{Research Computing
-    Environment}
+    Research Computing Environment:
+    \url{https://iqss.github.io/dss-rce/}
   \end{itemize}
 \item
   HBS
@@ -2575,11 +2571,11 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://training.rcs.hbs.org/workshops}{Research Computing
-    Services workshops}
+    Research Computing Services workshops:
+    \url{https://training.rcs.hbs.org/workshops}
   \item
-    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
-    resources}
+    Other HBS RCS resources:
+    \url{https://training.rcs.hbs.org/workshop-materials}
   \item
     RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}
@@ -4140,7 +4136,7 @@ important elements.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =}\NormalTok{ Region)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -4157,7 +4153,7 @@ important elements.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =}\NormalTok{ Region)) }\OperatorTok{+}
 \KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
 \KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index"}\NormalTok{) }\OperatorTok{+}
 \KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index"}\NormalTok{) }\OperatorTok{+}
@@ -4176,7 +4172,7 @@ important elements.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =} \StringTok{"Region"}\NormalTok{)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =}\NormalTok{ Region)) }\OperatorTok{+}
 \KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
 \KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index"}\NormalTok{) }\OperatorTok{+}
 \KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index"}\NormalTok{) }\OperatorTok{+}
@@ -4207,12 +4203,12 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://dss.iq.harvard.edu/workshop-materials}{Workshops}
+    Workshops: \url{https://dss.iq.harvard.edu/workshop-materials}
   \item
-    \href{https://dss.iq.harvard.edu/}{Data Science Services}
+    Data Science Services: \url{https://dss.iq.harvard.edu/}
   \item
-    \href{https://iqss.github.io/dss-rce/}{Research Computing
-    Environment}
+    Research Computing Environment:
+    \url{https://iqss.github.io/dss-rce/}
   \end{itemize}
 \item
   HBS
@@ -4220,11 +4216,11 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://training.rcs.hbs.org/workshops}{Research Computing
-    Services workshops}
+    Research Computing Services workshops:
+    \url{https://training.rcs.hbs.org/workshops}
   \item
-    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
-    resources}
+    Other HBS RCS resources:
+    \url{https://training.rcs.hbs.org/workshop-materials}
   \item
     RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}
@@ -4941,12 +4937,12 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://dss.iq.harvard.edu/workshop-materials}{Workshops}
+    Workshops: \url{https://dss.iq.harvard.edu/workshop-materials}
   \item
-    \href{https://dss.iq.harvard.edu/}{Data Science Services}
+    Data Science Services: \url{https://dss.iq.harvard.edu/}
   \item
-    \href{https://iqss.github.io/dss-rce/}{Research Computing
-    Environment}
+    Research Computing Environment:
+    \url{https://iqss.github.io/dss-rce/}
   \end{itemize}
 \item
   HBS
@@ -4954,11 +4950,11 @@ These workshops are a work in progress, please provide any feedback to:
   \begin{itemize}
   \tightlist
   \item
-    \href{https://training.rcs.hbs.org/workshops}{Research Computing
-    Services workshops}
+    Research Computing Services workshops:
+    \url{https://training.rcs.hbs.org/workshops}
   \item
-    \href{https://training.rcs.hbs.org/workshop-materials}{other HBS RCS
-    resources}
+    Other HBS RCS resources:
+    \url{https://training.rcs.hbs.org/workshop-materials}
   \item
     RCS consulting email: \url{mailto:research@hbs.edu}
   \end{itemize}

@@ -80,9 +80,8 @@ with R code. It is easy to later convert Rmarkdown into MS Word, LaTeX, a pdf, o
 ## Exercise 0
 
 The purpose of this exercise is to give you an opportunity to explore
-the interface provided by RStudio (or whichever GUI you've decided to
-use). You may not know how to do these things; that's fine! This is an
-opportunity to figure it out.
+the interface provided by RStudio. You may not know how to do these things; 
+that's fine! This is an opportunity to figure it out.
 
 Also keep in mind that we are living in a golden age of tab completion.
 If you don't know the name of an R function, try guessing the first two
@@ -105,14 +104,6 @@ you are looking for should appear in a pop up!
 
 ## R basics
 
-Set your working directory so you don't have to type the full path names to your data and other files
-
-```{r}
-  # set the working directory
-  # setwd("~/Desktop/Rintro") # UNIX-based
-  # setwd("C:/Users/Desktop/Rintro") # MS Windows
-```
-
 ### Function calls
 
 The general form for calling R functions is
@@ -122,6 +113,14 @@ The general form for calling R functions is
 ```
 
 Arguments can be matched by name; unnamed arguments will be matched by position.
+
+```{r}
+values <- c(1.45, 2.34, 5.68)
+round(x = values, digits = 1) # match by name
+round(values, 1) # match by position
+round(1, values) # be careful when matching by position!
+round(digits = 1, x = values) # matching by name is safer!
+```
 
 ### Assignment
 
@@ -162,7 +161,7 @@ help(package = "stats")
 R has data reading functionality built-in -- see e.g.,
 `help(read.table)`. However, faster and more robust tools are
 available, and so to make things easier on ourselves we will use a
-*contributed package* called `readr` instead. This requires that we
+*contributed package* instead. This requires that we
 learn a little bit about packages in R.
 
 
@@ -180,7 +179,7 @@ function to attach it so that it can be used.
 While R's built-in packages are powerful, in recent years there has
 been a big surge in well-designed *contributed packages* for R. In 
 particular, a collection of R packages called 
-[tidyverse](https://www.tidyverse.org/) have been 
+[`tidyverse`](https://www.tidyverse.org/) have been 
 designed specifically for data science. All packages included in 
 `tidyverse` share an underlying design philosophy, grammar, and 
 data structures. We will use `tidyverse` packages throughout the 
@@ -196,7 +195,7 @@ library(tidyverse)
 
 ### Readers for common file types
 
-In order to read data from a file, you have to know what kind of file
+To read data from a file, you have to know what kind of file
 it is. The table below lists functions from the `readr` package, which
 is part of `tidyverse`, that can import data from common plain-text formats.
 
@@ -241,12 +240,6 @@ with the name `baby_names`.
 ##
 ```
 
-3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
-and as an R data set `babynames.rds`.
-```{r}
-##
-```
-
 
 ## Popularity of your name
 
@@ -260,8 +253,8 @@ working with `data.frames`.
 R has decent data manipulation tools built-in -- see e.g.,
 `help(Extract)`. But, `tidyverse` packages often provide
 more intuitive syntax for accomplishing the same task. In
-particular, we will use the `dplyr` package to filter,
-select, and arrange data.
+particular, we will use the `dplyr` package from `tidyverse`
+to filter, select, and arrange data.
 
 
 ### Filtering, selecting, and arranging data
@@ -271,7 +264,7 @@ is to filter out just the rows corresponding to your name, and
 then arrange (sort) by Count. 
 
 To demonstrate these techniques we'll try to determine whether 
-"Alex"" or "Jim" was more popular in 1992. We start by filtering the
+"Alex"" or "Mark" was more popular in 1992. We start by filtering the
 data so that we keep only rows where Year is equal to `1992` and Name is
 either "Alex" or "Mark".
 
@@ -279,14 +272,6 @@ either "Alex" or "Mark".
 baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
 baby_names_alexmark
-```
-
-We can also use the `select()` function to subset the `data.frame`
-by columns. We can then assign the output to a new object.  
-
-```{r}
-baby_names_subset <- select(baby_names, Name, Count)
-head(baby_names_subset)
 ```
 
 Notice that we can combine conditions using `&` (AND) 
@@ -302,6 +287,14 @@ arrange(baby_names_alexmark, Count)
 
 ```{r}
 arrange(baby_names_alexmark, desc(Count))
+```
+
+We can also use the `select()` function to subset the `data.frame`
+by columns. We can then assign the output to a new object.  
+
+```{r}
+baby_names_subset <- select(baby_names, Name, Count)
+head(baby_names_subset)
 ```
 
 
@@ -333,7 +326,7 @@ Read in the "babyNames.csv" file if you have not already done so,
 assigning the result to `baby_names`. The file is located at 
 `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`
 
-Make sure you have installed the `dplyr` package and attached it with `library(dplyr)`.
+Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`.
 
 1.  Use `filter` to extract data for your name (or another name of your choice).  
 ```{r}
@@ -357,7 +350,7 @@ Make sure you have installed the `dplyr` package and attached it with `library(d
 
 There is one very special operator in R called a "pipe" operator that 
 looks like this: `%>%`. It allows us to "chain" several function calls and, 
-as each funciton returns an object, feed it into the next call in a single 
+as each function returns an object, feed it into the next call in a single 
 statement, without needing extra variables to store the intermediate 
 results. The point of the pipe is to help you write code in a way that is
 easier to read and understand as we will see below.
@@ -398,7 +391,7 @@ R has decent plotting tools built-in -- see e.g., `help(plot)`.
 However, again, we will make use of an excelent *contributed
 package* from `tidyverse` called `ggplot2`.
 
-For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example,
+For quick and simple plots we can use the `qplot()` function. For example,
 we can plot the number of babies given the name "Diana" over time like this:
 
 ```{r}
@@ -410,7 +403,7 @@ qplot(x = Year, y = Count,
      data = baby_names_diana)
 ```
 
-Interetingly there are usually some gender-atypical names, even for very strongly 
+Interestingly, there are usually some gender-atypical names, even for very strongly 
 gendered names like "Diana". Splitting these trends out by Sex is very easy:
 
 ```{r}
@@ -458,28 +451,28 @@ So far we've used `Count` as a measure of popularity. A better
 approach is to use proportion or rank to avoid confounding 
 popularity with the number of babies born in a given year. 
 
-The `mutate` function makes it easy to add or modify the columns 
-of a `data.frame`. For example, we can use it to compute the 
-log of the number of boys and girls given each name in each year:
+The `mutate()` function makes it easy to add or modify the columns 
+of a `data.frame`. For example, we can use it to rescale the count
+ of each name in each year:
 
 ```{r}
-baby_names <- mutate(baby_names, logCount = log10(Count))
+baby_names <- mutate(baby_names, Count_1k = Count/1000)
 baby_names # same as print(baby_names)
 ```
 
 Notice that executing the second line led to printing all 1 million
 rows in our `data.frame`! If we would just like to glance at the
-first 6 lines we can use `head()`:
+first 6 lines we can use the `head()` function:
 
 ```{r}
 head(baby_names) 
 ```
 
-We can also `select` a subset of columns from the baby names data:
+If we like, we can also `select()` a subset of columns from the baby names data:
 
 ```{r}
 baby_names %>% 
-  select(Name, Sex, Year, logCount) %>%
+  select(Name, Sex, Year, Count_1k) %>%
   head()
 ```
 
@@ -494,7 +487,8 @@ package makes this relatively straightforward.
 baby_names <- 
   baby_names %>%
   group_by(Year, Sex) %>%
-  mutate(Rank = rank(Count))
+  mutate(Rank = rank(Count_1k)) %>%
+  ungroup()
 
 head(baby_names)
 ```
@@ -514,7 +508,7 @@ In this exercise your goal is to identify the most popular names for each year.
     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
     Use pipes wherever it makes sense.
 ```{r}
-## baby_names <- baby_names %>% ungroup
+## 
 ```
 
 2.  Use `mutate()` and `group_by()` to create a column named "Rank" where 
@@ -524,7 +518,7 @@ In this exercise your goal is to identify the most popular names for each year.
 ```
 
 3.  Filter the baby names data to display only the most popular name 
-    for each `Year X Sex` group.
+    for each `Year X Sex` group. Keep only the columns: Name, Sex, and Proportion.
 ```{r}
 ##
 ```
@@ -544,17 +538,17 @@ In this exercise your goal is to identify the most popular names for each year.
 ## Percent choosing one of the top 10 names
 
 You may have noticed that the percentage of babies given the most 
-popular name of the year appears to have decreases over time. We can
+popular name of the year appears to have decreased over time. We can
 compute a more robust measure of the popularity of the most popular
 names by calculating the number of babies given one of the top 10 girl
 or boy names of the year.
 
-In order to compute this measure we need to operate within groups, as
+To compute this measure we need to operate within groups, as
 we did using `mutate()` above, but this time we need to collapse each
 group into a single summary statistic. We can achieve this using the
 `summarize()` function. 
 
-First, let's see how this funciton works without grouping. The following 
+First, let's see how this function works without grouping. The following 
 code outputs the total number of girls and boys in the data:
 ```{r}
 baby_names %>% 
@@ -577,7 +571,7 @@ head(bn_by_year)
 
 ## Exercise 5
 
-**Popularity of most popular names**
+**Popularity of the most popular names**
 
 In this exercise we will plot trends in the proportion of boys and girls 
 given one of the 10 most popular names each year.
@@ -784,9 +778,11 @@ qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
 ```{r}
 baby_names <- 
   baby_names %>%
-  ungroup %>%
   group_by(Year, Sex) %>%
-  mutate(Proportion = Count/sum(Count))
+  mutate(Proportion = Count/sum(Count)) %>%
+  ungroup()
+
+head(baby_names)  
 ```
 
 ```{r}
@@ -797,9 +793,11 @@ baby_names <-
 ```{r}
 baby_names <- 
   baby_names %>%
-  ungroup %>%
   group_by(Year, Sex) %>%
-  mutate(Rank = rank(-Count))
+  mutate(Rank = rank(-Count)) %>%
+  ungroup()
+
+head(baby_names)   
 ```
 
 ```{r}
@@ -808,7 +806,11 @@ baby_names <-
 ```
 
 ```{r}
-top1 <- filter(baby_names, Rank == 1)
+top1 <- 
+  baby_names %>%
+  filter(Rank == 1) %>%
+  select(Name, Sex, Proportion)
+
 head(top1)
 ```
 
@@ -832,23 +834,32 @@ qplot(x = Year,
 ```
 
 ```{r}
-girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"), 
-                             filter(baby_names, Sex == "Girls"),
+bn_girls <- baby_names %>% 
+  filter(Sex == "Boys") %>%
+  select(Name, Year, Count)
+
+bn_boys <- baby_names %>% 
+  filter(Sex == "Girls") %>%
+  select(Name, Year, Count)
+
+girls_and_boys <- inner_join(bn_girls, 
+                             bn_boys,
                              by = c("Year", "Name"))
 head(girls_and_boys)
-
-girls_and_boys <- girls_and_boys %>% ungroup()
 ```
 
 ```{r}
-girls_and_boys <- mutate(girls_and_boys,
-                         Product = Count.x * Count.y,
-                         Rank = rank(-Product))
+girls_and_boys <- 
+  girls_and_boys %>%
+  mutate(Product = Count.x * Count.y,
+         Rank = rank(-Product)) %>%
+  filter(Rank == 1)
+
 head(girls_and_boys)
 ```
 
 ```{r}
-filter(girls_and_boys, Rank == 1)
+
 ```
 
 
@@ -865,7 +876,7 @@ most_popular <-
   group_by(Year, Sex) %>%
   filter(Rank <= 10)
 
-most_popular
+head(most_popular, n = 10)
 ```
 
 ```{r}
@@ -898,18 +909,18 @@ qplot(x = Year,
 
 ### Feedback
 
-These workshops are a work in progress, please provide any feedback to: help@iq.harvard.edu
+These workshops are a work-in-progress, please provide any feedback to: help@iq.harvard.edu
 
 ### Resources
 
 * IQSS 
-    + [Workshops](https://dss.iq.harvard.edu/workshop-materials)
-    + [Data Science Services](https://dss.iq.harvard.edu/)
-    + [Research Computing Environment](https://iqss.github.io/dss-rce/)
+    + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
+    + Data Science Services: <https://dss.iq.harvard.edu/>
+    + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 
 * HBS
-    + [Research Computing Services workshops](https://training.rcs.hbs.org/workshops)
-    + [other HBS RCS resources](https://training.rcs.hbs.org/workshop-materials)
+    + Research Computing Services workshops: <https://training.rcs.hbs.org/workshops>
+    + Other HBS RCS resources: <https://training.rcs.hbs.org/workshop-materials>
     + RCS consulting email: <mailto:research@hbs.edu>
 
 * Software (all free!):

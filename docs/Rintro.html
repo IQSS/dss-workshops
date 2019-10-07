@@ -501,7 +501,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="exercise-0" class="section level2">
 <h2><span class="header-section-number">1.3</span> Exercise 0</h2>
-<p>The purpose of this exercise is to give you an opportunity to explore the interface provided by RStudio (or whichever GUI you’ve decided to use). You may not know how to do these things; that’s fine! This is an opportunity to figure it out.</p>
+<p>The purpose of this exercise is to give you an opportunity to explore the interface provided by RStudio. You may not know how to do these things; that’s fine! This is an opportunity to figure it out.</p>
 <p>Also keep in mind that we are living in a golden age of tab completion. If you don’t know the name of an R function, try guessing the first two or three letters and pressing TAB. If you guessed correctly the function you are looking for should appear in a pop up!</p>
 <hr />
 <ol style="list-style-type: decimal">
@@ -518,15 +518,16 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="r-basics" class="section level2">
 <h2><span class="header-section-number">1.4</span> R basics</h2>
-<p>Set your working directory so you don’t have to type the full path names to your data and other files</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># set the working directory</span>
-  <span class="co"># setwd(&quot;~/Desktop/Rintro&quot;) # UNIX-based</span>
-  <span class="co"># setwd(&quot;C:/Users/Desktop/Rintro&quot;) # MS Windows</span></code></pre></div>
 <div id="function-calls" class="section level3">
 <h3><span class="header-section-number">1.4.1</span> Function calls</h3>
 <p>The general form for calling R functions is</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)</span></code></pre></div>
 <p>Arguments can be matched by name; unnamed arguments will be matched by position.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.45</span>, <span class="fl">2.34</span>, <span class="fl">5.68</span>)
+<span class="kw">round</span>(<span class="dt">x =</span> values, <span class="dt">digits =</span> <span class="dv">1</span>) <span class="co"># match by name</span>
+<span class="kw">round</span>(values, <span class="dv">1</span>) <span class="co"># match by position</span>
+<span class="kw">round</span>(<span class="dv">1</span>, values) <span class="co"># be careful when matching by position!</span>
+<span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">x =</span> values) <span class="co"># matching by name is safer!</span></code></pre></div>
 </div>
 <div id="assignment" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Assignment</h3>
@@ -551,12 +552,12 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 </div>
 <div id="getting-data-into-r" class="section level2">
 <h2><span class="header-section-number">1.5</span> Getting data into R</h2>
-<p>R has data reading functionality built-in – see e.g., <code>help(read.table)</code>. However, faster and more robust tools are available, and so to make things easier on ourselves we will use a <em>contributed package</em> called <code>readr</code> instead. This requires that we learn a little bit about packages in R.</p>
+<p>R has data reading functionality built-in – see e.g., <code>help(read.table)</code>. However, faster and more robust tools are available, and so to make things easier on ourselves we will use a <em>contributed package</em> instead. This requires that we learn a little bit about packages in R.</p>
 <div id="installing-and-using-r-packages" class="section level3">
 <h3><span class="header-section-number">1.5.1</span> Installing and using R packages</h3>
 <p>A large number of contributed packages are available. If you are looking for a package for a specific task, <a href="https://cran.r-project.org/web/views/" class="uri">https://cran.r-project.org/web/views/</a> and <a href="https://r-pkg.org" class="uri">https://r-pkg.org</a> are good places to start.</p>
 <p>You can install a package in R using the <code>install.packages()</code> function. Once a package is installed you may use the <code>library()</code> function to attach it so that it can be used.</p>
-<p>While R’s built-in packages are powerful, in recent years there has been a big surge in well-designed <em>contributed packages</em> for R. In particular, a collection of R packages called <a href="https://www.tidyverse.org/">tidyverse</a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures. We will use <code>tidyverse</code> packages throughout the workshop, so let’s install them now:</p>
+<p>While R’s built-in packages are powerful, in recent years there has been a big surge in well-designed <em>contributed packages</em> for R. In particular, a collection of R packages called <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures. We will use <code>tidyverse</code> packages throughout the workshop, so let’s install them now:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;tidyverse&quot;)</span>
 <span class="kw">library</span>(tidyverse)</code></pre></div>
 <div class="figure">
@@ -566,7 +567,7 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 </div>
 <div id="readers-for-common-file-types" class="section level3">
 <h3><span class="header-section-number">1.5.2</span> Readers for common file types</h3>
-<p>In order to read data from a file, you have to know what kind of file it is. The table below lists functions from the <code>readr</code> package, which is part of <code>tidyverse</code>, that can import data from common plain-text formats.</p>
+<p>To read data from a file, you have to know what kind of file it is. The table below lists functions from the <code>readr</code> package, which is part of <code>tidyverse</code>, that can import data from common plain-text formats.</p>
 <table>
 <thead>
 <tr class="header">
@@ -612,30 +613,26 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <li>Read the baby names data using the <code>read_csv</code> function and assign the result with the name <code>baby_names</code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>BONUS (optional): Save the <code>baby_names</code> data as a Stata data set <code>babynames.dta</code> and as an R data set <code>babynames.rds</code>.</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##</code></pre></div>
 </div>
 <div id="popularity-of-your-name" class="section level2">
 <h2><span class="header-section-number">1.7</span> Popularity of your name</h2>
 <p>In this section we will pull out specific names and examine changes in their popularity over time.</p>
 <p>The <code>baby_names</code> object we created in the last exercise is a <code>data.frame</code>. There are many other data structures in R, but for now we’ll focus on working with <code>data.frames</code>.</p>
-<p>R has decent data manipulation tools built-in – see e.g., <code>help(Extract)</code>. But, <code>tidyverse</code> packages often provide more intuitive syntax for accomplishing the same task. In particular, we will use the <code>dplyr</code> package to filter, select, and arrange data.</p>
+<p>R has decent data manipulation tools built-in – see e.g., <code>help(Extract)</code>. But, <code>tidyverse</code> packages often provide more intuitive syntax for accomplishing the same task. In particular, we will use the <code>dplyr</code> package from <code>tidyverse</code> to filter, select, and arrange data.</p>
 <div id="filtering-selecting-and-arranging-data" class="section level3">
 <h3><span class="header-section-number">1.7.1</span> Filtering, selecting, and arranging data</h3>
 <p>One way to find the year in which your name was the most popular is to filter out just the rows corresponding to your name, and then arrange (sort) by Count.</p>
-<p>To demonstrate these techniques we’ll try to determine whether “Alex”&quot; or “Jim” was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to <code>1992</code> and Name is either “Alex” or “Mark”.</p>
+<p>To demonstrate these techniques we’ll try to determine whether “Alex”&quot; or “Mark” was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to <code>1992</code> and Name is either “Alex” or “Mark”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_alexmark &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, 
              Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))
 baby_names_alexmark</code></pre></div>
-<p>We can also use the <code>select()</code> function to subset the <code>data.frame</code> by columns. We can then assign the output to a new object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_subset &lt;-<span class="st"> </span><span class="kw">select</span>(baby_names, Name, Count)
-<span class="kw">head</span>(baby_names_subset)</code></pre></div>
 <p>Notice that we can combine conditions using <code>&amp;</code> (AND) and <code>|</code> (OR).</p>
 <p>In this case it’s pretty easy to see that “Mark” is more popular, but to make it even easier we can arrange the data so that the most popular name is listed first.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(baby_names_alexmark, Count)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(baby_names_alexmark, <span class="kw">desc</span>(Count))</code></pre></div>
+<p>We can also use the <code>select()</code> function to subset the <code>data.frame</code> by columns. We can then assign the output to a new object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_subset &lt;-<span class="st"> </span><span class="kw">select</span>(baby_names, Name, Count)
+<span class="kw">head</span>(baby_names_subset)</code></pre></div>
 </div>
 <div id="other-logical-operators" class="section level3">
 <h3><span class="header-section-number">1.7.2</span> Other logical operators</h3>
@@ -686,7 +683,7 @@ baby_names_alexmark</code></pre></div>
 <p><strong>Peak popularity of your name</strong></p>
 <p>In this exercise you will discover the year your name reached its maximum popularity.</p>
 <p>Read in the “babyNames.csv” file if you have not already done so, assigning the result to <code>baby_names</code>. The file is located at <code>&quot;http://tutorials.iq.harvard.edu/data/babyNames.csv&quot;</code></p>
-<p>Make sure you have installed the <code>dplyr</code> package and attached it with <code>library(dplyr)</code>.</p>
+<p>Make sure you have installed the <code>tidyverse</code> suite of packages and attached them with <code>library(tidyverse)</code>.</p>
 <ol style="list-style-type: decimal">
 <li>Use <code>filter</code> to extract data for your name (or another name of your choice).</li>
 </ol>
@@ -702,7 +699,7 @@ baby_names_alexmark</code></pre></div>
 </div>
 <div id="pipe-operator-in-r" class="section level2">
 <h2><span class="header-section-number">1.9</span> Pipe operator in R</h2>
-<p>There is one very special operator in R called a “pipe” operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each funciton returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.</p>
+<p>There is one very special operator in R called a “pipe” operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.</p>
 <p>There is no need to load any additional packages as the operator is made available via the <code>magrittr</code> package installed as part of <code>tidyverse</code>. Let’s rewrite the sequence of commands to output ordered counts for names “Alex” or “Mark”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>)) <span class="op">%&gt;%</span>
@@ -718,11 +715,11 @@ baby_names_alexmark</code></pre></div>
 <h2><span class="header-section-number">1.11</span> Plotting baby name trends over time</h2>
 <p>It can be difficult to spot trends when looking at summary tables. Plotting the data makes it easier to identify interesting patterns.</p>
 <p>R has decent plotting tools built-in – see e.g., <code>help(plot)</code>. However, again, we will make use of an excelent <em>contributed package</em> from <code>tidyverse</code> called <code>ggplot2</code>.</p>
-<p>For quick and simple plots we can use the <code>qplot()</code> function from <code>ggplot2</code>. For example, we can plot the number of babies given the name “Diana” over time like this:</p>
+<p>For quick and simple plots we can use the <code>qplot()</code> function. For example, we can plot the number of babies given the name “Diana” over time like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_diana &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Name <span class="op">==</span><span class="st"> &quot;Diana&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count,
      <span class="dt">data =</span> baby_names_diana)</code></pre></div>
-<p>Interetingly there are usually some gender-atypical names, even for very strongly gendered names like “Diana”. Splitting these trends out by Sex is very easy:</p>
+<p>Interestingly, there are usually some gender-atypical names, even for very strongly gendered names like “Diana”. Splitting these trends out by Sex is very easy:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex,
       <span class="dt">data =</span> baby_names_diana)</code></pre></div>
 </div>
@@ -753,14 +750,14 @@ baby_names_alexmark</code></pre></div>
 <div id="computing-better-measures-of-popularity" class="section level3">
 <h3><span class="header-section-number">1.13.1</span> Computing better measures of popularity</h3>
 <p>So far we’ve used <code>Count</code> as a measure of popularity. A better approach is to use proportion or rank to avoid confounding popularity with the number of babies born in a given year.</p>
-<p>The <code>mutate</code> function makes it easy to add or modify the columns of a <code>data.frame</code>. For example, we can use it to compute the log of the number of boys and girls given each name in each year:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span><span class="kw">mutate</span>(baby_names, <span class="dt">logCount =</span> <span class="kw">log10</span>(Count))
+<p>The <code>mutate()</code> function makes it easy to add or modify the columns of a <code>data.frame</code>. For example, we can use it to rescale the count of each name in each year:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span><span class="kw">mutate</span>(baby_names, <span class="dt">Count_1k =</span> Count<span class="op">/</span><span class="dv">1000</span>)
 baby_names <span class="co"># same as print(baby_names)</span></code></pre></div>
-<p>Notice that executing the second line led to printing all 1 million rows in our <code>data.frame</code>! If we would just like to glance at the first 6 lines we can use <code>head()</code>:</p>
+<p>Notice that executing the second line led to printing all 1 million rows in our <code>data.frame</code>! If we would just like to glance at the first 6 lines we can use the <code>head()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(baby_names) </code></pre></div>
-<p>We can also <code>select</code> a subset of columns from the baby names data:</p>
+<p>If we like, we can also <code>select()</code> a subset of columns from the baby names data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(Name, Sex, Year, logCount) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Name, Sex, Year, Count_1k) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
 </div>
 <div id="operating-by-group" class="section level3">
@@ -769,7 +766,8 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span>
 <span class="st">  </span>baby_names <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(Count))
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(Count_1k)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>()
 
 <span class="kw">head</span>(baby_names)</code></pre></div>
 <p>Note that the data remains grouped until you change the groups by running <code>group_by()</code> again or remove grouping information with <code>ungroup()</code>.</p>
@@ -782,13 +780,13 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 <ol style="list-style-type: decimal">
 <li>Use <code>mutate()</code> and <code>group_by()</code> to create a column named “Proportion” where <code>Proportion = Count/sum(Count)</code> for each <code>Year X Sex</code> group. Use pipes wherever it makes sense.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## baby_names &lt;- baby_names %&gt;% ungroup</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>mutate()</code> and <code>group_by()</code> to create a column named “Rank” where <code>Rank = rank(-Count)</code> for each <code>Year X Sex</code> group.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Filter the baby names data to display only the most popular name for each <code>Year X Sex</code> group.</li>
+<li>Filter the baby names data to display only the most popular name for each <code>Year X Sex</code> group. Keep only the columns: Name, Sex, and Proportion.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
@@ -802,9 +800,9 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 </div>
 <div id="percent-choosing-one-of-the-top-10-names" class="section level2">
 <h2><span class="header-section-number">1.15</span> Percent choosing one of the top 10 names</h2>
-<p>You may have noticed that the percentage of babies given the most popular name of the year appears to have decreases over time. We can compute a more robust measure of the popularity of the most popular names by calculating the number of babies given one of the top 10 girl or boy names of the year.</p>
-<p>In order to compute this measure we need to operate within groups, as we did using <code>mutate()</code> above, but this time we need to collapse each group into a single summary statistic. We can achieve this using the <code>summarize()</code> function.</p>
-<p>First, let’s see how this funciton works without grouping. The following code outputs the total number of girls and boys in the data:</p>
+<p>You may have noticed that the percentage of babies given the most popular name of the year appears to have decreased over time. We can compute a more robust measure of the popularity of the most popular names by calculating the number of babies given one of the top 10 girl or boy names of the year.</p>
+<p>To compute this measure we need to operate within groups, as we did using <code>mutate()</code> above, but this time we need to collapse each group into a single summary statistic. We can achieve this using the <code>summarize()</code> function.</p>
+<p>First, let’s see how this function works without grouping. The following code outputs the total number of girls and boys in the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Girls_n =</span> <span class="kw">sum</span>(Sex<span class="op">==</span><span class="st">&quot;Girls&quot;</span>),
             <span class="dt">Boys_n =</span> <span class="kw">sum</span>(Sex<span class="op">==</span><span class="st">&quot;Boys&quot;</span>))</code></pre></div>
@@ -818,7 +816,7 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 </div>
 <div id="exercise-5" class="section level2">
 <h2><span class="header-section-number">1.16</span> Exercise 5</h2>
-<p><strong>Popularity of most popular names</strong></p>
+<p><strong>Popularity of the most popular names</strong></p>
 <p>In this exercise we will plot trends in the proportion of boys and girls given one of the 10 most popular names each year.</p>
 <ol style="list-style-type: decimal">
 <li>Filter the <code>baby_names</code> data, retaining only the 10 most popular girl and boy names for each year.</li>
@@ -922,19 +920,27 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 ##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span>
 <span class="st">  </span>baby_names <span class="op">%&gt;%</span>
-<span class="st">  </span>ungroup <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Proportion =</span> Count<span class="op">/</span><span class="kw">sum</span>(Count))</code></pre></div>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Proportion =</span> Count<span class="op">/</span><span class="kw">sum</span>(Count)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>()
+
+<span class="kw">head</span>(baby_names)  </code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 2.  Use `mutate()` and `group_by()` to create a column named &quot;Rank&quot; where 
 ##     `Rank = rank(-Count)` for each `Year X Sex` group.</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names &lt;-<span class="st"> </span>
 <span class="st">  </span>baby_names <span class="op">%&gt;%</span>
-<span class="st">  </span>ungroup <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="op">-</span>Count))</code></pre></div>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="op">-</span>Count)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>()
+
+<span class="kw">head</span>(baby_names)   </code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 3.  Filter the baby names data to display only the most popular name 
 ##     for each `Year X Sex` group.</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top1 &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Rank <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top1 &lt;-<span class="st"> </span>
+<span class="st">  </span>baby_names <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Rank <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Name, Sex, Proportion)
+
 <span class="kw">head</span>(top1)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 4. Plot the data produced in step 3, putting `Year` on the x-axis
 ##    and `Proportion` on the y-axis. How has the proportion of babies
@@ -946,17 +952,25 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
       <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 5. BONUS (optional): Which names are the most popular for both boys 
 ##    and girls?</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">girls_and_boys &lt;-<span class="st"> </span><span class="kw">inner_join</span>(<span class="kw">filter</span>(baby_names, Sex <span class="op">==</span><span class="st"> &quot;Boys&quot;</span>), 
-                             <span class="kw">filter</span>(baby_names, Sex <span class="op">==</span><span class="st"> &quot;Girls&quot;</span>),
-                             <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Name&quot;</span>))
-<span class="kw">head</span>(girls_and_boys)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bn_girls &lt;-<span class="st"> </span>baby_names <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &quot;Boys&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Name, Year, Count)
 
-girls_and_boys &lt;-<span class="st"> </span>girls_and_boys <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">girls_and_boys &lt;-<span class="st"> </span><span class="kw">mutate</span>(girls_and_boys,
-                         <span class="dt">Product =</span> Count.x <span class="op">*</span><span class="st"> </span>Count.y,
-                         <span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="op">-</span>Product))
+bn_boys &lt;-<span class="st"> </span>baby_names <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &quot;Girls&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Name, Year, Count)
+
+girls_and_boys &lt;-<span class="st"> </span><span class="kw">inner_join</span>(bn_girls, 
+                             bn_boys,
+                             <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Name&quot;</span>))
 <span class="kw">head</span>(girls_and_boys)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(girls_and_boys, Rank <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">girls_and_boys &lt;-<span class="st"> </span>
+<span class="st">  </span>girls_and_boys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Product =</span> Count.x <span class="op">*</span><span class="st"> </span>Count.y,
+         <span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="op">-</span>Product)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Rank <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+
+<span class="kw">head</span>(girls_and_boys)</code></pre></div>
 </div>
 <div id="ex-5-prototype" class="section level3">
 <h3><span class="header-section-number">1.18.7</span> Ex 5: prototype</h3>
@@ -967,7 +981,7 @@ girls_and_boys &lt;-<span class="st"> </span>girls_and_boys <span class="op">%&g
 <span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(Rank <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>)
 
-most_popular</code></pre></div>
+<span class="kw">head</span>(most_popular, <span class="dt">n =</span> <span class="dv">10</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 2.  Summarize the data produced in step one to calculate the total
 ##     Proportion of boys and girls given one of the top 10 names
 ##     each year.</code></pre></div>
@@ -987,21 +1001,21 @@ most_popular</code></pre></div>
 <h2><span class="header-section-number">1.19</span> Wrap-up</h2>
 <div id="feedback" class="section level3">
 <h3><span class="header-section-number">1.19.1</span> Feedback</h3>
-<p>These workshops are a work in progress, please provide any feedback to: <a href="mailto:help@iq.harvard.edu">help@iq.harvard.edu</a></p>
+<p>These workshops are a work-in-progress, please provide any feedback to: <a href="mailto:help@iq.harvard.edu">help@iq.harvard.edu</a></p>
 </div>
 <div id="resources" class="section level3">
 <h3><span class="header-section-number">1.19.2</span> Resources</h3>
 <ul>
 <li>IQSS
 <ul>
-<li><a href="https://dss.iq.harvard.edu/workshop-materials">Workshops</a></li>
-<li><a href="https://dss.iq.harvard.edu/">Data Science Services</a></li>
-<li><a href="https://iqss.github.io/dss-rce/">Research Computing Environment</a></li>
+<li>Workshops: <a href="https://dss.iq.harvard.edu/workshop-materials" class="uri">https://dss.iq.harvard.edu/workshop-materials</a></li>
+<li>Data Science Services: <a href="https://dss.iq.harvard.edu/" class="uri">https://dss.iq.harvard.edu/</a></li>
+<li>Research Computing Environment: <a href="https://iqss.github.io/dss-rce/" class="uri">https://iqss.github.io/dss-rce/</a></li>
 </ul></li>
 <li>HBS
 <ul>
-<li><a href="https://training.rcs.hbs.org/workshops">Research Computing Services workshops</a></li>
-<li><a href="https://training.rcs.hbs.org/workshop-materials">other HBS RCS resources</a></li>
+<li>Research Computing Services workshops: <a href="https://training.rcs.hbs.org/workshops" class="uri">https://training.rcs.hbs.org/workshops</a></li>
+<li>Other HBS RCS resources: <a href="https://training.rcs.hbs.org/workshop-materials" class="uri">https://training.rcs.hbs.org/workshop-materials</a></li>
 <li>RCS consulting email: <a href="mailto:research@hbs.edu">mailto:research@hbs.edu</a></li>
 </ul></li>
 <li>Software (all free!):
