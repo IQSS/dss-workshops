@@ -1676,17 +1676,6 @@ workshop, so let's install them now:
 \end{Highlighting}
 \end{Shaded}
 
-Set your working directory so you don't have to type the full path names
-to your data and other files
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{# set the working directory}
-  \CommentTok{# setwd("~/Desktop/Rmodels") # UNIX-based}
-  \CommentTok{# setwd("C:/Users/dataclass/Desktop/Rmodels") # MS Windows}
-\end{Highlighting}
-\end{Shaded}
-
 \subsection{Goals}\label{goals-1}
 
 Class Structure and Organization:
@@ -2659,17 +2648,6 @@ workshop, so let's install them now:
 \end{Highlighting}
 \end{Shaded}
 
-Set your working directory so you don't have to type the full path names
-to your data and other files
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{# set the working directory}
-  \CommentTok{# setwd("~/Desktop/Rgraphics") # UNIX-based}
-  \CommentTok{# setwd("C:/Users/dataclass/Desktop/Rgraphics") # MS Windows}
-\end{Highlighting}
-\end{Shaded}
-
 \subsection{Goals}\label{goals-2}
 
 Class Structure and Organization:
@@ -2747,7 +2725,8 @@ Graphics?}\label{what-is-the-grammar-of-graphics}
 
 The basic idea: independently specify plot building blocks and combine
 them to create just about any kind of graphical display you want.
-Building blocks of a graph include:
+Building blocks of a graph include the following (\textbf{bold denotes
+essential elements}):
 
 \begin{itemize}
 \tightlist
@@ -2768,7 +2747,7 @@ Building blocks of a graph include:
 \item
   faceting
 \item
-  theme
+  themes
 \end{itemize}
 
 \subsection{\texorpdfstring{Example data:
@@ -2806,7 +2785,7 @@ Base graphics histogram example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{hist}\NormalTok{(housing}\OperatorTok{$}\NormalTok{Home.Value)}
+\KeywordTok{hist}\NormalTok{(housing}\OperatorTok{$}\NormalTok{Home_Value)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2815,7 +2794,7 @@ Base graphics histogram example:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(ggplot2)}
-\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Home.Value)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Home_Value)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_histogram}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -2826,9 +2805,10 @@ Base graphics colored scatter plot example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(Home.Value }\OperatorTok{~}\StringTok{ }\NormalTok{Date,}
+\KeywordTok{plot}\NormalTok{(Home_Value }\OperatorTok{~}\StringTok{ }\NormalTok{Date,}
      \DataTypeTok{col =} \KeywordTok{factor}\NormalTok{(State),}
      \DataTypeTok{data =} \KeywordTok{filter}\NormalTok{(housing, State }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"MA"}\NormalTok{, }\StringTok{"TX"}\NormalTok{)))}
+
 \KeywordTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}
        \DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"MA"}\NormalTok{, }\StringTok{"TX"}\NormalTok{),}
        \DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"red"}\NormalTok{),}
@@ -2842,7 +2822,7 @@ Base graphics colored scatter plot example:
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(}\KeywordTok{filter}\NormalTok{(housing, State }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"MA"}\NormalTok{, }\StringTok{"TX"}\NormalTok{)),}
        \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Date,}
-           \DataTypeTok{y=}\NormalTok{Home.Value,}
+           \DataTypeTok{y=}\NormalTok{Home_Value,}
            \DataTypeTok{color=}\NormalTok{State))}\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
@@ -2878,8 +2858,8 @@ Each type of geom accepts only a subset of all aesthetics;refer to the
 geom help pages to see what mappings each geom accepts. Aesthetic
 mappings are set with the \texttt{aes()} function.
 
-\subsection{\texorpdfstring{Geometic objects
-(\texttt{geom})}{Geometic objects (geom)}}\label{geometic-objects-geom}
+\subsection{\texorpdfstring{Geometric objects
+(\texttt{geom})}{Geometric objects (geom)}}\label{geometric-objects-geom}
 
 Geometric objects are the actual marks we put on a plot. Examples
 include:
@@ -2981,7 +2961,7 @@ others are optional.
 \begin{Highlighting}[]
 \NormalTok{hp2001Q1 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(housing, Date }\OperatorTok{==}\StringTok{ }\FloatTok{2001.25}\NormalTok{) }
 \KeywordTok{ggplot}\NormalTok{(hp2001Q1,}
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ Structure.Cost, }\DataTypeTok{x =}\NormalTok{ Land.Value)) }\OperatorTok{+}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ Structure.Cost, }\DataTypeTok{x =}\NormalTok{ Land_Value)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -2989,7 +2969,7 @@ others are optional.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(hp2001Q1,}
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ Structure.Cost, }\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(Land.Value))) }\OperatorTok{+}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ Structure.Cost, }\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(Land_Value))) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3003,12 +2983,13 @@ regression line:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{hp2001Q1}\OperatorTok{$}\NormalTok{pred.SC <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(}\KeywordTok{lm}\NormalTok{(Structure.Cost }\OperatorTok{~}\StringTok{ }\KeywordTok{log}\NormalTok{(Land.Value), }\DataTypeTok{data =}\NormalTok{ hp2001Q1))}
+\NormalTok{hp2001Q1}\OperatorTok{$}\NormalTok{pred_SC <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(Structure_Cost }\OperatorTok{~}\StringTok{ }\KeywordTok{log}\NormalTok{(Land_Value), }\DataTypeTok{data =}\NormalTok{ hp2001Q1) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{predict}\NormalTok{()}
 
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(hp2001Q1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(Land.Value), }\DataTypeTok{y =}\NormalTok{ Structure.Cost))}
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(hp2001Q1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(Land_Value), }\DataTypeTok{y =}\NormalTok{ Structure_Cost))}
 
-\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home.Value)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred.SC))}
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home_Value)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred_SC))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3020,7 +3001,7 @@ line and a ribbon.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{p1 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home.Value)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home_Value)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3040,7 +3021,8 @@ Each \texttt{geom} accepts a particualar set of mappings;for example
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## install.packages("ggrepel") }
-\KeywordTok{library}\NormalTok{(}\StringTok{"ggrepel"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(ggrepel)}
+
 \NormalTok{p1 }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_text_repel}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{State), }\DataTypeTok{size =} \DecValTok{3}\NormalTok{)}
@@ -3071,7 +3053,7 @@ example.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{p1 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home.Value, }\DataTypeTok{shape =}\NormalTok{ region))}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home_Value, }\DataTypeTok{shape =}\NormalTok{ region))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3128,7 +3110,7 @@ require statistical transformations:
 \end{itemize}
 
 Each \texttt{geom} has a default statistic, but these can be changed.
-For example, the default statistic for \texttt{geom\_bar} is
+For example, the default statistic for \texttt{geom\_histogram} is
 \texttt{stat\_bin}:
 
 \begin{Shaded}
@@ -3152,7 +3134,7 @@ For example, here is the default histogram of Home.Value:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Home.Value))}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Home_Value))}
 \NormalTok{p2 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3174,14 +3156,19 @@ This is often the case with pre-summarized data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{housing.sum <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(housing[}\StringTok{"Home.Value"}\NormalTok{], housing[}\StringTok{"State"}\NormalTok{], }\DataTypeTok{FUN=}\NormalTok{mean)}
-\KeywordTok{rbind}\NormalTok{(}\KeywordTok{head}\NormalTok{(housing.sum), }\KeywordTok{tail}\NormalTok{(housing.sum))}
+\NormalTok{housing_sum <-}\StringTok{ }
+\StringTok{  }\NormalTok{housing }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(State) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Home_Value_Mean =} \KeywordTok{mean}\NormalTok{(Home_Value)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
+
+\KeywordTok{rbind}\NormalTok{(}\KeywordTok{head}\NormalTok{(housing_sum), }\KeywordTok{tail}\NormalTok{(housing_sum))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(housing.sum, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{State, }\DataTypeTok{y=}\NormalTok{Home.Value)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(housing_sum, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{State, }\DataTypeTok{y=}\NormalTok{Home_Value_Mean)) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_bar}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3194,7 +3181,7 @@ different statistical transformation function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(housing.sum, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{State, }\DataTypeTok{y=}\NormalTok{Home.Value)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(housing_sum, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{State, }\DataTypeTok{y=}\NormalTok{Home_Value)) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3285,7 +3272,7 @@ by Date and State.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{base_plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ State, }\DataTypeTok{y =}\NormalTok{ Home.Price.Index)) }\OperatorTok{+}\StringTok{ }
+\NormalTok{p4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ State, }\DataTypeTok{y =}\NormalTok{ Home_Price_Index)) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Date), }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{size =} \FloatTok{1.5}\NormalTok{,}
                \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{))}\ErrorTok{)}
 \end{Highlighting}
@@ -3295,7 +3282,7 @@ Now modify the breaks for the x axis and color scales
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{base_plot }\OperatorTok{+}\StringTok{ }
+\NormalTok{p4 }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{scale_x_discrete}\NormalTok{(}\DataTypeTok{name=}\StringTok{"State Abbreviation"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
@@ -3307,7 +3294,7 @@ Next change the low and high values to blue and red:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{base_plot }\OperatorTok{+}
+\NormalTok{p4 }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_x_discrete}\NormalTok{(}\DataTypeTok{name=}\StringTok{"State Abbreviation"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
@@ -3322,7 +3309,7 @@ Now mute the colors:
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(scales)}
 
-\NormalTok{base_plot }\OperatorTok{+}
+\NormalTok{p4 }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
                          \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"'76"}\NormalTok{, }\StringTok{"'94"}\NormalTok{, }\StringTok{"'13"}\NormalTok{),}
@@ -3447,7 +3434,7 @@ state?}\label{what-is-the-trend-in-housing-prices-in-each-state}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Date, }\DataTypeTok{y =}\NormalTok{ Home.Value))}
+\NormalTok{p5 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Date, }\DataTypeTok{y =}\NormalTok{ Home_Value))}
 \NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ State))  }
 \end{Highlighting}
 \end{Shaded}
@@ -3463,7 +3450,7 @@ rather than mapping state to color.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(p5 <-}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
-\StringTok{   }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{State, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{))}
+\StringTok{   }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{State, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3548,6 +3535,18 @@ You can create new themes, as in the following example:
 \end{Highlighting}
 \end{Shaded}
 
+You can see all the plot elements that can be changed by
+\texttt{theme()} using:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(}\KeywordTok{theme_get}\NormalTok{())}
+
+\CommentTok{# see all arguments for each plot element}
+\KeywordTok{theme_get}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
 \section{The \#1 FAQ}\label{the-1-faq}
 
 \subsection{Map aesthetic to different
@@ -3562,13 +3561,16 @@ How do I do that?}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{housing.byyear <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(Home.Value, Land.Value) }\OperatorTok{~}\StringTok{ }\NormalTok{Date, }\DataTypeTok{data =}\NormalTok{ housing, mean)}
-\KeywordTok{ggplot}\NormalTok{(housing.byyear,}
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Date)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{Home.Value), }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{Land.Value), }\DataTypeTok{color=}\StringTok{"blue"}\NormalTok{)}
+\NormalTok{housing_byyear <-}\StringTok{ }
+\StringTok{  }\NormalTok{housing }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Date) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Home_Value_Mean =} \KeywordTok{mean}\NormalTok{(Home_Value),}
+            \DataTypeTok{Land_Value_Mean =} \KeywordTok{mean}\NormalTok{(Land_Value)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
-\CommentTok{#}
+\KeywordTok{ggplot}\NormalTok{(housing_byyear, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Date)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{Home_Value_Mean), }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{Land_Value_Mean), }\DataTypeTok{color=}\StringTok{"blue"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3576,15 +3578,12 @@ How do I do that?}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyr)}
-\NormalTok{home.land.byyear <-}\StringTok{ }\KeywordTok{gather}\NormalTok{(housing.byyear,}
+\NormalTok{home_land_byyear <-}\StringTok{ }\KeywordTok{gather}\NormalTok{(housing_byyear,}
                            \DataTypeTok{value =} \StringTok{"value"}\NormalTok{,}
                            \DataTypeTok{key =} \StringTok{"type"}\NormalTok{,}
-\NormalTok{                           Home.Value, Land.Value)}
-\KeywordTok{ggplot}\NormalTok{(home.land.byyear,}
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Date,}
-           \DataTypeTok{y=}\NormalTok{value,}
-           \DataTypeTok{color=}\NormalTok{type)) }\OperatorTok{+}
+\NormalTok{                           Home_Value, Land_Value)}
+
+\KeywordTok{ggplot}\NormalTok{(home_land_byyear, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Date, }\DataTypeTok{y=}\NormalTok{value, }\DataTypeTok{color=}\NormalTok{type)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_line}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3603,7 +3602,7 @@ economist graph.
 \subsection{Challenge solution:}\label{challenge-solution}
 
 Lets start by creating the basic scatter plot, then we can make a list
-of things that need to be added or changed. The basic plot loogs like
+of things that need to be added or changed. The basic plot looks like
 this:
 
 \begin{Shaded}
@@ -3652,7 +3651,7 @@ leads to
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{pc2 <-}\StringTok{ }\NormalTok{pc1 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =} \StringTok{"solid"}\NormalTok{),}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =} \StringTok{"r2"}\NormalTok{),   }\CommentTok{# "r2" is a placeholder for where we'll later put R^2 values}
               \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{,}
               \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\KeywordTok{log}\NormalTok{(x), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
               \DataTypeTok{color =} \StringTok{"red"}\NormalTok{)}
@@ -3676,14 +3675,6 @@ shown in \texttt{?shape} can help us:
 
 \NormalTok{s <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(df2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y))}
 \NormalTok{s }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =}\NormalTok{ z), }\DataTypeTok{size =} \DecValTok{4}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_shape_identity}\NormalTok{()}
-
-\NormalTok{## While all symbols have a foreground colour, symbols 19-25 also take a}
-\NormalTok{## background colour (fill)}
-\NormalTok{s }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =}\NormalTok{ z), }\DataTypeTok{size =} \DecValTok{4}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"Red"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_shape_identity}\NormalTok{()}
-
-\NormalTok{s }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =}\NormalTok{ z), }\DataTypeTok{size =} \DecValTok{4}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"Red"}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"Black"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_shape_identity}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3740,7 +3731,8 @@ do some hand-adjustment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(}\StringTok{"ggrepel"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(ggrepel)}
+
 \NormalTok{(pc4 <-}\StringTok{ }\NormalTok{pc3 }\OperatorTok{+}
 \StringTok{   }\KeywordTok{geom_text_repel}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ Country),}
                    \DataTypeTok{color =} \StringTok{"gray20"}\NormalTok{,}
@@ -3752,9 +3744,8 @@ do some hand-adjustment.
 \subsubsection{Change the region labels and
 order}\label{change-the-region-labels-and-order}
 
-Thinkgs are starting to come together. There are just a couple more
-things we need to add, and then all that will be left are themeing
-changes.
+Things are starting to come together. There are just a couple more
+things we need to add, and then all that will be left are theme changes.
 
 Comparing our graph to the original we notice that the labels and order
 of the Regions in the color legend differ. To correct this we need to
@@ -3793,11 +3784,12 @@ as it does in the original.
 axes}\label{add-title-and-format-axes}
 
 The next step is to add the title and format the axes. We do that using
-the \texttt{scales} system in ggplot2.
+the \texttt{scales} system in \texttt{ggplot2}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(grid)}
+
 \NormalTok{(pc5 <-}\StringTok{ }\NormalTok{pc4 }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perceptions Index, 2011 (10=least corrupt)"}\NormalTok{,}
                      \DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(.}\DecValTok{9}\NormalTok{, }\FloatTok{10.5}\NormalTok{),}
@@ -3826,7 +3818,8 @@ them and observe the results.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(grid) }\CommentTok{# for the 'unit' function}
+\KeywordTok{library}\NormalTok{(grid) }\CommentTok{# for the `unit()` function}
+
 \NormalTok{(pc6 <-}\StringTok{ }\NormalTok{pc5 }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}\StringTok{ }\CommentTok{# start with a minimal theme and add what we need}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"gray20"}\NormalTok{),}
@@ -4026,13 +4019,13 @@ important elements.
 \setcounter{enumi}{4}
 \tightlist
 \item
-  Make the points bigger by setting size to 2
+  Map the size of the points to HDI.Rank
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region, }\DataTypeTok{size =}\NormalTok{  HDI.Rank))}
+\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region, }\DataTypeTok{size =}\NormalTok{  HDI_Rank))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4321,17 +4314,6 @@ workshop, so let's install them now:
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
-\end{Highlighting}
-\end{Shaded}
-
-Set your working directory so you don't have to type the full path names
-to your data and other files
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{# set the working directory}
-  \CommentTok{# setwd("~/Desktop/RDataWrangling") # UNIX-based}
-  \CommentTok{# setwd("C:/Users/dataclass/Desktop/RDataWrangling") # MS Windows}
 \end{Highlighting}
 \end{Shaded}
 

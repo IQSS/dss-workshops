@@ -52,14 +52,6 @@ workshop, so let's install them now:
 library(tidyverse)
 ```
 
-Set your working directory so you don't have to type the full path names to your data and other files
-
-```{r}
-  # set the working directory
-  # setwd("~/Desktop/Rgraphics") # UNIX-based
-  # setwd("C:/Users/dataclass/Desktop/Rgraphics") # MS Windows
-```
-
 ### Goals
 
 Class Structure and Organization:
@@ -100,7 +92,9 @@ That said, there are some things you cannot (or should not) do With ggplot2:
 
 ### What is the Grammar Of Graphics?
 
-The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include:
+The basic idea: independently specify plot building blocks and combine them to create just 
+about any kind of graphical display you want. Building blocks of a graph include the
+following (**bold denotes essential elements**):
 
 * **data**
 * **aesthetic mapping**
@@ -110,7 +104,7 @@ The basic idea: independently specify plot building blocks and combine them to c
 * coordinate system
 * position adjustments
 * faceting
-* theme
+* themes
 
 
 ### Example data: `housing prices`
@@ -136,15 +130,14 @@ Compared to base graphics, `ggplot2`
 Base graphics histogram example:
 
 ```{r}
-hist(housing$Home.Value)
-
+hist(housing$Home_Value)
 ```
 
 `ggplot2` histogram example:
 
 ```{r}
 library(ggplot2)
-ggplot(housing, aes(x = Home.Value)) +
+ggplot(housing, aes(x = Home_Value)) +
   geom_histogram()
 ```
 
@@ -153,9 +146,10 @@ ggplot(housing, aes(x = Home.Value)) +
 Base graphics colored scatter plot example:
 
 ```{r}
-plot(Home.Value ~ Date,
+plot(Home_Value ~ Date,
      col = factor(State),
      data = filter(housing, State %in% c("MA", "TX")))
+
 legend("topleft",
        legend = c("MA", "TX"),
        col = c("black", "red"),
@@ -167,7 +161,7 @@ legend("topleft",
 ```{r}
 ggplot(filter(housing, State %in% c("MA", "TX")),
        aes(x=Date,
-           y=Home.Value,
+           y=Home_Value,
            color=State))+
   geom_point()
 ```
@@ -190,7 +184,7 @@ In ggplot land *aesthetic* means "something you can see". Examples include:
 
 Each type of geom accepts only a subset of all aesthetics;refer to the geom help pages to see what mappings each geom accepts. Aesthetic mappings are set with the `aes()` function.
 
-### Geometic objects (`geom`)
+### Geometric objects (`geom`)
 
 Geometric objects are the actual marks we put on a plot. Examples include:
 
@@ -225,14 +219,14 @@ Now that we know about geometric objects and aesthetic mapping, we can make a gg
 ```{r}
 hp2001Q1 <- filter(housing, Date == 2001.25) 
 ggplot(hp2001Q1,
-       aes(y = Structure.Cost, x = Land.Value)) +
+       aes(y = Structure.Cost, x = Land_Value)) +
   geom_point()
 ```
 
 
 ```{r}
 ggplot(hp2001Q1,
-       aes(y = Structure.Cost, x = log(Land.Value))) +
+       aes(y = Structure.Cost, x = log(Land_Value))) +
   geom_point()
 ```
 
@@ -242,12 +236,13 @@ ggplot(hp2001Q1,
 A plot constructed with `ggplot` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden. Our plot could use a regression line:
 
 ```{r}
-hp2001Q1$pred.SC <- predict(lm(Structure.Cost ~ log(Land.Value), data = hp2001Q1))
+hp2001Q1$pred_SC <- lm(Structure_Cost ~ log(Land_Value), data = hp2001Q1) %>%
+  predict()
 
-p1 <- ggplot(hp2001Q1, aes(x = log(Land.Value), y = Structure.Cost))
+p1 <- ggplot(hp2001Q1, aes(x = log(Land_Value), y = Structure_Cost))
 
-p1 + geom_point(aes(color = Home.Value)) +
-  geom_line(aes(y = pred.SC))
+p1 + geom_point(aes(color = Home_Value)) +
+  geom_line(aes(y = pred_SC))
 ```
 
 
@@ -257,7 +252,7 @@ Not all geometric objects are simple shapes&#x2013;the smooth geom includes a li
 
 ```{r}
 p1 +
-  geom_point(aes(color = Home.Value)) +
+  geom_point(aes(color = Home_Value)) +
   geom_smooth()
 ```
 
@@ -274,7 +269,8 @@ p1 +
 
 ```{r}
 ## install.packages("ggrepel") 
-library("ggrepel")
+library(ggrepel)
+
 p1 + 
   geom_point() + 
   geom_text_repel(aes(label=State), size = 3)
@@ -298,7 +294,7 @@ Other aesthetics are mapped in the same way as x and y in the previous example.
 
 ```{r}
 p1 +
-  geom_point(aes(color = Home.Value, shape = region))
+  geom_point(aes(color = Home_Value, shape = region))
 ```
 
 
@@ -330,7 +326,7 @@ Some plot types (such as scatterplots) do not require transformations; each poin
 * for a boxplot the y values must be transformed to the median and 1.5(IQR)
 * for a smoother smother the y values must be transformed into predicted values
 
-Each `geom` has a default statistic, but these can be changed. For example, the default statistic for `geom_bar` is `stat_bin`:
+Each `geom` has a default statistic, but these can be changed. For example, the default statistic for `geom_histogram` is `stat_bin`:
 
 ```{r}
 args(geom_histogram)
@@ -347,7 +343,7 @@ Arguments to `stat_` functions can be passed through `geom_` functions. This can
 For example, here is the default histogram of Home.Value:
 
 ```{r}
-p2 <- ggplot(housing, aes(x = Home.Value))
+p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
 ```
 
@@ -363,19 +359,24 @@ p2 + geom_histogram(stat = "bin", binwidth=4000)
 Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:
 
 ```{r}
-housing.sum <- aggregate(housing["Home.Value"], housing["State"], FUN=mean)
-rbind(head(housing.sum), tail(housing.sum))
+housing_sum <- 
+  housing %>%
+  group_by(State) %>%
+  summarize(Home_Value_Mean = mean(Home_Value)) %>%
+  ungroup()
+
+rbind(head(housing_sum), tail(housing_sum))
 ```
 
 ```{r error=TRUE}
-ggplot(housing.sum, aes(x=State, y=Home.Value)) + 
+ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
   geom_bar()
 ```
 
 What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar` defaults to `stat = stat_count`); obviously this will not work. We can fix it by telling `geom_bar` to use a different statistical transformation function:
 
 ```{r}
-ggplot(housing.sum, aes(x=State, y=Home.Value)) + 
+ggplot(housing_sum, aes(x=State, y=Home_Value)) + 
   geom_bar(stat="identity")
 ```
 
@@ -419,7 +420,7 @@ Specific scale functions may have additional arguments; for example, the `scale_
 Start by constructing a dotplot showing the distribution of home values by Date and State.
 
 ```{r}
-base_plot <- ggplot(housing, aes(x = State, y = Home.Price.Index)) + 
+p4 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) + 
     geom_point(aes(color = Date), alpha = 0.5, size = 1.5,
                position = position_jitter(width = 0.25, height = 0)))
 ```
@@ -428,7 +429,7 @@ base_plot <- ggplot(housing, aes(x = State, y = Home.Price.Index)) +
 Now modify the breaks for the x axis and color scales
 
 ```{r}
-base_plot + 
+p4 + 
   scale_x_discrete(name="State Abbreviation") +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
@@ -438,7 +439,7 @@ base_plot +
 Next change the low and high values to blue and red:
 
 ```{r}
-base_plot +
+p4 +
   scale_x_discrete(name="State Abbreviation") +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
@@ -451,7 +452,7 @@ Now mute the colors:
 ```{r}
 library(scales)
 
-base_plot +
+p4 +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
                          labels = c("'76", "'94", "'13"),
@@ -525,7 +526,7 @@ For a complete list of available scales see <https://ggplot2.tidyverse.org/refer
 * Start by using a technique we already know&#x2013;map State to color:
 
 ```{r}
-p5 <- ggplot(housing, aes(x = Date, y = Home.Value))
+p5 <- ggplot(housing, aes(x = Date, y = Home_Value))
 p5 + geom_line(aes(color = State))  
 ```
 
@@ -537,7 +538,7 @@ We can remedy the deficiencies of the previous plot by faceting by state rather 
 
 ```{r}
 (p5 <- p5 + geom_line() +
-   facet_wrap(~State, ncol = 10))
+   facet_wrap(~ State, ncol = 10))
 ```
 
 
@@ -598,6 +599,15 @@ theme_new <- theme_bw() +
 p5 + theme_new
 ```
 
+You can see all the plot elements that can be changed by `theme()` using:
+
+```{r}
+names(theme_get())
+
+# see all arguments for each plot element
+theme_get()
+```
+
 
 ## The #1 FAQ
 
@@ -608,27 +618,27 @@ The most frequently asked question goes something like this: *I have two variabl
 **Wrong**
 
 ```{r}
-housing.byyear <- aggregate(cbind(Home.Value, Land.Value) ~ Date, data = housing, mean)
-ggplot(housing.byyear,
-       aes(x=Date)) +
-  geom_line(aes(y=Home.Value), color="red") +
-  geom_line(aes(y=Land.Value), color="blue")
+housing_byyear <- 
+  housing %>%
+  group_by(Date) %>%
+  summarize(Home_Value_Mean = mean(Home_Value),
+            Land_Value_Mean = mean(Land_Value)) %>%
+  ungroup()
 
-#
+ggplot(housing_byyear, aes(x=Date)) +
+  geom_line(aes(y=Home_Value_Mean), color="red") +
+  geom_line(aes(y=Land_Value_Mean), color="blue")
 ```
 
 **Right**
 
 ```{r}
-library(tidyr)
-home.land.byyear <- gather(housing.byyear,
+home_land_byyear <- gather(housing_byyear,
                            value = "value",
                            key = "type",
-                           Home.Value, Land.Value)
-ggplot(home.land.byyear,
-       aes(x=Date,
-           y=value,
-           color=type)) +
+                           Home_Value, Land_Value)
+
+ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
   geom_line()
 ```
 
@@ -645,7 +655,7 @@ Building off of the graphics you created in the previous exercises, put the fini
 
 ### Challenge solution:
 
-Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot loogs like this:
+Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot looks like this:
 
 ```{r}
 dat <- read_csv("dataSets/EconomistData.csv")
@@ -674,7 +684,7 @@ Adding the trend line is not too difficult, though we need to guess at the model
 
 ```{r}
 pc2 <- pc1 +
-  geom_smooth(mapping = aes(linetype = "solid"),
+  geom_smooth(mapping = aes(linetype = "r2"),   # "r2" is a placeholder for where we'll later put R^2 values
               method = "lm",
               formula = y ~ x + log(x), se = FALSE,
               color = "red")
@@ -694,17 +704,7 @@ df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
 
 s <- ggplot(df2, aes(x = x, y = y))
 s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
-
-## While all symbols have a foreground colour, symbols 19-25 also take a
-## background colour (fill)
-s + geom_point(aes(shape = z), size = 4, colour = "Red") +
-  scale_shape_identity()
-
-s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
-  scale_shape_identity()
-
 ```
-
 
 This shows us that *shape 1* is an open circle, so
 
@@ -712,7 +712,6 @@ This shows us that *shape 1* is an open circle, so
 pc2 +
   geom_point(shape = 1, size = 4)
 ```
-
 
 That is better, but unfortunately the size of the line around the points is much narrower than on the original.
 
@@ -747,7 +746,8 @@ Now we can label these points using `geom_text`, like this:
 This more or less gets the information across, but the labels overlap in a most unpleasing fashion. We can use the `ggrepel` package to make things better, but if you want perfection you will probably have to do some hand-adjustment.
 
 ```{r}
-library("ggrepel")
+library(ggrepel)
+
 (pc4 <- pc3 +
    geom_text_repel(aes(label = Country),
                    color = "gray20",
@@ -758,7 +758,7 @@ library("ggrepel")
 
 #### Change the region labels and order
 
-Thinkgs are starting to come together. There are just a couple more things we need to add, and then all that will be left are themeing changes.
+Things are starting to come together. There are just a couple more things we need to add, and then all that will be left are theme changes.
 
 Comparing our graph to the original we notice that the labels and order of the Regions in the color legend differ. To correct this we need to change both the labels and order of the Region variable. We can do this with the `factor` function.
 
@@ -789,10 +789,11 @@ pc4
 
 #### Add title and format axes
 
-The next step is to add the title and format the axes. We do that using the `scales` system in ggplot2.
+The next step is to add the title and format the axes. We do that using the `scales` system in `ggplot2`.
 
 ```{r}
 library(grid)
+
 (pc5 <- pc4 +
   scale_x_continuous(name = "Corruption Perceptions Index, 2011 (10=least corrupt)",
                      limits = c(.9, 10.5),
@@ -808,7 +809,6 @@ library(grid)
                                 "#F2583F",
                                 "#96503F")) +
   ggtitle("Corruption and Human development"))
-
 ```
 
 
@@ -817,7 +817,8 @@ library(grid)
 Our graph is almost there. To finish up, we need to adjust some of the theme elements, and label the axes and legends. This part usually involves some trial and error as you figure out where things need to be positioned. To see what these various theme settings do you can change them and observe the results.
 
 ```{r}
-library(grid) # for the 'unit' function
+library(grid) # for the `unit()` function
+
 (pc6 <- pc5 +
   theme_minimal() + # start with a minimal theme and add what we need
   theme(text = element_text(color = "gray20"),
@@ -834,7 +835,6 @@ library(grid) # for the 'unit' function
         panel.grid.major = element_line(color = "gray50", size = 0.5),
         panel.grid.major.x = element_blank()
         ))
-
 ```
 
 
@@ -971,11 +971,11 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region), size = 2)
 ```
 
-5.  Make the points bigger by setting size to 2
+5.  Map the size of the points to HDI.Rank
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI)) +
-geom_point(aes(color = Region, size =  HDI.Rank))
+geom_point(aes(color = Region, size =  HDI_Rank))
 ```
 
 ### Ex 1: prototype
@@ -1081,5 +1081,3 @@ These workshops are a work in progress, please provide any feedback to: help@iq.
     + Website: <http://had.co.nz/ggplot2/>
     + StackOverflow: <http://stackoverflow.com/questions/tagged/ggplot>
 
-
-   

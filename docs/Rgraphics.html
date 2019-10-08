@@ -225,7 +225,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="Rgraphics.html"><a href="Rgraphics.html#geometric-objects-and-aesthetics"><i class="fa fa-check"></i><b>3.3</b> Geometric objects and aesthetics</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="Rgraphics.html"><a href="Rgraphics.html#aesthetic-mapping"><i class="fa fa-check"></i><b>3.3.1</b> Aesthetic mapping</a></li>
-<li class="chapter" data-level="3.3.2" data-path="Rgraphics.html"><a href="Rgraphics.html#geometic-objects-geom"><i class="fa fa-check"></i><b>3.3.2</b> Geometic objects (<code>geom</code>)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="Rgraphics.html"><a href="Rgraphics.html#geometric-objects-geom"><i class="fa fa-check"></i><b>3.3.2</b> Geometric objects (<code>geom</code>)</a></li>
 <li class="chapter" data-level="3.3.3" data-path="Rgraphics.html"><a href="Rgraphics.html#aesthetic-mapping-vs-assignment"><i class="fa fa-check"></i><b>3.3.3</b> Aesthetic mapping VS assignment</a></li>
 <li class="chapter" data-level="3.3.4" data-path="Rgraphics.html"><a href="Rgraphics.html#mapping-variables-to-other-aesthetics"><i class="fa fa-check"></i><b>3.3.4</b> Mapping variables to other aesthetics</a></li>
 </ul></li>
@@ -472,10 +472,6 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 In particular, a collection of R packages called <a href="https://www.tidyverse.org/">tidyverse</a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures. We will use <code>tidyverse</code> packages throughout the workshop, so let’s install them now:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;tidyverse&quot;)</span>
 <span class="kw">library</span>(tidyverse)</code></pre></div>
-<p>Set your working directory so you don’t have to type the full path names to your data and other files</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># set the working directory</span>
-  <span class="co"># setwd(&quot;~/Desktop/Rgraphics&quot;) # UNIX-based</span>
-  <span class="co"># setwd(&quot;C:/Users/dataclass/Desktop/Rgraphics&quot;) # MS Windows</span></code></pre></div>
 </div>
 <div id="goals-2" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Goals</h3>
@@ -519,7 +515,7 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 </ul>
 <div id="what-is-the-grammar-of-graphics" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> What is the Grammar Of Graphics?</h3>
-<p>The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include:</p>
+<p>The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include the following (<strong>bold denotes essential elements</strong>):</p>
 <ul>
 <li><strong>data</strong></li>
 <li><strong>aesthetic mapping</strong></li>
@@ -529,7 +525,7 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <li>coordinate system</li>
 <li>position adjustments</li>
 <li>faceting</li>
-<li>theme</li>
+<li>themes</li>
 </ul>
 </div>
 <div id="example-data-housing-prices" class="section level3">
@@ -551,18 +547,19 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <div id="for-simple-graphs" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> For simple graphs</h3>
 <p>Base graphics histogram example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(housing<span class="op">$</span>Home.Value)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(housing<span class="op">$</span>Home_Value)</code></pre></div>
 <p><code>ggplot2</code> histogram example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home.Value)) <span class="op">+</span>
+<span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
 </div>
 <div id="for-more-complex-graphs" class="section level3">
 <h3><span class="header-section-number">3.2.5</span> For more complex graphs:</h3>
 <p>Base graphics colored scatter plot example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Home.Value <span class="op">~</span><span class="st"> </span>Date,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Home_Value <span class="op">~</span><span class="st"> </span>Date,
      <span class="dt">col =</span> <span class="kw">factor</span>(State),
      <span class="dt">data =</span> <span class="kw">filter</span>(housing, State <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MA&quot;</span>, <span class="st">&quot;TX&quot;</span>)))
+
 <span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;MA&quot;</span>, <span class="st">&quot;TX&quot;</span>),
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),
@@ -570,7 +567,7 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <p><code>ggplot2</code> colored scatter plot example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">filter</span>(housing, State <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MA&quot;</span>, <span class="st">&quot;TX&quot;</span>)),
        <span class="kw">aes</span>(<span class="dt">x=</span>Date,
-           <span class="dt">y=</span>Home.Value,
+           <span class="dt">y=</span>Home_Value,
            <span class="dt">color=</span>State))<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><code>ggplot2</code> wins!</p>
@@ -591,8 +588,8 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 </ul>
 <p>Each type of geom accepts only a subset of all aesthetics;refer to the geom help pages to see what mappings each geom accepts. Aesthetic mappings are set with the <code>aes()</code> function.</p>
 </div>
-<div id="geometic-objects-geom" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Geometic objects (<code>geom</code>)</h3>
+<div id="geometric-objects-geom" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Geometric objects (<code>geom</code>)</h3>
 <p>Geometric objects are the actual marks we put on a plot. Examples include:</p>
 <ul>
 <li>points (<code>geom_point</code>, for scatter plots, dot plots, etc.)</li>
@@ -659,27 +656,28 @@ In particular, a collection of R packages called <a href="https://www.tidyverse.
 <p>Now that we know about geometric objects and aesthetic mapping, we can make a ggplot. <code>geom_point</code> requires mappings for x and y, all others are optional.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hp2001Q1 &lt;-<span class="st"> </span><span class="kw">filter</span>(housing, Date <span class="op">==</span><span class="st"> </span><span class="fl">2001.25</span>) 
 <span class="kw">ggplot</span>(hp2001Q1,
-       <span class="kw">aes</span>(<span class="dt">y =</span> Structure.Cost, <span class="dt">x =</span> Land.Value)) <span class="op">+</span>
+       <span class="kw">aes</span>(<span class="dt">y =</span> Structure.Cost, <span class="dt">x =</span> Land_Value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hp2001Q1,
-       <span class="kw">aes</span>(<span class="dt">y =</span> Structure.Cost, <span class="dt">x =</span> <span class="kw">log</span>(Land.Value))) <span class="op">+</span>
+       <span class="kw">aes</span>(<span class="dt">y =</span> Structure.Cost, <span class="dt">x =</span> <span class="kw">log</span>(Land_Value))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 </div>
 <div id="lines-prediction-line" class="section level4">
 <h4><span class="header-section-number">3.3.2.2</span> Lines (prediction line)</h4>
 <p>A plot constructed with <code>ggplot</code> can have more than one geom. In that case the mappings established in the <code>ggplot()</code> call are plot defaults that can be added to or overridden. Our plot could use a regression line:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hp2001Q1<span class="op">$</span>pred.SC &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="kw">lm</span>(Structure.Cost <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(Land.Value), <span class="dt">data =</span> hp2001Q1))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hp2001Q1<span class="op">$</span>pred_SC &lt;-<span class="st"> </span><span class="kw">lm</span>(Structure_Cost <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(Land_Value), <span class="dt">data =</span> hp2001Q1) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">predict</span>()
 
-p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hp2001Q1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(Land.Value), <span class="dt">y =</span> Structure.Cost))
+p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hp2001Q1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(Land_Value), <span class="dt">y =</span> Structure_Cost))
 
-p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home.Value)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred.SC))</code></pre></div>
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred_SC))</code></pre></div>
 </div>
 <div id="smoothers" class="section level4">
 <h4><span class="header-section-number">3.3.2.3</span> Smoothers</h4>
 <p>Not all geometric objects are simple shapes–the smooth geom includes a line and a ribbon.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home.Value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>()</code></pre></div>
 </div>
 <div id="text-label-points" class="section level4">
@@ -688,7 +686,8 @@ p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## install.packages(&quot;ggrepel&quot;) 
-<span class="kw">library</span>(<span class="st">&quot;ggrepel&quot;</span>)
+<span class="kw">library</span>(ggrepel)
+
 p1 <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
@@ -705,7 +704,7 @@ p1 <span class="op">+</span><span class="st"> </span>
 <h3><span class="header-section-number">3.3.4</span> Mapping variables to other aesthetics</h3>
 <p>Other aesthetics are mapped in the same way as x and y in the previous example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home.Value, <span class="dt">shape =</span> region))</code></pre></div>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value, <span class="dt">shape =</span> region))</code></pre></div>
 </div>
 </div>
 <div id="exercise-0-2" class="section level2">
@@ -731,7 +730,7 @@ p1 <span class="op">+</span><span class="st"> </span>
 <li>for a boxplot the y values must be transformed to the median and 1.5(IQR)</li>
 <li>for a smoother smother the y values must be transformed into predicted values</li>
 </ul>
-<p>Each <code>geom</code> has a default statistic, but these can be changed. For example, the default statistic for <code>geom_bar</code> is <code>stat_bin</code>:</p>
+<p>Each <code>geom</code> has a default statistic, but these can be changed. For example, the default statistic for <code>geom_histogram</code> is <code>stat_bin</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(geom_histogram)
 <span class="kw">args</span>(stat_bin)</code></pre></div>
 <p>Here is a list of <code>geom</code>s and their default statistics <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a></p>
@@ -740,7 +739,7 @@ p1 <span class="op">+</span><span class="st"> </span>
 <h3><span class="header-section-number">3.5.2</span> Setting arguments</h3>
 <p>Arguments to <code>stat_</code> functions can be passed through <code>geom_</code> functions. This can be slightly annoying because in order to change it you have to first determine which stat the geom uses, then determine the arguments to that stat.</p>
 <p>For example, here is the default histogram of Home.Value:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home.Value))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value))
 p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre></div>
 <p>can change it by passing the <code>binwidth</code> argument to the <code>stat_bin</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">stat =</span> <span class="st">&quot;bin&quot;</span>, <span class="dt">binwidth=</span><span class="dv">4000</span>)</code></pre></div>
@@ -748,12 +747,17 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 <div id="changing-the-transformation" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Changing the transformation</h3>
 <p>Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing.sum &lt;-<span class="st"> </span><span class="kw">aggregate</span>(housing[<span class="st">&quot;Home.Value&quot;</span>], housing[<span class="st">&quot;State&quot;</span>], <span class="dt">FUN=</span>mean)
-<span class="kw">rbind</span>(<span class="kw">head</span>(housing.sum), <span class="kw">tail</span>(housing.sum))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing.sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home.Value)) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing_sum &lt;-<span class="st"> </span>
+<span class="st">  </span>housing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(State) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>()
+
+<span class="kw">rbind</span>(<span class="kw">head</span>(housing_sum), <span class="kw">tail</span>(housing_sum))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home_Value_Mean)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
 <p>What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, <code>geom_bar</code> defaults to <code>stat = stat_count</code>); obviously this will not work. We can fix it by telling <code>geom_bar</code> to use a different statistical transformation function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing.sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home.Value)) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home_Value)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</code></pre></div>
 </div>
 </div>
@@ -795,17 +799,17 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 <div id="scale-modification-examples" class="section level3">
 <h3><span class="header-section-number">3.7.3</span> Scale modification examples</h3>
 <p>Start by constructing a dotplot showing the distribution of home values by Date and State.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home.Price.Index)) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,
                <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))<span class="er">)</span></code></pre></div>
 <p>Now modify the breaks for the x axis and color scales</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name=</span><span class="st">&quot;State Abbreviation&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,
                          <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),
                          <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>))</code></pre></div>
 <p>Next change the low and high values to blue and red:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name=</span><span class="st">&quot;State Abbreviation&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,
                          <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),
@@ -814,7 +818,7 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 <p>Now mute the colors:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
 
-base_plot <span class="op">+</span>
+p4 <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,
                          <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),
                          <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),
@@ -954,7 +958,7 @@ base_plot <span class="op">+</span>
 <ul>
 <li>Start by using a technique we already know–map State to color:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> Home.Value))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> Home_Value))
 p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> State))  </code></pre></div>
 <p>There are two problems here;there are too many states to distinguish each one by color, and the lines obscure one another.</p>
 </div>
@@ -962,7 +966,7 @@ p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line<
 <h3><span class="header-section-number">3.9.3</span> Faceting to the rescue</h3>
 <p>We can remedy the deficiencies of the previous plot by faceting by state rather than mapping state to color.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span>State, <span class="dt">ncol =</span> <span class="dv">10</span>))</code></pre></div>
+<span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>State, <span class="dt">ncol =</span> <span class="dv">10</span>))</code></pre></div>
 <p>There is also a <code>facet_grid()</code> function for faceting in two dimensions.</p>
 </div>
 </div>
@@ -1006,6 +1010,11 @@ p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line<
         <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="kw">muted</span>(<span class="st">&quot;orange&quot;</span>)))
 
 p5 <span class="op">+</span><span class="st"> </span>theme_new</code></pre></div>
+<p>You can see all the plot elements that can be changed by <code>theme()</code> using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(<span class="kw">theme_get</span>())
+
+<span class="co"># see all arguments for each plot element</span>
+<span class="kw">theme_get</span>()</code></pre></div>
 </div>
 </div>
 <div id="the-1-faq" class="section level2">
@@ -1014,23 +1023,23 @@ p5 <span class="op">+</span><span class="st"> </span>theme_new</code></pre></div
 <h3><span class="header-section-number">3.11.1</span> Map aesthetic to different columns</h3>
 <p>The most frequently asked question goes something like this: <em>I have two variables in my data.frame, and I’d like to plot them as separate points, with different color depending on which variable it is. How do I do that?</em></p>
 <p><strong>Wrong</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing.byyear &lt;-<span class="st"> </span><span class="kw">aggregate</span>(<span class="kw">cbind</span>(Home.Value, Land.Value) <span class="op">~</span><span class="st"> </span>Date, <span class="dt">data =</span> housing, mean)
-<span class="kw">ggplot</span>(housing.byyear,
-       <span class="kw">aes</span>(<span class="dt">x=</span>Date)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Home.Value), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Land.Value), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing_byyear &lt;-<span class="st"> </span>
+<span class="st">  </span>housing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(Date) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value),
+            <span class="dt">Land_Value_Mean =</span> <span class="kw">mean</span>(Land_Value)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>()
 
-<span class="co">#</span></code></pre></div>
+<span class="kw">ggplot</span>(housing_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Home_Value_Mean), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Land_Value_Mean), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)</code></pre></div>
 <p><strong>Right</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
-home.land.byyear &lt;-<span class="st"> </span><span class="kw">gather</span>(housing.byyear,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">home_land_byyear &lt;-<span class="st"> </span><span class="kw">gather</span>(housing_byyear,
                            <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>,
                            <span class="dt">key =</span> <span class="st">&quot;type&quot;</span>,
-                           Home.Value, Land.Value)
-<span class="kw">ggplot</span>(home.land.byyear,
-       <span class="kw">aes</span>(<span class="dt">x=</span>Date,
-           <span class="dt">y=</span>value,
-           <span class="dt">color=</span>type)) <span class="op">+</span>
+                           Home_Value, Land_Value)
+
+<span class="kw">ggplot</span>(home_land_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date, <span class="dt">y=</span>value, <span class="dt">color=</span>type)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
 </div>
 </div>
@@ -1044,7 +1053,7 @@ home.land.byyear &lt;-<span class="st"> </span><span class="kw">gather</span>(ho
 </div>
 <div id="challenge-solution" class="section level3">
 <h3><span class="header-section-number">3.12.2</span> Challenge solution:</h3>
-<p>Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot loogs like this:</p>
+<p>Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot looks like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/EconomistData.csv&quot;</span>)
 
 pc1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region))
@@ -1067,7 +1076,7 @@ pc1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_poin
 <h4><span class="header-section-number">3.12.2.1</span> Adding the trend line</h4>
 <p>Adding the trend line is not too difficult, though we need to guess at the model being displyed on the graph. A little bit of trial and error leads to</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pc2 &lt;-<span class="st"> </span>pc1 <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>),
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">linetype =</span> <span class="st">&quot;r2&quot;</span>),   <span class="co"># &quot;r2&quot; is a placeholder for where we&#39;ll later put R^2 values</span>
               <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,
               <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(x), <span class="dt">se =</span> <span class="ot">FALSE</span>,
               <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)
@@ -1081,15 +1090,7 @@ pc2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_poin
 df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span> , <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">z =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>)
 
 s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df2, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y))
-s <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> z), <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_shape_identity</span>()
-
-## While all symbols have a foreground colour, symbols 19-25 also take a
-## background colour (fill)
-s <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> z), <span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_shape_identity</span>()
-
-s <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> z), <span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">colour =</span> <span class="st">&quot;Red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Black&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_shape_identity</span>()</code></pre></div>
+s <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> z), <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_shape_identity</span>()</code></pre></div>
 <p>This shows us that <em>shape 1</em> is an open circle, so</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pc2 <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">4</span>)</code></pre></div>
@@ -1111,7 +1112,8 @@ s <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
             <span class="dt">color =</span> <span class="st">&quot;gray20&quot;</span>,
             <span class="dt">data =</span> <span class="kw">filter</span>(dat, Country <span class="op">%in%</span><span class="st"> </span>pointsToLabel)))</code></pre></div>
 <p>This more or less gets the information across, but the labels overlap in a most unpleasing fashion. We can use the <code>ggrepel</code> package to make things better, but if you want perfection you will probably have to do some hand-adjustment.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggrepel&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggrepel)
+
 (pc4 &lt;-<span class="st"> </span>pc3 <span class="op">+</span>
 <span class="st">   </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> Country),
                    <span class="dt">color =</span> <span class="st">&quot;gray20&quot;</span>,
@@ -1120,7 +1122,7 @@ s <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 </div>
 <div id="change-the-region-labels-and-order" class="section level4">
 <h4><span class="header-section-number">3.12.2.4</span> Change the region labels and order</h4>
-<p>Thinkgs are starting to come together. There are just a couple more things we need to add, and then all that will be left are themeing changes.</p>
+<p>Things are starting to come together. There are just a couple more things we need to add, and then all that will be left are theme changes.</p>
 <p>Comparing our graph to the original we notice that the labels and order of the Regions in the color legend differ. To correct this we need to change both the labels and order of the Region variable. We can do this with the <code>factor</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat<span class="op">$</span>Region &lt;-<span class="st"> </span><span class="kw">factor</span>(dat<span class="op">$</span>Region,
                      <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;EU W. Europe&quot;</span>,
@@ -1141,8 +1143,9 @@ pc4</code></pre></div>
 </div>
 <div id="add-title-and-format-axes" class="section level4">
 <h4><span class="header-section-number">3.12.2.5</span> Add title and format axes</h4>
-<p>The next step is to add the title and format the axes. We do that using the <code>scales</code> system in ggplot2.</p>
+<p>The next step is to add the title and format the axes. We do that using the <code>scales</code> system in <code>ggplot2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(grid)
+
 (pc5 &lt;-<span class="st"> </span>pc4 <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perceptions Index, 2011 (10=least corrupt)&quot;</span>,
                      <span class="dt">limits =</span> <span class="kw">c</span>(.<span class="dv">9</span>, <span class="fl">10.5</span>),
@@ -1162,7 +1165,8 @@ pc4</code></pre></div>
 <div id="theme-tweaks" class="section level4">
 <h4><span class="header-section-number">3.12.2.6</span> Theme tweaks</h4>
 <p>Our graph is almost there. To finish up, we need to adjust some of the theme elements, and label the axes and legends. This part usually involves some trial and error as you figure out where things need to be positioned. To see what these various theme settings do you can change them and observe the results.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(grid) <span class="co"># for the &#39;unit&#39; function</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(grid) <span class="co"># for the `unit()` function</span>
+
 (pc6 &lt;-<span class="st"> </span>pc5 <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="co"># start with a minimal theme and add what we need</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;gray20&quot;</span>),
@@ -1297,10 +1301,10 @@ p
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region), <span class="dt">size =</span> <span class="dv">2</span>)</code></pre></div>
 <ol start="5" style="list-style-type: decimal">
-<li>Make the points bigger by setting size to 2</li>
+<li>Map the size of the points to HDI.Rank</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span>
-<span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region, <span class="dt">size =</span>  HDI.Rank))</code></pre></div>
+<span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region, <span class="dt">size =</span>  HDI_Rank))</code></pre></div>
 </div>
 <div id="ex-1-prototype-2" class="section level3">
 <h3><span class="header-section-number">3.13.2</span> Ex 1: prototype</h3>
