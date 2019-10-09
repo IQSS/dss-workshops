@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Called by .travis.yml. Compiles bookdown in HTML and pdf form.
+# Compiles bookdown in HTML, pdf, and epub form.
 # All R packages needed to be listed in the separate DESCRIPTION file to be installed.
 
 set -ev

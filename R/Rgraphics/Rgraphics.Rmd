@@ -39,7 +39,7 @@ Start RStudio and create a new project:
 * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
 
 While R's built-in packages are powerful, in recent years there has
-been a big surge in well-designed *contributed packages* for R.  
+been a big surge in well-designed *contributed packages* for R. 
 In particular, a collection of R packages called 
 [tidyverse](https://www.tidyverse.org/) have been 
 designed specifically for data science. All packages included in 
@@ -75,7 +75,7 @@ By the end of the workshop you will be able to reproduce this graphic from the E
 
 ## Why `ggplot2`?
 
-Advantages of ggplot2
+`ggplot2` is a package within in the `tidyverse` suite of packages. Advantages of `ggplot2` include:
 
 * consistent underlying `grammar of graphics` (Wilkinson, 2005)
 * plot specification at a high level of abstraction
@@ -84,7 +84,7 @@ Advantages of ggplot2
 * mature and complete graphics system
 * many users, active mailing list
 
-That said, there are some things you cannot (or should not) do With ggplot2:
+That said, there are some things you cannot (or should not) do with `ggplot2`:
 
 * 3-dimensional graphics (see the `rgl` package)
 * Graph-theory type graphs (nodes/edges layout; see the `igraph` package)
@@ -107,7 +107,7 @@ following (**bold denotes essential elements**):
 * themes
 
 
-### Example data: `housing prices`
+### Example data: housing prices
 
 Let's look at housing prices.
 
@@ -141,7 +141,7 @@ ggplot(housing, aes(x = Home_Value)) +
   geom_histogram()
 ```
 
-### For more complex graphs:
+### For more complex graphs
 
 Base graphics colored scatter plot example:
 
@@ -182,15 +182,16 @@ In ggplot land *aesthetic* means "something you can see". Examples include:
 * linetype
 * size
 
-Each type of geom accepts only a subset of all aesthetics;refer to the geom help pages to see what mappings each geom accepts. Aesthetic mappings are set with the `aes()` function.
+Each type of geom accepts only a subset of all aesthetics; refer to the geom help pages to see what mappings each geom accepts.
+Aesthetic mappings are set with the `aes()` function.
 
 ### Geometric objects (`geom`)
 
 Geometric objects are the actual marks we put on a plot. Examples include:
 
-* points (`geom_point`, for scatter plots, dot plots, etc.)
-* lines (`geom_line`, for time series, trend lines, etc.)
-* boxplot (`geom_boxplot`, for boxplots!)
+* points (`geom_point()`, for scatter plots, dot plots, etc.)
+* lines (`geom_line()`, for time series, trend lines, etc.)
+* boxplot (`geom_boxplot()`, for boxplots!)
 
 A plot **must have at least one geom**; there is no upper limit. You can add a geom to a plot using the `+` operator.
 
@@ -214,7 +215,7 @@ or simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a 
 
 #### Points (scatterplot)
 
-Now that we know about geometric objects and aesthetic mapping, we can make a ggplot. `geom_point` requires mappings for x and y, all others are optional.
+Now that we know about geometric objects and aesthetic mapping, we can make a `ggplot()`. `geom_point()` requires mappings for x and y, all others are optional.
 
 ```{r}
 hp2001Q1 <- filter(housing, Date == 2001.25) 
@@ -233,7 +234,7 @@ ggplot(hp2001Q1,
 
 #### Lines (prediction line)
 
-A plot constructed with `ggplot` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden. Our plot could use a regression line:
+A plot constructed with `ggplot()` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden. Our plot could use a regression line:
 
 ```{r}
 hp2001Q1$pred_SC <- lm(Structure_Cost ~ log(Land_Value), data = hp2001Q1) %>%
@@ -248,7 +249,7 @@ p1 + geom_point(aes(color = Home_Value)) +
 
 #### Smoothers
 
-Not all geometric objects are simple shapes&#x2013;the smooth geom includes a line and a ribbon.
+Not all geometric objects are simple shapes; the smooth geom includes a line and a ribbon.
 
 ```{r}
 p1 +
@@ -259,7 +260,7 @@ p1 +
 
 #### Text (label points)
 
-Each `geom` accepts a particualar set of mappings;for example `geom_text()` accepts a `labels` mapping.
+Each geom accepts a particular set of mappings; for example `geom_text()` accepts a `labels` mapping.
 
 ```{r}
 p1 + 
@@ -279,7 +280,8 @@ p1 +
 
 ### Aesthetic mapping VS assignment
 
-Note that variables are mapped to aesthetics with the `aes()` function, while fixed aesthetics are set outside the `aes()` call. This sometimes leads to confusion, as in this example:
+Note that variables are mapped to aesthetics with the `aes()` function, while fixed aesthetics are set outside the `aes()` call. 
+This sometimes leads to confusion, as in this example:
 
 ```{r}
 p1 +
@@ -314,7 +316,7 @@ These data consist of *Human Development Index* and *Corruption Perception Index
 2.  Color the points blue.
 3.  Map the color of the the points to Region.
 4.  Make the points bigger by setting size to 2
-5.  Map the size of the points to HDI.Rank
+5.  Map the size of the points to HDI_Rank
 
 
 ## Statistical transformations
@@ -324,16 +326,16 @@ These data consist of *Human Development Index* and *Corruption Perception Index
 Some plot types (such as scatterplots) do not require transformations; each point is plotted at x and y coordinates equal to the original value. Other plots, such as boxplots, histograms, prediction lines etc. require statistical transformations:
 
 * for a boxplot the y values must be transformed to the median and 1.5(IQR)
-* for a smoother smother the y values must be transformed into predicted values
+* for a smoother the y values must be transformed into predicted values
 
-Each `geom` has a default statistic, but these can be changed. For example, the default statistic for `geom_histogram` is `stat_bin`:
+Each geom has a default statistic, but these can be changed. For example, the default statistic for `geom_histogram()` is `stat_bin()`:
 
 ```{r}
 args(geom_histogram)
 args(stat_bin)
 ```
 
-Here is a list of `geom`s and their default statistics <https://ggplot2.tidyverse.org/reference/>
+Here is a list of geoms and their default statistics <https://ggplot2.tidyverse.org/reference/>
 
 
 ### Setting arguments
@@ -347,7 +349,7 @@ p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
 ```
 
-can change it by passing the `binwidth` argument to the `stat_bin` function:
+can change it by passing the `binwidth` argument to the `stat_bin()` function:
 
 ```{r}
 p2 + geom_histogram(stat = "bin", binwidth=4000)
@@ -373,10 +375,10 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
   geom_bar()
 ```
 
-What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar` defaults to `stat = stat_count`); obviously this will not work. We can fix it by telling `geom_bar` to use a different statistical transformation function:
+What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar()` defaults to `stat = stat_count`; obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function:
 
 ```{r}
-ggplot(housing_sum, aes(x=State, y=Home_Value)) + 
+ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
   geom_bar(stat="identity")
 ```
 
@@ -384,10 +386,11 @@ ggplot(housing_sum, aes(x=State, y=Home_Value)) +
 ## Exercise 1
 
 1.  Re-create a scatter plot with CPI on the x axis and HDI on the y axis (as you did in the previous exercise).
-2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth`.
-3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
-4.  Overlay a smoothing line on top of the scatter plot using `geom_line`. Hint: change the statistical transformation.
-5.  BONUS: Overlay a smoothing line on top of the scatter plot using the default *loess* method, but make it less smooth. Hint: see `?loess`.
+2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`.
+3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
+4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?loess`.
+5.  BONUS: Overlay a smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+
 
 
 ## Scales
@@ -406,14 +409,14 @@ Scales are modified with a series of functions using a `scale_<aesthetic>_<type>
 
 ### Common scale arguments
 
-The following arguments are common to most scales in ggplot2:
+The following arguments are common to most scales in `ggplot2`:
 
 * **name:** the first argument gives the axis or legend title
 * **limits:** the minimum and maximum of the scale
 * **breaks:** the points along the scale where labels should appear
 * **labels:** the labels that appear at each break
 
-Specific scale functions may have additional arguments; for example, the `scale_color_continuous` function has arguments `low` and `high` for setting the colors at the low and high end of the scale.
+Specific scale functions may have additional arguments; for example, the `scale_color_continuous()` function has arguments `low` and `high` for setting the colors at the low and high end of the scale.
 
 ### Scale modification examples
 
@@ -426,11 +429,10 @@ p4 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) +
 ```
 
 
-Now modify the breaks for the x axis and color scales
+Now modify the breaks for the color scales
 
 ```{r}
 p4 + 
-  scale_x_discrete(name="State Abbreviation") +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
                          labels = c("'76", "'94", "'13"))
@@ -440,7 +442,6 @@ Next change the low and high values to blue and red:
 
 ```{r}
 p4 +
-  scale_x_discrete(name="State Abbreviation") +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
                          labels = c("'76", "'94", "'13"),
@@ -463,7 +464,7 @@ p4 +
 
 ### Using different color scales
 
-ggplot2 has a wide variety of color scales; here is an example using `scale_color_gradient2` to interpolate between three different colors.
+`ggplot2` has a wide variety of color scales; here is an example using `scale_color_gradient2()` to interpolate between three different colors.
 
 ```{r}
 p4 +
@@ -482,7 +483,7 @@ p4 +
 * Partial combination matrix of available scales
 
 | `scale_`          | Types        |  Examples                   |
-|-------------------|:-------------|:----------------------------|
+|:------------------|:-------------|:----------------------------|
 | `scale_color_`    | `identity`   | `scale_fill_continuous()`   |
 | `scale_fill_`     | `manual`     | `scale_color_discrete()`    |
 | `scale_size_`     | `continuous` | `scale_size_manual()`       |
@@ -499,14 +500,14 @@ p4 +
 |                   | `date`       | `scale_x_date()`            |
 |                   | `datetime`   | `scale_y_datetime()`        |
 
-Note that in RStudio you can type `scale_` followed by TAB to get the whole list of available scales. 
+Note that in RStudio you can type `scale_` followed by `tab` to get the whole list of available scales. 
 For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>
 
 
 ## Exercise 2
 
 1.  Create a scatter plot with CPI on the x axis and HDI on the y axis. Color the points to indicate region.
-2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of "HDI").
+2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of "HDI"). Hint: see `?scale_x_discrete`.
 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`.
 
 
@@ -523,14 +524,14 @@ For a complete list of available scales see <https://ggplot2.tidyverse.org/refer
 
 ### What is the trend in housing prices in each state?
 
-* Start by using a technique we already know&#x2013;map State to color:
+* Start by using a technique we already know; map State to color:
 
 ```{r}
 p5 <- ggplot(housing, aes(x = Date, y = Home_Value))
 p5 + geom_line(aes(color = State))  
 ```
 
-There are two problems here;there are too many states to distinguish each one by color, and the lines obscure one another.
+There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.
 
 ### Faceting to the rescue
 
@@ -552,14 +553,14 @@ The `ggplot2` theme system handles non-data plot elements such as
 
 * Axis labels
 * Plot background
-* Facet label backround
+* Facet label background
 * Legend appearance
 
 Built-in themes include:
 
 * `theme_gray()` (default)
 * `theme_bw()`
-* `theme_classc()`
+* `theme_classic()`
 
 ```{r}
 p5 + theme_linedraw()
@@ -847,7 +848,7 @@ mR2 <- summary(lm(HDI ~ CPI + log(CPI), data = dat))$r.squared
 mR2 <- paste0(format(mR2, digits = 2), "%")
 ```
 
-OK, now that we've calculated the values, let's think about how to get them on the graph. ggplot2 has an `annotate` function, but this is not convenient for adding elements outside the plot area. The `grid` package has nice functions for doing this, so we'll use those.
+OK, now that we've calculated the values, let's think about how to get them on the graph. ggplot2 has an `annotate()` function, but this is not convenient for adding elements outside the plot area. The `grid` package has nice functions for doing this, so we'll use those.
 
 And here it is, our final version!
 
