@@ -20,8 +20,8 @@
 #
 # Download materials:
 #
-# * Download class materials at <https://iqss.github.io/dss-workshops-redux/R/Rgraphics.zip>
-# * Extract materials from `Rgraphics.zip` and move to your desktop!
+# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/tree/master/R/Rgraphics.zip>
+# * Extract materials from the zipped directory `Rgraphics.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 #
 # Start RStudio and create a new project:
 #

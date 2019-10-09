@@ -36,19 +36,14 @@ pd.set_option('display.max_columns', 5)
 # recommended.
 #
 # #### Workshop notes
-# The class notes for this workshop are available on our website at
-# [dss.iq.harvard.edu](https://dss.iq.harvard.edu) under `Workshop
-# Materials ==> Python Workshop Materials => Python Web Scraping`. Click
-# the `All workshop materials` link to download the workshop materials.
 #
-# Extract the `PythonWebScraping.zip` directory (`Right-click => Extract All` on
-# Windows, `double-click` on Mac).
+# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/tree/master/Python/PythonWebScrape.zip>
+# * Extract materials from the zipped directory `PythonWebScrape.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 #
 # Start the `Jupyter Notebook` application and open the
-# `Exercises.ipynb` file in the `PythonWebScraping` folder you
-# downloaded previously. You may also wish to start a new notebook for
-# your own notes.
-
+# `PythonWebScrape.ipynb` file in the `PythonWebScrape` folder you
+# downloaded previously. 
+#
 # ### Goals
 # In this workshop you will
 #
