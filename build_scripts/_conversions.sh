@@ -5,12 +5,14 @@
 set -ev
 
 # StataIntro
+cd Stata/StataIntro
 jupytext --to r StataIntro.Rmd  
 mv StataIntro.r StataIntro.do  # change file suffix to .do
 sed -i "" 's/#/*/' StataIntro.do # convert # to *
 sed -i "" '1,7d' StataIntro.do # delete lines 1-7
 # then change hash comments to astericks
-zip -r my-folder.zip my-folder -x "*.DS_Store"
+cd ..
+zip -r StataIntro.zip StataIntro -x "*.DS_Store"
 
 # Rintro
 jupytext --to r Rintro.Rmd
