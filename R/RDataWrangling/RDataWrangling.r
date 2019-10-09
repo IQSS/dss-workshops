@@ -20,7 +20,7 @@
 #
 # Download materials:
 #
-# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/tree/master/R/RDataWrangling.zip>
+# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/raw/master/R/RDataWrangling.zip>
 # * Extract materials from the zipped directory `RDataWrangling.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 #
 # Start RStudio and create a new project:

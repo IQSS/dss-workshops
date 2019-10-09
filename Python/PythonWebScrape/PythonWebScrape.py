@@ -30,14 +30,14 @@ pd.set_option('display.max_columns', 5)
 # distribution from
 # [https://www.anaconda.com/download/](https://www.anaconda.com/download/).
 # (Note that Python version $\leq$ 3.0 differs considerably from more
-# recent releases. For this workshop you will need version $\geq$ 3.4.)
+# recent releases. For this workshop you will need version $\geq$ 3.6.x)
 #
 # Accepting the defaults proposed by the Anaconda installer is generally
 # recommended.
 #
 # #### Workshop notes
 #
-# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/tree/master/Python/PythonWebScrape.zip>
+# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/raw/master/Python/PythonWebScrape.zip>
 # * Extract materials from the zipped directory `PythonWebScrape.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 #
 # Start the `Jupyter Notebook` application and open the

@@ -24,7 +24,7 @@
 #
 # Download materials:
 #
-# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/tree/master/R/Rintro.zip>
+# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/raw/master/R/Rintro.zip>
 # * Extract materials from the zipped directory `Rintro.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 #
 # Start RStudio and create a new project:
