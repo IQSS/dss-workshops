@@ -1,5 +1,3 @@
-
-# # R Regression Models
 #
 # **Topics**
 #

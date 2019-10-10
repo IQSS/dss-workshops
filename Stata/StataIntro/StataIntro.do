@@ -1,5 +1,3 @@
-
-* # (PART) Stata {-}
 *
 * # Stata Introduction 
 *
@@ -78,13 +76,11 @@
 * Start with comment describing your Do-file and use comments throughout
 *
 
-* +
 * Use '*' to comment a line and '//' for in-line comments
 
 * Make Stata say hello:
 disp "Hello " "World!" // 'disp' is short for 'display'
 
-* -
 
 * * Use `///` to break varlists over multiple lines:
 
@@ -111,7 +107,6 @@ disp "Hello" ///
 * * Open/save data sets with "use" and "save":
 *
 
-* +
 cd dataSets
 
 // open the gss.dta data set
@@ -119,7 +114,6 @@ use gss.dta, clear
 
 // save data file:
 save newgss.dta, replace // "replace" option means OK to overwrite existing file
-* -
 
 
 * ### A note about path names
@@ -140,13 +134,11 @@ save newgss.dta, replace // "replace" option means OK to overwrite existing file
 *
 * * Import delimited text files
 
-* +
 * import data from a .csv file
 import delimited gss.csv, clear
 
 * save data to a .csv file
 export delimited gss_new.csv, replace
-* -
 
 
 * * Import data from SAS
@@ -197,11 +189,9 @@ export excel gss_new, replace
 help sum
 
 
-* +
 use gss.dta, clear
 
 sum educ // statistical summary of education
-* -
 
 
 codebook region // information about how region is coded
@@ -379,3 +369,8 @@ bysort marital: sum educ // summarize eudcation by marital status
 *     + Other HBS RCS resources: <https://training.rcs.hbs.org/workshop-materials>
 *     + RCS consulting email: <mailto:research@hbs.edu>
 *
+* * Stata
+*     + UCLA website: <http://www.ats.ucla.edu/stat/Stata/>
+*     + Stata website: <http://www.stata.com/help.cgi?contents>
+*     + Email list: <http://www.stata.com/statalist/>
+*     

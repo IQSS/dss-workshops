@@ -1,5 +1,3 @@
-
-# # (PART) Python {-}
 #
 # # Python Introduction
 #
@@ -309,12 +307,10 @@ print(numpy.std(paragraphs_per_chapter))
 
 # and compute correlations:
 
-# +
 words_per_chapter = [len(chapter.split()) for chapter in alice_chapters]
 alices_per_chapter = [chapter.count("Alice") for chapter in alice_chapters]
 
 print(numpy.corrcoef(words_per_chapter, alices_per_chapter))
-# -
 
 # ## Wrap-up
 #

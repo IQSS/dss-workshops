@@ -1,5 +1,3 @@
-
-# # R Data Wrangling
 #
 # **Topics**
 #
@@ -134,11 +132,9 @@ boy.file.names[[1]]
 # and we can use the `excel_sheets` function from the *readxl* package
 # to list the worksheet names from this file.
 
-# +
 library(readxl)
 
 excel_sheets(boy.file.names[[1]])
-# -
 
 # ### Iterating over file names with `map`
 #
@@ -215,7 +211,6 @@ map(boy.file.names,
 # that it works. Recall that the actual data starts on row 7, so we want
 # to skip the first 6 rows.
 
-# +
 tmp <- read_excel(
     boy.file.names[1],
     sheet = get.data.sheet.name(boy.file.names[1],
@@ -224,7 +219,6 @@ tmp <- read_excel(
 
 library(dplyr, quietly=TRUE)
 glimpse(tmp)
-# -
 
 # ## Exercise 1
 #
@@ -267,24 +261,20 @@ glimpse(tmp)
 # Next we want to retain just the `Name`, `Name__1` and `Count`,
 # `Count__1` columns. We can do that using the `select` function:
 
-# +
 boysNames[[1]]
 
 boysNames[[1]] <- select(boysNames[[1]], Name, Name__1, Count, Count__1)
 boysNames[[1]]
-# -
 
 # ### Dropping missing values
 #
 # Next we want to remove blank rows and rows used for notes. An easy way
 # to do that is to use `drop_na` to remove rows with missing values.
 
-# +
 boysNames[[1]]
 
 boysNames[[1]] <- drop_na(boysNames[[1]])
 boysNames[[1]]
-# -
 
 # Finally, we will want to filter out missing do this for all the
 # elements in `boysNames`, a task I leave to you.
@@ -352,7 +342,6 @@ glimpse(head(boysNames))
 # information! Fortunately it is not too much trouble to add the year
 # information to each table before flattening.
 
-# +
 boysNames <- imap(boysNames,
                   function(data, name) {
                       mutate(data, Year = as.integer(name))
@@ -360,7 +349,6 @@ boysNames <- imap(boysNames,
 boysNames <- bind_rows(boysNames)
 
 glimpse(boysNames)
-# -
 
 # ## Exercise 4
 #
@@ -449,7 +437,6 @@ glimpse(boysNames)
 # There are different ways you can go about it. Here is one:
 #
 
-# +
 ## write a function that does all the cleanup
 cleanupNamesData <- function(x) {
     filtered <- filter(x, !is.na(Name)) # drop rows with no Name value
@@ -464,13 +451,11 @@ glimpse(cleanupNamesData(boysNames[[2]])) # after cleanup
 
 ## apply the cleanup function to all the data.frames in the list
 boysNames <- map(boysNames, cleanupNamesData)
-# -
 
 # ### Ex 4: prototype
 #
 # Working with the data in one big table is often easier.
 
-# +
 boysNames <- bind_rows(boysNames)
 
 dir.create("data/all")
@@ -488,7 +473,6 @@ andrew <- filter(boysNames, Name == "ANDREW")
 ggplot(andrew, aes(x = Year, y = Count)) +
     geom_line() +
     ggtitle("Popularity of \"Andrew\", over time")
-# -
 
 # ## Wrap-up
 #

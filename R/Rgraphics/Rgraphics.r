@@ -1,5 +1,3 @@
-
-# # R Graphics
 #
 # **Topics**
 #
@@ -127,7 +125,6 @@ ggplot(housing, aes(x = Home_Value)) +
 #
 # Base graphics colored scatter plot example:
 
-# +
 plot(Home_Value ~ Date,
      col = factor(State),
      data = filter(housing, State %in% c("MA", "TX")))
@@ -136,7 +133,6 @@ legend("topleft",
        legend = c("MA", "TX"),
        col = c("black", "red"),
        pch = 1)
-# -
 
 # `ggplot2` colored scatter plot example:
 
@@ -210,7 +206,6 @@ ggplot(hp2001Q1,
 #
 # A plot constructed with `ggplot()` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden. Our plot could use a regression line:
 
-# +
 hp2001Q1$pred_SC <- lm(Structure_Cost ~ log(Land_Value), data = hp2001Q1) %>%
   predict()
 
@@ -218,7 +213,6 @@ p1 <- ggplot(hp2001Q1, aes(x = log(Land_Value), y = Structure_Cost))
 
 p1 + geom_point(aes(color = Home_Value)) +
   geom_line(aes(y = pred_SC))
-# -
 
 
 # #### Smoothers
@@ -238,14 +232,12 @@ p1 +
   geom_text(aes(label=State), size = 3)
 
 
-# +
 ## install.packages("ggrepel") 
 library(ggrepel)
 
 p1 + 
   geom_point() + 
   geom_text_repel(aes(label=State), size = 3)
-# -
 
 
 # ### Aesthetic mapping VS assignment
@@ -316,7 +308,6 @@ p2 + geom_histogram(stat = "bin", binwidth=4000)
 #
 # Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:
 
-# +
 housing_sum <- 
   housing %>%
   group_by(State) %>%
@@ -325,10 +316,8 @@ housing_sum <-
 
 rbind(head(housing_sum), tail(housing_sum))
 
-# + {"error": true}
 ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
   geom_bar()
-# -
 
 # What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar()` defaults to `stat = stat_count`; obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function:
 
@@ -396,7 +385,6 @@ p4 +
 
 # Now mute the colors:
 
-# +
 library(scales)
 
 p4 +
@@ -405,7 +393,6 @@ p4 +
                          labels = c("'76", "'94", "'13"),
                          low = muted("blue"), high = muted("red"))
 
-# -
 
 
 # ### Using different color scales
@@ -518,7 +505,6 @@ p5 + theme_minimal() +
 #
 # You can create new themes, as in the following example:
 
-# +
 theme_new <- theme_bw() +
   theme(plot.background = element_rect(size = 1, color = "blue", fill = "black"),
         text=element_text(size = 12, family = "Serif", color = "ivory"),
@@ -528,16 +514,13 @@ theme_new <- theme_bw() +
         strip.background = element_rect(fill = muted("orange")))
 
 p5 + theme_new
-# -
 
 # You can see all the plot elements that can be changed by `theme()` using:
 
-# +
 names(theme_get())
 
 # see all arguments for each plot element
 theme_get()
-# -
 
 
 # ## The #1 FAQ
@@ -548,7 +531,6 @@ theme_get()
 #
 # **Wrong**
 
-# +
 housing_byyear <- 
   housing %>%
   group_by(Date) %>%
@@ -559,11 +541,9 @@ housing_byyear <-
 ggplot(housing_byyear, aes(x=Date)) +
   geom_line(aes(y=Home_Value_Mean), color="red") +
   geom_line(aes(y=Land_Value_Mean), color="blue")
-# -
 
 # **Right**
 
-# +
 home_land_byyear <- gather(housing_byyear,
                            value = "value",
                            key = "type",
@@ -571,7 +551,6 @@ home_land_byyear <- gather(housing_byyear,
 
 ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
   geom_line()
-# -
 
 
 # ## Putting it all together
@@ -588,12 +567,10 @@ ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
 #
 # Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot looks like this:
 
-# +
 dat <- read_csv("dataSets/EconomistData.csv")
 
 pc1 <- ggplot(dat, aes(x = CPI, y = HDI, color = Region))
 pc1 + geom_point()
-# -
 
 # To complete this graph we need to:
 #
@@ -627,13 +604,11 @@ pc2 + geom_point()
 #
 # This one is a little tricky. We know that we can change the shape with the `shape` argument, what value do we set shape to? The example shown in `?shape` can help us:
 
-# +
 ## A look at all 25 symbols
 df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
 
 s <- ggplot(df2, aes(x = x, y = y))
 s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
-# -
 
 # This shows us that *shape 1* is an open circle, so
 
@@ -666,7 +641,6 @@ pointsToLabel <- c("Russia", "Venezuela", "Iraq", "Myanmar", "Sudan",
 
 # This more or less gets the information across, but the labels overlap in a most unpleasing fashion. We can use the `ggrepel` package to make things better, but if you want perfection you will probably have to do some hand-adjustment.
 
-# +
 library(ggrepel)
 
 (pc4 <- pc3 +
@@ -674,7 +648,6 @@ library(ggrepel)
                    color = "gray20",
                    data = filter(dat, Country %in% pointsToLabel),
                    force = 10))
-# -
 
 
 # #### Change the region labels and order
@@ -708,7 +681,6 @@ pc4
 #
 # The next step is to add the title and format the axes. We do that using the `scales` system in `ggplot2`.
 
-# +
 library(grid)
 
 (pc5 <- pc4 +
@@ -726,14 +698,12 @@ library(grid)
                                 "#F2583F",
                                 "#96503F")) +
   ggtitle("Corruption and Human development"))
-# -
 
 
 # #### Theme tweaks
 #
 # Our graph is almost there. To finish up, we need to adjust some of the theme elements, and label the axes and legends. This part usually involves some trial and error as you figure out where things need to be positioned. To see what these various theme settings do you can change them and observe the results.
 
-# +
 library(grid) # for the `unit()` function
 
 (pc6 <- pc5 +
@@ -752,7 +722,6 @@ library(grid) # for the `unit()` function
         panel.grid.major = element_line(color = "gray50", size = 0.5),
         panel.grid.major.x = element_blank()
         ))
-# -
 
 
 # #### Add model R<sup>2</sup> and source note
@@ -766,7 +735,6 @@ mR2 <- paste0(format(mR2, digits = 2), "%")
 #
 # And here it is, our final version!
 
-# +
 png(file = "R/Rgraphics/images/econScatter10.png", width = 700, height = 500)
 p <- ggplot(dat,
             mapping = aes(x = CPI, y = HDI)) +
@@ -848,7 +816,6 @@ p <- ggplot(dat,
 p
 
 dev.off()
-# -
 
 
 # Comparing it to the original suggests that we've got most of the important elements. 

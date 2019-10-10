@@ -1,5 +1,3 @@
-
-# # Python Web-Scraping
 #
 # **Topics**
 #
@@ -13,7 +11,6 @@
 
 # ## Setup
 
-# + {"hide_input": true, "results": false}
 ## This sets some printing options
 ## that make output look nicer.
 from pprint import pprint as print
@@ -21,7 +18,6 @@ import pandas as pd
 pd.set_option('display.width', 133)
 pd.set_option('display.max_colwidth', 30)
 pd.set_option('display.max_columns', 5)
-# -
 
 # ### Software & Materials
 #
@@ -142,7 +138,6 @@ pd.set_option('display.max_columns', 5)
 # For example, we can define the domain and path of the collections URL
 # as follows:
 
-# +
 museum_domain = 'https://www.harvardartmuseums.org'
 collection_path = 'browse'
 
@@ -151,7 +146,6 @@ collection_url = (museum_domain
                   + collection_path)
 
 print(collection_url)
-# -
 
 # Note that we omit the parameters here because it is usually easier to
 # pass them as a `dict` when using the `requests` library in Python.
@@ -160,7 +154,6 @@ print(collection_url)
 # Now that we've constructed the URL we wish interact with we're ready
 # to make our first request in Python.
 
-# +
 import requests
 
 collections1 = requests.get(
@@ -168,7 +161,6 @@ collections1 = requests.get(
     params = {'load_amount': 10,
                   'offset': 0}
 )
-# -
 
 # ### Parsing JSON data
 # We already know from inspecting network traffic in our web
@@ -264,7 +256,6 @@ print(records_final)
 # ### Retrieving HTML
 # The first step is the same as before: we make at `GET` request.
 
-# +
 calendar_path = 'visit/calendar'
 
 calendar_url = (museum_domain # recall that we defined museum_domain earlier
@@ -274,7 +265,6 @@ calendar_url = (museum_domain # recall that we defined museum_domain earlier
 print(calendar_url)
 
 events0 = requests.get(calendar_url, params = {'date': '2018-11'})
-# -
 
 # As before we can check the headers to see what type of content we
 # received in response to our request.
@@ -293,11 +283,9 @@ events0.headers['Content-Type']
 # from the `lxml` library; others prefer an alternative called
 # `BeautyfulSoup`.
 
-# +
 from lxml import html
 
 events_html = html.fromstring(events0.text)
-# -
 
 # ### Using xpath to extract content from HTML
 # `XPath` is a tool for identifying particular elements withing a HTML
@@ -308,9 +296,7 @@ events_html = html.fromstring(events0.text)
 # We can open the html document we retrieved and inspect it using
 # our web browser.
 
-# + {"results": "'hide'"}
 html.open_in_browser(events_html, encoding = 'UTF-8')
-# -
 
 # ![](Python/PythonWebScrape/images/dev_tools_right_click.png)
 #
@@ -330,10 +316,8 @@ events_list_html = events_html.xpath('//*[@id="events_list"]')[0]
 # currently working with, and to figure out what we want to extract from
 # it. Let's look at the first element in our events list.
 
-# + {"results": "'hide'"}
 first_event_html = events_list_html[0]
 html.open_in_browser(first_event_html, encoding = 'UTF-8')
-# -
 
 # As before we can use our browser to find the xpath of the elements we
 # want.
@@ -357,7 +341,6 @@ elements_we_want = {'figcaption': 'div/figure/div/figcaption',
 
 # Finally, we can iterate over the elements we want and extract them.
 
-# +
 first_event_values = {}
 for key in elements_we_want.keys():
     element = first_event_html.xpath(elements_we_want[key])[0]
@@ -365,8 +348,6 @@ for key in elements_we_want.keys():
 
 print(first_event_values)
 
-
-# -
 
 # ### Iterating to retrieve content from a list of HTML elements
 # So far we've retrieved information only for the first event. To
@@ -401,13 +382,11 @@ for key in elements_we_want.keys():
 # For convenience we can arrange these values in a pandas `DataFrame`
 # and save them as .csv files, just as we did with our exhibitions data earlier.
 
-# +
 all_event_values = pd.DataFrame.from_dict(all_event_values)
 
 all_event_values.to_csv("all_event_values.csv")
 
 print(all_event_values)
-# -
 
 # ### Exercise: parsing HTML
 # In this exercise you will retrieve information about the physical

@@ -187,7 +187,10 @@ Harvard.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{-1}
 \tightlist
+\item
+  \href{./DataScienceTools.html}{Data Science Tools}
 \item
   \href{./Rintro.html}{R Introduction}
 \item
@@ -202,6 +205,10 @@ Harvard.
   \href{./PythonWebScrape.html}{Python Web-Scraping}
 \item
   \href{./StataIntro.html}{Stata Introduction}
+\item
+  \href{./StataDatMan.html}{Stata Data Management}
+\item
+  \href{./StataModGraph.html}{Stata Modeling \& Graphing}
 \end{enumerate}
 
 These workshops are a work-in-progress, please provide feedback! Email:
@@ -216,6 +223,1159 @@ Services} team at IQSS and the
 \href{https://training.rcs.hbs.org}{Research Computing Services} team at
 HBS. The main contributors are: Ista Zahn, Steve Worthington, Bob
 Freeman, Jinjie Liu, Yihan Wang, and Victoria Liublinska.
+
+\part{General}\label{part-general}
+
+\chapter{Data Science Tools}\label{data-science-tools}
+
+\textbf{Topics}
+
+\begin{itemize}
+\tightlist
+\item
+  Data science tool selection
+\item
+  Data analysis pipelines
+\item
+  Programming languages comparison
+\item
+  Text editor and IDE comparison
+\item
+  Tools for creating reports
+\end{itemize}
+
+\section{Tools for working with data}\label{tools-for-working-with-data}
+
+Working with data effectively requires learning at least one programming
+or scripting language. You can get by without this, but it would be like
+trying to cook with only a butter knife; not recommended! Compared to
+using a menu-driven interface (e.g., SPSS or SAS) or a spreadsheet
+(e.g., Excel), using a programming language allows you to:
+
+\begin{itemize}
+\tightlist
+\item
+  reproduce results,
+\item
+  correct errors and update output,
+\item
+  reuse code,
+\item
+  collaborate with others,
+\item
+  automate repetitive tasks, and
+\item
+  generate manuscripts, reports, and other documents from your code.
+\end{itemize}
+
+So, you need to learn a programming language for working with data, but
+which one should you learn? Since you'll be writing code you'll want to
+set up a comfortable environment for writing and editing that code.
+Which text editors are good for this? You'll probably also want to learn
+at least one markup language (e.g., LaTeX, Markdown) so that you can
+create reproducible manuscripts. What tools are good for this? These
+questions will guide our discussion, the goal of which is to help you
+decide which tools you should invest time in learning.
+
+\section{The puzzle pieces}\label{the-puzzle-pieces}
+
+As we've noted, working effectively with data requires using a number of
+tools.
+
+\subsection{Data analysis building
+blocks}\label{data-analysis-building-blocks}
+
+The basic pieces are:
+
+\begin{itemize}
+\tightlist
+\item
+  a data storage and retrieval system,
+\item
+  an editor for writing code,
+\item
+  an interpreter or compiler for executing that code,
+\item
+  a system for presenting results, and
+\item
+  some ``glue'' to make all the pieces work together.
+\end{itemize}
+
+\section{Examples}\label{examples}
+
+Before looking in detail at each of these building blocks we'll look at
+a few examples to get an intuitive feel for the basic elements.
+
+\subsection{Old-school example}\label{old-school-example}
+
+In this example we're going to process data in a text file in a way that
+would be familiar to a statistician working forty years ago.
+Surprisingly, it's not much different from the way we would do it today.
+Programs come and go, but the basic ideas remain pretty much the same!
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Specifically, we'll process the data in \texttt{1980\_census.txt} by
+writing \textbf{fortran} code in the \textbf{vi} text editor and running
+it through the \textbf{fortran} compiler. Then we'll take the results
+and put them in to a \textbf{TeX} file, again using the \textbf{vi}
+editor to create the report. For ``glue'' we will use a terminal
+emulator running the bash shell. All of these tools were available in
+1980, though some features have been added since that time.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+OLD SCHOOL DEMO:
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+example & data storage & editor & program & report tool &
+glue\tabularnewline
+\midrule
+\endhead
+old school & ASCII text file & vi & fortran & TeX & Bourne (compatable)
+shell\tabularnewline
+& & & & &\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{Something old and something
+new}\label{something-old-and-something-new}
+
+Next we're going to do the same basic process, this time using a modern
+text editor (\textbf{Atom}), a different programming language
+(\textbf{Python}), and a modern report generation system (\textbf{LaTeX}
+processed via \textbf{xelatex}). For the glue we're still going to use a
+shell.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+OLD AND NEW DEMO:
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+example & data storage & editor & program & report tool &
+glue\tabularnewline
+\midrule
+\endhead
+old school & ASCII text file & vi & fortran & TeX & Bourne (compatable)
+shell\tabularnewline
+old and new & ASCII text file & Atom & python & LaTeX & Bash
+shell\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{A modern version}\label{a-modern-version}
+
+Finally, we'll produce the same report using modern tools. Remember, the
+process is basically the same: we're just using different tools.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+MODERN DEMO:
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+example & data storage & editor & program & report tool &
+glue\tabularnewline
+\midrule
+\endhead
+old school & ASCII text file & vi & fortran & TeX & Bourne (compatable)
+shell\tabularnewline
+old and new & ASCII text file & Atom & python & LaTeX & Bash
+shell\tabularnewline
+modern & SQLite database & Rstudio & R & R Markdown &
+Rstudio\tabularnewline
+\bottomrule
+\end{longtable}
+
+\section{Data storage and retrieval}\label{data-storage-and-retrieval}
+
+Data storage and retrieval is a fairly dry topic, so we won't spend too
+much time on it. There are roughly four types of technology for storing
+and retrieving data.
+
+\subsection{Text files}\label{text-files}
+
+Storing data in text files (e.g., comma separated values, other
+delimited text formats) is simple and makes the data easy to access from
+just about any program. It is also good for archiving data since no
+specialized software is needed to read it. The main downsides are that
+retrieval is slow and often all-or-nothing, and the fact that storing
+metadata in plain text files is cumbersome.
+
+\subsection{Binary files}\label{binary-files}
+
+Many statistics packages and programming languages have a ``native''
+binary data storage format. For example, Stata stores data in
+\texttt{.dta} files, and R stores data in \texttt{.rds} or
+\texttt{.Rdata} files. These storage formats usually more efficient than
+text files, and usually provide faster read/write access. They usually
+include a mechanism for storing metadata. The down side is that
+specialized software is required to read them (will Stata exist in 50
+years? Are you sure?) and the ability to read them using other programs
+may be limited.
+
+\subsection{Databases}\label{databases}
+
+Storing data in a database requires more up-front planning and set up,
+but has several advantages. Databases provide fast selective retrieval
+and facilitate efficient storage and flexible retrieval.
+
+\subsection{Distributed file storage}\label{distributed-file-storage}
+
+Data that is too large to fit on a single hard drive may be stored and
+analyzed on a distributed file system or database such as the
+\emph{Hadoop Distributed File System} or \emph{Cassandra}. When working
+with data on this scale considerable infrastructure and specialized
+tools will be required.
+
+\section{Programming languages and statistics
+packages}\label{programming-languages-and-statistics-packages}
+
+There are tens of programs for statistics and data science available.
+Here we will focus only on the more popular programs that offer a wide
+range of features. Note that for specific applications a specialized
+program may be better, e.g., many people use Mplus for structural
+equation models and another program for everything else.
+
+\subsection{Programming language
+features}\label{programming-language-features}
+
+Things we want a statistics program to do include:
+
+\begin{itemize}
+\tightlist
+\item
+  read/write data from/to a variety of data storage systems,
+\item
+  manipulate data,
+\item
+  perform statistical methods,
+\item
+  visualize data and results,
+\item
+  export results in a variety of formats,
+\item
+  be easy to use,
+\item
+  be well documented,
+\item
+  have a large user community.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Note that this list is deceptively simple; each item may include a
+diversity of complicated features. For example,``read/write data from/to
+a variety of data storage systems'' may include reading from databases,
+image files, .pdf files, .html and .xml files from a website, and any
+number of proprietary data storage formats.
+
+\subsection{Program comparison}\label{program-comparison}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+\begin{minipage}[b]{0.08\columnwidth}\raggedright\strut
+Program\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright\strut
+Statistics\strut
+\end{minipage} & \begin{minipage}[b]{0.13\columnwidth}\raggedright\strut
+Visualization\strut
+\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright\strut
+Machine learning\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright\strut
+Ease of use\strut
+\end{minipage} & \begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+Power/flexibility\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedright\strut
+Fun\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+Stata\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+Servicable\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Limited\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Very easy\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Low\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+Some\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+SPSS\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+OK\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+Servicable\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Limited\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Easy\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Low\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+None\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+SAS\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+Not great\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Moderate\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Moderate\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+None\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+Matlab\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Moderate\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+Some\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+R\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Excellent\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+Excellent\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Moderate\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Excellent\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+Yes\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+Python\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Excellent\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Moderate\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Excellent\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+Yes\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+Julia\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+OK\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+Excellent\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Good\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+Hard\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Excellent\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+Yes\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{Examples: Read data from a file and
+summarize}\label{examples-read-data-from-a-file-and-summarize}
+
+In this example we will compare the syntax for reading and summarizing
+data stored in a file.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Stata
+\end{itemize}
+
+\begin{verbatim}
+import delimited using "http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv"
+sum
+\end{verbatim}
+
+\begin{verbatim}
+set more off
+ "EconomistData.csv"
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=gasp -Dswing.aatext=true -Dsun.java2d.opengl=true
+(6 vars, 173 obs)
+sum
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+          v1 |        173          87    50.08493          1        173
+     country |          0
+     hdirank |        173    95.28324    55.00767          1        187
+         hdi |        173    .6580867    .1755888       .286       .943
+         cpi |        173    4.052023    2.116782        1.5        9.5
+-------------+---------------------------------------------------------
+      region |          0
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  R
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cpi <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(cpi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      X              Country       HDI.Rank           HDI        
+Min.   :  1   Afghanistan:  1   Min.   :  1.00   Min.   :0.2860  
+1st Qu.: 44   Albania    :  1   1st Qu.: 47.00   1st Qu.:0.5090  
+Median : 87   Algeria    :  1   Median : 96.00   Median :0.6980  
+Mean   : 87   Angola     :  1   Mean   : 95.28   Mean   :0.6581  
+3rd Qu.:130   Argentina  :  1   3rd Qu.:143.00   3rd Qu.:0.7930  
+Max.   :173   Armenia    :  1   Max.   :187.00   Max.   :0.9430  
+              (Other)    :167                                    
+     CPI                      Region  
+Min.   :1.500   Americas         :31  
+1st Qu.:2.500   Asia Pacific     :30  
+Median :3.200   East EU Cemt Asia:18  
+Mean   :4.052   EU W. Europe     :30  
+3rd Qu.:5.100   MENA             :18  
+Max.   :9.500   SSA              :46
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Matlab
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tmpfile = websave(tempname(), }\StringTok{'http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv'}\NormalTok{);}
+\NormalTok{cpi = readtable(tmpfile);}
+\NormalTok{summary(cpi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+tmpfile = websave(tempname(), 'http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv');
+cpi = readtable(tmpfile);
+summary(cpi)
+
+Variables:
+
+    Var1: 173×1 cell array of character vectors
+
+    Country: 173×1 cell array of character vectors
+
+    HDI_Rank: 173×1 double
+
+        Description:  Original column heading: 'HDI.Rank'
+        Values:
+
+            Min         1       
+            Median     96       
+            Max       187       
+
+    HDI: 173×1 double
+
+        Values:
+
+            Min       0.286
+            Median    0.698
+            Max       0.943
+
+    CPI: 173×1 double
+
+        Values:
+
+            Min       1.5  
+            Median    3.2  
+            Max       9.5  
+
+    Region: 173×1 cell array of character vectors
+'org_babel_eoe'
+
+ans =
+
+    'org_babel_eoe'
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Python
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{cpi }\OperatorTok{=}\NormalTok{ pd.read_csv(}\StringTok{'http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv'}\NormalTok{)}
+\NormalTok{cpi.describe(include }\OperatorTok{=} \StringTok{'all'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Python 3.6.2 (default, Jul 20 2017, 03:52:27) 
+[GCC 7.1.1 20170630] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+        Unnamed: 0 Country    HDI.Rank         HDI         CPI Region
+count   173.000000     173  173.000000  173.000000  173.000000    173
+unique         NaN     173         NaN         NaN         NaN      6
+top            NaN    Oman         NaN         NaN         NaN    SSA
+freq           NaN       1         NaN         NaN         NaN     46
+mean     87.000000     NaN   95.283237    0.658087    4.052023    NaN
+std      50.084928     NaN   55.007670    0.175589    2.116782    NaN
+min       1.000000     NaN    1.000000    0.286000    1.500000    NaN
+25%      44.000000     NaN   47.000000    0.509000    2.500000    NaN
+50%      87.000000     NaN   96.000000    0.698000    3.200000    NaN
+75%     130.000000     NaN  143.000000    0.793000    5.100000    NaN
+max     173.000000     NaN  187.000000    0.943000    9.500000    NaN
+\end{verbatim}
+
+\subsection{Examples: Fit a linear
+regression}\label{examples-fit-a-linear-regression}
+
+Fitting statistical models is pretty straight-forward in all popular
+programs.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Stata
+\end{itemize}
+
+\begin{verbatim}
+regress hdi cpi
+\end{verbatim}
+
+\begin{verbatim}
+regress hdi cpi
+
+      Source |       SS           df       MS      Number of obs   =       173
+-------------+----------------------------------   F(1, 171)       =    168.85
+       Model |  2.63475703         1  2.63475703   Prob > F        =    0.0000
+    Residual |   2.6682467       171  .015603782   R-squared       =    0.4968
+-------------+----------------------------------   Adj R-squared   =    0.4939
+       Total |  5.30300372       172  .030831417   Root MSE        =    .12492
+
+------------------------------------------------------------------------------
+         hdi |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         cpi |   .0584696   .0044996    12.99   0.000     .0495876    .0673515
+       _cons |   .4211666   .0205577    20.49   0.000     .3805871    .4617462
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  R
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(HDI }\OperatorTok{~}\StringTok{ }\NormalTok{CPI, }\DataTypeTok{data =}\NormalTok{ cpi))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Call:
+lm(formula = HDI ~ CPI, data = cpi)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.28452 -0.08380  0.01372  0.09157  0.24104 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.42117    0.02056   20.49   <2e-16 ***
+CPI          0.05847    0.00450   12.99   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1249 on 171 degrees of freedom
+Multiple R-squared:  0.4968,    Adjusted R-squared:  0.4939 
+F-statistic: 168.9 on 1 and 171 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Matlab
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitlm(cpi, }\StringTok{'HDI~CPI'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+fitlm(cpi, 'HDI~CPI')
+
+ans = 
+
+
+Linear regression model:
+    HDI ~ 1 + CPI
+
+Estimated Coefficients:
+                   Estimate       SE        tStat       pValue  
+                   ________    _________    ______    __________
+
+    (Intercept)    0.42117      0.020558    20.487    6.7008e-48
+    CPI            0.05847     0.0044996    12.994    2.6908e-27
+
+
+Number of observations: 173, Error degrees of freedom: 171
+Root Mean Squared Error: 0.125
+R-squared: 0.497,  Adjusted R-Squared 0.494
+F-statistic vs. constant model: 169, p-value = 2.69e-27
+'org_babel_eoe'
+
+ans =
+
+    'org_babel_eoe'
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Python
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ statsmodels.formula.api }\ImportTok{as}\NormalTok{ model}
+\NormalTok{X }\OperatorTok{=}\NormalTok{ cpi[[}\StringTok{'CPI'}\NormalTok{]]}
+\NormalTok{Y }\OperatorTok{=}\NormalTok{ cpi[[}\StringTok{'HDI'}\NormalTok{]]}
+\NormalTok{model.OLS(Y, X).fit().summary()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                    HDI   R-squared:                       0.885
+Model:                            OLS   Adj. R-squared:                  0.884
+Method:                 Least Squares   F-statistic:                     1325.
+Date:                Thu, 31 Aug 2017   Prob (F-statistic):           9.89e-83
+Time:                        23:16:45   Log-Likelihood:                 8.1584
+No. Observations:                 173   AIC:                            -14.32
+Df Residuals:                     172   BIC:                            -11.16
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+CPI            0.1402      0.004     36.401      0.000       0.133       0.148
+==============================================================================
+Omnibus:                       10.423   Durbin-Watson:                   1.616
+Prob(Omnibus):                  0.005   Jarque-Bera (JB):               11.099
+Skew:                          -0.599   Prob(JB):                      0.00389
+Kurtosis:                       2.674   Cond. No.                         1.00
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+\end{verbatim}
+
+\subsection{Examples: Extract links for .html
+file}\label{examples-extract-links-for-.html-file}
+
+Retrieving data from a website is a common task. Here we parse a simple
+web page containing links to files we wish to download.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Stata
+\end{itemize}
+
+\begin{verbatim}
+disp "Ha ha ha! No, you do not want to use Stata for this!"
+\end{verbatim}
+
+\begin{verbatim}
+disp "Ha ha ha! No, you do not want to use Stata for this!"
+Ha ha ha! No, you do not want to use Stata for this!
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  R
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(xml2)}
+\NormalTok{index_page <-}\StringTok{ }\KeywordTok{read_html}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/example_data/baby_names/EW/"}\NormalTok{)}
+\NormalTok{all_anchors <-}\StringTok{ }\KeywordTok{xml_find_all}\NormalTok{(index_page, }\StringTok{"//a"}\NormalTok{)}
+\NormalTok{all_hrefs <-}\StringTok{ }\KeywordTok{xml_attr}\NormalTok{(all_anchors, }\StringTok{"href"}\NormalTok{)}
+\NormalTok{data_hrefs <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.csv$"}\NormalTok{, all_hrefs, }\DataTypeTok{value =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{data_links <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/example_data/baby_names/EW/"}\NormalTok{, data_hrefs)}
+\NormalTok{data_links}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv" 
+ [2] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv" 
+ [3] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv" 
+ [4] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1999.csv" 
+ [5] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2000.csv" 
+ [6] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2001.csv" 
+ [7] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2002.csv" 
+ [8] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2003.csv" 
+ [9] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2004.csv" 
+[10] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2005.csv" 
+[11] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2006.csv" 
+[12] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2007.csv" 
+[13] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2008.csv" 
+[14] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2009.csv" 
+[15] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2010.csv" 
+[16] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2011.csv" 
+[17] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2012.csv" 
+[18] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2013.csv" 
+[19] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2014.csv" 
+[20] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2015.csv" 
+[21] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1996.csv"
+[22] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1997.csv"
+[23] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1998.csv"
+[24] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1999.csv"
+[25] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2000.csv"
+[26] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2001.csv"
+[27] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2002.csv"
+[28] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2003.csv"
+[29] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2004.csv"
+[30] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2005.csv"
+[31] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2006.csv"
+[32] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2007.csv"
+[33] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2008.csv"
+[34] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2009.csv"
+[35] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2010.csv"
+[36] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2011.csv"
+[37] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2012.csv"
+[38] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv"
+[39] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv"
+[40] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv"
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Matlab
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{index_page = urlread(}\StringTok{'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'}\NormalTok{);}
+\NormalTok{all_hrefs = regexp(index_page, }\StringTok{'<a href="([^"]*\textbackslash{}.csv)">'}\NormalTok{, }\StringTok{'tokens'}\NormalTok{)';}
+\NormalTok{all_hrefs = [all_hrefs\{:\}]';}
+\NormalTok{all_links = strcat(}\StringTok{'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'}\NormalTok{, all_hrefs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+index_page = urlread('http://tutorials.iq.harvard.edu/example_data/baby_names/EW/');
+all_hrefs = regexp(index_page, '<a href="([^"]*\.csv)">', 'tokens')';
+all_hrefs = [all_hrefs{:}]';
+all_links = strcat('http://tutorials.iq.harvard.edu/example_data/baby_names/EW/', all_hrefs)
+
+all_links =
+
+  40×1 cell array
+
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1999.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2000.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2001.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2002.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2003.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2004.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2005.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2006.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2007.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2008.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2009.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2010.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2011.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2012.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2013.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2014.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2015.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1996.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1997.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1998.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1999.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2000.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2001.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2002.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2003.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2004.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2005.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2006.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2007.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2008.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2009.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2010.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2011.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2012.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv'
+'org_babel_eoe'
+
+ans =
+
+    'org_babel_eoe'
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Python
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ lxml }\ImportTok{import}\NormalTok{ etree}
+\ImportTok{import}\NormalTok{ requests}
+
+\NormalTok{index_text }\OperatorTok{=}\NormalTok{ requests.get(}\StringTok{'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'}\NormalTok{).text}
+\NormalTok{index_page }\OperatorTok{=}\NormalTok{ etree.HTML(index_text)}
+\NormalTok{all_hrefs }\OperatorTok{=}\NormalTok{ [a.values() }\ControlFlowTok{for}\NormalTok{ a }\KeywordTok{in}\NormalTok{ index_page.findall(}\StringTok{".//a"}\NormalTok{)]}
+\NormalTok{data_links }\OperatorTok{=}\NormalTok{ [}\StringTok{'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'} \OperatorTok{+}
+\NormalTok{              href[}\DecValTok{0}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ href }\KeywordTok{in}\NormalTok{ all_hrefs }\ControlFlowTok{if} \StringTok{'csv'} \KeywordTok{in}\NormalTok{ href[}\DecValTok{0}\NormalTok{]]}
+\ControlFlowTok{for}\NormalTok{ link }\KeywordTok{in}\NormalTok{ data_links:}
+    \BuiltInTok{print}\NormalTok{(link)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1999.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2000.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2001.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2002.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2003.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2004.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2005.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2006.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2007.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2008.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2009.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2010.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2011.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2012.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2013.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2014.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2015.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1996.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1997.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1998.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1999.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2000.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2001.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2002.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2003.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2004.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2005.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2006.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2007.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2008.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2009.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2010.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2011.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2012.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv
+\end{verbatim}
+
+\section{Creating reports}\label{creating-reports}
+
+Once you've analyzed your data you'll most likely want to communicate
+your results. For short informal projects this might take the form of a
+blog post or an email to your colleagues. For larger more formal
+projects you'll likely want to prepare a substantial report or
+manuscript for disseminating your findings via a journal publication or
+other means. Other common means of reporting research findings include
+posters or slides for a conference talk.
+
+Regardless of the type of report, you may choose to use either a
+\emph{markup language} or a WYSIWYG application like Microsoft
+Word/Powerpoint of a desktop publishing application such as Adobe
+InDesign.
+
+\subsection{Markup languages}\label{markup-languages}
+
+A markup language is a system for producing a formatted document from a
+text file using information by the markup. A major advantage of markup
+languages is that the formatting instructions can be easily generated by
+the program you use for analyzing your data.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Markup languages include \emph{HTML}, \emph{LaTeX}, \emph{Markdown} and
+many others. \emph{LaTeX} and \emph{Markdown} are currently popular
+among data scientists, although others are used as well.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\emph{Markdown} is easy to write and designed to be human-readable. It
+is newer and somewhat less feature-full compared to LaTeX. It's main
+advantage is simplicity. \emph{LaTeX} is more verbose but provides for
+just about any feature you'll ever need.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+MARKDOWN DEMO LATEX DEMO
+
+\subsection{Word processors}\label{word-processors}
+
+Modern word processors are largely just graphical user interfaces that
+write a markup language (usually XML) for you. They are commonly used
+for creating reports, but care must be taken when doing so.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+If you use a word processor to produce your reports you should
+
+\begin{itemize}
+\tightlist
+\item
+  use the structured outline feature,
+\item
+  link rather than embed external resources (figures, tables, etc.),
+\item
+  use cross-referencing features, and
+\item
+  use a bibliography management system.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+WORD PROCESSOR DEMO
+
+\section{Text editors and Integrated Development
+Environments}\label{text-editors-and-integrated-development-environments}
+
+A text editor edits text obviously. But that is not all! At a minimum, a
+text editor will also have a mechanism for reading and writing text
+files. Most text editors do much more than this.
+
+An IDE provides tools for working with code, such as syntax
+highlighting, code completion, jump-to-definition, execute/compile,
+package management, refactoring, etc. Of course an IDE includes a text
+editor.
+
+Editors and IDE's are not really separate categories -- as you add
+features to a text editor it becomes more like an IDE, and a simple IDE
+may provide little more than a text editor. For example, Emacs is
+commonly referred to as a text editor, but it provides nearly every
+feature you would expect an IDE to have.
+
+A more useful distinction is between language-specific editors/IDEs and
+general purpose editors/IDEs. The former are typically easier to set up
+since they come pre-configured for use with a specific language. General
+purpose editors/IDEs typically provide language support via
+\emph{plugins} and may require extensive configuration for each
+language.
+
+\subsection{Language specific editors and
+IDEs}\label{language-specific-editors-and-ides}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Editor & Features & Ease of use & Language\tabularnewline
+\midrule
+\endhead
+RStudio & Excellent & Easy & R\tabularnewline
+Spyder & Excellent & Easy & Python\tabularnewline
+Stata do file editor & OK & Easy & Stata\tabularnewline
+SPSS syntax editor & OK & Easy & SPSS\tabularnewline
+\ldots{} & & &\tabularnewline
+\bottomrule
+\end{longtable}
+
+LANGUAGE SPECIFIC IDE DEMO
+
+\subsection{General purpose editors and
+IDEs}\label{general-purpose-editors-and-ides}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Editor & Features & Ease of use & Language support\tabularnewline
+\midrule
+\endhead
+Vim & Excellent & Hard & Good\tabularnewline
+Emacs & Excellent & Hard & Excellent\tabularnewline
+Atom & Good & Moderate & Good\tabularnewline
+Eclipse & Excellent & Easy & Good\tabularnewline
+Sublime Text & Good & Easy & Good\tabularnewline
+Notepad++ & OK & Easy & OK\tabularnewline
+Textmate & Good & Moderate & Good\tabularnewline
+Kate & OK & Easy & Good\tabularnewline
+\bottomrule
+\end{longtable}
+
+GENERAL PURPOSE EDITOR DEMO
+
+\section{Literate programming and
+notebooks}\label{literate-programming-and-notebooks}
+
+In one of the Early demos we say an example of embedding R code in a
+markdown document. A closely related approach is to create a
+\emph{notebook} that includes the prose of the report, the code used for
+the analysis, and the results produced by that code.
+
+\subsection{Literate programming}\label{literate-programming}
+
+Literate programming is the practice of embedding computer code in a
+natural language document. For example, using \emph{RMarkdown} we can
+embed R code in a report authored using Markdown. Python and Stata have
+their own versions of literate programming using Markdown.
+
+\subsection{Notebooks}\label{notebooks}
+
+Notebooks go one step farther, and include the output produced by the
+original program directly in the notebook. Examples include
+\emph{Jupyter}, \emph{Appache Zeppelin}, and \emph{Emacs Org Mode}.
+
+NOTEBOOKS DEMO
+
+\section{Big data, annoying data, and computationally intensive
+methods}\label{big-data-annoying-data-and-computationally-intensive-methods}
+
+Thus far we've discussed popular programming languages, data storage and
+retrieval options, text editors, and reporting technology. These are the
+basic building blocks I recommend using just about any time you find
+yourself working with data. There are times however when more is needed.
+For example, you may wish to use distributed computing for large or
+resource intensive computations.
+
+\subsection{Computing clusters at
+Harvard}\label{computing-clusters-at-harvard}
+
+Harvard provides a number of computing clusters, including Odyssey and
+the Research Computing Environment. Using these systems will be much
+easier if you know the basic tools well. After all, you're still going
+to need data storage/retrieval, you'll still need a text editor write
+code, and a programming language to write it in. My advice is to master
+these basics, and learn the rest as you need it.
+
+\section{Wrap up}\label{wrap-up}
+
+\subsection{Feedback}\label{feedback}
+
+These workshops are a work-in-progress, please provide any feedback to:
+\href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
+
+\subsection{Resources}\label{resources}
+
+\begin{itemize}
+\tightlist
+\item
+  IQSS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Workshops: \url{https://dss.iq.harvard.edu/workshop-materials}
+  \item
+    Data Science Services: \url{https://dss.iq.harvard.edu/}
+  \item
+    Research Computing Environment:
+    \url{https://iqss.github.io/dss-rce/}
+  \end{itemize}
+\item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Research Computing Services workshops:
+    \url{https://training.rcs.hbs.org/workshops}
+  \item
+    Other HBS RCS resources:
+    \url{https://training.rcs.hbs.org/workshop-materials}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
+  \end{itemize}
+\end{itemize}
 
 \part{R}\label{part-r}
 
@@ -1502,14 +2662,14 @@ workspaces
 \end{Highlighting}
 \end{Shaded}
 
-\section{Wrap-up}\label{wrap-up}
+\section{Wrap-up}\label{wrap-up-1}
 
-\subsection{Feedback}\label{feedback}
+\subsection{Feedback}\label{feedback-1}
 
 These workshops are a work-in-progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
-\subsection{Resources}\label{resources}
+\subsection{Resources}\label{resources-1}
 
 \begin{itemize}
 \tightlist
@@ -2534,14 +3694,14 @@ Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being
 \end{Highlighting}
 \end{Shaded}
 
-\section{Wrap-up}\label{wrap-up-1}
+\section{Wrap-up}\label{wrap-up-2}
 
-\subsection{Feedback}\label{feedback-1}
+\subsection{Feedback}\label{feedback-2}
 
 These workshops are a work in progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
-\subsection{Resources}\label{resources-1}
+\subsection{Resources}\label{resources-2}
 
 \begin{itemize}
 \tightlist
@@ -4184,14 +5344,14 @@ important elements.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Wrap-up}\label{wrap-up-2}
+\section{Wrap-up}\label{wrap-up-3}
 
-\subsection{Feedback}\label{feedback-2}
+\subsection{Feedback}\label{feedback-3}
 
 These workshops are a work in progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
-\subsection{Resources}\label{resources-2}
+\subsection{Resources}\label{resources-3}
 
 \begin{itemize}
 \tightlist
@@ -4908,14 +6068,14 @@ Working with the data in one big table is often easier.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Wrap-up}\label{wrap-up-3}
+\section{Wrap-up}\label{wrap-up-4}
 
-\subsection{Feedback}\label{feedback-3}
+\subsection{Feedback}\label{feedback-4}
 
 These workshops are a work in progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
-\subsection{Resources}\label{resources-3}
+\subsection{Resources}\label{resources-4}
 
 \begin{itemize}
 \tightlist
@@ -5656,14 +6816,14 @@ and compute correlations:
 \end{Highlighting}
 \end{Shaded}
 
-\section{Wrap-up}\label{wrap-up-4}
+\section{Wrap-up}\label{wrap-up-5}
 
-\subsection{Feedback}\label{feedback-4}
+\subsection{Feedback}\label{feedback-5}
 
 These workshops are a work in progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
-\subsection{Resources}\label{resources-4}
+\subsection{Resources}\label{resources-5}
 
 \begin{itemize}
 \tightlist
@@ -6372,14 +7532,14 @@ with CAPTHAs or lots of complicated javascript using a browser driver
 can be a good option. More information is available at
 \url{https://www.seleniumhq.org/docs/03_webdriver.jsp}.
 
-\section{Wrap-up}\label{wrap-up-5}
+\section{Wrap-up}\label{wrap-up-6}
 
-\subsection{Feedback}\label{feedback-5}
+\subsection{Feedback}\label{feedback-6}
 
 These workshops are a work in progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
-\subsection{Resources}\label{resources-5}
+\subsection{Resources}\label{resources-6}
 
 \begin{itemize}
 \tightlist
@@ -7081,14 +8241,14 @@ variables}\label{exercise-3-manipulating-variables}
   and ``0'' otherwise
 \end{enumerate}
 
-\section{Wrap-up}\label{wrap-up-6}
+\section{Wrap-up}\label{wrap-up-7}
 
-\subsection{Feedback}\label{feedback-6}
+\subsection{Feedback}\label{feedback-7}
 
 These workshops are a work in progress, please provide any feedback to:
 \href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
 
-\subsection{Resources}\label{resources-6}
+\subsection{Resources}\label{resources-7}
 
 \begin{itemize}
 \tightlist
@@ -7118,6 +8278,2985 @@ These workshops are a work in progress, please provide any feedback to:
     \url{https://training.rcs.hbs.org/workshop-materials}
   \item
     RCS consulting email: \url{mailto:research@hbs.edu}
+  \end{itemize}
+\item
+  Stata
+
+  \begin{itemize}
+  \tightlist
+  \item
+    UCLA website: \url{http://www.ats.ucla.edu/stat/Stata/}
+  \item
+    Stata website: \url{http://www.stata.com/help.cgi?contents}
+  \item
+    Email list: \url{http://www.stata.com/statalist/}
+  \end{itemize}
+\end{itemize}
+
+\chapter{Stata Data Management}\label{stata-data-management}
+
+\textbf{Topics}
+
+\begin{itemize}
+\tightlist
+\item
+  Generating and replacing variables
+\item
+  Processing with \texttt{by} statements
+\item
+  Missing values
+\item
+  Variable types and conversion
+\item
+  Merging, appending, and joining
+\item
+  Creating summarized data sets
+\end{itemize}
+
+\section{Setup}\label{setup-7}
+
+\subsection{Software \& Materials}\label{software-materials-7}
+
+Laptop users: you will need a copy of Stata installed on your machine.
+Harvard FAS affiliates can install a licensed version from
+\url{http://downloads.fas.harvard.edu/download}
+
+\begin{itemize}
+\tightlist
+\item
+  Download class materials at
+  \url{https://github.com/IQSS/dss-workshops-redux/raw/master/Stata/StataDatMan.zip}
+\item
+  Extract materials from the zipped directory \texttt{StataDatMan.zip}
+  (Right-click =\textgreater{} Extract All on Windows, double-click on
+  Mac) and move them to your desktop!
+\end{itemize}
+
+\subsection{Organization}\label{organization-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Please feel free to ask questions at any point if they are relevant to
+  the current topic (or if you are lost!)
+\item
+  Collaboration is encouraged - please introduce yourself to your
+  neighbors!
+\item
+  If you are using a laptop, you will need to adjust file paths
+  accordingly
+\item
+  Make comments in your Do-file - save on flash drive or email to
+  yourself
+\end{itemize}
+
+\subsection{Goals}\label{goals-7}
+
+\begin{itemize}
+\tightlist
+\item
+  This is an introduction to data management in Stata
+\item
+  Assumes basic knowledge of Stata
+\item
+  Not appropriate for people already familiar with Stata
+\item
+  If you are catching on before the rest of the class, experiment with
+  command features described in help files
+\item
+  Learning Objectives:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Basic data manipulation commands
+  \item
+    Processing with \texttt{by} statements
+  \item
+    Dealing with missing values
+  \item
+    Variable types and conversion
+  \item
+    Merging and appending datasets
+  \end{itemize}
+\end{itemize}
+
+\section{Opening Files in Stata}\label{opening-files-in-stata}
+
+\begin{itemize}
+\tightlist
+\item
+  Look at bottom left hand corner of Stata screen
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This is the directory Stata is currently reading from
+  \end{itemize}
+\item
+  Files are located in the StataDatMan folder in your home directory
+\item
+  Start by telling Stata where to look for these
+\end{itemize}
+
+\begin{verbatim}
+  // change directory
+  cd "~/tutorials/Stata/StataDatMan"
+
+  // Use dir to see what is in the directory:
+  dir
+  dir dataSets
+
+  // use the gss data set
+  use dataSets/gss.dta
+\end{verbatim}
+
+\begin{verbatim}
+set more off
+
+cd "~/tutorials/Stata/StataDatMan"
+/nfs/www/edu-harvard-iq-tutorials/Stata/StataDatMan
+
+
+dir
+
+total 100
+drwxrwsr-x. 2 apache tutorwww  4096 Oct  9 08:44 dataSets/
+-rwxrwxr-x. 1 izahn  tutorwww  1302 Oct  9 08:44 Exercises.do*
+drwxrwsr-x. 2 apache tutorwww  4096 Oct  9 08:44 images/
+drwxrwsr-x. 4 apache tutorwww  4096 Oct  9 08:44 StataDatMan/
+-rwxrwxr-x. 1 izahn  tutorwww 17446 Oct  9 08:44 StataDatMan.do*
+-rwxrwxr-x. 1 izahn  tutorwww 38153 Oct  9 08:44 StataDatMan.html*
+-rwxrwxr-x. 1 izahn  tutorwww 20463 Oct  9 08:44 StataDatMan.org*
+dir dataSets
+
+total 2644
+-rwxrwxr-x. 1 izahn tutorwww 275705 Oct  9 08:44 gss1.dta*
+-rwxrwxr-x. 1 izahn tutorwww 263324 Oct  9 08:44 gss2.dta*
+-rwxrwxr-x. 1 izahn tutorwww 532880 Oct  9 08:44 gssAddObserve.dta*
+-rwxrwxr-x. 1 izahn tutorwww 527005 Oct  9 08:44 gssAppend.dta*
+-rwxrwxr-x. 1 izahn tutorwww 527005 Oct  9 08:44 gsscompare1.dta*
+-rwxrwxr-x. 1 izahn tutorwww 538755 Oct  9 08:44 gss.dta*
+-rwxrwxr-x. 1 izahn tutorwww   1139 Oct  9 08:44 marital.dta*
+
+
+use dataSets/gss.dta
+\end{verbatim}
+
+\section{Generating and replacing
+variables}\label{generating-and-replacing-variables-1}
+
+\subsection{Basic Data Manipulation
+Commands}\label{basic-data-manipulation-commands}
+
+Basic commands you'll use for generating new variables or recoding
+existing variables:
+
+\begin{itemize}
+\tightlist
+\item
+  gen
+\item
+  egen
+\item
+  replace
+\item
+  recode
+\end{itemize}
+
+Many different means of accomplishing the same thing in Stata -- find
+what is comfortable (and easy) for you!
+
+\subsection{Generate and Replace}\label{generate-and-replace}
+
+The \texttt{replace} command is often used with logic statements.
+Available logical operators include the following:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Operator & Meaning\tabularnewline
+\midrule
+\endhead
+== & equal to\tabularnewline
+!= & not equal to\tabularnewline
+\textgreater{} & greater than\tabularnewline
+\textgreater{}= & greater than or equal to\tabularnewline
+\textless{} & less than\tabularnewline
+\textless{}= & less than or equal to\tabularnewline
+\& & and\tabularnewline
+&\tabularnewline
+\bottomrule
+\end{longtable}
+
+For example:
+
+\begin{verbatim}
+  //create "hapnew" variable
+  gen hapnew = .
+  //set to 0 if happy equals 1
+  replace hapnew=0 if happy==1 
+  //set to 1 if happy both and hapmar are greater than 3
+  replace hapnew=1 if happy>3 & hapmar>3 
+  // tabulate the new 
+  tab hapnew
+\end{verbatim}
+
+\begin{verbatim}
+
+gen hapnew = .
+(1,419 missing values generated)
+
+replace hapnew=0 if happy==1 
+(435 real changes made)
+
+replace hapnew=1 if happy>3 & hapmar>3 
+(4 real changes made)
+
+tab hapnew
+
+     hapnew |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        435       99.09       99.09
+          1 |          4        0.91      100.00
+------------+-----------------------------------
+      Total |        439      100.00
+\end{verbatim}
+
+\subsection{Recode}\label{recode}
+
+The \texttt{recode} command is basically generate and replace combined.
+You can recode an existing variable OR use recode to create a new
+variable (via the \texttt{gen} option).
+
+\begin{verbatim}
+  // recode the wrkstat variable 
+  recode wrkstat (1=8) (2=7) (3=6) (4=5) (5=4) (6=3) (7=2) (8=1)
+  // recode wrkstat into a new variable named wrkstat2
+  recode wrkstat (1=8), gen(wrkstat2)
+  // tabulate workstat
+  tab wrkstat
+\end{verbatim}
+
+\begin{verbatim}
+
+recode wrkstat (1=8) (2=7) (3=6) (4=5) (5=4) (6=3) (7=2) (8=1)
+(wrkstat: 1419 changes made)
+
+recode wrkstat (1=8), gen(wrkstat2)
+(32 differences between wrkstat and wrkstat2)
+
+tab wrkstat
+
+      LABOR FRCE |
+          STATUS |      Freq.     Percent        Cum.
+-----------------+-----------------------------------
+WORKING FULLTIME |         32        2.26        2.26
+WORKING PARTTIME |        155       10.92       13.18
+TEMP NOT WORKING |         34        2.40       15.57
+UNEMPL, LAID OFF |        214       15.08       30.66
+         RETIRED |         29        2.04       32.70
+          SCHOOL |         35        2.47       35.17
+   KEEPING HOUSE |        146       10.29       45.45
+           OTHER |        774       54.55      100.00
+-----------------+-----------------------------------
+           Total |      1,419      100.00
+\end{verbatim}
+
+The table below illustrates common forms of recoding
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
+Rule\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
+Example\strut
+\end{minipage} & \begin{minipage}[b]{0.33\columnwidth}\raggedright\strut
+Meaning\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\#=\#\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+3=1\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright\strut
+3 recoded to 1\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\#\#=\#\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+2.
+\texttt{9\ \ \ \ \ \ \ \ \textbar{}\ 2\ and\ .\ recoded\ to\ 9\ \ \ \ \textbar{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textbar{}\ \#/\#}
+\#\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright\strut
+1/5=4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+nonmissing=\#\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+nonmiss=8\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright\strut
+nonmissing recoded to 8\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+missing=\#\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+miss=9\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright\strut
+missing recoded to 9\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{egen}\label{egen}
+
+The \texttt{egen} command (``extensions'' to the \texttt{gen} command)
+provides convenient methods for performing many common data manipulation
+tasks.
+
+For example, we can use \texttt{egen} to create a new variable that
+counts the number of ``yes'' responses on computer, email and internet
+use:
+
+\begin{verbatim}
+  // count number of yes on use comp email and net 
+  egen compuser= anycount(usecomp usemail usenet), values(1)
+  tab compuser
+\end{verbatim}
+
+\begin{verbatim}
+
+egen compuser= anycount(usecomp usemail usenet), values(1)
+tab compuser
+
+    usecomp |
+    usemail |
+usenet == 1 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        623       43.90       43.90
+          1 |        142       10.01       53.91
+          2 |         78        5.50       59.41
+          3 |        576       40.59      100.00
+------------+-----------------------------------
+      Total |      1,419      100.00
+\end{verbatim}
+
+Here are some additional examples of \texttt{egen} in action:
+
+\begin{verbatim}
+  // assess how much missing data each participant has:
+  egen countmiss = rowmiss(age-wifeft)
+  codebook countmiss
+  // compare values on multiple variables
+  egen ftdiff=diff(wkftwife wkfthusb)
+  codebook ftdiff
+\end{verbatim}
+
+\begin{verbatim}
+
+egen countmiss = rowmiss(age-wifeft)
+codebook countmiss
+
+-------------------------------------------------------------------------------
+countmiss                                                           (unlabeled)
+-------------------------------------------------------------------------------
+
+                  type:  numeric (float)
+
+                 range:  [0,7]                        units:  1
+         unique values:  6                        missing .:  0/1,419
+
+            tabulation:  Freq.  Value
+                           296  0
+                           215  1
+                           113  2
+                             7  3
+                           782  6
+                             6  7
+
+egen ftdiff=diff(wkftwife wkfthusb)
+codebook ftdiff
+
+-------------------------------------------------------------------------------
+ftdiff                                                   diff wkftwife wkfthusb
+-------------------------------------------------------------------------------
+
+                  type:  numeric (float)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  0/1,419
+
+            tabulation:  Freq.  Value
+                         1,169  0
+                           250  1
+\end{verbatim}
+
+You will need to refer to the documentation to discover what else
+\texttt{egen} can do: type ``help egen'' in Stata to get a complete list
+of functions.
+
+\section{Exercise 0}\label{exercise-0-4}
+
+\textbf{Generate, Replace, Recode \& Egen}
+
+Open the gss.dta data.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Generate a new variable that represents the squared value of age.
+\item
+  Generate a new variable equal to ``1'' if income is greater than
+  ``19''.
+\item
+  Create a new variable that counts the number of missing responses for
+  each respondent. What is the maximum number of missing variables?
+\end{enumerate}
+
+\section{By processing}\label{by-processing}
+
+\subsection{\texorpdfstring{The \texttt{bysort}
+Command}{The bysort Command}}\label{the-bysort-command}
+
+Sometimes, you'd like to create variables based on different categories
+of a single variable. For example, say you want to look at happiness
+based on whether an individual is male or female. The ``bysort'' prefix
+does just this:
+
+\begin{verbatim}
+  // tabulate happy separately for male and female 
+  bysort sex: tab happy
+  // generate summary statistics using bysort 
+  bysort state: egen stateincome = mean(income)
+  bysort degree: egen degreeincome = mean(income)
+  bysort marital: egen marincomesd = sd(income)
+\end{verbatim}
+
+\begin{verbatim}
+
+bysort sex: tab happy
+
+-------------------------------------------------------------------------------
+-> sex = Male
+
+      GENERAL |
+    HAPPINESS |      Freq.     Percent        Cum.
+--------------+-----------------------------------
+   VERY HAPPY |        189       30.39       30.39
+ PRETTY HAPPY |        350       56.27       86.66
+NOT TOO HAPPY |         73       11.74       98.39
+           NA |         10        1.61      100.00
+--------------+-----------------------------------
+        Total |        622      100.00
+
+-------------------------------------------------------------------------------
+-> sex = Female
+
+      GENERAL |
+    HAPPINESS |      Freq.     Percent        Cum.
+--------------+-----------------------------------
+   VERY HAPPY |        246       30.87       30.87
+ PRETTY HAPPY |        447       56.09       86.95
+NOT TOO HAPPY |         84       10.54       97.49
+           DK |          1        0.13       97.62
+           NA |         19        2.38      100.00
+--------------+-----------------------------------
+        Total |        797      100.00
+
+bysort state: egen stateincome = mean(income)
+variable state not found
+r(111);
+bysort degree: egen degreeincome = mean(income)
+bysort marital: egen marincomesd = sd(income)
+\end{verbatim}
+
+\subsection{By prefix vs.~by options}\label{by-prefix-vs.by-options}
+
+Some commands won't work with by prefix, but instead have a \texttt{by}
+option:
+
+\begin{verbatim}
+  // generate separate histograms for female and male 
+  hist nethrs, by(sex)
+\end{verbatim}
+
+\section{Missing values}\label{missing-values}
+
+You always need to consider how missing values are coded when recoding
+variables.
+
+\begin{itemize}
+\tightlist
+\item
+  Stata's symbol for a missing value is \texttt{.}
+\item
+  Stata interprets \texttt{.} as a large value
+\item
+  Easy to make mistakes!
+\end{itemize}
+
+To identify highly educated women, we might use the command:
+
+\begin{verbatim}
+  // generate and replace without considering missing values
+  gen hi_ed=0
+  replace hi_ed=1 if wifeduc>15
+  // What happens to our missing values?
+  tab hi_ed, mi nola
+\end{verbatim}
+
+\begin{verbatim}
+
+gen hi_ed=0
+replace hi_ed=1 if wifeduc>15
+(944 real changes made)
+
+tab hi_ed, mi nola
+
+      hi_ed |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        475       33.47       33.47
+          1 |        944       66.53      100.00
+------------+-----------------------------------
+      Total |      1,419      100.00
+\end{verbatim}
+
+It looks like around 66\% have higher education, but look closer:
+
+\begin{verbatim}
+  // gen hi_ed2, but don't set a value if wifeduc is missing
+  gen hi_ed2 = 0 if wifeduc != . 
+  // only replace non-missing
+  replace hi_ed2=1 if wifeduc >15 & wifeduc !=. 
+  //check to see that missingness is preserved
+  tab hi_ed2, mi
+\end{verbatim}
+
+\begin{verbatim}
+
+gen hi_ed2 = 0 if wifeduc != . 
+(797 missing values generated)
+
+replace hi_ed2=1 if wifeduc >15 & wifeduc !=. 
+(147 real changes made)
+
+ |        797       56.17      100.00
+------------+-----------------------------------
+      Total |      1,419      100.00
+\end{verbatim}
+
+The correct value is 10\%. Moral of the story? Be careful with missing
+values and remember that Stata considers missing values to be large!
+
+\subsection{Bulk Conversion to Missing
+Values}\label{bulk-conversion-to-missing-values}
+
+Often the data collection/generating procedure will have used some other
+value besides \texttt{.} to represent missing values. The
+\texttt{mvdecode} command will convert all these values to missing. For
+example:
+
+\begin{verbatim}
+  mvdecode _all, mv(999)
+\end{verbatim}
+
+\begin{verbatim}
+mvdecode _all, mv(999)
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  The ``\_all'' command tells Stata to do this to all variables
+\item
+  Use this command carefully!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If you have any variables where ``999'' is a legitimate value, Stata
+    is going to recode it to missing
+  \item
+    As an alternative, you could list var names separately rather than
+    using ``\_all''
+  \end{itemize}
+\end{itemize}
+
+\section{Variable types}\label{variable-types}
+
+Stata uses two main types of variables: String and Numeric. To be able
+to perform any mathematical operations, your variables need to be in a
+numeric format. Stata can store numbers with differing levels of
+precision, as described in the table below.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+type & Minimum & Maximum & being 0 & bytes\tabularnewline
+\midrule
+\endhead
+byte & -127 & 100 & +/-1 & 1\tabularnewline
+int & -32,767 & 32,740 & +/-1 & 2\tabularnewline
+long & -2,147,483,647 & 2,147,483,620 & +/-1 & 4\tabularnewline
+float & -1.70141173319*1038 & 1.70141173319*1038 & +/-10-38 &
+4\tabularnewline
+double & -8.9884656743*10307 & 8.9884656743*10307 & +/-10-323 &
+8\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  Precision for float is 3.795x10-8.
+\item
+  Precision for double is 1.414x10-16.
+\end{itemize}
+
+\subsection{Converting to and from
+Strings}\label{converting-to-and-from-strings}
+
+Stata provides several ways to convert to and from strings. You can use
+\texttt{tostring} and \texttt{destring} to convert from one type to the
+other:
+
+\begin{verbatim}
+  // convert degree to a string
+  tostring degree, gen(degree_s)
+  // and back to a number
+  destring degree_s, gen(degree_n)
+\end{verbatim}
+
+\begin{verbatim}
+
+tostring degree, gen(degree_s)
+degree_s generated as str1
+
+destring degree_s, gen(degree_n)
+degree_s has all characters numeric; degree_n generated as byte
+\end{verbatim}
+
+Use \texttt{decode} and \texttt{encode} to convert to/from variable
+labels:
+
+\begin{verbatim}
+  // convert degree to a descriptive string
+  decode degree, gen(degree_s2)
+  // and back to a number with labels
+  encode degree_s2, gen(degree_n2)
+\end{verbatim}
+
+\begin{verbatim}
+
+decode degree, gen(degree_s2)
+
+encode degree_s2, gen(degree_n2)
+\end{verbatim}
+
+\section{Converting Strings to
+Date/Time}\label{converting-strings-to-datetime}
+
+Often date/time variables start out as strings -- You'll need to convert
+them to numbers using one of the conversion functions listed below.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Format & Meaning & String-to-numeric conversion function\tabularnewline
+\midrule
+\endhead
+\%tc & milliseconds & clock(string, mask)\tabularnewline
+\%td & days & date(string, mask)\tabularnewline
+\%tw & weeks & weekly(string, mask)\tabularnewline
+\%tm & months & monthly(string, mask)\tabularnewline
+\%tq & quarters & quarterly(string, mask)\tabularnewline
+\%ty & years & yearly(string, mask)\tabularnewline
+\bottomrule
+\end{longtable}
+
+Date/time variables are stored as the number of units elapsed since
+01jan1960 00:00:00.000. For example, the \texttt{date} function returns
+the number of days since that time, and the \texttt{clock} function
+returns the number of milliseconds since that time.
+
+\begin{verbatim}
+  // create string variable and convert to date
+  gen date = "November 9 2020"
+  gen date1 = date(date, "MDY")
+  list date1 in 1/5
+\end{verbatim}
+
+\begin{verbatim}
+
+gen date = "November 9 2020"
+gen date1 = date(date, "MDY")
+list date1 in 1/5
+
+     +-------+
+     | date1 |
+     |-------|
+  1. | 22228 |
+  2. | 22228 |
+  3. | 22228 |
+  4. | 22228 |
+  5. | 22228 |
+     +-------+
+\end{verbatim}
+
+\section{Formatting Numbers as Dates}\label{formatting-numbers-as-dates}
+
+Once you have converted the string to a number you can format it for
+display. You can simply accept the defaults used by your formatting
+string or provide details to customize it.
+
+\begin{verbatim}
+  // format so humans can read the date
+  format date1 %d
+  list date1 in 1/5
+  // format with detail
+  format date1 %tdMonth_dd,_CCYY
+  list date1 in 1/5
+\end{verbatim}
+
+\begin{verbatim}
+
+format date1 %d
+list date1 in 1/5
+
+     +-----------+
+     |     date1 |
+     |-----------|
+  1. | 09nov2020 |
+  2. | 09nov2020 |
+  3. | 09nov2020 |
+  4. | 09nov2020 |
+  5. | 09nov2020 |
+     +-----------+
+
+format date1 %tdMonth_dd,_CCYY
+list date1 in 1/5
+
+     +------------------+
+     |            date1 |
+     |------------------|
+  1. | November 9, 2020 |
+  2. | November 9, 2020 |
+  3. | November 9, 2020 |
+  4. | November 9, 2020 |
+  5. | November 9, 2020 |
+     +------------------+
+\end{verbatim}
+
+\section{Exercise 1}\label{exercise-1-4}
+
+\textbf{Missing Values, String Conversion, and by Processing}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Recode values ``99'' and ``98'' on the variable, ``hrs1'' as
+  ``missing.''
+\item
+  Recode the marital variable into a ``string'' variable and then back
+  into a numeric variable.
+\item
+  Create a new variable that associates each individual with the average
+  number of hours worked among individuals with matching educational
+  degrees (see the last ``by'' example for inspiration).
+\end{enumerate}
+
+\section{Merging, appending, and
+joining}\label{merging-appending-and-joining}
+
+\subsection{Appending Datasets}\label{appending-datasets}
+
+Sometimes you have observations in two different datasets, or you'd like
+to add observations to an existing dataset. In this case you can use the
+\texttt{append} command to add observations to the end of the
+observations in the master dataset. For example:
+
+\begin{verbatim}
+  clear
+  // from the append help file
+  webuse even
+  list
+  webuse odd
+  list
+  // Append even data to the end of the odd data
+  append using "http://www.stata-press.com/data/r14/even"
+  list
+  clear
+\end{verbatim}
+
+\begin{verbatim}
+clear
+
+webuse even
+(6th through 8th even numbers)
+list
+
+     +---------------+
+     | number   even |
+     |---------------|
+  1. |      6     12 |
+  2. |      7     14 |
+  3. |      8     16 |
+     +---------------+
+webuse odd
+(First five odd numbers)
+list
+
+     +--------------+
+     | number   odd |
+     |--------------|
+  1. |      1     1 |
+  2. |      2     3 |
+  3. |      3     5 |
+  4. |      4     7 |
+  5. |      5     9 |
+     +--------------+
+
+append using "http://www.stata-press.com/data/r14/even"
+list
+
+     +---------------------+
+     | number   odd   even |
+     |---------------------|
+  1. |      1     1      . |
+  2. |      2     3      . |
+  3. |      3     5      . |
+  4. |      4     7      . |
+  5. |      5     9      . |
+     |---------------------|
+  6. |      6     .     12 |
+  7. |      7     .     14 |
+  8. |      8     .     16 |
+     +---------------------+
+clear
+\end{verbatim}
+
+To keep track of where observations came from, use the \texttt{generate}
+option as shown below:
+
+\begin{verbatim}
+  webuse odd
+  append using "http://www.stata-press.com/data/r14/even", generate(observesource)
+  list
+  clear
+\end{verbatim}
+
+\begin{verbatim}
+webuse odd
+(First five odd numbers)
+ ce)
+list
+
+     +--------------------------------+
+     | number   odd   observ~e   even |
+     |--------------------------------|
+  1. |      1     1          0      . |
+  2. |      2     3          0      . |
+  3. |      3     5          0      . |
+  4. |      4     7          0      . |
+  5. |      5     9          0      . |
+     |--------------------------------|
+  6. |      6     .          1     12 |
+  7. |      7     .          1     14 |
+  8. |      8     .          1     16 |
+     +--------------------------------+
+clear
+\end{verbatim}
+
+There is a ``force'' option will allow for data type mismatches, but
+again this is not recommended.
+
+Remember, \texttt{append} is for adding observations (i.e., rows) from a
+second data set.
+
+\subsection{Merging Datasets}\label{merging-datasets}
+
+You can \texttt{merge} variables from a second dataset to the dataset
+you're currently working with.
+
+\begin{itemize}
+\tightlist
+\item
+  Current active dataset = master dataset
+\item
+  Dataset you'd like to merge with master = using dataset
+\end{itemize}
+
+There are different ways that you might be interested in merging data:
+
+\begin{itemize}
+\tightlist
+\item
+  Two datasets with same participant pool, one row per participant (1:1)
+\item
+  A dataset with one participant per row with a dataset with multiple
+  rows per participant (1:many or many:1)
+\end{itemize}
+
+Before you begin:
+
+\begin{itemize}
+\tightlist
+\item
+  Identify the ``ID'' that you will use to merge your two datasets
+\item
+  Determine which variables you'd like to merge
+\item
+  In Stata \textgreater{}= 11, data does NOT have to be sorted
+\item
+  Variable types must match across datasets (there is a ``force'' option
+  to get around this, but not recommended)
+\end{itemize}
+
+\begin{verbatim}
+  // Adapted from the merge help page
+  webuse autosize 
+  list
+  webuse autoexpense
+  list
+
+  webuse autosize
+  merge 1:1 make using "http://www.stata-press.com/data/r14/autoexpense"
+  list
+  clear
+
+  // keep only the matches (AKA "inner join")
+  webuse autosize, clear
+  merge 1:1 make using "http://www.stata-press.com/data/r14/autoexpense", keep(match) nogen
+  list
+  clear
+\end{verbatim}
+
+\begin{verbatim}
+
+webuse autosize 
+(1978 Automobile Data)
+list
+
+     +------------------------------------+
+     | make               weight   length |
+     |------------------------------------|
+  1. | Toyota Celica       2,410      174 |
+  2. | BMW 320i            2,650      177 |
+  3. | Cad. Seville        4,290      204 |
+  4. | Pont. Grand Prix    3,210      201 |
+  5. | Datsun 210          2,020      165 |
+     |------------------------------------|
+  6. | Plym. Arrow         3,260      170 |
+     +------------------------------------+
+webuse autoexpense
+(1978 Automobile Data)
+list
+
+     +---------------------------------+
+     | make                price   mpg |
+     |---------------------------------|
+  1. | Toyota Celica       5,899    18 |
+  2. | BMW 320i            9,735    25 |
+  3. | Cad. Seville       15,906    21 |
+  4. | Pont. Grand Prix    5,222    19 |
+  5. | Datsun 210          4,589    35 |
+     +---------------------------------+
+
+webuse autosize
+(1978 Automobile Data)
+merge 1:1 make using "http://www.stata-press.com/data/r14/autoexpense"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             1
+        from master                         1  (_merge==1)
+        from using                          0  (_merge==2)
+
+    matched                                 5  (_merge==3)
+    -----------------------------------------
+list
+
+     +---------------------------------------------------------------------+
+     | make               weight   length    price   mpg            _merge |
+     |---------------------------------------------------------------------|
+  1. | BMW 320i            2,650      177    9,735    25       matched (3) |
+  2. | Cad. Seville        4,290      204   15,906    21       matched (3) |
+  3. | Datsun 210          2,020      165    4,589    35       matched (3) |
+  4. | Plym. Arrow         3,260      170        .     .   master only (1) |
+  5. | Pont. Grand Prix    3,210      201    5,222    19       matched (3) |
+     |---------------------------------------------------------------------|
+  6. | Toyota Celica       2,410      174    5,899    18       matched (3) |
+     +---------------------------------------------------------------------+
+clear
+
+
+webuse autosize, clear
+(1978 Automobile Data)
+ match) nogen
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                                 5  
+    -----------------------------------------
+list
+
+     +---------------------------------------------------+
+     | make               weight   length    price   mpg |
+     |---------------------------------------------------|
+  1. | BMW 320i            2,650      177    9,735    25 |
+  2. | Cad. Seville        4,290      204   15,906    21 |
+  3. | Datsun 210          2,020      165    4,589    35 |
+  4. | Pont. Grand Prix    3,210      201    5,222    19 |
+  5. | Toyota Celica       2,410      174    5,899    18 |
+     +---------------------------------------------------+
+clear
+\end{verbatim}
+
+Remember, \texttt{merge} is for adding variables (i.e., columns) from a
+second data set.
+
+\subsection{Merge Options}\label{merge-options}
+
+There are several options that provide more fine-grain control over what
+happens to non-id columns contained in both data sets. If you've
+carefully cleaned and prepared the data prior to merging this shouldn't
+be an issue, but here are some details about how stata handles this
+situation.
+
+\begin{itemize}
+\tightlist
+\item
+  In standard merge, the master dataset is the authority and WON'T
+  CHANGE
+\item
+  If your master dataset has missing data and some of those values are
+  not missing in your using dataset, specify ``update'' -- this will
+  fill in missing data in master
+\item
+  If you want data from your using dataset to overwrite that in your
+  master, specify ``replace update'' -- this will replace master data
+  with using data UNLESS the value is missing in the using dataset
+\end{itemize}
+
+\subsection{Many-to-many merges}\label{many-to-many-merges}
+
+Stata allows you to specify merges like
+\texttt{merge\ m:m\ id\ using\ newdata.dta}, but I have never seen this
+do anything useful. To quote the official
+\href{https://www.stata.com/manuals13/dmerge.pdf}{Stata manual}:
+
+\begin{quote}
+\texttt{m:m} specifies a many-to-many merge and is a \textbf{bad idea}.
+In an \texttt{m:m} merge, observations are matched within equal values
+of the key variable(s), with the first observation being matched to the
+first; the second, to the second; and so on. If the master and using
+have an unequal number of observations within the group, then the last
+observation of the shorter group is used repeatedly to match with
+subsequent observations of the longer group. Thus \textbf{m:m merges are
+dependent on the current sort order---something which should never
+happen}. \textbf{Because m:m merges are such a bad idea, we are not
+going to show you an example}. If you think that you need an m:m merge,
+then you probably need to work with your data so that you can use a 1:m
+or m:1 merge. Tips for this are given in Troubleshooting m:m merges
+below
+\end{quote}
+
+(emphasis added).
+
+If you are thinking about using \texttt{merge\ m:m} chances are good
+that you actually need \texttt{joinby}. Here is a quick example,
+modified from the \texttt{joinby} help page.
+
+\begin{verbatim}
+  clear
+  webuse parent
+  list
+  webuse children
+  list
+  // Complete and utter nonsense!
+  merge m:m family_id using http://www.stata-press.com/data/r14/parent 
+  // You want joinby instead
+  clear
+  webuse children
+  joinby family_id using http://www.stata-press.com/data/r14/parent 
+\end{verbatim}
+
+Remember, \texttt{merge\ m:m} is old and broken; \textbf{do not use}.
+Anytime you think you might want \texttt{m:m} you should use
+\texttt{joinby} instead.
+
+\section{Creating summarized data
+sets}\label{creating-summarized-data-sets}
+
+\subsection{Collapse}\label{collapse}
+
+Collapse will take master data and create a new dataset of summary
+statistics
+
+\begin{itemize}
+\tightlist
+\item
+  Useful in hierarchical linear modeling if you'd like to create
+  aggregate, summary statistics
+\item
+  Can generate group summary data for many descriptive stats
+\item
+  Can also attach weights
+\end{itemize}
+
+Before you collapse:
+
+\begin{itemize}
+\tightlist
+\item
+  Save your master dataset and then save it again under a new name (this
+  will prevent collapse from writing over your original data\_
+\item
+  Consider issues of missing data. Do you want Stata to use all possible
+  observations? If not, the \texttt{cw} (casewise) option will make
+  casewise deletions
+\end{itemize}
+
+\begin{verbatim}
+  // Adapted from the collapse help page
+  clear
+  webuse college
+  list
+  // mean and sd by hospital
+  collapse (mean) mean_gpa = gpa mean_hour = hour (sd) sd_gpa = gpa sd_hour = hour, by(year)
+  list
+  clear
+\end{verbatim}
+
+\begin{verbatim}
+
+clear
+webuse college
+list
+
+     +----------------------------+
+     | gpa   hour   year   number |
+     |----------------------------|
+  1. | 3.2     30      1        3 |
+  2. | 3.5     34      1        2 |
+  3. | 2.8     28      1        9 |
+  4. | 2.1     30      1        4 |
+  5. | 3.8     29      2        3 |
+     |----------------------------|
+  6. | 2.5     30      2        4 |
+  7. | 2.9     35      2        5 |
+  8. | 3.7     30      3        4 |
+  9. | 2.2     35      3        2 |
+ 10. | 3.3     33      3        3 |
+     |----------------------------|
+ 11. | 3.4     32      4        5 |
+ 12. | 2.9     31      4        2 |
+     +----------------------------+
+
+ our, by(year)
+list
+
+     +--------------------------------------------------+
+     | year   mean_gpa   mean_h~r     sd_gpa    sd_hour |
+     |--------------------------------------------------|
+  1. |    1        2.9       30.5   .6055301   2.516612 |
+  2. |    2   3.066667   31.33333   .6658328    3.21455 |
+  3. |    3   3.066667   32.66667   .7767453   2.516612 |
+  4. |    4       3.15       31.5   .3535534   .7071068 |
+     +--------------------------------------------------+
+clear
+\end{verbatim}
+
+You could also generate different statistics for multiple variables
+
+\section{Exercise 2:}\label{exercise-2-3}
+
+\textbf{Merge, Append, and Collapse}
+
+Open the gss2.dta dataset. This dataset contains only half of the
+variables that are in the complete gss dataset.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Merge dataset gss1.dta with dataset gss2.dta. The identification
+  variable is ``id.''
+\item
+  Open the gss.dta dataset and merge in data from the ``marital.dta''
+  dataset, which includes income information grouped by individuals'
+  marital status. The marital dataset contains collapsed data regarding
+  average statistics of individuals based on their marital status.
+\item
+  Open the gssAppend.dta dataset and Create a new dataset that combines
+  the observations in gssAppend.dta with those in gssAddObserve.dta.
+\item
+  Open the gss.dta dataset. Create a new dataset that summarizes mean
+  and standard deviation of income based on individuals' degree status
+  (``degree''). In the process of creating this new dataset, rename your
+  three new variables.
+\end{enumerate}
+
+\section{Exercise Solutions}\label{exercise-solutions-4}
+
+\subsection{Ex 0: prototype}\label{ex-0-prototype-4}
+
+Open the gss.dta data.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \[@1\] Generate a new variable that represents the squared value of
+  age.
+\end{enumerate}
+
+\begin{verbatim}
+     use dataSets/gss.dta, clear
+     gen age2 = age^2
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \[@2\] Generate a new variable equal to ``1'' if income is greater
+  than ``19''.
+\end{enumerate}
+
+\begin{verbatim}
+     describe income
+     label list income
+     recode income (99=.) (98=.)
+     gen highincome =0 if income != .
+     replace highincome=1 if income>19
+     sum highincome
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \[@3\]Create a new variable that counts the number of missing
+  responses for each respondent. What is the maximum number of missing
+  variables?
+\end{enumerate}
+
+\begin{verbatim}
+  egen nmissing = rowmiss(_all)
+  sum nmissing
+\end{verbatim}
+
+\subsection{Ex 1: prototype}\label{ex-1-prototype-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \[@1\] Recode values ``99'' and ``98'' on the variable, ``hrs1'' as
+  ``missing.''
+\end{enumerate}
+
+\begin{verbatim}
+  use dataSets/gss.dta, clear
+  sum hrs1
+  recode hrs1 (99=.) (98=.) 
+  sum hrs1
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \[@2\] Recode the marital variable into a ``string'' variable and then
+  back into a numeric variable.
+\end{enumerate}
+
+\begin{verbatim}
+  tostring marital, gen(marstring)
+  destring marstring, gen(mardstring)
+  //compare with
+  decode marital, gen(marital_s)
+  encode marital_s, gen(marital_n)
+
+  describe marital marstring mardstring marital_s marital_n
+  sum marital marstring mardstring marital_s marital_n
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \[@3\] Create a new variable that associates each individual with the
+  average number of hours worked among individuals with matching
+  educational degrees (see the last ``by'' example for inspiration).
+\end{enumerate}
+
+\begin{verbatim}
+  bysort degree: egen hrsdegree = mean(hrs1)
+  tab hrsdegree
+  tab hrsdegree degree 
+\end{verbatim}
+
+\subsection{Ex 2: prototype}\label{ex-2-prototype-3}
+
+Open the gss2.dta dataset. This dataset contains only half of the
+variables that are in the complete gss dataset.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \[@1\] Merge dataset gss1.dta with dataset gss2.dta. The
+  identification variable is ``id.''
+\end{enumerate}
+
+\begin{verbatim}
+  use dataSets/gss2.dta, clear
+  merge 1:1 id using dataSets/gss1.dta
+  save gss3.dta, replace
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \[@2\] Open the gss.dta dataset and merge in data from the
+  ``marital.dta'' dataset, which includes income information grouped by
+  individuals' marital status. The marital dataset contains collapsed
+  data regarding average statistics of individuals based on their
+  marital status.
+\end{enumerate}
+
+\begin{verbatim}
+  use dataSets/gss.dta, clear
+  merge m:1 marital using dataSets/marital.dta, nogenerate replace update
+  save gss4.dta, replace
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \[@3\] Open the gssAppend.dta dataset and Create a new dataset that
+  combines the observations in gssAppend.dta with those in
+  gssAddObserve.dta.
+\end{enumerate}
+
+\begin{verbatim}
+  use dataSets/gssAppend.dta, clear
+  append using dataSets/gssAddObserve, generate(observe) 
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \[@4\] Open the gss.dta dataset. Create a new dataset that summarizes
+  mean and standard deviation of income based on individuals' degree
+  status (``degree''). In the process of creating this new dataset,
+  rename your three new variables.
+\end{enumerate}
+
+\begin{verbatim}
+  use dataSets/gss.dta, clear
+  save collapse2.dta, replace
+  use collapse2.dta, clear
+  collapse (mean) meaninc=income (sd) sdinc=income, by(marital)
+\end{verbatim}
+
+\section{Wrap-up}\label{wrap-up-8}
+
+\subsection{Feedback}\label{feedback-8}
+
+These workshops are a work-in-progress, please provide any feedback to:
+\href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
+
+\subsection{Resources}\label{resources-8}
+
+\begin{itemize}
+\tightlist
+\item
+  IQSS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Workshops: \url{https://dss.iq.harvard.edu/workshop-materials}
+  \item
+    Data Science Services: \url{https://dss.iq.harvard.edu/}
+  \item
+    Research Computing Environment:
+    \url{https://iqss.github.io/dss-rce/}
+  \end{itemize}
+\item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Research Computing Services workshops:
+    \url{https://training.rcs.hbs.org/workshops}
+  \item
+    Other HBS RCS resources:
+    \url{https://training.rcs.hbs.org/workshop-materials}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
+  \end{itemize}
+\item
+  Stata
+
+  \begin{itemize}
+  \tightlist
+  \item
+    UCLA website: \url{http://www.ats.ucla.edu/stat/Stata/}
+  \item
+    Stata website: \url{http://www.stata.com/help.cgi?contents}
+  \item
+    Email list: \url{http://www.stata.com/statalist/}
+  \end{itemize}
+\end{itemize}
+
+\chapter{Stata Modeling and Graphing}\label{stata-modeling-and-graphing}
+
+\textbf{Topics}
+
+\begin{itemize}
+\tightlist
+\item
+  Stata modeling
+\item
+  Simple regression
+\item
+  Multiple regression
+\item
+  Interactions
+\item
+  Exporting regression tables
+\item
+  Testing model assumptions
+\item
+  Stata graphing
+\item
+  Univariate graphs
+\item
+  Bivariate graphs
+\end{itemize}
+
+\section{Setup}\label{setup-8}
+
+\subsection{Software \& Materials}\label{software-materials-8}
+
+Laptop users: you will need a copy of Stata installed on your machine.
+Harvard FAS affiliates can install a licensed version from
+\url{http://downloads.fas.harvard.edu/download}
+
+\begin{itemize}
+\tightlist
+\item
+  Download class materials at
+  \url{https://github.com/IQSS/dss-workshops-redux/raw/master/Stata/StataModGraph.zip}
+\item
+  Extract materials from the zipped directory \texttt{StataModGraph.zip}
+  (Right-click =\textgreater{} Extract All on Windows, double-click on
+  Mac) and move them to your desktop!
+\end{itemize}
+
+\subsection{Organization}\label{organization-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Please feel free to ask questions at any point if they are relevant to
+  the current topic (or if you are lost!)
+\item
+  Collaboration is encouraged - please introduce yourself to your
+  neighbors!
+\item
+  If you are using a laptop, you will need to adjust file paths
+  accordingly
+\item
+  Make comments in your Do-file - save on flash drive or email to
+  yourself
+\end{itemize}
+
+\subsection{Goals}\label{goals-8}
+
+\begin{itemize}
+\tightlist
+\item
+  This is an introduction to modeling and visualization in Stata
+\item
+  Assumes basic knowledge of Stata
+\item
+  Not appropriate for people already familiar with Stata
+\item
+  If you are catching on before the rest of the class, experiment with
+  command features described in help files
+\item
+  Learning Objectives:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Fit models in Stata
+  \item
+    Test modeling assumptions
+  \item
+    Plot basic graphs in Stata
+  \item
+    Plot two-way graphs
+  \end{itemize}
+\end{itemize}
+
+\section{Fitting models in Stata}\label{fitting-models-in-stata}
+
+\subsection{Today's Dataset}\label{todays-dataset}
+
+\begin{itemize}
+\tightlist
+\item
+  We have data on a variety of variables for all 50 states
+\item
+  Population, density, energy use, voting tendencies, graduation rates,
+  income, etc.
+\item
+  We're going to be predicting SAT scores
+\item
+  Univariate Regression: SAT scores and Education Expenditures
+\item
+  Does the amount of money spent on education affect the mean SAT score
+  in a state?
+\item
+  Dependent variable: csat
+\item
+  Independent variable: expense
+\end{itemize}
+
+\subsection{Opening Files in Stata}\label{opening-files-in-stata-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Look at bottom left hand corner of Stata screen
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This is the directory Stata is currently reading from
+  \end{itemize}
+\item
+  Files are located in the StataStatistics folder on the Desktop
+\item
+  Start by telling Stata where to look for these
+\end{itemize}
+
+\begin{verbatim}
+  // change directory
+  cd "~/tutorials/Stata/StataStatGraph"
+\end{verbatim}
+
+\begin{verbatim}
+set more off
+
+cd "~/tutorials/Stata/StataStatGraph"
+/nfs/www/edu-harvard-iq-tutorials/Stata/StataStatGraph
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Use dir to see what is in the directory:
+\end{itemize}
+
+\begin{verbatim}
+  dir
+  cd dataSets
+  dir
+  cd ..
+\end{verbatim}
+
+\begin{verbatim}
+dir
+
+total 8
+drwxr-sr-x. 2 izahn tutorwww 4096 Oct 22 21:59 dataSets/
+drwxr-sr-x. 3 izahn tutorwww 4096 Oct 22 21:59 images/
+cd dataSets
+/nfs/www/edu-harvard-iq-tutorials/Stata/StataStatGraph/dataSets
+dir
+
+total 21008
+-rwxr-xr-x. 1 izahn tutorwww 21103444 Oct 22 21:59 NatNeighCrimeStudy.dta*
+-rwxr-xr-x. 1 izahn tutorwww     8977 Oct 22 21:59 states.dta*
+-rwxr-xr-x. 1 izahn tutorwww   298191 Oct 22 21:59 TimePollPubSchools.dta*
+cd ..
+/nfs/www/edu-harvard-iq-tutorials/Stata/StataStatGraph
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Load the data
+\end{itemize}
+
+\begin{verbatim}
+  // use the states data set
+  use dataSets/states.dta
+\end{verbatim}
+
+\begin{verbatim}
+
+use dataSets/states.dta
+(U.S. states data 1990-91)
+\end{verbatim}
+
+\section{Simple regression}\label{simple-regression}
+
+\subsection{Steps for Running
+Regression}\label{steps-for-running-regression}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Examine descriptive statistics
+\item
+  Look at relationship graphically and test correlation(s)
+\item
+  Run and interpret regression
+\item
+  Test regression assumptions
+\end{enumerate}
+
+\subsection{Preliminaries}\label{preliminaries}
+
+\begin{itemize}
+\tightlist
+\item
+  We want to predict csat scores from expense
+\item
+  First, let's look at some descriptives
+\end{itemize}
+
+\begin{verbatim}
+  // generate summary statistics for csat and expense
+  sum csat expense
+\end{verbatim}
+
+\begin{verbatim}
+
+sum csat expense
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        csat |         51     944.098    66.93497        832       1093
+     expense |         51    5235.961    1401.155       2960       9259
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  We want to predict csat scores from expense
+\item
+  First, let's look at some descriptives
+\end{itemize}
+
+\begin{verbatim}
+  // look at codebok
+  codebook csat expense
+\end{verbatim}
+
+\begin{verbatim}
+
+codebook csat expense
+
+-------------------------------------------------------------------------------
+csat                                                   Mean composite SAT score
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [832,1093]                   units:  1
+         unique values:  45                       missing .:  0/51
+
+                  mean:   944.098
+              std. dev:    66.935
+
+           percentiles:        10%       25%       50%       75%       90%
+                               874       886       926       997      1024
+
+-------------------------------------------------------------------------------
+expense                                         Per pupil expenditures prim&sec
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [2960,9259]                  units:  1
+         unique values:  51                       missing .:  0/51
+
+                  mean:   5235.96
+              std. dev:   1401.16
+
+           percentiles:        10%       25%       50%       75%       90%
+                              3782      4351      5000      5865      6738
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Next, view relationship graphically
+\item
+  Scatterplots work well for univariate relationships
+\end{itemize}
+
+\begin{verbatim}
+  // graph expense by csat
+  twoway scatter expense csat
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Next look at the correlation matrix
+\end{itemize}
+
+\begin{verbatim}
+  // correlate csat and expense
+  pwcorr csat expense, star(.05)
+\end{verbatim}
+
+\begin{verbatim}
+
+pwcorr csat expense, star(.05)
+
+             |     csat  expense
+-------------+------------------
+        csat |   1.0000 
+     expense |  -0.4663*  1.0000
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Not very interesting with only one predictor
+\end{itemize}
+
+\subsection{SAT scores and Education
+Expenditures}\label{sat-scores-and-education-expenditures}
+
+\begin{verbatim}
+  regress csat expense
+\end{verbatim}
+
+\begin{verbatim}
+regress csat expense
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(1, 49)        =     13.61
+       Model |  48708.3001         1  48708.3001   Prob > F        =    0.0006
+    Residual |   175306.21        49  3577.67775   R-squared       =    0.2174
+-------------+----------------------------------   Adj R-squared   =    0.2015
+       Total |   224014.51        50   4480.2902   Root MSE        =    59.814
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |  -.0222756   .0060371    -3.69   0.001    -.0344077   -.0101436
+       _cons |   1060.732    32.7009    32.44   0.000     995.0175    1126.447
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\subsection{OLS Assumptions}\label{ols-assumptions}
+
+\begin{itemize}
+\tightlist
+\item
+  Assumption 1: Specification is appropriate (i.e., no relevant omitted
+  variables)
+\item
+  Assumption 2: Homoscedasticity (The variance around the regression
+  model is the same for all values of the predictor variable)
+\item
+  Assumption 3: Errors are independent
+\item
+  Assumption 4: Relationships are linear
+\item
+  Assumption 5: Normal Distribution (only needed for inference)
+\item
+  The errors of regression equation are normally distributed
+\end{itemize}
+
+\subsubsection{Specification}\label{specification}
+
+The model specification should be informed by theory - i.e., our
+substantive knowledge of the subject matter. It's important to include
+all relevant predictors in the model, otherwise our estimates will be
+biased.
+
+\begin{itemize}
+\tightlist
+\item
+  Goodness of fit
+\end{itemize}
+
+\subsubsection{Homoscedasticity}\label{homoscedasticity}
+
+\begin{verbatim}
+  rvfplot
+\end{verbatim}
+
+\begin{verbatim}
+rvfplot
+\end{verbatim}
+
+\subsubsection{Normality}\label{normality}
+
+\begin{itemize}
+\tightlist
+\item
+  A simple histogram of the residuals can be informative
+\end{itemize}
+
+\begin{verbatim}
+  // graph the residual values of csat
+  predict resid, residual
+  histogram resid, normal 
+\end{verbatim}
+
+\begin{verbatim}
+
+predict resid, residual
+histogram resid, normal
+(bin=7, start=-131.81111, width=38.329487)
+\end{verbatim}
+
+\section{Multiple Regression}\label{multiple-regression}
+
+\begin{itemize}
+\tightlist
+\item
+  Just keep adding predictors
+\item
+  Let's try adding some predictors to the model of SAT scores
+\item
+  income :: \% students taking SATs
+\item
+  percent :: \% adults with HS diploma (high)
+\end{itemize}
+
+\subsection{Preliminaries}\label{preliminaries-1}
+
+\begin{itemize}
+\tightlist
+\item
+  As before, start with descriptive statistics and correlations
+\end{itemize}
+
+\begin{verbatim}
+  // descriptive statistics and correlations
+  sum income percent high
+  pwcorr csat expense income percent high
+\end{verbatim}
+
+\begin{verbatim}
+
+sum income percent high
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      income |         51    33.95657    6.423134     23.465     48.618
+     percent |         51    35.76471    26.19281          4         81
+        high |         51    76.26078    5.588741       64.3       86.6
+pwcorr csat expense income percent high
+
+             |     csat  expense   income  percent     high
+-------------+---------------------------------------------
+        csat |   1.0000 
+     expense |  -0.4663   1.0000 
+      income |  -0.4713   0.6784   1.0000 
+     percent |  -0.8758   0.6509   0.6733   1.0000 
+        high |   0.0858   0.3133   0.5099   0.1413   1.0000
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  regress csat on exense, income, percent, and high
+\end{itemize}
+
+\begin{verbatim}
+  regress csat expense income percent high
+\end{verbatim}
+
+\begin{verbatim}
+regress csat expense income percent high
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(4, 46)        =     51.86
+       Model |  183354.603         4  45838.6508   Prob > F        =    0.0000
+    Residual |  40659.9067        46  883.911016   R-squared       =    0.8185
+-------------+----------------------------------   Adj R-squared   =    0.8027
+       Total |   224014.51        50   4480.2902   Root MSE        =    29.731
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045604    .004384     1.04   0.304    -.0042641     .013385
+      income |   .4437858   1.138947     0.39   0.699    -1.848795    2.736367
+     percent |  -2.533084   .2454477   -10.32   0.000    -3.027145   -2.039024
+        high |   2.086599   .9246023     2.26   0.029     .2254712    3.947727
+       _cons |   836.6197   58.33238    14.34   0.000     719.2027    954.0366
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\section{Exercise 0}\label{exercise-0-5}
+
+\textbf{Multiple Regression}
+
+Open the datafile, states.dta.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Select a few variables to use in a multiple regression of your own.
+  Before running the regression, examine descriptive of the variables
+  and generate a few scatterplots.
+\item
+  Run your regression
+\item
+  Examine the plausibility of the assumptions of normality and
+  homogeneity
+\end{enumerate}
+
+\section{Interactions}\label{interactions}
+
+\begin{itemize}
+\tightlist
+\item
+  What if we wanted to test an interaction between percent \& high?
+\item
+  Option 1: generate product terms by hand
+\end{itemize}
+
+\begin{verbatim}
+  // generate product of percent and high
+  gen percenthigh = percent*high 
+  regress csat expense income percent high percenthigh
+\end{verbatim}
+
+\begin{verbatim}
+
+gen percenthigh = percent*high
+regress csat expense income percent high percenthigh
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(5, 45)        =     46.11
+       Model |  187430.401         5  37486.0801   Prob > F        =    0.0000
+    Residual |  36584.1091        45  812.980201   R-squared       =    0.8367
+-------------+----------------------------------   Adj R-squared   =    0.8185
+       Total |   224014.51        50   4480.2902   Root MSE        =    28.513
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045575   .0042044     1.08   0.284    -.0039107    .0130256
+      income |   .0887856    1.10374     0.08   0.936    -2.134261    2.311832
+     percent |  -8.143002   2.516509    -3.24   0.002    -13.21151   -3.074493
+        high |   .4240906   1.156545     0.37   0.716    -1.905311    2.753492
+ percenthigh |   .0740926   .0330909     2.24   0.030     .0074441    .1407411
+       _cons |    972.525    82.5457    11.78   0.000     806.2695    1138.781
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  What if we wanted to test an interaction between percent \& high?
+\item
+  Option 2: Let Stata do your dirty work
+\end{itemize}
+
+\begin{verbatim}
+  // use the # sign to represent interactions 
+  regress csat percent high c.percent#c.high
+  // same as . regress csat c.percent##high
+\end{verbatim}
+
+\begin{verbatim}
+
+regress csat percent high c.percent#c.high
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(3, 47)        =     77.39
+       Model |  186302.091         3  62100.6971   Prob > F        =    0.0000
+    Residual |  37712.4186        47  802.391885   R-squared       =    0.8317
+-------------+----------------------------------   Adj R-squared   =    0.8209
+       Total |   224014.51        50   4480.2902   Root MSE        =    28.327
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     percent |   -8.15717   2.488388    -3.28   0.002    -13.16316   -3.151179
+        high |   .6674578   1.082615     0.62   0.541    -1.510482    2.845398
+             |
+   c.percent#|
+      c.high |   .0764271   .0324919     2.35   0.023     .0110619    .1417924
+             |
+       _cons |   974.9354   81.98078    11.89   0.000     810.0113    1139.859
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\subsection{Categorical Predictors}\label{categorical-predictors}
+
+\begin{itemize}
+\tightlist
+\item
+  For categorical variables, we first need to dummy code
+\item
+  Use region as example
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Option 1: create dummy codes before fitting regression model
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+  // create region dummy codes using tab 
+  tab region, gen(region)
+
+  //regress csat on region
+  regress csat region1 region2 region3
+\end{verbatim}
+
+\begin{verbatim}
+
+tab region, gen(region)
+
+Geographica |
+   l region |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       West |         13       26.00       26.00
+    N. East |          9       18.00       44.00
+      South |         16       32.00       76.00
+    Midwest |         12       24.00      100.00
+------------+-----------------------------------
+      Total |         50      100.00
+
+
+regress csat region1 region2 region3
+
+      Source |       SS           df       MS      Number of obs   =        50
+-------------+----------------------------------   F(3, 46)        =      9.61
+       Model |  82049.4719         3   27349.824   Prob > F        =    0.0000
+    Residual |  130911.908        46  2845.91105   R-squared       =    0.3853
+-------------+----------------------------------   Adj R-squared   =    0.3452
+       Total |   212961.38        49  4346.15061   Root MSE        =    53.347
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     region1 |  -63.77564   21.35592    -2.99   0.005    -106.7629    -20.7884
+     region2 |  -120.5278   23.52385    -5.12   0.000    -167.8788   -73.17672
+     region3 |  -80.08333   20.37225    -3.93   0.000    -121.0906   -39.07611
+       _cons |   1010.083   15.39998    65.59   0.000     979.0848    1041.082
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  For categorical variables, we first need to dummy code
+\item
+  Use region as example
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Option 2: Let Stata do it for you
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+  // regress csat on region using fvvarlist syntax
+  // see help fvvarlist for details
+  regress csat i.region
+\end{verbatim}
+
+\begin{verbatim}
+
+
+regress csat i.region
+
+      Source |       SS           df       MS      Number of obs   =        50
+-------------+----------------------------------   F(3, 46)        =      9.61
+       Model |  82049.4719         3   27349.824   Prob > F        =    0.0000
+    Residual |  130911.908        46  2845.91105   R-squared       =    0.3853
+-------------+----------------------------------   Adj R-squared   =    0.3452
+       Total |   212961.38        49  4346.15061   Root MSE        =    53.347
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      region |
+    N. East  |  -56.75214   23.13285    -2.45   0.018    -103.3161   -10.18813
+      South  |  -16.30769   19.91948    -0.82   0.417    -56.40353    23.78814
+    Midwest  |   63.77564   21.35592     2.99   0.005      20.7884    106.7629
+             |
+       _cons |   946.3077   14.79582    63.96   0.000     916.5253    976.0901
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\section{Exercise 1}\label{exercise-1-5}
+
+\textbf{Regression, Categorical Predictors, \& Interactions}
+
+Open the datafile, states.dta.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Add on to the regression equation that you created in exercise 1 by
+  generating an interaction term and testing the interaction.
+\item
+  Try adding a categorical variable to your regression (remember, it
+  will need to be dummy coded). You could use region or generate a new
+  categorical variable from one of the continuous variables in the
+  dataset.
+\end{enumerate}
+
+\section{Exporting and saving
+results}\label{exporting-and-saving-results}
+
+\subsection{Regression tables}\label{regression-tables}
+
+\begin{itemize}
+\tightlist
+\item
+  Usually when we're running regression, we'll be testing multiple
+  models at a time
+\item
+  Can be difficult to compare results
+\item
+  Stata offers several user-friendly options for storing and viewing
+  regression output from multiple models
+\item
+  First, download the necessary packages:
+\end{itemize}
+
+\begin{verbatim}
+  // install outreg2 package
+  findit outreg2
+\end{verbatim}
+
+\subsection{Saving and replaying}\label{saving-and-replaying}
+
+\begin{itemize}
+\tightlist
+\item
+  You can store regression model results in Stata
+\end{itemize}
+
+\begin{verbatim}
+  // fit two regression models and store the results
+  regress csat expense income percent high
+  estimates store Model1
+  regress csat expense income percent high i.region
+  estimates store Model2
+\end{verbatim}
+
+\begin{verbatim}
+
+regress csat expense income percent high
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(4, 46)        =     51.86
+       Model |  183354.603         4  45838.6508   Prob > F        =    0.0000
+    Residual |  40659.9067        46  883.911016   R-squared       =    0.8185
+-------------+----------------------------------   Adj R-squared   =    0.8027
+       Total |   224014.51        50   4480.2902   Root MSE        =    29.731
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045604    .004384     1.04   0.304    -.0042641     .013385
+      income |   .4437858   1.138947     0.39   0.699    -1.848795    2.736367
+     percent |  -2.533084   .2454477   -10.32   0.000    -3.027145   -2.039024
+        high |   2.086599   .9246023     2.26   0.029     .2254712    3.947727
+       _cons |   836.6197   58.33238    14.34   0.000     719.2027    954.0366
+------------------------------------------------------------------------------
+estimates store Model1
+regress csat expense income percent high i.region
+
+      Source |       SS           df       MS      Number of obs   =        50
+-------------+----------------------------------   F(7, 42)        =     51.07
+       Model |  190570.293         7  27224.3275   Prob > F        =    0.0000
+    Residual |  22391.0874        42  533.121128   R-squared       =    0.8949
+-------------+----------------------------------   Adj R-squared   =    0.8773
+       Total |   212961.38        49  4346.15061   Root MSE        =    23.089
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   -.004375   .0044603    -0.98   0.332    -.0133763    .0046263
+      income |   1.306164    .950279     1.37   0.177    -.6115765    3.223905
+     percent |  -2.965514   .2496481   -11.88   0.000    -3.469325   -2.461704
+        high |   3.544804   1.075863     3.29   0.002     1.373625    5.715983
+             |
+      region |
+    N. East  |   80.81334    15.4341     5.24   0.000     49.66607    111.9606
+      South  |   33.61225   13.94521     2.41   0.020     5.469676    61.75483
+    Midwest  |   32.15421   10.20145     3.15   0.003     11.56686    52.74157
+             |
+       _cons |   724.8289   79.25065     9.15   0.000     564.8946    884.7631
+------------------------------------------------------------------------------
+estimates store Model2
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Stored models can be recalled
+\end{itemize}
+
+\begin{verbatim}
+  // Display Model1
+  estimates replay Model1
+\end{verbatim}
+
+\begin{verbatim}
+
+estimates replay Model1
+
+-------------------------------------------------------------------------------
+Model Model1
+-------------------------------------------------------------------------------
+
+      Source |       SS           df       MS      Number of obs   =        51
+-------------+----------------------------------   F(4, 46)        =     51.86
+       Model |  183354.603         4  45838.6508   Prob > F        =    0.0000
+    Residual |  40659.9067        46  883.911016   R-squared       =    0.8185
+-------------+----------------------------------   Adj R-squared   =    0.8027
+       Total |   224014.51        50   4480.2902   Root MSE        =    29.731
+
+------------------------------------------------------------------------------
+        csat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     expense |   .0045604    .004384     1.04   0.304    -.0042641     .013385
+      income |   .4437858   1.138947     0.39   0.699    -1.848795    2.736367
+     percent |  -2.533084   .2454477   -10.32   0.000    -3.027145   -2.039024
+        high |   2.086599   .9246023     2.26   0.029     .2254712    3.947727
+       _cons |   836.6197   58.33238    14.34   0.000     719.2027    954.0366
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Stored models can be compared
+\end{itemize}
+
+\begin{verbatim}
+  // Compare Model1 and Model2 coefficients
+  estimates table Model1 Model2
+\end{verbatim}
+
+\begin{verbatim}
+
+estimates table Model1 Model2
+
+----------------------------------------
+    Variable |   Model1       Model2    
+-------------+--------------------------
+     expense |  .00456044   -.00437502  
+      income |  .44378583    1.3061642  
+     percent | -2.5330843   -2.9655142  
+        high |  2.0865991    3.5448038  
+             |
+      region |
+    N. East  |               80.813342  
+      South  |               33.612251  
+    Midwest  |               32.154215  
+             |
+       _cons |  836.61966    724.82886  
+----------------------------------------
+\end{verbatim}
+
+\subsection{Exporting to Excel}\label{exporting-to-excel}
+
+\begin{itemize}
+\tightlist
+\item
+  Avoid human error when transferring coefficients into tables
+\item
+  Excel can be used to format publication-ready tables
+\end{itemize}
+
+\begin{verbatim}
+  outreg2 [Model1 Model2] using csatprediction.xls, replace
+\end{verbatim}
+
+\begin{verbatim}
+outreg2 [Model1 Model2] using csatprediction.xls, replace
+~/ado/plus/o/outreg2.ado
+csatprediction.xls
+dir : seeout
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Graphing in Stata}\label{graphing-in-stata}
+
+\subsection{Graphing Strategies}\label{graphing-strategies}
+
+\begin{itemize}
+\tightlist
+\item
+  Keep it simple
+\item
+  Labels, labels, labels!!
+\item
+  Avoid cluttered graphs
+\item
+  Every part of the graph should be meaningful
+\item
+  Avoid:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Shading
+  \item
+    Distracting colors
+  \item
+    Decoration
+  \end{itemize}
+\item
+  Always know what you're working with before you get started
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Recognize scale of data
+  \item
+    If you're using multiple variables -- how do their scales align?
+  \end{itemize}
+\item
+  Before any graphing procedure review variables with \texttt{codebook},
+  \texttt{sum}, \texttt{tab}, etc.
+\item
+  HELPFUL STATA HINT: If you want your command to go on multiple lines
+  use \texttt{///} at end of each line
+\end{itemize}
+
+\subsection{Terrible Graph}\label{terrible-graph}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/Terrible.png}
+\caption{}
+\end{figure}
+
+\subsection{Much Better Graph}\label{much-better-graph}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/Good.png}
+\caption{}
+\end{figure}
+
+\section{Univariate Graphics}\label{univariate-graphics}
+
+\subsection{Our First Dataset}\label{our-first-dataset}
+
+\begin{itemize}
+\tightlist
+\item
+  Time Magazine Public School Poll
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Based on survey of 1,000 adults in U.S.
+  \item
+    Conducted in August 2010
+  \item
+    Questions regarding feelings about parental involvement, teachers
+    union, current potential for reform
+  \end{itemize}
+\item
+  Open Stata and call up the datafile for today
+\end{itemize}
+
+\begin{verbatim}
+  // Step 1: tell Stata where to find data:
+  cd "~/StataGraphics/dataSets"
+  // Step 2: call up our dataset:
+  use TimePollPubSchools.dta
+\end{verbatim}
+
+\subsection{Single Continuous
+Variables}\label{single-continuous-variables}
+
+\textbf{Example: Histograms}
+
+\begin{itemize}
+\tightlist
+\item
+  Stata assumes you're working with continuous data
+\item
+  Very simple syntax:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{hist\ varname}
+  \end{itemize}
+\item
+  Put a comma after your varname and start adding options
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{bin(\#)} : change the number of bars that the graph displays
+  \item
+    \texttt{normal} : overlay normal curve
+  \item
+    \texttt{addlabels} : add actual values to bars
+  \end{itemize}
+\end{itemize}
+
+\textbf{Histogram Options}
+
+\begin{itemize}
+\tightlist
+\item
+  To change the numeric depiction of your data add these options after
+  the comma
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Choose one: density fraction frequency percent
+  \end{itemize}
+\item
+  Be sure to properly describe your histogram:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{title(insert\ name\ of\ graph)}
+  \item
+    \texttt{subtitle(insert\ subtitle\ of\ graph)}
+  \item
+    \texttt{note(insert\ note\ to\ appear\ at\ bottom\ of\ graph)}
+  \item
+    \texttt{caption(insert\ caption\ to\ appear\ below\ notes)}
+  \end{itemize}
+\end{itemize}
+
+\textbf{Histogram Example}
+
+\begin{verbatim}
+  hist F1, bin(10) percent title(TITLE) ///
+    subtitle(SUBTITLE) caption(CAPTION) note(NOTES)
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/hist1.png}
+\caption{}
+\end{figure}
+
+\textbf{Axis Titles and Labels}
+
+\begin{itemize}
+\tightlist
+\item
+  Axis title options (default is variable label):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{xtitle(insert\ x\ axis\ name)}
+  \item
+    \texttt{ytitle(insert\ y\ axis\ name)}
+  \end{itemize}
+\item
+  Don't want axis titles?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{xtitle("")}
+  \item
+    \texttt{ytitle("")}
+  \end{itemize}
+\item
+  Add labels to X or Y axis:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    xlabel(insert x axis label)
+  \item
+    ylabel(insert y axis label)
+  \end{itemize}
+\item
+  Tell Stata how to scale each axis
+
+  \begin{itemize}
+  \tightlist
+  \item
+    xlabel(start\#(increment)end\#)
+  \item
+    xlabel(0(5)100)
+  \end{itemize}
+\item
+  This would label x-axis from 0-100 in increments of 5
+\end{itemize}
+
+\textbf{Axis Labels Example}
+
+\begin{verbatim}
+  hist F1, bin(10) percent title(TITLE) subtitle(SUBTITLE) ///
+      caption(CAPTION) note(NOTES) ///
+      xtitle(Here's your x-axis title) ///
+  ytitle(here's your y-axis title)
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/hist2.png}
+\caption{}
+\end{figure}
+
+\subsection{Single Categorical
+Variables}\label{single-categorical-variables}
+
+\begin{itemize}
+\tightlist
+\item
+  We can also use the \texttt{hist} command for bar graphs
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Simply specify ``discrete'' with options
+  \end{itemize}
+\item
+  Stata will produce one bar for each level (i.e.~category) of variable
+\item
+  Use \texttt{xlabel} command to insert names of individual categories
+\end{itemize}
+
+\begin{verbatim}
+  hist F4, title(Racial breakdown of Time Poll Sample) xtitle(Race) ///
+  ytitle(Percent) xlabel(1 "White" 2 "Black" 3 "Asian" 4 "Hispanic" ///
+   5 "Other") discrete percent addlabels
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/bargraph.png}
+\caption{}
+\end{figure}
+
+\section{Exercise 2}\label{exercise-2-4}
+
+\textbf{Histograms Bar Graphs}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Open the datafile, NatNeighCrimeStudy.dta.
+\item
+  Create a histogram of the tract-level poverty rate (variable name:
+  \texttt{T\_POVRTY}).
+\item
+  Insert the normal curve over the histogram
+\item
+  Change the numeric representation on the Y-axis to ``percent''
+\item
+  Add appropriate titles to the overall graph and the x axis and y axis.
+  Also, add a note that states the source of this data.
+\item
+  Open the datafile, TimePollPubSchools.dta
+\item
+  Create a histogram of the question, ``What grade would you give your
+  child's school'' (variable name: Q11). Be sure to tell Stata that this
+  is a categorical variable.
+\item
+  Format this graph so that the axes have proper titles and labels.
+  Also, add an appropriate title to the overall graph that goes onto two
+  lines. Add a note stating the source of the data.
+\end{enumerate}
+
+\section{Bivariate Graphics}\label{bivariate-graphics}
+
+\subsection{Next Dataset:}\label{next-dataset}
+
+\begin{itemize}
+\tightlist
+\item
+  National Neighborhood Crime Study (NNCS)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    N=9,593 census tracts in 2000
+  \item
+    Explore sources of variation in crime for communities in the United
+    States
+  \item
+    Tract-level data: crime, social disorganization, disadvantage,
+    socioeconomic inequality
+  \item
+    City-level data: labor market, socioeconomic inequality, population
+    change
+  \end{itemize}
+\end{itemize}
+
+\subsection{The Twoway Family}\label{the-twoway-family}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{twoway} is basic Stata command for all twoway graphs
+\item
+  Use \texttt{twoway} anytime you want to make comparisons among
+  variables
+\item
+  Can be used to combine graphs (i.e., overlay one graph with another
+
+  \begin{itemize}
+  \tightlist
+  \item
+    e.g., insert line of best fit over a scatter plot
+  \end{itemize}
+\item
+  Some basic examples:
+\end{itemize}
+
+\begin{verbatim}
+  use NatNeighCrimeStudy.dta
+  twoway scatter T_PERCAP T_VIOLNT
+  twoway dropline T_PERCAP T_VIOLNT
+  twoway  lfitci T_PERCAP T_VIOLNT
+\end{verbatim}
+
+\textbf{Twoway and the \texttt{by} Statement}
+
+\begin{verbatim}
+  twoway scatter T_PERCAP T_VIOLNT, by(DIVISION)
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/twowayby.png}
+\caption{}
+\end{figure}
+
+\textbf{Twoway Title Options}
+
+\begin{itemize}
+\tightlist
+\item
+  Same title options as with histogram
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{title(insert\ name\ of\ graph)}
+  \item
+    \texttt{subtitle(insert\ subtitle\ of\ graph)}
+  \item
+    \texttt{note(insert\ note\ to\ appear\ at\ bottom\ of\ graph)}
+  \item
+    \texttt{caption(insert\ caption\ to\ appear\ below\ notes)}
+  \end{itemize}
+\end{itemize}
+
+\textbf{Twoway Title Options Example}
+
+\begin{verbatim}
+  twoway scatter T_PERCAP T_VIOLNT, ///
+      title(Comparison of Per Capita Income ///
+            and Violent Crime Rate at Tract level) ///
+  xtitle(Violent Crime Rate) ytitle(Per Capita Income) ///
+      note(Source: National Neighborhood Crime Study 2000) 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  The title is a bit cramped--let's fix that:
+\end{itemize}
+
+\begin{verbatim}
+  twoway scatter T_PERCAP T_VIOLNT, ///
+      title("Comparison of Per Capita Income" ///
+  "and Violent Crime Rate at Tract level") ///
+  xtitle(Violent Crime Rate) ytitle(Per Capita Income) ///
+  note(Source: National Neighborhood Crime Study 2000) 
+\end{verbatim}
+
+\textbf{Twoway Symbol Options}
+
+\begin{itemize}
+\tightlist
+\item
+  A variety of symbol shapes are available: use
+  \texttt{palette\ symbolpalette} to seem them and \texttt{msymbol()} to
+  set them
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/Symbol.png}
+\caption{}
+\end{figure}
+
+\textbf{Twoway Symbol Options}
+
+\begin{verbatim}
+  twoway scatter T_PERCAP T_VIOLNT, ///
+      title("Comparison of Per Capita Income" ///
+  "and Violent Crime Rate at Tract level") ///
+  xtitle(Violent Crime Rate) ytitle(Per Capita Income) ///
+  note(Source: National Neighborhood Crime Study 2000) ///
+  msymbol(Sh) mcolor("red")
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/msymbol_mcolor.png}
+\caption{}
+\end{figure}
+
+\subsection{Overlaying Twoway Graphs}\label{overlaying-twoway-graphs}
+
+\begin{itemize}
+\tightlist
+\item
+  Very simple to combine multiple graphs\ldots{}just put each graph
+  command in parentheses
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{twoway\ (scatter\ var1\ var2)\ (lfit\ var1\ var2)}
+  \end{itemize}
+\item
+  Add individual options to each graph within the parentheses
+\item
+  Add overall graph options as usual following the comma
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{twoway\ (scatter\ var1\ var2)\ (lfit\ var1\ var2),\ options}
+  \end{itemize}
+\end{itemize}
+
+\textbf{Overlaying Points and Lines}
+
+\begin{verbatim}
+  twoway (scatter T_PERCAP T_VIOLNT) ///
+      (lfit T_PERCAP T_VIOLNT), ///
+      title("Comparison of Per Capita Income" ///
+            "and Violent Crime Rate at Tract level") ///
+      xtitle(Violent Crime Rate) ytitle(Per Capita Income) ///
+      note(Source: National  Neighborhood Crime Study 2000)
+\end{verbatim}
+
+\textbf{Overlaying Points and Labels}
+
+\begin{verbatim}
+  twoway (scatter T_PERCAP T_VIOLNT if T_VIOLNT==1976, ///
+          mlabel(CITY)) (scatter T_PERCAP T_VIOLNT), ///
+      title("Comparison of Per Capita Income" ///
+            "and Violent Crime Rate at Tract level") ///
+      xlabel(0(200)2400) note(Source: National Neighborhood ///
+                              Crime Study 2000) legend(off)
+\end{verbatim}
+
+\section{Exercise 3}\label{exercise-3-3}
+
+\textbf{The TwoWay Family}
+
+Open the datafile, NatNeighCrimeStudy.dta.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a basic twoway scatterplot that compares the city unemployment
+  rate (\texttt{C\_UNEMP}) to the percent secondary sector low-wage jobs
+  (\texttt{C\_SSLOW})
+\item
+  Generate the same scatterplot, but this time, divide the plot by the
+  dummy variable indicating whether the city is located in the south or
+  not (\texttt{C\_SOUTH})
+\item
+  Change the color of the symbol that you use in this scatter plot
+\item
+  Change the type of symbol you use to a marker of your choice
+\item
+  Notice in your scatterplot that is broken down by \texttt{C\_SOUTH}
+  that there is an outlier in the upper right hand corner of the ``Not
+  South'' graph. Add the city name label to this marker.
+\item
+  Review the options available under ``help twowayoptions'' and change
+  one aspect of your graph using an option that we haven't already
+  reviewed
+\end{enumerate}
+
+\subsection{More Fun with Twoway Line
+Graphs}\label{more-fun-with-twoway-line-graphs}
+
+\begin{itemize}
+\tightlist
+\item
+  Line graphs helpful for a variety of data
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Especially any type of time series data
+  \end{itemize}
+\item
+  We'll use data on US life expectancy from 1900-1999
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{webuse\ uslifeexp,\ clear}
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+  webuse uslifeexp, clear
+  twoway (line le_wm year, mcolor("red")) ///
+      (line le_bm year, mcolor("green"))
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/lineGraph1.png}
+\caption{}
+\end{figure}
+
+\begin{verbatim}
+  twoway (line (le_wfemale le_wmale le_bf le_bm) year, ///
+      lpattern(dot solid dot solid))
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/linegraph2.png}
+\caption{}
+\end{figure}
+
+\textbf{Stata Graphing Lines}
+
+\begin{verbatim}
+  palette linepalette
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{Stata/StataModGraph/images/linepalette.png}
+\caption{}
+\end{figure}
+
+\subsection{Exporting Graphs}\label{exporting-graphs}
+
+\begin{itemize}
+\tightlist
+\item
+  From Stata, right click on image and select ``save as'' or try syntax:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{graph\ export\ myfig.esp,\ replace}
+  \end{itemize}
+\item
+  In Microsoft Word: insert -\textgreater{} picture -\textgreater{} from
+  file
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Or, right click on graph in Stata and copy and paste into MS Word
+  \end{itemize}
+\end{itemize}
+
+\section{Exercise Solutions}\label{exercise-solutions-5}
+
+\section{Wrap-up}\label{wrap-up-9}
+
+\subsection{Feedback}\label{feedback-9}
+
+These workshops are a work in progress, please provide any feedback to:
+\href{mailto:help@iq.harvard.edu}{\nolinkurl{help@iq.harvard.edu}}
+
+\subsection{Resources}\label{resources-9}
+
+\begin{itemize}
+\tightlist
+\item
+  IQSS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Workshops: \url{https://dss.iq.harvard.edu/workshop-materials}
+  \item
+    Data Science Services: \url{https://dss.iq.harvard.edu/}
+  \item
+    Research Computing Environment:
+    \url{https://iqss.github.io/dss-rce/}
+  \end{itemize}
+\item
+  HBS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Research Computing Services workshops:
+    \url{https://training.rcs.hbs.org/workshops}
+  \item
+    Other HBS RCS resources:
+    \url{https://training.rcs.hbs.org/workshop-materials}
+  \item
+    RCS consulting email: \url{mailto:research@hbs.edu}
+  \end{itemize}
+\item
+  Stata
+
+  \begin{itemize}
+  \tightlist
+  \item
+    UCLA website: \url{http://www.ats.ucla.edu/stat/Stata/}
+  \item
+    Stata website: \url{http://www.stata.com/help.cgi?contents}
+  \item
+    Email list: \url{http://www.stata.com/statalist/}
   \end{itemize}
 \end{itemize}
 
