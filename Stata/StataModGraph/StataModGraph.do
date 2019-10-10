@@ -1,16 +1,16 @@
-* # Stata Modeling and Graphing
+* # Stata Modeling & Graphing
 *
 * **Topics**
 *
 * * Stata modeling
-*    + Simple regression
-*    + Multiple regression
-*    + Interactions
-*    + Exporting regression tables
-*    + Testing model assumptions
+*     + Simple regression
+*     + Multiple regression
+*     + Interactions
+*     + Exporting regression tables
+*     + Testing model assumptions
 * * Stata graphing
-*    + Univariate graphs
-*    + Bivariate graphs
+*     + Univariate graphs
+*     + Bivariate graphs
 
 * ## Setup
 *
@@ -61,12 +61,12 @@
 * * Start by telling Stata where to look for these
 
   // change directory
-  cd "~/tutorials/Stata/StataStatGraph"
+  cd "~/Desktop/Stata/StataStatGraph"
 
 * ``` example
 * set more off
 *
-* cd "~/tutorials/Stata/StataStatGraph"
+* cd "~/Desktop/Stata/StataStatGraph"
 * /nfs/www/edu-harvard-iq-tutorials/Stata/StataStatGraph
 * ```
 *

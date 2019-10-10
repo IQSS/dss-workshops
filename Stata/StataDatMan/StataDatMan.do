@@ -47,7 +47,7 @@
 * * Start by telling Stata where to look for these
 
   // change directory
-  cd "~/tutorials/Stata/StataDatMan"
+  cd "~/Desktop/Stata/StataDatMan"
 
   // Use dir to see what is in the directory:
   dir
@@ -59,7 +59,7 @@
 * ``` example
 * set more off
 *
-* cd "~/tutorials/Stata/StataDatMan"
+* cd "~/Desktop/Stata/StataDatMan"
 * /nfs/www/edu-harvard-iq-tutorials/Stata/StataDatMan
 *
 *
@@ -457,7 +457,7 @@
 * encode degree_s2, gen(degree_n2)
 * ```
 *
-* ## Converting Strings to Date/Time
+* ### Converting Strings to Date/Time
 *
 * Often date/time variables start out as strings -- You'll need to convert them to numbers using one of the conversion functions listed below.
 *
@@ -494,7 +494,7 @@
 *      +-------+
 * ```
 *
-* ## Formatting Numbers as Dates
+* ### Formatting Numbers as Dates
 *
 * Once you have converted the string to a number you can format it for display. You can simply accept the defaults used by your formatting string or provide details to customize it.
 
@@ -857,7 +857,7 @@
 *
 * You could also generate different statistics for multiple variables
 *
-* ## Exercise 2: 
+* ## Exercise 2
 *
 * **Merge, Append, and Collapse**
 *
