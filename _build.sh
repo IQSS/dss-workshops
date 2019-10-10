@@ -8,8 +8,8 @@ set -ev
 # remove docs and _bookdown_files directories before re-compiling
 rm -rf docs _bookdown_files
 
-# remove previous .zip, .r, .py, and .ipynb files throughout directory tree
-find ./ -type f \( -iname \*.zip -o -iname \*.r -o -iname \*.py -o -iname \*.ipynb \) -delete
+# remove previous .zip, .r, .py, .do, and .ipynb files throughout directory tree
+find ./ -type f \( -iname \*.zip -o -iname \*.r -o -iname \*.py -o -iname \*.ipynb \) -delete  # -o -iname \*.do
 
 Rscript -e "bookdown::render_book('rmd_files', 'bookdown::gitbook')"
 Rscript -e "bookdown::render_book('rmd_files', 'bookdown::pdf_book')"
