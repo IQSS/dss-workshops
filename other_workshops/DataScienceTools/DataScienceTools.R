@@ -78,7 +78,8 @@
 # | old and new | ASCII text file | Atom    | python  | LaTeX       | Bash shell                |
 # | modern      | SQLite database | Rstudio | R       | R Markdown  | Rstudio                   |
 # |             |                 |         |         |             |                           |
-
+# {:.table-striped}
+#
 # ## Data storage and retrieval
 #
 # Data storage and retrieval is a fairly dry topic, so we won't spend too much time on it. There are roughly four types of technology for storing and retrieving data.
@@ -129,7 +130,6 @@
 # | R       | Excellent  | Excellent     | Good             | Moderate    | Excellent         | Yes  |
 # | Python  | Good       | Good          | Excellent        | Moderate    | Excellent         | Yes  |
 # | Julia   | OK         | Excellent     | Good             | Hard        | Excellent         | Yes  |
-# |         |            |               |                  |             |                   |      |
 
 # ### Examples: Read data from a file and summarize
 #

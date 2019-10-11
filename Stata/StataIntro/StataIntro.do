@@ -163,7 +163,9 @@ export excel gss_new, replace
 *     + Then you can just go into Stata and open it
 * * Another option is **StatTransfer**, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more
 *
-* ### Exercise 0: Importing data
+* ### Exercise 0
+*
+* **Importing data**
 *
 * 1.  Save any work you've done so far. Close down Stata and open a new session.
 * 2.  Start Stata and open your `.do` file. 
@@ -234,7 +236,9 @@ bysort sex: tab happy // tabulate happy separately for men and women
 bysort marital: sum educ // summarize eudcation by marital status
 
 
-* ### Exercise 1: Descriptive statistics
+* ### Exercise 1
+*
+* **Descriptive statistics**
 *
 * 1.  Use the dataset, `gss.dta`
 * 2.  Examine a few selected variables using the describe, sum and codebook commands
@@ -275,7 +279,9 @@ bysort marital: sum educ // summarize eudcation by marital status
   /* assign our label set to the sex variable*/
   label val sex  mySexLabel
 
-* ## Exercise 2: Variable labels and value labels
+* ## Exercise 2
+*
+* **Variable labels and value labels**
 *
 * 1.  Open the data set `gss.csv`
 * 2.  Familiarize yourself with the data using describe, sum, etc.
@@ -344,12 +350,25 @@ bysort marital: sum educ // summarize eudcation by marital status
   replace young=1 if age_wealth==1 | age_wealth==2
 
 
-* ## Exercise 3: Manipulating variables
+* ## Exercise 3
+*
+* **Manipulating variables**
 *
 * 1.  Use the dataset, `gss.dta`
 * 2.  Generate a new variable, `age2` equal to `age` squared
 * 3.  Generate a new `high_income` variable that will take on a value of "1" if a person has an income value greater than "15" and "0" otherwise
 * 4.  Generate a new `divorced_separated` dummy variable that will take on a value of "1" if a person is either divorced or separated and "0" otherwise
+
+* ## Exercise solutions
+*
+* ### Ex 0: prototype
+*
+* ### Ex 1: prototype
+*
+* ### Ex 2: prototype
+*
+* ### Ex 3: prototype
+*
 
 * ## Wrap-up
 *
