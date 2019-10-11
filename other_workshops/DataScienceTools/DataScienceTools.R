@@ -45,11 +45,7 @@
 #
 # In this example we're going to process data in a text file in a way that would be familiar to a statistician working forty years ago. Surprisingly, it's not much different from the way we would do it today. Programs come and go, but the basic ideas remain pretty much the same!
 #
-# ---
-#
 # Specifically, we'll process the data in `1980_census.txt` by writing **fortran** code in the **vi** text editor and running it through the **fortran** compiler. Then we'll take the results and put them in to a **TeX** file, again using the **vi** editor to create the report. For "glue" we will use a terminal emulator running the bash shell. All of these tools were available in 1980, though some features have been added since that time.
-#
-# ---
 #
 # OLD SCHOOL DEMO:
 #
@@ -62,20 +58,17 @@
 #
 # Next we're going to do the same basic process, this time using a modern text editor (**Atom**), a different programming language (**Python**), and a modern report generation system (**LaTeX** processed via **xelatex**). For the glue we're still going to use a shell.
 #
-# ---
-#
 # OLD AND NEW DEMO:
 #
 # | example     | data storage    | editor | program | report tool | glue                      |
 # |:----------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
 # | old school  | ASCII text file | vi     | fortran | TeX         | Bourne (compatable) shell |
 # | old and new | ASCII text file | Atom   | python  | LaTeX       | Bash shell                |
+# |             |                 |        |         |             |                           |
 
 # ### A modern version
 #
 # Finally, we'll produce the same report using modern tools. Remember, the process is basically the same: we're just using different tools.
-#
-# ---
 #
 # MODERN DEMO:
 #
@@ -84,6 +77,7 @@
 # | old school  | ASCII text file | vi      | fortran | TeX         | Bourne (compatable) shell |
 # | old and new | ASCII text file | Atom    | python  | LaTeX       | Bash shell                |
 # | modern      | SQLite database | Rstudio | R       | R Markdown  | Rstudio                   |
+# |             |                 |         |         |             |                           |
 
 # ## Data storage and retrieval
 #
@@ -121,9 +115,7 @@
 # * be easy to use,
 # * be well documented,
 # * have a large user community.
-#
-# ---
-#
+
 # Note that this list is deceptively simple; each item may include a diversity of complicated features. For example,"read/write data from/to a variety of data storage systems" may include reading from databases, image files, .pdf files, .html and .xml files from a website, and any number of proprietary data storage formats.
 
 # ### Program comparison
@@ -142,9 +134,7 @@
 # ### Examples: Read data from a file and summarize
 #
 # In this example we will compare the syntax for reading and summarizing data stored in a file.
-#
-# ---
-#
+
 # * Stata
 
 import delimited using "http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv"
@@ -166,7 +156,6 @@ sum
 #     -------------+---------------------------------------------------------
 #           region |          0
 #
-# ---
 #
 # * R
 
@@ -188,9 +177,7 @@ summary(cpi)
 #     Mean   :4.052   EU W. Europe     :30  
 #     3rd Qu.:5.100   MENA             :18  
 #     Max.   :9.500   SSA              :46
-#
-# ---
-#
+
 # * Matlab
 #
 # ```matlab
@@ -241,7 +228,6 @@ summary(cpi)
 #     
 #         'org_babel_eoe'
 #
-# ---
 #
 # * Python
 
@@ -268,9 +254,7 @@ summary(cpi)
 # ### Examples: Fit a linear regression
 #
 # Fitting statistical models is pretty straight-forward in all popular programs.
-#
-# ---
-#
+
 # * Stata
 
 regress hdi cpi
@@ -291,7 +275,6 @@ regress hdi cpi
 #            _cons |   .4211666   .0205577    20.49   0.000     .3805871    .4617462
 #     ------------------------------------------------------------------------------
 #
-# ---
 #
 # * R
 
@@ -316,7 +299,6 @@ summary(lm(HDI ~ CPI, data = cpi))
 #     Multiple R-squared:  0.4968,	Adjusted R-squared:  0.4939 
 #     F-statistic: 168.9 on 1 and 171 DF,  p-value: < 2.2e-16
 #
-# ---
 #
 # * Matlab
 #
@@ -350,7 +332,6 @@ summary(lm(HDI ~ CPI, data = cpi))
 #     
 #         'org_babel_eoe'
 #
-# ---
 #
 # * Python
 
@@ -392,18 +373,14 @@ summary(lm(HDI ~ CPI, data = cpi))
 # ### Examples: Extract links for .html file
 #
 # Retrieving data from a website is a common task. Here we parse a simple web page containing links to files we wish to download.
-#
-# ---
-#
+
 # * Stata
 
 disp "Ha ha ha! No, you do not want to use Stata for this!"
 
 #     disp "Ha ha ha! No, you do not want to use Stata for this!"
 #     Ha ha ha! No, you do not want to use Stata for this!
-#
-# ---
-#
+
 # * R
 
 library(xml2)
@@ -454,9 +431,7 @@ data_links
 #     [38] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv"
 #     [39] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv"
 #     [40] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv"
-#
-# ---
-#
+
 # * Matlab
 #
 # ```matlab
@@ -521,7 +496,6 @@ data_links
 #     
 #         'org_babel_eoe'
 #
-# ---
 #
 # * Python
 
@@ -588,15 +562,9 @@ data_links
 #
 # A markup language is a system for producing a formatted document from a text file using information by the markup. A major advantage of markup languages is that the formatting instructions can be easily generated by the program you use for analyzing your data.
 #
-# ---
-#
 # Markup languages include *HTML*, *LaTeX*, *Markdown* and many others. *LaTeX* and *Markdown* are currently popular among data scientists, although others are used as well.
 #
-# ---
-#
 # *Markdown* is easy to write and designed to be human-readable. It is newer and somewhat less feature-full compared to LaTeX. It's main advantage is simplicity. *LaTeX* is more verbose but provides for just about any feature you'll ever need.
-#
-# ---
 #
 # MARKDOWN DEMO LATEX DEMO
 
@@ -604,16 +572,12 @@ data_links
 #
 # Modern word processors are largely just graphical user interfaces that write a markup language (usually XML) for you. They are commonly used for creating reports, but care must be taken when doing so.
 #
-# ---
-#
 # If you use a word processor to produce your reports you should
 #
 # * use the structured outline feature,
 # * link rather than embed external resources (figures, tables, etc.),
 # * use cross-referencing features, and
 # * use a bibliography management system.
-#
-# ---
 #
 # WORD PROCESSOR DEMO
 
