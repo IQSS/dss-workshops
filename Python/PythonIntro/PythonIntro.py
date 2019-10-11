@@ -83,7 +83,7 @@ print(alice_txt[:500]) # the [:500] gets the first 500 character -- more on this
 
 # That's all there is to it! We've read the contents of `Alice_in_wonderland.txt` and stored this text in a Python object we named `alice_txt`. Now let's start to explore this object, and learn some more things about Python along the way.
 
-# ## Counting chapters, lines, and words
+# ## Counting chapters, lines, & words
 # Now that we have the text we can start answering some questions about it. To begin with, how many words does it contain? To answer this question we can split the text up so there is one element per word, and then count the number of words.
 #
 # ### Splitting a string into a list of words
@@ -109,7 +109,7 @@ len(set(alice_words))
 
 # There are 5295 unique words in the text.
 
-# ## Exercise: Reading text from a file and splitting
+# ## Exercise: Reading text from a file & splitting
 # *Alice's Adventures in Wonderland* is full of memorable characters. The main characters from the story are listed, one-per-line, in the file named `Characters.txt`.
 #
 # NOTE: we will not always explicitly demonstrate everything you need to know in order to complete an exercise. Instead we focus on teaching you how to discover available methods and how use the help function to learn how to use them. It is expected that you will spend some time during the exercises looking for appropriate methods and perhaps reading documentation.
@@ -161,7 +161,7 @@ alice_words[-10:] # the last 10 words
  'THE',
  'END']
 
-# #### Sorting and other in-place methods
+# #### Sorting & other in-place methods
 # There are many other things we can do with lists besides extracting subsets using bracket indexing. For example, there are methods to append and remove elements from a list. When using a list method that you are unfamiliar with, it is always a good idea to read the documentation. 
 #
 # Note that many methods modify the object *in place*. For example, if we wanted to sort the last 10 words in `alice_words` we would do it like this:
@@ -171,7 +171,7 @@ print(last_10)
 last_10.sort()
 print(last_10)
 
-# ### Counting chapters and paragraphs
+# ### Counting chapters & paragraphs
 # Now that we know how to split a string and how to work with the resulting list, we can split on chapter markers to count the number of chapters. All we need to do is specify the string to split on. Since each chapter is marked with the string `'CHAPTER '` followed by the chapter number, we can split the text up into chapters using this as the separator.
 
 alice_chapters = alice_txt.split("CHAPTER ")
@@ -235,7 +235,7 @@ for chapter in alice_chapters[1:]:
     paragraphs = chapter.split("\n\n")
     print(len(paragraphs))
 
-# ### Iterating and collecting paragraphs per chapter using list comprehension
+# ### Iterating & collecting paragraphs per chapter using list comprehension
 # We could use for-loops to fill in lists of values, but there is a special syntax in Python that is often better for this use case. This special syntax is called a *list comprehension* and it looks like this:
 
 paragraphs_per_chapter = [len(chapter.split("\n\n")) 
@@ -263,7 +263,7 @@ dict(zip(chapter_names,
          [chapter.count("Alice") 
           for chapter in alice_chapters]))
 
-# ## Exercise: Iterating and counting things
+# ## Exercise: Iterating & counting things
 # Now that we know how to iterate using for-loops and list comprehensions the possibilities really start to open up. For example, we can use these techniques to count the number of times each character appears in the story. 
 #
 # 1. Make sure you have both the text and the list of characters.
@@ -291,7 +291,7 @@ dict(zip(chapter_names,
 #    to calculate the number of times each character is 
 #    mentioned in each chapter.
 
-# ## Importing numpy and calculating simple statistics
+# ## Importing numpy & calculating simple statistics
 # Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min` and `max`) but built-in math support is pretty limited.
 #
 # When you find that something isn't available in Python itself, its time to look for a package that does it. Although it is somewhat overkill for simply calculating a mean we're going to use a popular package called *numpy* for this. The *numpy* package is included in the Anaconda Python distribution we are using, so we don't need to install it separately.

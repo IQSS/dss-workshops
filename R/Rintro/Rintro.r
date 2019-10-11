@@ -136,7 +136,7 @@ help(package = "stats")
 # *contributed package* instead. This requires that we
 # learn a little bit about packages in R.
 
-# ### Installing and using R packages
+# ### Installing & using R packages
 #
 # A large number of contributed packages are available. If you are
 # looking for a package for a specific task,
@@ -219,7 +219,7 @@ library(tidyverse)
 # particular, we will use the `dplyr` package from `tidyverse`
 # to filter, select, and arrange data.
 
-# ### Filtering, selecting, and arranging data
+# ### Filtering, selecting, & arranging data
 #
 # One way to find the year in which your name was the most popular
 # is to filter out just the rows corresponding to your name, and 
@@ -520,8 +520,7 @@ save(girls_and_boys, bn_by_year, most_popular, file="myDataFiles.RData")
 ## Load the "myDataFiles.RData"
 ## load("myDataFiles.RData") 
 
-
-# ### Saving and loading R workspaces
+# ### Saving & loading R workspaces
 #
 # In addition to importing individual datasets, R can save and load entire
 # workspaces
@@ -676,8 +675,6 @@ girls_and_boys <-
   filter(Rank == 1)
 
 head(girls_and_boys)
-
-
 
 
 # ### Ex 5: prototype

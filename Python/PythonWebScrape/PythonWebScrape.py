@@ -122,7 +122,7 @@ pd.set_option('display.max_columns', 5)
 # <https://www.harvardartmuseums.org/browse> with the correct
 # parameters.
 #
-# ### Making requests using python
+# ### Making requests using Python
 # The URL we want to retrieve data from has the following structure
 #
 #     scheme                    domain    path  parameters
@@ -182,7 +182,7 @@ print(collections1)
 # trivial enterprise. We'll discuss several other scenarios and topics,
 # but for some web scraping tasks this is really all you need to know.
 #
-# ### Organizing and saving the data
+# ### Organizing & saving the data
 #
 # The records we retrieved from
 # `https://www.harvardartmuseums.org/browse` are arranged as a list of
@@ -221,7 +221,10 @@ records_final.to_csv("records_final.csv")
 
 print(records_final)
 
-# ### Exercise: Retrieve exhibits data
+# ## Exercise 0
+#
+# **Retrieve exhibits data**
+#
 # In this exercise you will retrieve information about the art
 # exhibitions at Harvard Art Museums from
 # `https://www.harvardartmuseums.org/visit/exhibitions`
@@ -388,7 +391,10 @@ all_event_values.to_csv("all_event_values.csv")
 
 print(all_event_values)
 
-# ### Exercise: parsing HTML
+# ## Exercise 1 
+#
+# **parsing HTML**
+#
 # In this exercise you will retrieve information about the physical
 # layout of the Harvard Art Museums. The web page at
 # <https://www.harvardartmuseums.org/visit/floor-plan> contains this
@@ -407,7 +413,6 @@ print(all_event_values)
 #    level one. Use Python to extract the text from those `Xpath`s.
 # 4. Bonus (optional): Write a *loop* or *list comprehension* in Python
 #    to retrieve data for all the levels.
-#
 
 # ## Use Scrapy for large or complicated projects
 # Scraping websites using the `requests` library to make GET and POST

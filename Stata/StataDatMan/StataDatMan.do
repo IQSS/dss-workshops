@@ -88,9 +88,9 @@
 * use dataSets/gss.dta
 * ```
 *
-* ## Generating and replacing variables
+* ## Generating & replacing variables
 *
-* ### Basic Data Manipulation Commands
+* ### Data Manipulation Commands
 *
 * Basic commands you'll use for generating new variables or recoding existing variables:
 *
@@ -101,7 +101,7 @@
 *
 * Many different means of accomplishing the same thing in Stata -- find what is comfortable (and easy) for you!
 *
-* ### Generate and Replace
+* ### Generate & Replace
 *
 * The `replace` command is often used with logic statements. Available logical operators include the following:
 *
@@ -332,7 +332,7 @@
 * bysort marital: egen marincomesd = sd(income)
 * ```
 *
-* ### By prefix vs. by options
+* ### `by` prefix vs. `by` options
 *
 * Some commands won't work with by prefix, but instead have a `by` option:
 
@@ -425,7 +425,7 @@
 * * Precision for float is 3.795x10<sup>-8</sup>.
 * * Precision for double is 1.414x10<sup>-16</sup>.
 *
-* ### Converting to and from Strings
+* ### Converting to & from Strings
 *
 * Stata provides several ways to convert to and from strings. You can use `tostring` and `destring` to convert from one type to the other:
 
@@ -536,14 +536,14 @@
 *
 * ## Exercise 1
 *
-* **Missing Values, String Conversion, and by Processing**
+* **Missing Values, String Conversion, & by Processing**
 *
 * 1.  Recode values "99" and "98" on the variable, "hrs1" as "missing."
 * 2.  Recode the marital variable into a "string" variable and then back into a numeric variable.
 * 3.  Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last "by" example for inspiration).
 *
 
-* ## Merging, appending, and joining
+* ## Merging, appending, & joining
 *
 * ### Appending Datasets
 *
@@ -859,7 +859,7 @@
 *
 * ## Exercise 2
 *
-* **Merge, Append, and Collapse**
+* **Merge, Append, & Collapse**
 *
 * Open the gss2.dta dataset. This dataset contains only half of the variables that are in the complete gss dataset.
 *
@@ -874,12 +874,12 @@
 *
 * Open the gss.dta data.
 *
-* 1.  \[@1\] Generate a new variable that represents the squared value of age.
+* 1. Generate a new variable that represents the squared value of age.
 
      use dataSets/gss.dta, clear
      gen age2 = age^2
 
-* 2.  \[@2\] Generate a new variable equal to "1" if income is greater than "19".
+* 2. Generate a new variable equal to "1" if income is greater than "19".
 
      describe income
      label list income
@@ -888,21 +888,21 @@
      replace highincome=1 if income>19
      sum highincome
 
-* 3.  \[@3\]Create a new variable that counts the number of missing responses for each respondent. What is the maximum number of missing variables?
+* 3. Create a new variable that counts the number of missing responses for each respondent. What is the maximum number of missing variables?
 
   egen nmissing = rowmiss(_all)
   sum nmissing
 
 * ### Ex 1: prototype
 *
-* 1.  \[@1\] Recode values "99" and "98" on the variable, "hrs1" as "missing."
+* 1. Recode values "99" and "98" on the variable, "hrs1" as "missing."
 
   use dataSets/gss.dta, clear
   sum hrs1
   recode hrs1 (99=.) (98=.) 
   sum hrs1
 
-* 2.  \[@2\] Recode the marital variable into a "string" variable and then back into a numeric variable.
+* 2. Recode the marital variable into a "string" variable and then back into a numeric variable.
 
   tostring marital, gen(marstring)
   destring marstring, gen(mardstring)
@@ -913,7 +913,7 @@
   describe marital marstring mardstring marital_s marital_n
   sum marital marstring mardstring marital_s marital_n
 
-* 3.  \[@3\] Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last "by" example for inspiration).
+* 3. Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last "by" example for inspiration).
 
   bysort degree: egen hrsdegree = mean(hrs1)
   tab hrsdegree
@@ -923,24 +923,24 @@
 *
 * Open the gss2.dta dataset. This dataset contains only half of the variables that are in the complete gss dataset.
 *
-* 1.  \[@1\] Merge dataset gss1.dta with dataset gss2.dta. The identification variable is "id."
+* 1. Merge dataset gss1.dta with dataset gss2.dta. The identification variable is "id."
 
   use dataSets/gss2.dta, clear
   merge 1:1 id using dataSets/gss1.dta
   save gss3.dta, replace
 
-* 2.  \[@2\] Open the gss.dta dataset and merge in data from the "marital.dta" dataset, which includes income information grouped by individuals' marital status. The marital dataset contains collapsed data regarding average statistics of individuals based on their marital status.
+* 2. Open the gss.dta dataset and merge in data from the "marital.dta" dataset, which includes income information grouped by individuals' marital status. The marital dataset contains collapsed data regarding average statistics of individuals based on their marital status.
 
   use dataSets/gss.dta, clear
   merge m:1 marital using dataSets/marital.dta, nogenerate replace update
   save gss4.dta, replace
 
-* 3.  \[@3\] Open the gssAppend.dta dataset and Create a new dataset that combines the observations in gssAppend.dta with those in gssAddObserve.dta.
+* 3. Open the gssAppend.dta dataset and Create a new dataset that combines the observations in gssAppend.dta with those in gssAddObserve.dta.
 
   use dataSets/gssAppend.dta, clear
   append using dataSets/gssAddObserve, generate(observe) 
 
-* 4.  \[@4\] Open the gss.dta dataset. Create a new dataset that summarizes mean and standard deviation of income based on individuals' degree status ("degree"). In the process of creating this new dataset, rename your three new variables.
+* 4. Open the gss.dta dataset. Create a new dataset that summarizes mean and standard deviation of income based on individuals' degree status ("degree"). In the process of creating this new dataset, rename your three new variables.
 
   use dataSets/gss.dta, clear
   save collapse2.dta, replace

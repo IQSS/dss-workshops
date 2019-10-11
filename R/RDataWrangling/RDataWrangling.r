@@ -101,19 +101,13 @@ library(tidyverse)
 #     spreadsheet. In what ways is the format different than the format
 #     of `1996boys_tcm77-254026.xlsx`? How might these differences make
 #     it more difficult to work with these data?
-#
 
-# ## Useful data manipulation packages
+# ## Working with Excel worksheets
 #
 # As you can see, the data is in quite a messy state. Note that this is
 # not a contrived example; this is exactly the way the data came to us
 # from the UK government website! Let's start cleaning and organizing
-# it. The `tidyverse` suite of packages provides many modern
-# conveniences that will make this job easier.
-
-library(tidyverse)
-
-# ## Working with Excel worksheets
+# it. 
 #
 # Each Excel file contains a worksheet with the baby names data we want.
 # Each file also contains additional supplemental worksheets that we are
@@ -129,14 +123,14 @@ boy.file.names <- list.files("dataSets/boys", full.names = TRUE)
 
 boy.file.names[[1]]
 
-# and we can use the `excel_sheets` function from the *readxl* package
+# and we can use the `excel_sheets()` function from the *readxl* package
 # to list the worksheet names from this file.
 
 library(readxl)
 
 excel_sheets(boy.file.names[[1]])
 
-# ### Iterating over file names with `map`
+# ### Iterating over file names with `map()`
 #
 # Now that we know how to retrieve the names of the worksheets in an
 # Excel file we could start writing code to extract the sheet names from
@@ -148,8 +142,8 @@ excel_sheets(boy.file.names[[2]])
 excel_sheets(boy.file.names[[20]])
 
 # This is not a terrible idea for a small number of files, but it is
-# more convenient to let R do the iteration for us. We could use a `for`
-# loop, or `sapply`, but the `map` family of functions from the *purrr*
+# more convenient to let R do the iteration for us. We could use a `for loop`,
+# or `sapply()`, but the `map()` family of functions from the `purrr`
 # package gives us a more consistent alternative, so we'll use that.
 
 library(purrr)
@@ -168,14 +162,14 @@ map(boy.file.names, excel_sheets)
 #
 # Here we want to detect the pattern "Table 1", and only
 # return elements with this pattern. We can do that using the
-# `str_subset` function. The first argument to `str_subset` is character
+# `str_subset()` function. The first argument to `str_subset()` is character
 # vector we want to search in. The second argument is a *regular
 # expression* matching the pattern we want to retain.
 #
 # If you are not familiar with regular expressions, <http://www.regexr.com/> is a
 # good place to start.
 #
-# Now that we know how to filter character vectors using `str_subset` we can
+# Now that we know how to filter character vectors using `str_subset()` we can
 # identify the correct sheet in a particular Excel file. For example,
 
 library(stringr)
@@ -186,7 +180,7 @@ str_subset(excel_sheets(boy.file.names[[1]]), "Table 1")
 # The `map*` functions are useful when you want to apply a function to a
 # list or vector of inputs and obtain the return values. This is very
 # convenient when a function already exists that does exactly what you
-# want. In the examples above we mapped the `excel_sheets` function to
+# want. In the examples above we mapped the `excel_sheets()` function to
 # the elements of a vector containing file names. But now there is no
 # function that both retrieves worksheet names and subsets them.
 # Fortunately, writing functions in R is easy.
@@ -204,7 +198,7 @@ map(boy.file.names,
 # ## Reading Excel data files
 #
 # Now that we know the correct worksheet from each file we can actually
-# read those data into R. We can do that using the `read_excel`
+# read those data into R. We can do that using the `read_excel()`
 # function.
 #
 # We'll start by reading the data from the first file, just to check
@@ -229,7 +223,7 @@ glimpse(tmp)
 #   2. Test your function by using it to read *one* of the boys names
 #      Excel files.
 #      
-#   3. Use the `map` function to read data from all the Excel files,
+#   3. Use the `map()` function to read data from all the Excel files,
 #      using the function you wrote in step 1.
 #
 
@@ -259,7 +253,7 @@ glimpse(tmp)
 # ### Selecting columns
 #
 # Next we want to retain just the `Name`, `Name__1` and `Count`,
-# `Count__1` columns. We can do that using the `select` function:
+# `Count__1` columns. We can do that using the `select()` function:
 
 boysNames[[1]]
 
@@ -269,7 +263,7 @@ boysNames[[1]]
 # ### Dropping missing values
 #
 # Next we want to remove blank rows and rows used for notes. An easy way
-# to do that is to use `drop_na` to remove rows with missing values.
+# to do that is to use `drop_na()` to remove rows with missing values.
 
 boysNames[[1]]
 
@@ -288,7 +282,7 @@ boysNames[[1]]
 #   2. Test your function on the first `data.frame` in the list of baby
 #      names data.
 #      
-#   3. Use the `map` function to each `data.frame` in the list of baby
+#   3. Use the `map()` function to each `data.frame` in the list of baby
 #      names data.
 #
 
@@ -296,9 +290,9 @@ boysNames[[1]]
 #
 # Our final task is to re-arrange to data so that it is all in a single
 # table instead of in two side-by-side tables. For many similar tasks
-# the `gather` function in the *tidyr* package is useful, but in this
-# case we will be better off using a combination of `select` and
-# `bind_rows`.
+# the `gather()` function in the *tidyr* package is useful, but in this
+# case we will be better off using a combination of `select()` and
+# `bind_rows()`.
 
 boysNames[[1]]
 bind_rows(select(boysNames[[1]], Name, Count),
@@ -310,14 +304,14 @@ bind_rows(select(boysNames[[1]], Name, Count),
 # **Cleanup all the data**
 #
 # In the previous examples we learned how to drop empty rows with
-# `filter`, select only relevant columns with `select`, and re-arrange
-# our data with `select` and `bind_rows`. In each case we applied the
+# `filter()`, select only relevant columns with `select()`, and re-arrange
+# our data with `select()` and `bind_rows()`. In each case we applied the
 # changes only to the first element of our `boysNames` list.
 #
-# Your task now is to use the `map` function to apply each of these
+# Your task now is to use the `map()` function to apply each of these
 # transformations to all the elements in `boysNames`.
 
-# ## Data organization and storage
+# ## Data organization & storage
 #
 # Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.
 
@@ -336,7 +330,7 @@ glimpse(head(boysNames))
 # While storing the data in separate tables by year makes some sense,
 # many operations will be easier if the data is simply stored in one big
 # table. We've already seen how to turn a list of data.frames into a
-# single data.frame using `bind_rows`, but there is a problem; The year
+# single data.frame using `bind_rows()`, but there is a problem; The year
 # information is stored in the names of the list elements, and so
 # flattening the tables into one will result in losing the year
 # information! Fortunately it is not too much trouble to add the year

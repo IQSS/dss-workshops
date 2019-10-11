@@ -111,14 +111,14 @@ list.files("dataSets")
   # Summarize and print the results
   summary(sat_mod) # show regression coefficients table
 
-# ### Why is the association between expense and SAT scores *negative*?
+# ### Why is the association between expense & SAT scores *negative*?
 #
 # Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?
 
   lm(csat ~ expense + percent, data = states_data) %>% 
   summary()
 
-# ### The `lm` class and methods
+# ### The `lm` class & methods
 #
 # OK, we fit our model. Now what?
 #
@@ -170,7 +170,7 @@ list.files("dataSets")
 #
 # Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
 
-# ## Interactions and factors
+# ## Interactions & factors
 #
 # ### Modeling interactions
 #
@@ -201,7 +201,7 @@ list.files("dataSets")
 
 # Again, **make sure to tell R which variables are categorical by converting them to factors!**
 #
-# ### Setting factor reference groups and contrasts
+# ### Setting factor reference groups & contrasts
 #
 # In the previous example we use the default contrasts for region. The default in R is treatment contrasts, with the first level as the reference. We can change the reference group or use another coding scheme using the `C` function.
 
@@ -229,7 +229,7 @@ list.files("dataSets")
 
 # ## Exercise 1
 #
-# **Interactions and factors**
+# **Interactions & factors**
 #
 # Use the states data set.
 #
@@ -276,7 +276,7 @@ list.files("dataSets")
   hyp_out_tab[, "Estimate"] <- coef(hyp_out) %>% exp()
   hyp_out_tab
 
-# ### Packages for computing and graphing predicted values
+# ### Packages for computing & graphing predicted values
 #
 # Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
 
@@ -327,7 +327,7 @@ list.files("dataSets")
 
   Exam <- read_rds("dataSets/Exam.rds")
 
-# ### The null model and ICC
+# ### The null model & ICC
 #
 # As a preliminary step it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors).
 

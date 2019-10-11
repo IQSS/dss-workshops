@@ -197,7 +197,7 @@
 *
 * * Not very interesting with only one predictor
 *
-* ### SAT scores and Education Expenditures
+* ### SAT scores & Education Expenditures
 
   regress csat expense
 
@@ -479,7 +479,7 @@
 * 1.  Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.
 * 2.  Try adding a categorical variable to your regression (remember, it will need to be dummy coded). You could use region or generate a new categorical variable from one of the continuous variables in the dataset.
 
-* ## Exporting and saving results
+* ## Exporting & saving results
 *
 * ### Regression tables
 *
@@ -491,7 +491,7 @@
   // install outreg2 package
   findit outreg2
 
-* ### Saving and replaying
+* ### Saving & replaying
 *
 * * You can store regression model results in Stata
 
@@ -692,7 +692,7 @@
 
 * ![](Stata/StataModGraph/images/hist1.png)
 *
-* **Axis Titles and Labels**
+* **Axis Titles & Labels**
 *
 * * Axis title options (default is variable label):
 *     + `xtitle(insert x axis name)`
@@ -766,7 +766,7 @@
   twoway dropline T_PERCAP T_VIOLNT
   twoway  lfitci T_PERCAP T_VIOLNT
 
-* **Twoway and the `by` Statement**
+* **Twoway & the `by` Statement**
 
   twoway scatter T_PERCAP T_VIOLNT, by(DIVISION)
 
@@ -821,7 +821,7 @@
 * * Add overall graph options as usual following the comma
 *     + `twoway (scatter var1 var2) (lfit var1 var2), options`
 *
-* **Overlaying Points and Lines**
+* **Overlaying Points & Lines**
 
   twoway (scatter T_PERCAP T_VIOLNT) ///
       (lfit T_PERCAP T_VIOLNT), ///
@@ -830,7 +830,7 @@
       xtitle(Violent Crime Rate) ytitle(Per Capita Income) ///
       note(Source: National  Neighborhood Crime Study 2000)
 
-* **Overlaying Points and Labels**
+* **Overlaying Points & Labels**
 
   twoway (scatter T_PERCAP T_VIOLNT if T_VIOLNT==1976, ///
           mlabel(CITY)) (scatter T_PERCAP T_VIOLNT), ///
@@ -852,7 +852,7 @@
 * 5.  Notice in your scatterplot that is broken down by `C_SOUTH` that there is an outlier in the upper right hand corner of the "Not South" graph. Add the city name label to this marker.
 * 6.  Review the options available under "help twoway<sub>options</sub>" and change one aspect of your graph using an option that we haven’t already reviewed
 
-* ### More Fun with Twoway Line Graphs
+* ## Twoway Line Graphs
 *
 * * Line graphs helpful for a variety of data
 *     + Especially any type of time series data
@@ -876,7 +876,7 @@
 
 * ![](Stata/StataModGraph/images/linepalette.png)
 *
-* ### Exporting Graphs
+* ## Exporting Graphs
 *
 * * From Stata, right click on image and select "save as" or try syntax:
 *     + `graph export myfig.esp, replace`
@@ -884,6 +884,14 @@
 *     + Or, right click on graph in Stata and copy and paste into MS Word
 
 * ## Exercise Solutions
+*
+* ### Ex 0: prototype
+*
+* ### Ex 1: prototype
+*
+* ### Ex 2: prototype
+*
+* ### Ex 3: prototype
 *
 
 * ## Wrap-up

@@ -144,7 +144,7 @@ ggplot(filter(housing, State %in% c("MA", "TX")),
 
 # `ggplot2` wins!
 
-# ## Geometric objects and aesthetics
+# ## Geometric objects & aesthetics
 #
 # ### Aesthetic mapping
 #
@@ -501,7 +501,7 @@ p5 + theme_minimal() +
 
 # All theme options are documented in `?theme`. 
 
-# ### Creating and saving new themes
+# ### Creating & saving new themes
 #
 # You can create new themes, as in the following example:
 
@@ -650,7 +650,7 @@ library(ggrepel)
                    force = 10))
 
 
-# #### Change the region labels and order
+# #### Change the region labels & order
 #
 # Things are starting to come together. There are just a couple more things we need to add, and then all that will be left are theme changes.
 #
@@ -677,7 +677,7 @@ pc4$data <- dat
 pc4
 
 
-# #### Add title and format axes
+# #### Add title & format axes
 #
 # The next step is to add the title and format the axes. We do that using the `scales` system in `ggplot2`.
 
@@ -724,7 +724,7 @@ library(grid) # for the `unit()` function
         ))
 
 
-# #### Add model R<sup>2</sup> and source note
+# #### Add model R<sup>2</sup> & source note
 #
 # The last bit of information that we want to have on the graph is the variance explained by the model represented by the trend line. Lets fit that model and pull out the R<sup>2</sup> first, then think about how to get it onto the graph.
 

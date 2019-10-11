@@ -53,7 +53,7 @@
 # |:---------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
 # | old school | ASCII text file | vi     | fortran | TeX         | Bourne (compatable) shell |
 
-# ### Something old and something new
+# ### Something old & something new
 #
 # Next we're going to do the same basic process, this time using a modern text editor (**Atom**), a different programming language (**Python**), and a modern report generation system (**LaTeX** processed via **xelatex**). For the glue we're still going to use a shell.
 #
@@ -76,7 +76,7 @@
 # | old and new | ASCII text file | Atom    | python  | LaTeX       | Bash shell                |
 # | modern      | SQLite database | Rstudio | R       | R Markdown  | Rstudio                   |
 
-# ## Data storage and retrieval
+# ## Data storage & retrieval
 #
 # Data storage and retrieval is a fairly dry topic, so we won't spend too much time on it. There are roughly four types of technology for storing and retrieving data.
 
@@ -96,7 +96,7 @@
 #
 # Data that is too large to fit on a single hard drive may be stored and analyzed on a distributed file system or database such as the *Hadoop Distributed File System* or *Cassandra*. When working with data on this scale considerable infrastructure and specialized tools will be required.
 
-# ## Programming languages and statistics packages
+# ## Programming languages & statistics packages
 #
 # There are tens of programs for statistics and data science available. Here we will focus only on the more popular programs that offer a wide range of features. Note that for specific applications a specialized program may be better, e.g., many people use Mplus for structural equation models and another program for everything else.
 
@@ -127,7 +127,7 @@
 # | Python  | Good       | Good          | Excellent        | Moderate    | Excellent         | Yes  |
 # | Julia   | OK         | Excellent     | Good             | Hard        | Excellent         | Yes  |
 
-# ### Examples: Read data from a file and summarize
+# ### Examples: Read data from a file & summarize
 #
 # In this example we will compare the syntax for reading and summarizing data stored in a file.
 
@@ -577,17 +577,17 @@ data_links
 #
 # WORD PROCESSOR DEMO
 
-# ## Text editors and Integrated Development Environments
+# ## Text editors & Integrated Development Environments
 #
 # A text editor edits text obviously. But that is not all! At a minimum, a text editor will also have a mechanism for reading and writing text files. Most text editors do much more than this.
 #
 # An IDE provides tools for working with code, such as syntax highlighting, code completion, jump-to-definition, execute/compile, package management, refactoring, etc. Of course an IDE includes a text editor.
 #
-# Editors and IDE's are not really separate categories &#x2013; as you add features to a text editor it becomes more like an IDE, and a simple IDE may provide little more than a text editor. For example, Emacs is commonly referred to as a text editor, but it provides nearly every feature you would expect an IDE to have.
+# Editors and IDE's are not really separate categories; as you add features to a text editor it becomes more like an IDE, and a simple IDE may provide little more than a text editor. For example, Emacs is commonly referred to as a text editor, but it provides nearly every feature you would expect an IDE to have.
 #
 # A more useful distinction is between language-specific editors/IDEs and general purpose editors/IDEs. The former are typically easier to set up since they come pre-configured for use with a specific language. General purpose editors/IDEs typically provide language support via *plugins* and may require extensive configuration for each language.
 
-# ### Language specific editors and IDEs
+# ### Language specific editors & IDEs
 #
 # | Editor               | Features  | Ease of use | Language |
 # |:-------------------- |:--------- |:----------- |:-------- |
@@ -598,7 +598,7 @@ data_links
 #
 # LANGUAGE SPECIFIC IDE DEMO
 
-# ### General purpose editors and IDEs
+# ### General purpose editors & IDEs
 #
 # | Editor       | Features  | Ease of use | Language support |
 # |:------------ |:--------- |:----------- |:---------------- |
@@ -614,7 +614,7 @@ data_links
 #
 # GENERAL PURPOSE EDITOR DEMO
 
-# ## Literate programming and notebooks
+# ## Literate programming & notebooks
 #
 # In one of the Early demos we say an example of embedding R code in a markdown document. A closely related approach is to create a *notebook* that includes the prose of the report, the code used for the analysis, and the results produced by that code.
 
@@ -628,7 +628,7 @@ data_links
 #
 # NOTEBOOKS DEMO
 
-# ## Big data, annoying data, and computationally intensive methods
+# ## Big data, annoying data, & computationally intensive methods
 #
 # Thus far we've discussed popular programming languages, data storage and retrieval options, text editors, and reporting technology. These are the basic building blocks I recommend using just about any time you find yourself working with data. There are times however when more is needed. For example, you may wish to use distributed computing for large or resource intensive computations.
 
