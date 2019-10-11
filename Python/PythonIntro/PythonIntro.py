@@ -109,7 +109,10 @@ len(set(alice_words))
 
 # There are 5295 unique words in the text.
 
-# ## Exercise: Reading text from a file & splitting
+# ## Exercise 0
+#
+# **Reading text from a file & splitting**
+#
 # *Alice's Adventures in Wonderland* is full of memorable characters. The main characters from the story are listed, one-per-line, in the file named `Characters.txt`.
 #
 # NOTE: we will not always explicitly demonstrate everything you need to know in order to complete an exercise. Instead we focus on teaching you how to discover available methods and how use the help function to learn how to use them. It is expected that you will spend some time during the exercises looking for appropriate methods and perhaps reading documentation.
@@ -131,7 +134,7 @@ len(set(alice_words))
 #
 # A *list* in Python is used to store a collection of items. As with other types in Python, you can get a list of methods by typing the name of the object followed by a `.` and pressing `tab`.
 #
-# #### Extracting subsets from lists
+# ### Extracting subsets from lists
 # Among the things you can do with a list is extract subsets using bracket indexing notation. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
 #
 # The examples below show how indexing works in Python.
@@ -161,7 +164,7 @@ alice_words[-10:] # the last 10 words
  'THE',
  'END']
 
-# #### Sorting & other in-place methods
+# ### Sorting & other in-place methods
 # There are many other things we can do with lists besides extracting subsets using bracket indexing. For example, there are methods to append and remove elements from a list. When using a list method that you are unfamiliar with, it is always a good idea to read the documentation. 
 #
 # Note that many methods modify the object *in place*. For example, if we wanted to sort the last 10 words in `alice_words` we would do it like this:
@@ -197,7 +200,10 @@ print(alice_paragraphs[5], "\n==========")
 
 len(alice_paragraphs)
 
-# ## Exercise: count the number of main characters
+# ## Exercise 1
+#
+# **Count the number of main characters**
+#
 # So far we've learned that there are 12 chapters, around 830 paragraphs, and about 26 thousand words in *Alice's Adventures in Wonderland*. Along the way we've also learned how to open a file and read its contents, split strings,  calculate the length of objects, discover methods for string and list objects, and index/subset lists in Python. Now it is time for you to put these skills to use to learn something about the main characters in the story.
 #
 # 1. Count the number of main characters in the story (i.e., get the length   of the list you created in previous exercise).
@@ -206,8 +212,11 @@ len(alice_paragraphs)
 #    the previous exercise.
 #
 # 3. (BONUS, optional): Sort the list you created in step 2 alphabetically, and then extract the last element.
+
+# ## Working with nested structures
 #
-# ## Working with nested structures: words within paragraphs within chapters
+# **Words within paragraphs within chapters**
+#
 # This far our analysis as treated the text as a "flat" data structure. For example, when we counted words we just counted words in the whole document, rather than counting the number of words in each chapter. If we want to treat our document as a nested structure, with words forming sentences, sentences forming paragraphs, paragraphs forming chapters, and chapters forming the book, we need to learn some additional tools. Specifically, we need to learn how to iterate over lists (or other collections) and do things with each element in a collection.
 #
 # There are several ways to iterate in Python, of which we will focus on *for loops* and *list comprehensions*. 
@@ -263,7 +272,10 @@ dict(zip(chapter_names,
          [chapter.count("Alice") 
           for chapter in alice_chapters]))
 
-# ## Exercise: Iterating & counting things
+# ## Exercise 2
+#
+# **Iterating & counting things**
+#
 # Now that we know how to iterate using for-loops and list comprehensions the possibilities really start to open up. For example, we can use these techniques to count the number of times each character appears in the story. 
 #
 # 1. Make sure you have both the text and the list of characters.

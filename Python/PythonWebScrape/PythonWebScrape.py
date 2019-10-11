@@ -241,7 +241,7 @@ print(records_final)
 #   `DataFrame` and save it to a `.csv` file.
 #
 
-# ## Parse html if you have to
+# ## Parse HTML if you have to
 # As we've seen, you can often inspect network traffic or other sources
 # to locate the source of the data you are interested in and the API
 # used to retrieve it. You should always start by looking for these
@@ -414,7 +414,7 @@ print(all_event_values)
 # 4. Bonus (optional): Write a *loop* or *list comprehension* in Python
 #    to retrieve data for all the levels.
 
-# ## Use Scrapy for large or complicated projects
+# ## `Scrapy`: for large / complex projects
 # Scraping websites using the `requests` library to make GET and POST
 # requests, and the `lxml` library to process HTML is a good way to
 # learn basic web scraping techniques. It is a good choice for small to
@@ -424,7 +424,7 @@ print(all_event_values)
 # extracting and storing values, and more. More information about
 # `scrapy` can be found at <https://doc.scrapy.org>.
 #
-# ## Use a browser driver as a last resort
+# ## Browser drivers: a last resort
 # It is sometimes necessary (or sometimes just easier) to use a web
 # browser as an intermediary rather than communicating directly with a
 # web service. This method has the advantage of being about to use the

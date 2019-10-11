@@ -99,7 +99,7 @@ list.files("dataSets")
 
 # ![](R/Rmodels/images/statesCorr1.png)
 
-# ## Regression with continuous outcomes
+# ## Models with continuous outcomes
 #
 # * Ordinary least squares (OLS) regression models can be fit with the `lm()` function
 # * For example, we can use `lm` to predict SAT scores based on per-pupal expenditures:
@@ -237,7 +237,7 @@ list.files("dataSets")
 #
 # 2.  Try adding region to the model. Are there significant differences across the four regions?
 
-# ## Regression with binary outcomes
+# ## Models with binary outcomes
 #
 # ### Logistic regression
 #
