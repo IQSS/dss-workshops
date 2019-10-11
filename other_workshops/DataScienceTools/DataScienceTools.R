@@ -52,7 +52,6 @@
 # | example    | data storage    | editor | program | report tool | glue                      |
 # |:---------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
 # | old school | ASCII text file | vi     | fortran | TeX         | Bourne (compatable) shell |
-# |            |                 |        |         |             |                           |
 
 # ### Something old and something new
 #
@@ -64,7 +63,6 @@
 # |:----------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
 # | old school  | ASCII text file | vi     | fortran | TeX         | Bourne (compatable) shell |
 # | old and new | ASCII text file | Atom   | python  | LaTeX       | Bash shell                |
-# |             |                 |        |         |             |                           |
 
 # ### A modern version
 #
@@ -77,9 +75,7 @@
 # | old school  | ASCII text file | vi      | fortran | TeX         | Bourne (compatable) shell |
 # | old and new | ASCII text file | Atom    | python  | LaTeX       | Bash shell                |
 # | modern      | SQLite database | Rstudio | R       | R Markdown  | Rstudio                   |
-# |             |                 |         |         |             |                           |
-# {:.table-striped}
-#
+
 # ## Data storage and retrieval
 #
 # Data storage and retrieval is a fairly dry topic, so we won't spend too much time on it. There are roughly four types of technology for storing and retrieving data.
@@ -599,7 +595,6 @@ data_links
 # | Spyder               | Excellent | Easy        | Python   |
 # | Stata do file editor | OK        | Easy        | Stata    |
 # | SPSS syntax editor   | OK        | Easy        | SPSS     |
-# | &#x2026;             |           |             |          |
 #
 # LANGUAGE SPECIFIC IDE DEMO
 
@@ -609,6 +604,7 @@ data_links
 # |:------------ |:--------- |:----------- |:---------------- |
 # | Vim          | Excellent | Hard        | Good             |
 # | Emacs        | Excellent | Hard        | Excellent        |
+# | VS code      | Excellent | Easy        | Very good        |
 # | Atom         | Good      | Moderate    | Good             |
 # | Eclipse      | Excellent | Easy        | Good             |
 # | Sublime Text | Good      | Easy        | Good             |

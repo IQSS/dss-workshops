@@ -162,8 +162,8 @@ export excel gss_new, replace
 *     + Go to: file -> save as -> Stata (use most recent version available)
 *     + Then you can just go into Stata and open it
 * * Another option is **StatTransfer**, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more
-*
-* ### Exercise 0
+
+* ## Exercise 0
 *
 * **Importing data**
 *
@@ -236,7 +236,7 @@ bysort sex: tab happy // tabulate happy separately for men and women
 bysort marital: sum educ // summarize eudcation by marital status
 
 
-* ### Exercise 1
+* ## Exercise 1
 *
 * **Descriptive statistics**
 *
