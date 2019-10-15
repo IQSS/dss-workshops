@@ -330,7 +330,7 @@ baby_names %>%
 # Plotting the data makes it easier to identify interesting patterns.
 #
 # R has decent plotting tools built-in -- see e.g., `help(plot)`.
-# However, again, we will make use of an excelent *contributed
+# However, again, we will make use of an excellent *contributed
 # package* from `tidyverse` called `ggplot2`.
 #
 # For quick and simple plots we can use the `qplot()` function. For example,
@@ -433,7 +433,7 @@ head(baby_names)
 ##
 
 # 3.  Filter the baby names data to display only the most popular name 
-#     for each `Year X Sex` group. Keep only the columns: Name, Sex, and Proportion.
+#     for each `Year X Sex` group. Keep only the columns: Year, Name, Sex, and Proportion.
 ##
 
 # 4. Plot the data produced in step 4, putting `Year` on the x-axis
@@ -459,6 +459,7 @@ head(baby_names)
 #
 # First, let's see how this function works without grouping. The following 
 # code outputs the total number of girls and boys in the data:
+
 baby_names %>% 
   summarize(Girls_n = sum(Sex=="Girls"),
             Boys_n = sum(Sex=="Boys"))
