@@ -1,7 +1,8 @@
 
 ```{r, echo=FALSE, results=FALSE, eval=TRUE}
-knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.path="R/Rintro/figures/")
-knitr::opts_knit$set(root.dir="R/Rintro", base.dir="R/Rintro")
+## knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.path="R/Rintro/figures/")
+knitr::opts_chunk$set(message=FALSE, fig.path="R/Rintro/figures/")
+knitr::opts_knit$set(root.dir="R/Rintro") # base.dir="R/Rintro"
 ```
 
 # (PART) R {-}
@@ -78,7 +79,7 @@ the most popular are:
 1. **R scripts** --- a type of plain text file that allows you to write R code
 and basic comments about the code: 
 
-![](/images/Rdoc_example.png)
+![](images/Rdoc_example.png)
 
 2. [**Rmarkdown**](https://rmarkdown.rstudio.com/) --- a type of text file that 
 allows you to include plain text with R code and easily convert the contents
@@ -86,7 +87,7 @@ into HTML (for a webpage), MS Word, or PDF (via LaTeX). Many people write
 their journal papers, dissertations, and statistics/math class notes in 
 Rmarkdown, since it is easy to use and to convert into other formats later.
 
-![](/images/Rmarkdown_example.png)
+![](images/Rmarkdown_example.png)
 
 
 ## Exercise 0
@@ -121,7 +122,7 @@ you are looking for should appear in a pop up!
 The general form for calling R functions is
 
 ```{r}
-# FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
+## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
 ```
 
 Arguments can be matched by name; unnamed arguments will be matched by position.
@@ -153,7 +154,7 @@ Names should start with a letter, and contain only letters, numbers, underscores
 
 You can ask R for help using the `help` function, or the `?` shortcut.
 
-```{r}
+```{r, eval=FALSE}
 help(help)
 ?help
 ?sqrt
@@ -163,7 +164,7 @@ The `help` function can be used to look up the documentation for a function, or
 to look up the documentation to a package. We can learn how to use the `stats`
 package by reading its documentation like this:
 
-```{r}
+```{r, eval=FALSE}
 help(package = "stats")
 ```
 
@@ -202,7 +203,7 @@ workshop, so let's install them now:
 library(tidyverse)
 ```
 
-![](./images/tidyverse.png)
+![](images/tidyverse.png)
 
 We can also install the `rmarkdown` package, which will allow us to
 combine our text and code into a formatted document at the end of 
@@ -287,6 +288,11 @@ To demonstrate these techniques we'll try to determine whether
 "Alex"" or "Mark" was more popular in 1992. We start by filtering the
 data so that we keep only rows where Year is equal to `1992` and Name is
 either "Alex" or "Mark".
+
+```{r}
+## Read in the baby names data if you haven't already
+baby_names <- read_csv("babyNames.csv")
+```
 
 ```{r}
 baby_names_alexmark <- filter(baby_names, 
@@ -628,24 +634,24 @@ save those changes to a file.
 You might find functions `write_csv()` and `write_rds()` from package 
 `readr` handy!
 
-```{r}
+```{r, eval=FALSE}
 # write data to a .csv file
 write_csv(baby_names, "babyNames.csv")
 ```
 
-```{r}
+```{r, eval=FALSE}
 # write data to an R file
 write_rds(baby_names, "babyNames.rds")
 ```
 
 ### Saving multiple datasets
 
-```{r}
+```{r, eval=FALSE}
 ls() # list objects in our workspace
-save(girls_and_boys, bn_by_year, most_popular, file="myDataFiles.RData")  
+save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")  
 ```
 
-```{r}
+```{r, eval=FALSE}
 ## Load the "myDataFiles.RData"
 ## load("myDataFiles.RData") 
 ```
@@ -655,14 +661,14 @@ save(girls_and_boys, bn_by_year, most_popular, file="myDataFiles.RData")
 In addition to importing individual datasets, R can save and load entire
 workspaces
 
-```{r}
+```{r, eval=FALSE}
 ls() # list objects in our workspace
 save.image(file="myWorkspace.RData") # save workspace 
 rm(list=ls()) # remove all objects from our workspace 
 ls() # list stored objects to make sure they are deleted
 ```
 
-```{r}
+```{r, eval=FALSE}
 ## Load the "myWorkspace.RData" file and check that it is restored
 load("myWorkspace.RData") # load myWorkspace.RData
 ls() # list objects
@@ -829,7 +835,7 @@ head(baby_names)
 top1 <- 
   baby_names %>%
   filter(Rank == 1) %>%
-  select(Name, Sex, Proportion)
+  select(Year, Name, Sex, Proportion)
 
 head(top1)
 ```

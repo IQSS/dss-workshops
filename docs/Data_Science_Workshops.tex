@@ -1432,7 +1432,7 @@ the most popular are:
 
 \begin{figure}
 \centering
-\includegraphics{/images/Rdoc_example.png}
+\includegraphics{images/Rdoc_example.png}
 \caption{}
 \end{figure}
 
@@ -1451,7 +1451,7 @@ the most popular are:
 
 \begin{figure}
 \centering
-\includegraphics{/images/Rmarkdown_example.png}
+\includegraphics{images/Rmarkdown_example.png}
 \caption{}
 \end{figure}
 
@@ -1512,7 +1512,7 @@ The general form for calling R functions is
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)}
+\NormalTok{## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1614,7 +1614,7 @@ workshop, so let's install them now:
 
 \begin{figure}
 \centering
-\includegraphics{./images/tidyverse.png}
+\includegraphics{images/tidyverse.png}
 \caption{}
 \end{figure}
 
@@ -1728,6 +1728,13 @@ To demonstrate these techniques we'll try to determine whether ``Alex''"
 or ``Mark'' was more popular in 1992. We start by filtering the data so
 that we keep only rows where Year is equal to \texttt{1992} and Name is
 either ``Alex'' or ``Mark''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Read in the baby names data if you haven't already}
+\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"babyNames.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2262,7 +2269,7 @@ from package \texttt{readr} handy!
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects in our workspace}
-\KeywordTok{save}\NormalTok{(girls_and_boys, bn_by_year, most_popular, }\DataTypeTok{file=}\StringTok{"myDataFiles.RData"}\NormalTok{)  }
+\KeywordTok{save}\NormalTok{(baby_names_diana, bn_by_year, baby_names_subset, }\DataTypeTok{file=}\StringTok{"myDataFiles.RData"}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -2511,7 +2518,7 @@ workspaces
 \NormalTok{top1 <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Sex, Proportion)}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Year, Name, Sex, Proportion)}
 
 \KeywordTok{head}\NormalTok{(top1)}
 \end{Highlighting}

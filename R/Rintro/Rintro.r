@@ -1,3 +1,4 @@
+#
 # # R Introduction
 #
 # **Topics**
@@ -67,7 +68,7 @@
 # 1. **R scripts** --- a type of plain text file that allows you to write R code
 # and basic comments about the code: 
 #
-# ![](/images/Rdoc_example.png)
+# ![](images/Rdoc_example.png)
 #
 # 2. [**Rmarkdown**](https://rmarkdown.rstudio.com/) --- a type of text file that 
 # allows you to include plain text with R code and easily convert the contents
@@ -75,7 +76,7 @@
 # their journal papers, dissertations, and statistics/math class notes in 
 # Rmarkdown, since it is easy to use and to convert into other formats later.
 #
-# ![](/images/Rmarkdown_example.png)
+# ![](images/Rmarkdown_example.png)
 
 # ## Exercise 0
 #
@@ -103,7 +104,7 @@
 #
 # The general form for calling R functions is
 
-# FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
+## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
 
 # Arguments can be matched by name; unnamed arguments will be matched by position.
 
@@ -171,7 +172,7 @@ help(package = "stats")
 ## install.packages("tidyverse")
 library(tidyverse)
 
-# ![](./images/tidyverse.png)
+# ![](images/tidyverse.png)
 #
 # We can also install the `rmarkdown` package, which will allow us to
 # combine our text and code into a formatted document at the end of 
@@ -248,6 +249,9 @@ library(rmarkdown)
 # "Alex"" or "Mark" was more popular in 1992. We start by filtering the
 # data so that we keep only rows where Year is equal to `1992` and Name is
 # either "Alex" or "Mark".
+
+## Read in the baby names data if you haven't already
+baby_names <- read_csv("babyNames.csv")
 
 baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
@@ -535,7 +539,7 @@ write_rds(baby_names, "babyNames.rds")
 # ### Saving multiple datasets
 
 ls() # list objects in our workspace
-save(girls_and_boys, bn_by_year, most_popular, file="myDataFiles.RData")  
+save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")  
 
 ## Load the "myDataFiles.RData"
 ## load("myDataFiles.RData") 
@@ -658,7 +662,7 @@ head(baby_names)
 top1 <- 
   baby_names %>%
   filter(Rank == 1) %>%
-  select(Name, Sex, Proportion)
+  select(Year, Name, Sex, Proportion)
 
 head(top1)
 
