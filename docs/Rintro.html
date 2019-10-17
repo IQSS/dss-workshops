@@ -651,9 +651,23 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="r-interfaces" class="section level2">
 <h2><span class="header-section-number">2.2</span> R Interfaces</h2>
-<p>There are many different ways you can interact with R. See the <a href="http://tutorials.iq.harvard.edu/Other/DataScienceTools/DataScienceTools.html">Data Science Tools workshop notes</a> for details.</p>
-<p>For this workshop we will use RStudio; it is a good R-specific integrated development environment (IDE) that mostly just works.</p>
-<p>We will also use Rmarkdown — a type of R file that allows you to combine plain text with R code. It is easy to later convert Rmarkdown into MS Word, LaTeX, a pdf, or webpage.</p>
+<p>There are many different ways you can interact with R. See the <a href="./DataScienceTools.html">Data Science Tools workshop notes</a> for details.</p>
+<p>For this workshop we will use <a href="https://rstudio.com/">RStudio</a>; it is a good R-specific integrated development environment (IDE) with many features.</p>
+<p>There are also several different formats for writing code for R. Two of the most popular are:</p>
+<ol style="list-style-type: decimal">
+<li><strong>R scripts</strong> — a type of plain text file that allows you to write R code and basic comments about the code:</li>
+</ol>
+<div class="figure">
+<img src="images/Rdoc_example.png" />
+
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li><a href="https://rmarkdown.rstudio.com/"><strong>Rmarkdown</strong></a> — a type of text file that allows you to include plain text with R code and easily convert the contents into HTML (for a webpage), MS Word, or PDF (via LaTeX). Many people write their journal papers, dissertations, and statistics/math class notes in Rmarkdown, since it is easy to use and to convert into other formats later.</li>
+</ol>
+<div class="figure">
+<img src="images/Rmarkdown_example.png" />
+
+</div>
 </div>
 <div id="exercise-0" class="section level2">
 <h2><span class="header-section-number">2.3</span> Exercise 0</h2>
@@ -714,12 +728,15 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <p>A large number of contributed packages are available. If you are looking for a package for a specific task, <a href="https://cran.r-project.org/web/views/" class="uri">https://cran.r-project.org/web/views/</a> and <a href="https://r-pkg.org" class="uri">https://r-pkg.org</a> are good places to start.</p>
 <p>You can install a package in R using the <code>install.packages()</code> function. Once a package is installed you may use the <code>library()</code> function to attach it so that it can be used.</p>
 <p>While R’s built-in packages are powerful, in recent years there has been a big surge in well-designed <em>contributed packages</em> for R. In particular, a collection of R packages called <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures. We will use <code>tidyverse</code> packages throughout the workshop, so let’s install them now:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;tidyverse&quot;)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## install.packages(&quot;tidyverse&quot;)
 <span class="kw">library</span>(tidyverse)</code></pre></div>
 <div class="figure">
-<img src="R/Rintro/images/tidyverse.png" />
+<img src="images/tidyverse.png" />
 
 </div>
+<p>We can also install the <code>rmarkdown</code> package, which will allow us to combine our text and code into a formatted document at the end of the workshop:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## install.packages(&quot;rmarkdown&quot;)
+<span class="kw">library</span>(rmarkdown)</code></pre></div>
 </div>
 <div id="readers-for-common-file-types" class="section level3">
 <h3><span class="header-section-number">2.5.2</span> Readers for common file types</h3>
@@ -855,7 +872,7 @@ baby_names_alexmark</code></pre></div>
 </div>
 <div id="pipe-operator-in-r" class="section level2">
 <h2><span class="header-section-number">2.9</span> Pipe operator in R</h2>
-<p>There is one very special operator in R called a “pipe” operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.</p>
+<p>There is one very special operator in R called a <strong>pipe</strong> operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.</p>
 <p>There is no need to load any additional packages as the operator is made available via the <code>magrittr</code> package installed as part of <code>tidyverse</code>. Let’s rewrite the sequence of commands to output ordered counts for names “Alex” or “Mark”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>)) <span class="op">%&gt;%</span>
@@ -1184,6 +1201,7 @@ girls_and_boys &lt;-<span class="st"> </span><span class="kw">inner_join</span>(
 <ul>
 <li><a href="http://www.codeschool.com/courses/try-r" class="uri">http://www.codeschool.com/courses/try-r</a></li>
 <li><a href="http://www.datacamp.org" class="uri">http://www.datacamp.org</a></li>
+<li><a href="https://rmarkdown.rstudio.com/lesson-1.html" class="uri">https://rmarkdown.rstudio.com/lesson-1.html</a></li>
 <li><a href="http://swirlstats.com/" class="uri">http://swirlstats.com/</a></li>
 <li><a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a></li>
 </ul></li>

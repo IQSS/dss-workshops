@@ -1,4 +1,3 @@
-#
 # **Topics**
 #
 # * Iterating over files
@@ -239,11 +238,11 @@ glimpse(tmp)
 #
 # In short, we want to go from this:
 #
-# ![messy](R/RDataWrangling/images/messy.png)
+# ![messy](images/messy.png)
 #
 # to this:
 #
-# ![tidy](R/RDataWrangling/images/clean.png)
+# ![tidy](images/clean.png)
 #
 # There are many ways to do this kind of data manipulation in R. We're
 # going to use the *dplyr* and *tidyr* packages to make our lives

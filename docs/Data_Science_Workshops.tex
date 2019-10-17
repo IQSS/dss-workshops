@@ -127,36 +127,13 @@
 
 \usepackage{booktabs}
 
-\usepackage{epsfig}
-\usepackage{epstopdf}
-\usepackage{rotate}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\usepackage{alphalph}
 \usepackage{caption}
 \usepackage[hang,flushmargin]{footmisc}
 \usepackage{framed}
 \usepackage{xcolor}
 \usepackage{verbatim} 
-
-\usepackage{bm}
-\setcounter{MaxMatrixCols}{20}
-\newcommand{\Var}{\mathrm{Var}}
-\newcommand{\SD}{\mathrm{SD}}
-\newcommand{\Cov}{\mathrm{Cov}}
-\newcommand{\fx}{f({\bf x})}
-\newcommand\R{{\textsf R~}}
-\newcommand\Rst{\textsf{RStudio}}
-
-% spacing between environments
-\usepackage{amsthm}
-\makeatletter
-\def\thm@space@setup{%
-  \thm@preskip=15pt plus 2pt minus 4pt
-  \thm@postskip=\thm@preskip
-}
-\makeatother
-
 
 % Title format
 \usepackage{titling}
@@ -166,6 +143,8 @@
 \postdate{\par}
 
 \urlstyle{tt}
+
+\graphicspath{{R/Rintro/}{R/Rmodels/}{R/Rgraphics/}{R/RDataWrangling/}}
 
 \begin{document}
 \maketitle
@@ -1433,15 +1412,48 @@ R are:
 \section{R Interfaces}\label{r-interfaces}
 
 There are many different ways you can interact with R. See the
-\href{http://tutorials.iq.harvard.edu/Other/DataScienceTools/DataScienceTools.html}{Data
-Science Tools workshop notes} for details.
+\href{./DataScienceTools.html}{Data Science Tools workshop notes} for
+details.
 
-For this workshop we will use RStudio; it is a good R-specific
-integrated development environment (IDE) that mostly just works.
+For this workshop we will use \href{https://rstudio.com/}{RStudio}; it
+is a good R-specific integrated development environment (IDE) with many
+features.
 
-We will also use Rmarkdown --- a type of R file that allows you to
-combine plain text with R code. It is easy to later convert Rmarkdown
-into MS Word, LaTeX, a pdf, or webpage.
+There are also several different formats for writing code for R. Two of
+the most popular are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{R scripts} --- a type of plain text file that allows you to
+  write R code and basic comments about the code:
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics{images/Rdoc_example.png}
+\caption{}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \href{https://rmarkdown.rstudio.com/}{\textbf{Rmarkdown}} --- a type
+  of text file that allows you to include plain text with R code and
+  easily convert the contents into HTML (for a webpage), MS Word, or PDF
+  (via LaTeX). Many people write their journal papers, dissertations,
+  and statistics/math class notes in Rmarkdown, since it is easy to use
+  and to convert into other formats later.
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics{images/Rmarkdown_example.png}
+\caption{}
+\end{figure}
 
 \section{Exercise 0}\label{exercise-0}
 
@@ -1595,16 +1607,27 @@ workshop, so let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# install.packages("tidyverse")}
+\NormalTok{## install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
 \centering
-\includegraphics{R/Rintro/images/tidyverse.png}
+\includegraphics{images/tidyverse.png}
 \caption{}
 \end{figure}
+
+We can also install the \texttt{rmarkdown} package, which will allow us
+to combine our text and code into a formatted document at the end of the
+workshop:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## install.packages("rmarkdown")}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Readers for common file
 types}\label{readers-for-common-file-types}
@@ -1827,13 +1850,13 @@ and attached them with \texttt{library(tidyverse)}.
 
 \section{Pipe operator in R}\label{pipe-operator-in-r}
 
-There is one very special operator in R called a ``pipe'' operator that
-looks like this: \texttt{\%\textgreater{}\%}. It allows us to ``chain''
-several function calls and, as each function returns an object, feed it
-into the next call in a single statement, without needing extra
-variables to store the intermediate results. The point of the pipe is to
-help you write code in a way that is easier to read and understand as we
-will see below.
+There is one very special operator in R called a \textbf{pipe} operator
+that looks like this: \texttt{\%\textgreater{}\%}. It allows us to
+``chain'' several function calls and, as each function returns an
+object, feed it into the next call in a single statement, without
+needing extra variables to store the intermediate results. The point of
+the pipe is to help you write code in a way that is easier to read and
+understand as we will see below.
 
 There is no need to load any additional packages as the operator is made
 available via the \texttt{magrittr} package installed as part of
@@ -2661,6 +2684,8 @@ These workshops are a work-in-progress, please provide any feedback to:
   \item
     \url{http://www.datacamp.org}
   \item
+    \url{https://rmarkdown.rstudio.com/lesson-1.html}
+  \item
     \url{http://swirlstats.com/}
   \item
     \url{http://r4ds.had.co.nz/}
@@ -2873,7 +2898,7 @@ relationships etc.
 
 \begin{figure}
 \centering
-\includegraphics{R/Rmodels/images/statesCorr1.png}
+\includegraphics{images/statesCorr1.png}
 \caption{}
 \end{figure}
 
@@ -3203,7 +3228,7 @@ compute quantities of interest for us.
 
 \begin{figure}
 \centering
-\includegraphics{R/Rmodels/images/effects1.png}
+\includegraphics{images/effects1.png}
 \caption{}
 \end{figure}
 
@@ -3784,7 +3809,7 @@ from the Economist:
 
 \begin{figure}
 \centering
-\includegraphics{R/Rgraphics/images/Economist1.png}
+\includegraphics{images/Economist1.png}
 \caption{img}
 \end{figure}
 
@@ -4696,6 +4721,12 @@ How do I do that?}
 \subsection{\texorpdfstring{Challenge: recreate this \texttt{Economist}
 graph}{Challenge: recreate this Economist graph}}\label{challenge-recreate-this-economist-graph}
 
+\begin{figure}
+\centering
+\includegraphics{images/Economist1.png}
+\caption{img}
+\end{figure}
+
 Graph source: \url{http://www.economist.com/node/21541178}
 
 Building off of the graphics you created in the previous exercises, put
@@ -4966,7 +4997,7 @@ And here it is, our final version!
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{png}\NormalTok{(}\DataTypeTok{file =} \StringTok{"R/Rgraphics/images/econScatter10.png"}\NormalTok{, }\DataTypeTok{width =} \DecValTok{700}\NormalTok{, }\DataTypeTok{height =} \DecValTok{500}\NormalTok{)}
+\KeywordTok{png}\NormalTok{(}\DataTypeTok{file =} \StringTok{"images/econScatter10.png"}\NormalTok{, }\DataTypeTok{width =} \DecValTok{700}\NormalTok{, }\DataTypeTok{height =} \DecValTok{500}\NormalTok{)}
 \NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(dat,}
             \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =} \StringTok{"r2"}\NormalTok{),}
@@ -5692,7 +5723,7 @@ In short, we want to go from this:
 
 \begin{figure}
 \centering
-\includegraphics{R/RDataWrangling/images/messy.png}
+\includegraphics{images/messy.png}
 \caption{messy}
 \end{figure}
 
@@ -5700,7 +5731,7 @@ to this:
 
 \begin{figure}
 \centering
-\includegraphics{R/RDataWrangling/images/clean.png}
+\includegraphics{images/clean.png}
 \caption{tidy}
 \end{figure}
 

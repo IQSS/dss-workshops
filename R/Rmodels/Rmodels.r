@@ -1,4 +1,3 @@
-#
 # **Topics**
 #
 # * R formula interface
@@ -97,7 +96,7 @@ list.files("dataSets")
   # scatter plot of expense vs csat
   plot(sts_ex_sat)
 
-# ![](R/Rmodels/images/statesCorr1.png)
+# ![](images/statesCorr1.png)
 
 # ## Models with continuous outcomes
 #
@@ -286,7 +285,7 @@ list.files("dataSets")
   plot(eff)
   as.data.frame(eff) # confidence intervals
 
-# ![](R/Rmodels/images/effects1.png)
+# ![](images/effects1.png)
 
 # ## Exercise 2 
 #

@@ -1,8 +1,7 @@
 
 ```{r, echo=FALSE, results=FALSE, eval=TRUE}
-options(max.print = 100)
-# knitr::opts_chunk$set(message=FALSE)
-knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.path="R/Rgraphics/figures/")
+knitr::opts_knit$set(root.dir="R/Rgraphics", base.dir="R/Rgraphics")
 ```
 
 # R Graphics
@@ -70,7 +69,7 @@ This is an intermediate R course:
 
 By the end of the workshop you will be able to reproduce this graphic from the Economist:
 
-![img](R/Rgraphics/images/Economist1.png)
+![img](images/Economist1.png)
 
 
 ## Why `ggplot2`?
@@ -648,7 +647,7 @@ ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
 
 ### Challenge: recreate this `Economist` graph
 
-<R/Rgraphics/images/Economist1.pdf>
+![img](images/Economist1.png)
 
 Graph source: <http://www.economist.com/node/21541178>
 
@@ -853,7 +852,7 @@ OK, now that we've calculated the values, let's think about how to get them on t
 And here it is, our final version!
 
 ```{r}
-png(file = "R/Rgraphics/images/econScatter10.png", width = 700, height = 500)
+png(file = "images/econScatter10.png", width = 700, height = 500)
 p <- ggplot(dat,
             mapping = aes(x = CPI, y = HDI)) +
   geom_smooth(mapping = aes(linetype = "r2"),

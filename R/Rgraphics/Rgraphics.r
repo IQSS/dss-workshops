@@ -1,4 +1,3 @@
-#
 # **Topics**
 #
 # * R `ggplot2` package
@@ -58,7 +57,7 @@ library(tidyverse)
 #
 # By the end of the workshop you will be able to reproduce this graphic from the Economist:
 #
-# ![img](R/Rgraphics/images/Economist1.png)
+# ![img](images/Economist1.png)
 
 # ## Why `ggplot2`?
 #
@@ -557,7 +556,7 @@ ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
 #
 # ### Challenge: recreate this `Economist` graph
 #
-# <R/Rgraphics/images/Economist1.pdf>
+# ![img](images/Economist1.png)
 #
 # Graph source: <http://www.economist.com/node/21541178>
 #
@@ -735,7 +734,7 @@ mR2 <- paste0(format(mR2, digits = 2), "%")
 #
 # And here it is, our final version!
 
-png(file = "R/Rgraphics/images/econScatter10.png", width = 700, height = 500)
+png(file = "images/econScatter10.png", width = 700, height = 500)
 p <- ggplot(dat,
             mapping = aes(x = CPI, y = HDI)) +
   geom_smooth(mapping = aes(linetype = "r2"),

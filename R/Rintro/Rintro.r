@@ -1,4 +1,3 @@
-#
 # # R Introduction
 #
 # **Topics**
@@ -56,14 +55,27 @@
 # ## R Interfaces
 #
 # There are many different ways you can interact with R. See the
-# [Data Science Tools workshop notes](http://tutorials.iq.harvard.edu/Other/DataScienceTools/DataScienceTools.html) 
+# [Data Science Tools workshop notes](./DataScienceTools.html) 
 # for details.
 #
-# For this workshop we will use RStudio; it is a good
-# R-specific integrated development environment (IDE) that mostly just works.
+# For this workshop we will use [RStudio](https://rstudio.com/); it is a good
+# R-specific integrated development environment (IDE) with many features.
 #
-# We will also use Rmarkdown --- a type of R file that allows you to combine plain text
-# with R code. It is easy to later convert Rmarkdown into MS Word, LaTeX, a pdf, or webpage.
+# There are also several different formats for writing code for R. Two of
+# the most popular are:
+#
+# 1. **R scripts** --- a type of plain text file that allows you to write R code
+# and basic comments about the code: 
+#
+# ![](images/Rdoc_example.png)
+#
+# 2. [**Rmarkdown**](https://rmarkdown.rstudio.com/) --- a type of text file that 
+# allows you to include plain text with R code and easily convert the contents
+# into HTML (for a webpage), MS Word, or PDF (via LaTeX). Many people write 
+# their journal papers, dissertations, and statistics/math class notes in 
+# Rmarkdown, since it is easy to use and to convert into other formats later.
+#
+# ![](images/Rmarkdown_example.png)
 
 # ## Exercise 0
 #
@@ -156,10 +168,17 @@ help(package = "stats")
 # data structures. We will use `tidyverse` packages throughout the 
 # workshop, so let's install them now:
 
-# install.packages("tidyverse")
+## install.packages("tidyverse")
 library(tidyverse)
 
-# ![](R/Rintro/images/tidyverse.png)
+# ![](images/tidyverse.png)
+#
+# We can also install the `rmarkdown` package, which will allow us to
+# combine our text and code into a formatted document at the end of 
+# the workshop:
+
+## install.packages("rmarkdown")
+library(rmarkdown)
 
 # ### Readers for common file types
 #
@@ -295,7 +314,7 @@ head(baby_names_subset)
 
 # ## Pipe operator in R
 #
-# There is one very special operator in R called a "pipe" operator that 
+# There is one very special operator in R called a **pipe** operator that 
 # looks like this: `%>%`. It allows us to "chain" several function calls and, 
 # as each function returns an object, feed it into the next call in a single 
 # statement, without needing extra variables to store the intermediate 
@@ -734,6 +753,7 @@ qplot(x = Year,
 # * Online tutorials
 #     + <http://www.codeschool.com/courses/try-r>
 #     + <http://www.datacamp.org>
+#     + <https://rmarkdown.rstudio.com/lesson-1.html>
 #     + <http://swirlstats.com/>
 #     + <http://r4ds.had.co.nz/>
 #
