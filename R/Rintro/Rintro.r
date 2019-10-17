@@ -68,7 +68,7 @@
 # 1. **R scripts** --- a type of plain text file that allows you to write R code
 # and basic comments about the code: 
 #
-# ![](images/Rdoc_example.png)
+# ![](R/Rintro/images/Rdoc_example.png)
 #
 # 2. [**Rmarkdown**](https://rmarkdown.rstudio.com/) --- a type of text file that 
 # allows you to include plain text with R code and easily convert the contents
@@ -76,7 +76,7 @@
 # their journal papers, dissertations, and statistics/math class notes in 
 # Rmarkdown, since it is easy to use and to convert into other formats later.
 #
-# ![](images/Rmarkdown_example.png)
+# ![](R/Rintro/images/Rmarkdown_example.png)
 
 # ## Exercise 0
 #
@@ -172,7 +172,7 @@ help(package = "stats")
 ## install.packages("tidyverse")
 library(tidyverse)
 
-# ![](images/tidyverse.png)
+# ![](R/Rintro/images/tidyverse.png)
 #
 # We can also install the `rmarkdown` package, which will allow us to
 # combine our text and code into a formatted document at the end of 
