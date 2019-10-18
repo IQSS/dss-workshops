@@ -102,7 +102,7 @@
 
 ## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
 
-# Arguments can be matched by name; unnamed arguments will be matched by position.
+# Arguments can be **matched by name**; unnamed arguments will be **matched by position**.
 
 values <- c(1.45, 2.34, 5.68)
 round(x = values, digits = 1) # match by name
