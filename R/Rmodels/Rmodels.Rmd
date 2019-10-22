@@ -51,6 +51,27 @@ workshop, so let's install them now:
 library(tidyverse)
 ```
 
+We can also install the `rmarkdown` package, which will allow us to
+combine our text and code into a formatted document at the end of 
+the workshop:
+
+```{r}
+# install.packages("rmarkdown")
+library(rmarkdown)
+```
+
+Finally, lets install some packages that will help with modeling:
+
+```{r}
+# install.packages("lme4")
+library(lme4)  # for mixed models
+# install.packages("emmeans")
+library(emmeans)  # for marginal effects
+# install.packages("effects")
+library(effects)  # for predicted marginal means
+```
+
+
 ### Goals
 
 Class Structure and Organization:
@@ -253,8 +274,6 @@ In the previous example we use the default contrasts for region. The default in 
   summary(m1) %>% coef()
 
   # get all pairwise contrasts between means
-  # install.packages("emmeans")
-  library(emmeans)
   means <- emmeans(m1, specs = ~ region)
   means
   contrast(means, method = "pairwise")
@@ -329,7 +348,6 @@ One solution is to transform the coefficients to make them easier to interpret
 Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
 
 ```{r}
-  library(effects)
   eff <- allEffects(hyp_out)
   eff2 <- allEffects(hyp_out, xlevels = list(age_p, seq(20, 80, by = 5)))
   plot(eff)
@@ -364,9 +382,6 @@ Note that the data is not perfectly clean and ready to be modeled. You will need
   + In R the lme4 package is the most popular for mixed effects models
   + Use the `lmer` function for liner mixed models, `glmer` for generalized mixed models
 
-```{r}
-  library(lme4)
-```
 
 ### The Exam data
 
@@ -552,7 +567,6 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 2.  Predict the probability of working for each level of marital status.
 
 ```{r}
-  library(effects)
   data.frame(Effect("r_maritl", mod_wk_age_mar))
 ```
 
@@ -571,7 +585,6 @@ From the data documentation:
 1.  Create a null model predicting wellbeing ("WBEING")
 
 ```{r}
-  library(lme4)
   mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
   summary(mod_grp0)
 ```

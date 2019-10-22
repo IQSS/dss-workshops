@@ -40,6 +40,23 @@
 # install.packages("tidyverse")
 library(tidyverse)
 
+# We can also install the `rmarkdown` package, which will allow us to
+# combine our text and code into a formatted document at the end of 
+# the workshop:
+
+# install.packages("rmarkdown")
+library(rmarkdown)
+
+# Finally, lets install some packages that will help with modeling:
+
+# install.packages("lme4")
+library(lme4)  # for mixed models
+# install.packages("emmeans")
+library(emmeans)  # for marginal effects
+# install.packages("effects")
+library(effects)  # for predicted marginal means
+
+
 # ### Goals
 #
 # Class Structure and Organization:
@@ -213,8 +230,6 @@ list.files("dataSets")
   summary(m1) %>% coef()
 
   # get all pairwise contrasts between means
-  # install.packages("emmeans")
-  library(emmeans)
   means <- emmeans(m1, specs = ~ region)
   means
   contrast(means, method = "pairwise")
@@ -279,7 +294,6 @@ list.files("dataSets")
 #
 # Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
 
-  library(effects)
   eff <- allEffects(hyp_out)
   eff2 <- allEffects(hyp_out, xlevels = list(age_p, seq(20, 80, by = 5)))
   plot(eff)
@@ -310,8 +324,6 @@ list.files("dataSets")
 #   + Random-effects -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
 #   + In R the lme4 package is the most popular for mixed effects models
 #   + Use the `lmer` function for liner mixed models, `glmer` for generalized mixed models
-
-  library(lme4)
 
 # ### The Exam data
 #
@@ -463,7 +475,6 @@ data(bh1996, package="multilevel")
 
 # 2.  Predict the probability of working for each level of marital status.
 
-  library(effects)
   data.frame(Effect("r_maritl", mod_wk_age_mar))
 
 # ### Ex 3: prototype
@@ -478,7 +489,6 @@ data(bh1996, package="multilevel")
 #
 # 1.  Create a null model predicting wellbeing ("WBEING")
 
-  library(lme4)
   mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
   summary(mod_grp0)
 

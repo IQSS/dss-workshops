@@ -2792,6 +2792,30 @@ workshop, so let's install them now:
 \end{Highlighting}
 \end{Shaded}
 
+We can also install the \texttt{rmarkdown} package, which will allow us
+to combine our text and code into a formatted document at the end of the
+workshop:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("rmarkdown")}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
+\end{Highlighting}
+\end{Shaded}
+
+Finally, lets install some packages that will help with modeling:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("lme4")}
+\KeywordTok{library}\NormalTok{(lme4)  }\CommentTok{# for mixed models}
+\CommentTok{# install.packages("emmeans")}
+\KeywordTok{library}\NormalTok{(emmeans)  }\CommentTok{# for marginal effects}
+\CommentTok{# install.packages("effects")}
+\KeywordTok{library}\NormalTok{(effects)  }\CommentTok{# for predicted marginal means}
+\end{Highlighting}
+\end{Shaded}
+
 \subsection{Goals}\label{goals-1}
 
 Class Structure and Organization:
@@ -3094,8 +3118,6 @@ scheme using the \texttt{C} function.
   \KeywordTok{summary}\NormalTok{(m1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 
   \CommentTok{# get all pairwise contrasts between means}
-  \CommentTok{# install.packages("emmeans")}
-  \KeywordTok{library}\NormalTok{(emmeans)}
 \NormalTok{  means <-}\StringTok{ }\KeywordTok{emmeans}\NormalTok{(m1, }\DataTypeTok{specs =} \OperatorTok{~}\StringTok{ }\NormalTok{region)}
 \NormalTok{  means}
   \KeywordTok{contrast}\NormalTok{(means, }\DataTypeTok{method =} \StringTok{"pairwise"}\NormalTok{)}
@@ -3206,7 +3228,6 @@ compute quantities of interest for us.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{library}\NormalTok{(effects)}
 \NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out)}
 \NormalTok{  eff2 <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(age_p, }\KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
   \KeywordTok{plot}\NormalTok{(eff)}
@@ -3270,12 +3291,6 @@ overview}\label{multilevel-modeling-overview}
   Use the \texttt{lmer} function for liner mixed models, \texttt{glmer}
   for generalized mixed models
 \end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \KeywordTok{library}\NormalTok{(lme4)}
-\end{Highlighting}
-\end{Shaded}
 
 \subsection{The Exam data}\label{the-exam-data}
 
@@ -3574,7 +3589,6 @@ least some of the variables before fitting the model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{library}\NormalTok{(effects)}
   \KeywordTok{data.frame}\NormalTok{(}\KeywordTok{Effect}\NormalTok{(}\StringTok{"r_maritl"}\NormalTok{, mod_wk_age_mar))}
 \end{Highlighting}
 \end{Shaded}
@@ -3605,7 +3619,6 @@ Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{library}\NormalTok{(lme4)}
 \NormalTok{  mod_grp0 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
   \KeywordTok{summary}\NormalTok{(mod_grp0)}
 \end{Highlighting}
@@ -3755,12 +3768,31 @@ particular, a collection of R packages called
 specifically for data science. All packages included in
 \texttt{tidyverse} share an underlying design philosophy, grammar, and
 data structures. We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
+workshop, so let's install them now, together with the \texttt{scales}
+and \texttt{ggrepel} packages that provide additional functionality to
+\texttt{ggplot2}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
+
+\CommentTok{# install.packages("scales")}
+\KeywordTok{library}\NormalTok{(scales)}
+
+\NormalTok{## install.packages("ggrepel") }
+\KeywordTok{library}\NormalTok{(ggrepel)}
+\end{Highlighting}
+\end{Shaded}
+
+We can also install the \texttt{rmarkdown} package, which will allow us
+to combine our text and code into a formatted document at the end of the
+workshop:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("rmarkdown")}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3789,17 +3821,6 @@ This is an intermediate R course:
   Focus is on \texttt{ggplot2} graphics; other packages will not be
   covered
 \end{itemize}
-
-\subsection{Starting at the end}\label{starting-at-the-end}
-
-By the end of the workshop you will be able to reproduce this graphic
-from the Economist:
-
-\begin{figure}
-\centering
-\includegraphics{images/Economist1.png}
-\caption{img}
-\end{figure}
 
 \section{\texorpdfstring{Why
 \texttt{ggplot2}?}{Why ggplot2?}}\label{why-ggplot2}
@@ -3867,18 +3888,6 @@ essential elements}):
   themes
 \end{itemize}
 
-\subsection{Example data: housing
-prices}\label{example-data-housing-prices}
-
-Let's look at housing prices.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{housing <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"dataSets/landdata-states.csv"}\NormalTok{)}
-\KeywordTok{head}\NormalTok{(housing[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
 \subsection{\texorpdfstring{\texttt{ggplot2} VS base
 graphics}{ggplot2 VS base graphics}}\label{ggplot2-vs-base-graphics}
 
@@ -3894,58 +3903,9 @@ Compared to base graphics, \texttt{ggplot2}
   does not have methods (data should always be in a \texttt{data.frame})
 \item
   uses a different system for adding plot elements
+\item
+  has sensible defaults for generating legends
 \end{itemize}
-
-\subsection{For simple graphs}\label{for-simple-graphs}
-
-Base graphics histogram example:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{hist}\NormalTok{(housing}\OperatorTok{$}\NormalTok{Home_Value)}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{ggplot2} histogram example:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(ggplot2)}
-\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Home_Value)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{For more complex graphs}\label{for-more-complex-graphs}
-
-Base graphics colored scatter plot example:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(Home_Value }\OperatorTok{~}\StringTok{ }\NormalTok{Date,}
-     \DataTypeTok{col =} \KeywordTok{factor}\NormalTok{(State),}
-     \DataTypeTok{data =} \KeywordTok{filter}\NormalTok{(housing, State }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"MA"}\NormalTok{, }\StringTok{"TX"}\NormalTok{)))}
-
-\KeywordTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}
-       \DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"MA"}\NormalTok{, }\StringTok{"TX"}\NormalTok{),}
-       \DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"red"}\NormalTok{),}
-       \DataTypeTok{pch =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{ggplot2} colored scatter plot example:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{filter}\NormalTok{(housing, State }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"MA"}\NormalTok{, }\StringTok{"TX"}\NormalTok{)),}
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Date,}
-           \DataTypeTok{y=}\NormalTok{Home_Value,}
-           \DataTypeTok{color=}\NormalTok{State))}\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{ggplot2} wins!
 
 \section{Geometric objects \&
 aesthetics}\label{geometric-objects-aesthetics}
@@ -4074,19 +4034,45 @@ Now that we know about geometric objects and aesthetic mapping, we can
 make a \texttt{ggplot()}. \texttt{geom\_point()} requires mappings for x
 and y, all others are optional.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{hp2001Q1 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(housing, Date }\OperatorTok{==}\StringTok{ }\FloatTok{2001.25}\NormalTok{) }
-\KeywordTok{ggplot}\NormalTok{(hp2001Q1,}
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ Structure.Cost, }\DataTypeTok{x =}\NormalTok{ Land_Value)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+\textbf{Example data: housing prices}
+
+Let's look at housing prices.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(hp2001Q1,}
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ Structure.Cost, }\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(Land_Value))) }\OperatorTok{+}
+\NormalTok{housing <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"dataSets/landdata-states.csv"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(housing[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{])}
+
+\CommentTok{# create a subset for 1st quarter 2001}
+\NormalTok{hp2001Q1 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(housing, Date }\OperatorTok{==}\StringTok{ }\FloatTok{2001.25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Step 1:} create a blank canvas by specifying data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ hp2001Q1)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Step 2:} specify aesthetic mappings (how you want to map
+variables to visual aspects):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# here we map "Structure_Cost" and "Land_Value" to the x- and y-axes.}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ hp2001Q1, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Structure_Cost, }\DataTypeTok{y =}\NormalTok{ Land_Value))}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Step 3:} add new layers of geometric objects that will show up
+on the plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# here we use geom_point() to add a layer with points (dot) elements as the geometric shapes to represent the data.}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ hp2001Q1, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Land_Value, }\DataTypeTok{y =}\NormalTok{ Structure_Cost)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -4137,9 +4123,6 @@ Each geom accepts a particular set of mappings; for example
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## install.packages("ggrepel") }
-\KeywordTok{library}\NormalTok{(ggrepel)}
-
 \NormalTok{p1 }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_text_repel}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{State), }\DataTypeTok{size =} \DecValTok{3}\NormalTok{)}
@@ -4422,8 +4405,6 @@ Now mute the colors:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(scales)}
-
 \NormalTok{p4 }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
@@ -4570,14 +4551,12 @@ rather than mapping state to color.
 \end{Highlighting}
 \end{Shaded}
 
-There is also a \texttt{facet\_grid()} function for faceting in two
-dimensions.
-
 \section{Themes}\label{themes}
 
 \subsection{What are themes?}\label{what-are-themes}
 
-The \texttt{ggplot2} theme system handles non-data plot elements such as
+The \texttt{ggplot2} theme system handles non-data plot elements such
+as:
 
 \begin{itemize}
 \tightlist
@@ -4626,11 +4605,18 @@ example:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"turquoise"}\NormalTok{))}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"turquoise"}\NormalTok{))  }
 \end{Highlighting}
 \end{Shaded}
 
-All theme options are documented in \texttt{?theme}.
+All theme options are documented in \texttt{?theme}. We can also see the
+existing default values using:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{theme_get}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Creating \& saving new
 themes}\label{creating-saving-new-themes}
@@ -4651,15 +4637,15 @@ You can create new themes, as in the following example:
 \end{Highlighting}
 \end{Shaded}
 
-You can see all the plot elements that can be changed by
-\texttt{theme()} using:
+\section{Saving plots}\label{saving-plots}
+
+We can save a plot to either a vector (e.g., pdf, eps, ps, svg) or
+raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using the
+\texttt{ggsave()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{names}\NormalTok{(}\KeywordTok{theme_get}\NormalTok{())}
-
-\CommentTok{# see all arguments for each plot element}
-\KeywordTok{theme_get}\NormalTok{()}
+\KeywordTok{ggsave}\NormalTok{(p5, }\DataTypeTok{file =} \StringTok{"myplot.pdf"}\NormalTok{, }\DataTypeTok{device =} \StringTok{"pdf"}\NormalTok{, }\DataTypeTok{height =} \DecValTok{6}\NormalTok{, }\DataTypeTok{width =} \DecValTok{6}\NormalTok{, }\DataTypeTok{units =} \StringTok{"in"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4697,380 +4683,45 @@ How do I do that?}
 \NormalTok{home_land_byyear <-}\StringTok{ }\KeywordTok{gather}\NormalTok{(housing_byyear,}
                            \DataTypeTok{value =} \StringTok{"value"}\NormalTok{,}
                            \DataTypeTok{key =} \StringTok{"type"}\NormalTok{,}
-\NormalTok{                           Home_Value, Land_Value)}
+\NormalTok{                           Home_Value_Mean, Land_Value_Mean)}
 
 \KeywordTok{ggplot}\NormalTok{(home_land_byyear, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Date, }\DataTypeTok{y=}\NormalTok{value, }\DataTypeTok{color=}\NormalTok{type)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_line}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\section{Putting it all together}\label{putting-it-all-together}
+\section{Exercise 3}\label{exercise-3-2}
 
-\subsection{\texorpdfstring{Challenge: recreate this \texttt{Economist}
-graph}{Challenge: recreate this Economist graph}}\label{challenge-recreate-this-economist-graph}
-
-\begin{figure}
-\centering
-\includegraphics{images/Economist1.png}
-\caption{img}
-\end{figure}
-
-Graph source: \url{http://www.economist.com/node/21541178}
-
-Building off of the graphics you created in the previous exercises, put
-the finishing touches to make it as close as possible to the original
-economist graph.
-
-\subsection{Challenge solution:}\label{challenge-solution}
-
-Lets start by creating the basic scatter plot, then we can make a list
-of things that need to be added or changed. The basic plot looks like
-this:
+For this exercise, we're going to use the built-in \texttt{midwest}
+dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{dat <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"dataSets/EconomistData.csv"}\NormalTok{)}
-
-\NormalTok{pc1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI, }\DataTypeTok{color =}\NormalTok{ Region))}
-\NormalTok{pc1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{()}
+\KeywordTok{data}\NormalTok{(}\StringTok{"midwest"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"ggplot2"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(midwest)}
 \end{Highlighting}
 \end{Shaded}
 
-To complete this graph we need to:
-
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  {[} {]} add a trend line
+  Create a scatter plot with \texttt{area} on the x axis and the log of
+  \texttt{poptotal} on the y axis.
 \item
-  {[} {]} change the point shape to open circle
+  Within the geom\_point() call, map color to \texttt{state}, map size
+  to the log of \texttt{popdensity}, and fix transparency
+  (\texttt{alpha}) to 0.3.
 \item
-  {[} {]} change the order and labels of Region
+  Add a smoother and turn off plotting the confidence interval. Hint:
+  see the \texttt{se} argument to \texttt{geom\_smooth()}.
 \item
-  {[} {]} label select points
+  Facet the plot by \texttt{state}.
 \item
-  {[} {]} fix up the tick marks and labels
-\item
-  {[} {]} move color legend to the top
-\item
-  {[} {]} title, label axes, remove legend title
-\item
-  {[} {]} theme the graph with no vertical guides
-\item
-  {[} {]} add model R2 (hard)
-\item
-  {[} {]} add sources note (hard)
-\item
-  {[} {]} final touches to make it perfect (use image editor for this)
-\end{itemize}
-
-\subsubsection{Adding the trend line}\label{adding-the-trend-line}
-
-Adding the trend line is not too difficult, though we need to guess at
-the model being displyed on the graph. A little bit of trial and error
-leads to
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{pc2 <-}\StringTok{ }\NormalTok{pc1 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =} \StringTok{"r2"}\NormalTok{),   }\CommentTok{# "r2" is a placeholder for where we'll later put R^2 values}
-              \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{,}
-              \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\KeywordTok{log}\NormalTok{(x), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
-              \DataTypeTok{color =} \StringTok{"red"}\NormalTok{)}
-\NormalTok{pc2 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-Notice that we put the \texttt{geom\_line} layer first so that it will
-be plotted underneath the points, as was done on the original graph.
-
-\subsubsection{Use open points}\label{use-open-points}
-
-This one is a little tricky. We know that we can change the shape with
-the \texttt{shape} argument, what value do we set shape to? The example
-shown in \texttt{?shape} can help us:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## A look at all 25 symbols}
-\NormalTok{df2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{ , }\DataTypeTok{y =} \DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{, }\DataTypeTok{z =} \DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{)}
-
-\NormalTok{s <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(df2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y))}
-\NormalTok{s }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =}\NormalTok{ z), }\DataTypeTok{size =} \DecValTok{4}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_shape_identity}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-This shows us that \emph{shape 1} is an open circle, so
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{pc2 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{4}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-That is better, but unfortunately the size of the line around the points
-is much narrower than on the original.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{(pc3 <-}\StringTok{ }\NormalTok{pc2 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \FloatTok{2.5}\NormalTok{, }\DataTypeTok{stroke =} \FloatTok{1.25}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{Labelling points}\label{labelling-points}
-
-This one is tricky in a couple of ways. First, there is no attribute in
-the data that separates points that should be labelled from points that
-should not be. So the first step is to identify those points.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{pointsToLabel <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Russia"}\NormalTok{, }\StringTok{"Venezuela"}\NormalTok{, }\StringTok{"Iraq"}\NormalTok{, }\StringTok{"Myanmar"}\NormalTok{, }\StringTok{"Sudan"}\NormalTok{,}
-                   \StringTok{"Afghanistan"}\NormalTok{, }\StringTok{"Congo"}\NormalTok{, }\StringTok{"Greece"}\NormalTok{, }\StringTok{"Argentina"}\NormalTok{, }\StringTok{"Brazil"}\NormalTok{,}
-                   \StringTok{"India"}\NormalTok{, }\StringTok{"Italy"}\NormalTok{, }\StringTok{"China"}\NormalTok{, }\StringTok{"South Africa"}\NormalTok{, }\StringTok{"Spane"}\NormalTok{,}
-                   \StringTok{"Botswana"}\NormalTok{, }\StringTok{"Cape Verde"}\NormalTok{, }\StringTok{"Bhutan"}\NormalTok{, }\StringTok{"Rwanda"}\NormalTok{, }\StringTok{"France"}\NormalTok{,}
-                   \StringTok{"United States"}\NormalTok{, }\StringTok{"Germany"}\NormalTok{, }\StringTok{"Britain"}\NormalTok{, }\StringTok{"Barbados"}\NormalTok{, }\StringTok{"Norway"}\NormalTok{, }\StringTok{"Japan"}\NormalTok{,}
-                   \StringTok{"New Zealand"}\NormalTok{, }\StringTok{"Singapore"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Now we can label these points using \texttt{geom\_text}, like this:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{(pc4 <-}\StringTok{ }\NormalTok{pc3 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ Country),}
-            \DataTypeTok{color =} \StringTok{"gray20"}\NormalTok{,}
-            \DataTypeTok{data =} \KeywordTok{filter}\NormalTok{(dat, Country }\OperatorTok{%in%}\StringTok{ }\NormalTok{pointsToLabel)))}
-\end{Highlighting}
-\end{Shaded}
-
-This more or less gets the information across, but the labels overlap in
-a most unpleasing fashion. We can use the \texttt{ggrepel} package to
-make things better, but if you want perfection you will probably have to
-do some hand-adjustment.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(ggrepel)}
-
-\NormalTok{(pc4 <-}\StringTok{ }\NormalTok{pc3 }\OperatorTok{+}
-\StringTok{   }\KeywordTok{geom_text_repel}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ Country),}
-                   \DataTypeTok{color =} \StringTok{"gray20"}\NormalTok{,}
-                   \DataTypeTok{data =} \KeywordTok{filter}\NormalTok{(dat, Country }\OperatorTok{%in%}\StringTok{ }\NormalTok{pointsToLabel),}
-                   \DataTypeTok{force =} \DecValTok{10}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{Change the region labels \&
-order}\label{change-the-region-labels-order}
-
-Things are starting to come together. There are just a couple more
-things we need to add, and then all that will be left are theme changes.
-
-Comparing our graph to the original we notice that the labels and order
-of the Regions in the color legend differ. To correct this we need to
-change both the labels and order of the Region variable. We can do this
-with the \texttt{factor} function.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{dat}\OperatorTok{$}\NormalTok{Region <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(dat}\OperatorTok{$}\NormalTok{Region,}
-                     \DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"EU W. Europe"}\NormalTok{,}
-                                \StringTok{"Americas"}\NormalTok{,}
-                                \StringTok{"Asia Pacific"}\NormalTok{,}
-                                \StringTok{"East EU Cemt Asia"}\NormalTok{,}
-                                \StringTok{"MENA"}\NormalTok{,}
-                                \StringTok{"SSA"}\NormalTok{),}
-                     \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"OECD"}\NormalTok{,}
-                                \StringTok{"Americas"}\NormalTok{,}
-                                \StringTok{"Asia &}\CharTok{\textbackslash{}n}\StringTok{Oceania"}\NormalTok{,}
-                                \StringTok{"Central &}\CharTok{\textbackslash{}n}\StringTok{Eastern Europe"}\NormalTok{,}
-                                \StringTok{"Middle East &}\CharTok{\textbackslash{}n}\StringTok{north Africa"}\NormalTok{,}
-                                \StringTok{"Sub-Saharan}\CharTok{\textbackslash{}n}\StringTok{Africa"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-Now when we construct the plot using these data the order should appear
-as it does in the original.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{pc4}\OperatorTok{$}\NormalTok{data <-}\StringTok{ }\NormalTok{dat}
-\NormalTok{pc4}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{Add title \& format axes}\label{add-title-format-axes}
-
-The next step is to add the title and format the axes. We do that using
-the \texttt{scales} system in \texttt{ggplot2}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(grid)}
-
-\NormalTok{(pc5 <-}\StringTok{ }\NormalTok{pc4 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perceptions Index, 2011 (10=least corrupt)"}\NormalTok{,}
-                     \DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(.}\DecValTok{9}\NormalTok{, }\FloatTok{10.5}\NormalTok{),}
-                     \DataTypeTok{breaks =} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index, 2011 (1=Best)"}\NormalTok{,}
-                     \DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{1.0}\NormalTok{),}
-                     \DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{1.0}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.1}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{name =} \StringTok{""}\NormalTok{,}
-                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"#24576D"}\NormalTok{,}
-                                \StringTok{"#099DD7"}\NormalTok{,}
-                                \StringTok{"#28AADC"}\NormalTok{,}
-                                \StringTok{"#248E84"}\NormalTok{,}
-                                \StringTok{"#F2583F"}\NormalTok{,}
-                                \StringTok{"#96503F"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Corruption and Human development"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{Theme tweaks}\label{theme-tweaks}
-
-Our graph is almost there. To finish up, we need to adjust some of the
-theme elements, and label the axes and legends. This part usually
-involves some trial and error as you figure out where things need to be
-positioned. To see what these various theme settings do you can change
-them and observe the results.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(grid) }\CommentTok{# for the `unit()` function}
-
-\NormalTok{(pc6 <-}\StringTok{ }\NormalTok{pc5 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}\StringTok{ }\CommentTok{# start with a minimal theme and add what we need}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"gray20"}\NormalTok{),}
-        \DataTypeTok{legend.position =} \KeywordTok{c}\NormalTok{(}\StringTok{"top"}\NormalTok{), }\CommentTok{# position the legend in the upper left }
-        \DataTypeTok{legend.direction =} \StringTok{"horizontal"}\NormalTok{,}
-        \DataTypeTok{legend.justification =} \FloatTok{0.1}\NormalTok{, }\CommentTok{# anchor point for legend.position.}
-        \DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{11}\NormalTok{, }\DataTypeTok{color =} \StringTok{"gray10"}\NormalTok{),}
-        \DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face =} \StringTok{"italic"}\NormalTok{),}
-        \DataTypeTok{axis.title.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{vjust =} \OperatorTok{-}\DecValTok{1}\NormalTok{), }\CommentTok{# move title away from axis}
-        \DataTypeTok{axis.title.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{vjust =} \DecValTok{2}\NormalTok{), }\CommentTok{# move away for axis}
-        \DataTypeTok{axis.ticks.y =} \KeywordTok{element_blank}\NormalTok{(), }\CommentTok{# element_blank() is how we remove elements}
-        \DataTypeTok{axis.line =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"gray40"}\NormalTok{, }\DataTypeTok{size =} \FloatTok{0.5}\NormalTok{),}
-        \DataTypeTok{axis.line.y =} \KeywordTok{element_blank}\NormalTok{(),}
-        \DataTypeTok{panel.grid.major =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"gray50"}\NormalTok{, }\DataTypeTok{size =} \FloatTok{0.5}\NormalTok{),}
-        \DataTypeTok{panel.grid.major.x =} \KeywordTok{element_blank}\NormalTok{()}
-\NormalTok{        ))}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{Add model R2 \& source
-note}\label{add-model-r2-source-note}
-
-The last bit of information that we want to have on the graph is the
-variance explained by the model represented by the trend line. Lets fit
-that model and pull out the R2 first, then think about how to get it
-onto the graph.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mR2 <-}\StringTok{ }\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(HDI }\OperatorTok{~}\StringTok{ }\NormalTok{CPI }\OperatorTok{+}\StringTok{ }\KeywordTok{log}\NormalTok{(CPI), }\DataTypeTok{data =}\NormalTok{ dat))}\OperatorTok{$}\NormalTok{r.squared}
-\NormalTok{mR2 <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\KeywordTok{format}\NormalTok{(mR2, }\DataTypeTok{digits =} \DecValTok{2}\NormalTok{), }\StringTok{"%"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-OK, now that we've calculated the values, let's think about how to get
-them on the graph. ggplot2 has an \texttt{annotate()} function, but this
-is not convenient for adding elements outside the plot area. The
-\texttt{grid} package has nice functions for doing this, so we'll use
-those.
-
-And here it is, our final version!
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{png}\NormalTok{(}\DataTypeTok{file =} \StringTok{"images/econScatter10.png"}\NormalTok{, }\DataTypeTok{width =} \DecValTok{700}\NormalTok{, }\DataTypeTok{height =} \DecValTok{500}\NormalTok{)}
-\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(dat,}
-            \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CPI, }\DataTypeTok{y =}\NormalTok{ HDI)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =} \StringTok{"r2"}\NormalTok{),}
-              \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{,}
-              \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\KeywordTok{log}\NormalTok{(x), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
-              \DataTypeTok{color =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Region),}
-             \DataTypeTok{shape =} \DecValTok{1}\NormalTok{,}
-             \DataTypeTok{size =} \DecValTok{4}\NormalTok{,}
-             \DataTypeTok{stroke =} \FloatTok{1.5}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_text_repel}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ Country, }\DataTypeTok{alpha =}\NormalTok{ labels),}
-                  \DataTypeTok{color =} \StringTok{"gray20"}\NormalTok{,}
-                  \DataTypeTok{data =} \KeywordTok{transform}\NormalTok{(dat,}
-                                   \DataTypeTok{labels =}\NormalTok{ Country }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Russia"}\NormalTok{,}
-                                                           \StringTok{"Venezuela"}\NormalTok{,}
-                                                           \StringTok{"Iraq"}\NormalTok{,}
-                                                           \StringTok{"Mayanmar"}\NormalTok{,}
-                                                           \StringTok{"Sudan"}\NormalTok{,}
-                                                           \StringTok{"Afghanistan"}\NormalTok{,}
-                                                           \StringTok{"Congo"}\NormalTok{,}
-                                                           \StringTok{"Greece"}\NormalTok{,}
-                                                           \StringTok{"Argentinia"}\NormalTok{,}
-                                                           \StringTok{"Italy"}\NormalTok{,}
-                                                           \StringTok{"Brazil"}\NormalTok{,}
-                                                           \StringTok{"India"}\NormalTok{,}
-                                                           \StringTok{"China"}\NormalTok{,}
-                                                           \StringTok{"South Africa"}\NormalTok{,}
-                                                           \StringTok{"Spain"}\NormalTok{,}
-                                                           \StringTok{"Cape Verde"}\NormalTok{,}
-                                                           \StringTok{"Bhutan"}\NormalTok{,}
-                                                           \StringTok{"Rwanda"}\NormalTok{,}
-                                                           \StringTok{"France"}\NormalTok{,}
-                                                           \StringTok{"Botswana"}\NormalTok{,}
-                                                           \StringTok{"France"}\NormalTok{,}
-                                                           \StringTok{"US"}\NormalTok{,}
-                                                           \StringTok{"Germany"}\NormalTok{,}
-                                                           \StringTok{"Britain"}\NormalTok{,}
-                                                           \StringTok{"Barbados"}\NormalTok{,}
-                                                           \StringTok{"Japan"}\NormalTok{,}
-                                                           \StringTok{"Norway"}\NormalTok{,}
-                                                           \StringTok{"New Zealand"}\NormalTok{,}
-                                                           \StringTok{"Sigapore"}\NormalTok{))) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index, 2011 (10=least corrupt)"}\NormalTok{,}
-                     \DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\FloatTok{1.0}\NormalTok{, }\FloatTok{10.0}\NormalTok{),}
-                     \DataTypeTok{breaks =} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index, 2011 (1=best)"}\NormalTok{,}
-                     \DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{1.0}\NormalTok{),}
-                     \DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{1.0}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.1}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{name =} \StringTok{""}\NormalTok{,}
-                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"#24576D"}\NormalTok{,}
-                                \StringTok{"#099DD7"}\NormalTok{,}
-                                \StringTok{"#28AADC"}\NormalTok{,}
-                                \StringTok{"#248E84"}\NormalTok{,}
-                                \StringTok{"#F2583F"}\NormalTok{,}
-                                \StringTok{"#96503F"}\NormalTok{),}
-                     \DataTypeTok{guide =} \KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{, }\DataTypeTok{order=}\DecValTok{1}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_alpha_discrete}\NormalTok{(}\DataTypeTok{range =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
-                       \DataTypeTok{guide =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_linetype}\NormalTok{(}\DataTypeTok{name =} \StringTok{""}\NormalTok{,}
-                 \DataTypeTok{breaks =} \StringTok{"r2"}\NormalTok{,}
-                 \DataTypeTok{labels =} \KeywordTok{list}\NormalTok{(}\KeywordTok{bquote}\NormalTok{(R}\OperatorTok{^}\DecValTok{2}\OperatorTok{==}\NormalTok{.(mR2))),}
-                 \DataTypeTok{guide =} \KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{override.aes =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{linetype =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{), }\DataTypeTok{order=}\DecValTok{2}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Corruption and human development"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{caption=}\StringTok{"Sources: Transparency International; UN Human Development Report"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.border =} \KeywordTok{element_blank}\NormalTok{(),}
-        \DataTypeTok{panel.grid =} \KeywordTok{element_blank}\NormalTok{(),}
-        \DataTypeTok{panel.grid.major.y =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"gray"}\NormalTok{),}
-        \DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"gray20"}\NormalTok{),}
-        \DataTypeTok{axis.title.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face=}\StringTok{"italic"}\NormalTok{),}
-        \DataTypeTok{axis.title.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face=}\StringTok{"italic"}\NormalTok{),}
-        \DataTypeTok{legend.position =} \StringTok{"top"}\NormalTok{,}
-        \DataTypeTok{legend.direction =} \StringTok{"horizontal"}\NormalTok{,}
-        \DataTypeTok{legend.box =} \StringTok{"horizontal"}\NormalTok{,}
-        \DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{),}
-        \DataTypeTok{plot.caption =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\DecValTok{0}\NormalTok{),}
-        \DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{16}\NormalTok{, }\DataTypeTok{face =} \StringTok{"bold"}\NormalTok{))}
-\NormalTok{p}
-
-\KeywordTok{dev.off}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-Comparing it to the original suggests that we've got most of the
-important elements.
+  BONUS: Change the default theme to \texttt{theme\_bw()} and modify it
+  so that the axis text and facet label background are blue. Hint:
+  \texttt{axis\_text} and \texttt{strip\_background}.
+\end{enumerate}
 
 \section{Exercise solutions}\label{exercise-solutions-2}
 
@@ -5300,6 +4951,86 @@ important elements.
 \end{Highlighting}
 \end{Shaded}
 
+\subsection{Ex 3: prototype}\label{ex-3-prototype-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a scatter plot with \texttt{area} on the x axis and the log of
+  \texttt{poptotal} on the y axis.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p6 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(midwest, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{area, }\DataTypeTok{y=}\KeywordTok{log}\NormalTok{(poptotal))) }
+\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Within the geom\_point() call, map color to \texttt{state}, map size
+  to the log of \texttt{popdensity}, and fix transparency
+  (\texttt{alpha}) to 0.3.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{state, }\DataTypeTok{size=}\KeywordTok{log}\NormalTok{(popdensity)), }\DataTypeTok{alpha =} \FloatTok{0.3}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Add a smoother and turn off plotting the confidence interval. Hint:
+  see the \texttt{se} argument to \texttt{geom\_smooth()}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\StringTok{"loess"}\NormalTok{, }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Facet the plot by \texttt{state}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{state)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  BONUS: Change the default theme to \texttt{theme\_bw()} and modify it
+  so that the axis text and facet label background are blue. Hint:
+  \texttt{axis\_text} and \texttt{strip\_background}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis_title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{),}
+          \DataTypeTok{strip_background =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"blue"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Wrap-up}\label{wrap-up-3}
 
 \subsection{Feedback}\label{feedback-3}
@@ -5348,6 +5079,11 @@ These workshops are a work in progress, please provide any feedback to:
   \item
     Cheatsheets:
     \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
+  \item
+    Examples:
+    \url{http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html}
+  \item
+    Tutorial: \url{https://uc-r.github.io/ggplot_intro}
   \item
     Mailing list: \url{http://groups.google.com/group/ggplot2}
   \item
@@ -5436,6 +5172,17 @@ workshop, so let's install them now:
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+We can also install the \texttt{rmarkdown} package, which will allow us
+to combine our text and code into a formatted document at the end of the
+workshop:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("rmarkdown")}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5794,7 +5541,7 @@ and \texttt{bind\_rows()}.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Exercise 3}\label{exercise-3-2}
+\section{Exercise 3}\label{exercise-3-3}
 
 \textbf{Cleanup all the data}
 
@@ -5963,7 +5710,7 @@ formats.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ex 3: prototype}\label{ex-3-prototype-2}
+\subsection{Ex 3: prototype}\label{ex-3-prototype-3}
 
 There are different ways you can go about it. Here is one:
 
@@ -8177,7 +7924,7 @@ variables}\label{generating-replacing-variables}
   replace young=1 if age_wealth==1 | age_wealth==2
 \end{verbatim}
 
-\section{Exercise 3}\label{exercise-3-3}
+\section{Exercise 3}\label{exercise-3-4}
 
 \textbf{Manipulating variables}
 
@@ -8206,7 +7953,7 @@ variables}\label{generating-replacing-variables}
 
 \subsection{Ex 2: prototype}\label{ex-2-prototype-3}
 
-\subsection{Ex 3: prototype}\label{ex-3-prototype-3}
+\subsection{Ex 3: prototype}\label{ex-3-prototype-4}
 
 \section{Wrap-up}\label{wrap-up-7}
 
@@ -11066,7 +10813,7 @@ Variables}\label{single-categorical-variables}
                               Crime Study 2000) legend(off)
 \end{verbatim}
 
-\section{Exercise 3}\label{exercise-3-4}
+\section{Exercise 3}\label{exercise-3-5}
 
 \textbf{The TwoWay Family}
 
@@ -11185,7 +10932,7 @@ Open the datafile, NatNeighCrimeStudy.dta.
 
 \subsection{Ex 2: prototype}\label{ex-2-prototype-5}
 
-\subsection{Ex 3: prototype}\label{ex-3-prototype-4}
+\subsection{Ex 3: prototype}\label{ex-3-prototype-5}
 
 \section{Wrap-up}\label{wrap-up-9}
 

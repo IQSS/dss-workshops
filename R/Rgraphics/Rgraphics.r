@@ -35,10 +35,24 @@
 # designed specifically for data science. All packages included in 
 # `tidyverse` share an underlying design philosophy, grammar, and 
 # data structures. We will use `tidyverse` packages throughout the 
-# workshop, so let's install them now:
+# workshop, so let's install them now, together with the `scales` and
+# `ggrepel` packages that provide additional functionality to `ggplot2`.
 
 # install.packages("tidyverse")
 library(tidyverse)
+
+# install.packages("scales")
+library(scales)
+
+## install.packages("ggrepel") 
+library(ggrepel)
+
+# We can also install the `rmarkdown` package, which will allow us to
+# combine our text and code into a formatted document at the end of 
+# the workshop:
+
+# install.packages("rmarkdown")
+library(rmarkdown)
 
 # ### Goals
 #
@@ -52,12 +66,6 @@ library(tidyverse)
 # * Assumes working knowledge of R
 # * Relatively fast-paced
 # * Focus is on `ggplot2` graphics; other packages will not be covered
-
-# ### Starting at the end
-#
-# By the end of the workshop you will be able to reproduce this graphic from the Economist:
-#
-# ![img](images/Economist1.png)
 
 # ## Why `ggplot2`?
 #
@@ -92,13 +100,6 @@ library(tidyverse)
 # * faceting
 # * themes
 
-# ### Example data: housing prices
-#
-# Let's look at housing prices.
-
-housing <- read_csv("dataSets/landdata-states.csv")
-head(housing[1:5])
-
 # ### `ggplot2` VS base graphics
 #
 # Compared to base graphics, `ggplot2`
@@ -107,41 +108,7 @@ head(housing[1:5])
 # * is less verbose for complex / custom graphics
 # * does not have methods (data should always be in a `data.frame`)
 # * uses a different system for adding plot elements
-#
-# ### For simple graphs
-#
-# Base graphics histogram example:
-
-hist(housing$Home_Value)
-
-# `ggplot2` histogram example:
-
-library(ggplot2)
-ggplot(housing, aes(x = Home_Value)) +
-  geom_histogram()
-
-# ### For more complex graphs
-#
-# Base graphics colored scatter plot example:
-
-plot(Home_Value ~ Date,
-     col = factor(State),
-     data = filter(housing, State %in% c("MA", "TX")))
-
-legend("topleft",
-       legend = c("MA", "TX"),
-       col = c("black", "red"),
-       pch = 1)
-
-# `ggplot2` colored scatter plot example:
-
-ggplot(filter(housing, State %in% c("MA", "TX")),
-       aes(x=Date,
-           y=Home_Value,
-           color=State))+
-  geom_point()
-
-# `ggplot2` wins!
+# * has sensible defaults for generating legends
 
 # ## Geometric objects & aesthetics
 #
@@ -189,15 +156,30 @@ ggplot(filter(housing, State %in% c("MA", "TX")),
 # #### Points (scatterplot)
 #
 # Now that we know about geometric objects and aesthetic mapping, we can make a `ggplot()`. `geom_point()` requires mappings for x and y, all others are optional.
+#
+# **Example data: housing prices**
+#
+# Let's look at housing prices.
 
-hp2001Q1 <- filter(housing, Date == 2001.25) 
-ggplot(hp2001Q1,
-       aes(y = Structure.Cost, x = Land_Value)) +
-  geom_point()
+housing <- read_csv("dataSets/landdata-states.csv")
+head(housing[1:5])
 
+# create a subset for 1st quarter 2001
+hp2001Q1 <- filter(housing, Date == 2001.25)
 
-ggplot(hp2001Q1,
-       aes(y = Structure.Cost, x = log(Land_Value))) +
+# **Step 1:** create a blank canvas by specifying data:
+
+ggplot(data = hp2001Q1)
+
+# **Step 2:** specify aesthetic mappings (how you want to map variables to visual aspects):
+
+# here we map "Structure_Cost" and "Land_Value" to the x- and y-axes.
+ggplot(data = hp2001Q1, mapping = aes(x = Structure_Cost, y = Land_Value))
+
+# **Step 3:** add new layers of geometric objects that will show up on the plot. 
+
+# here we use geom_point() to add a layer with points (dot) elements as the geometric shapes to represent the data.
+ggplot(data = hp2001Q1, mapping = aes(x = Land_Value, y = Structure_Cost)) +
   geom_point()
 
 
@@ -230,9 +212,6 @@ p1 +
 p1 + 
   geom_text(aes(label=State), size = 3)
 
-
-## install.packages("ggrepel") 
-library(ggrepel)
 
 p1 + 
   geom_point() + 
@@ -384,8 +363,6 @@ p4 +
 
 # Now mute the colors:
 
-library(scales)
-
 p4 +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
@@ -467,13 +444,11 @@ p5 + geom_line(aes(color = State))
    facet_wrap(~ State, ncol = 10))
 
 
-# There is also a `facet_grid()` function for faceting in two dimensions.
-#
 # ## Themes
 #
 # ### What are themes?
 #
-# The `ggplot2` theme system handles non-data plot elements such as
+# The `ggplot2` theme system handles non-data plot elements such as:
 #
 # * Axis labels
 # * Plot background
@@ -496,9 +471,12 @@ p5 + theme_light()
 # Specific theme elements can be overridden using `theme()`. For example:
 
 p5 + theme_minimal() +
-  theme(text = element_text(color = "turquoise"))
+  theme(text = element_text(color = "turquoise"))  
 
-# All theme options are documented in `?theme`. 
+# All theme options are documented in `?theme`. We can also see the
+# existing default values using:
+
+theme_get()
 
 # ### Creating & saving new themes
 #
@@ -514,12 +492,13 @@ theme_new <- theme_bw() +
 
 p5 + theme_new
 
-# You can see all the plot elements that can be changed by `theme()` using:
+# ## Saving plots
+#
+# We can save a plot to either a vector (e.g., pdf, eps, ps, svg) 
+# or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using
+# the `ggsave()` function:
 
-names(theme_get())
-
-# see all arguments for each plot element
-theme_get()
+ggsave(p5, file = "myplot.pdf", device = "pdf", height = 6, width = 6, units = "in")
 
 
 # ## The #1 FAQ
@@ -546,278 +525,25 @@ ggplot(housing_byyear, aes(x=Date)) +
 home_land_byyear <- gather(housing_byyear,
                            value = "value",
                            key = "type",
-                           Home_Value, Land_Value)
+                           Home_Value_Mean, Land_Value_Mean)
 
 ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
   geom_line()
 
 
-# ## Putting it all together
+# ## Exercise 3
 #
-# ### Challenge: recreate this `Economist` graph
+# For this exercise, we're going to use the built-in `midwest` dataset:
+
+data("midwest", package = "ggplot2")
+head(midwest)
+
+# 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
+# 2.  Within the geom_point() call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
+# 3.  Add a smoother and turn off plotting the confidence interval. Hint: see the `se` argument to `geom_smooth()`.
+# 4.  Facet the plot by `state`.
+# 5.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: `axis_text` and `strip_background`.
 #
-# ![img](images/Economist1.png)
-#
-# Graph source: <http://www.economist.com/node/21541178>
-#
-# Building off of the graphics you created in the previous exercises, put the finishing touches to make it as close as possible to the original economist graph.
-#
-# ### Challenge solution:
-#
-# Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot looks like this:
-
-dat <- read_csv("dataSets/EconomistData.csv")
-
-pc1 <- ggplot(dat, aes(x = CPI, y = HDI, color = Region))
-pc1 + geom_point()
-
-# To complete this graph we need to:
-#
-# * [ ] add a trend line
-# * [ ] change the point shape to open circle
-# * [ ] change the order and labels of Region
-# * [ ] label select points
-# * [ ] fix up the tick marks and labels
-# * [ ] move color legend to the top
-# * [ ] title, label axes, remove legend title
-# * [ ] theme the graph with no vertical guides
-# * [ ] add model R<sup>2</sup> (hard)
-# * [ ] add sources note (hard)
-# * [ ] final touches to make it perfect (use image editor for this)
-#
-# #### Adding the trend line
-#
-# Adding the trend line is not too difficult, though we need to guess at the model being displyed on the graph. A little bit of trial and error leads to
-
-pc2 <- pc1 +
-  geom_smooth(mapping = aes(linetype = "r2"),   # "r2" is a placeholder for where we'll later put R^2 values
-              method = "lm",
-              formula = y ~ x + log(x), se = FALSE,
-              color = "red")
-pc2 + geom_point()
-
-
-# Notice that we put the `geom_line` layer first so that it will be plotted underneath the points, as was done on the original graph.
-#
-# #### Use open points
-#
-# This one is a little tricky. We know that we can change the shape with the `shape` argument, what value do we set shape to? The example shown in `?shape` can help us:
-
-## A look at all 25 symbols
-df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
-
-s <- ggplot(df2, aes(x = x, y = y))
-s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
-
-# This shows us that *shape 1* is an open circle, so
-
-pc2 +
-  geom_point(shape = 1, size = 4)
-
-# That is better, but unfortunately the size of the line around the points is much narrower than on the original.
-
-(pc3 <- pc2 + geom_point(shape = 1, size = 2.5, stroke = 1.25))
-
-
-# #### Labelling points
-#
-# This one is tricky in a couple of ways. First, there is no attribute in the data that separates points that should be labelled from points that should not be. So the first step is to identify those points.
-
-pointsToLabel <- c("Russia", "Venezuela", "Iraq", "Myanmar", "Sudan",
-                   "Afghanistan", "Congo", "Greece", "Argentina", "Brazil",
-                   "India", "Italy", "China", "South Africa", "Spane",
-                   "Botswana", "Cape Verde", "Bhutan", "Rwanda", "France",
-                   "United States", "Germany", "Britain", "Barbados", "Norway", "Japan",
-                   "New Zealand", "Singapore")
-
-# Now we can label these points using `geom_text`, like this:
-
-(pc4 <- pc3 +
-  geom_text(aes(label = Country),
-            color = "gray20",
-            data = filter(dat, Country %in% pointsToLabel)))
-
-
-# This more or less gets the information across, but the labels overlap in a most unpleasing fashion. We can use the `ggrepel` package to make things better, but if you want perfection you will probably have to do some hand-adjustment.
-
-library(ggrepel)
-
-(pc4 <- pc3 +
-   geom_text_repel(aes(label = Country),
-                   color = "gray20",
-                   data = filter(dat, Country %in% pointsToLabel),
-                   force = 10))
-
-
-# #### Change the region labels & order
-#
-# Things are starting to come together. There are just a couple more things we need to add, and then all that will be left are theme changes.
-#
-# Comparing our graph to the original we notice that the labels and order of the Regions in the color legend differ. To correct this we need to change both the labels and order of the Region variable. We can do this with the `factor` function.
-
-dat$Region <- factor(dat$Region,
-                     levels = c("EU W. Europe",
-                                "Americas",
-                                "Asia Pacific",
-                                "East EU Cemt Asia",
-                                "MENA",
-                                "SSA"),
-                     labels = c("OECD",
-                                "Americas",
-                                "Asia &\nOceania",
-                                "Central &\nEastern Europe",
-                                "Middle East &\nnorth Africa",
-                                "Sub-Saharan\nAfrica"))
-
-
-# Now when we construct the plot using these data the order should appear as it does in the original.
-
-pc4$data <- dat
-pc4
-
-
-# #### Add title & format axes
-#
-# The next step is to add the title and format the axes. We do that using the `scales` system in `ggplot2`.
-
-library(grid)
-
-(pc5 <- pc4 +
-  scale_x_continuous(name = "Corruption Perceptions Index, 2011 (10=least corrupt)",
-                     limits = c(.9, 10.5),
-                     breaks = 1:10) +
-  scale_y_continuous(name = "Human Development Index, 2011 (1=Best)",
-                     limits = c(0.2, 1.0),
-                     breaks = seq(0.2, 1.0, by = 0.1)) +
-  scale_color_manual(name = "",
-                     values = c("#24576D",
-                                "#099DD7",
-                                "#28AADC",
-                                "#248E84",
-                                "#F2583F",
-                                "#96503F")) +
-  ggtitle("Corruption and Human development"))
-
-
-# #### Theme tweaks
-#
-# Our graph is almost there. To finish up, we need to adjust some of the theme elements, and label the axes and legends. This part usually involves some trial and error as you figure out where things need to be positioned. To see what these various theme settings do you can change them and observe the results.
-
-library(grid) # for the `unit()` function
-
-(pc6 <- pc5 +
-  theme_minimal() + # start with a minimal theme and add what we need
-  theme(text = element_text(color = "gray20"),
-        legend.position = c("top"), # position the legend in the upper left 
-        legend.direction = "horizontal",
-        legend.justification = 0.1, # anchor point for legend.position.
-        legend.text = element_text(size = 11, color = "gray10"),
-        axis.text = element_text(face = "italic"),
-        axis.title.x = element_text(vjust = -1), # move title away from axis
-        axis.title.y = element_text(vjust = 2), # move away for axis
-        axis.ticks.y = element_blank(), # element_blank() is how we remove elements
-        axis.line = element_line(color = "gray40", size = 0.5),
-        axis.line.y = element_blank(),
-        panel.grid.major = element_line(color = "gray50", size = 0.5),
-        panel.grid.major.x = element_blank()
-        ))
-
-
-# #### Add model R<sup>2</sup> & source note
-#
-# The last bit of information that we want to have on the graph is the variance explained by the model represented by the trend line. Lets fit that model and pull out the R<sup>2</sup> first, then think about how to get it onto the graph.
-
-mR2 <- summary(lm(HDI ~ CPI + log(CPI), data = dat))$r.squared
-mR2 <- paste0(format(mR2, digits = 2), "%")
-
-# OK, now that we've calculated the values, let's think about how to get them on the graph. ggplot2 has an `annotate()` function, but this is not convenient for adding elements outside the plot area. The `grid` package has nice functions for doing this, so we'll use those.
-#
-# And here it is, our final version!
-
-png(file = "images/econScatter10.png", width = 700, height = 500)
-p <- ggplot(dat,
-            mapping = aes(x = CPI, y = HDI)) +
-  geom_smooth(mapping = aes(linetype = "r2"),
-              method = "lm",
-              formula = y ~ x + log(x), se = FALSE,
-              color = "red") +
-  geom_point(mapping = aes(color = Region),
-             shape = 1,
-             size = 4,
-             stroke = 1.5) +
-  geom_text_repel(mapping = aes(label = Country, alpha = labels),
-                  color = "gray20",
-                  data = transform(dat,
-                                   labels = Country %in% c("Russia",
-                                                           "Venezuela",
-                                                           "Iraq",
-                                                           "Mayanmar",
-                                                           "Sudan",
-                                                           "Afghanistan",
-                                                           "Congo",
-                                                           "Greece",
-                                                           "Argentinia",
-                                                           "Italy",
-                                                           "Brazil",
-                                                           "India",
-                                                           "China",
-                                                           "South Africa",
-                                                           "Spain",
-                                                           "Cape Verde",
-                                                           "Bhutan",
-                                                           "Rwanda",
-                                                           "France",
-                                                           "Botswana",
-                                                           "France",
-                                                           "US",
-                                                           "Germany",
-                                                           "Britain",
-                                                           "Barbados",
-                                                           "Japan",
-                                                           "Norway",
-                                                           "New Zealand",
-                                                           "Sigapore"))) +
-  scale_x_continuous(name = "Corruption Perception Index, 2011 (10=least corrupt)",
-                     limits = c(1.0, 10.0),
-                     breaks = 1:10) +
-  scale_y_continuous(name = "Human Development Index, 2011 (1=best)",
-                     limits = c(0.2, 1.0),
-                     breaks = seq(0.2, 1.0, by = 0.1)) +
-  scale_color_manual(name = "",
-                     values = c("#24576D",
-                                "#099DD7",
-                                "#28AADC",
-                                "#248E84",
-                                "#F2583F",
-                                "#96503F"),
-                     guide = guide_legend(nrow = 1, order=1)) +
-  scale_alpha_discrete(range = c(0, 1),
-                       guide = FALSE) +
-  scale_linetype(name = "",
-                 breaks = "r2",
-                 labels = list(bquote(R^2==.(mR2))),
-                 guide = guide_legend(override.aes = list(linetype = 1, size = 2, color = "red"), order=2)) +
-  ggtitle("Corruption and human development") +
-  labs(caption="Sources: Transparency International; UN Human Development Report") +
-  theme_bw() +
-  theme(panel.border = element_blank(),
-        panel.grid = element_blank(),
-        panel.grid.major.y = element_line(color = "gray"),
-        text = element_text(color = "gray20"),
-        axis.title.x = element_text(face="italic"),
-        axis.title.y = element_text(face="italic"),
-        legend.position = "top",
-        legend.direction = "horizontal",
-        legend.box = "horizontal",
-        legend.text = element_text(size = 12),
-        plot.caption = element_text(hjust=0),
-        plot.title = element_text(size = 16, face = "bold"))
-p
-
-dev.off()
-
-
-# Comparing it to the original suggests that we've got most of the important elements. 
 
 # ## Exercise solutions
 #
@@ -909,6 +635,32 @@ scale_y_continuous(name = "Human Development Index") +
                                 "#96503F"))
 
 
+# ### Ex 3: prototype
+#
+# 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
+
+p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) 
+p6 + geom_point() 
+
+# 2.  Within the geom_point() call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
+
+p6 <- p6 + geom_point(aes(color=state, size=log(popdensity)), alpha = 0.3) 
+
+# 3.  Add a smoother and turn off plotting the confidence interval. Hint: see the `se` argument to `geom_smooth()`.
+
+p6 <- p6 + geom_smooth(method="loess", se=FALSE) 
+
+# 4.  Facet the plot by `state`.
+
+p6 <- p6 + facet_wrap(~ state)
+
+# 5.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: `axis_text` and `strip_background`.
+
+p6 <- p6 + theme_bw() +
+    theme(axis_title = element_text(color = "blue"),
+          strip_background = element_text(fill = "blue"))
+#
+
 # ## Wrap-up
 #
 # ### Feedback
@@ -930,6 +682,8 @@ scale_y_continuous(name = "Human Development Index") +
 # * ggplot2
 #     + Reference: <https://ggplot2.tidyverse.org/reference/>
 #     + Cheatsheets: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
+#     + Examples: <http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html>
+#     + Tutorial: <https://uc-r.github.io/ggplot_intro>
 #     + Mailing list: <http://groups.google.com/group/ggplot2>
 #     + Wiki: <https://github.com/hadley/ggplot2/wiki>
 #     + Website: <http://had.co.nz/ggplot2/>

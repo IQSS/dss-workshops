@@ -40,6 +40,13 @@
 # install.packages("tidyverse")
 library(tidyverse)
 
+# We can also install the `rmarkdown` package, which will allow us to
+# combine our text and code into a formatted document at the end of 
+# the workshop:
+
+# install.packages("rmarkdown")
+library(rmarkdown)
+
 # ### Goals
 #
 # Class Structure and Organization:
