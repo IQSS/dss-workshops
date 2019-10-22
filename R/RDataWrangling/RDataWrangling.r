@@ -225,13 +225,16 @@ glimpse(tmp)
 #   1. Write a function that takes a file name as an argument and reads
 #      the worksheet containing "Table 1" from that file. Don't forget
 #      to skip the first 6 rows.
-#      
+## 
+
 #   2. Test your function by using it to read *one* of the boys names
 #      Excel files.
-#      
+## 
+
 #   3. Use the `map()` function to read data from all the Excel files,
 #      using the function you wrote in step 1.
-#
+## 
+
 
 # ## Data cleanup
 #
@@ -284,13 +287,16 @@ boysNames[[1]]
 #   1. Write a function that takes a `data.frame` as an argument and
 #      returns a modified version including only columns named `Name`,
 #      `Name__1`, `Count`, or `Count__1`. 
-#      
+## 
+
 #   2. Test your function on the first `data.frame` in the list of baby
 #      names data.
-#      
+## 
+
 #   3. Use the `map()` function to each `data.frame` in the list of baby
 #      names data.
-#
+## 
+
 
 # ### Re-arranging into a single table
 #
@@ -314,8 +320,10 @@ bind_rows(select(boysNames[[1]], Name, Count),
 # our data with `select()` and `bind_rows()`. In each case we applied the
 # changes only to the first element of our `boysNames` list.
 #
-# Your task now is to use the `map()` function to apply each of these
+# 1.  Your task now is to use the `map()` function to apply each of these
 # transformations to all the elements in `boysNames`.
+## 
+
 
 # ## Data organization & storage
 #
@@ -354,13 +362,17 @@ glimpse(boysNames)
 #
 # **Make one big table**
 #
-# Turn the list of boys names data.frames into a single table. 
-#
-# Create a directory under `data/all` and write the data to a `.csv`
-# file.
+# 1.  Turn the list of boys names data.frames into a single table. 
+## 
 
-# Finally, repeat the previous exercise, this time working with the data
+# 2.  Create a directory under `data/all` and write the data to a `.csv`
+# file.
+## 
+
+# 3.  Finally, repeat the previous exercise, this time working with the data
 # in one big table.
+## 
+
 
 # ## Exercise solutions
 #
@@ -437,7 +449,7 @@ glimpse(boysNames)
 # There are different ways you can go about it. Here is one:
 #
 
-## write a function that does all the cleanup
+## 1.  write a function that does all the cleanup
 cleanupNamesData <- function(x) {
     filtered <- filter(x, !is.na(Name)) # drop rows with no Name value
     selected <- select(filtered, Name, Count, Name__1, Count__1) # select just Name and Count columns

@@ -147,14 +147,24 @@ help(package = "stats")
 
 # ### Installing & using R packages
 #
-# A large number of contributed packages are available. If you are
-# looking for a package for a specific task,
+# R is a modular environment that is extended by the use of **packages**.
+# Packages are collections of functions or commands that are designed to
+# perform specific tasks (e.g., fit a type of regression model).
+#
+# A large number of contributed packages are available (> 15,000). 
+# If you are looking for a package for a specific task,
 # https://cran.r-project.org/web/views/ and https://r-pkg.org are good
 # places to start.
 #
-# You can install a package in R using the `install.packages()`
-# function. Once a package is installed you may use the `library()`
-# function to attach it so that it can be used.
+# Using an R package is a **two step process**:
+#
+# 1.  Install the package onto your computer using the
+#  `install.packages()` function. This only needs to
+#  be done the first time you use the package.
+#
+# 2.  Load the package into your R session's search path 
+#  using the `library()` function. This needs to be done
+#  each time you use the package.
 #
 # While R's built-in packages are powerful, in recent years there has
 # been a big surge in well-designed *contributed packages* for R. In 
@@ -460,8 +470,6 @@ head(baby_names)
 #     given the most popular name changed over time?
 ##
 
-# 5. BONUS (optional): Which names are the most popular for both boys and girls?
-##
 
 # ## Percent choosing one of the top 10 names
 #
@@ -671,30 +679,6 @@ qplot(x = Year,
       color = Sex, 
       data = top1, 
       geom = "line")
-
-## 5. BONUS (optional): Which names are the most popular for both boys 
-##    and girls?
-
-bn_girls <- baby_names %>% 
-  filter(Sex == "Girls") %>%
-  select(Name, Year, Count)
-
-bn_boys <- baby_names %>% 
-  filter(Sex == "Boys") %>%
-  select(Name, Year, Count)
-
-girls_and_boys <- inner_join(bn_girls, 
-                             bn_boys,
-                             by = c("Year", "Name"))
-head(girls_and_boys)
-
-girls_and_boys <- 
-  girls_and_boys %>%
-  mutate(Product = Count.x * Count.y,
-         Rank = rank(-Product)) %>%
-  filter(Rank == 1)
-
-head(girls_and_boys)
 
 
 # ### Ex 5: prototype

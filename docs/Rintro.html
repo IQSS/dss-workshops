@@ -710,8 +710,13 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <p>R has data reading functionality built-in – see e.g., <code>help(read.table)</code>. However, faster and more robust tools are available, and so to make things easier on ourselves we will use a <em>contributed package</em> instead. This requires that we learn a little bit about packages in R.</p>
 <div id="installing-using-r-packages" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Installing &amp; using R packages</h3>
-<p>A large number of contributed packages are available. If you are looking for a package for a specific task, <a href="https://cran.r-project.org/web/views/" class="uri">https://cran.r-project.org/web/views/</a> and <a href="https://r-pkg.org" class="uri">https://r-pkg.org</a> are good places to start.</p>
-<p>You can install a package in R using the <code>install.packages()</code> function. Once a package is installed you may use the <code>library()</code> function to attach it so that it can be used.</p>
+<p>R is a modular environment that is extended by the use of <strong>packages</strong>. Packages are collections of functions or commands that are designed to perform specific tasks (e.g., fit a type of regression model).</p>
+<p>A large number of contributed packages are available (&gt; 15,000). If you are looking for a package for a specific task, <a href="https://cran.r-project.org/web/views/" class="uri">https://cran.r-project.org/web/views/</a> and <a href="https://r-pkg.org" class="uri">https://r-pkg.org</a> are good places to start.</p>
+<p>Using an R package is a <strong>two step process</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Install the package onto your computer using the <code>install.packages()</code> function. This only needs to be done the first time you use the package.</p></li>
+<li><p>Load the package into your R session’s search path using the <code>library()</code> function. This needs to be done each time you use the package.</p></li>
+</ol>
 <p>While R’s built-in packages are powerful, in recent years there has been a big surge in well-designed <em>contributed packages</em> for R. In particular, a collection of R packages called <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures. We will use <code>tidyverse</code> packages throughout the workshop, so let’s install them now:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## install.packages(&quot;tidyverse&quot;)
 <span class="kw">library</span>(tidyverse)</code></pre></div>
@@ -953,10 +958,6 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
 <li>Plot the data produced in step 4, putting <code>Year</code> on the x-axis and <code>Proportion</code> on the y-axis. How has the proportion of babies given the most popular name changed over time?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##</code></pre></div>
-<ol start="5" style="list-style-type: decimal">
-<li>BONUS (optional): Which names are the most popular for both boys and girls?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##</code></pre></div>
 </div>
 <div id="percent-choosing-one-of-the-top-10-names" class="section level2">
 <h2><span class="header-section-number">2.15</span> Percent choosing one of the top 10 names</h2>
@@ -1110,27 +1111,6 @@ baby_names <span class="co"># same as print(baby_names)</span></code></pre></div
       <span class="dt">color =</span> Sex, 
       <span class="dt">data =</span> top1, 
       <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 5. BONUS (optional): Which names are the most popular for both boys 
-##    and girls?</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bn_girls &lt;-<span class="st"> </span>baby_names <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &quot;Girls&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Name, Year, Count)
-
-bn_boys &lt;-<span class="st"> </span>baby_names <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &quot;Boys&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Name, Year, Count)
-
-girls_and_boys &lt;-<span class="st"> </span><span class="kw">inner_join</span>(bn_girls, 
-                             bn_boys,
-                             <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Name&quot;</span>))
-<span class="kw">head</span>(girls_and_boys)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">girls_and_boys &lt;-<span class="st"> </span>
-<span class="st">  </span>girls_and_boys <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Product =</span> Count.x <span class="op">*</span><span class="st"> </span>Count.y,
-         <span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="op">-</span>Product)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Rank <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
-
-<span class="kw">head</span>(girls_and_boys)</code></pre></div>
 </div>
 <div id="ex-5-prototype" class="section level3">
 <h3><span class="header-section-number">2.18.7</span> Ex 5: prototype</h3>

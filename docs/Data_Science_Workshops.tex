@@ -1568,14 +1568,29 @@ bit about packages in R.
 \subsection{Installing \& using R
 packages}\label{installing-using-r-packages}
 
-A large number of contributed packages are available. If you are looking
-for a package for a specific task,
+R is a modular environment that is extended by the use of
+\textbf{packages}. Packages are collections of functions or commands
+that are designed to perform specific tasks (e.g., fit a type of
+regression model).
+
+A large number of contributed packages are available (\textgreater{}
+15,000). If you are looking for a package for a specific task,
 \url{https://cran.r-project.org/web/views/} and \url{https://r-pkg.org}
 are good places to start.
 
-You can install a package in R using the \texttt{install.packages()}
-function. Once a package is installed you may use the \texttt{library()}
-function to attach it so that it can be used.
+Using an R package is a \textbf{two step process}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Install the package onto your computer using the
+  \texttt{install.packages()} function. This only needs to be done the
+  first time you use the package.
+\item
+  Load the package into your R session's search path using the
+  \texttt{library()} function. This needs to be done each time you use
+  the package.
+\end{enumerate}
 
 While R's built-in packages are powerful, in recent years there has been
 a big surge in well-designed \emph{contributed packages} for R. In
@@ -2115,21 +2130,6 @@ each year.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  BONUS (optional): Which names are the most popular for both boys and
-  girls?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{##}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Percent choosing one of the top 10
 names}\label{percent-choosing-one-of-the-top-10-names}
 
@@ -2520,42 +2520,6 @@ workspaces
       \DataTypeTok{color =}\NormalTok{ Sex, }
       \DataTypeTok{data =}\NormalTok{ top1, }
       \DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## 5. BONUS (optional): Which names are the most popular for both boys }
-\NormalTok{##    and girls?}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bn_girls <-}\StringTok{ }\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(Sex }\OperatorTok{==}\StringTok{ "Girls"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Year, Count)}
-
-\NormalTok{bn_boys <-}\StringTok{ }\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Year, Count)}
-
-\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(bn_girls, }
-\NormalTok{                             bn_boys,}
-                             \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"Year"}\NormalTok{, }\StringTok{"Name"}\NormalTok{))}
-\KeywordTok{head}\NormalTok{(girls_and_boys)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{girls_and_boys <-}\StringTok{ }
-\StringTok{  }\NormalTok{girls_and_boys }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Product =}\NormalTok{ Count.x }\OperatorTok{*}\StringTok{ }\NormalTok{Count.y,}
-         \DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Product)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
-
-\KeywordTok{head}\NormalTok{(girls_and_boys)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3043,12 +3007,42 @@ metropolitan areas (metro). Be sure to
 \tightlist
 \item
   Examine/plot the data before fitting the model
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
-  Print and interpret the model \texttt{summary}
+  Print and interpret the model \texttt{summary()}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   \texttt{plot} the model to look for deviations from modeling
   assumptions
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 Select one or more additional predictors to add to your model and repeat
 steps 1-3. Is this model significantly better than the model with
@@ -3136,17 +3130,36 @@ See \texttt{?contr.treatment} for other coding schemes and also
 
 \textbf{Interactions \& factors}
 
-Use the states data set.
+Use the \texttt{states} data set.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
-  Add on to the regression equation that you created in exercise 1 by
+  Add on to the regression equation that you created in Exercise 1 by
   generating an interaction term and testing the interaction.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Try adding region to the model. Are there significant differences
   across the four regions?
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Models with binary outcomes}\label{models-with-binary-outcomes}
 
@@ -3245,19 +3258,37 @@ compute quantities of interest for us.
 
 \textbf{Logistic regression}
 
-Use the NH11 data set that we loaded earlier.
+Use the \texttt{NH11} data set that we loaded earlier.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use glm to conduct a logistic regression to predict ever worked
-  (everwrk) using age (age\_p) and marital status (r\_maritl).
+  Use \texttt{glm()} to conduct a logistic regression to predict ever
+  worked (everwrk) using age (age\_p) and marital status (r\_maritl).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Predict the probability of working for each level of marital status.
 \end{enumerate}
 
-Note that the data is not perfectly clean and ready to be modeled. You
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+Note that the data are not perfectly clean and ready to be modeled. You
 will need to clean up at least some of the variables before fitting the
 model.
 
@@ -3405,7 +3436,7 @@ without the random slope term
 
 \textbf{Multilevel modeling}
 
-Use the dataset, bh1996:
+Use the \texttt{bh1996} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3425,17 +3456,59 @@ Hours (HRS). The group identifier is named ``GRP''.
 \tightlist
 \item
   Create a null model predicting wellbeing (``WBEING'')
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Calculate the ICC for your null model
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Run a second multi-level model that adds two individual-level
   predictors, average number of hours worked (``HRS'') and leadership
   skills (``LEAD'') to the model and interpret your output.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Now, add a random effect of average number of hours worked (``HRS'')
   to the model and interpret your output. Test the significance of this
   random term.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Exercise solutions}\label{exercise-solutions-1}
 
@@ -4071,7 +4144,8 @@ on the plot.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# here we use geom_point() to add a layer with points (dot) elements as the geometric shapes to represent the data.}
+\CommentTok{# here we use geom_point() to add a layer with points (dot) elements }
+\CommentTok{# as the geometric shapes to represent the data.}
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ hp2001Q1, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Land_Value, }\DataTypeTok{y =}\NormalTok{ Structure_Cost)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
@@ -4181,15 +4255,69 @@ These data consist of \emph{Human Development Index} and
 \item
   Create a scatter plot with \texttt{CPI} on the x axis and \texttt{HDI}
   on the y axis.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Color the points blue.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Map the color of the the points to \texttt{Region}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Make the points bigger by setting size to 2
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
 \item
   Map the size of the points to \texttt{HDI\_Rank}
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Statistical transformations}\label{statistical-transformations}
 
@@ -4295,21 +4423,75 @@ function:
 \item
   Re-create a scatter plot with \texttt{CPI} on the x axis and
   \texttt{HDI} on the y axis (as you did in the previous exercise).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Overlay a smoothing line on top of the scatter plot using
   \texttt{geom\_smooth()}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Overlay a smoothing line on top of the scatter plot using
   \texttt{geom\_smooth()}, but use a linear model for the predictions.
   Hint: see \texttt{?stat\_smooth}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Overlay a smoothing line on top of the scatter plot using the default
   \emph{loess} method for \texttt{geom\_smooth()}, but make it less
   smooth. Hint: see \texttt{?loess}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
 \item
   BONUS: Overlay a smoothing line on top of the scatter plot using
   \texttt{geom\_line()}. Hint: change the statistical transformation.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Scales}\label{scales}
 
@@ -4485,14 +4667,44 @@ list of available scales see
 \item
   Create a scatter plot with \texttt{CPI} on the x axis and \texttt{HDI}
   on the y axis. Color the points to indicate \texttt{Region}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Modify the x, y, and color scales so that they have more
   easily-understood names (e.g., spell out ``Human development Index''
   instead of ``HDI''). Hint: see \texttt{?scale\_x\_discrete}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Modify the color scale to use specific values of your choosing. Hint:
   see \texttt{?scale\_color\_manual}.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Faceting}\label{faceting}
 
@@ -4709,20 +4921,91 @@ dataset:
 \item
   Create a scatter plot with \texttt{area} on the x axis and the log of
   \texttt{poptotal} on the y axis.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Within the \texttt{geom\_point()} call, map color to \texttt{state},
   map size to the log of \texttt{popdensity}, and fix transparency
   (\texttt{alpha}) to 0.3.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Add a smoother and turn off plotting the confidence interval. Hint:
   see the \texttt{se} argument to \texttt{geom\_smooth()}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
 \item
-  Facet the plot by \texttt{state}.
+  Facet the plot by \texttt{state}. Set the \texttt{scales} argument to
+  \texttt{facet\_wrap()} to allow separate ranges for the x-axis.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Change the default color scale to use the discrete
+  \texttt{RColorBrewer} palette called \texttt{Set1}. Hint: see
+  \texttt{?scale\_color\_brewer}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
 \item
   BONUS: Change the default theme to \texttt{theme\_bw()} and modify it
   so that the axis text and facet label background are blue. Hint:
   \texttt{axis\_text} and \texttt{strip\_background}.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Exercise solutions}\label{exercise-solutions-2}
 
@@ -4974,8 +5257,8 @@ dataset:
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Within the geom\_point() call, map color to \texttt{state}, map size
-  to the log of \texttt{popdensity}, and fix transparency
+  Within the \texttt{geom\_point()} call, map color to \texttt{state},
+  map size to the log of \texttt{popdensity}, and fix transparency
   (\texttt{alpha}) to 0.3.
 \end{enumerate}
 
@@ -5005,18 +5288,35 @@ dataset:
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Facet the plot by \texttt{state}.
+  Facet the plot by \texttt{state}. Set the \texttt{scales} argument to
+  \texttt{facet\_wrap()} to allow separate ranges for the x-axis.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{state)}
+\NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{state, }\DataTypeTok{scales =} \StringTok{"free_x"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{4}
+\tightlist
+\item
+  Change the default color scale to use the discrete
+  \texttt{RColorBrewer} palette called \texttt{Set1}. Hint: see
+  \texttt{?scale\_color\_brewer}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_color_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Set1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
 \tightlist
 \item
   BONUS: Change the default theme to \texttt{theme\_bw()} and modify it
@@ -5425,17 +5725,48 @@ skip the first 6 rows.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   Write a function that takes a file name as an argument and reads the
   worksheet containing ``Table 1'' from that file. Don't forget to skip
   the first 6 rows.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Test your function by using it to read \emph{one} of the boys names
   Excel files.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Use the \texttt{map()} function to read data from all the Excel files,
   using the function you wrote in step 1.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Data cleanup}\label{data-cleanup}
 
@@ -5513,17 +5844,48 @@ in \texttt{boysNames}, a task I leave to you.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   Write a function that takes a \texttt{data.frame} as an argument and
   returns a modified version including only columns named \texttt{Name},
   \texttt{Name\_\_1}, \texttt{Count}, or \texttt{Count\_\_1}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Test your function on the first \texttt{data.frame} in the list of
   baby names data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Use the \texttt{map()} function to each \texttt{data.frame} in the
   list of baby names data.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Re-arranging into a single
 table}\label{re-arranging-into-a-single-table}
@@ -5552,8 +5914,19 @@ and re-arrange our data with \texttt{select()} and
 \texttt{bind\_rows()}. In each case we applied the changes only to the
 first element of our \texttt{boysNames} list.
 
-Your task now is to use the \texttt{map()} function to apply each of
-these transformations to all the elements in \texttt{boysNames}.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Your task now is to use the \texttt{map()} function to apply each of
+  these transformations to all the elements in \texttt{boysNames}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Data organization \& storage}\label{data-organization-storage}
 
@@ -5610,13 +5983,48 @@ information to each table before flattening.
 
 \textbf{Make one big table}
 
-Turn the list of boys names data.frames into a single table.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Turn the list of boys names data.frames into a single table.
+\end{enumerate}
 
-Create a directory under \texttt{data/all} and write the data to a
-\texttt{.csv} file.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
-Finally, repeat the previous exercise, this time working with the data
-in one big table.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create a directory under \texttt{data/all} and write the data to a
+  \texttt{.csv} file.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Finally, repeat the previous exercise, this time working with the data
+  in one big table.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Exercise solutions}\label{exercise-solutions-3}
 
@@ -5717,7 +6125,7 @@ There are different ways you can go about it. Here is one:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## write a function that does all the cleanup}
+\NormalTok{## 1.  write a function that does all the cleanup}
 \NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
 \NormalTok{    filtered <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(x, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(Name)) }\CommentTok{# drop rows with no Name value}
 \NormalTok{    selected <-}\StringTok{ }\KeywordTok{select}\NormalTok{(filtered, Name, Count, Name__}\DecValTok{1}\NormalTok{, Count__}\DecValTok{1}\NormalTok{) }\CommentTok{# select just Name and Count columns}
