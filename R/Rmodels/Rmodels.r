@@ -120,7 +120,7 @@ list.files("dataSets")
 # ## Models with continuous outcomes
 #
 # * Ordinary least squares (OLS) regression models can be fit with the `lm()` function
-# * For example, we can use `lm` to predict SAT scores based on per-pupal expenditures:
+# * For example, we can use `lm()` to predict SAT scores based on per-pupal expenditures:
 
   # Fit our regression model
   sat_mod <- lm(csat ~ expense, # regression formula
@@ -156,8 +156,17 @@ list.files("dataSets")
 
 # ### OLS regression assumptions
 #
-# * OLS regression relies on several assumptions, including that the residuals are normally distributed and homoscedastic, the errors are independent and the relationships are linear.
-# * Investigate these assumptions visually by plotting your model:
+# * OLS regression relies on several assumptions, including:
+#     1. The model includes all relevant variables (i.e., no omitted variable bias).
+#     2. The model is linear in the parameters (i.e., the cofficients and error term).
+#     3. The error term has an expected value of zero.
+#     4. All right-hand-side variables are uncorrelated with the error term.
+#     5. No right-hand-side variables are a perfect linear function of other RHS variables.
+#     6. Observations of the error term are uncorrelated with each other.
+#     7. The error term has constant variance (i.e., homoscedasticity).
+#     8. (Optional - only for inference). The error term is normally distributed.
+#
+# Investigate assumptions #7 and #8 visually by plotting your model:
 
   par(mfrow = c(2, 2)) 
   plot(sat_mod)
@@ -172,7 +181,7 @@ list.files("dataSets")
 
   sat_mod <- update(sat_mod, data=na.omit(states_data))
 
-  # compare using the anova() function
+  # compare using an F-test with the anova() function
   anova(sat_mod, sat_voting_mod)
   summary(sat_voting_mod) %>% coef()
 
@@ -188,7 +197,7 @@ list.files("dataSets")
 # 2.  Print and interpret the model `summary()`
 ## 
 
-# 3.  `plot` the model to look for deviations from modeling assumptions
+# 3.  `plot()` the model to look for deviations from modeling assumptions
 ## 
 
 # Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
@@ -226,7 +235,7 @@ list.files("dataSets")
 #
 # ### Setting factor reference groups & contrasts
 #
-# In the previous example we use the default contrasts for region. The default in R is treatment contrasts, with the first level as the reference. We can change the reference group or use another coding scheme using the `C` function.
+# In the previous example we use the default contrasts for region. The default in R is treatment contrasts, with the first level as the reference. We can change the reference group or use another coding scheme using the `C()` function.
 
   # print default contrasts
   contrasts(states_data$region)
@@ -265,7 +274,7 @@ list.files("dataSets")
 #
 # ### Logistic regression
 #
-# This far we have used the `lm` function to fit our regression models. `lm` is great, but limited--in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
+# This far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited--in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
 #
 # For these models we will use a different dataset, drawn from the National Health Interview Survey. From the [CDC website](http://www.cdc.gov/nchs/nhis.htm):
 #
@@ -329,14 +338,14 @@ list.files("dataSets")
 #
 # ### Multilevel modeling overview
 #
-# * Multi-level (AKA hierarchical) models are a type of mixed-effects models
+# * Multi-level (AKA hierarchical) models are a type of **mixed-effects** models
 # * Used to model variation due to group membership where the goal is to generalize to a population of groups
 # * Can model different intercepts and/or slopes for each group
-# * Mixed-effecs models include two types of predictors: fixed-effects and random effects
-#   + Fixed-effects -- observed levels are of direct interest (.e.g, sex, political party...)
-#   + Random-effects -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
-#   + In R the lme4 package is the most popular for mixed effects models
-#   + Use the `lmer` function for liner mixed models, `glmer` for generalized mixed models
+# * Mixed-effecs models include two types of predictors: **fixed-effects** and **random effects**
+#   + **Fixed-effects** -- observed levels are of direct interest (.e.g, sex, political party...)
+#   + **Random-effects** -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
+#   + In R the `lme4` package is the most popular for mixed effects models
+#   + Use the `lmer()` function for liner mixed models, `glmer()` for generalized linear mixed models
 
 # ### The Exam data
 #
@@ -382,7 +391,7 @@ list.files("dataSets")
 
 # ### Multiple degree of freedom comparisons
 #
-# As with `lm` and `glm` models, you can compare the two `lmer` models using the `anova` function.
+# As with `lm()` and `glm()` models, you can compare the two `lmer()` models using a likelihood ratio test with the `anova()` function.
 
   anova(Norm1, Norm2)
 
@@ -396,7 +405,7 @@ list.files("dataSets")
 
 # ### Test the significance of the random slope
 #
-# To test the significance of a random slope just compare models with and without the random slope term
+# To test the significance of a random slope just compare models with and without the random slope term using a likelihood ratio test:
 
   anova(Norm2, Norm3) 
 
@@ -442,12 +451,12 @@ data(bh1996, package="multilevel")
   plot(states_en_met)
   cor(states_en_met, use="pairwise")
 
-# 2.  Print and interpret the model `summary`
+# 2.  Print and interpret the model `summary()`
 
   mod_en_met <- lm(energy ~ metro, data = states)
   summary(mod_en_met)
 
-# 3.  `plot` the model to look for deviations from modeling assumptions
+# 3.  `plot()` the model to look for deviations from modeling assumptions
 
   plot(mod_en_met)
 

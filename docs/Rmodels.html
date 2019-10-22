@@ -734,7 +734,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.3</span> Models with continuous outcomes</h2>
 <ul>
 <li>Ordinary least squares (OLS) regression models can be fit with the <code>lm()</code> function</li>
-<li>For example, we can use <code>lm</code> to predict SAT scores based on per-pupal expenditures:</li>
+<li>For example, we can use <code>lm()</code> to predict SAT scores based on per-pupal expenditures:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Fit our regression model</span>
   sat_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span>expense, <span class="co"># regression formula</span>
@@ -769,9 +769,19 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="ols-regression-assumptions" class="section level3">
 <h3><span class="header-section-number">3.3.3</span> OLS regression assumptions</h3>
 <ul>
-<li>OLS regression relies on several assumptions, including that the residuals are normally distributed and homoscedastic, the errors are independent and the relationships are linear.</li>
-<li>Investigate these assumptions visually by plotting your model:</li>
+<li>OLS regression relies on several assumptions, including:
+<ol style="list-style-type: decimal">
+<li>The model includes all relevant variables (i.e., no omitted variable bias).</li>
+<li>The model is linear in the parameters (i.e., the cofficients and error term).</li>
+<li>The error term has an expected value of zero.</li>
+<li>All right-hand-side variables are uncorrelated with the error term.</li>
+<li>No right-hand-side variables are a perfect linear function of other RHS variables.</li>
+<li>Observations of the error term are uncorrelated with each other.</li>
+<li>The error term has constant variance (i.e., homoscedasticity).</li>
+<li>(Optional - only for inference). The error term is normally distributed.</li>
+</ol></li>
 </ul>
+<p>Investigate assumptions #7 and #8 visually by plotting your model:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) 
   <span class="kw">plot</span>(sat_mod)</code></pre></div>
 </div>
@@ -784,7 +794,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 
   sat_mod &lt;-<span class="st"> </span><span class="kw">update</span>(sat_mod, <span class="dt">data=</span><span class="kw">na.omit</span>(states_data))
 
-  <span class="co"># compare using the anova() function</span>
+  <span class="co"># compare using an F-test with the anova() function</span>
   <span class="kw">anova</span>(sat_mod, sat_voting_mod)
   <span class="kw">summary</span>(sat_voting_mod) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</code></pre></div>
 </div>
@@ -802,7 +812,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li><code>plot</code> the model to look for deviations from modeling assumptions</li>
+<li><code>plot()</code> the model to look for deviations from modeling assumptions</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <p>Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with <em>metro</em> as the only predictor?</p>
@@ -836,7 +846,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="setting-factor-reference-groups-contrasts" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Setting factor reference groups &amp; contrasts</h3>
-<p>In the previous example we use the default contrasts for region. The default in R is treatment contrasts, with the first level as the reference. We can change the reference group or use another coding scheme using the <code>C</code> function.</p>
+<p>In the previous example we use the default contrasts for region. The default in R is treatment contrasts, with the first level as the reference. We can change the reference group or use another coding scheme using the <code>C()</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># print default contrasts</span>
   <span class="kw">contrasts</span>(states_data<span class="op">$</span>region)
 
@@ -874,7 +884,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.7</span> Models with binary outcomes</h2>
 <div id="logistic-regression" class="section level3">
 <h3><span class="header-section-number">3.7.1</span> Logistic regression</h3>
-<p>This far we have used the <code>lm</code> function to fit our regression models. <code>lm</code> is great, but limited–in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the <code>glm()</code> function.</p>
+<p>This far we have used the <code>lm()</code> function to fit our regression models. <code>lm()</code> is great, but limited–in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the <code>glm()</code> function.</p>
 <p>For these models we will use a different dataset, drawn from the National Health Interview Survey. From the <a href="http://www.cdc.gov/nchs/nhis.htm">CDC website</a>:</p>
 <blockquote>
 <p>The National Health Interview Survey (NHIS) has monitored the health of the nation since 1957. NHIS data on a broad range of health topics are collected through personal household interviews. For over 50 years, the U.S. Census Bureau has been the data collection agent for the National Health Interview Survey. Survey results have been instrumental in providing data to track health status, health care access, and progress toward achieving national health objectives.</p>
@@ -936,14 +946,14 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="multilevel-modeling-overview" class="section level3">
 <h3><span class="header-section-number">3.9.1</span> Multilevel modeling overview</h3>
 <ul>
-<li>Multi-level (AKA hierarchical) models are a type of mixed-effects models</li>
+<li>Multi-level (AKA hierarchical) models are a type of <strong>mixed-effects</strong> models</li>
 <li>Used to model variation due to group membership where the goal is to generalize to a population of groups</li>
 <li>Can model different intercepts and/or slopes for each group</li>
-<li>Mixed-effecs models include two types of predictors: fixed-effects and random effects</li>
-<li>Fixed-effects – observed levels are of direct interest (.e.g, sex, political party…)</li>
-<li>Random-effects – observed levels not of direct interest: goal is to make inferences to a population represented by observed levels</li>
-<li>In R the lme4 package is the most popular for mixed effects models</li>
-<li>Use the <code>lmer</code> function for liner mixed models, <code>glmer</code> for generalized mixed models</li>
+<li>Mixed-effecs models include two types of predictors: <strong>fixed-effects</strong> and <strong>random effects</strong></li>
+<li><strong>Fixed-effects</strong> – observed levels are of direct interest (.e.g, sex, political party…)</li>
+<li><strong>Random-effects</strong> – observed levels not of direct interest: goal is to make inferences to a population represented by observed levels</li>
+<li>In R the <code>lme4</code> package is the most popular for mixed effects models</li>
+<li>Use the <code>lmer()</code> function for liner mixed models, <code>glmer()</code> for generalized linear mixed models</li>
 </ul>
 </div>
 <div id="the-exam-data" class="section level3">
@@ -1000,7 +1010,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="multiple-degree-of-freedom-comparisons" class="section level3">
 <h3><span class="header-section-number">3.9.5</span> Multiple degree of freedom comparisons</h3>
-<p>As with <code>lm</code> and <code>glm</code> models, you can compare the two <code>lmer</code> models using the <code>anova</code> function.</p>
+<p>As with <code>lm()</code> and <code>glm()</code> models, you can compare the two <code>lmer()</code> models using a likelihood ratio test with the <code>anova()</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">anova</span>(Norm1, Norm2)</code></pre></div>
 </div>
 <div id="random-slopes" class="section level3">
@@ -1012,7 +1022,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="test-the-significance-of-the-random-slope" class="section level3">
 <h3><span class="header-section-number">3.9.7</span> Test the significance of the random slope</h3>
-<p>To test the significance of a random slope just compare models with and without the random slope term</p>
+<p>To test the significance of a random slope just compare models with and without the random slope term using a likelihood ratio test:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">anova</span>(Norm2, Norm3) </code></pre></div>
 </div>
 </div>
@@ -1057,12 +1067,12 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
   <span class="kw">plot</span>(states_en_met)
   <span class="kw">cor</span>(states_en_met, <span class="dt">use=</span><span class="st">&quot;pairwise&quot;</span>)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Print and interpret the model <code>summary</code></li>
+<li>Print and interpret the model <code>summary()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mod_en_met &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span>metro, <span class="dt">data =</span> states)
   <span class="kw">summary</span>(mod_en_met)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li><code>plot</code> the model to look for deviations from modeling assumptions</li>
+<li><code>plot()</code> the model to look for deviations from modeling assumptions</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(mod_en_met)</code></pre></div>
 <p>Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with <em>metro</em> as the only predictor?</p>

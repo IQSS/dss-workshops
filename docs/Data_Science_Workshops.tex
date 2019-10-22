@@ -2889,7 +2889,7 @@ outcomes}\label{models-with-continuous-outcomes}
   Ordinary least squares (OLS) regression models can be fit with the
   \texttt{lm()} function
 \item
-  For example, we can use \texttt{lm} to predict SAT scores based on
+  For example, we can use \texttt{lm()} to predict SAT scores based on
   per-pupal expenditures:
 \end{itemize}
 
@@ -2963,12 +2963,35 @@ assumptions}\label{ols-regression-assumptions}
 \begin{itemize}
 \tightlist
 \item
-  OLS regression relies on several assumptions, including that the
-  residuals are normally distributed and homoscedastic, the errors are
-  independent and the relationships are linear.
-\item
-  Investigate these assumptions visually by plotting your model:
+  OLS regression relies on several assumptions, including:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    The model includes all relevant variables (i.e., no omitted variable
+    bias).
+  \item
+    The model is linear in the parameters (i.e., the cofficients and
+    error term).
+  \item
+    The error term has an expected value of zero.
+  \item
+    All right-hand-side variables are uncorrelated with the error term.
+  \item
+    No right-hand-side variables are a perfect linear function of other
+    RHS variables.
+  \item
+    Observations of the error term are uncorrelated with each other.
+  \item
+    The error term has constant variance (i.e., homoscedasticity).
+  \item
+    (Optional - only for inference). The error term is normally
+    distributed.
+  \end{enumerate}
 \end{itemize}
+
+Investigate assumptions \#7 and \#8 visually by plotting your model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2990,7 +3013,7 @@ expense? Fit two models and compare them:
 
 \NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat_mod, }\DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(states_data))}
 
-  \CommentTok{# compare using the anova() function}
+  \CommentTok{# compare using an F-test with the anova() function}
   \KeywordTok{anova}\NormalTok{(sat_mod, sat_voting_mod)}
   \KeywordTok{summary}\NormalTok{(sat_voting_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
@@ -3036,7 +3059,7 @@ metropolitan areas (metro). Be sure to
 \setcounter{enumi}{2}
 \tightlist
 \item
-  \texttt{plot} the model to look for deviations from modeling
+  \texttt{plot()} the model to look for deviations from modeling
   assumptions
 \end{enumerate}
 
@@ -3101,7 +3124,7 @@ contrasts}\label{setting-factor-reference-groups-contrasts}
 In the previous example we use the default contrasts for region. The
 default in R is treatment contrasts, with the first level as the
 reference. We can change the reference group or use another coding
-scheme using the \texttt{C} function.
+scheme using the \texttt{C()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3167,8 +3190,8 @@ Use the \texttt{states} data set.
 
 \subsection{Logistic regression}\label{logistic-regression}
 
-This far we have used the \texttt{lm} function to fit our regression
-models. \texttt{lm} is great, but limited--in particular it only fits
+This far we have used the \texttt{lm()} function to fit our regression
+models. \texttt{lm()} is great, but limited--in particular it only fits
 models for continuous dependent variables. For categorical dependent
 variables we can use the \texttt{glm()} function.
 
@@ -3302,27 +3325,29 @@ overview}\label{multilevel-modeling-overview}
 \begin{itemize}
 \tightlist
 \item
-  Multi-level (AKA hierarchical) models are a type of mixed-effects
-  models
+  Multi-level (AKA hierarchical) models are a type of
+  \textbf{mixed-effects} models
 \item
   Used to model variation due to group membership where the goal is to
   generalize to a population of groups
 \item
   Can model different intercepts and/or slopes for each group
 \item
-  Mixed-effecs models include two types of predictors: fixed-effects and
-  random effects
+  Mixed-effecs models include two types of predictors:
+  \textbf{fixed-effects} and \textbf{random effects}
 \item
-  Fixed-effects -- observed levels are of direct interest (.e.g, sex,
-  political party\ldots{})
+  \textbf{Fixed-effects} -- observed levels are of direct interest
+  (.e.g, sex, political party\ldots{})
 \item
-  Random-effects -- observed levels not of direct interest: goal is to
-  make inferences to a population represented by observed levels
+  \textbf{Random-effects} -- observed levels not of direct interest:
+  goal is to make inferences to a population represented by observed
+  levels
 \item
-  In R the lme4 package is the most popular for mixed effects models
+  In R the \texttt{lme4} package is the most popular for mixed effects
+  models
 \item
-  Use the \texttt{lmer} function for liner mixed models, \texttt{glmer}
-  for generalized mixed models
+  Use the \texttt{lmer()} function for liner mixed models,
+  \texttt{glmer()} for generalized linear mixed models
 \end{itemize}
 
 \subsection{The Exam data}\label{the-exam-data}
@@ -3398,8 +3423,9 @@ Predict exam scores from student's standardized tests scores
 \subsection{Multiple degree of freedom
 comparisons}\label{multiple-degree-of-freedom-comparisons}
 
-As with \texttt{lm} and \texttt{glm} models, you can compare the two
-\texttt{lmer} models using the \texttt{anova} function.
+As with \texttt{lm()} and \texttt{glm()} models, you can compare the two
+\texttt{lmer()} models using a likelihood ratio test with the
+\texttt{anova()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3426,7 +3452,7 @@ test.
 slope}\label{test-the-significance-of-the-random-slope}
 
 To test the significance of a random slope just compare models with and
-without the random slope term
+without the random slope term using a likelihood ratio test:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3548,7 +3574,7 @@ percentage of residents living in metropolitan areas (metro). Be sure to
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Print and interpret the model \texttt{summary}
+  Print and interpret the model \texttt{summary()}
 \end{enumerate}
 
 \begin{Shaded}
@@ -3563,7 +3589,7 @@ percentage of residents living in metropolitan areas (metro). Be sure to
 \setcounter{enumi}{2}
 \tightlist
 \item
-  \texttt{plot} the model to look for deviations from modeling
+  \texttt{plot()} the model to look for deviations from modeling
   assumptions
 \end{enumerate}
 
