@@ -44,7 +44,7 @@ library(tidyverse)
 # install.packages("scales")
 library(scales)
 
-## install.packages("ggrepel") 
+# install.packages("ggrepel") 
 library(ggrepel)
 
 # We can also install the `rmarkdown` package, which will allow us to
@@ -173,8 +173,8 @@ ggplot(data = hp2001Q1)
 
 # **Step 2:** specify aesthetic mappings (how you want to map variables to visual aspects):
 
-# here we map "Structure_Cost" and "Land_Value" to the x- and y-axes.
-ggplot(data = hp2001Q1, mapping = aes(x = Structure_Cost, y = Land_Value))
+# here we map "Land_Value" and "Structure_Cost" to the x- and y-axes.
+ggplot(data = hp2001Q1, mapping = aes(x = Land_Value, y = Structure_Cost))
 
 # **Step 3:** add new layers of geometric objects that will show up on the plot. 
 
@@ -246,11 +246,11 @@ dat <- read_csv("dataSets/EconomistData.csv")
 #
 # These data consist of *Human Development Index* and *Corruption Perception Index* scores for several countries.
 #
-# 1.  Create a scatter plot with CPI on the x axis and HDI on the y axis.
+# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis.
 # 2.  Color the points blue.
-# 3.  Map the color of the the points to Region.
+# 3.  Map the color of the the points to `Region`.
 # 4.  Make the points bigger by setting size to 2
-# 5.  Map the size of the points to HDI_Rank
+# 5.  Map the size of the points to `HDI_Rank`
 
 # ## Statistical transformations
 #
@@ -305,7 +305,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 
 # ## Exercise 1
 #
-# 1.  Re-create a scatter plot with CPI on the x axis and HDI on the y axis (as you did in the previous exercise).
+# 1.  Re-create a scatter plot with `CPI` on the x axis and `HDI` on the y axis (as you did in the previous exercise).
 # 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`.
 # 3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
 # 4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?loess`.
@@ -412,7 +412,7 @@ p4 +
 
 # ## Exercise 2
 #
-# 1.  Create a scatter plot with CPI on the x axis and HDI on the y axis. Color the points to indicate region.
+# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
 # 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of "HDI"). Hint: see `?scale_x_discrete`.
 # 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`.
 
@@ -539,7 +539,7 @@ data("midwest", package = "ggplot2")
 head(midwest)
 
 # 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
-# 2.  Within the geom_point() call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
+# 2.  Within the `geom_point()` call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
 # 3.  Add a smoother and turn off plotting the confidence interval. Hint: see the `se` argument to `geom_smooth()`.
 # 4.  Facet the plot by `state`.
 # 5.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: `axis_text` and `strip_background`.
