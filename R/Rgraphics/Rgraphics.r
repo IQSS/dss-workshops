@@ -176,9 +176,9 @@ ggplot(data = hp2001Q1)
 # here we map "Land_Value" and "Structure_Cost" to the x- and y-axes.
 ggplot(data = hp2001Q1, mapping = aes(x = Land_Value, y = Structure_Cost))
 
-# **Step 3:** add new layers of geometric objects that will show up on the plot. 
+# **Step 3:** add new layers of geometric objects that will show up on the plot: 
 
-# here we use geom_point() to add a layer with points (dot) elements 
+# here we use geom_point() to add a layer with point (dot) elements 
 # as the geometric shapes to represent the data.
 ggplot(data = hp2001Q1, mapping = aes(x = Land_Value, y = Structure_Cost)) +
   geom_point()

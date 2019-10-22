@@ -51,8 +51,10 @@ library(rmarkdown)
 
 # install.packages("lme4")
 library(lme4)  # for mixed models
+
 # install.packages("emmeans")
 library(emmeans)  # for marginal effects
+
 # install.packages("effects")
 library(effects)  # for predicted marginal means
 
@@ -113,7 +115,7 @@ list.files("dataSets")
   # scatter plot of expense vs csat
   plot(sts_ex_sat)
 
-# ![](images/statesCorr1.png)
+# ![](R/Rmodels/images/statesCorr1.png)
 
 # ## Models with continuous outcomes
 #
@@ -307,7 +309,7 @@ list.files("dataSets")
   plot(eff)
   as.data.frame(eff) # confidence intervals
 
-# ![](images/effects1.png)
+# ![](R/Rmodels/images/effects1.png)
 
 # ## Exercise 2 
 #

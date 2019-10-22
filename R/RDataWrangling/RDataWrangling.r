@@ -248,11 +248,11 @@ glimpse(tmp)
 #
 # In short, we want to go from this:
 #
-# ![messy](images/messy.png)
+# ![messy](R/RDataWrangling/images/messy.png)
 #
 # to this:
 #
-# ![tidy](images/clean.png)
+# ![tidy](R/RDataWrangling/images/clean.png)
 #
 # There are many ways to do this kind of data manipulation in R. We're
 # going to use the *dplyr* and *tidyr* packages to make our lives
