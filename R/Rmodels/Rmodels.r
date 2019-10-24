@@ -85,6 +85,9 @@ list.files("dataSets")
   # read the states data
   states_data <- read_rds("dataSets/states.rds") 
 
+  # look at the last few rows
+  tail(states_data)
+
 # | Variable | Description                                        |
 # |:---------|:---------------------------------------------------|
 # | csat     | Mean composite SAT score                           |
@@ -105,6 +108,7 @@ list.files("dataSets")
   # summary of expense and csat columns, all rows
   sts_ex_sat <- subset(states_data, select = c("expense", "csat"))
   summary(sts.ex.sat)
+
   # correlation between expense and csat
   cor(sts_ex_sat) 
 
@@ -127,14 +131,14 @@ list.files("dataSets")
                 data=states_data) # data 
                 
   # Summarize and print the results
-  summary(sat_mod) # show regression coefficients table
+  summary(sat_mod) %>% coef() # show regression coefficients table
 
 # ### Why is the association between expense & SAT scores *negative*?
 #
 # Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?
 
   lm(csat ~ expense + percent, data = states_data) %>% 
-  summary()
+  summary() 
 
 # ### The `lm` class & methods
 #
@@ -180,11 +184,12 @@ list.files("dataSets")
   sat_voting_mod <- lm(csat ~ expense + house + senate,
                         data = na.omit(states_data))
 
+  summary(sat_voting_mod) %>% coef()
+
   sat_mod <- update(sat_mod, data=na.omit(states_data))
 
   # compare using an F-test with the anova() function
   anova(sat_mod, sat_voting_mod)
-  summary(sat_voting_mod) %>% coef()
 
 # ## Exercise 0
 #
@@ -315,8 +320,10 @@ list.files("dataSets")
 # Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
 
   eff <- allEffects(hyp_out)
-  eff2 <- allEffects(hyp_out, xlevels = list(age_p, seq(20, 80, by = 5)))
   plot(eff)
+
+  # override defaults
+  eff <- allEffects(hyp_out, xlevels = list(age_p = seq(20, 80, by = 5)))
   as.data.frame(eff) # confidence intervals
 
 # ![](R/Rmodels/images/effects1.png)
@@ -327,10 +334,10 @@ list.files("dataSets")
 #
 # Use the `NH11` data set that we loaded earlier.
 #
-# 1.  Use `glm()` to conduct a logistic regression to predict ever worked (everwrk) using age (age_p) and marital status (r_maritl).
+# 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 ## 
 
-# 2.  Predict the probability of working for each level of marital status.
+# 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`
 ## 
 
 # Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
@@ -370,7 +377,7 @@ list.files("dataSets")
                 data=na.omit(Exam), REML = FALSE)
   summary(Norm1)
 
-# The is .169/(.169 + .848) = .17: 17% of the variance is at the school level. 
+# The is .161/(.161 + .852) = .159 = 16% of the variance is at the school level. 
 #
 # There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. 
 # But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite 
@@ -416,22 +423,23 @@ list.files("dataSets")
 #
 # Use the `bh1996` dataset: 
 
+## install.packages("multilevel")
 data(bh1996, package="multilevel")
 
 # From the data documentation:
 #
 # > Variables are Leadership Climate (LEAD), Well-Being (WBEING), and Work Hours (HRS). The group identifier is named "GRP".
 #
-# 1.  Create a null model predicting wellbeing ("WBEING")
+# 1.  Create a null model predicting wellbeing (`WBEING`)
 ## 
 
 # 2.  Calculate the ICC for your null model
 ## 
 
-# 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked ("HRS") and leadership skills ("LEAD") to the model and interpret your output.
+# 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 ## 
 
-# 4.  Now, add a random effect of average number of hours worked ("HRS") to the model and interpret your output. Test the significance of this random term.
+# 4.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 ## 
 
 
@@ -489,12 +497,9 @@ data(bh1996, package="multilevel")
 #
 # Use the NH11 data set that we loaded earlier. Note that the data is not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 #
-# 1.  Use glm to conduct a logistic regression to predict ever worked (everwrk) using age (age_p) and marital status (r_maritl).
+# 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
-  nh11_wrk_age_mar <- subset(NH11, select = c("everwrk", "age_p", "r_maritl"))
-  summary(nh11_wrk_age_mar)
-
-  NH11 <- transform(NH11,
+  NH11 <- mutate(NH11,
                     everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
                     r_maritl = droplevels(r_maritl))
 
@@ -503,9 +508,10 @@ data(bh1996, package="multilevel")
 
   summary(mod_wk_age_mar)
 
-# 2.  Predict the probability of working for each level of marital status.
+# 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`
 
-  data.frame(Effect("r_maritl", mod_wk_age_mar))
+  eff <- allEffects(mod_wk_age_mar)
+  as.data.frame(eff[["r_maritl"]])
 
 # ### Ex 3: prototype
 #
@@ -517,17 +523,17 @@ data(bh1996, package="multilevel")
 #
 # > Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being (WBEING) and Work Hours (HRS). The group identifier is named "GRP".
 #
-# 1.  Create a null model predicting wellbeing ("WBEING")
+# 1.  Create a null model predicting wellbeing (`WBEING`)
 
   mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
   summary(mod_grp0)
 
-# 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked ("HRS") and leadership skills ("LEAD") to the model and interpret your output.
+# 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
   mod_grp1 <- lmer(WBEING ~ HRS + LEAD + (1 | GRP), data = bh1996)
   summary(mod_grp1)
 
-# 3.  Now, add a random effect of average number of hours worked ("HRS") to the model and interpret your output. Test the significance of this random term.
+# 3.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
   mod_grp2 <- lmer(WBEING ~ HRS + LEAD + (1 + HRS | GRP), data = bh1996)
   anova(mod_grp1, mod_grp2)

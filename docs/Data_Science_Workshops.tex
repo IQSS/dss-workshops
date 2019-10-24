@@ -2827,6 +2827,9 @@ appeared in \emph{Statistics with Stata} by Lawrence C. Hamilton.
 \begin{Highlighting}[]
   \CommentTok{# read the states data}
 \NormalTok{  states_data <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{) }
+
+  \CommentTok{# look at the last few rows}
+  \KeywordTok{tail}\NormalTok{(states_data)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2857,6 +2860,7 @@ Start by examining the data to check for problems.
   \CommentTok{# summary of expense and csat columns, all rows}
 \NormalTok{  sts_ex_sat <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states_data, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"expense"}\NormalTok{, }\StringTok{"csat"}\NormalTok{))}
   \KeywordTok{summary}\NormalTok{(sts.ex.sat)}
+
   \CommentTok{# correlation between expense and csat}
   \KeywordTok{cor}\NormalTok{(sts_ex_sat) }
 \end{Highlighting}
@@ -2900,7 +2904,7 @@ outcomes}\label{models-with-continuous-outcomes}
                 \DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# data }
                 
   \CommentTok{# Summarize and print the results}
-  \KeywordTok{summary}\NormalTok{(sat_mod) }\CommentTok{# show regression coefficients table}
+  \KeywordTok{summary}\NormalTok{(sat_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }\CommentTok{# show regression coefficients table}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2918,7 +2922,7 @@ SAT?
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{percent, }\DataTypeTok{data =}\NormalTok{ states_data) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{summary}\NormalTok{()}
+\StringTok{  }\KeywordTok{summary}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
@@ -3007,11 +3011,12 @@ expense? Fit two models and compare them:
 \NormalTok{  sat_voting_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{house }\OperatorTok{+}\StringTok{ }\NormalTok{senate,}
                         \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states_data))}
 
+  \KeywordTok{summary}\NormalTok{(sat_voting_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
+
 \NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat_mod, }\DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(states_data))}
 
   \CommentTok{# compare using an F-test with the anova() function}
   \KeywordTok{anova}\NormalTok{(sat_mod, sat_voting_mod)}
-  \KeywordTok{summary}\NormalTok{(sat_voting_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3263,8 +3268,10 @@ compute quantities of interest for us.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out)}
-\NormalTok{  eff2 <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(age_p, }\KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
   \KeywordTok{plot}\NormalTok{(eff)}
+
+  \CommentTok{# override defaults}
+\NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{age_p =} \KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
   \KeywordTok{as.data.frame}\NormalTok{(eff) }\CommentTok{# confidence intervals}
 \end{Highlighting}
 \end{Shaded}
@@ -3286,7 +3293,12 @@ Use the \texttt{NH11} data set that we loaded earlier.
 \tightlist
 \item
   Use \texttt{glm()} to conduct a logistic regression to predict ever
-  worked (everwrk) using age (age\_p) and marital status (r\_maritl).
+  worked (\texttt{everwrk}) using age (\texttt{age\_p}) and marital
+  status (\texttt{r\_maritl}). Make sure you only keep the following two
+  levels for \texttt{everwrk} (\texttt{1\ Yes} and \texttt{2\ No}).
+  Hint: use the \texttt{factor()} function. Also, make sure to drop any
+  \texttt{r\_maritl} levels that do not contain observations. Hint: see
+  \texttt{?droplevels}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -3301,6 +3313,7 @@ Use the \texttt{NH11} data set that we loaded earlier.
 \tightlist
 \item
   Predict the probability of working for each level of marital status.
+  Hint: use \texttt{allEffects()}
 \end{enumerate}
 
 \begin{Shaded}
@@ -3385,7 +3398,7 @@ structure, but no fixed-effects predictors).
 \end{Highlighting}
 \end{Shaded}
 
-The is .169/(.169 + .848) = .17: 17\% of the variance is at the school
+The is .161/(.161 + .852) = .159 = 16\% of the variance is at the school
 level.
 
 There is no consensus on how to calculate p-values for MLMs; hence why
@@ -3464,6 +3477,7 @@ Use the \texttt{bh1996} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{## install.packages("multilevel")}
 \KeywordTok{data}\NormalTok{(bh1996, }\DataTypeTok{package=}\StringTok{"multilevel"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3479,7 +3493,7 @@ Hours (HRS). The group identifier is named ``GRP''.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Create a null model predicting wellbeing (``WBEING'')
+  Create a null model predicting wellbeing (\texttt{WBEING})
 \end{enumerate}
 
 \begin{Shaded}
@@ -3508,8 +3522,9 @@ Hours (HRS). The group identifier is named ``GRP''.
 \tightlist
 \item
   Run a second multi-level model that adds two individual-level
-  predictors, average number of hours worked (``HRS'') and leadership
-  skills (``LEAD'') to the model and interpret your output.
+  predictors, average number of hours worked (\texttt{HRS}) and
+  leadership skills (\texttt{LEAD}) to the model and interpret your
+  output.
 \end{enumerate}
 
 \begin{Shaded}
@@ -3523,9 +3538,9 @@ Hours (HRS). The group identifier is named ``GRP''.
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Now, add a random effect of average number of hours worked (``HRS'')
-  to the model and interpret your output. Test the significance of this
-  random term.
+  Now, add a random effect of average number of hours worked
+  (\texttt{HRS}) to the model and interpret your output. Test the
+  significance of this random term.
 \end{enumerate}
 
 \begin{Shaded}
@@ -3656,16 +3671,18 @@ least some of the variables before fitting the model.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use glm to conduct a logistic regression to predict ever worked
-  (everwrk) using age (age\_p) and marital status (r\_maritl).
+  Use \texttt{glm()} to conduct a logistic regression to predict ever
+  worked (\texttt{everwrk}) using age (\texttt{age\_p}) and marital
+  status (\texttt{r\_maritl}). Make sure you only keep the following two
+  levels for \texttt{everwrk} (\texttt{1\ Yes} and \texttt{2\ No}).
+  Hint: use the \texttt{factor()} function. Also, make sure to drop any
+  \texttt{r\_maritl} levels that do not contain observations. Hint: see
+  \texttt{?droplevels}.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  nh11_wrk_age_mar <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(NH11, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"everwrk"}\NormalTok{, }\StringTok{"age_p"}\NormalTok{, }\StringTok{"r_maritl"}\NormalTok{))}
-  \KeywordTok{summary}\NormalTok{(nh11_wrk_age_mar)}
-
-\NormalTok{  NH11 <-}\StringTok{ }\KeywordTok{transform}\NormalTok{(NH11,}
+\NormalTok{  NH11 <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(NH11,}
                     \DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
                     \DataTypeTok{r_maritl =} \KeywordTok{droplevels}\NormalTok{(r_maritl))}
 
@@ -3682,11 +3699,13 @@ least some of the variables before fitting the model.
 \tightlist
 \item
   Predict the probability of working for each level of marital status.
+  Hint: use \texttt{allEffects()}
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{data.frame}\NormalTok{(}\KeywordTok{Effect}\NormalTok{(}\StringTok{"r_maritl"}\NormalTok{, mod_wk_age_mar))}
+\NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(mod_wk_age_mar)}
+  \KeywordTok{as.data.frame}\NormalTok{(eff[[}\StringTok{"r_maritl"}\NormalTok{]])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3711,7 +3730,7 @@ Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Create a null model predicting wellbeing (``WBEING'')
+  Create a null model predicting wellbeing (\texttt{WBEING})
 \end{enumerate}
 
 \begin{Shaded}
@@ -3727,8 +3746,9 @@ Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being
 \tightlist
 \item
   Run a second multi-level model that adds two individual-level
-  predictors, average number of hours worked (``HRS'') and leadership
-  skills (``LEAD'') to the model and interpret your output.
+  predictors, average number of hours worked (\texttt{HRS}) and
+  leadership skills (\texttt{LEAD}) to the model and interpret your
+  output.
 \end{enumerate}
 
 \begin{Shaded}
@@ -3743,9 +3763,9 @@ Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Now, add a random effect of average number of hours worked (``HRS'')
-  to the model and interpret your output. Test the significance of this
-  random term.
+  Now, add a random effect of average number of hours worked
+  (\texttt{HRS}) to the model and interpret your output. Test the
+  significance of this random term.
 \end{enumerate}
 
 \begin{Shaded}
