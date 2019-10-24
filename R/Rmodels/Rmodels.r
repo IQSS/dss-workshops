@@ -107,7 +107,7 @@ list.files("dataSets")
 
   # summary of expense and csat columns, all rows
   sts_ex_sat <- subset(states_data, select = c("expense", "csat"))
-  summary(sts.ex.sat)
+  summary(sts_ex_sat)
 
   # correlation between expense and csat
   cor(sts_ex_sat) 
@@ -320,7 +320,7 @@ list.files("dataSets")
 # Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
 
   eff <- allEffects(hyp_out)
-  plot(eff)
+  plot(eff, type = "response")
 
   # override defaults
   eff <- allEffects(hyp_out, xlevels = list(age_p = seq(20, 80, by = 5)))
@@ -428,7 +428,7 @@ data(bh1996, package="multilevel")
 
 # From the data documentation:
 #
-# > Variables are Leadership Climate (LEAD), Well-Being (WBEING), and Work Hours (HRS). The group identifier is named "GRP".
+# > Variables are Leadership Climate (`LEAD`), Well-Being (`WBEING`), and Work Hours (`HRS`). The group identifier is named `GRP`.
 #
 # 1.  Create a null model predicting wellbeing (`WBEING`)
 ## 
@@ -521,7 +521,7 @@ data(bh1996, package="multilevel")
 
 # From the data documentation:
 #
-# > Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being (WBEING) and Work Hours (HRS). The group identifier is named "GRP".
+# > Variables are Leadership Climate (`LEAD`), Well-Being (`WBEING`), and Work Hours (`HRS`). The group identifier is named `GRP`.
 #
 # 1.  Create a null model predicting wellbeing (`WBEING`)
 

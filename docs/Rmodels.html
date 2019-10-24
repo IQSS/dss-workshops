@@ -718,7 +718,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <p>Start by examining the data to check for problems.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># summary of expense and csat columns, all rows</span>
   sts_ex_sat &lt;-<span class="st"> </span><span class="kw">subset</span>(states_data, <span class="dt">select =</span> <span class="kw">c</span>(<span class="st">&quot;expense&quot;</span>, <span class="st">&quot;csat&quot;</span>))
-  <span class="kw">summary</span>(sts.ex.sat)
+  <span class="kw">summary</span>(sts_ex_sat)
 
   <span class="co"># correlation between expense and csat</span>
   <span class="kw">cor</span>(sts_ex_sat) </code></pre></div>
@@ -921,7 +921,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">3.7.4</span> Packages for computing &amp; graphing predicted values</h3>
 <p>Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  eff &lt;-<span class="st"> </span><span class="kw">allEffects</span>(hyp_out)
-  <span class="kw">plot</span>(eff)
+  <span class="kw">plot</span>(eff, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
 
   <span class="co"># override defaults</span>
   eff &lt;-<span class="st"> </span><span class="kw">allEffects</span>(hyp_out, <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">age_p =</span> <span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)))
@@ -1039,7 +1039,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</code></pre></div>
 <p>From the data documentation:</p>
 <blockquote>
-<p>Variables are Leadership Climate (LEAD), Well-Being (WBEING), and Work Hours (HRS). The group identifier is named “GRP”.</p>
+<p>Variables are Leadership Climate (<code>LEAD</code>), Well-Being (<code>WBEING</code>), and Work Hours (<code>HRS</code>). The group identifier is named <code>GRP</code>.</p>
 </blockquote>
 <ol style="list-style-type: decimal">
 <li>Create a null model predicting wellbeing (<code>WBEING</code>)</li>
@@ -1130,7 +1130,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</code></pre></div>
 <p>From the data documentation:</p>
 <blockquote>
-<p>Variables are Cohesion (COHES), Leadership Climate (LEAD), Well-Being (WBEING) and Work Hours (HRS). The group identifier is named “GRP”.</p>
+<p>Variables are Leadership Climate (<code>LEAD</code>), Well-Being (<code>WBEING</code>), and Work Hours (<code>HRS</code>). The group identifier is named <code>GRP</code>.</p>
 </blockquote>
 <ol style="list-style-type: decimal">
 <li>Create a null model predicting wellbeing (<code>WBEING</code>)</li>
