@@ -876,7 +876,7 @@ p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point
 <div id="setting-arguments" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> Setting arguments</h3>
 <p>Arguments to <code>stat_</code> functions can be passed through <code>geom_</code> functions. This can be slightly annoying because in order to change it you have to first determine which stat the geom uses, then determine the arguments to that stat.</p>
-<p>For example, here is the default histogram of Home.Value:</p>
+<p>For example, here is the default histogram of Home_Value:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value))
 p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre></div>
 <p>can change it by passing the <code>binwidth</code> argument to the <code>stat_bin()</code> function:</p>
@@ -952,7 +952,7 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 <p>Start by constructing a dotplot showing the distribution of home values by Date and State.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,
-               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))<span class="er">)</span></code></pre></div>
+               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))</code></pre></div>
 <p>Now modify the breaks for the color scales</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,
@@ -1119,8 +1119,9 @@ p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line<
 <div id="faceting-to-the-rescue" class="section level3">
 <h3><span class="header-section-number">4.9.3</span> Faceting to the rescue</h3>
 <p>We can remedy the deficiencies of the previous plot by faceting by state rather than mapping state to color.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>State, <span class="dt">ncol =</span> <span class="dv">10</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>State, <span class="dt">ncol =</span> <span class="dv">10</span>)
+p5</code></pre></div>
 </div>
 </div>
 <div id="themes" class="section level2">
@@ -1157,7 +1158,7 @@ p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line<
 <p>You can create new themes, as in the following example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theme_new &lt;-<span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>),
-        <span class="dt">text=</span><span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Serif&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;ivory&quot;</span>),
+        <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Serif&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;ivory&quot;</span>),
         <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>),
         <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>),
         <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;pink&quot;</span>),
@@ -1346,8 +1347,8 @@ p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point
 <li>BONUS: Change the default theme to <code>theme_bw()</code> and modify it so that the axis text and facet label background are blue. Hint: <code>axis_text</code> and <code>strip_background</code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis_title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>),
-          <span class="dt">strip_background =</span> <span class="kw">element_text</span>(<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>))</code></pre></div>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>),
+          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>))</code></pre></div>
 </div>
 </div>
 <div id="wrap-up-3" class="section level2">

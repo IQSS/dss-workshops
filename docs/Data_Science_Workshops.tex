@@ -4404,7 +4404,7 @@ Arguments to \texttt{stat\_} functions can be passed through
 order to change it you have to first determine which stat the geom uses,
 then determine the arguments to that stat.
 
-For example, here is the default histogram of Home.Value:
+For example, here is the default histogram of Home\_Value:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4603,7 +4603,7 @@ by Date and State.
 \begin{Highlighting}[]
 \NormalTok{p4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ State, }\DataTypeTok{y =}\NormalTok{ Home_Price_Index)) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Date), }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{size =} \FloatTok{1.5}\NormalTok{,}
-               \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{))}\ErrorTok{)}
+               \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4805,8 +4805,9 @@ rather than mapping state to color.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{(p5 <-}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
-\StringTok{   }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{State, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{))}
+\NormalTok{p5 <-}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{   }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{State, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\NormalTok{p5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4886,7 +4887,7 @@ You can create new themes, as in the following example:
 \begin{Highlighting}[]
 \NormalTok{theme_new <-}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"black"}\NormalTok{),}
-        \DataTypeTok{text=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{, }\DataTypeTok{family =} \StringTok{"Serif"}\NormalTok{, }\DataTypeTok{color =} \StringTok{"ivory"}\NormalTok{),}
+        \DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{, }\DataTypeTok{family =} \StringTok{"Serif"}\NormalTok{, }\DataTypeTok{color =} \StringTok{"ivory"}\NormalTok{),}
         \DataTypeTok{axis.text.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"purple"}\NormalTok{),}
         \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"red"}\NormalTok{),}
         \DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"pink"}\NormalTok{),}
@@ -5373,8 +5374,8 @@ dataset:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{p6 <-}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis_title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{),}
-          \DataTypeTok{strip_background =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"blue"}\NormalTok{))}
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{),}
+          \DataTypeTok{strip.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"blue"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5896,8 +5897,8 @@ list object?
 \subsection{Dropping missing values}\label{dropping-missing-values}
 
 Next we want to remove blank rows and rows used for notes. An easy way
-to do that is to use \texttt{drop\_na()} to remove rows with missing
-values.
+to do that is to use \texttt{drop\_na()} from the \texttt{tidyr} package
+within \texttt{tidyverse} to remove rows with missing values.
 
 \begin{Shaded}
 \begin{Highlighting}[]

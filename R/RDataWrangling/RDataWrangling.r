@@ -293,7 +293,8 @@ boysNames[[1]]
 # ### Dropping missing values
 #
 # Next we want to remove blank rows and rows used for notes. An easy way
-# to do that is to use `drop_na()` to remove rows with missing values.
+# to do that is to use `drop_na()` from the `tidyr` package within `tidyverse`
+# to remove rows with missing values.
 
 boysNames[[1]]
 

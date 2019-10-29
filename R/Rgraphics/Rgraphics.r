@@ -283,7 +283,7 @@ args(stat_bin)
 #
 # Arguments to `stat_` functions can be passed through `geom_` functions. This can be slightly annoying because in order to change it you have to first determine which stat the geom uses, then determine the arguments to that stat.
 #
-# For example, here is the default histogram of Home.Value:
+# For example, here is the default histogram of Home_Value:
 
 p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
@@ -363,7 +363,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 
 p4 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) + 
     geom_point(aes(color = Date), alpha = 0.5, size = 1.5,
-               position = position_jitter(width = 0.25, height = 0)))
+               position = position_jitter(width = 0.25, height = 0))
 
 
 # Now modify the breaks for the color scales
@@ -466,8 +466,9 @@ p5 + geom_line(aes(color = State))
 #
 # We can remedy the deficiencies of the previous plot by faceting by state rather than mapping state to color.
 
-(p5 <- p5 + geom_line() +
-   facet_wrap(~ State, ncol = 10))
+p5 <- p5 + geom_line() +
+   facet_wrap(~ State, ncol = 10)
+p5
 
 
 # ## Themes
@@ -510,7 +511,7 @@ theme_get()
 
 theme_new <- theme_bw() +
   theme(plot.background = element_rect(size = 1, color = "blue", fill = "black"),
-        text=element_text(size = 12, family = "Serif", color = "ivory"),
+        text = element_text(size = 12, family = "Serif", color = "ivory"),
         axis.text.y = element_text(colour = "purple"),
         axis.text.x = element_text(colour = "red"),
         panel.background = element_rect(fill = "pink"),
@@ -699,8 +700,8 @@ p6 <- p6 + scale_color_brewer(palette = "Set1")
 # 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: `axis_text` and `strip_background`.
 
 p6 <- p6 + theme_bw() +
-    theme(axis_title = element_text(color = "blue"),
-          strip_background = element_text(fill = "blue"))
+    theme(axis.title = element_text(color = "blue"),
+          strip.background = element_rect(fill = "blue"))
 
 
 # ## Wrap-up
