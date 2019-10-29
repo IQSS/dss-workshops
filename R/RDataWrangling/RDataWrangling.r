@@ -37,7 +37,7 @@
 # data structures. We will use `tidyverse` packages throughout the 
 # workshop, so let's install them now:
 
-# install.packages("tidyverse")
+#install.packages("tidyverse")
 library(tidyverse)
 
 # We can also install the `rmarkdown` package, which will allow us to
@@ -46,6 +46,7 @@ library(tidyverse)
 
 # install.packages("rmarkdown")
 library(rmarkdown)
+
 
 # ### Goals
 #
@@ -122,19 +123,17 @@ library(rmarkdown)
 #
 # The first step is to get a vector of file names.
 
-boy.file.names <- list.files("dataSets/boys", full.names = TRUE)
+boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
 
 # Now that we've told R the names of the data files we can start working
 # with them. For example, the first file is
 
-boy.file.names[[1]]
+boy_file_names[1]
 
-# and we can use the `excel_sheets()` function from the *readxl* package
-# to list the worksheet names from this file.
+# and we can use the `excel_sheets()` function from the `readxl` package
+# within `tidyverse` to list the worksheet names from this file.
 
-library(readxl)
-
-excel_sheets(boy.file.names[[1]])
+excel_sheets(boy_file_names[1])
 
 # ### Iterating over file names with `map()`
 #
@@ -142,29 +141,33 @@ excel_sheets(boy.file.names[[1]])
 # Excel file we could start writing code to extract the sheet names from
 # each file, e.g.,
 
-excel_sheets(boy.file.names[[1]])
-excel_sheets(boy.file.names[[2]])
+excel_sheets(boy_file_names[1])
+
+excel_sheets(boy_file_names[2])
+
 ## ...
-excel_sheets(boy.file.names[[20]])
+excel_sheets(boy_file_names[20])
+
 
 # This is not a terrible idea for a small number of files, but it is
 # more convenient to let R do the iteration for us. We could use a `for loop`,
 # or `sapply()`, but the `map()` family of functions from the `purrr`
-# package gives us a more consistent alternative, so we'll use that.
+# package within `tidyverse` gives us a more consistent alternative, 
+# so we'll use that.
 
-library(purrr)
-map(boy.file.names, excel_sheets)
+map(boy_file_names, excel_sheets)
+# map(thing to iterate over, task to do in each iteration)
 
 # ### Filtering strings using regular expressions
 #
-# In order extract the correct worksheet names we need a way to extract
+# In order to extract the correct worksheet names we need a way to extract
 # strings containing "Table 1". Base R provides some string manipulation
 # capabilities (see `?regex`, `?sub` and `?grep`), but we will use the
 # *stringr* package because it is more user-friendly.
 #
-# The *stringr* package provides functions to *detect*, *locate*,
-# *extract*, *match*, *replace*, *combine* and *split* strings (among
-# other things). 
+# The `stringr` package within `tidyverse` provides functions to *detect*, 
+# *locate*, *extract*, *match*, *replace*, *combine* and *split* strings 
+# (among other things). 
 #
 # Here we want to detect the pattern "Table 1", and only
 # return elements with this pattern. We can do that using the
@@ -178,12 +181,12 @@ map(boy.file.names, excel_sheets)
 # Now that we know how to filter character vectors using `str_subset()` we can
 # identify the correct sheet in a particular Excel file. For example,
 
-library(stringr)
-str_subset(excel_sheets(boy.file.names[[1]]), "Table 1")
+#str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")
+excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 
 # ### Writing your own functions
 #
-# The `map*` functions are useful when you want to apply a function to a
+# The `map*` functions are useful when you want to apply a function to get a
 # list or vector of inputs and obtain the return values. This is very
 # convenient when a function already exists that does exactly what you
 # want. In the examples above we mapped the `excel_sheets()` function to
@@ -191,15 +194,30 @@ str_subset(excel_sheets(boy.file.names[[1]]), "Table 1")
 # function that both retrieves worksheet names and subsets them.
 # Fortunately, writing functions in R is easy.
 
-get.data.sheet.name <- function(file, pattern) {
-    str_subset(excel_sheets(file), pattern)
+# anatomy of a function
+
+function_name <- function(arg1, arg2, ....) {
+   ## body of function - where stuff happens ##
+   new_object <- arg1 * arg2
+   output1 <- thing_to_do(arg1)
+   output2 <- another_thing_to_do(output1, new_object)
+   return(output2)
 }
+
+get_data_sheet_name <- function(file, term){
+  excel_sheets(file) %>% str_subset(pattern = term)
+}
+
+# the goal is generalization 
+get_data_sheet_name(anyfile)
+get_data_sheet_name(anyfile, term="Table 2")
+
 
 # Now we can map this new function over our vector of file names.
 
-map(boy.file.names,
-    get.data.sheet.name,
-    pattern = "Table 1")
+map(boy_file_names,
+    get_data_sheet_name,
+    term = "Table 1")
 
 # ## Reading Excel data files
 #
@@ -209,15 +227,16 @@ map(boy.file.names,
 #
 # We'll start by reading the data from the first file, just to check
 # that it works. Recall that the actual data starts on row 7, so we want
-# to skip the first 6 rows.
+# to skip the first 6 rows. We can use the `glimpse()` function from
+# the `dplyr` package within `tidyverse` to view the output.
 
 tmp <- read_excel(
-    boy.file.names[1],
-    sheet = get.data.sheet.name(boy.file.names[1],
-                                pattern = "Table 1"),
-    skip = 6)
+  path = boy_file_names[1],
+  sheet = get_data_sheet_name(boy_file_names[1],
+                              term = "Table 1"),
+  skip = 6
+)
 
-library(dplyr, quietly=TRUE)
 glimpse(tmp)
 
 # ## Exercise 1
@@ -225,16 +244,13 @@ glimpse(tmp)
 #   1. Write a function that takes a file name as an argument and reads
 #      the worksheet containing "Table 1" from that file. Don't forget
 #      to skip the first 6 rows.
-## 
-
+#      
 #   2. Test your function by using it to read *one* of the boys names
 #      Excel files.
-## 
-
+#      
 #   3. Use the `map()` function to read data from all the Excel files,
 #      using the function you wrote in step 1.
-## 
-
+#
 
 # ## Data cleanup
 #
@@ -255,19 +271,21 @@ glimpse(tmp)
 # ![tidy](R/RDataWrangling/images/clean.png)
 #
 # There are many ways to do this kind of data manipulation in R. We're
-# going to use the *dplyr* and *tidyr* packages to make our lives
-# easier. (Both packages were installed as dependencies of the
-# *tidyverse* package.)
+# going to use the `dplyr` and `tidyr` packages from within `tidyverse`
+# to make our lives easier.
 
 # ### Selecting columns
 #
-# Next we want to retain just the `Name`, `Name__1` and `Count`,
-# `Count__1` columns. We can do that using the `select()` function:
+# Next we want to retain just the `Name...2`, `Name...6`, `Count...3` and `Count...7` columns. We can do that using the `select()` function:
 
 boysNames[[1]]
 
-boysNames[[1]] <- select(boysNames[[1]], Name, Name__1, Count, Count__1)
+boysNames[[1]] <- select(boysNames[[1]], Name...2, Name...6, Count...3, Count...7)
 boysNames[[1]]
+
+# Why are we using **double brackets** `[[` to index this list object?
+#
+# ![tidy](R/RDataWrangling/images/indexing_lists.png)
 
 # ### Dropping missing values
 #
@@ -276,39 +294,36 @@ boysNames[[1]]
 
 boysNames[[1]]
 
-boysNames[[1]] <- drop_na(boysNames[[1]])
+boysNames[[1]] <- boysNames[[1]] %>% drop_na()
+
 boysNames[[1]]
 
-# Finally, we will want to filter out missing do this for all the
+# Finally, we will want to filter out missing. Do this for all the
 # elements in `boysNames`, a task I leave to you.
 
 # ## Exercise 2
 #
 #   1. Write a function that takes a `data.frame` as an argument and
-#      returns a modified version including only columns named `Name`,
-#      `Name__1`, `Count`, or `Count__1`. 
-## 
+#      returns a modified version including only columns named `Name...2`,
+#      `Name...6`, `Count...3`, and `Count...7`. 
 
 #   2. Test your function on the first `data.frame` in the list of baby
 #      names data.
-## 
-
+#      
 #   3. Use the `map()` function to each `data.frame` in the list of baby
 #      names data.
-## 
-
 
 # ### Re-arranging into a single table
 #
-# Our final task is to re-arrange to data so that it is all in a single
+# Our final task is to re-arrange the data so that it is all in a single
 # table instead of in two side-by-side tables. For many similar tasks
 # the `gather()` function in the *tidyr* package is useful, but in this
 # case we will be better off using a combination of `select()` and
 # `bind_rows()`.
 
 boysNames[[1]]
-bind_rows(select(boysNames[[1]], Name, Count),
-          select(boysNames[[1]], Name = Name__1, Count = Count__1))
+bind_rows(select(boysNames[[1]], Name...2, Count...3),
+          select(boysNames[[1]], Name...2 = Name...6, Count...3 = Count...7))
 
 
 # ## Exercise 3
@@ -331,13 +346,14 @@ bind_rows(select(boysNames[[1]], Name, Count),
 
 # ### One table for each year
 #
-# Right now we have a list of tables, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds too.
+# Right now we have a list of tables, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
-glimpse(head(boysNames))
+glimpse(boysNames) %>% head()
 
-years <- str_extract(boy.file.names, "[0-9]{4}")
-boysNames <- setNames(boysNames, years)
-glimpse(head(boysNames))
+Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
+boysNames <- setNames(boysNames, Years)
+glimpse(boysNames) 
+
 
 # ### One big table
 #
@@ -350,12 +366,15 @@ glimpse(head(boysNames))
 # information! Fortunately it is not too much trouble to add the year
 # information to each table before flattening.
 
-boysNames <- imap(boysNames,
-                  function(data, name) {
-                      mutate(data, Year = as.integer(name))
-                      })
-boysNames <- bind_rows(boysNames)
+year_column <- function(data, name) {
+  mutate(data, year = as.integer(name))
+}
 
+boysNames <- imap(boysNames, year_column)
+
+boysNames[1]
+
+boysNames <- bind_rows(boysNames)
 glimpse(boysNames)
 
 # ## Exercise 4
@@ -392,7 +411,7 @@ glimpse(boysNames)
 #
 # There are notes below the data.
 #
-# > 3.  Locate the file named `2015boysnamesfinal.xlsx` and open it in a
+# > 2.  Locate the file named `2015boysnamesfinal.xlsx` and open it in a
 # >     spreadsheet. In what ways is the format different than the format
 # >     of `1996boys_tcm77-254026.xlsx`? How might these differences make
 # >     it more difficult to work with these data?
@@ -406,32 +425,40 @@ glimpse(boysNames)
 # These differences will make it more difficult to automate
 # re-arranging the data since we have to write code that can handle
 # different input formats.
-#
+
 # ### Ex 1: prototype
 
   ## 1. Write a function that takes a file name as an argument and reads
   ##    the worksheet containing "Table 1" from that file.
-  read.baby.names <- function(file) {
-      sheet.name <- str_subset(excel_sheets(file), "Table 1")
-      read_excel(file, sheet = sheet.name, skip = 6)
-  }
+ 
+read_baby_names <- function(file) {
+  read_excel(
+    path = file,
+    sheet = get_data_sheet_name(file, 
+                                term = "Table 1"),
+    skip = 6
+  )
+}
   
   ## 2. Test your function by using it to read *one* of the boys names
   ##    Excel files.
-  glimpse(read.baby.names(boy.file.names[1]))
-     
+
+glimpse(read_baby_names(boy_file_names[1]))
+
   ## 3. Use the `map` function to read data from all the Excel files,
   ##    using the function you wrote in step 1.
-  boysNames <- map(boy.file.names, read.baby.names)
+
+boysNames <- map(boy_file_names, read_baby_names)
+
 
 # ### Ex 2: prototype
 
   ## 1. Write a function that takes a `data.frame` as an argument and
-  ##    returns a modified version including only columns named `Name`,
-  ##    `Name__1`, `Count`, or `Count__1`.
+  ##    returns a modified version including only columns named `Name...2`,
+  ##    `Name...6`, `Count...3`, or `Count...7`.
 
   namecount <- function(data) {
-      select(data, Name, Name__1, Count, Count__1)
+      select(data, matches("Name|Count"))
   }
      
   ## 2. Test your function on the first `data.frame` in the list of baby
@@ -450,12 +477,17 @@ glimpse(boysNames)
 #
 
 ## 1.  write a function that does all the cleanup
-cleanupNamesData <- function(x) {
-    filtered <- filter(x, !is.na(Name)) # drop rows with no Name value
-    selected <- select(filtered, Name, Count, Name__1, Count__1) # select just Name and Count columns
-    bind_rows(select(selected, Name,  Count), # re-arrange into two columns
-              select(selected, Name = Name__1, Count = Count__1))
+cleanupNamesData <- function(file){
+  selected <- file %>%
+    drop_na(Name...2) %>%
+    select(matches("Name|Count"))
+   
+  bind_rows(select(selected, Name = Name...2, Count = Count...3),
+            select(selected, Name = matches("Name...6|Name...7|Name...8"),
+                             Count = matches("Count...7|Count...8|Count...9")
+                   ))
 }
+
 
 ## test it out on the second data.frame in the list
 glimpse(boysNames[[2]]) # before cleanup
@@ -468,23 +500,34 @@ boysNames <- map(boysNames, cleanupNamesData)
 #
 # Working with the data in one big table is often easier.
 
+## 1.  Turn the list of boys names data.frames into a single table.
+
 boysNames <- bind_rows(boysNames)
 
-dir.create("data/all")
+## 2.  Create a directory under `data/all` and write the data to a `.csv`
+file.
 
-write_csv(boysNames, "data/all/boys_names.csv")
+dir.create("dataSets/all")
 
-## What where the five most popular names in 2013?
-slice(arrange(filter(boysNames, Year == 2013),
-              desc(Count)),
-      1:5)
+write_csv(boysNames, "dataSets/all/boys_names.csv")
+
+
+## 3.  Finally, repeat the previous exercise, this time working with the data
+in one big table.
+## What were the five most popular names in 2013?
+
+boysNames %>% 
+  filter(year == 2013) %>%
+  arrange(desc(Count)) %>%
+  slice(1:5)
 
 ## How has the popularity of the name "ANDREW" changed over time?
 andrew <- filter(boysNames, Name == "ANDREW")
 
-ggplot(andrew, aes(x = Year, y = Count)) +
+ggplot(andrew, aes(x = year, y = Count)) +
     geom_line() +
     ggtitle("Popularity of \"Andrew\", over time")
+
 
 # ## Wrap-up
 #

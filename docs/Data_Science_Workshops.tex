@@ -5517,7 +5517,7 @@ workshop, so let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# install.packages("tidyverse")}
+\CommentTok{#install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
@@ -5629,7 +5629,7 @@ The first step is to get a vector of file names.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{boy.file.names <-}\StringTok{ }\KeywordTok{list.files}\NormalTok{(}\StringTok{"dataSets/boys"}\NormalTok{, }\DataTypeTok{full.names =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{boy_file_names <-}\StringTok{ }\KeywordTok{list.files}\NormalTok{(}\StringTok{"dataSets/boys"}\NormalTok{, }\DataTypeTok{full.names =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5638,18 +5638,17 @@ with them. For example, the first file is
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{boy.file.names[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{boy_file_names[}\DecValTok{1}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 and we can use the \texttt{excel\_sheets()} function from the
-\emph{readxl} package to list the worksheet names from this file.
+\texttt{readxl} package within \texttt{tidyverse} to list the worksheet
+names from this file.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(readxl)}
-
-\KeywordTok{excel_sheets}\NormalTok{(boy.file.names[[}\DecValTok{1}\NormalTok{]])}
+\KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5662,38 +5661,41 @@ file, e.g.,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{excel_sheets}\NormalTok{(boy.file.names[[}\DecValTok{1}\NormalTok{]])}
-\KeywordTok{excel_sheets}\NormalTok{(boy.file.names[[}\DecValTok{2}\NormalTok{]])}
+\KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{])}
+
+\KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{2}\NormalTok{])}
+
 \NormalTok{## ...}
-\KeywordTok{excel_sheets}\NormalTok{(boy.file.names[[}\DecValTok{20}\NormalTok{]])}
+\KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{20}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
 This is not a terrible idea for a small number of files, but it is more
 convenient to let R do the iteration for us. We could use a
 \texttt{for\ loop}, or \texttt{sapply()}, but the \texttt{map()} family
-of functions from the \texttt{purrr} package gives us a more consistent
-alternative, so we'll use that.
+of functions from the \texttt{purrr} package within \texttt{tidyverse}
+gives us a more consistent alternative, so we'll use that.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(purrr)}
-\KeywordTok{map}\NormalTok{(boy.file.names, excel_sheets)}
+\KeywordTok{map}\NormalTok{(boy_file_names, excel_sheets)}
+\CommentTok{# map(thing to iterate over, task to do in each iteration)}
 \end{Highlighting}
 \end{Shaded}
 
 \subsection{Filtering strings using regular
 expressions}\label{filtering-strings-using-regular-expressions}
 
-In order extract the correct worksheet names we need a way to extract
+In order to extract the correct worksheet names we need a way to extract
 strings containing ``Table 1''. Base R provides some string manipulation
 capabilities (see \texttt{?regex}, \texttt{?sub} and \texttt{?grep}),
 but we will use the \emph{stringr} package because it is more
 user-friendly.
 
-The \emph{stringr} package provides functions to \emph{detect},
-\emph{locate}, \emph{extract}, \emph{match}, \emph{replace},
-\emph{combine} and \emph{split} strings (among other things).
+The \texttt{stringr} package within \texttt{tidyverse} provides
+functions to \emph{detect}, \emph{locate}, \emph{extract}, \emph{match},
+\emph{replace}, \emph{combine} and \emph{split} strings (among other
+things).
 
 Here we want to detect the pattern ``Table 1'', and only return elements
 with this pattern. We can do that using the \texttt{str\_subset()}
@@ -5710,8 +5712,8 @@ Excel file. For example,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(stringr)}
-\KeywordTok{str_subset}\NormalTok{(}\KeywordTok{excel_sheets}\NormalTok{(boy.file.names[[}\DecValTok{1}\NormalTok{]]), }\StringTok{"Table 1"}\NormalTok{)}
+\CommentTok{#str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")}
+\KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\DataTypeTok{pattern =} \StringTok{"Table 1"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5719,18 +5721,32 @@ Excel file. For example,
 functions}\label{writing-your-own-functions}
 
 The \texttt{map*} functions are useful when you want to apply a function
-to a list or vector of inputs and obtain the return values. This is very
-convenient when a function already exists that does exactly what you
-want. In the examples above we mapped the \texttt{excel\_sheets()}
+to get a list or vector of inputs and obtain the return values. This is
+very convenient when a function already exists that does exactly what
+you want. In the examples above we mapped the \texttt{excel\_sheets()}
 function to the elements of a vector containing file names. But now
 there is no function that both retrieves worksheet names and subsets
 them. Fortunately, writing functions in R is easy.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{get.data.sheet.name <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, pattern) \{}
-    \KeywordTok{str_subset}\NormalTok{(}\KeywordTok{excel_sheets}\NormalTok{(file), pattern)}
+\CommentTok{# anatomy of a function}
+
+\NormalTok{function_name <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(arg1, arg2, ....) \{}
+\NormalTok{   ## body of function - where stuff happens ##}
+\NormalTok{   new_object <-}\StringTok{ }\NormalTok{arg1 }\OperatorTok{*}\StringTok{ }\NormalTok{arg2}
+\NormalTok{   output1 <-}\StringTok{ }\KeywordTok{thing_to_do}\NormalTok{(arg1)}
+\NormalTok{   output2 <-}\StringTok{ }\KeywordTok{another_thing_to_do}\NormalTok{(output1, new_object)}
+   \KeywordTok{return}\NormalTok{(output2)}
 \NormalTok{\}}
+
+\NormalTok{get_data_sheet_name <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, term)\{}
+  \KeywordTok{excel_sheets}\NormalTok{(file) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\DataTypeTok{pattern =}\NormalTok{ term)}
+\NormalTok{\}}
+
+\CommentTok{# the goal is generalization }
+\KeywordTok{get_data_sheet_name}\NormalTok{(anyfile)}
+\KeywordTok{get_data_sheet_name}\NormalTok{(anyfile, }\DataTypeTok{term=}\StringTok{"Table 2"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5738,9 +5754,9 @@ Now we can map this new function over our vector of file names.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{map}\NormalTok{(boy.file.names,}
-\NormalTok{    get.data.sheet.name,}
-    \DataTypeTok{pattern =} \StringTok{"Table 1"}\NormalTok{)}
+\KeywordTok{map}\NormalTok{(boy_file_names,}
+\NormalTok{    get_data_sheet_name,}
+    \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5752,17 +5768,18 @@ function.
 
 We'll start by reading the data from the first file, just to check that
 it works. Recall that the actual data starts on row 7, so we want to
-skip the first 6 rows.
+skip the first 6 rows. We can use the \texttt{glimpse()} function from
+the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{tmp <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}
-\NormalTok{    boy.file.names[}\DecValTok{1}\NormalTok{],}
-    \DataTypeTok{sheet =} \KeywordTok{get.data.sheet.name}\NormalTok{(boy.file.names[}\DecValTok{1}\NormalTok{],}
-                                \DataTypeTok{pattern =} \StringTok{"Table 1"}\NormalTok{),}
-    \DataTypeTok{skip =} \DecValTok{6}\NormalTok{)}
+  \DataTypeTok{path =}\NormalTok{ boy_file_names[}\DecValTok{1}\NormalTok{],}
+  \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{],}
+                              \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{),}
+  \DataTypeTok{skip =} \DecValTok{6}
+\NormalTok{)}
 
-\KeywordTok{library}\NormalTok{(dplyr, }\DataTypeTok{quietly=}\OtherTok{TRUE}\NormalTok{)}
 \KeywordTok{glimpse}\NormalTok{(tmp)}
 \end{Highlighting}
 \end{Shaded}
@@ -5771,48 +5788,17 @@ skip the first 6 rows.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   Write a function that takes a file name as an argument and reads the
   worksheet containing ``Table 1'' from that file. Don't forget to skip
   the first 6 rows.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
 \item
   Test your function by using it to read \emph{one} of the boys names
   Excel files.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
 \item
   Use the \texttt{map()} function to read data from all the Excel files,
   using the function you wrote in step 1.
 \end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## }
-\end{Highlighting}
-\end{Shaded}
 
 \section{Data cleanup}\label{data-cleanup}
 
@@ -5849,24 +5835,32 @@ to this:
 \end{figure}
 
 There are many ways to do this kind of data manipulation in R. We're
-going to use the \emph{dplyr} and \emph{tidyr} packages to make our
-lives easier. (Both packages were installed as dependencies of the
-\emph{tidyverse} package.)
+going to use the \texttt{dplyr} and \texttt{tidyr} packages from within
+\texttt{tidyverse} to make our lives easier.
 
 \subsection{Selecting columns}\label{selecting-columns}
 
-Next we want to retain just the \texttt{Name}, \texttt{Name\_\_1} and
-\texttt{Count}, \texttt{Count\_\_1} columns. We can do that using the
-\texttt{select()} function:
+Next we want to retain just the \texttt{Name...2}, \texttt{Name...6},
+\texttt{Count...3} and \texttt{Count...7} columns. We can do that using
+the \texttt{select()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]]}
 
-\NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], Name, Name__}\DecValTok{1}\NormalTok{, Count, Count__}\DecValTok{1}\NormalTok{)}
+\NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], Name...}\DecValTok{2}\NormalTok{, Name...}\DecValTok{6}\NormalTok{, Count...}\DecValTok{3}\NormalTok{, Count...}\DecValTok{7}\NormalTok{)}
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
+
+Why are we using \textbf{double brackets} \texttt{{[}{[}} to index this
+list object?
+
+\begin{figure}
+\centering
+\includegraphics{R/RDataWrangling/images/indexing_lists.png}
+\caption{tidy}
+\end{figure}
 
 \subsection{Dropping missing values}\label{dropping-missing-values}
 
@@ -5878,65 +5872,36 @@ values.
 \begin{Highlighting}[]
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]]}
 
-\NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\KeywordTok{drop_na}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]])}
+\NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{drop_na}\NormalTok{()}
+
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
 
-Finally, we will want to filter out missing do this for all the elements
-in \texttt{boysNames}, a task I leave to you.
+Finally, we will want to filter out missing. Do this for all the
+elements in \texttt{boysNames}, a task I leave to you.
 
 \section{Exercise 2}\label{exercise-2-2}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   Write a function that takes a \texttt{data.frame} as an argument and
-  returns a modified version including only columns named \texttt{Name},
-  \texttt{Name\_\_1}, \texttt{Count}, or \texttt{Count\_\_1}.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
+  returns a modified version including only columns named
+  \texttt{Name...2}, \texttt{Name...6}, \texttt{Count...3}, and
+  \texttt{Count...7}.
 \item
   Test your function on the first \texttt{data.frame} in the list of
   baby names data.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
 \item
   Use the \texttt{map()} function to each \texttt{data.frame} in the
   list of baby names data.
 \end{enumerate}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## }
-\end{Highlighting}
-\end{Shaded}
-
 \subsection{Re-arranging into a single
 table}\label{re-arranging-into-a-single-table}
 
-Our final task is to re-arrange to data so that it is all in a single
+Our final task is to re-arrange the data so that it is all in a single
 table instead of in two side-by-side tables. For many similar tasks the
 \texttt{gather()} function in the \emph{tidyr} package is useful, but in
 this case we will be better off using a combination of \texttt{select()}
@@ -5945,8 +5910,8 @@ and \texttt{bind\_rows()}.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]]}
-\KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], Name, Count),}
-          \KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{Name =}\NormalTok{ Name__}\DecValTok{1}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count__}\DecValTok{1}\NormalTok{))}
+\KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], Name...}\DecValTok{2}\NormalTok{, Count...}\DecValTok{3}\NormalTok{),}
+          \KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{Name...2 =}\NormalTok{ Name...}\DecValTok{6}\NormalTok{, }\DataTypeTok{Count...3 =}\NormalTok{ Count...}\DecValTok{7}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5986,19 +5951,15 @@ way to go. It has the advantage of making it easy to work with
 individual years; it has the disadvantage of making it more difficult to
 examine questions that require data from multiple years. To make the
 arrangement of the data clearer it helps to name each element of the
-list with the year it corresponds too.
+list with the year it corresponds to.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{glimpse}\NormalTok{(}\KeywordTok{head}\NormalTok{(boysNames))}
-\end{Highlighting}
-\end{Shaded}
+\KeywordTok{glimpse}\NormalTok{(boysNames) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{head}\NormalTok{()}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{years <-}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(boy.file.names, }\StringTok{"[0-9]\{4\}"}\NormalTok{)}
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{setNames}\NormalTok{(boysNames, years)}
-\KeywordTok{glimpse}\NormalTok{(}\KeywordTok{head}\NormalTok{(boysNames))}
+\NormalTok{Years <-}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(boy_file_names, }\DataTypeTok{pattern =} \StringTok{"[0-9]\{4\}"}\NormalTok{)}
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{setNames}\NormalTok{(boysNames, Years)}
+\KeywordTok{glimpse}\NormalTok{(boysNames) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -6015,12 +5976,15 @@ information to each table before flattening.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames,}
-                  \ControlFlowTok{function}\NormalTok{(data, name) \{}
-                      \KeywordTok{mutate}\NormalTok{(data, }\DataTypeTok{Year =} \KeywordTok{as.integer}\NormalTok{(name))}
-\NormalTok{                      \})}
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
+\NormalTok{year_column <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, name) \{}
+  \KeywordTok{mutate}\NormalTok{(data, }\DataTypeTok{year =} \KeywordTok{as.integer}\NormalTok{(name))}
+\NormalTok{\}}
 
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames, year_column)}
+
+\NormalTok{boysNames[}\DecValTok{1}\NormalTok{]}
+
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
 \KeywordTok{glimpse}\NormalTok{(boysNames)}
 \end{Highlighting}
 \end{Shaded}
@@ -6100,7 +6064,7 @@ There are notes below the data.
 \begin{quote}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
+\setcounter{enumi}{1}
 \tightlist
 \item
   Locate the file named \texttt{2015boysnamesfinal.xlsx} and open it in
@@ -6126,18 +6090,25 @@ formats.
 \begin{Highlighting}[]
 \NormalTok{  ## 1. Write a function that takes a file name as an argument and reads}
 \NormalTok{  ##    the worksheet containing "Table 1" from that file.}
-\NormalTok{  read.baby.names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file) \{}
-\NormalTok{      sheet.name <-}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\KeywordTok{excel_sheets}\NormalTok{(file), }\StringTok{"Table 1"}\NormalTok{)}
-      \KeywordTok{read_excel}\NormalTok{(file, }\DataTypeTok{sheet =}\NormalTok{ sheet.name, }\DataTypeTok{skip =} \DecValTok{6}\NormalTok{)}
-\NormalTok{  \}}
+ 
+\NormalTok{read_baby_names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file) \{}
+  \KeywordTok{read_excel}\NormalTok{(}
+    \DataTypeTok{path =}\NormalTok{ file,}
+    \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(file, }
+                                \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{),}
+    \DataTypeTok{skip =} \DecValTok{6}
+\NormalTok{  )}
+\NormalTok{\}}
   
 \NormalTok{  ## 2. Test your function by using it to read *one* of the boys names}
 \NormalTok{  ##    Excel files.}
-  \KeywordTok{glimpse}\NormalTok{(}\KeywordTok{read.baby.names}\NormalTok{(boy.file.names[}\DecValTok{1}\NormalTok{]))}
-     
+
+\KeywordTok{glimpse}\NormalTok{(}\KeywordTok{read_baby_names}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{]))}
+
 \NormalTok{  ## 3. Use the `map` function to read data from all the Excel files,}
 \NormalTok{  ##    using the function you wrote in step 1.}
-\NormalTok{  boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy.file.names, read.baby.names)}
+
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy_file_names, read_baby_names)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6146,11 +6117,11 @@ formats.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  ## 1. Write a function that takes a `data.frame` as an argument and}
-\NormalTok{  ##    returns a modified version including only columns named `Name`,}
-\NormalTok{  ##    `Name__1`, `Count`, or `Count__1`.}
+\NormalTok{  ##    returns a modified version including only columns named `Name...2`,}
+\NormalTok{  ##    `Name...6`, `Count...3`, or `Count...7`.}
 
 \NormalTok{  namecount <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data) \{}
-      \KeywordTok{select}\NormalTok{(data, Name, Name__}\DecValTok{1}\NormalTok{, Count, Count__}\DecValTok{1}\NormalTok{)}
+      \KeywordTok{select}\NormalTok{(data, }\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{))}
 \NormalTok{  \}}
      
 \NormalTok{  ## 2. Test your function on the first `data.frame` in the list of baby}
@@ -6172,12 +6143,17 @@ There are different ways you can go about it. Here is one:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## 1.  write a function that does all the cleanup}
-\NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
-\NormalTok{    filtered <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(x, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(Name)) }\CommentTok{# drop rows with no Name value}
-\NormalTok{    selected <-}\StringTok{ }\KeywordTok{select}\NormalTok{(filtered, Name, Count, Name__}\DecValTok{1}\NormalTok{, Count__}\DecValTok{1}\NormalTok{) }\CommentTok{# select just Name and Count columns}
-    \KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(selected, Name,  Count), }\CommentTok{# re-arrange into two columns}
-              \KeywordTok{select}\NormalTok{(selected, }\DataTypeTok{Name =}\NormalTok{ Name__}\DecValTok{1}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count__}\DecValTok{1}\NormalTok{))}
+\NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file)\{}
+\NormalTok{  selected <-}\StringTok{ }\NormalTok{file }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{drop_na}\NormalTok{(Name...}\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{))}
+   
+  \KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(selected, }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{),}
+            \KeywordTok{select}\NormalTok{(selected, }\DataTypeTok{Name =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Name...6|Name...7|Name...8"}\NormalTok{),}
+                             \DataTypeTok{Count =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Count...7|Count...8|Count...9"}\NormalTok{)}
+\NormalTok{                   ))}
 \NormalTok{\}}
+
 
 \NormalTok{## test it out on the second data.frame in the list}
 \KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{2}\NormalTok{]]) }\CommentTok{# before cleanup}
@@ -6194,21 +6170,31 @@ Working with the data in one big table is often easier.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{## 1.  Turn the list of boys names data.frames into a single table.}
+
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
 
-\KeywordTok{dir.create}\NormalTok{(}\StringTok{"data/all"}\NormalTok{)}
+\NormalTok{## 2.  Create a directory under `data/all` and write the data to a `.csv`}
+\NormalTok{file.}
 
-\KeywordTok{write_csv}\NormalTok{(boysNames, }\StringTok{"data/all/boys_names.csv"}\NormalTok{)}
+\KeywordTok{dir.create}\NormalTok{(}\StringTok{"dataSets/all"}\NormalTok{)}
 
-\NormalTok{## What where the five most popular names in 2013?}
-\KeywordTok{slice}\NormalTok{(}\KeywordTok{arrange}\NormalTok{(}\KeywordTok{filter}\NormalTok{(boysNames, Year }\OperatorTok{==}\StringTok{ }\DecValTok{2013}\NormalTok{),}
-              \KeywordTok{desc}\NormalTok{(Count)),}
-      \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\KeywordTok{write_csv}\NormalTok{(boysNames, }\StringTok{"dataSets/all/boys_names.csv"}\NormalTok{)}
+
+
+\NormalTok{## 3.  Finally, repeat the previous exercise, this time working with the data}
+\ControlFlowTok{in}\NormalTok{ one big table.}
+\NormalTok{## What were the five most popular names in 2013?}
+
+\NormalTok{boysNames }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2013}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{slice}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
 
 \NormalTok{## How has the popularity of the name "ANDREW" changed over time?}
 \NormalTok{andrew <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(boysNames, Name }\OperatorTok{==}\StringTok{ "ANDREW"}\NormalTok{)}
 
-\KeywordTok{ggplot}\NormalTok{(andrew, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(andrew, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ Count)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Popularity of }\CharTok{\textbackslash{}"}\StringTok{Andrew}\CharTok{\textbackslash{}"}\StringTok{, over time"}\NormalTok{)}
 \end{Highlighting}
