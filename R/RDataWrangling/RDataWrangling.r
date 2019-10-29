@@ -244,13 +244,16 @@ glimpse(tmp)
 #   1. Write a function that takes a file name as an argument and reads
 #      the worksheet containing "Table 1" from that file. Don't forget
 #      to skip the first 6 rows.
-#      
+## 
+
 #   2. Test your function by using it to read *one* of the boys names
 #      Excel files.
-#      
+## 
+
 #   3. Use the `map()` function to read data from all the Excel files,
 #      using the function you wrote in step 1.
-#
+## 
+
 
 # ## Data cleanup
 #
@@ -285,7 +288,7 @@ boysNames[[1]]
 
 # Why are we using **double brackets** `[[` to index this list object?
 #
-# ![tidy](R/RDataWrangling/images/indexing_lists.png)
+# ![list indexing](R/RDataWrangling/images/indexing_lists.png)
 
 # ### Dropping missing values
 #
@@ -306,12 +309,16 @@ boysNames[[1]]
 #   1. Write a function that takes a `data.frame` as an argument and
 #      returns a modified version including only columns named `Name...2`,
 #      `Name...6`, `Count...3`, and `Count...7`. 
+## 
 
 #   2. Test your function on the first `data.frame` in the list of baby
 #      names data.
-#      
+## 
+
 #   3. Use the `map()` function to each `data.frame` in the list of baby
 #      names data.
+## 
+
 
 # ### Re-arranging into a single table
 #
