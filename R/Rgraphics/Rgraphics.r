@@ -208,7 +208,7 @@ p1 +
 
 # #### Text (label points)
 #
-# Each geom accepts a particular set of mappings; for example `geom_text()` accepts a `labels` mapping.
+# Each geom accepts a particular set of mappings; for example `geom_text()` accepts a `label` mapping.
 
 p1 + 
   geom_text(aes(label=State), size = 3)
@@ -328,7 +328,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 # 4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?loess`.
 ## 
 
-# 5.  BONUS: Overlay a smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+# 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
 ## 
 
 
@@ -435,7 +435,7 @@ p4 +
 # 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
 ## 
 
-# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of "HDI"). Hint: see `?scale_x_discrete`.
+# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_discrete`.
 ## 
 
 # 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`.
@@ -580,7 +580,7 @@ head(midwest)
 # 5.  Change the default color scale to use the discrete `RColorBrewer` palette called `Set1`. Hint: see `?scale_color_brewer`.
 ## 
 
-# 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: `axis_text` and `strip_background`.
+# 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: see `?theme` and especially `axis.text` and `strip.background`.
 ## 
 #
 
@@ -588,7 +588,7 @@ head(midwest)
 #
 # ### Ex 0: prototype
 #
-# 1.  Create a scatter plot with CPI on the x axis and HDI on the y axis.
+# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point()
@@ -598,7 +598,7 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(color = "blue")
 
-# 3.  Color the points in the previous plot according to *Region*.
+# 3.  Color the points in the previous plot according to `Region`.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region))
@@ -608,50 +608,51 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region), size = 2)
 
-# 5.  Map the size of the points to HDI.Rank
+# 5.  Map the size of the points to `HDI_Rank`
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
 geom_point(aes(color = Region, size =  HDI_Rank))
 
 # ### Ex 1: prototype
 #
-# 1.  Re-create a scatter plot with CPI on the x axis and HDI on the y axis (as you did in the previous exercise).
+# 1.  Re-create a scatter plot with `CPI` on the x axis and `HDI` on the y axis (as you did in the previous exercise).
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point()
 
-# 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth`
+# 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
   geom_smooth()
 
-# 3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
+# 3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
   geom_smooth(method = "lm")
 
-# 4.  Overlay a loess (method = "loess") smoothling line on top of the scatter plot using `geom_line`. Hint: change the statistical transformation.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point() +
-  geom_line(stat = "smooth", method = "loess")
-
-# 4.  BONUS: Overlay a smoothing line on top of the scatter plot using the *loess* method, but make it less smooth. Hint: see `?loess`.
+# 4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?loess`.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
   geom_smooth(span = .4)
 
+# 4.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point() +
+  geom_line(stat = "smooth", method = "loess")
+#
+
 # ### Ex 2: prototype
 #
-# 1.  Create a scatter plot with CPI on the x axis and HDI on the y axis. Color the points to indicate region.
+# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
   geom_point()
 
-# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of "HDI").
+# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`).
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
 geom_point() +
@@ -697,7 +698,7 @@ p6 <- p6 + facet_wrap(~ state, scales = "free_x")
 
 p6 <- p6 + scale_color_brewer(palette = "Set1")
 
-# 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: `axis_text` and `strip_background`.
+# 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: see `?theme` and especially `axis.text` and `strip.background`.
 
 p6 <- p6 + theme_bw() +
     theme(axis.title = element_text(color = "blue"),
