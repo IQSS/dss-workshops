@@ -330,8 +330,8 @@ boysNames[[1]]
 # `bind_rows()`.
 
 boysNames[[1]]
-bind_rows(select(boysNames[[1]], Name...2, Count...3),
-          select(boysNames[[1]], Name...2 = Name...6, Count...3 = Count...7))
+bind_rows(select(boysNames[[1]], Name = Name...2, Count = Count...3),
+          select(boysNames[[1]], Name = Name...6, Count = Count...7))
 
 
 # ## Exercise 3
@@ -512,7 +512,7 @@ boysNames <- map(boysNames, cleanupNamesData)
 
 boysNames <- bind_rows(boysNames)
 
-## 2.  Create a directory under `data/all` and write the data to a `.csv`
+## 2.  Create a directory under `dataSets/all` and write the data to a `.csv`
 file.
 
 dir.create("dataSets/all")

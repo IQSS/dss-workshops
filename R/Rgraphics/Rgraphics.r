@@ -638,7 +638,7 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
   geom_smooth(span = .4)
 
-# 4.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+# 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +

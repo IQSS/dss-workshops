@@ -809,8 +809,8 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <h3><span class="header-section-number">5.8.1</span> Re-arranging into a single table</h3>
 <p>Our final task is to re-arrange the data so that it is all in a single table instead of in two side-by-side tables. For many similar tasks the <code>gather()</code> function in the <em>tidyr</em> package is useful, but in this case we will be better off using a combination of <code>select()</code> and <code>bind_rows()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames[[<span class="dv">1</span>]]
-<span class="kw">bind_rows</span>(<span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], Name...<span class="dv">2</span>, Count...<span class="dv">3</span>),
-          <span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name...2 =</span> Name...<span class="dv">6</span>, <span class="dt">Count...3 =</span> Count...<span class="dv">7</span>))</code></pre></div>
+<span class="kw">bind_rows</span>(<span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>),
+          <span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name =</span> Name...<span class="dv">6</span>, <span class="dt">Count =</span> Count...<span class="dv">7</span>))</code></pre></div>
 </div>
 </div>
 <div id="exercise-3-3" class="section level2">
@@ -960,7 +960,7 @@ boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, c
 
 boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)
 
-## 2.  Create a directory under `data/all` and write the data to a `.csv`
+## 2.  Create a directory under `dataSets/all` and write the data to a `.csv`
 file.
 
 <span class="kw">dir.create</span>(<span class="st">&quot;dataSets/all&quot;</span>)
