@@ -4314,7 +4314,7 @@ These data consist of \emph{Human Development Index} and
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Color the points blue.
+  Color the points in the previous plot blue.
 \end{enumerate}
 
 \begin{Shaded}
@@ -4342,7 +4342,8 @@ These data consist of \emph{Human Development Index} and
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Make the points bigger by setting size to 2
+  Keeping color mapped to \texttt{Region}, make the points bigger by
+  setting size to 2
 \end{enumerate}
 
 \begin{Shaded}
@@ -4356,7 +4357,8 @@ These data consist of \emph{Human Development Index} and
 \setcounter{enumi}{4}
 \tightlist
 \item
-  Map the size of the points to \texttt{HDI\_Rank}
+  Keeping color mapped to \texttt{Region}, map the size of the points to
+  \texttt{HDI\_Rank}
 \end{enumerate}
 
 \begin{Shaded}
@@ -4436,7 +4438,7 @@ This is often the case with pre-summarized data:
 \StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Home_Value_Mean =} \KeywordTok{mean}\NormalTok{(Home_Value)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
-\KeywordTok{rbind}\NormalTok{(}\KeywordTok{head}\NormalTok{(housing_sum), }\KeywordTok{tail}\NormalTok{(housing_sum))}
+\KeywordTok{head}\NormalTok{(housing_sum)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4515,7 +4517,8 @@ function:
 \item
   Overlay a smoothing line on top of the scatter plot using the default
   \emph{loess} method for \texttt{geom\_smooth()}, but make it less
-  smooth. Hint: see \texttt{?loess}.
+  smooth. Hint: see \texttt{?stat\_smooth} and the \texttt{span}
+  argument.
 \end{enumerate}
 
 \begin{Shaded}
@@ -4580,7 +4583,7 @@ The following arguments are common to most scales in \texttt{ggplot2}:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{name:} the first argument gives the axis or legend title
+  \textbf{name:} the axis or legend title
 \item
   \textbf{limits:} the minimum and maximum of the scale
 \item
@@ -4598,7 +4601,7 @@ scale.
 examples}\label{scale-modification-examples}
 
 Start by constructing a dotplot showing the distribution of home values
-by Date and State.
+by \texttt{Date} and \texttt{State}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4744,7 +4747,8 @@ list of available scales see
 \tightlist
 \item
   Modify the color scale to use specific values of your choosing. Hint:
-  see \texttt{?scale\_color\_manual}.
+  see \texttt{?scale\_color\_manual} and
+  \url{https://www.color-hex.com/}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -4822,7 +4826,7 @@ as:
 \begin{itemize}
 \tightlist
 \item
-  Axis labels
+  Axis label properties (e.g., font, size, color, etc.)
 \item
   Plot background
 \item
@@ -5095,7 +5099,7 @@ dataset:
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Color the points in the previous plot according to \texttt{Region}.
+  Map the color of the the points to \texttt{Region}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -5110,7 +5114,8 @@ dataset:
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Make the points bigger by setting size to 2
+  Keeping color mapped to \texttt{Region}, make the points bigger by
+  setting size to 2
 \end{enumerate}
 
 \begin{Shaded}
@@ -5125,7 +5130,8 @@ dataset:
 \setcounter{enumi}{4}
 \tightlist
 \item
-  Map the size of the points to \texttt{HDI\_Rank}
+  Keeping color mapped to \texttt{Region}, map the size of the points to
+  \texttt{HDI\_Rank}
 \end{enumerate}
 
 \begin{Shaded}
@@ -5266,7 +5272,8 @@ dataset:
 \tightlist
 \item
   Modify the color scale to use specific values of your choosing. Hint:
-  see \texttt{?scale\_color\_manual}.
+  see \texttt{?scale\_color\_manual} and
+  \url{https://www.color-hex.com/}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -5524,6 +5531,7 @@ workshop, so let's install them now:
 \begin{Highlighting}[]
 \CommentTok{#install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{# installed with tidyverse}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5970,9 +5978,9 @@ table}\label{re-arranging-into-a-single-table}
 
 Our final task is to re-arrange the data so that it is all in a single
 table instead of in two side-by-side tables. For many similar tasks the
-\texttt{gather()} function in the \emph{tidyr} package is useful, but in
-this case we will be better off using a combination of \texttt{select()}
-and \texttt{bind\_rows()}.
+\texttt{gather()} function in the \texttt{tidyr} package is useful, but
+in this case we will be better off using a combination of
+\texttt{select()} and \texttt{bind\_rows()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -291,7 +291,7 @@ These data consist of *Human Development Index* and *Corruption Perception Index
 ## 
 ```
 
-2.  Color the points blue.
+2.  Color the points in the previous plot blue.
 ```{r}
 ## 
 ```
@@ -301,12 +301,12 @@ These data consist of *Human Development Index* and *Corruption Perception Index
 ## 
 ```
 
-4.  Make the points bigger by setting size to 2
+4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2
 ```{r}
 ## 
 ```
 
-5.  Map the size of the points to `HDI_Rank`
+5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`
 ```{r}
 ## 
 ```
@@ -360,7 +360,7 @@ housing_sum <-
   summarize(Home_Value_Mean = mean(Home_Value)) %>%
   ungroup()
 
-rbind(head(housing_sum), tail(housing_sum))
+head(housing_sum)
 ```
 
 ```{r, error=TRUE}
@@ -393,7 +393,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 ## 
 ```
 
-4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?loess`.
+4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?stat_smooth` and the `span` argument.
 ```{r}
 ## 
 ```
@@ -422,7 +422,7 @@ Scales are modified with a series of functions using a `scale_<aesthetic>_<type>
 
 The following arguments are common to most scales in `ggplot2`:
 
-* **name:** the first argument gives the axis or legend title
+* **name:** the axis or legend title
 * **limits:** the minimum and maximum of the scale
 * **breaks:** the points along the scale where labels should appear
 * **labels:** the labels that appear at each break
@@ -431,7 +431,7 @@ Specific scale functions may have additional arguments; for example, the `scale_
 
 ### Scale modification examples
 
-Start by constructing a dotplot showing the distribution of home values by Date and State.
+Start by constructing a dotplot showing the distribution of home values by `Date` and `State`.
 
 ```{r}
 p4 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) + 
@@ -525,7 +525,7 @@ For a complete list of available scales see <https://ggplot2.tidyverse.org/refer
 ## 
 ```
 
-3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`.
+3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual` and <https://www.color-hex.com/>.
 ```{r}
 ## 
 ```
@@ -570,7 +570,7 @@ p5
 
 The `ggplot2` theme system handles non-data plot elements such as:
 
-* Axis labels
+* Axis label properties (e.g., font, size, color, etc.)
 * Plot background
 * Facet label background
 * Legend appearance
@@ -727,26 +727,27 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(color = "blue")
 ```
 
-3.  Color the points in the previous plot according to `Region`.
+3.  Map the color of the the points to `Region`.
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region))
 ```
 
-4.  Make the points bigger by setting size to 2
+4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region), size = 2)
 ```
 
-5.  Map the size of the points to `HDI_Rank`
+5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI)) +
 geom_point(aes(color = Region, size =  HDI_Rank))
 ```
+
 
 ### Ex 1: prototype
 
@@ -810,7 +811,7 @@ scale_y_continuous(name = "Human Development Index") +
 scale_color_discrete(name = "Region of the world")
 ```
 
-3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`.
+3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual` and <https://www.color-hex.com/>.
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +

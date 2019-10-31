@@ -843,7 +843,7 @@ p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Color the points blue.</li>
+<li>Color the points in the previous plot blue.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="3" style="list-style-type: decimal">
@@ -851,11 +851,11 @@ p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Make the points bigger by setting size to 2</li>
+<li>Keeping color mapped to <code>Region</code>, make the points bigger by setting size to 2</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="5" style="list-style-type: decimal">
-<li>Map the size of the points to <code>HDI_Rank</code></li>
+<li>Keeping color mapped to <code>Region</code>, map the size of the points to <code>HDI_Rank</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 </div>
@@ -891,7 +891,7 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ungroup</span>()
 
-<span class="kw">rbind</span>(<span class="kw">head</span>(housing_sum), <span class="kw">tail</span>(housing_sum))</code></pre></div>
+<span class="kw">head</span>(housing_sum)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home_Value_Mean)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
 <p>What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, <code>geom_bar()</code> defaults to <code>stat = stat_count</code>; obviously this will not work. We can fix it by telling <code>geom_bar()</code> to use a different statistical transformation function:</p>
@@ -914,7 +914,7 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Overlay a smoothing line on top of the scatter plot using the default <em>loess</em> method for <code>geom_smooth()</code>, but make it less smooth. Hint: see <code>?loess</code>.</li>
+<li>Overlay a smoothing line on top of the scatter plot using the default <em>loess</em> method for <code>geom_smooth()</code>, but make it less smooth. Hint: see <code>?stat_smooth</code> and the <code>span</code> argument.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="5" style="list-style-type: decimal">
@@ -940,7 +940,7 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 <h3><span class="header-section-number">4.7.2</span> Common scale arguments</h3>
 <p>The following arguments are common to most scales in <code>ggplot2</code>:</p>
 <ul>
-<li><strong>name:</strong> the first argument gives the axis or legend title</li>
+<li><strong>name:</strong> the axis or legend title</li>
 <li><strong>limits:</strong> the minimum and maximum of the scale</li>
 <li><strong>breaks:</strong> the points along the scale where labels should appear</li>
 <li><strong>labels:</strong> the labels that appear at each break</li>
@@ -949,7 +949,7 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 </div>
 <div id="scale-modification-examples" class="section level3">
 <h3><span class="header-section-number">4.7.3</span> Scale modification examples</h3>
-<p>Start by constructing a dotplot showing the distribution of home values by Date and State.</p>
+<p>Start by constructing a dotplot showing the distribution of home values by <code>Date</code> and <code>State</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,
                <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))</code></pre></div>
@@ -1088,7 +1088,7 @@ p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histo
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code>.</li>
+<li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code> and <a href="https://www.color-hex.com/" class="uri">https://www.color-hex.com/</a>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 </div>
@@ -1130,7 +1130,7 @@ p5</code></pre></div>
 <h3><span class="header-section-number">4.10.1</span> What are themes?</h3>
 <p>The <code>ggplot2</code> theme system handles non-data plot elements such as:</p>
 <ul>
-<li>Axis labels</li>
+<li>Axis label properties (e.g., font, size, color, etc.)</li>
 <li>Plot background</li>
 <li>Facet label background</li>
 <li>Legend appearance</li>
@@ -1243,17 +1243,17 @@ p5 <span class="op">+</span><span class="st"> </span>theme_new</code></pre></div
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Color the points in the previous plot according to <code>Region</code>.</li>
+<li>Map the color of the the points to <code>Region</code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region))</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Make the points bigger by setting size to 2</li>
+<li>Keeping color mapped to <code>Region</code>, make the points bigger by setting size to 2</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region), <span class="dt">size =</span> <span class="dv">2</span>)</code></pre></div>
 <ol start="5" style="list-style-type: decimal">
-<li>Map the size of the points to <code>HDI_Rank</code></li>
+<li>Keeping color mapped to <code>Region</code>, map the size of the points to <code>HDI_Rank</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span>
 <span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region, <span class="dt">size =</span>  HDI_Rank))</code></pre></div>
@@ -1306,7 +1306,7 @@ p5 <span class="op">+</span><span class="st"> </span>theme_new</code></pre></div
 <span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span>
 <span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code>.</li>
+<li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code> and <a href="https://www.color-hex.com/" class="uri">https://www.color-hex.com/</a>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span>
 <span class="kw">geom_point</span>() <span class="op">+</span>

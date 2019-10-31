@@ -250,16 +250,16 @@ dat <- read_csv("dataSets/EconomistData.csv")
 # 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis.
 ## 
 
-# 2.  Color the points blue.
+# 2.  Color the points in the previous plot blue.
 ## 
 
 # 3.  Map the color of the the points to `Region`.
 ## 
 
-# 4.  Make the points bigger by setting size to 2
+# 4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2
 ## 
 
-# 5.  Map the size of the points to `HDI_Rank`
+# 5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`
 ## 
 
 
@@ -303,7 +303,7 @@ housing_sum <-
   summarize(Home_Value_Mean = mean(Home_Value)) %>%
   ungroup()
 
-rbind(head(housing_sum), tail(housing_sum))
+head(housing_sum)
 
 ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
   geom_bar()
@@ -325,7 +325,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 # 3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
 ## 
 
-# 4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?loess`.
+# 4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?stat_smooth` and the `span` argument.
 ## 
 
 # 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
@@ -350,7 +350,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 #
 # The following arguments are common to most scales in `ggplot2`:
 #
-# * **name:** the first argument gives the axis or legend title
+# * **name:** the axis or legend title
 # * **limits:** the minimum and maximum of the scale
 # * **breaks:** the points along the scale where labels should appear
 # * **labels:** the labels that appear at each break
@@ -359,7 +359,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 #
 # ### Scale modification examples
 #
-# Start by constructing a dotplot showing the distribution of home values by Date and State.
+# Start by constructing a dotplot showing the distribution of home values by `Date` and `State`.
 
 p4 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) + 
     geom_point(aes(color = Date), alpha = 0.5, size = 1.5,
@@ -438,7 +438,7 @@ p4 +
 # 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_discrete`.
 ## 
 
-# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`.
+# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual` and <https://www.color-hex.com/>.
 ## 
 
 
@@ -477,7 +477,7 @@ p5
 #
 # The `ggplot2` theme system handles non-data plot elements such as:
 #
-# * Axis labels
+# * Axis label properties (e.g., font, size, color, etc.)
 # * Plot background
 # * Facet label background
 # * Legend appearance
@@ -598,20 +598,21 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(color = "blue")
 
-# 3.  Color the points in the previous plot according to `Region`.
+# 3.  Map the color of the the points to `Region`.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region))
 
-# 4.  Make the points bigger by setting size to 2
+# 4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region), size = 2)
 
-# 5.  Map the size of the points to `HDI_Rank`
+# 5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
 geom_point(aes(color = Region, size =  HDI_Rank))
+
 
 # ### Ex 1: prototype
 #
@@ -660,7 +661,7 @@ scale_x_continuous(name = "Corruption Perception Index") +
 scale_y_continuous(name = "Human Development Index") +
 scale_color_discrete(name = "Region of the world")
 
-# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`.
+# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual` and <https://www.color-hex.com/>.
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
 geom_point() +

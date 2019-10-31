@@ -39,6 +39,7 @@
 
 #install.packages("tidyverse")
 library(tidyverse)
+library(readxl) # installed with tidyverse
 
 # We can also install the `rmarkdown` package, which will allow us to
 # combine our text and code into a formatted document at the end of 
@@ -325,7 +326,7 @@ boysNames[[1]]
 #
 # Our final task is to re-arrange the data so that it is all in a single
 # table instead of in two side-by-side tables. For many similar tasks
-# the `gather()` function in the *tidyr* package is useful, but in this
+# the `gather()` function in the `tidyr` package is useful, but in this
 # case we will be better off using a combination of `select()` and
 # `bind_rows()`.
 
