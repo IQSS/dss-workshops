@@ -525,7 +525,7 @@ p5 + theme_new
 # or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using
 # the `ggsave()` function:
 
-ggsave(p5, file = "myplot.pdf", device = "pdf", height = 6, width = 6, units = "in")
+ggsave(filename = "myplot.pdf", plot = p5, device = "pdf", height = 6, width = 6, units = "in")
 
 
 # ## The #1 FAQ
