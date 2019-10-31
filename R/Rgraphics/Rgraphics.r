@@ -455,7 +455,7 @@ p4 +
 #
 # ### What is the trend in housing prices in each state?
 #
-# * Start by using a technique we already know; map State to color:
+# * Start by using a technique we already know; map `State` to color:
 
 p5 <- ggplot(housing, aes(x = Date, y = Home_Value))
 p5 + geom_line(aes(color = State))  
@@ -464,7 +464,7 @@ p5 + geom_line(aes(color = State))
 #
 # ### Faceting to the rescue
 #
-# We can remedy the deficiencies of the previous plot by faceting by state rather than mapping state to color.
+# We can remedy the deficiencies of the previous plot by faceting by `State` rather than mapping `State` to color.
 
 p5 <- p5 + geom_line() +
    facet_wrap(~ State, ncol = 10)
