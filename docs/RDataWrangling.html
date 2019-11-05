@@ -699,13 +699,12 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <p>The <code>map*</code> functions are useful when you want to apply a function to get a list or vector of inputs and obtain the return values. This is very convenient when a function already exists that does exactly what you want. In the examples above we mapped the <code>excel_sheets()</code> function to the elements of a vector containing file names. But now there is no function that both retrieves worksheet names and subsets them. Fortunately, writing functions in R is easy.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># anatomy of a function</span>
 
-function_name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, ....) {
-   ## body of function - where stuff happens ##
-   new_object &lt;-<span class="st"> </span>arg1 <span class="op">*</span><span class="st"> </span>arg2
-   output1 &lt;-<span class="st"> </span><span class="kw">thing_to_do</span>(arg1)
-   output2 &lt;-<span class="st"> </span><span class="kw">another_thing_to_do</span>(output1, new_object)
-   <span class="kw">return</span>(output2)
-}
+<span class="co"># function_name &lt;- function(arg1, arg2, ....) {</span>
+<span class="co">#  </span>
+<span class="co">#   # body of function - where stuff happens #</span>
+<span class="co">#</span>
+<span class="co">#   return( results ) </span>
+<span class="co"># }</span>
 
 get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</span>(file, term){
   <span class="kw">excel_sheets</span>(file) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> term)
@@ -817,7 +816,7 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <div id="exercise-3-3" class="section level2">
 <h2><span class="header-section-number">5.9</span> Exercise 3</h2>
 <p><strong>Cleanup all the data</strong></p>
-<p>In the previous examples we learned how to drop empty rows with <code>filter()</code>, select only relevant columns with <code>select()</code>, and re-arrange our data with <code>select()</code> and <code>bind_rows()</code>. In each case we applied the changes only to the first element of our <code>boysNames</code> list.</p>
+<p>In the previous examples we learned how to drop empty rows with <code>drop_na()</code>, select only relevant columns with <code>select()</code>, and re-arrange our data with <code>select()</code> and <code>bind_rows()</code>. In each case we applied the changes only to the first element of our <code>boysNames</code> list.</p>
 <ol style="list-style-type: decimal">
 <li>Your task now is to use the <code>map()</code> function to apply each of these transformations to all the elements in <code>boysNames</code>.</li>
 </ol>
