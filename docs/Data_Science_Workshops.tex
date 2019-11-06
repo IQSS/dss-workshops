@@ -5823,8 +5823,7 @@ the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 \begin{Highlighting}[]
 \NormalTok{tmp <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}
   \DataTypeTok{path =}\NormalTok{ boy_file_names[}\DecValTok{1}\NormalTok{],}
-  \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{],}
-                              \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{),}
+  \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{),}
   \DataTypeTok{skip =} \DecValTok{6}
 \NormalTok{)}
 
@@ -6235,11 +6234,10 @@ formats.
 \NormalTok{  ## 1. Write a function that takes a file name as an argument and reads}
 \NormalTok{  ##    the worksheet containing "Table 1" from that file.}
  
-\NormalTok{read_baby_names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file) \{}
+\NormalTok{read_baby_names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, sheet_name) \{}
   \KeywordTok{read_excel}\NormalTok{(}
     \DataTypeTok{path =}\NormalTok{ file,}
-    \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(file, }
-                                \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{),}
+    \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(file, }\DataTypeTok{term =}\NormalTok{ sheet_name),}
     \DataTypeTok{skip =} \DecValTok{6}
 \NormalTok{  )}
 \NormalTok{\}}
@@ -6247,12 +6245,13 @@ formats.
 \NormalTok{  ## 2. Test your function by using it to read *one* of the boys names}
 \NormalTok{  ##    Excel files.}
 
-\KeywordTok{glimpse}\NormalTok{(}\KeywordTok{read_baby_names}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{]))}
+\KeywordTok{read_baby_names}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{sheet_name =} \StringTok{"Table 1"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{()}
+
 
 \NormalTok{  ## 3. Use the `map` function to read data from all the Excel files,}
 \NormalTok{  ##    using the function you wrote in step 1.}
 
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy_file_names, read_baby_names)}
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy_file_names, read_baby_names, }\DataTypeTok{sheet_name =} \StringTok{"Table 1"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6295,8 +6294,9 @@ There are different ways you can go about it. Here is one:
 \NormalTok{## for the second set of columns. You will need to use a regular expression}
 \NormalTok{## to match each of these different column names. HINT: see the `?matches` function.}
 
-\CommentTok{# subset data to include only those columns that include the term `Name` and `Count`}
 \NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file)\{}
+
+  \CommentTok{# subset data to include only those columns that include the term `Name` and `Count`}
 \NormalTok{  subsetted_file <-}\StringTok{ }\NormalTok{file }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{drop_na}\NormalTok{() }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{))}
@@ -6313,8 +6313,8 @@ There are different ways you can go about it. Here is one:
 
 
 \NormalTok{## test it out on the second data.frame in the list}
-\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{2}\NormalTok{]]) }\CommentTok{# before cleanup}
-\KeywordTok{glimpse}\NormalTok{(}\KeywordTok{cleanupNamesData}\NormalTok{(boysNames[[}\DecValTok{2}\NormalTok{]])) }\CommentTok{# after cleanup}
+\NormalTok{boysNames[[}\DecValTok{2}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{() }\CommentTok{# before cleanup}
+\NormalTok{boysNames[[}\DecValTok{2}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{cleanupNamesData}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{() }\CommentTok{# after cleanup}
 
 \NormalTok{## apply the cleanup function to all the data.frames in the list}
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, cleanupNamesData)}

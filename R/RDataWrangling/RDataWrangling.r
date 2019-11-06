@@ -243,8 +243,7 @@ map(boy_file_names,
 
 tmp <- read_excel(
   path = boy_file_names[1],
-  sheet = get_data_sheet_name(boy_file_names[1],
-                              term = "Table 1"),
+  sheet = get_data_sheet_name(boy_file_names[1], term = "Table 1"),
   skip = 6
 )
 
@@ -472,11 +471,10 @@ glimpse(boysNames)
   ## 1. Write a function that takes a file name as an argument and reads
   ##    the worksheet containing "Table 1" from that file.
  
-read_baby_names <- function(file) {
+read_baby_names <- function(file, sheet_name) {
   read_excel(
     path = file,
-    sheet = get_data_sheet_name(file, 
-                                term = "Table 1"),
+    sheet = get_data_sheet_name(file, term = sheet_name),
     skip = 6
   )
 }
@@ -484,12 +482,13 @@ read_baby_names <- function(file) {
   ## 2. Test your function by using it to read *one* of the boys names
   ##    Excel files.
 
-glimpse(read_baby_names(boy_file_names[1]))
+read_baby_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
+
 
   ## 3. Use the `map` function to read data from all the Excel files,
   ##    using the function you wrote in step 1.
 
-boysNames <- map(boy_file_names, read_baby_names)
+boysNames <- map(boy_file_names, read_baby_names, sheet_name = "Table 1")
 
 # ### Ex 2: prototype
 
@@ -525,8 +524,9 @@ boysNames <- map(boy_file_names, read_baby_names)
 ## for the second set of columns. You will need to use a regular expression
 ## to match each of these different column names. HINT: see the `?matches` function.
 
-# subset data to include only those columns that include the term `Name` and `Count`
 cleanupNamesData <- function(file){
+
+  # subset data to include only those columns that include the term `Name` and `Count`
   subsetted_file <- file %>%
     drop_na() %>%
     select(matches("Name|Count"))
@@ -543,8 +543,8 @@ cleanupNamesData <- function(file){
 
 
 ## test it out on the second data.frame in the list
-glimpse(boysNames[[2]]) # before cleanup
-glimpse(cleanupNamesData(boysNames[[2]])) # after cleanup
+boysNames[[2]] %>% glimpse() # before cleanup
+boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
 
 ## apply the cleanup function to all the data.frames in the list
 boysNames <- map(boysNames, cleanupNamesData)

@@ -743,8 +743,7 @@ get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</spa
 <p>We’ll start by reading the data from the first file, just to check that it works. Recall that the actual data starts on row 7, so we want to skip the first 6 rows. We can use the <code>glimpse()</code> function from the <code>dplyr</code> package within <code>tidyverse</code> to view the output.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span><span class="kw">read_excel</span>(
   <span class="dt">path =</span> boy_file_names[<span class="dv">1</span>],
-  <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>],
-                              <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>),
+  <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>),
   <span class="dt">skip =</span> <span class="dv">6</span>
 )
 
@@ -927,11 +926,10 @@ boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ## 1. Write a function that takes a file name as an argument and reads
   ##    the worksheet containing &quot;Table 1&quot; from that file.
  
-read_baby_names &lt;-<span class="st"> </span><span class="cf">function</span>(file) {
+read_baby_names &lt;-<span class="st"> </span><span class="cf">function</span>(file, sheet_name) {
   <span class="kw">read_excel</span>(
     <span class="dt">path =</span> file,
-    <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(file, 
-                                <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>),
+    <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(file, <span class="dt">term =</span> sheet_name),
     <span class="dt">skip =</span> <span class="dv">6</span>
   )
 }
@@ -939,12 +937,13 @@ read_baby_names &lt;-<span class="st"> </span><span class="cf">function</span>(f
   ## 2. Test your function by using it to read *one* of the boys names
   ##    Excel files.
 
-<span class="kw">glimpse</span>(<span class="kw">read_baby_names</span>(boy_file_names[<span class="dv">1</span>]))
+<span class="kw">read_baby_names</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()
+
 
   ## 3. Use the `map` function to read data from all the Excel files,
   ##    using the function you wrote in step 1.
 
-boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_baby_names)</code></pre></div>
+boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_baby_names, <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>)</code></pre></div>
 </div>
 <div id="ex-2-prototype-2" class="section level3">
 <h3><span class="header-section-number">5.12.3</span> Ex 2: prototype</h3>
@@ -978,8 +977,9 @@ boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_nam
 ## for the second set of columns. You will need to use a regular expression
 ## to match each of these different column names. HINT: see the `?matches` function.
 
-<span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span>
 cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){
+
+  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span>
   subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))
@@ -996,8 +996,8 @@ cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(
 
 
 ## test it out on the second data.frame in the list
-<span class="kw">glimpse</span>(boysNames[[<span class="dv">2</span>]]) <span class="co"># before cleanup</span>
-<span class="kw">glimpse</span>(<span class="kw">cleanupNamesData</span>(boysNames[[<span class="dv">2</span>]])) <span class="co"># after cleanup</span>
+boysNames[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() <span class="co"># before cleanup</span>
+boysNames[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cleanupNamesData</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() <span class="co"># after cleanup</span>
 
 ## apply the cleanup function to all the data.frames in the list
 boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</code></pre></div>
