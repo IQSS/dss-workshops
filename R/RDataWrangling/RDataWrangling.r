@@ -341,7 +341,7 @@ boysNames <- map(boysNames, drop_na)
 #   1. Write a function that takes a `data.frame` as an argument and
 #      returns a modified version, which keeps only columns that
 #      include the strings `Name` and `Count` in the column names.
-#      HINT: look at the `?matches` function. 
+#      HINT: see the `?matches` function. 
 ## 
 
 #   2. Test your function on the first `data.frame` in the list of boys
@@ -381,7 +381,8 @@ bind_rows(select(boysNames[[1]], Name = Name...2, Count = Count...3),
 # NOTE: some Excel files include extra blank columns between the first and second 
 # set of `Name` and `Count` columns, resulting in different numeric suffixes
 # for the second set of columns. You will need to use a regular expression
-# to match each of these different column names. HINT: see `matches`.
+# to match each of these different column names. HINT: see the `?matches`
+# function.
 ## 
 
 
@@ -495,7 +496,7 @@ boysNames <- map(boy_file_names, read_baby_names)
   ## 1. Write a function that takes a `data.frame` as an argument and
   ##   returns a modified version, which keeps only columns that
   ##   include the strings `Name` and `Count` in the column names.
-  ##   HINT: look at the `?matches` function.
+  ##   HINT: see the `?matches` function.
 
   namecount <- function(data) {
       select(data, matches("Name|Count"))
@@ -522,7 +523,7 @@ boysNames <- map(boy_file_names, read_baby_names)
 ## NOTE: some Excel files include extra blank columns between the first and second 
 ## set of `Name` and `Count` columns, resulting in different numeric suffixes
 ## for the second set of columns. You will need to use a regular expression
-## to match each of these different column names. HINT: see `matches`.
+## to match each of these different column names. HINT: see the `?matches` function.
 
 # subset data to include only those columns that include the term `Name` and `Count`
 cleanupNamesData <- function(file){
