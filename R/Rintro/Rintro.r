@@ -187,7 +187,7 @@ library(tidyverse)
 ## install.packages("rmarkdown")
 library(rmarkdown)
 
-# The following `tidyverse` and `rmarkdown` cheatsheets will provide a
+# The following RStudio, `tidyverse`, and `rmarkdown` cheatsheets will provide a
 # useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 # ### Readers for common file types

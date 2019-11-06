@@ -48,7 +48,7 @@ library(readxl) # installed with tidyverse
 # install.packages("rmarkdown")
 library(rmarkdown)
 
-# The following `tidyverse` and `rmarkdown` cheatsheets will provide a
+# The following RStudio, `tidyverse`, and `rmarkdown` cheatsheets will provide a
 # useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 # ### Goals
@@ -89,7 +89,7 @@ library(rmarkdown)
 #
 # Our mission is to extract and graph the **top 100** boys names in England and Wales for every year since 1996. 
 #  
-# ![tidy](R/RDataWrangling/images/clean.png)
+# ![goal](R/RDataWrangling/images/clean.png)
 
 # ## Exercise 0
 #
@@ -310,7 +310,7 @@ x <- 237
 # combine in a list
 mylist <- list(numbers, letters, dat, x)
 
-# indexing
+# indexing the list
 mylist[2]
 class(mylist[2]) # a list
 
