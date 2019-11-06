@@ -6152,8 +6152,9 @@ information to each table before flattening.
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Create a directory under \texttt{data/all} and write the data to a
-  \texttt{.csv} file.
+  Create a new directory called \texttt{all} within \texttt{dataSets}
+  and write the data to a \texttt{.csv} file. HINT: see the
+  \texttt{?dir.create} and \texttt{?write\_csv} functions.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6331,24 +6332,25 @@ Working with the data in one big table is often easier.
 
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
 
-\NormalTok{## 2.  Create a directory under `dataSets/all` and write the data to a `.csv`}
-\NormalTok{file.}
+\NormalTok{## 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. }
+\NormalTok{##     HINT: see the `?dir.create` and `?write_csv` functions.}
 
 \KeywordTok{dir.create}\NormalTok{(}\StringTok{"dataSets/all"}\NormalTok{)}
 
 \KeywordTok{write_csv}\NormalTok{(boysNames, }\StringTok{"dataSets/all/boys_names.csv"}\NormalTok{)}
 
 
-\NormalTok{## 3.  Finally, repeat the previous exercise, this time working with the data}
-\ControlFlowTok{in}\NormalTok{ one big table.}
-\NormalTok{## What were the five most popular names in 2013?}
+\NormalTok{## 3.  Finally, repeat the previous exercise, this time working with the data in one big table.}
+\NormalTok{##     What were the five most popular names in 2013?}
 
 \NormalTok{boysNames }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{filter}\NormalTok{(Year }\OperatorTok{==}\StringTok{ }\DecValTok{2013}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 
+
 \NormalTok{## How has the popularity of the name "ANDREW" changed over time?}
+
 \NormalTok{andrew <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(boysNames, Name }\OperatorTok{==}\StringTok{ "ANDREW"}\NormalTok{)}
 
 \KeywordTok{ggplot}\NormalTok{(andrew, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count)) }\OperatorTok{+}

@@ -429,8 +429,8 @@ glimpse(boysNames)
 # 1.  Turn the list of boys names data.frames into a single table. 
 ## 
 
-# 2.  Create a directory under `data/all` and write the data to a `.csv`
-# file.
+# 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file.
+#     HINT: see the `?dir.create` and `?write_csv` functions.
 ## 
 
 # 3.  Finally, repeat the previous exercise, this time working with the data
@@ -557,24 +557,25 @@ boysNames <- map(boysNames, cleanupNamesData)
 
 boysNames <- bind_rows(boysNames)
 
-## 2.  Create a directory under `dataSets/all` and write the data to a `.csv`
-file.
+## 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. 
+##     HINT: see the `?dir.create` and `?write_csv` functions.
 
 dir.create("dataSets/all")
 
 write_csv(boysNames, "dataSets/all/boys_names.csv")
 
 
-## 3.  Finally, repeat the previous exercise, this time working with the data
-in one big table.
-## What were the five most popular names in 2013?
+## 3.  Finally, repeat the previous exercise, this time working with the data in one big table.
+##     What were the five most popular names in 2013?
 
 boysNames %>% 
   filter(Year == 2013) %>%
   arrange(desc(Count)) %>%
   head()
 
+
 ## How has the popularity of the name "ANDREW" changed over time?
+
 andrew <- filter(boysNames, Name == "ANDREW")
 
 ggplot(andrew, aes(x = Year, y = Count)) +
