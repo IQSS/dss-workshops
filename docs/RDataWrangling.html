@@ -316,7 +316,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.2" data-path="RDataWrangling.html"><a href="RDataWrangling.html#goals-3"><i class="fa fa-check"></i><b>5.1.2</b> Goals</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="RDataWrangling.html"><a href="RDataWrangling.html#example-project"><i class="fa fa-check"></i><b>5.2</b> Example project</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="RDataWrangling.html"><a href="RDataWrangling.html#problems-with-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Problems with the data</a></li>
+<li class="chapter" data-level="5.2.1" data-path="RDataWrangling.html"><a href="RDataWrangling.html#our-goal"><i class="fa fa-check"></i><b>5.2.1</b> Our goal</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="RDataWrangling.html"><a href="RDataWrangling.html#exercise-0-3"><i class="fa fa-check"></i><b>5.3</b> Exercise 0</a></li>
 <li class="chapter" data-level="5.4" data-path="RDataWrangling.html"><a href="RDataWrangling.html#working-with-excel-worksheets"><i class="fa fa-check"></i><b>5.4</b> Working with Excel worksheets</a><ul>
@@ -620,12 +620,13 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li>Choose <code>File -&gt; Open File</code> and select the blank version of the <code>.Rmd</code> file.</li>
 </ul>
 <p>While R’s built-in packages are powerful, in recent years there has been a big surge in well-designed <em>contributed packages</em> for R. In particular, a collection of R packages called <a href="https://www.tidyverse.org/">tidyverse</a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures. We will use <code>tidyverse</code> packages throughout the workshop, so let’s install them now:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;tidyverse&quot;)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;tidyverse&quot;)</span>
 <span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(readxl) <span class="co"># installed with tidyverse</span></code></pre></div>
 <p>We can also install the <code>rmarkdown</code> package, which will allow us to combine our text and code into a formatted document at the end of the workshop:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;rmarkdown&quot;)</span>
 <span class="kw">library</span>(rmarkdown)</code></pre></div>
+<p>The following <code>tidyverse</code> and <code>rmarkdown</code> cheatsheets will provide a useful reference: <a href="https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf" class="uri">https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf</a></p>
 </div>
 <div id="goals-3" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Goals</h3>
@@ -646,19 +647,24 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">5.2</span> Example project</h2>
 <p>It is common for data to be made available on a website somewhere, either by a government agency, research group, or other organizations and entities. Often the data you want is spread over many files, and retrieving it all one file at a time is tedious and time consuming. Such is the case with the baby names data we will be using today.</p>
 <p>The UK <a href="https://www.ons.gov.uk">Office for National Statistics</a> provides yearly data on the most popular baby names going back to 1996. The data is provided separately for boys and girls and is stored in Excel spreadsheets.</p>
-<p>I have downloaded all the excel files containing boys names data from <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys</a> and made them available at <a href="http://tutorials.iq.harvard.edu/R/RDataManagement/data/boysNames.zip" class="uri">http://tutorials.iq.harvard.edu/R/RDataManagement/data/boysNames.zip</a>.</p>
-<p>Our mission is to extract and graph the <strong>top 100</strong> boys names in England and Wales for every year since 1996. There are several things that make this challenging.</p>
-<div id="problems-with-the-data" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Problems with the data</h3>
-<p>While it was good of the UK Office for National Statistics to provide baby name data, they were not very diligent about arranging it in a convenient or consistent format.</p>
+<p>I have downloaded all the excel files containing boys names data from <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys</a>.</p>
+<div id="our-goal" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Our goal</h3>
+<p>Our mission is to extract and graph the <strong>top 100</strong> boys names in England and Wales for every year since 1996.</p>
+<div class="figure">
+<img src="R/RDataWrangling/images/clean.png" alt="tidy" />
+<p class="caption">tidy</p>
+</div>
 </div>
 </div>
 <div id="exercise-0-3" class="section level2">
 <h2><span class="header-section-number">5.3</span> Exercise 0</h2>
-<p>Our mission is to extract and graph the <strong>top 100</strong> boys names in England and Wales for every year since 1996. There are several things that make this challenging.</p>
+<p>There are several things that make our goal challenging. Lets take a look at the data:</p>
 <ol style="list-style-type: decimal">
-<li><p>Locate the file named <code>1996boys_tcm77-254026.xlsx</code> and open it in a spreadsheet. (If you don’t have a spreadsheet program installed on your computer you can downloads one from <a href="https://www.libreoffice.org/download/download/" class="uri">https://www.libreoffice.org/download/download/</a>). What issues can you identify that might make working with these data more difficult?</p></li>
-<li><p>Locate the file named <code>2015boysnamesfinal.xlsx</code> and open it in a spreadsheet. In what ways is the format different than the format of <code>1996boys_tcm77-254026.xlsx</code>? How might these differences make it more difficult to work with these data?</p></li>
+<li><p>Locate the files named <code>1996boys_tcm77-254026.xlsx</code> and <code>2015boysnamesfinal.xlsx</code> and open them separately in a spreadsheet program.</p>
+<p>(If you don’t have a spreadsheet program installed on your computer you can downloads one from <a href="https://www.libreoffice.org/download/download/" class="uri">https://www.libreoffice.org/download/download/</a>).</p>
+<p>What issues can you identify that might make working with these data difficult?</p>
+<p>In what ways is the format different between the two files?</p></li>
 </ol>
 </div>
 <div id="working-with-excel-worksheets" class="section level2">
@@ -691,7 +697,10 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <p>Here we want to detect the pattern “Table 1”, and only return elements with this pattern. We can do that using the <code>str_subset()</code> function. The first argument to <code>str_subset()</code> is character vector we want to search in. The second argument is a <em>regular expression</em> matching the pattern we want to retain.</p>
 <p>If you are not familiar with regular expressions, <a href="http://www.regexr.com/" class="uri">http://www.regexr.com/</a> is a good place to start.</p>
 <p>Now that we know how to filter character vectors using <code>str_subset()</code> we can identify the correct sheet in a particular Excel file. For example,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#str_subset(excel_sheets(boy_file_names[1]), pattern = &quot;Table 1&quot;)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nesting functions</span>
+<span class="kw">str_subset</span>(<span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]), <span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>)
+
+<span class="co"># piping functions</span>
 <span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>)</code></pre></div>
 </div>
 <div id="writing-your-own-functions" class="section level3">
@@ -716,10 +725,14 @@ get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</spa
 }
 
 <span class="co"># the goal is generalization </span>
-<span class="kw">get_data_sheet_name</span>(anyfile)
-<span class="kw">get_data_sheet_name</span>(anyfile, <span class="dt">term=</span><span class="st">&quot;Table 2&quot;</span>)</code></pre></div>
+<span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>)
+<span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 2&quot;</span>)</code></pre></div>
 <p>Now we can map this new function over our vector of file names.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(boy_file_names,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># map(thing to iterate over, </span>
+<span class="co">#     function to do things, </span>
+<span class="co">#     arguments to previous function)</span>
+
+<span class="kw">map</span>(boy_file_names,
     get_data_sheet_name,
     <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>)</code></pre></div>
 </div>
@@ -784,6 +797,21 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <img src="R/RDataWrangling/images/indexing_lists.png" alt="list indexing" />
 <p class="caption">list indexing</p>
 </div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># various data structures</span>
+numbers &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+letters &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]
+dat &lt;-<span class="st"> </span><span class="kw">head</span>(mtcars)
+x &lt;-<span class="st"> </span><span class="dv">237</span>
+
+<span class="co"># combine in a list</span>
+mylist &lt;-<span class="st"> </span><span class="kw">list</span>(numbers, letters, dat, x)
+
+<span class="co"># indexing</span>
+mylist[<span class="dv">2</span>]
+<span class="kw">class</span>(mylist[<span class="dv">2</span>]) <span class="co"># a list</span>
+
+mylist[[<span class="dv">2</span>]]
+<span class="kw">class</span>(mylist[[<span class="dv">2</span>]]) <span class="co"># a character vector</span></code></pre></div>
 </div>
 <div id="dropping-missing-values" class="section level3">
 <h3><span class="header-section-number">5.7.2</span> Dropping missing values</h3>
@@ -793,21 +821,22 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span>boysNames[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()
 
 boysNames[[<span class="dv">1</span>]]</code></pre></div>
-<p>Finally, we will want to filter out missing. Do this for all the elements in <code>boysNames</code>, a task I leave to you.</p>
+<p>Finally, we will want to do this for all the elements in <code>boysNames</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, drop_na)</code></pre></div>
 </div>
 </div>
 <div id="exercise-2-2" class="section level2">
 <h2><span class="header-section-number">5.8</span> Exercise 2</h2>
 <ol style="list-style-type: decimal">
-<li>Write a function that takes a <code>data.frame</code> as an argument and returns a modified version including only columns named <code>Name...2</code>, <code>Name...6</code>, <code>Count...3</code>, and <code>Count...7</code>.</li>
+<li>Write a function that takes a <code>data.frame</code> as an argument and returns a modified version, which keeps only columns that include the strings <code>Name</code> and <code>Count</code> in the column names. HINT: look at the <code>?matches</code> function.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Test your function on the first <code>data.frame</code> in the list of baby names data.</li>
+<li>Test your function on the first <code>data.frame</code> in the list of boys names data.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Use the <code>map()</code> function to each <code>data.frame</code> in the list of baby names data.</li>
+<li>Use the <code>map()</code> function to each <code>data.frame</code> in the list of boys names data.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <div id="re-arranging-into-a-single-table" class="section level3">
@@ -825,6 +854,7 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Your task now is to use the <code>map()</code> function to apply each of these transformations to all the elements in <code>boysNames</code>.</li>
 </ol>
+<p>NOTE: some Excel files include extra blank columns between the first and second set of <code>Name</code> and <code>Count</code> columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression to match each of these different column names. HINT: see <code>matches</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 </div>
 <div id="data-organization-storage" class="section level2">
@@ -843,7 +873,7 @@ boysNames &lt;-<span class="st"> </span><span class="kw">setNames</span>(boysNam
 <h3><span class="header-section-number">5.10.2</span> One big table</h3>
 <p>While storing the data in separate tables by year makes some sense, many operations will be easier if the data is simply stored in one big table. We’ve already seen how to turn a list of data.frames into a single data.frame using <code>bind_rows()</code>, but there is a problem; The year information is stored in the names of the list elements, and so flattening the tables into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each table before flattening.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">year_column &lt;-<span class="st"> </span><span class="cf">function</span>(data, name) {
-  <span class="kw">mutate</span>(data, <span class="dt">year =</span> <span class="kw">as.integer</span>(name))
+  <span class="kw">mutate</span>(data, <span class="dt">Year =</span> <span class="kw">as.integer</span>(name))
 }
 
 boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, year_column)
@@ -876,19 +906,20 @@ boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNa
 <h3><span class="header-section-number">5.12.1</span> Ex 0: prototype</h3>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>Locate the file named <code>1996boys_tcm77-254026.xlsx</code> and open it in a spreadsheet. (If you don’t have a spreadsheet program installed on your computer you can downloads one from <a href="https://www.libreoffice.org/download/download/" class="uri">https://www.libreoffice.org/download/download/</a>). What issues can you identify that might make working with these data more difficult?</li>
+<li><p>Locate the files named <code>1996boys_tcm77-254026.xlsx</code> and <code>2015boysnamesfinal.xlsx</code> and open them separately in a spreadsheet program.</p>
+<p>(If you don’t have a spreadsheet program installed on your computer you can downloads one from <a href="https://www.libreoffice.org/download/download/" class="uri">https://www.libreoffice.org/download/download/</a>).</p>
+<p>What issues can you identify that might make working with these data difficult?</p>
+<p>In what ways is the format different between the two files?</p></li>
 </ol>
 </blockquote>
-<p>The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.</p>
-<p>The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a separate set of columns.</p>
-<p>There are notes below the data.</p>
-<blockquote>
-<ol start="2" style="list-style-type: decimal">
-<li>Locate the file named <code>2015boysnamesfinal.xlsx</code> and open it in a spreadsheet. In what ways is the format different than the format of <code>1996boys_tcm77-254026.xlsx</code>? How might these differences make it more difficult to work with these data?</li>
+<ol style="list-style-type: decimal">
+<li>Multiple Excel sheets in each file, each with a different name, but each file contains a <code>Table 1</code>.</li>
+<li>The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.</li>
+<li>The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns.</li>
+<li>The second worksheet <code>2015boysnamesfinal.xlsx</code> contains extra columns between the data of interest, resulting in the second set of columns (ranks 51-100) being placed in a different position.</li>
+<li>The year from which the data comes is only reported in the Excel file name, not within the data itself.</li>
+<li>There are notes below the data.</li>
 </ol>
-</blockquote>
-<p>The worksheet containing the data of interest is in different positions and has different names from one year to the next. However, it always includes “Table 1” in the worksheet name.</p>
-<p>Some years include columns for “changes in rank”, others do not.</p>
 <p>These differences will make it more difficult to automate re-arranging the data since we have to write code that can handle different input formats.</p>
 </div>
 <div id="ex-1-prototype-3" class="section level3">
@@ -918,19 +949,20 @@ boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_nam
 <div id="ex-2-prototype-2" class="section level3">
 <h3><span class="header-section-number">5.12.3</span> Ex 2: prototype</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ## 1. Write a function that takes a `data.frame` as an argument and
-  ##    returns a modified version including only columns named `Name...2`,
-  ##    `Name...6`, `Count...3`, or `Count...7`.
+  ##   returns a modified version, which keeps only columns that
+  ##   include the strings `Name` and `Count` in the column names.
+  ##   HINT: look at the `?matches` function.
 
   namecount &lt;-<span class="st"> </span><span class="cf">function</span>(data) {
       <span class="kw">select</span>(data, <span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))
   }
      
-  ## 2. Test your function on the first `data.frame` in the list of baby
+  ## 2. Test your function on the first `data.frame` in the list of boys
   ##    names data.
 
   <span class="kw">namecount</span>(boysNames[[<span class="dv">1</span>]])
   
-  ## 3. Use the `map` function to each `data.frame` in the list of baby
+  ## 3. Use the `map` function to each `data.frame` in the list of boys
   ##    names data.
 
   babyNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, namecount)</code></pre></div>
@@ -938,16 +970,28 @@ boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_nam
 <div id="ex-3-prototype-3" class="section level3">
 <h3><span class="header-section-number">5.12.4</span> Ex 3: prototype</h3>
 <p>There are different ways you can go about it. Here is one:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 1.  write a function that does all the cleanup
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 1.  Your task now is to use the `map()` function to apply each of these
+##     transformations to all the elements in `boysNames`. 
+
+## <span class="al">NOTE</span>: some Excel files include extra blank columns between the first and second 
+## set of `Name` and `Count` columns, resulting in different numeric suffixes
+## for the second set of columns. You will need to use a regular expression
+## to match each of these different column names. HINT: see `matches`.
+
+<span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span>
 cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){
-  selected &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">drop_na</span>(Name...<span class="dv">2</span>) <span class="op">%&gt;%</span>
+  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))
-   
-  <span class="kw">bind_rows</span>(<span class="kw">select</span>(selected, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>),
-            <span class="kw">select</span>(selected, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),
-                             <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>)
-                   ))
+
+  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span>
+  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) 
+
+  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),
+                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))
+
+  <span class="co"># append the two datasets</span>
+  <span class="kw">bind_rows</span>(first_columns, second_columns)
 }
 
 
@@ -978,16 +1022,16 @@ file.
 ## What were the five most popular names in 2013?
 
 boysNames <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Count)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
+<span class="st">  </span><span class="kw">head</span>()
 
 ## How has the popularity of the name &quot;ANDREW&quot; changed over time?
 andrew &lt;-<span class="st"> </span><span class="kw">filter</span>(boysNames, Name <span class="op">==</span><span class="st"> &quot;ANDREW&quot;</span>)
 
-<span class="kw">ggplot</span>(andrew, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> Count)) <span class="op">+</span>
+<span class="kw">ggplot</span>(andrew, <span class="kw">aes</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of </span><span class="ch">\&quot;</span><span class="st">Andrew</span><span class="ch">\&quot;</span><span class="st">, over time&quot;</span>)</code></pre></div>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of Andrew, over time&quot;</span>)</code></pre></div>
 </div>
 </div>
 <div id="wrap-up-4" class="section level2">

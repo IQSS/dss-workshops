@@ -47,7 +47,7 @@ data structures. We will use `tidyverse` packages throughout the
 workshop, so let's install them now:
 
 ```{r}
-#install.packages("tidyverse")
+# install.packages("tidyverse")
 library(tidyverse)
 library(readxl) # installed with tidyverse
 ```
@@ -60,6 +60,9 @@ the workshop:
 # install.packages("rmarkdown")
 library(rmarkdown)
 ```
+
+The following `tidyverse` and `rmarkdown` cheatsheets will provide a
+useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 
 ### Goals
@@ -95,35 +98,32 @@ data on the most popular baby names going back to 1996. The data is provided
 separately for boys and girls and is stored in Excel spreadsheets.
 
 I have downloaded all the excel files containing boys names data from
-https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys 
-and made them available at 
-http://tutorials.iq.harvard.edu/R/RDataManagement/data/boysNames.zip.
+https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys.
 
-Our mission is to extract and graph the **top 100** boys names in England
-and Wales for every year since 1996. There are several things that
-make this challenging.
 
-### Problems with the data
+### Our goal
 
-While it was good of the UK Office for National Statistics to provide
-baby name data, they were not very diligent about arranging it in a
-convenient or consistent format.
+Our mission is to extract and graph the **top 100** boys names in England and Wales for every year since 1996. 
+ 
+![tidy](R/RDataWrangling/images/clean.png)
 
 
 ## Exercise 0
 
-Our mission is to extract and graph the **top 100** boys names in England and Wales for every year since 1996. There are several things that make this challenging.
+There are several things that make our goal challenging. Lets take a look at the data:
 
-1.  Locate the file named `1996boys_tcm77-254026.xlsx` and open it in
-    a spreadsheet. (If you don't have a spreadsheet program installed on
+1.  Locate the files named `1996boys_tcm77-254026.xlsx` and 
+    `2015boysnamesfinal.xlsx` and open them separately in a 
+    spreadsheet program. 
+
+    (If you don't have a spreadsheet program installed on
     your computer you can downloads one from
-    https://www.libreoffice.org/download/download/). What issues can you
-    identify that might make working with these data more difficult?
+    https://www.libreoffice.org/download/download/). 
 
-2.  Locate the file named `2015boysnamesfinal.xlsx` and open it in a
-    spreadsheet. In what ways is the format different than the format
-    of `1996boys_tcm77-254026.xlsx`? How might these differences make
-    it more difficult to work with these data?
+    What issues can you identify that might make working
+    with these data difficult?
+
+    In what ways is the format different between the two files?
 
 
 ## Working with Excel worksheets
@@ -209,7 +209,10 @@ Now that we know how to filter character vectors using `str_subset()` we can
 identify the correct sheet in a particular Excel file. For example,
 
 ```{r}
-#str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")
+# nesting functions
+str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")
+
+# piping functions
 excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 ```
 
@@ -244,14 +247,17 @@ get_data_sheet_name <- function(file, term){
 }
 
 # the goal is generalization 
-get_data_sheet_name(anyfile)
-get_data_sheet_name(anyfile, term="Table 2")
-
+get_data_sheet_name(boy_file_names[1], term = "Table 1")
+get_data_sheet_name(boy_file_names[1], term = "Table 2")
 ```
 
 Now we can map this new function over our vector of file names.
 
 ```{r}
+# map(thing to iterate over, 
+#     function to do things, 
+#     arguments to previous function)
+
 map(boy_file_names,
     get_data_sheet_name,
     term = "Table 1")
@@ -339,6 +345,24 @@ Why are we using **double brackets** `[[` to index this list object?
 
 ![list indexing](R/RDataWrangling/images/indexing_lists.png)
 
+```{r}
+# various data structures
+numbers <- 1:10
+letters <- LETTERS[1:4]
+dat <- head(mtcars)
+x <- 237
+
+# combine in a list
+mylist <- list(numbers, letters, dat, x)
+
+# indexing
+mylist[2]
+class(mylist[2]) # a list
+
+mylist[[2]]
+class(mylist[[2]]) # a character vector
+```
+
 
 ### Dropping missing values
 
@@ -354,26 +378,31 @@ boysNames[[1]] <- boysNames[[1]] %>% drop_na()
 boysNames[[1]]
 ```
 
-Finally, we will want to filter out missing. Do this for all the
-elements in `boysNames`, a task I leave to you.
+Finally, we will want to do this for all the
+elements in `boysNames`:
+
+```{r}
+boysNames <- map(boysNames, drop_na)
+```
 
 
 ## Exercise 2
 
   1. Write a function that takes a `data.frame` as an argument and
-     returns a modified version including only columns named `Name...2`,
-     `Name...6`, `Count...3`, and `Count...7`. 
+     returns a modified version, which keeps only columns that
+     include the strings `Name` and `Count` in the column names.
+     HINT: look at the `?matches` function. 
 ```{r}
 ## 
 ```     
      
-  2. Test your function on the first `data.frame` in the list of baby
+  2. Test your function on the first `data.frame` in the list of boys
      names data.
 ```{r}
 ## 
 ```
 
-  3. Use the `map()` function to each `data.frame` in the list of baby
+  3. Use the `map()` function to each `data.frame` in the list of boys
      names data.
 ```{r}
 ## 
@@ -405,7 +434,12 @@ our data with `select()` and `bind_rows()`. In each case we applied the
 changes only to the first element of our `boysNames` list.
 
 1.  Your task now is to use the `map()` function to apply each of these
-transformations to all the elements in `boysNames`.
+transformations to all the elements in `boysNames`. 
+
+NOTE: some Excel files include extra blank columns between the first and second 
+set of `Name` and `Count` columns, resulting in different numeric suffixes
+for the second set of columns. You will need to use a regular expression
+to match each of these different column names. HINT: see `matches`.
 ```{r}
 ## 
 ```
@@ -442,7 +476,7 @@ information to each table before flattening.
 
 ```{r}
 year_column <- function(data, name) {
-  mutate(data, year = as.integer(name))
+  mutate(data, Year = as.integer(name))
 }
 
 boysNames <- imap(boysNames, year_column)
@@ -479,30 +513,25 @@ in one big table.
 
 ### Ex 0: prototype
 
-> 1.  Locate the file named `1996boys_tcm77-254026.xlsx` and open it in
->     a spreadsheet. (If you don't have a spreadsheet program installed on
+> 1.  Locate the files named `1996boys_tcm77-254026.xlsx` and 
+>     `2015boysnamesfinal.xlsx` and open them separately in a 
+>      spreadsheet program. 
+>
+>     (If you don't have a spreadsheet program installed on
 >     your computer you can downloads one from
->     https://www.libreoffice.org/download/download/). What issues can you
->     identify that might make working with these data more difficult?
+>     https://www.libreoffice.org/download/download/). 
+>
+>     What issues can you identify that might make working
+>     with these data difficult?
+>
+>     In what ways is the format different between the two files?
 
-The data does not start on row one. Headers are on row 7, followed by
-a blank line, followed by the actual data.
-
-The data is stored in an inconvenient way, with ranks 1-50 in the
-first set of columns and ranks 51-100 in a separate set of columns.
-
-There are notes below the data.
-
-> 2.  Locate the file named `2015boysnamesfinal.xlsx` and open it in a
->     spreadsheet. In what ways is the format different than the format
->     of `1996boys_tcm77-254026.xlsx`? How might these differences make
->     it more difficult to work with these data?
-
-The worksheet containing the data of interest is in different
-positions and has different names from one year to the next. However,
-it always includes "Table 1" in the worksheet name.
-
-Some years include columns for "changes in rank", others do not.
+1.  Multiple Excel sheets in each file, each with a different name, but each file contains a `Table 1`.
+2.  The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.
+3.  The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns.
+4. The second worksheet `2015boysnamesfinal.xlsx` contains extra columns between the data of interest, resulting in the second set of columns (ranks 51-100) being placed in a different position.
+5.  The year from which the data comes is only reported in the Excel file name, not within the data itself.
+6.  There are notes below the data.
 
 These differences will make it more difficult to automate
 re-arranging the data since we have to write code that can handle
@@ -533,26 +562,26 @@ glimpse(read_baby_names(boy_file_names[1]))
   ##    using the function you wrote in step 1.
 
 boysNames <- map(boy_file_names, read_baby_names)
-
 ```
 
 ### Ex 2: prototype
 
 ```{r}
   ## 1. Write a function that takes a `data.frame` as an argument and
-  ##    returns a modified version including only columns named `Name...2`,
-  ##    `Name...6`, `Count...3`, or `Count...7`.
+  ##   returns a modified version, which keeps only columns that
+  ##   include the strings `Name` and `Count` in the column names.
+  ##   HINT: look at the `?matches` function.
 
   namecount <- function(data) {
       select(data, matches("Name|Count"))
   }
      
-  ## 2. Test your function on the first `data.frame` in the list of baby
+  ## 2. Test your function on the first `data.frame` in the list of boys
   ##    names data.
 
   namecount(boysNames[[1]])
   
-  ## 3. Use the `map` function to each `data.frame` in the list of baby
+  ## 3. Use the `map` function to each `data.frame` in the list of boys
   ##    names data.
 
   babyNames <- map(boysNames, namecount)
@@ -564,16 +593,28 @@ There are different ways you can go about it. Here is one:
 
 
 ```{r}
-## 1.  write a function that does all the cleanup
+## 1.  Your task now is to use the `map()` function to apply each of these
+##     transformations to all the elements in `boysNames`. 
+
+## NOTE: some Excel files include extra blank columns between the first and second 
+## set of `Name` and `Count` columns, resulting in different numeric suffixes
+## for the second set of columns. You will need to use a regular expression
+## to match each of these different column names. HINT: see `matches`.
+
+# subset data to include only those columns that include the term `Name` and `Count`
 cleanupNamesData <- function(file){
-  selected <- file %>%
-    drop_na(Name...2) %>%
+  subsetted_file <- file %>%
+    drop_na() %>%
     select(matches("Name|Count"))
-   
-  bind_rows(select(selected, Name = Name...2, Count = Count...3),
-            select(selected, Name = matches("Name...6|Name...7|Name...8"),
-                             Count = matches("Count...7|Count...8|Count...9")
-                   ))
+
+  # subset two separate data frames, with first and second set of `Name` and `Count` columns 
+  first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
+
+  second_columns <- select(subsetted_file, Name = matches("Name...6|Name...7|Name...8"),
+                                           Count = matches("Count...7|Count...8|Count...9"))
+
+  # append the two datasets
+  bind_rows(first_columns, second_columns)
 }
 
 
@@ -607,16 +648,16 @@ in one big table.
 ## What were the five most popular names in 2013?
 
 boysNames %>% 
-  filter(year == 2013) %>%
+  filter(Year == 2013) %>%
   arrange(desc(Count)) %>%
-  slice(1:5)
+  head()
 
 ## How has the popularity of the name "ANDREW" changed over time?
 andrew <- filter(boysNames, Name == "ANDREW")
 
-ggplot(andrew, aes(x = year, y = Count)) +
+ggplot(andrew, aes(x = Year, y = Count)) +
     geom_line() +
-    ggtitle("Popularity of \"Andrew\", over time")
+    ggtitle("Popularity of Andrew, over time")
 ```
 
 

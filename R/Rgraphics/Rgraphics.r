@@ -54,6 +54,9 @@ library(ggrepel)
 # install.packages("rmarkdown")
 library(rmarkdown)
 
+# The following `tidyverse`, ``ggplot2`, and `rmarkdown` cheatsheets will provide a
+# useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
+
 # ### Goals
 #
 # Class Structure and Organization:

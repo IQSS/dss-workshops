@@ -1625,6 +1625,10 @@ workshop:
 \end{Highlighting}
 \end{Shaded}
 
+The following \texttt{tidyverse} and \texttt{rmarkdown} cheatsheets will
+provide a useful reference:
+\url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
+
 \subsection{Readers for common file
 types}\label{readers-for-common-file-types}
 
@@ -2766,6 +2770,10 @@ workshop:
 \KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
 \end{Shaded}
+
+The following \texttt{tidyverse} and \texttt{rmarkdown} cheatsheets will
+provide a useful reference:
+\url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
 Finally, lets install some packages that will help with modeling:
 
@@ -3914,6 +3922,10 @@ workshop:
 \KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
 \end{Shaded}
+
+The following \texttt{tidyverse}, `\texttt{ggplot2}, and
+\texttt{rmarkdown} cheatsheets will provide a useful reference:
+\url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
 \subsection{Goals}\label{goals-2}
 
@@ -5530,7 +5542,7 @@ workshop, so let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#install.packages("tidyverse")}
+\CommentTok{# install.packages("tidyverse")}
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \KeywordTok{library}\NormalTok{(readxl) }\CommentTok{# installed with tidyverse}
 \end{Highlighting}
@@ -5546,6 +5558,10 @@ workshop:
 \KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
 \end{Shaded}
+
+The following \texttt{tidyverse} and \texttt{rmarkdown} cheatsheets will
+provide a useful reference:
+\url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
 \subsection{Goals}\label{goals-3}
 
@@ -5592,39 +5608,39 @@ The data is provided separately for boys and girls and is stored in
 Excel spreadsheets.
 
 I have downloaded all the excel files containing boys names data from
-\url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys}
-and made them available at
-\url{http://tutorials.iq.harvard.edu/R/RDataManagement/data/boysNames.zip}.
+\url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys}.
+
+\subsection{Our goal}\label{our-goal}
 
 Our mission is to extract and graph the \textbf{top 100} boys names in
-England and Wales for every year since 1996. There are several things
-that make this challenging.
+England and Wales for every year since 1996.
 
-\subsection{Problems with the data}\label{problems-with-the-data}
-
-While it was good of the UK Office for National Statistics to provide
-baby name data, they were not very diligent about arranging it in a
-convenient or consistent format.
+\begin{figure}
+\centering
+\includegraphics{R/RDataWrangling/images/clean.png}
+\caption{tidy}
+\end{figure}
 
 \section{Exercise 0}\label{exercise-0-3}
 
-Our mission is to extract and graph the \textbf{top 100} boys names in
-England and Wales for every year since 1996. There are several things
-that make this challenging.
+There are several things that make our goal challenging. Lets take a
+look at the data:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Locate the file named \texttt{1996boys\_tcm77-254026.xlsx} and open it
-  in a spreadsheet. (If you don't have a spreadsheet program installed
-  on your computer you can downloads one from
-  \url{https://www.libreoffice.org/download/download/}). What issues can
-  you identify that might make working with these data more difficult?
-\item
-  Locate the file named \texttt{2015boysnamesfinal.xlsx} and open it in
-  a spreadsheet. In what ways is the format different than the format of
-  \texttt{1996boys\_tcm77-254026.xlsx}? How might these differences make
-  it more difficult to work with these data?
+  Locate the files named \texttt{1996boys\_tcm77-254026.xlsx} and
+  \texttt{2015boysnamesfinal.xlsx} and open them separately in a
+  spreadsheet program.
+
+  (If you don't have a spreadsheet program installed on your computer
+  you can downloads one from
+  \url{https://www.libreoffice.org/download/download/}).
+
+  What issues can you identify that might make working with these data
+  difficult?
+
+  In what ways is the format different between the two files?
 \end{enumerate}
 
 \section{Working with Excel
@@ -5726,7 +5742,10 @@ Excel file. For example,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")}
+\CommentTok{# nesting functions}
+\KeywordTok{str_subset}\NormalTok{(}\KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{]), }\DataTypeTok{pattern =} \StringTok{"Table 1"}\NormalTok{)}
+
+\CommentTok{# piping functions}
 \KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\DataTypeTok{pattern =} \StringTok{"Table 1"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5770,8 +5789,8 @@ elements:
 \NormalTok{\}}
 
 \CommentTok{# the goal is generalization }
-\KeywordTok{get_data_sheet_name}\NormalTok{(anyfile)}
-\KeywordTok{get_data_sheet_name}\NormalTok{(anyfile, }\DataTypeTok{term=}\StringTok{"Table 2"}\NormalTok{)}
+\KeywordTok{get_data_sheet_name}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{)}
+\KeywordTok{get_data_sheet_name}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{term =} \StringTok{"Table 2"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5779,6 +5798,10 @@ Now we can map this new function over our vector of file names.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# map(thing to iterate over, }
+\CommentTok{#     function to do things, }
+\CommentTok{#     arguments to previous function)}
+
 \KeywordTok{map}\NormalTok{(boy_file_names,}
 \NormalTok{    get_data_sheet_name,}
     \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{)}
@@ -5918,6 +5941,26 @@ list object?
 \caption{list indexing}
 \end{figure}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# various data structures}
+\NormalTok{numbers <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\NormalTok{letters <-}\StringTok{ }\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{]}
+\NormalTok{dat <-}\StringTok{ }\KeywordTok{head}\NormalTok{(mtcars)}
+\NormalTok{x <-}\StringTok{ }\DecValTok{237}
+
+\CommentTok{# combine in a list}
+\NormalTok{mylist <-}\StringTok{ }\KeywordTok{list}\NormalTok{(numbers, letters, dat, x)}
+
+\CommentTok{# indexing}
+\NormalTok{mylist[}\DecValTok{2}\NormalTok{]}
+\KeywordTok{class}\NormalTok{(mylist[}\DecValTok{2}\NormalTok{]) }\CommentTok{# a list}
+
+\NormalTok{mylist[[}\DecValTok{2}\NormalTok{]]}
+\KeywordTok{class}\NormalTok{(mylist[[}\DecValTok{2}\NormalTok{]]) }\CommentTok{# a character vector}
+\end{Highlighting}
+\end{Shaded}
+
 \subsection{Dropping missing values}\label{dropping-missing-values}
 
 Next we want to remove blank rows and rows used for notes. An easy way
@@ -5934,8 +5977,14 @@ within \texttt{tidyverse} to remove rows with missing values.
 \end{Highlighting}
 \end{Shaded}
 
-Finally, we will want to filter out missing. Do this for all the
-elements in \texttt{boysNames}, a task I leave to you.
+Finally, we will want to do this for all the elements in
+\texttt{boysNames}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, drop_na)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Exercise 2}\label{exercise-2-2}
 
@@ -5944,9 +5993,9 @@ elements in \texttt{boysNames}, a task I leave to you.
 \tightlist
 \item
   Write a function that takes a \texttt{data.frame} as an argument and
-  returns a modified version including only columns named
-  \texttt{Name...2}, \texttt{Name...6}, \texttt{Count...3}, and
-  \texttt{Count...7}.
+  returns a modified version, which keeps only columns that include the
+  strings \texttt{Name} and \texttt{Count} in the column names. HINT:
+  look at the \texttt{?matches} function.
 \end{enumerate}
 
 \begin{Shaded}
@@ -5961,7 +6010,7 @@ elements in \texttt{boysNames}, a task I leave to you.
 \tightlist
 \item
   Test your function on the first \texttt{data.frame} in the list of
-  baby names data.
+  boys names data.
 \end{enumerate}
 
 \begin{Shaded}
@@ -5976,7 +6025,7 @@ elements in \texttt{boysNames}, a task I leave to you.
 \tightlist
 \item
   Use the \texttt{map()} function to each \texttt{data.frame} in the
-  list of baby names data.
+  list of boys names data.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6019,6 +6068,12 @@ first element of our \texttt{boysNames} list.
   Your task now is to use the \texttt{map()} function to apply each of
   these transformations to all the elements in \texttt{boysNames}.
 \end{enumerate}
+
+NOTE: some Excel files include extra blank columns between the first and
+second set of \texttt{Name} and \texttt{Count} columns, resulting in
+different numeric suffixes for the second set of columns. You will need
+to use a regular expression to match each of these different column
+names. HINT: see \texttt{matches}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6064,7 +6119,7 @@ information to each table before flattening.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{year_column <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, name) \{}
-  \KeywordTok{mutate}\NormalTok{(data, }\DataTypeTok{year =} \KeywordTok{as.integer}\NormalTok{(name))}
+  \KeywordTok{mutate}\NormalTok{(data, }\DataTypeTok{Year =} \KeywordTok{as.integer}\NormalTok{(name))}
 \NormalTok{\}}
 
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames, year_column)}
@@ -6130,42 +6185,44 @@ information to each table before flattening.
 \begin{quote}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  Locate the file named \texttt{1996boys\_tcm77-254026.xlsx} and open it
-  in a spreadsheet. (If you don't have a spreadsheet program installed
-  on your computer you can downloads one from
-  \url{https://www.libreoffice.org/download/download/}). What issues can
-  you identify that might make working with these data more difficult?
+  Locate the files named \texttt{1996boys\_tcm77-254026.xlsx} and
+  \texttt{2015boysnamesfinal.xlsx} and open them separately in a
+  spreadsheet program.
+
+  (If you don't have a spreadsheet program installed on your computer
+  you can downloads one from
+  \url{https://www.libreoffice.org/download/download/}).
+
+  What issues can you identify that might make working with these data
+  difficult?
+
+  In what ways is the format different between the two files?
 \end{enumerate}
 \end{quote}
 
-The data does not start on row one. Headers are on row 7, followed by a
-blank line, followed by the actual data.
-
-The data is stored in an inconvenient way, with ranks 1-50 in the first
-set of columns and ranks 51-100 in a separate set of columns.
-
-There are notes below the data.
-
-\begin{quote}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
 \tightlist
 \item
-  Locate the file named \texttt{2015boysnamesfinal.xlsx} and open it in
-  a spreadsheet. In what ways is the format different than the format of
-  \texttt{1996boys\_tcm77-254026.xlsx}? How might these differences make
-  it more difficult to work with these data?
+  Multiple Excel sheets in each file, each with a different name, but
+  each file contains a \texttt{Table\ 1}.
+\item
+  The data does not start on row one. Headers are on row 7, followed by
+  a blank line, followed by the actual data.
+\item
+  The data is stored in an inconvenient way, with ranks 1-50 in the
+  first set of columns and ranks 51-100 in a second set of columns.
+\item
+  The second worksheet \texttt{2015boysnamesfinal.xlsx} contains extra
+  columns between the data of interest, resulting in the second set of
+  columns (ranks 51-100) being placed in a different position.
+\item
+  The year from which the data comes is only reported in the Excel file
+  name, not within the data itself.
+\item
+  There are notes below the data.
 \end{enumerate}
-\end{quote}
-
-The worksheet containing the data of interest is in different positions
-and has different names from one year to the next. However, it always
-includes ``Table 1'' in the worksheet name.
-
-Some years include columns for ``changes in rank'', others do not.
 
 These differences will make it more difficult to automate re-arranging
 the data since we have to write code that can handle different input
@@ -6204,19 +6261,20 @@ formats.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  ## 1. Write a function that takes a `data.frame` as an argument and}
-\NormalTok{  ##    returns a modified version including only columns named `Name...2`,}
-\NormalTok{  ##    `Name...6`, `Count...3`, or `Count...7`.}
+\NormalTok{  ##   returns a modified version, which keeps only columns that}
+\NormalTok{  ##   include the strings `Name` and `Count` in the column names.}
+\NormalTok{  ##   HINT: look at the `?matches` function.}
 
 \NormalTok{  namecount <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data) \{}
       \KeywordTok{select}\NormalTok{(data, }\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{))}
 \NormalTok{  \}}
      
-\NormalTok{  ## 2. Test your function on the first `data.frame` in the list of baby}
+\NormalTok{  ## 2. Test your function on the first `data.frame` in the list of boys}
 \NormalTok{  ##    names data.}
 
   \KeywordTok{namecount}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]])}
   
-\NormalTok{  ## 3. Use the `map` function to each `data.frame` in the list of baby}
+\NormalTok{  ## 3. Use the `map` function to each `data.frame` in the list of boys}
 \NormalTok{  ##    names data.}
 
 \NormalTok{  babyNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, namecount)}
@@ -6229,16 +6287,28 @@ There are different ways you can go about it. Here is one:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 1.  write a function that does all the cleanup}
+\NormalTok{## 1.  Your task now is to use the `map()` function to apply each of these}
+\NormalTok{##     transformations to all the elements in `boysNames`. }
+
+\NormalTok{## }\AlertTok{NOTE}\NormalTok{: some Excel files include extra blank columns between the first and second }
+\NormalTok{## set of `Name` and `Count` columns, resulting in different numeric suffixes}
+\NormalTok{## for the second set of columns. You will need to use a regular expression}
+\NormalTok{## to match each of these different column names. HINT: see `matches`.}
+
+\CommentTok{# subset data to include only those columns that include the term `Name` and `Count`}
 \NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file)\{}
-\NormalTok{  selected <-}\StringTok{ }\NormalTok{file }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{drop_na}\NormalTok{(Name...}\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\NormalTok{  subsetted_file <-}\StringTok{ }\NormalTok{file }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{drop_na}\NormalTok{() }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{))}
-   
-  \KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(selected, }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{),}
-            \KeywordTok{select}\NormalTok{(selected, }\DataTypeTok{Name =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Name...6|Name...7|Name...8"}\NormalTok{),}
-                             \DataTypeTok{Count =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Count...7|Count...8|Count...9"}\NormalTok{)}
-\NormalTok{                   ))}
+
+  \CommentTok{# subset two separate data frames, with first and second set of `Name` and `Count` columns }
+\NormalTok{  first_columns <-}\StringTok{ }\KeywordTok{select}\NormalTok{(subsetted_file, }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{) }
+
+\NormalTok{  second_columns <-}\StringTok{ }\KeywordTok{select}\NormalTok{(subsetted_file, }\DataTypeTok{Name =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Name...6|Name...7|Name...8"}\NormalTok{),}
+                                           \DataTypeTok{Count =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Count...7|Count...8|Count...9"}\NormalTok{))}
+
+  \CommentTok{# append the two datasets}
+  \KeywordTok{bind_rows}\NormalTok{(first_columns, second_columns)}
 \NormalTok{\}}
 
 
@@ -6274,16 +6344,16 @@ Working with the data in one big table is often easier.
 \NormalTok{## What were the five most popular names in 2013?}
 
 \NormalTok{boysNames }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2013}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Year }\OperatorTok{==}\StringTok{ }\DecValTok{2013}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{slice}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
 
 \NormalTok{## How has the popularity of the name "ANDREW" changed over time?}
 \NormalTok{andrew <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(boysNames, Name }\OperatorTok{==}\StringTok{ "ANDREW"}\NormalTok{)}
 
-\KeywordTok{ggplot}\NormalTok{(andrew, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ Count)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(andrew, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Popularity of }\CharTok{\textbackslash{}"}\StringTok{Andrew}\CharTok{\textbackslash{}"}\StringTok{, over time"}\NormalTok{)}
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Popularity of Andrew, over time"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
