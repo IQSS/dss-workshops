@@ -6130,11 +6130,19 @@ list with the year it corresponds to.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{glimpse}\NormalTok{(boysNames) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{head}\NormalTok{()}
+\KeywordTok{head}\NormalTok{(boysNames) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{()}
+
+\KeywordTok{head}\NormalTok{(boy_file_names)}
 
 \NormalTok{Years <-}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(boy_file_names, }\DataTypeTok{pattern =} \StringTok{"[0-9]\{4\}"}\NormalTok{)}
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{setNames}\NormalTok{(boysNames, Years)}
-\KeywordTok{glimpse}\NormalTok{(boysNames) }
+
+\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{# returns NULL}
+
+\KeywordTok{names}\NormalTok{(boysNames) <-}\StringTok{ }\NormalTok{Years }\CommentTok{# assigns years to list names}
+
+\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{# returns the years}
+
+\KeywordTok{head}\NormalTok{(boysNames) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{(boysNames) }
 \end{Highlighting}
 \end{Shaded}
 

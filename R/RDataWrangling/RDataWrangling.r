@@ -412,11 +412,19 @@ bind_rows(select(boysNames[[1]], Name = Name...2, Count = Count...3),
 #
 # Right now we have a list of data.frames, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
-glimpse(boysNames) %>% head()
+head(boysNames) %>% glimpse()
+
+head(boy_file_names)
 
 Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
-boysNames <- setNames(boysNames, Years)
-glimpse(boysNames) 
+
+names(boysNames) # returns NULL
+
+names(boysNames) <- Years # assigns years to list names
+
+names(boysNames) # returns the years
+
+head(boysNames) %>% glimpse(boysNames) 
 
 
 # ### One big `data.frame`

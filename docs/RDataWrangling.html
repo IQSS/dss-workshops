@@ -883,11 +883,19 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <div id="one-data.frame-for-each-year" class="section level3">
 <h3><span class="header-section-number">5.10.1</span> One <code>data.frame</code> for each year</h3>
 <p>Right now we have a list of data.frames, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()
+
+<span class="kw">head</span>(boy_file_names)
 
 Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)
-boysNames &lt;-<span class="st"> </span><span class="kw">setNames</span>(boysNames, Years)
-<span class="kw">glimpse</span>(boysNames) </code></pre></div>
+
+<span class="kw">names</span>(boysNames) <span class="co"># returns NULL</span>
+
+<span class="kw">names</span>(boysNames) &lt;-<span class="st"> </span>Years <span class="co"># assigns years to list names</span>
+
+<span class="kw">names</span>(boysNames) <span class="co"># returns the years</span>
+
+<span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>(boysNames) </code></pre></div>
 </div>
 <div id="one-big-data.frame" class="section level3">
 <h3><span class="header-section-number">5.10.2</span> One big <code>data.frame</code></h3>
