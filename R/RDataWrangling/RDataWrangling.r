@@ -89,18 +89,18 @@ library(rmarkdown)
 #
 # Our mission is to extract and graph the **top 100** boys names in England and Wales for every year since 1996. 
 #  
-# ![goal](R/RDataWrangling/images/clean.png)
+# ![goal](R/RDataWrangling/images/goal.png)
 
 # ## Exercise 0
 #
-# There are several things that make our goal challenging. Lets take a look at the data:
+# There are several things that make our goal challenging. Let's take a look at the data:
 #
 # 1.  Locate the files named `1996boys_tcm77-254026.xlsx` and 
 #     `2015boysnamesfinal.xlsx` and open them separately in a 
 #     spreadsheet program. 
 #
 #     (If you don't have a spreadsheet program installed on
-#     your computer you can downloads one from
+#     your computer you can download one from
 #     https://www.libreoffice.org/download/download/). 
 #
 #     What issues can you identify that might make working
@@ -108,7 +108,10 @@ library(rmarkdown)
 #
 #     In what ways is the format different between the two files?
 #
-#
+# NOTE: please make sure you close the Excel files before continuing with the
+# workshop, otherwise you may encounter issues with file paths when reading
+# the data into R.
+
 # ## Working with Excel worksheets
 #
 # As you can see, the data is in quite a messy state. Note that this is
@@ -116,7 +119,7 @@ library(rmarkdown)
 # from the UK government website! Let's start cleaning and organizing
 # it. 
 #
-# Each Excel file contains a worksheet with the baby names data we want.
+# Each Excel file contains a worksheet with the boy names data we want.
 # Each file also contains additional supplemental worksheets that we are
 # not currently interested in. As noted above, the worksheet of interest
 # differs from year to year, but always has "Table 1" in the sheet name.
@@ -125,7 +128,7 @@ library(rmarkdown)
 
 boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
 
-# Now that we've told R the names of the data files we can start working
+# Now that we've told R the names of the data files, we can start working
 # with them. For example, the first file is
 
 boy_file_names[1]
@@ -138,7 +141,7 @@ excel_sheets(boy_file_names[1])
 # ### Iterating over file names with `map()`
 #
 # Now that we know how to retrieve the names of the worksheets in an
-# Excel file we could start writing code to extract the sheet names from
+# Excel file, we could start writing code to extract the sheet names from
 # each file, e.g.,
 
 excel_sheets(boy_file_names[1])
@@ -156,27 +159,29 @@ excel_sheets(boy_file_names[20])
 # so we'll use that.
 
 map(boy_file_names, excel_sheets)
-# map(thing to iterate over, task to do in each iteration)
+# map(object to iterate over, function that does task within each iteration)
 
 # ### Filtering strings using regular expressions
 #
-# In order to extract the correct worksheet names we need a way to extract
-# strings containing "Table 1". Base R provides some string manipulation
-# capabilities (see `?regex`, `?sub` and `?grep`), but we will use the
-# *stringr* package because it is more user-friendly.
+# To extract the correct worksheet names we need a way to extract
+# strings containing "Table 1". 
 #
-# The `stringr` package within `tidyverse` provides functions to *detect*, 
-# *locate*, *extract*, *match*, *replace*, *combine* and *split* strings 
-# (among other things). 
+# Base R provides some string manipulation capabilities 
+# (see `?regex`, `?sub` and `?grep`), but we will use the
+# `stringr` package within `tidyverse` because it is more
+# user-friendly. `stringr` provides functions to *detect*, 
+# *locate*, *extract*, *match*, *replace*, *combine* and 
+# *split* strings (among other things). 
 #
 # Here we want to detect the pattern "Table 1", and only
 # return elements with this pattern. We can do that using the
-# `str_subset()` function. The first argument to `str_subset()` is character
-# vector we want to search in. The second argument is a *regular
-# expression* matching the pattern we want to retain.
+# `str_subset()` function: 
 #
-# If you are not familiar with regular expressions, <http://www.regexr.com/> is a
-# good place to start.
+# 1.  The first argument to `str_subset()` is character vector we want to search in. 
+# 2.  The second argument is a *regular expression* matching the pattern we want to retain.
+#
+# If you are not familiar with regular expressions (regex), 
+# <http://www.regexr.com/> is a good place to start.
 #
 # Now that we know how to filter character vectors using `str_subset()` we can
 # identify the correct sheet in a particular Excel file. For example,
@@ -189,14 +194,21 @@ excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 
 # ### Writing your own functions
 #
-# The `map*` functions are useful when you want to apply a function to get a
-# list or vector of inputs and obtain the return values. This is very
-# convenient when a function already exists that does exactly what you
+# The next step is to retrieve worksheet names and subset them.
+#
+# The `map*` functions are useful when you want to apply a function to a
+# list or vector of inputs and obtain the return values for each input. This 
+# is very convenient when a function already exists that does exactly what you
 # want. In the examples above we mapped the `excel_sheets()` function to
-# the elements of a vector containing file names. But now there is no
-# function that both retrieves worksheet names and subsets them.
-# Fortunately, writing functions in R is easy. Functions require 3
-# elements:
+# the elements of a vector containing file names. 
+#
+# However, there is no function that both:
+#
+# 1.  Retrieves worksheet names, and 
+# 2.  Subsets the names
+#
+# So, we will have to write one. Fortunately, writing functions in R is easy. 
+# Functions require 3 elements:
 #
 # 1.  A **name**
 # 2.  One or more **arguments**
@@ -222,19 +234,18 @@ get_data_sheet_name(boy_file_names[1], term = "Table 2")
 
 # Now we can map this new function over our vector of file names.
 
-# map(thing to iterate over, 
-#     function to do things, 
+# map(object to iterate over, 
+#     function that does task within each iteration, 
 #     arguments to previous function)
-
+ 
 map(boy_file_names,
     get_data_sheet_name,
     term = "Table 1")
 
 # ## Reading Excel data files
 #
-# Now that we know the correct worksheet from each file we can actually
-# read those data into R. We can do that using the `read_excel()`
-# function.
+# Now that we know the correct worksheet from each file, we can actually
+# read those data into R. We can do that using the `read_excel()` function.
 #
 # We'll start by reading the data from the first file, just to check
 # that it works. Recall that the actual data starts on row 7, so we want
@@ -267,14 +278,26 @@ glimpse(tmp)
 
 # ## Data cleanup
 #
-# Now that we've read in the data we still have some cleanup to do.
-# Specifically, we need to:
+# Now that we've read in the data, we can see that there are some
+# problems we need to fix. Specifically, we need to:
 #
 # 1. fix column names
 # 2. get rid of blank row and the top and the notes at the bottom
 # 3. get rid of extraneous "changes in rank" columns if they exist
 # 4. transform the side-by-side tables layout to a single table.
-#
+
+# Rank 1:50 --- Names / Counts are in columns 2 and 3 
+# Rank 51:100 --- Names / Counts are in columns 6 and 7
+glimpse(boysNames[[1]]) 
+
+# Rank 1:50 --- Names / Counts are in columns 2 and 3 
+# Rank 51:100 --- Names / Counts are in columns 7 and 8
+glimpse(boysNames[[6]]) 
+
+# Rank 1:50 --- Names / Counts are in columns 2 and 3 
+# Rank 51:100 --- Names / Counts are in columns 8 and 9
+glimpse(boysNames[[20]]) 
+
 # In short, we want to go from this:
 #
 # ![messy](R/RDataWrangling/images/messy.png)
@@ -289,7 +312,8 @@ glimpse(tmp)
 
 # ### Selecting columns
 #
-# Next we want to retain just the `Name...2`, `Name...6`, `Count...3` and `Count...7` columns. We can do that using the `select()` function:
+# Next we want to retain just the `Name...2`, `Name...6`, `Count...3` and `Count...7` columns. 
+# We can do that using the `select()` function:
 
 boysNames[[1]]
 
@@ -329,8 +353,7 @@ boysNames[[1]] <- boysNames[[1]] %>% drop_na()
 
 boysNames[[1]]
 
-# Finally, we will want to do this for all the
-# elements in `boysNames`:
+# Finally, we will want to do this for all the elements in `boysNames`:
 
 boysNames <- map(boysNames, drop_na)
 
@@ -391,7 +414,7 @@ bind_rows(select(boysNames[[1]], Name = Name...2, Count = Count...3),
 
 # ### One table for each year
 #
-# Right now we have a list of tables, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
+# Right now we have a list of data.frames, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
 glimpse(boysNames) %>% head()
 
@@ -447,7 +470,7 @@ glimpse(boysNames)
 # >      spreadsheet program. 
 # >
 # >     (If you don't have a spreadsheet program installed on
-# >     your computer you can downloads one from
+# >     your computer you can download one from
 # >     https://www.libreoffice.org/download/download/). 
 # >
 # >     What issues can you identify that might make working
@@ -471,7 +494,7 @@ glimpse(boysNames)
   ## 1. Write a function that takes a file name as an argument and reads
   ##    the worksheet containing "Table 1" from that file.
  
-read_baby_names <- function(file, sheet_name) {
+read_boys_names <- function(file, sheet_name) {
   read_excel(
     path = file,
     sheet = get_data_sheet_name(file, term = sheet_name),
@@ -482,13 +505,13 @@ read_baby_names <- function(file, sheet_name) {
   ## 2. Test your function by using it to read *one* of the boys names
   ##    Excel files.
 
-read_baby_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
+read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
 
 
   ## 3. Use the `map` function to read data from all the Excel files,
   ##    using the function you wrote in step 1.
 
-boysNames <- map(boy_file_names, read_baby_names, sheet_name = "Table 1")
+boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 
 # ### Ex 2: prototype
 
@@ -509,7 +532,7 @@ boysNames <- map(boy_file_names, read_baby_names, sheet_name = "Table 1")
   ## 3. Use the `map` function to each `data.frame` in the list of boys
   ##    names data.
 
-  babyNames <- map(boysNames, namecount)
+  boysNames <- map(boysNames, namecount)
 
 # ### Ex 3: prototype
 #

@@ -5617,13 +5617,13 @@ England and Wales for every year since 1996.
 
 \begin{figure}
 \centering
-\includegraphics{R/RDataWrangling/images/clean.png}
+\includegraphics{R/RDataWrangling/images/goal.png}
 \caption{goal}
 \end{figure}
 
 \section{Exercise 0}\label{exercise-0-3}
 
-There are several things that make our goal challenging. Lets take a
+There are several things that make our goal challenging. Let's take a
 look at the data:
 
 \begin{enumerate}
@@ -5634,7 +5634,7 @@ look at the data:
   spreadsheet program.
 
   (If you don't have a spreadsheet program installed on your computer
-  you can downloads one from
+  you can download one from
   \url{https://www.libreoffice.org/download/download/}).
 
   What issues can you identify that might make working with these data
@@ -5643,6 +5643,10 @@ look at the data:
   In what ways is the format different between the two files?
 \end{enumerate}
 
+NOTE: please make sure you close the Excel files before continuing with
+the workshop, otherwise you may encounter issues with file paths when
+reading the data into R.
+
 \section{Working with Excel
 worksheets}\label{working-with-excel-worksheets}
 
@@ -5650,7 +5654,7 @@ As you can see, the data is in quite a messy state. Note that this is
 not a contrived example; this is exactly the way the data came to us
 from the UK government website! Let's start cleaning and organizing it.
 
-Each Excel file contains a worksheet with the baby names data we want.
+Each Excel file contains a worksheet with the boy names data we want.
 Each file also contains additional supplemental worksheets that we are
 not currently interested in. As noted above, the worksheet of interest
 differs from year to year, but always has ``Table 1'' in the sheet name.
@@ -5663,7 +5667,7 @@ The first step is to get a vector of file names.
 \end{Highlighting}
 \end{Shaded}
 
-Now that we've told R the names of the data files we can start working
+Now that we've told R the names of the data files, we can start working
 with them. For example, the first file is
 
 \begin{Shaded}
@@ -5686,7 +5690,7 @@ names from this file.
 \texttt{map()}}{Iterating over file names with map()}}\label{iterating-over-file-names-with-map}
 
 Now that we know how to retrieve the names of the worksheets in an Excel
-file we could start writing code to extract the sheet names from each
+file, we could start writing code to extract the sheet names from each
 file, e.g.,
 
 \begin{Shaded}
@@ -5709,31 +5713,39 @@ gives us a more consistent alternative, so we'll use that.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{map}\NormalTok{(boy_file_names, excel_sheets)}
-\CommentTok{# map(thing to iterate over, task to do in each iteration)}
+\CommentTok{# map(object to iterate over, function that does task within each iteration)}
 \end{Highlighting}
 \end{Shaded}
 
 \subsection{Filtering strings using regular
 expressions}\label{filtering-strings-using-regular-expressions}
 
-In order to extract the correct worksheet names we need a way to extract
-strings containing ``Table 1''. Base R provides some string manipulation
-capabilities (see \texttt{?regex}, \texttt{?sub} and \texttt{?grep}),
-but we will use the \emph{stringr} package because it is more
-user-friendly.
+To extract the correct worksheet names we need a way to extract strings
+containing ``Table 1''.
 
-The \texttt{stringr} package within \texttt{tidyverse} provides
-functions to \emph{detect}, \emph{locate}, \emph{extract}, \emph{match},
-\emph{replace}, \emph{combine} and \emph{split} strings (among other
-things).
+Base R provides some string manipulation capabilities (see
+\texttt{?regex}, \texttt{?sub} and \texttt{?grep}), but we will use the
+\texttt{stringr} package within \texttt{tidyverse} because it is more
+user-friendly. \texttt{stringr} provides functions to \emph{detect},
+\emph{locate}, \emph{extract}, \emph{match}, \emph{replace},
+\emph{combine} and \emph{split} strings (among other things).
 
 Here we want to detect the pattern ``Table 1'', and only return elements
 with this pattern. We can do that using the \texttt{str\_subset()}
-function. The first argument to \texttt{str\_subset()} is character
-vector we want to search in. The second argument is a \emph{regular
-expression} matching the pattern we want to retain.
+function:
 
-If you are not familiar with regular expressions,
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The first argument to \texttt{str\_subset()} is character vector we
+  want to search in.
+\item
+  The second argument is a \emph{regular expression} matching the
+  pattern we want to retain.
+\end{enumerate}
+
+If you are not familiar with regular expressions (regex),
 \url{http://www.regexr.com/} is a good place to start.
 
 Now that we know how to filter character vectors using
@@ -5753,14 +5765,28 @@ Excel file. For example,
 \subsection{Writing your own
 functions}\label{writing-your-own-functions}
 
+The next step is to retrieve worksheet names and subset them.
+
 The \texttt{map*} functions are useful when you want to apply a function
-to get a list or vector of inputs and obtain the return values. This is
-very convenient when a function already exists that does exactly what
-you want. In the examples above we mapped the \texttt{excel\_sheets()}
-function to the elements of a vector containing file names. But now
-there is no function that both retrieves worksheet names and subsets
-them. Fortunately, writing functions in R is easy. Functions require 3
-elements:
+to a list or vector of inputs and obtain the return values for each
+input. This is very convenient when a function already exists that does
+exactly what you want. In the examples above we mapped the
+\texttt{excel\_sheets()} function to the elements of a vector containing
+file names.
+
+However, there is no function that both:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Retrieves worksheet names, and
+\item
+  Subsets the names
+\end{enumerate}
+
+So, we will have to write one. Fortunately, writing functions in R is
+easy. Functions require 3 elements:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5798,10 +5824,10 @@ Now we can map this new function over our vector of file names.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# map(thing to iterate over, }
-\CommentTok{#     function to do things, }
+\CommentTok{# map(object to iterate over, }
+\CommentTok{#     function that does task within each iteration, }
 \CommentTok{#     arguments to previous function)}
-
+ 
 \KeywordTok{map}\NormalTok{(boy_file_names,}
 \NormalTok{    get_data_sheet_name,}
     \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{)}
@@ -5810,7 +5836,7 @@ Now we can map this new function over our vector of file names.
 
 \section{Reading Excel data files}\label{reading-excel-data-files}
 
-Now that we know the correct worksheet from each file we can actually
+Now that we know the correct worksheet from each file, we can actually
 read those data into R. We can do that using the \texttt{read\_excel()}
 function.
 
@@ -5880,8 +5906,8 @@ the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 
 \section{Data cleanup}\label{data-cleanup}
 
-Now that we've read in the data we still have some cleanup to do.
-Specifically, we need to:
+Now that we've read in the data, we can see that there are some problems
+we need to fix. Specifically, we need to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5895,6 +5921,22 @@ Specifically, we need to:
 \item
   transform the side-by-side tables layout to a single table.
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Rank 1:50 --- Names / Counts are in columns 2 and 3 }
+\CommentTok{# Rank 51:100 --- Names / Counts are in columns 6 and 7}
+\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]]) }
+
+\CommentTok{# Rank 1:50 --- Names / Counts are in columns 2 and 3 }
+\CommentTok{# Rank 51:100 --- Names / Counts are in columns 7 and 8}
+\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{6}\NormalTok{]]) }
+
+\CommentTok{# Rank 1:50 --- Names / Counts are in columns 2 and 3 }
+\CommentTok{# Rank 51:100 --- Names / Counts are in columns 8 and 9}
+\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{20}\NormalTok{]]) }
+\end{Highlighting}
+\end{Shaded}
 
 In short, we want to go from this:
 
@@ -6087,8 +6129,8 @@ attention to organizing and storing the data.
 
 \subsection{One table for each year}\label{one-table-for-each-year}
 
-Right now we have a list of tables, one for each year. This is not a bad
-way to go. It has the advantage of making it easy to work with
+Right now we have a list of data.frames, one for each year. This is not
+a bad way to go. It has the advantage of making it easy to work with
 individual years; it has the disadvantage of making it more difficult to
 examine questions that require data from multiple years. To make the
 arrangement of the data clearer it helps to name each element of the
@@ -6191,7 +6233,7 @@ information to each table before flattening.
   spreadsheet program.
 
   (If you don't have a spreadsheet program installed on your computer
-  you can downloads one from
+  you can download one from
   \url{https://www.libreoffice.org/download/download/}).
 
   What issues can you identify that might make working with these data
@@ -6235,7 +6277,7 @@ formats.
 \NormalTok{  ## 1. Write a function that takes a file name as an argument and reads}
 \NormalTok{  ##    the worksheet containing "Table 1" from that file.}
  
-\NormalTok{read_baby_names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, sheet_name) \{}
+\NormalTok{read_boys_names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, sheet_name) \{}
   \KeywordTok{read_excel}\NormalTok{(}
     \DataTypeTok{path =}\NormalTok{ file,}
     \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(file, }\DataTypeTok{term =}\NormalTok{ sheet_name),}
@@ -6246,13 +6288,13 @@ formats.
 \NormalTok{  ## 2. Test your function by using it to read *one* of the boys names}
 \NormalTok{  ##    Excel files.}
 
-\KeywordTok{read_baby_names}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{sheet_name =} \StringTok{"Table 1"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{()}
+\KeywordTok{read_boys_names}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{sheet_name =} \StringTok{"Table 1"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{()}
 
 
 \NormalTok{  ## 3. Use the `map` function to read data from all the Excel files,}
 \NormalTok{  ##    using the function you wrote in step 1.}
 
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy_file_names, read_baby_names, }\DataTypeTok{sheet_name =} \StringTok{"Table 1"}\NormalTok{)}
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy_file_names, read_boys_names, }\DataTypeTok{sheet_name =} \StringTok{"Table 1"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6277,7 +6319,7 @@ formats.
 \NormalTok{  ## 3. Use the `map` function to each `data.frame` in the list of boys}
 \NormalTok{  ##    names data.}
 
-\NormalTok{  babyNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, namecount)}
+\NormalTok{  boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, namecount)}
 \end{Highlighting}
 \end{Shaded}
 
