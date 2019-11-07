@@ -5475,15 +5475,15 @@ These workshops are a work in progress, please provide any feedback to:
 \begin{itemize}
 \tightlist
 \item
-  Iterating over files
+  Loading Excel worksheets
 \item
-  Filtering with regular expressions (regex)
+  Iterating over files
 \item
   Writing your own functions
 \item
-  Reshaping data
+  Filtering with regular expressions (regex)
 \item
-  Loading Excel worksheets
+  Reshaping data
 \end{itemize}
 
 \section{Setup}\label{setup-3}
@@ -5930,7 +5930,7 @@ we need to fix. Specifically, we need to:
 
 \CommentTok{# Rank 1:50 --- Names / Counts are in columns 2 and 3 }
 \CommentTok{# Rank 51:100 --- Names / Counts are in columns 7 and 8}
-\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{6}\NormalTok{]]) }
+\KeywordTok{glimpse}\NormalTok{(boysNames[[}\DecValTok{10}\NormalTok{]]) }
 
 \CommentTok{# Rank 1:50 --- Names / Counts are in columns 2 and 3 }
 \CommentTok{# Rank 51:100 --- Names / Counts are in columns 8 and 9}
@@ -6015,15 +6015,6 @@ within \texttt{tidyverse} to remove rows with missing values.
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{drop_na}\NormalTok{()}
 
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]]}
-\end{Highlighting}
-\end{Shaded}
-
-Finally, we will want to do this for all the elements in
-\texttt{boysNames}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, drop_na)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6127,7 +6118,8 @@ names. HINT: see the \texttt{?matches} function.
 Now that we have the data cleaned up and augmented, we can turn our
 attention to organizing and storing the data.
 
-\subsection{One table for each year}\label{one-table-for-each-year}
+\subsection{\texorpdfstring{One \texttt{data.frame} for each
+year}{One data.frame for each year}}\label{one-data.frame-for-each-year}
 
 Right now we have a list of data.frames, one for each year. This is not
 a bad way to go. It has the advantage of making it easy to work with
@@ -6146,16 +6138,17 @@ list with the year it corresponds to.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{One big table}\label{one-big-table}
+\subsection{\texorpdfstring{One big
+\texttt{data.frame}}{One big data.frame}}\label{one-big-data.frame}
 
-While storing the data in separate tables by year makes some sense, many
-operations will be easier if the data is simply stored in one big table.
-We've already seen how to turn a list of data.frames into a single
-data.frame using \texttt{bind\_rows()}, but there is a problem; The year
-information is stored in the names of the list elements, and so
-flattening the tables into one will result in losing the year
+While storing the data in separate data.frames by year makes some sense,
+many operations will be easier if the data is simply stored in one big
+data.frame. We've already seen how to turn a list of data.frames into a
+single data.frame using \texttt{bind\_rows()}, but there is a problem;
+The year information is stored in the names of the list elements, and so
+flattening the data.frames into one will result in losing the year
 information! Fortunately it is not too much trouble to add the year
-information to each table before flattening.
+information to each data.frame before flattening.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6166,21 +6159,19 @@ information to each table before flattening.
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames, year_column)}
 
 \NormalTok{boysNames[}\DecValTok{1}\NormalTok{]}
-
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
-\KeywordTok{glimpse}\NormalTok{(boysNames)}
 \end{Highlighting}
 \end{Shaded}
 
 \section{Exercise 4}\label{exercise-4-1}
 
-\textbf{Make one big table}
+\textbf{Make one big data.frame}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Turn the list of boys names data.frames into a single table.
+  Turn the list of boys names data.frames into a single data.frame.
+  HINT: see \texttt{?bind\_rows}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6211,7 +6202,7 @@ information to each table before flattening.
 \tightlist
 \item
   Finally, repeat the previous exercise, this time working with the data
-  in one big table.
+  in one big data.frame.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6225,22 +6216,20 @@ information to each table before flattening.
 \subsection{Ex 0: prototype}\label{ex-0-prototype-3}
 
 \begin{quote}
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Locate the files named \texttt{1996boys\_tcm77-254026.xlsx} and
-  \texttt{2015boysnamesfinal.xlsx} and open them separately in a
-  spreadsheet program.
+\begin{verbatim}
+Locate the files named `1996boys_tcm77-254026.xlsx` and 
+`2015boysnamesfinal.xlsx` and open them separately in a 
+ spreadsheet program. 
 
-  (If you don't have a spreadsheet program installed on your computer
-  you can download one from
-  \url{https://www.libreoffice.org/download/download/}).
+(If you don't have a spreadsheet program installed on
+your computer you can download one from
+https://www.libreoffice.org/download/download/). 
 
-  What issues can you identify that might make working with these data
-  difficult?
+What issues can you identify that might make working
+with these data difficult?
 
-  In what ways is the format different between the two files?
-\end{enumerate}
+In what ways is the format different between the two files?
+\end{verbatim}
 \end{quote}
 
 \begin{enumerate}
@@ -6341,8 +6330,8 @@ There are different ways you can go about it. Here is one:
 
   \CommentTok{# subset data to include only those columns that include the term `Name` and `Count`}
 \NormalTok{  subsetted_file <-}\StringTok{ }\NormalTok{file }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{drop_na}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{))}
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{drop_na}\NormalTok{()}
 
   \CommentTok{# subset two separate data frames, with first and second set of `Name` and `Count` columns }
 \NormalTok{  first_columns <-}\StringTok{ }\KeywordTok{select}\NormalTok{(subsetted_file, }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{) }
@@ -6366,13 +6355,15 @@ There are different ways you can go about it. Here is one:
 
 \subsection{Ex 4: prototype}\label{ex-4-prototype-1}
 
-Working with the data in one big table is often easier.
+Working with the data in one big data.frame is often easier.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 1.  Turn the list of boys names data.frames into a single table.}
+\NormalTok{## 1.  Turn the list of boys names data.frames into a single data.frame.}
 
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
+\KeywordTok{glimpse}\NormalTok{(boysNames)}
+
 
 \NormalTok{## 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. }
 \NormalTok{##     HINT: see the `?dir.create` and `?write_csv` functions.}
@@ -6382,7 +6373,7 @@ Working with the data in one big table is often easier.
 \KeywordTok{write_csv}\NormalTok{(boysNames, }\StringTok{"dataSets/all/boys_names.csv"}\NormalTok{)}
 
 
-\NormalTok{## 3.  Finally, repeat the previous exercise, this time working with the data in one big table.}
+\NormalTok{## 3.  Finally, repeat the previous exercise, this time working with the data in one big data.frame.}
 \NormalTok{##     What were the five most popular names in 2013?}
 
 \NormalTok{boysNames }\OperatorTok{%>%}\StringTok{ }

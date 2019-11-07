@@ -335,8 +335,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5.9" data-path="RDataWrangling.html"><a href="RDataWrangling.html#exercise-3-3"><i class="fa fa-check"></i><b>5.9</b> Exercise 3</a></li>
 <li class="chapter" data-level="5.10" data-path="RDataWrangling.html"><a href="RDataWrangling.html#data-organization-storage"><i class="fa fa-check"></i><b>5.10</b> Data organization &amp; storage</a><ul>
-<li class="chapter" data-level="5.10.1" data-path="RDataWrangling.html"><a href="RDataWrangling.html#one-table-for-each-year"><i class="fa fa-check"></i><b>5.10.1</b> One table for each year</a></li>
-<li class="chapter" data-level="5.10.2" data-path="RDataWrangling.html"><a href="RDataWrangling.html#one-big-table"><i class="fa fa-check"></i><b>5.10.2</b> One big table</a></li>
+<li class="chapter" data-level="5.10.1" data-path="RDataWrangling.html"><a href="RDataWrangling.html#one-data.frame-for-each-year"><i class="fa fa-check"></i><b>5.10.1</b> One <code>data.frame</code> for each year</a></li>
+<li class="chapter" data-level="5.10.2" data-path="RDataWrangling.html"><a href="RDataWrangling.html#one-big-data.frame"><i class="fa fa-check"></i><b>5.10.2</b> One big <code>data.frame</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.11" data-path="RDataWrangling.html"><a href="RDataWrangling.html#exercise-4-1"><i class="fa fa-check"></i><b>5.11</b> Exercise 4</a></li>
 <li class="chapter" data-level="5.12" data-path="RDataWrangling.html"><a href="RDataWrangling.html#exercise-solutions-3"><i class="fa fa-check"></i><b>5.12</b> Exercise solutions</a><ul>
@@ -592,11 +592,11 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">5</span> R Data Wrangling</h1>
 <p><strong>Topics</strong></p>
 <ul>
-<li>Iterating over files</li>
-<li>Filtering with regular expressions (regex)</li>
-<li>Writing your own functions</li>
-<li>Reshaping data</li>
 <li>Loading Excel worksheets</li>
+<li>Iterating over files</li>
+<li>Writing your own functions</li>
+<li>Filtering with regular expressions (regex)</li>
+<li>Reshaping data</li>
 </ul>
 <div id="setup-3" class="section level2">
 <h2><span class="header-section-number">5.1</span> Setup</h2>
@@ -791,7 +791,7 @@ get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</spa
 
 <span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span>
 <span class="co"># Rank 51:100 --- Names / Counts are in columns 7 and 8</span>
-<span class="kw">glimpse</span>(boysNames[[<span class="dv">6</span>]]) 
+<span class="kw">glimpse</span>(boysNames[[<span class="dv">10</span>]]) 
 
 <span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span>
 <span class="co"># Rank 51:100 --- Names / Counts are in columns 8 and 9</span>
@@ -843,8 +843,6 @@ mylist[[<span class="dv">2</span>]]
 boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span>boysNames[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()
 
 boysNames[[<span class="dv">1</span>]]</code></pre></div>
-<p>Finally, we will want to do this for all the elements in <code>boysNames</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, drop_na)</code></pre></div>
 </div>
 </div>
 <div id="exercise-2-2" class="section level2">
@@ -882,8 +880,8 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <div id="data-organization-storage" class="section level2">
 <h2><span class="header-section-number">5.10</span> Data organization &amp; storage</h2>
 <p>Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.</p>
-<div id="one-table-for-each-year" class="section level3">
-<h3><span class="header-section-number">5.10.1</span> One table for each year</h3>
+<div id="one-data.frame-for-each-year" class="section level3">
+<h3><span class="header-section-number">5.10.1</span> One <code>data.frame</code> for each year</h3>
 <p>Right now we have a list of data.frames, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
 
@@ -891,26 +889,23 @@ Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file
 boysNames &lt;-<span class="st"> </span><span class="kw">setNames</span>(boysNames, Years)
 <span class="kw">glimpse</span>(boysNames) </code></pre></div>
 </div>
-<div id="one-big-table" class="section level3">
-<h3><span class="header-section-number">5.10.2</span> One big table</h3>
-<p>While storing the data in separate tables by year makes some sense, many operations will be easier if the data is simply stored in one big table. We’ve already seen how to turn a list of data.frames into a single data.frame using <code>bind_rows()</code>, but there is a problem; The year information is stored in the names of the list elements, and so flattening the tables into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each table before flattening.</p>
+<div id="one-big-data.frame" class="section level3">
+<h3><span class="header-section-number">5.10.2</span> One big <code>data.frame</code></h3>
+<p>While storing the data in separate data.frames by year makes some sense, many operations will be easier if the data is simply stored in one big data.frame. We’ve already seen how to turn a list of data.frames into a single data.frame using <code>bind_rows()</code>, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data.frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data.frame before flattening.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">year_column &lt;-<span class="st"> </span><span class="cf">function</span>(data, name) {
   <span class="kw">mutate</span>(data, <span class="dt">Year =</span> <span class="kw">as.integer</span>(name))
 }
 
 boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, year_column)
 
-boysNames[<span class="dv">1</span>]
-
-boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)
-<span class="kw">glimpse</span>(boysNames)</code></pre></div>
+boysNames[<span class="dv">1</span>]</code></pre></div>
 </div>
 </div>
 <div id="exercise-4-1" class="section level2">
 <h2><span class="header-section-number">5.11</span> Exercise 4</h2>
-<p><strong>Make one big table</strong></p>
+<p><strong>Make one big data.frame</strong></p>
 <ol style="list-style-type: decimal">
-<li>Turn the list of boys names data.frames into a single table.</li>
+<li>Turn the list of boys names data.frames into a single data.frame. HINT: see <code>?bind_rows</code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="2" style="list-style-type: decimal">
@@ -918,7 +913,7 @@ boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Finally, repeat the previous exercise, this time working with the data in one big table.</li>
+<li>Finally, repeat the previous exercise, this time working with the data in one big data.frame.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
 </div>
@@ -927,12 +922,18 @@ boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNa
 <div id="ex-0-prototype-3" class="section level3">
 <h3><span class="header-section-number">5.12.1</span> Ex 0: prototype</h3>
 <blockquote>
-<ol style="list-style-type: decimal">
-<li><p>Locate the files named <code>1996boys_tcm77-254026.xlsx</code> and <code>2015boysnamesfinal.xlsx</code> and open them separately in a spreadsheet program.</p>
-<p>(If you don’t have a spreadsheet program installed on your computer you can download one from <a href="https://www.libreoffice.org/download/download/" class="uri">https://www.libreoffice.org/download/download/</a>).</p>
-<p>What issues can you identify that might make working with these data difficult?</p>
-<p>In what ways is the format different between the two files?</p></li>
-</ol>
+<pre><code>Locate the files named `1996boys_tcm77-254026.xlsx` and 
+`2015boysnamesfinal.xlsx` and open them separately in a 
+ spreadsheet program. 
+
+(If you don&#39;t have a spreadsheet program installed on
+your computer you can download one from
+https://www.libreoffice.org/download/download/). 
+
+What issues can you identify that might make working
+with these data difficult?
+
+In what ways is the format different between the two files?</code></pre>
 </blockquote>
 <ol style="list-style-type: decimal">
 <li>Multiple Excel sheets in each file, each with a different name, but each file contains a <code>Table 1</code>.</li>
@@ -1004,8 +1005,8 @@ cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(
 
   <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span>
   subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))
+<span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">drop_na</span>()
 
   <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span>
   first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) 
@@ -1027,10 +1028,12 @@ boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, c
 </div>
 <div id="ex-4-prototype-1" class="section level3">
 <h3><span class="header-section-number">5.12.5</span> Ex 4: prototype</h3>
-<p>Working with the data in one big table is often easier.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 1.  Turn the list of boys names data.frames into a single table.
+<p>Working with the data in one big data.frame is often easier.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 1.  Turn the list of boys names data.frames into a single data.frame.
 
 boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)
+<span class="kw">glimpse</span>(boysNames)
+
 
 ## 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. 
 ##     HINT: see the `?dir.create` and `?write_csv` functions.
@@ -1040,7 +1043,7 @@ boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNa
 <span class="kw">write_csv</span>(boysNames, <span class="st">&quot;dataSets/all/boys_names.csv&quot;</span>)
 
 
-## 3.  Finally, repeat the previous exercise, this time working with the data in one big table.
+## 3.  Finally, repeat the previous exercise, this time working with the data in one big data.frame.
 ##     What were the five most popular names in 2013?
 
 boysNames <span class="op">%&gt;%</span><span class="st"> </span>

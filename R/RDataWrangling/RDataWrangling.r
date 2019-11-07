@@ -1,10 +1,10 @@
 # **Topics**
 #
-# * Iterating over files
-# * Filtering with regular expressions (regex)
-# * Writing your own functions
-# * Reshaping data
 # * Loading Excel worksheets
+# * Iterating over files
+# * Writing your own functions
+# * Filtering with regular expressions (regex)
+# * Reshaping data
 
 # ## Setup 
 #
@@ -292,7 +292,7 @@ glimpse(boysNames[[1]])
 
 # Rank 1:50 --- Names / Counts are in columns 2 and 3 
 # Rank 51:100 --- Names / Counts are in columns 7 and 8
-glimpse(boysNames[[6]]) 
+glimpse(boysNames[[10]]) 
 
 # Rank 1:50 --- Names / Counts are in columns 2 and 3 
 # Rank 51:100 --- Names / Counts are in columns 8 and 9
@@ -353,10 +353,6 @@ boysNames[[1]] <- boysNames[[1]] %>% drop_na()
 
 boysNames[[1]]
 
-# Finally, we will want to do this for all the elements in `boysNames`:
-
-boysNames <- map(boysNames, drop_na)
-
 
 # ## Exercise 2
 #
@@ -412,7 +408,7 @@ bind_rows(select(boysNames[[1]], Name = Name...2, Count = Count...3),
 #
 # Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.
 
-# ### One table for each year
+# ### One `data.frame` for each year
 #
 # Right now we have a list of data.frames, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
@@ -423,16 +419,16 @@ boysNames <- setNames(boysNames, Years)
 glimpse(boysNames) 
 
 
-# ### One big table
+# ### One big `data.frame`
 #
-# While storing the data in separate tables by year makes some sense,
+# While storing the data in separate data.frames by year makes some sense,
 # many operations will be easier if the data is simply stored in one big
-# table. We've already seen how to turn a list of data.frames into a
+# data.frame. We've already seen how to turn a list of data.frames into a
 # single data.frame using `bind_rows()`, but there is a problem; The year
 # information is stored in the names of the list elements, and so
-# flattening the tables into one will result in losing the year
+# flattening the data.frames into one will result in losing the year
 # information! Fortunately it is not too much trouble to add the year
-# information to each table before flattening.
+# information to each data.frame before flattening.
 
 year_column <- function(data, name) {
   mutate(data, Year = as.integer(name))
@@ -442,14 +438,11 @@ boysNames <- imap(boysNames, year_column)
 
 boysNames[1]
 
-boysNames <- bind_rows(boysNames)
-glimpse(boysNames)
-
 # ## Exercise 4
 #
-# **Make one big table**
+# **Make one big data.frame**
 #
-# 1.  Turn the list of boys names data.frames into a single table. 
+# 1.  Turn the list of boys names data.frames into a single data.frame. HINT: see `?bind_rows`.
 ## 
 
 # 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file.
@@ -457,7 +450,7 @@ glimpse(boysNames)
 ## 
 
 # 3.  Finally, repeat the previous exercise, this time working with the data
-# in one big table.
+#     in one big data.frame.
 ## 
 
 
@@ -465,7 +458,7 @@ glimpse(boysNames)
 #
 # ### Ex 0: prototype
 #
-# > 1.  Locate the files named `1996boys_tcm77-254026.xlsx` and 
+# >     Locate the files named `1996boys_tcm77-254026.xlsx` and 
 # >     `2015boysnamesfinal.xlsx` and open them separately in a 
 # >      spreadsheet program. 
 # >
@@ -551,8 +544,8 @@ cleanupNamesData <- function(file){
 
   # subset data to include only those columns that include the term `Name` and `Count`
   subsetted_file <- file %>%
-    drop_na() %>%
-    select(matches("Name|Count"))
+    select(matches("Name|Count")) %>%
+    drop_na()
 
   # subset two separate data frames, with first and second set of `Name` and `Count` columns 
   first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
@@ -574,11 +567,13 @@ boysNames <- map(boysNames, cleanupNamesData)
 
 # ### Ex 4: prototype
 #
-# Working with the data in one big table is often easier.
+# Working with the data in one big data.frame is often easier.
 
-## 1.  Turn the list of boys names data.frames into a single table.
+## 1.  Turn the list of boys names data.frames into a single data.frame.
 
 boysNames <- bind_rows(boysNames)
+glimpse(boysNames)
+
 
 ## 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. 
 ##     HINT: see the `?dir.create` and `?write_csv` functions.
@@ -588,7 +583,7 @@ dir.create("dataSets/all")
 write_csv(boysNames, "dataSets/all/boys_names.csv")
 
 
-## 3.  Finally, repeat the previous exercise, this time working with the data in one big table.
+## 3.  Finally, repeat the previous exercise, this time working with the data in one big data.frame.
 ##     What were the five most popular names in 2013?
 
 boysNames %>% 
