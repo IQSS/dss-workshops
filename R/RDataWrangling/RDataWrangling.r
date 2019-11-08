@@ -438,11 +438,8 @@ head(boysNames) %>% glimpse(boysNames)
 # information! Fortunately it is not too much trouble to add the year
 # information to each data.frame before flattening.
 
-year_column <- function(data, name) {
-  mutate(data, Year = as.integer(name))
-}
-
-boysNames <- imap(boysNames, year_column)
+# apply name of the list element (.y) as a new column in the data.frame (.x)
+boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
 
 boysNames[1]
 

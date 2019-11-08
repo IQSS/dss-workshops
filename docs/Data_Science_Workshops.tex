@@ -6160,11 +6160,8 @@ information to each data.frame before flattening.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{year_column <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, name) \{}
-  \KeywordTok{mutate}\NormalTok{(data, }\DataTypeTok{Year =} \KeywordTok{as.integer}\NormalTok{(name))}
-\NormalTok{\}}
-
-\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames, year_column)}
+\CommentTok{# apply name of the list element (.y) as a new column in the data.frame (.x)}
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames, }\OperatorTok{~}\StringTok{ }\KeywordTok{mutate}\NormalTok{(.x, }\DataTypeTok{Year =} \KeywordTok{as.integer}\NormalTok{(.y)))}
 
 \NormalTok{boysNames[}\DecValTok{1}\NormalTok{]}
 \end{Highlighting}
