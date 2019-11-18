@@ -663,7 +663,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li><p><strong>R scripts</strong> — a type of plain text file that allows you to write R code and basic comments about the code:</p></li>
 <li><p><a href="https://rmarkdown.rstudio.com/"><strong>Rmarkdown</strong></a> — a type of text file that allows you to include plain text with R code and easily convert the contents into HTML (for a webpage), MS Word, or PDF (via LaTeX). Many people write their journal papers, dissertations, and statistics/math class notes in Rmarkdown, since it is easy to use and to convert into other formats later.</p></li>
 </ol>
-<p>The following RStudio and <code>rmarkdown</code> cheatsheets will provide a useful reference: <a href="https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf" class="uri">https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf</a></p>
+<p>Here are some resources for learning more about <code>rmarkdown</code>: <a href="https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html" class="uri">https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html</a></p>
+<p>The following RStudio and <code>rmarkdown</code> cheatsheets will also provide a useful reference: <a href="https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf" class="uri">https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf</a></p>
 </div>
 </div>
 <div id="exercise-0" class="section level2">
@@ -702,11 +703,14 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 ?sqrt</code></pre></div>
 <p>The <code>help</code> function can be used to look up the documentation for a function, or to look up the documentation to a package. We can learn how to use the <code>stats</code> package by reading its documentation like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">   <span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;stats&quot;</span>)</code></pre></div></li>
-<li>If you know the name of the package you want to use, then Googling “R <em>package-name</em>” will often get you to the documentation. Packages are hosted on several different repositories, including:</li>
+<li><p>If you know the name of the package you want to use, then Googling “R <em>package-name</em>” will often get you to the documentation. Packages are hosted on several different repositories, including:</p></li>
 </ol>
-<ol style="list-style-type: decimal">
-<li>CRAN, 2) Bioconductor, 3) Github, and 4) R Forge.</li>
-</ol>
+<ul>
+<li>CRAN: <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="uri">https://cran.r-project.org/web/packages/available_packages_by_name.html</a></li>
+<li>Bioconductor: <a href="https://www.bioconductor.org/packages/release/bioc/" class="uri">https://www.bioconductor.org/packages/release/bioc/</a></li>
+<li>Github: <a href="http://rpkg.gepuro.net/" class="uri">http://rpkg.gepuro.net/</a></li>
+<li>R-Forge: <a href="https://r-forge.r-project.org/R/?group_id=1326" class="uri">https://r-forge.r-project.org/R/?group_id=1326</a></li>
+</ul>
 <ol start="3" style="list-style-type: decimal">
 <li>If you know the type of analysis you want to perform, you can Google “CRAN Task Views”, where there are curated lists of packages <a href="https://cran.r-project.org/web/views/" class="uri">https://cran.r-project.org/web/views/</a>. If you want to know which packages are popular, you can look at <a href="https://r-pkg.org" class="uri">https://r-pkg.org</a>.</li>
 </ol>
@@ -745,7 +749,7 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <li><p>Install the package onto your computer using the <code>install.packages()</code> function. This only needs to be done the <strong>first time</strong> you use the package.</p></li>
 <li><p>Load the package into your R session’s search path using the <code>library()</code> function. This needs to be done <strong>each time</strong> you use the package.</p></li>
 </ol>
-<p>While R’s built-in packages are powerful, in recent years there has been a big surge in well-designed <em>contributed packages</em> for R. In particular, a collection of R packages called <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures.</p>
+<p>While R’s built-in packages are powerful, in recent years there has been a big surge in well-designed <em>contributed packages</em> for R. In particular, a collection of R packages called <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> have been designed specifically for data science. All packages included in <code>tidyverse</code> share an underlying design philosophy, grammar, and data structures. This philosopy is rooted in the idea of “tidy data”:</p>
 <div class="figure">
 <img src="R/Rintro/images/tidy_data.png" />
 
@@ -757,6 +761,7 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <span class="co"># a question in the Console - please answer by typing &quot;no&quot; in the Console.</span>
 
 <span class="kw">library</span>(tidyverse)</code></pre></div>
+<p>A typical workflow for using <code>tidyverse</code> packages looks like this:</p>
 <div class="figure">
 <img src="R/Rintro/images/tidy_workflow.png" />
 
@@ -764,8 +769,6 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <p>We can also install the <code>rmarkdown</code> package, which will allow us to combine our text and code into a formatted document at the end of the workshop:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## install.packages(&quot;rmarkdown&quot;)
 <span class="kw">library</span>(rmarkdown)</code></pre></div>
-<p>Here are some resources for learning more about <code>rmarkdown</code>: <a href="https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html" class="uri">https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html</a></p>
-<p>The following RStudio, <code>tidyverse</code>, and <code>rmarkdown</code> cheatsheets will also provide a useful reference: <a href="https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf" class="uri">https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf</a></p>
 </div>
 <div id="readers-for-common-file-types" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Readers for common file types</h3>
@@ -826,7 +829,7 @@ x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10
 <h2><span class="header-section-number">2.6</span> Popularity of your name</h2>
 <p>In this section we will pull out specific names and examine changes in their popularity over time.</p>
 <p>The <code>baby_names</code> object we created in the last exercise is a <code>data.frame</code>. There are many other data structures in R, but for now we’ll focus on working with <code>data.frames</code>. Think of a <code>data.frame</code> as a spreadsheet.</p>
-<p>R has decent data manipulation tools built-in – see e.g., <code>help(Extract)</code>. But, <code>tidyverse</code> packages often provide more intuitive syntax for accomplishing the same task. In particular, we will use the <code>dplyr</code> package from <code>tidyverse</code> to filter, select, and arrange data.</p>
+<p>R has decent data manipulation tools built-in – see e.g., <code>help(Extract)</code>. But, <code>tidyverse</code> packages often provide more intuitive syntax for accomplishing the same task. In particular, we will use the <code>dplyr</code> package from <code>tidyverse</code> to filter, select, and arrange data, as well as create new variables.</p>
 <div class="figure">
 <img src="R/Rintro/images/dplyr.png" />
 

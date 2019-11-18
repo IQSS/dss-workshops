@@ -79,7 +79,10 @@
 # their journal papers, dissertations, and statistics/math class notes in 
 # Rmarkdown, since it is easy to use and to convert into other formats later.
 #
-# The following RStudio and `rmarkdown` cheatsheets will provide a
+# Here are some resources for learning more about `rmarkdown`: 
+# <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
+#
+# The following RStudio and `rmarkdown` cheatsheets will also provide a
 # useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 # ## Exercise 0
@@ -130,7 +133,11 @@
 #
 # 2.  If you know the name of the package you want to use, then Googling "R *package-name*" will
 # often get you to the documentation. Packages are hosted on several different repositories, including:
-# 1) CRAN, 2) Bioconductor, 3) Github, and 4) R Forge.
+#
+# * CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
+# * Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
+# * Github: <http://rpkg.gepuro.net/>
+# * R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
 #
 # 3.  If you know the type of analysis you want to perform, you can Google "CRAN Task Views", 
 # where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
@@ -193,7 +200,7 @@ x <- sqrt(10) # assign result to a variable named x
 # [`tidyverse`](https://www.tidyverse.org/) have been 
 # designed specifically for data science. All packages included in 
 # `tidyverse` share an underlying design philosophy, grammar, and 
-# data structures. 
+# data structures. This philosopy is rooted in the idea of "tidy data":
 #
 # ![](R/Rintro/images/tidy_data.png)
 #
@@ -207,6 +214,8 @@ x <- sqrt(10) # assign result to a variable named x
 
 library(tidyverse)
 
+# A typical workflow for using `tidyverse` packages looks like this:
+#
 # ![](R/Rintro/images/tidy_workflow.png)
 #
 # We can also install the `rmarkdown` package, which will allow us to
@@ -216,11 +225,6 @@ library(tidyverse)
 ## install.packages("rmarkdown")
 library(rmarkdown)
 
-# Here are some resources for learning more about `rmarkdown`: 
-# <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
-#
-# The following RStudio, `tidyverse`, and `rmarkdown` cheatsheets will also provide a
-# useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 # ### Readers for common file types
 #
@@ -281,7 +285,7 @@ library(rmarkdown)
 # `help(Extract)`. But, `tidyverse` packages often provide
 # more intuitive syntax for accomplishing the same task. In
 # particular, we will use the `dplyr` package from `tidyverse`
-# to filter, select, and arrange data.
+# to filter, select, and arrange data, as well as create new variables.
 #
 # ![](R/Rintro/images/dplyr.png)
 
