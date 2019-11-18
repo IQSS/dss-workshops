@@ -1321,6 +1321,17 @@ These workshops are a work-in-progress, please provide any feedback to:
 
 \section{Setup}\label{setup}
 
+\subsection{Class Structure}\label{class-structure}
+
+\begin{itemize}
+\tightlist
+\item
+  Informal --- Ask questions at any time. Really!
+\item
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
+\end{itemize}
+
 \subsection{Software \& materials}\label{software-materials}
 
 You should have R and RStudio installed --- if not:
@@ -1364,52 +1375,40 @@ Start RStudio and create a new project:
   version of the \texttt{.Rmd} file.
 \end{itemize}
 
-\subsection{Goals}\label{goals}
-
-Class Structure and Organization:
+\subsection{Prerequisites}\label{prerequisites}
 
 \begin{itemize}
 \tightlist
 \item
-  Ask questions at any time. Really!
-\item
-  Collaboration is encouraged - please spend a minute introducing
-  yourself to your neighbors!
-\end{itemize}
-
-This is an introductory R course:
-
-\begin{itemize}
-\tightlist
-\item
-  Assumes no prior knowledge of R
+  None --- assumes no prior knowledge of R
 \item
   Relatively slow-paced
-\item
-  The workshop covers R basics, the R package ecosystem, and practice
-  reading files and manipulating data in R
-\item
-  A more general goal is to get you comfortable with R so that it seems
-  less scary and mystifying than it perhaps does now. Note that this is
-  by no means a complete or thorough introduction to R! It's just enough
-  to get you started.
 \end{itemize}
 
-As an example project we will analyze the popularity of baby names in
-the US from 1960 through 2017. Among the questions we will answer using
-R are:
+\subsection{Learning Outcomes}\label{learning-outcomes}
 
 \begin{itemize}
 \tightlist
 \item
-  In which year did your name achieve peak popularity?
+  Basic R syntax
 \item
-  How many children were born each year?
+  R package ecosystem
 \item
-  What are the most popular names overall? For girls? For Boys?
+  Reading / writing data and finding help
+\item
+  Data cleaning and manipulation
+\item
+  Conditional operations
 \end{itemize}
 
-\section{R Interfaces}\label{r-interfaces}
+\subsection{What is R?}\label{what-is-r}
+
+R is a free language and environment for statistical computing and
+graphics. R has existed for over 25 years and is now the most popular
+software for data analysis. It has an extensive ecosystem of about
+15,000 add on packages covering all aspects of statistics.
+
+\subsection{R Interfaces}\label{r-interfaces}
 
 There are many different ways you can interact with R. See the
 \href{./DataScienceTools.html}{Data Science Tools workshop notes} for
@@ -1435,6 +1434,10 @@ the most popular are:
   and statistics/math class notes in Rmarkdown, since it is easy to use
   and to convert into other formats later.
 \end{enumerate}
+
+The following RStudio and \texttt{rmarkdown} cheatsheets will provide a
+useful reference:
+\url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
 \section{Exercise 0}\label{exercise-0}
 
@@ -1487,6 +1490,68 @@ you are looking for should appear in a pop up!
 
 \section{R basics}\label{r-basics}
 
+\subsection{Syntax}\label{syntax}
+
+\begin{itemize}
+\tightlist
+\item
+  R is case sensitive
+\item
+  R ignores white space
+\item
+  Object names should start with a letter
+\end{itemize}
+
+\subsection{Asking for help}\label{asking-for-help}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  You can ask R for help using the \texttt{help} function, or the
+  \texttt{?} shortcut.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{help}\NormalTok{(help)}
+\NormalTok{?help}
+\NormalTok{?sqrt}
+\end{Highlighting}
+\end{Shaded}
+
+  The \texttt{help} function can be used to look up the documentation
+  for a function, or to look up the documentation to a package. We can
+  learn how to use the \texttt{stats} package by reading its
+  documentation like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+   \KeywordTok{help}\NormalTok{(}\DataTypeTok{package =} \StringTok{"stats"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  If you know the name of the package you want to use, then Googling ``R
+  \emph{package-name}'' will often get you to the documentation.
+  Packages are hosted on several different repositories, including:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  CRAN, 2) Bioconductor, 3) Github, and 4) R Forge.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  If you know the type of analysis you want to perform, you can Google
+  ``CRAN Task Views'', where there are curated lists of packages
+  \url{https://cran.r-project.org/web/views/}. If you want to know which
+  packages are popular, you can look at \url{https://r-pkg.org}.
+\end{enumerate}
+
 \subsection{Function calls}\label{function-calls}
 
 The general form for calling R functions is
@@ -1533,30 +1598,6 @@ Values can be assigned names and used in subsequent operations
 Names should start with a letter, and contain only letters, numbers,
 underscores, and periods.
 
-\subsection{Asking R for help}\label{asking-r-for-help}
-
-You can ask R for help using the \texttt{help} function, or the
-\texttt{?} shortcut.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{help}\NormalTok{(help)}
-\NormalTok{?help}
-\NormalTok{?sqrt}
-\end{Highlighting}
-\end{Shaded}
-
-The \texttt{help} function can be used to look up the documentation for
-a function, or to look up the documentation to a package. We can learn
-how to use the \texttt{stats} package by reading its documentation like
-this:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{help}\NormalTok{(}\DataTypeTok{package =} \StringTok{"stats"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Getting data into R}\label{getting-data-into-r}
 
 R has data reading functionality built-in -- see e.g.,
@@ -1571,12 +1612,8 @@ packages}\label{installing-using-r-packages}
 R is a modular environment that is extended by the use of
 \textbf{packages}. Packages are collections of functions or commands
 that are designed to perform specific tasks (e.g., fit a type of
-regression model).
-
-A large number of contributed packages are available (\textgreater{}
-15,000). If you are looking for a package for a specific task,
-\url{https://cran.r-project.org/web/views/} and \url{https://r-pkg.org}
-are good places to start.
+regression model). A large number of contributed packages are available
+(\textgreater{} 15,000).
 
 Using an R package is a \textbf{two step process}:
 
@@ -1585,11 +1622,11 @@ Using an R package is a \textbf{two step process}:
 \item
   Install the package onto your computer using the
   \texttt{install.packages()} function. This only needs to be done the
-  first time you use the package.
+  \textbf{first time} you use the package.
 \item
   Load the package into your R session's search path using the
-  \texttt{library()} function. This needs to be done each time you use
-  the package.
+  \texttt{library()} function. This needs to be done \textbf{each time}
+  you use the package.
 \end{enumerate}
 
 While R's built-in packages are powerful, in recent years there has been
@@ -1598,19 +1635,31 @@ particular, a collection of R packages called
 \href{https://www.tidyverse.org/}{\texttt{tidyverse}} have been designed
 specifically for data science. All packages included in
 \texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
+data structures.
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidy_data.png}
+\caption{}
+\end{figure}
+
+We will use \texttt{tidyverse} packages throughout the workshop, so
+let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## install.packages("tidyverse")}
+
+\CommentTok{# when you install tidyverse for the first time you will be asked}
+\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
+
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
 \centering
-\includegraphics{R/Rintro/images/tidyverse.png}
+\includegraphics{R/Rintro/images/tidy_workflow.png}
 \caption{}
 \end{figure}
 
@@ -1625,8 +1674,11 @@ workshop:
 \end{Highlighting}
 \end{Shaded}
 
+Here are some resources for learning more about \texttt{rmarkdown}:
+\url{https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html}
+
 The following RStudio, \texttt{tidyverse}, and \texttt{rmarkdown}
-cheatsheets will provide a useful reference:
+cheatsheets will also provide a useful reference:
 \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
 \subsection{Readers for common file
@@ -1659,19 +1711,32 @@ use the more robust newer versions, i.e., the ones with underscores.
 
 \subsection{Baby names data}\label{baby-names-data}
 
-The examples in this workshop use US baby names data retrieved from
-\url{https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data}
-A cleaned and merged version of these data is available at
-\texttt{http://tutorials.iq.harvard.edu/data/babyNames.csv}.
+As an example project we will analyze the popularity of baby names in
+the US from 1960 through 2017. The data were retrieved from
+\url{https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data}.
+
+Here are the questions we will use R to answer:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In which year did your name (or another name) occur most frequently by
+  \textbf{count}?
+\item
+  Which names have the highest popularity by \textbf{proportion} for
+  each sex and year?
+\item
+  How does the percentage of babies given one of the top 10 names of the
+  year change over time?
+\end{enumerate}
 
 \section{Exercise 1}\label{exercise-1}
 
 \textbf{Reading the baby names data}
 
 Make sure you have installed the \texttt{tidyverse} suite of packages
-and attached them with \texttt{library(tidyverse)}. Baby names data are
-available at
-\texttt{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}.
+and attached them with \texttt{library(tidyverse)}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1709,13 +1774,20 @@ their popularity over time.
 
 The \texttt{baby\_names} object we created in the last exercise is a
 \texttt{data.frame}. There are many other data structures in R, but for
-now we'll focus on working with \texttt{data.frames}.
+now we'll focus on working with \texttt{data.frames}. Think of a
+\texttt{data.frame} as a spreadsheet.
 
 R has decent data manipulation tools built-in -- see e.g.,
 \texttt{help(Extract)}. But, \texttt{tidyverse} packages often provide
 more intuitive syntax for accomplishing the same task. In particular, we
 will use the \texttt{dplyr} package from \texttt{tidyverse} to filter,
 select, and arrange data.
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/dplyr.png}
+\caption{}
+\end{figure}
 
 \subsection{Filtering, selecting, \& arranging
 data}\label{filtering-selecting-arranging-data}
@@ -1740,7 +1812,9 @@ either ``Alex'' or ``Mark''.
 \begin{Highlighting}[]
 \NormalTok{baby_names_alexmark <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, }
 \NormalTok{             Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
-\NormalTok{baby_names_alexmark}
+
+\KeywordTok{print}\NormalTok{(baby_names_alexmark) }\CommentTok{# explicit printing             }
+\NormalTok{baby_names_alexmark }\CommentTok{# implicit printing}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1765,12 +1839,15 @@ name is listed first.
 
 We can also use the \texttt{select()} function to subset the
 \texttt{data.frame} by columns. We can then assign the output to a new
-object.
+object. If we would just like to glance at the first few lines we can
+use the \texttt{head()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{baby_names_subset <-}\StringTok{ }\KeywordTok{select}\NormalTok{(baby_names, Name, Count)}
+
 \KeywordTok{head}\NormalTok{(baby_names_subset)}
+\KeywordTok{head}\NormalTok{(baby_names_subset, }\DataTypeTok{n =} \DecValTok{6}\NormalTok{) }\CommentTok{# default is n = 6}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1797,6 +1874,20 @@ Operator & Meaning\tabularnewline
 These operators may be combined with \texttt{\&} (and) or
 \texttt{\textbar{}} (or).
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10} \CommentTok{# a vector}
+\NormalTok{x}
+
+\NormalTok{x }\OperatorTok{>}\StringTok{ }\DecValTok{7} \CommentTok{# a simple condition}
+\NormalTok{x }\OperatorTok{>}\StringTok{ }\DecValTok{7} \OperatorTok{|}\StringTok{ }\NormalTok{x }\OperatorTok{<}\StringTok{ }\DecValTok{3} \CommentTok{# two conditions combined}
+
+\CommentTok{# x %in% vector}
+\CommentTok{# elements of x matched in vector}
+\NormalTok{x }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
 \section{Exercise 2.1}\label{exercise-2.1}
 
 \textbf{Peak popularity of your name}
@@ -1805,11 +1896,9 @@ In this exercise you will discover the year your name reached its
 maximum popularity.
 
 Read in the ``babyNames.csv'' file if you have not already done so,
-assigning the result to \texttt{baby\_names}. The file is located at
-\texttt{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}
-
-Make sure you have installed the \texttt{tidyverse} suite of packages
-and attached them with \texttt{library(tidyverse)}.
+assigning the result to \texttt{baby\_names}. Make sure you have
+installed the \texttt{tidyverse} suite of packages and attached them
+with \texttt{library(tidyverse)}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1865,6 +1954,12 @@ needing extra variables to store the intermediate results. The point of
 the pipe is to help you write code in a way that is easier to read and
 understand as we will see below.
 
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/magrittr.png}
+\caption{}
+\end{figure}
+
 There is no need to load any additional packages as the operator is made
 available via the \texttt{magrittr} package installed as part of
 \texttt{tidyverse}. Let's rewrite the sequence of commands to output
@@ -1872,6 +1967,15 @@ ordered counts for names ``Alex'' or ``Mark''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# unpiped version}
+\NormalTok{baby_names_alexmark <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
+\KeywordTok{arrange}\NormalTok{(baby_names_alexmark, }\KeywordTok{desc}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# piped version}
 \NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{filter}\NormalTok{(Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count))}
@@ -1879,15 +1983,43 @@ ordered counts for names ``Alex'' or ``Mark''.
 \end{Shaded}
 
 Hint: try pronouncing ``then'' whenever you see
-\texttt{\%\textgreater{}\%}. Notice that we avoided creating an
-intermediate variable \texttt{baby\_names\_alexmark} and performed the
-entire task in just ``one line''!
+\texttt{\%\textgreater{}\%}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# pseudocode}
+
+\CommentTok{# unpiped version}
+\KeywordTok{filter}\NormalTok{(dataset, condition)}
+
+\CommentTok{# piped version}
+\NormalTok{dataset }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(condition)}
+
+\CommentTok{# what the pipe is doing}
+\NormalTok{output_of_thing_on_left }\OperatorTok{%>%}\StringTok{ }\NormalTok{becomes_input_of_thing_on_right}
+\end{Highlighting}
+\end{Shaded}
+
+Advantages of using the pipe:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We can avoid creating intermediate variables, such as
+  \texttt{baby\_names\_alexmark}
+\item
+  Less to type
+\item
+  Easier to read and follow the logic (especially avoiding using nested
+  functions)
+\end{enumerate}
 
 \section{Exercise 2.2}\label{exercise-2.2}
 
 Rewrite the solution to Exercise 2.1 using pipes. Remember that we were
 looking for the year your name reached its maximum popularity. For that,
-we filtered the data and then arranged by \texttt{Count.}
+we filtered the data and then arranged by \texttt{Count}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1902,8 +2034,8 @@ It can be difficult to spot trends when looking at summary tables.
 Plotting the data makes it easier to identify interesting patterns.
 
 R has decent plotting tools built-in -- see e.g., \texttt{help(plot)}.
-However, again, we will make use of an excellent \emph{contributed
-package} from \texttt{tidyverse} called \texttt{ggplot2}.
+However, again, we will make use of a \emph{contributed package} from
+\texttt{tidyverse} called \texttt{ggplot2}.
 
 For quick and simple plots we can use the \texttt{qplot()} function. For
 example, we can plot the number of babies given the name ``Diana'' over
@@ -1924,7 +2056,7 @@ time like this:
 
 Interestingly, there are usually some gender-atypical names, even for
 very strongly gendered names like ``Diana''. Splitting these trends out
-by Sex is very easy:
+by \texttt{Sex} is very easy:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2006,8 +2138,8 @@ Our next goal is to find out which names have been the most popular.
 popularity}\label{computing-better-measures-of-popularity}
 
 So far we've used \texttt{Count} as a measure of popularity. A better
-approach is to use proportion or rank to avoid confounding popularity
-with the number of babies born in a given year.
+approach is to use proportion to avoid confounding popularity with the
+number of babies born in a given year.
 
 The \texttt{mutate()} function makes it easy to add or modify the
 columns of a \texttt{data.frame}. For example, we can use it to rescale
@@ -2016,16 +2148,6 @@ the count of each name in each year:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{baby_names <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(baby_names, }\DataTypeTok{Count_1k =}\NormalTok{ Count}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}
-\NormalTok{baby_names }\CommentTok{# same as print(baby_names)}
-\end{Highlighting}
-\end{Shaded}
-
-Notice that executing the second line led to printing all 1 million rows
-in our \texttt{data.frame}! If we would just like to glance at the first
-6 lines we can use the \texttt{head()} function:
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{head}\NormalTok{(baby_names) }
 \end{Highlighting}
 \end{Shaded}
@@ -2063,6 +2185,12 @@ Note that the data remains grouped until you change the groups by
 running \texttt{group\_by()} again or remove grouping information with
 \texttt{ungroup()}.
 
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/split-apply-combine.png}
+\caption{}
+\end{figure}
+
 \section{Exercise 4}\label{exercise-4}
 
 \textbf{Most popular names}
@@ -2075,9 +2203,9 @@ each year.
 \tightlist
 \item
   Use \texttt{mutate()} and \texttt{group\_by()} to create a column
-  named ``Proportion'' where \texttt{Proportion\ =\ Count/sum(Count)}
-  for each \texttt{Year\ X\ Sex} group. Use pipes wherever it makes
-  sense.
+  named \texttt{Proportion} where
+  \texttt{Proportion\ =\ Count/sum(Count)} for each
+  \texttt{Year\ X\ Sex} group. Use pipes wherever it makes sense.
 \end{enumerate}
 
 \begin{Shaded}
@@ -2092,7 +2220,7 @@ each year.
 \tightlist
 \item
   Use \texttt{mutate()} and \texttt{group\_by()} to create a column
-  named ``Rank'' where \texttt{Rank\ =\ rank(-Count)} for each
+  named \texttt{Rank} where \texttt{Rank\ =\ rank(desc(Count))} for each
   \texttt{Year\ X\ Sex} group.
 \end{enumerate}
 
@@ -2108,8 +2236,8 @@ each year.
 \tightlist
 \item
   Filter the baby names data to display only the most popular name for
-  each \texttt{Year\ X\ Sex} group. Keep only the columns: Year, Name,
-  Sex, and Proportion.
+  each \texttt{Year\ X\ Sex} group. Keep only the columns:
+  \texttt{Year}, \texttt{Name}, \texttt{Sex}, and \texttt{Proportion}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -2123,7 +2251,7 @@ each year.
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Plot the data produced in step 4, putting \texttt{Year} on the x-axis
+  Plot the data produced in step 3, putting \texttt{Year} on the x-axis
   and \texttt{Proportion} on the y-axis. How has the proportion of
   babies given the most popular name changed over time?
 \end{enumerate}
@@ -2159,6 +2287,12 @@ code outputs the total number of girls and boys in the data:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/split-apply-combine.png}
+\caption{}
+\end{figure}
+
 Next, using \texttt{group\_by()} and \texttt{summarize()} together, we
 can calculate the number of babies born each year:
 
@@ -2167,7 +2301,8 @@ can calculate the number of babies born each year:
 \NormalTok{bn_by_year <-}
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Total =} \KeywordTok{sum}\NormalTok{(Count))}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Total =} \KeywordTok{sum}\NormalTok{(Count)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
 \KeywordTok{head}\NormalTok{(bn_by_year)}
 \end{Highlighting}
@@ -2215,7 +2350,7 @@ given one of the 10 most popular names each year.
 \tightlist
 \item
   Plot the data produced in step 2, with year on the x-axis and total
-  proportion on the y axis. Color by sex and notice the trend.
+  proportion on the y axis. Color by \texttt{Sex} and notice the trend.
 \end{enumerate}
 
 \begin{Shaded}
@@ -2269,7 +2404,10 @@ from package \texttt{readr} handy!
 workspaces}\label{saving-loading-r-workspaces}
 
 In addition to importing individual datasets, R can save and load entire
-workspaces
+``workspaces''. The workspace is your current R working environment and
+includes any user-defined objects. At the end of a session, you can save
+an ``image'' of the current workspace, which allows you to automatically
+reload the objects you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2339,7 +2477,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"http://tutorials.iq.harvard.edu/data/babyNames.csv"}\NormalTok{)}
+\NormalTok{baby_names <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"babyNames.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2455,7 +2593,7 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 1.  Use `mutate()` and `group_by()` to create a column named "Proportion"}
+\NormalTok{## 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`}
 \NormalTok{##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.}
 \end{Highlighting}
 \end{Shaded}
@@ -2474,8 +2612,8 @@ workspaces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 2.  Use `mutate()` and `group_by()` to create a column named "Rank" where }
-\NormalTok{##     `Rank = rank(-Count)` for each `Year X Sex` group.}
+\NormalTok{## 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where }
+\NormalTok{##     `Rank = rank(desc(Count))` for each `Year X Sex` group.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2484,7 +2622,7 @@ workspaces
 \NormalTok{baby_names <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\OperatorTok{-}\NormalTok{Count)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count))) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
 \KeywordTok{head}\NormalTok{(baby_names)   }
@@ -2566,7 +2704,7 @@ workspaces
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## 3.  Plot the data produced in step 2, with year on the x-axis}
-\NormalTok{##     and total proportion on the y axis. Color by sex.}
+\NormalTok{##     and total proportion on the y axis. Color by `Sex`.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2629,6 +2767,14 @@ These workshops are a work-in-progress, please provide any feedback to:
     Rstudio download: \url{http://rstudio.org}
   \item
     ESS (emacs R package): \url{http://ess.r-project.org/}
+  \end{itemize}
+\item
+  Cheatsheets
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
   \end{itemize}
 \item
   Online tutorials
@@ -2790,7 +2936,7 @@ Finally, lets install some packages that will help with modeling:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Goals}\label{goals-1}
+\subsection{Goals}\label{goals}
 
 Class Structure and Organization:
 
@@ -3927,7 +4073,7 @@ The following RStudio, \texttt{tidyverse}, `\texttt{ggplot2}, and
 \texttt{rmarkdown} cheatsheets will provide a useful reference:
 \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
-\subsection{Goals}\label{goals-2}
+\subsection{Goals}\label{goals-1}
 
 Class Structure and Organization:
 
@@ -5563,7 +5709,7 @@ The following RStudio, \texttt{tidyverse}, and \texttt{rmarkdown}
 cheatsheets will provide a useful reference:
 \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
-\subsection{Goals}\label{goals-3}
+\subsection{Goals}\label{goals-2}
 
 Class Structure and Organization:
 
@@ -6520,7 +6666,7 @@ materials}\label{download-workshop-materials}
 Start the \texttt{Anaconda\ Navigator} program in the usual way. Click
 the or \texttt{Launch} button under \texttt{Jupyter\ Notebook}.
 
-\subsection{Goals}\label{goals-4}
+\subsection{Goals}\label{goals-3}
 
 In this workshop you will * learn about the python package and
 application ecosystem, * learn python language basics and common idioms,
@@ -7308,7 +7454,7 @@ Start the \texttt{Jupyter\ Notebook} application and open the
 \texttt{PythonWebScrape.ipynb} file in the \texttt{PythonWebScrape}
 folder you downloaded previously.
 
-\subsection{Goals}\label{goals-5}
+\subsection{Goals}\label{goals-4}
 
 In this workshop you will
 
@@ -7968,7 +8114,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-6}
+\subsection{Goals}\label{goals-5}
 
 \begin{itemize}
 \tightlist
@@ -8702,7 +8848,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-7}
+\subsection{Goals}\label{goals-6}
 
 \begin{itemize}
 \tightlist
@@ -10146,7 +10292,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-8}
+\subsection{Goals}\label{goals-7}
 
 \begin{itemize}
 \tightlist

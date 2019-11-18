@@ -13,6 +13,11 @@
 
 # ## Setup
 #
+# ### Class Structure
+#
+# * Informal --- Ask questions at any time. Really!
+# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
 # ### Software & materials
 #
 # You should have R and RStudio installed --- if not:
@@ -33,27 +38,27 @@
 # * Choose `Existing Directory` and browse to the `Rintro` directory.
 # * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
 
-# ### Goals
+# ### Prerequisites
 #
-# Class Structure and Organization:
-#
-# * Ask questions at any time. Really!
-# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
-#
-# This is an introductory R course:
-#
-# * Assumes no prior knowledge of R
+# * None --- assumes no prior knowledge of R
 # * Relatively slow-paced
-# * The workshop covers R basics, the R package ecosystem, and practice reading files and manipulating data in R
-# * A more general goal is to get you comfortable with R so that it seems less scary and mystifying than it perhaps does now. Note that this is by no means a complete or thorough introduction to R! It's just enough to get you started.
-#
-# As an example project we will analyze the popularity of baby names in the US from 1960 through 2017. Among the questions we will answer using R are:
-#
-# * In which year did your name achieve peak popularity?
-# * How many children were born each year?
-# * What are the most popular names overall? For girls? For Boys?
 
-# ## R Interfaces
+# ### Learning Outcomes
+#
+# * Basic R syntax
+# * R package ecosystem
+# * Reading / writing data and finding help
+# * Data cleaning and manipulation
+# * Conditional operations
+
+# ### What is R?
+#
+# R is a free language and environment for statistical computing and graphics. 
+# R has existed for over 25 years and is now the most popular software for
+# data analysis. It has an extensive ecosystem of about 15,000 add on packages
+# covering all aspects of statistics. 
+
+# ### R Interfaces
 #
 # There are many different ways you can interact with R. See the
 # [Data Science Tools workshop notes](./DataScienceTools.html) 
@@ -73,6 +78,9 @@
 # into HTML (for a webpage), MS Word, or PDF (via LaTeX). Many people write 
 # their journal papers, dissertations, and statistics/math class notes in 
 # Rmarkdown, since it is easy to use and to convert into other formats later.
+#
+# The following RStudio and `rmarkdown` cheatsheets will provide a
+# useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 # ## Exercise 0
 #
@@ -96,6 +104,38 @@
 
 # ## R basics
 #
+# ### Syntax
+#
+# * R is case sensitive
+# * R ignores white space
+# * Object names should start with a letter
+
+# ### Asking for help
+#
+# 1.  You can ask R for help using the `help` function, or the `?` shortcut.
+#
+#     ```{r, eval=FALSE}
+#     help(help)
+#     ?help
+#     ?sqrt
+#     ```
+#
+#     The `help` function can be used to look up the documentation for a function, or
+#     to look up the documentation to a package. We can learn how to use the `stats`
+#     package by reading its documentation like this:
+#
+#     ```{r, eval=FALSE}
+#    help(package = "stats")
+#     ```
+#
+# 2.  If you know the name of the package you want to use, then Googling "R *package-name*" will
+# often get you to the documentation. Packages are hosted on several different repositories, including:
+# 1) CRAN, 2) Bioconductor, 3) Github, and 4) R Forge.
+#
+# 3.  If you know the type of analysis you want to perform, you can Google "CRAN Task Views", 
+# where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
+# know which packages are popular, you can look at <https://r-pkg.org>.
+
 # ### Function calls
 #
 # The general form for calling R functions is
@@ -122,21 +162,6 @@ x <- sqrt(10) # assign result to a variable named x
 
 # Names should start with a letter, and contain only letters, numbers, underscores, and periods.
 
-# ### Asking R for help
-#
-# You can ask R for help using the `help` function, or the `?` shortcut.
-
-help(help)
-?help
-?sqrt
-
-# The `help` function can be used to look up the documentation for a function, or
-# to look up the documentation to a package. We can learn how to use the `stats`
-# package by reading its documentation like this:
-
-help(package = "stats")
-
-
 # ## Getting data into R
 #
 # R has data reading functionality built-in -- see e.g.,
@@ -149,22 +174,18 @@ help(package = "stats")
 #
 # R is a modular environment that is extended by the use of **packages**.
 # Packages are collections of functions or commands that are designed to
-# perform specific tasks (e.g., fit a type of regression model).
-#
-# A large number of contributed packages are available (> 15,000). 
-# If you are looking for a package for a specific task,
-# https://cran.r-project.org/web/views/ and https://r-pkg.org are good
-# places to start.
+# perform specific tasks (e.g., fit a type of regression model). A large 
+# number of contributed packages are available (> 15,000). 
 #
 # Using an R package is a **two step process**:
 #
 # 1.  Install the package onto your computer using the
 #  `install.packages()` function. This only needs to
-#  be done the first time you use the package.
+#  be done the **first time** you use the package.
 #
 # 2.  Load the package into your R session's search path 
 #  using the `library()` function. This needs to be done
-#  each time you use the package.
+#  **each time** you use the package.
 #
 # While R's built-in packages are powerful, in recent years there has
 # been a big surge in well-designed *contributed packages* for R. In 
@@ -172,13 +193,21 @@ help(package = "stats")
 # [`tidyverse`](https://www.tidyverse.org/) have been 
 # designed specifically for data science. All packages included in 
 # `tidyverse` share an underlying design philosophy, grammar, and 
-# data structures. We will use `tidyverse` packages throughout the 
+# data structures. 
+#
+# ![](R/Rintro/images/tidy_data.png)
+#
+# We will use `tidyverse` packages throughout the 
 # workshop, so let's install them now:
 
 ## install.packages("tidyverse")
+
+# when you install tidyverse for the first time you will be asked
+# a question in the Console - please answer by typing "no" in the Console.
+
 library(tidyverse)
 
-# ![](R/Rintro/images/tidyverse.png)
+# ![](R/Rintro/images/tidy_workflow.png)
 #
 # We can also install the `rmarkdown` package, which will allow us to
 # combine our text and code into a formatted document at the end of 
@@ -187,7 +216,10 @@ library(tidyverse)
 ## install.packages("rmarkdown")
 library(rmarkdown)
 
-# The following RStudio, `tidyverse`, and `rmarkdown` cheatsheets will provide a
+# Here are some resources for learning more about `rmarkdown`: 
+# <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
+#
+# The following RStudio, `tidyverse`, and `rmarkdown` cheatsheets will also provide a
 # useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 # ### Readers for common file types
@@ -213,17 +245,20 @@ library(rmarkdown)
 #
 # ### Baby names data
 #
-# The examples in this workshop use US baby names data retrieved from
-# https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data
-# A cleaned and merged version of these data is available at
-# `http://tutorials.iq.harvard.edu/data/babyNames.csv`.
+# As an example project we will analyze the popularity of baby names in the US from 1960 through 2017. The data were retrieved from
+# https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data.
+#
+# Here are the questions we will use R to answer:
+#
+# 1. In which year did your name (or another name) occur most frequently by **count**?
+# 2. Which names have the highest popularity by **proportion** for each sex and year?
+# 3. How does the percentage of babies given one of the top 10 names of the year change over time?
 
 # ## Exercise 1
 #
 # **Reading the baby names data** 
 #
 # Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`. 
-# Baby names data are available at `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`.
 #
 # 1. Open the `read_csv` help page to determine how to use it to read in data.
 ##
@@ -240,13 +275,15 @@ library(rmarkdown)
 #
 # The `baby_names` object we created in the last exercise is a `data.frame`.
 # There are many other data structures in R, but for now we'll focus on 
-# working with `data.frames`. 
+# working with `data.frames`. Think of a `data.frame` as a spreadsheet.
 #
 # R has decent data manipulation tools built-in -- see e.g.,
 # `help(Extract)`. But, `tidyverse` packages often provide
 # more intuitive syntax for accomplishing the same task. In
 # particular, we will use the `dplyr` package from `tidyverse`
 # to filter, select, and arrange data.
+#
+# ![](R/Rintro/images/dplyr.png)
 
 # ### Filtering, selecting, & arranging data
 #
@@ -264,7 +301,9 @@ baby_names <- read_csv("babyNames.csv")
 
 baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
-baby_names_alexmark
+
+print(baby_names_alexmark) # explicit printing             
+baby_names_alexmark # implicit printing
 
 # Notice that we can combine conditions using `&` (AND) 
 # and `|` (OR). 
@@ -278,11 +317,14 @@ arrange(baby_names_alexmark, Count)
 arrange(baby_names_alexmark, desc(Count))
 
 # We can also use the `select()` function to subset the `data.frame`
-# by columns. We can then assign the output to a new object.  
+# by columns. We can then assign the output to a new object. If we 
+# would just like to glance at the first few lines we can use the
+#  `head()` function:
 
 baby_names_subset <- select(baby_names, Name, Count)
-head(baby_names_subset)
 
+head(baby_names_subset)
+head(baby_names_subset, n = 6) # default is n = 6
 
 # ### Other logical operators
 #
@@ -301,6 +343,17 @@ head(baby_names_subset)
 #
 # These operators may be combined with `&` (and) or `|` (or).
 
+x <- 1:10 # a vector
+x
+
+x > 7 # a simple condition
+x > 7 | x < 3 # two conditions combined
+
+# x %in% vector
+# elements of x matched in vector
+x %in% c(1, 5, 10) 
+
+
 # ## Exercise 2.1
 #
 # **Peak popularity of your name**
@@ -308,10 +361,8 @@ head(baby_names_subset)
 # In this exercise you will discover the year your name reached its maximum popularity.
 #
 # Read in the "babyNames.csv" file if you have not already done so,
-# assigning the result to `baby_names`. The file is located at 
-# `"http://tutorials.iq.harvard.edu/data/babyNames.csv"`
-#
-# Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`.
+# assigning the result to `baby_names`. Make sure you have installed 
+# the `tidyverse` suite of packages and attached them with `library(tidyverse)`.
 #
 # 1.  Use `filter` to extract data for your name (or another name of your choice).  
 ##
@@ -334,24 +385,46 @@ head(baby_names_subset)
 # results. The point of the pipe is to help you write code in a way that is
 # easier to read and understand as we will see below.
 #
+# ![](R/Rintro/images/magrittr.png)
+#
 # There is no need to load any additional packages as the operator is made 
 # available via the `magrittr` package installed as part of `tidyverse`. Let's 
 # rewrite the sequence of commands to output ordered counts for names 
 # "Alex" or "Mark".
 
+# unpiped version
+baby_names_alexmark <- filter(baby_names, Year == 1992 & (Name == "Alex" | Name == "Mark"))
+arrange(baby_names_alexmark, desc(Count))
+
+# piped version
 baby_names %>% 
   filter(Year == 1992 & (Name == "Alex" | Name == "Mark")) %>%
   arrange(desc(Count))
 
-# Hint: try pronouncing "then" whenever you see `%>%`. Notice that we avoided 
-# creating an intermediate variable `baby_names_alexmark` and performed the 
-# entire task in just "one line"!
+# Hint: try pronouncing "then" whenever you see `%>%`.
+
+# pseudocode
+
+# unpiped version
+filter(dataset, condition)
+
+# piped version
+dataset %>% filter(condition)
+
+# what the pipe is doing
+output_of_thing_on_left %>% becomes_input_of_thing_on_right
+
+# Advantages of using the pipe:
+#
+# 1. We can avoid creating intermediate variables, such as `baby_names_alexmark`
+# 2. Less to type 
+# 3. Easier to read and follow the logic (especially avoiding using nested functions)
 
 # ## Exercise 2.2
 #
 # Rewrite the solution to Exercise 2.1 using pipes. Remember that we were looking
 # for the year your name reached its maximum popularity. For that, we filtered 
-# the data and then arranged by `Count.`
+# the data and then arranged by `Count`.
 
 ##
 
@@ -362,7 +435,7 @@ baby_names %>%
 # Plotting the data makes it easier to identify interesting patterns.
 #
 # R has decent plotting tools built-in -- see e.g., `help(plot)`.
-# However, again, we will make use of an excellent *contributed
+# However, again, we will make use of a *contributed
 # package* from `tidyverse` called `ggplot2`.
 #
 # For quick and simple plots we can use the `qplot()` function. For example,
@@ -374,7 +447,7 @@ qplot(x = Year, y = Count,
      data = baby_names_diana)
 
 # Interestingly, there are usually some gender-atypical names, even for very strongly 
-# gendered names like "Diana". Splitting these trends out by Sex is very easy:
+# gendered names like "Diana". Splitting these trends out by `Sex` is very easy:
 
 qplot(x = Year, y = Count, color = Sex,
       data = baby_names_diana)
@@ -408,7 +481,7 @@ qplot(x = Year, y = Count, color = Sex,
 # ### Computing better measures of popularity
 #
 # So far we've used `Count` as a measure of popularity. A better
-# approach is to use proportion or rank to avoid confounding 
+# approach is to use proportion to avoid confounding 
 # popularity with the number of babies born in a given year. 
 #
 # The `mutate()` function makes it easy to add or modify the columns 
@@ -416,12 +489,6 @@ qplot(x = Year, y = Count, color = Sex,
 #  of each name in each year:
 
 baby_names <- mutate(baby_names, Count_1k = Count/1000)
-baby_names # same as print(baby_names)
-
-# Notice that executing the second line led to printing all 1 million
-# rows in our `data.frame`! If we would just like to glance at the
-# first 6 lines we can use the `head()` function:
-
 head(baby_names) 
 
 # If we like, we can also `select()` a subset of columns from the baby names data:
@@ -448,6 +515,8 @@ head(baby_names)
 # Note that the data remains grouped until you change the groups by
 # running `group_by()` again or remove grouping information with
 # `ungroup()`.
+#
+# ![](R/Rintro/images/split-apply-combine.png)
 
 # ## Exercise 4
 #
@@ -455,20 +524,21 @@ head(baby_names)
 #
 # In this exercise your goal is to identify the most popular names for each year.
 #
-# 1.  Use `mutate()` and `group_by()` to create a column named "Proportion"
+# 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
 #     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 #     Use pipes wherever it makes sense.
 ## 
 
-# 2.  Use `mutate()` and `group_by()` to create a column named "Rank" where 
-#     `Rank = rank(-Count)` for each `Year X Sex` group. 
+# 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
+#     `Rank = rank(desc(Count))` for each `Year X Sex` group. 
 ##
 
 # 3.  Filter the baby names data to display only the most popular name 
-#     for each `Year X Sex` group. Keep only the columns: Year, Name, Sex, and Proportion.
+#     for each `Year X Sex` group. Keep only the columns: `Year`, `Name`, 
+#     `Sex`, and `Proportion`.
 ##
 
-# 4. Plot the data produced in step 4, putting `Year` on the x-axis
+# 4. Plot the data produced in step 3, putting `Year` on the x-axis
 #     and `Proportion` on the y-axis. How has the proportion of babies
 #     given the most popular name changed over time?
 ##
@@ -494,13 +564,16 @@ baby_names %>%
   summarize(Girls_n = sum(Sex=="Girls"),
             Boys_n = sum(Sex=="Boys"))
 
+# ![](R/Rintro/images/split-apply-combine.png)
+#
 # Next, using `group_by()` and `summarize()` together, we can calculate the 
 # number of babies born each year:
 
 bn_by_year <-
   baby_names %>%
   group_by(Year) %>%
-  summarize(Total = sum(Count))
+  summarize(Total = sum(Count)) %>%
+  ungroup()
 
 head(bn_by_year)
 
@@ -522,7 +595,7 @@ head(bn_by_year)
 ##
 
 # 3.  Plot the data produced in step 2, with year on the x-axis
-#     and total proportion on the y axis. Color by sex and notice
+#     and total proportion on the y axis. Color by `Sex` and notice
 #     the trend.
 ##
 
@@ -554,7 +627,10 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 # ### Saving & loading R workspaces
 #
 # In addition to importing individual datasets, R can save and load entire
-# workspaces
+# "workspaces". The workspace is your current R working environment and includes
+# any user-defined objects. At the end of a session, you can save an "image"
+# of the current workspace, which allows you to automatically reload the objects
+# you previously created.
 
 ls() # list objects in our workspace
 save.image(file="myWorkspace.RData") # save workspace 
@@ -591,7 +667,7 @@ sqrt(10)
 
 ## read ?read_csv
 
-baby_names <- read_csv("http://tutorials.iq.harvard.edu/data/babyNames.csv")
+baby_names <- read_csv("babyNames.csv")
 
 # ### Ex 2.1: prototype
 
@@ -641,7 +717,7 @@ qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
 
 # ### Ex 4: prototype
 
-## 1.  Use `mutate()` and `group_by()` to create a column named "Proportion"
+## 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
 ##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 
 baby_names <- 
@@ -652,13 +728,13 @@ baby_names <-
 
 head(baby_names)  
 
-## 2.  Use `mutate()` and `group_by()` to create a column named "Rank" where 
-##     `Rank = rank(-Count)` for each `Year X Sex` group.
+## 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
+##     `Rank = rank(desc(Count))` for each `Year X Sex` group.
 
 baby_names <- 
   baby_names %>%
   group_by(Year, Sex) %>%
-  mutate(Rank = rank(-Count)) %>%
+  mutate(Rank = rank(desc(Count))) %>%
   ungroup()
 
 head(baby_names)   
@@ -705,7 +781,7 @@ top10 <-
   summarize(TotalProportion = sum(Proportion))
 
 ## 3.  Plot the data produced in step 2, with year on the x-axis
-##     and total proportion on the y axis. Color by sex.
+##     and total proportion on the y axis. Color by `Sex`.
 
 qplot(x = Year, 
       y = TotalProportion, 
@@ -736,6 +812,9 @@ qplot(x = Year,
 #     + R and R package download: <http://cran.r-project.org>
 #     + Rstudio download: <http://rstudio.org>
 #     + ESS (emacs R package): <http://ess.r-project.org/>
+#
+# * Cheatsheets
+#     + <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 #
 # * Online tutorials
 #     + <http://www.codeschool.com/courses/try-r>
