@@ -2853,6 +2853,17 @@ These workshops are a work-in-progress, please provide any feedback to:
 
 \section{Setup}\label{setup-1}
 
+\subsection{Class Structure}\label{class-structure-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Informal --- Ask questions at any time. Really!
+\item
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
+\end{itemize}
+
 \subsection{Software \& materials}\label{software-materials-1}
 
 You should have R and RStudio installed --- if not:
@@ -2896,21 +2907,65 @@ Start RStudio and create a new project:
   version of the \texttt{.Rmd} file.
 \end{itemize}
 
+\subsection{Installing \& using R
+packages}\label{installing-using-r-packages-1}
+
+R is a modular environment that is extended by the use of
+\textbf{packages}. Packages are collections of functions or commands
+that are designed to perform specific tasks (e.g., fit a type of
+regression model). A large number of contributed packages are available
+(\textgreater{} 15,000).
+
+Using an R package is a \textbf{two step process}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Install the package onto your computer using the
+  \texttt{install.packages()} function. This only needs to be done the
+  \textbf{first time} you use the package.
+\item
+  Load the package into your R session's search path using the
+  \texttt{library()} function. This needs to be done \textbf{each time}
+  you use the package.
+\end{enumerate}
+
 While R's built-in packages are powerful, in recent years there has been
 a big surge in well-designed \emph{contributed packages} for R. In
 particular, a collection of R packages called
 \href{https://www.tidyverse.org/}{tidyverse} have been designed
 specifically for data science. All packages included in
 \texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
+data structures. This philosopy is rooted in the idea of ``tidy data'':
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidy_data.png}
+\caption{}
+\end{figure}
+
+We will use \texttt{tidyverse} packages throughout the workshop, so
+let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
+
+\CommentTok{# when you install tidyverse for the first time you will be asked}
+\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
+
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
+
+A typical workflow for using \texttt{tidyverse} packages looks like
+this:
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidy_workflow.png}
+\caption{}
+\end{figure}
 
 We can also install the \texttt{rmarkdown} package, which will allow us
 to combine our text and code into a formatted document at the end of the
@@ -2942,18 +2997,7 @@ Finally, lets install some packages that will help with modeling:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Goals}\label{goals}
-
-Class Structure and Organization:
-
-\begin{itemize}
-\tightlist
-\item
-  Ask questions at any time. Really!
-\item
-  Collaboration is encouraged - please spend a minute introducing
-  yourself to your neighbors!
-\end{itemize}
+\subsection{Prerequisites}\label{prerequisites-1}
 
 This is an intermediate R course:
 
@@ -2965,8 +3009,39 @@ This is an intermediate R course:
   Relatively fast-paced
 \item
   This is not a statistics course! We assume you know the theory behind
-  the models
+  the models.
 \end{itemize}
+
+\subsection{Learning Outcomes}\label{learning-outcomes-1}
+
+\begin{itemize}
+\tightlist
+\item
+  R formula interface
+\item
+  Fitting linear and non-linear models
+\item
+  Understanding class methods
+\item
+  Post-estimation tools
+\item
+  Plotting model diagnostics
+\end{itemize}
+
+\subsection{Workshop Outline}\label{workshop-outline}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Preliminary steps before modeling
+\item
+  Modeling continuous outcomes
+\item
+  Modeling binary outcomes
+\item
+  Modeling clustered data
+\end{enumerate}
 
 \section{Before fitting a model}\label{before-fitting-a-model}
 
@@ -3059,8 +3134,13 @@ outcomes}\label{models-with-continuous-outcomes}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# R regression formula}
+\NormalTok{outcome }\OperatorTok{~}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred2 }\OperatorTok{+}\StringTok{ }\NormalTok{pred3}
+
+\CommentTok{# }\AlertTok{NOTE}\CommentTok{ the ~ is a tilde}
+
   \CommentTok{# Fit our regression model}
-\NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense, }\CommentTok{# regression formula}
+\NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense, }\CommentTok{# regression formula}
                 \DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# data }
                 
   \CommentTok{# Summarize and print the results}
@@ -3081,7 +3161,7 @@ SAT?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{percent, }\DataTypeTok{data =}\NormalTok{ states_data) }\OperatorTok{%>%}\StringTok{ }
+  \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{percent, }\DataTypeTok{data =}\NormalTok{ states_data) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{summary}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
@@ -3121,6 +3201,107 @@ OK, we fit our model. Now what?
 \end{Highlighting}
 \end{Shaded}
 
+Selected \textbf{post-estimation} tools:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.16\columnwidth}\raggedright\strut
+Function\strut
+\end{minipage} & \begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+Package\strut
+\end{minipage} & \begin{minipage}[b]{0.58\columnwidth}\raggedright\strut
+Output\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{summary()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+standard errors, test statistics, p-values, GOF stats\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{confint()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+confidence intervals\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{anova()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+anova table (one model), model comparison (\textgreater{} one
+model)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{coef()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+point estimates\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{drop1()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+model comparison\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{predict()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+predicted response values\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{fitted()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+predicted response values (for observed data)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{residuals()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{stats} base R\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+residuals\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{fixef()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{lme4}\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+fixed effect point estimates (mixed models only)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{ranef()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{lme4}\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+random effect point estimates (mixed models only)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{allEffects()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{effects}\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+predicted marginal means\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+\texttt{emmeans()}\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+\texttt{emmeans}\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright\strut
+predicted marginal means \& marginal effects\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
 \subsection{OLS regression
 assumptions}\label{ols-regression-assumptions}
 
@@ -3155,7 +3336,7 @@ Investigate assumptions \#7 and \#8 visually by plotting your model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) }
+  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{# splits the plotting window into 4 panels}
   \KeywordTok{plot}\NormalTok{(sat_mod)}
 \end{Highlighting}
 \end{Shaded}
@@ -3168,11 +3349,33 @@ expense? Fit two models and compare them:
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# fit another model, adding house and senate as predictors}
-\NormalTok{  sat_voting_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{house }\OperatorTok{+}\StringTok{ }\NormalTok{senate,}
+\NormalTok{  sat_voting_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{house }\OperatorTok{+}\StringTok{ }\NormalTok{senate,}
                         \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states_data))}
 
   \KeywordTok{summary}\NormalTok{(sat_voting_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# what does na.omit() do?}
+
+\NormalTok{dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }
+  \DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{5}\NormalTok{), }
+  \DataTypeTok{z =} \KeywordTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{dat}
+
+\KeywordTok{na.omit}\NormalTok{(dat) }\CommentTok{# listwise deletion of observations}
+
+\CommentTok{# also see}
+\NormalTok{?complete.cases}
+\NormalTok{dat[}\KeywordTok{with}\NormalTok{(dat, }\KeywordTok{complete.cases}\NormalTok{(expense, house, senate)), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat_mod, }\DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(states_data))}
 
   \CommentTok{# compare using an F-test with the anova() function}
@@ -3186,7 +3389,7 @@ expense? Fit two models and compare them:
 
 Use the \emph{states.rds} data set. Fit a model predicting energy
 consumed per capita (energy) from the percentage of residents living in
-metropolitan areas (metro). Be sure to
+metropolitan areas (\texttt{metro}). Be sure to
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3232,7 +3435,7 @@ metropolitan areas (metro). Be sure to
 
 Select one or more additional predictors to add to your model and repeat
 steps 1-3. Is this model significantly better than the model with
-\emph{metro} as the only predictor?
+\texttt{metro} as the only predictor?
 
 \section{Interactions \& factors}\label{interactions-factors}
 
@@ -3246,8 +3449,8 @@ the median income in the state?
 \begin{Shaded}
 \begin{Highlighting}[]
     \CommentTok{# Add the interaction to the model}
-\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data)}
-\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# same as above, but shorter syntax}
+\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data)}
+\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# same as above, but shorter syntax}
 
   \CommentTok{# Show the regression coefficients table}
   \KeywordTok{summary}\NormalTok{(sat_expense_by_percent) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }
@@ -3267,8 +3470,17 @@ is numeric.
   \KeywordTok{str}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
 \NormalTok{  states_data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
 
+  \CommentTok{# arguments to the factor() function}
+  \CommentTok{# factor(x, levels, labels)}
+
+  \KeywordTok{levels}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
   \CommentTok{# Add region to the model}
-\NormalTok{  sat_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data) }
+\NormalTok{  sat_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data) }
 
   \CommentTok{# Show the results}
   \KeywordTok{summary}\NormalTok{(sat_region) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }\CommentTok{# show the regression coefficients table}
@@ -3282,35 +3494,23 @@ converting them to factors!}
 \subsection{Setting factor reference groups \&
 contrasts}\label{setting-factor-reference-groups-contrasts}
 
-In the previous example we use the default contrasts for region. The
-default in R is treatment contrasts, with the first level as the
-reference. We can change the reference group or use another coding
-scheme using the \texttt{C()} function.
+The default contrasts in R are ``treatment'' contrasts, or ``dummy
+coding'', with the first level as the reference category. We can also
+easily change the reference group or get all sets of pairwise contrasts.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \CommentTok{# print default contrasts}
-  \KeywordTok{contrasts}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
-
   \CommentTok{# change the reference group}
 \NormalTok{  states_data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"Midwest"}\NormalTok{)}
-\NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data)}
+\NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data)}
   \KeywordTok{summary}\NormalTok{(m1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 
   \CommentTok{# get all pairwise contrasts between means}
 \NormalTok{  means <-}\StringTok{ }\KeywordTok{emmeans}\NormalTok{(m1, }\DataTypeTok{specs =} \OperatorTok{~}\StringTok{ }\NormalTok{region)}
 \NormalTok{  means}
   \KeywordTok{contrast}\NormalTok{(means, }\DataTypeTok{method =} \StringTok{"pairwise"}\NormalTok{)}
-
-  \CommentTok{# change the coding scheme}
-  \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\KeywordTok{C}\NormalTok{(region, contr.helmert), }\DataTypeTok{data=}\NormalTok{states_data) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summary}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
-
-See \texttt{?contr.treatment} for other coding schemes and also
-\texttt{?contrasts} and \texttt{?relevel}.
 
 \section{Exercise 1}\label{exercise-1-1}
 
@@ -3381,8 +3581,46 @@ Load the National Health Interview Survey data:
 \subsection{Logistic regression
 example}\label{logistic-regression-example}
 
+Motivation for a logistic regression model; With a binary response:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Errors will not be normally distributed
+\item
+  Variance will not be homoskedastic
+\item
+  Predictions should be constrained to be on the interval {[}0, 1{]}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics{R/Rmodels/images/logistic.png}
+\caption{}
+\end{figure}
+
+Anatomy of a glm:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# OLS model using lm()}
+  \CommentTok{# lm(outcome ~ 1 + pred1 + pred1, data = mydata)}
+
+  \CommentTok{# OLS model using glm()}
+  \CommentTok{# glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = gaussian(link = "identity"))}
+ 
+  \CommentTok{# logistic model using glm()}
+  \CommentTok{# glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = binomial(link = "logit"))}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{family} argument sets the error distribution for the model,
+while the \texttt{link} function argument relates the predictors to the
+expected value of the outcome.
+
 Let's predict the probability of being diagnosed with hypertension based
-on age, sex, sleep, and bmi
+on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3393,7 +3631,7 @@ on age, sex, sleep, and bmi
 \NormalTok{  NH11}\OperatorTok{$}\NormalTok{hypev <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(NH11}\OperatorTok{$}\NormalTok{hypev, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\StringTok{"2 No"}\NormalTok{, }\StringTok{"1 Yes"}\NormalTok{))}
 
   \CommentTok{# run our regression model}
-\NormalTok{  hyp_out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{sleep }\OperatorTok{+}\StringTok{ }\NormalTok{bmi,}
+\NormalTok{  hyp_out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{sleep }\OperatorTok{+}\StringTok{ }\NormalTok{bmi,}
                 \DataTypeTok{data =}\NormalTok{ NH11, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
   \KeywordTok{summary}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
@@ -3403,13 +3641,16 @@ on age, sex, sleep, and bmi
 coefficients}\label{logistic-regression-coefficients}
 
 Generalized linear models use link functions, so raw coefficients are
-difficult to interpret. For example, the age coefficient of .06 in the
-previous model tells us that for every one unit increase in age, the log
-odds of hypertension diagnosis increases by 0.06. Since most of us are
-not used to thinking in log odds this is not too helpful!
+difficult to interpret. For example, the \texttt{age} coefficient of .06
+in the previous model tells us that for every one unit increase in
+\texttt{age}, the log odds of hypertension diagnosis increases by 0.06.
+Since most of us are not used to thinking in log odds this is not too
+helpful!
+
+IMAGE HERE FOR SCALES
 
 One solution is to transform the coefficients to make them easier to
-interpret
+interpret. Here we transform into odds ratios:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3428,7 +3669,10 @@ compute quantities of interest for us.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out)}
-  \KeywordTok{plot}\NormalTok{(eff, }\DataTypeTok{type =} \StringTok{"response"}\NormalTok{)}
+  \KeywordTok{plot}\NormalTok{(eff, }\DataTypeTok{type =} \StringTok{"response"}\NormalTok{) }\CommentTok{# "response" refers to the probability scale}
+
+  \CommentTok{# generate a sequence at which to get predictions of the outcome}
+  \KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)}
 
   \CommentTok{# override defaults}
 \NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{age_p =} \KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
@@ -3497,10 +3741,7 @@ overview}\label{multilevel-modeling-overview}
   Multi-level (AKA hierarchical) models are a type of
   \textbf{mixed-effects} models
 \item
-  Used to model variation due to group membership where the goal is to
-  generalize to a population of groups
-\item
-  Can model different intercepts and/or slopes for each group
+  Used to model data that are clustered
 \item
   Mixed-effecs models include two types of predictors:
   \textbf{fixed-effects} and \textbf{random effects}
@@ -3551,9 +3792,13 @@ structure, but no fixed-effects predictors).
 
 \begin{Shaded}
 \begin{Highlighting}[]
+  \CommentTok{# anatomy of lmer() function}
+  \CommentTok{# lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), data=mydata, REML = FALSE)}
+
+
   \CommentTok{# null model, grouping by school but not fixed effects.}
-\NormalTok{  Norm1 <-}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school),}
-                \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{  Norm1 <-}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school), }
+              \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
   \KeywordTok{summary}\NormalTok{(Norm1)}
 \end{Highlighting}
 \end{Shaded}
@@ -3564,17 +3809,7 @@ level.
 There is no consensus on how to calculate p-values for MLMs; hence why
 they are omitted from the \texttt{lme4} output. But, if you really need
 p-values, the \texttt{lmerTest} package will calculate p-values for you
-(using the Satterthwaite approximation) and you can use the same model
-syntax:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{# install.packages("lmerTest")}
-\NormalTok{  Norm1_test <-}\StringTok{ }\NormalTok{lmerTest}\OperatorTok{::}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school),}
-                      \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
-  \KeywordTok{summary}\NormalTok{(Norm1_test)}
-\end{Highlighting}
-\end{Shaded}
+(using the Satterthwaite approximation).
 
 \subsection{Adding fixed-effects
 predictors}\label{adding-fixed-effects-predictors}
@@ -3782,7 +4017,7 @@ steps 1-3. Is this model significantly better than the model with
   \KeywordTok{plot}\NormalTok{(states_en_met_pop_wst)}
   \KeywordTok{cor}\NormalTok{(states_en_met_pop_wst, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{)}
 
-\NormalTok{  mod_en_met_pop_waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{+}\StringTok{ }\NormalTok{pop }\OperatorTok{+}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
+\NormalTok{  mod_en_met_pop_waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{metro }\OperatorTok{+}\StringTok{ }\NormalTok{pop }\OperatorTok{+}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
   \KeywordTok{summary}\NormalTok{(mod_en_met_pop_waste)}
   \KeywordTok{anova}\NormalTok{(mod_en_met, mod_en_met_pop_waste)}
 \end{Highlighting}
@@ -3802,7 +4037,7 @@ Use the states data set.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod_en_metro_by_waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
+\NormalTok{  mod_en_metro_by_waste <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3817,7 +4052,7 @@ Use the states data set.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod_en_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste }\OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states)}
+\NormalTok{  mod_en_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{metro }\OperatorTok{*}\StringTok{ }\NormalTok{waste }\OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states)}
   \KeywordTok{anova}\NormalTok{(mod_en_region)}
 \end{Highlighting}
 \end{Shaded}
@@ -3847,7 +4082,7 @@ least some of the variables before fitting the model.
                     \DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
                     \DataTypeTok{r_maritl =} \KeywordTok{droplevels}\NormalTok{(r_maritl))}
 
-\NormalTok{  mod_wk_age_mar <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(everwrk }\OperatorTok{~}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{r_maritl, }\DataTypeTok{data =}\NormalTok{ NH11,}
+\NormalTok{  mod_wk_age_mar <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(everwrk }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{r_maritl, }\DataTypeTok{data =}\NormalTok{ NH11,}
                         \DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
 
   \KeywordTok{summary}\NormalTok{(mod_wk_age_mar)}
@@ -3915,7 +4150,7 @@ is named \texttt{GRP}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod_grp1 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+\NormalTok{  mod_grp1 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
   \KeywordTok{summary}\NormalTok{(mod_grp1)}
 \end{Highlighting}
 \end{Shaded}
@@ -3932,7 +4167,7 @@ is named \texttt{GRP}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod_grp2 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+\NormalTok{  mod_grp2 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
   \KeywordTok{anova}\NormalTok{(mod_grp1, mod_grp2)}
 \end{Highlighting}
 \end{Shaded}
@@ -3986,6 +4221,8 @@ These workshops are a work in progress, please provide any feedback to:
 \item
   R \texttt{ggplot2} package
 \item
+  Geometric objects and aesthetics
+\item
   Setup basic plots
 \item
   Add and modify scales and legends
@@ -3996,6 +4233,17 @@ These workshops are a work in progress, please provide any feedback to:
 \end{itemize}
 
 \section{Setup}\label{setup-2}
+
+\subsection{Class Structure}\label{class-structure-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Informal --- Ask questions at any time. Really!
+\item
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
+\end{itemize}
 
 \subsection{Software \& materials}\label{software-materials-2}
 
@@ -4040,22 +4288,72 @@ Start RStudio and create a new project:
   version of the \texttt{.Rmd} file.
 \end{itemize}
 
+\subsection{Installing \& using R
+packages}\label{installing-using-r-packages-2}
+
+R is a modular environment that is extended by the use of
+\textbf{packages}. Packages are collections of functions or commands
+that are designed to perform specific tasks (e.g., fit a type of
+regression model). A large number of contributed packages are available
+(\textgreater{} 15,000).
+
+Using an R package is a \textbf{two step process}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Install the package onto your computer using the
+  \texttt{install.packages()} function. This only needs to be done the
+  \textbf{first time} you use the package.
+\item
+  Load the package into your R session's search path using the
+  \texttt{library()} function. This needs to be done \textbf{each time}
+  you use the package.
+\end{enumerate}
+
 While R's built-in packages are powerful, in recent years there has been
 a big surge in well-designed \emph{contributed packages} for R. In
 particular, a collection of R packages called
 \href{https://www.tidyverse.org/}{tidyverse} have been designed
 specifically for data science. All packages included in
 \texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now, together with the \texttt{scales}
-and \texttt{ggrepel} packages that provide additional functionality to
-\texttt{ggplot2}.
+data structures. This philosopy is rooted in the idea of ``tidy data'':
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidy_data.png}
+\caption{}
+\end{figure}
+
+We will use \texttt{tidyverse} packages throughout the workshop, so
+let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
-\KeywordTok{library}\NormalTok{(tidyverse)}
 
+\CommentTok{# when you install tidyverse for the first time you will be asked}
+\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
+
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+A typical workflow for using \texttt{tidyverse} packages looks like
+this:
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidy_workflow.png}
+\caption{}
+\end{figure}
+
+The \texttt{ggplot2} package is contained within \texttt{tidyverse}, but
+we also want to install two additional packages, \texttt{scales} and
+\texttt{ggrepel}, which provide additional functionality.
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{# install.packages("scales")}
 \KeywordTok{library}\NormalTok{(scales)}
 
@@ -4079,18 +4377,7 @@ The following RStudio, \texttt{tidyverse}, `\texttt{ggplot2}, and
 \texttt{rmarkdown} cheatsheets will provide a useful reference:
 \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
-\subsection{Goals}\label{goals-1}
-
-Class Structure and Organization:
-
-\begin{itemize}
-\tightlist
-\item
-  Ask questions at any time. Really!
-\item
-  Collaboration is encouraged - please spend a minute introducing
-  yourself to your neighbors!
-\end{itemize}
+\subsection{Prerequisites}\label{prerequisites-2}
 
 This is an intermediate R course:
 
@@ -4100,10 +4387,48 @@ This is an intermediate R course:
   Assumes working knowledge of R
 \item
   Relatively fast-paced
-\item
-  Focus is on \texttt{ggplot2} graphics; other packages will not be
-  covered
 \end{itemize}
+
+\subsection{Learning Outcomes}\label{learning-outcomes-2}
+
+\begin{itemize}
+\tightlist
+\item
+  R \texttt{ggplot2} graphics syntax
+\item
+  Grammar of graphics
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Aesthetics
+  \item
+    Geometric objects
+  \item
+    Scales
+  \item
+    Faceting
+  \end{itemize}
+\item
+  Combining all the above together in a single plot
+\end{itemize}
+
+\subsection{Workshop Outline}\label{workshop-outline-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Basic plots, \textbf{aesthetic mapping and inheritance}
+\item
+  Tailoring \textbf{statistical transformations} to particular plots
+\item
+  \textbf{Modifying scales} to change axes and add labels
+\item
+  \textbf{Faceting} to create many small plots
+\item
+  Changing plot \textbf{themes}
+\end{enumerate}
 
 \section{\texorpdfstring{Why
 \texttt{ggplot2}?}{Why ggplot2?}}\label{why-ggplot2}
@@ -4116,13 +4441,9 @@ packages. Advantages of \texttt{ggplot2} include:
 \item
   consistent underlying \texttt{grammar\ of\ graphics} (Wilkinson, 2005)
 \item
-  plot specification at a high level of abstraction
-\item
-  very flexible
+  very flexible --- plot specification at a high level of abstraction
 \item
   theme system for polishing plot appearance
-\item
-  mature and complete graphics system
 \item
   many users, active mailing list
 \end{itemize}
@@ -4184,8 +4505,6 @@ Compared to base graphics, \texttt{ggplot2}
   is less verbose for complex / custom graphics
 \item
   does not have methods (data should always be in a \texttt{data.frame})
-\item
-  uses a different system for adding plot elements
 \item
   has sensible defaults for generating legends
 \end{itemize}
@@ -4365,18 +4684,19 @@ on the plot:
 
 A plot constructed with \texttt{ggplot()} can have more than one geom.
 In that case the mappings established in the \texttt{ggplot()} call are
-plot defaults that can be added to or overridden. Our plot could use a
-regression line:
+plot defaults that can be added to or overridden --- this is referred to
+as \textbf{aesthetic inheritance}. Our plot could use a regression line:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# get predicted values from a linear regression}
 \NormalTok{hp2001Q1}\OperatorTok{$}\NormalTok{pred_SC <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(Structure_Cost }\OperatorTok{~}\StringTok{ }\KeywordTok{log}\NormalTok{(Land_Value), }\DataTypeTok{data =}\NormalTok{ hp2001Q1) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{predict}\NormalTok{()}
 
 \NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(hp2001Q1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(Land_Value), }\DataTypeTok{y =}\NormalTok{ Structure_Cost))}
 
-\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home_Value)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred_SC))}
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home_Value)) }\OperatorTok{+}\StringTok{ }\CommentTok{# values for x and y are inherited from the ggplot() call above}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred_SC)) }\CommentTok{# add predicted values to the plot overriding the y values from the ggplot() call above}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4416,9 +4736,38 @@ Each geom accepts a particular set of mappings; for example
 \subsection{Aesthetic mapping VS
 assignment}\label{aesthetic-mapping-vs-assignment}
 
-Note that variables are mapped to aesthetics with the \texttt{aes()}
-function, while fixed aesthetics are set outside the \texttt{aes()}
-call. This sometimes leads to confusion, as in this example:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Variables are \textbf{mapped} to aesthetics within the \texttt{aes()}
+  function
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{size =}\NormalTok{ Home_Value))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Constants are \textbf{fixed} to aesthetics outside the \texttt{aes()}
+  call
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This sometimes leads to confusion, as in this example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4570,7 +4919,7 @@ Arguments to \texttt{stat\_} functions can be passed through
 order to change it you have to first determine which stat the geom uses,
 then determine the arguments to that stat.
 
-For example, here is the default histogram of Home\_Value:
+For example, here is the default histogram of \texttt{Home\_Value}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4716,10 +5065,11 @@ Aesthetic mapping (i.e., with \texttt{aes()}) only says that a variable
 should be mapped to an aesthetic. It doesn't say \emph{how} that should
 happen. For example, when mapping a variable to \emph{shape} with
 \texttt{aes(shape\ =\ x)} you don't say \emph{what} shapes should be
-used. Similarly, \texttt{aes(color\ =\ z)} doesn't say \emph{what}
-colors should be used. Describing what colors/shapes/sizes etc. to use
-is done by modifying the corresponding \emph{scale}. In \texttt{ggplot2}
-scales include
+used. Similarly, \texttt{aes(color\ =\ y)} doesn't say \emph{what}
+colors should be used. Also, \texttt{aes(size\ =\ z)} doesn't say
+\emph{what} sizes should be used. Describing what colors/shapes/sizes
+etc. to use is done by modifying the corresponding \emph{scale}. In
+\texttt{ggplot2} scales include
 
 \begin{itemize}
 \tightlist
@@ -4798,18 +5148,6 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-Now mute the colors:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p4 }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
-                         \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
-                         \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"'76"}\NormalTok{, }\StringTok{"'94"}\NormalTok{, }\StringTok{"'13"}\NormalTok{),}
-                         \DataTypeTok{low =} \KeywordTok{muted}\NormalTok{(}\StringTok{"blue"}\NormalTok{), }\DataTypeTok{high =} \KeywordTok{muted}\NormalTok{(}\StringTok{"red"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
 \subsection{Using different color
 scales}\label{using-different-color-scales}
 
@@ -4823,8 +5161,8 @@ different colors.
 \StringTok{  }\KeywordTok{scale_color_gradient2}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                         \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
                         \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"'76"}\NormalTok{, }\StringTok{"'94"}\NormalTok{, }\StringTok{"'13"}\NormalTok{),}
-                        \DataTypeTok{low =} \KeywordTok{muted}\NormalTok{(}\StringTok{"blue"}\NormalTok{),}
-                        \DataTypeTok{high =} \KeywordTok{muted}\NormalTok{(}\StringTok{"red"}\NormalTok{),}
+                        \DataTypeTok{low =} \StringTok{"blue"}\NormalTok{,}
+                        \DataTypeTok{high =} \StringTok{"red"}\NormalTok{,}
                         \DataTypeTok{mid =} \StringTok{"gray60"}\NormalTok{,}
                         \DataTypeTok{midpoint =} \DecValTok{1994}\NormalTok{)}
 \end{Highlighting}
@@ -4911,7 +5249,8 @@ list of available scales see
 \tightlist
 \item
   Modify the color scale to use specific values of your choosing. Hint:
-  see \texttt{?scale\_color\_manual} and
+  see \texttt{?scale\_color\_manual}. NOTE: you can specify color by
+  name (e.g., ``blue'') or by ``Hex value'' --- see
   \url{https://www.color-hex.com/}.
 \end{enumerate}
 
@@ -5034,6 +5373,8 @@ example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# theme(thing_to_modify = modifying_function(arg1, arg2))}
+
 \NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"turquoise"}\NormalTok{))  }
 \end{Highlighting}
@@ -5057,7 +5398,7 @@ You can create new themes, as in the following example:
 \begin{Highlighting}[]
 \NormalTok{theme_new <-}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"black"}\NormalTok{),}
-        \DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{, }\DataTypeTok{family =} \StringTok{"Serif"}\NormalTok{, }\DataTypeTok{color =} \StringTok{"ivory"}\NormalTok{),}
+        \DataTypeTok{text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{, }\DataTypeTok{color =} \StringTok{"ivory"}\NormalTok{),}
         \DataTypeTok{axis.text.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"purple"}\NormalTok{),}
         \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"red"}\NormalTok{),}
         \DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"pink"}\NormalTok{),}
@@ -5091,6 +5432,19 @@ How do I do that?}
 
 \textbf{Wrong}
 
+Fixing, rather than mapping, the color aesthetic:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Produces verbose code when using many colors
+\item
+  Results in no legend being produced
+\item
+  Means you cannot change color scales
+\end{enumerate}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{housing_byyear <-}\StringTok{ }
@@ -5107,6 +5461,12 @@ How do I do that?}
 \end{Shaded}
 
 \textbf{Right}
+
+To avoid these pitfalls, we need to \textbf{map} our data to the color
+aesthetic. We can do this by \textbf{reshaping} our data from
+\textbf{wide format} to \textbf{long format}:
+
+IMAGE HERE
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5437,7 +5797,8 @@ dataset:
 \tightlist
 \item
   Modify the color scale to use specific values of your choosing. Hint:
-  see \texttt{?scale\_color\_manual} and
+  see \texttt{?scale\_color\_manual}. NOTE: you can specify color by
+  name (e.g., ``blue'') or by ``Hex value'' --- see
   \url{https://www.color-hex.com/}.
 \end{enumerate}
 
@@ -5448,12 +5809,7 @@ dataset:
 \KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Corruption Perception Index"}\NormalTok{) }\OperatorTok{+}
 \KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Human Development Index"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Region of the world"}\NormalTok{,}
-                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"#24576D"}\NormalTok{,}
-                                \StringTok{"#099DD7"}\NormalTok{,}
-                                \StringTok{"#28AADC"}\NormalTok{,}
-                                \StringTok{"#248E84"}\NormalTok{,}
-                                \StringTok{"#F2583F"}\NormalTok{,}
-                                \StringTok{"#96503F"}\NormalTok{))}
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"orange"}\NormalTok{, }\StringTok{"grey"}\NormalTok{, }\StringTok{"brown"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5640,6 +5996,17 @@ These workshops are a work in progress, please provide any feedback to:
 
 \section{Setup}\label{setup-3}
 
+\subsection{Class Structure}\label{class-structure-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Informal --- Ask questions at any time. Really!
+\item
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
+\end{itemize}
+
 \subsection{Software \& materials}\label{software-materials-3}
 
 You should have R and RStudio installed --- if not:
@@ -5683,22 +6050,67 @@ Start RStudio and create a new project:
   version of the \texttt{.Rmd} file.
 \end{itemize}
 
+\subsection{Installing \& using R
+packages}\label{installing-using-r-packages-3}
+
+R is a modular environment that is extended by the use of
+\textbf{packages}. Packages are collections of functions or commands
+that are designed to perform specific tasks (e.g., fit a type of
+regression model). A large number of contributed packages are available
+(\textgreater{} 15,000).
+
+Using an R package is a \textbf{two step process}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Install the package onto your computer using the
+  \texttt{install.packages()} function. This only needs to be done the
+  \textbf{first time} you use the package.
+\item
+  Load the package into your R session's search path using the
+  \texttt{library()} function. This needs to be done \textbf{each time}
+  you use the package.
+\end{enumerate}
+
 While R's built-in packages are powerful, in recent years there has been
 a big surge in well-designed \emph{contributed packages} for R. In
 particular, a collection of R packages called
 \href{https://www.tidyverse.org/}{tidyverse} have been designed
 specifically for data science. All packages included in
 \texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
+data structures. This philosopy is rooted in the idea of ``tidy data'':
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidy_data.png}
+\caption{}
+\end{figure}
+
+We will use \texttt{tidyverse} packages throughout the workshop, so
+let's install them now:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# install.packages("tidyverse")}
+
+\CommentTok{# when you install tidyverse for the first time you will be asked}
+\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
+
 \KeywordTok{library}\NormalTok{(tidyverse)}
-\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{# installed with tidyverse}
+
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{# installed with tidyverse, but not loaded into R session}
 \end{Highlighting}
 \end{Shaded}
+
+A typical workflow for using \texttt{tidyverse} packages looks like
+this:
+
+\begin{figure}
+\centering
+\includegraphics{R/Rintro/images/tidy_workflow.png}
+\caption{}
+\end{figure}
 
 We can also install the \texttt{rmarkdown} package, which will allow us
 to combine our text and code into a formatted document at the end of the
@@ -5715,54 +6127,44 @@ The following RStudio, \texttt{tidyverse}, and \texttt{rmarkdown}
 cheatsheets will provide a useful reference:
 \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 
-\subsection{Goals}\label{goals-2}
+\subsection{Prerequisites}\label{prerequisites-3}
 
-Class Structure and Organization:
-
-\begin{itemize}
-\tightlist
-\item
-  Ask questions at any time. Really!
-\item
-  Collaboration is encouraged - please spend a minute introducing
-  yourself to your neighbors!
-\end{itemize}
-
-This is an intermediate R course:
+This is an intermediate / advanced R course:
 
 \begin{itemize}
 \tightlist
 \item
-  Assumes working knowledge of R
+  Assumes intermediate knowledge of R
 \item
   Relatively fast-paced
-\item
-  Data scientists are known and celebrated for modeling and visually
-  displaying information, but down in the data science engine room there
-  is a lot of less glamorous work to be done. Before data can be used
-  effectively it must often be cleaned, corrected, and reformatted. This
-  workshop introduces the basic tools needed to make your data behave,
-  including data reshaping, regular expressions and other text
-  manipulation tools.
 \end{itemize}
 
-\section{Example project}\label{example-project}
+\subsection{Learning Outcomes}\label{learning-outcomes-3}
 
-It is common for data to be made available on a website somewhere,
-either by a government agency, research group, or other organizations
-and entities. Often the data you want is spread over many files, and
-retrieving it all one file at a time is tedious and time consuming. Such
-is the case with the baby names data we will be using today.
+\begin{itemize}
+\tightlist
+\item
+  Understanding R data structures
+\item
+  Iteration over data structures
+\item
+  Writing functions
+\item
+  Regular expressions (regex)
+\item
+  Reshaping data
+\end{itemize}
+
+\subsection{Workshop Outline}\label{workshop-outline-2}
+
+\textbf{Example data}
 
 The UK \href{https://www.ons.gov.uk}{Office for National Statistics}
-provides yearly data on the most popular baby names going back to 1996.
+provides yearly data on the most popular boys names going back to 1996.
 The data is provided separately for boys and girls and is stored in
 Excel spreadsheets.
 
-I have downloaded all the excel files containing boys names data from
-\url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsboys}.
-
-\subsection{Our goal}\label{our-goal}
+\textbf{Overall Goal}
 
 Our mission is to extract and graph the \textbf{top 100} boys names in
 England and Wales for every year since 1996.
@@ -5773,7 +6175,7 @@ England and Wales for every year since 1996.
 \caption{goal}
 \end{figure}
 
-\section{Exercise 0}\label{exercise-0-3}
+\textbf{Exercise 0: Problems with the data}
 
 There are several things that make our goal challenging. Let's take a
 look at the data:
@@ -5795,6 +6197,49 @@ look at the data:
   In what ways is the format different between the two files?
 \end{enumerate}
 
+\textbf{Steps to accomplish this goal:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Explore example data to highlight problems (see Exercise 0)}
+\item
+  \textbf{Reading data from multiple Excel worksheets into R data
+  frames}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    list Excel file names in a character vector
+  \item
+    read Excel sheetnames into a list of character vectors
+  \item
+    read Excel data for ``Table 1'' only into a list of data frames
+  \end{itemize}
+\item
+  \textbf{Clean up data within each R data frame}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    sort and merge columns within each data frame inside the list
+  \item
+    drop missing values from each data frame
+  \item
+    reshape format from wide to long
+  \end{itemize}
+\item
+  \textbf{Organize the data into one large data frame and store it}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    create a year column within each data frame in the list
+  \item
+    append all the data frames in the list into one large data frame
+  \end{itemize}
+\end{enumerate}
+
 NOTE: please make sure you close the Excel files before continuing with
 the workshop, otherwise you may encounter issues with file paths when
 reading the data into R.
@@ -5811,7 +6256,7 @@ Each file also contains additional supplemental worksheets that we are
 not currently interested in. As noted above, the worksheet of interest
 differs from year to year, but always has ``Table 1'' in the sheet name.
 
-The first step is to get a vector of file names.
+The first step is to get a character vector of file names.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5864,8 +6309,9 @@ gives us a more consistent alternative, so we'll use that.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{map}\NormalTok{(boy_file_names, excel_sheets)}
 \CommentTok{# map(object to iterate over, function that does task within each iteration)}
+
+\KeywordTok{map}\NormalTok{(boy_file_names, excel_sheets)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5878,13 +6324,30 @@ containing ``Table 1''.
 Base R provides some string manipulation capabilities (see
 \texttt{?regex}, \texttt{?sub} and \texttt{?grep}), but we will use the
 \texttt{stringr} package within \texttt{tidyverse} because it is more
-user-friendly. \texttt{stringr} provides functions to \emph{detect},
-\emph{locate}, \emph{extract}, \emph{match}, \emph{replace},
-\emph{combine} and \emph{split} strings (among other things).
+user-friendly. \texttt{stringr} provides functions to:
 
-Here we want to detect the pattern ``Table 1'', and only return elements
-with this pattern. We can do that using the \texttt{str\_subset()}
-function:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  detect
+\item
+  locate
+\item
+  extract
+\item
+  match
+\item
+  replace
+\item
+  combine
+\item
+  split
+\end{enumerate}
+
+strings. Here we want to detect the pattern ``Table 1'', and only return
+elements with this pattern. We can do that using the
+\texttt{str\_subset()} function:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5898,7 +6361,9 @@ function:
 \end{enumerate}
 
 If you are not familiar with regular expressions (regex),
-\url{http://www.regexr.com/} is a good place to start.
+\url{http://www.regexr.com/} is a good place to start. Regex is
+essentially just a programmatic way of doing operations like ``find'' or
+``find and replace'' in MS Word or Excel.
 
 Now that we know how to filter character vectors using
 \texttt{str\_subset()} we can identify the correct sheet in a particular
@@ -5906,6 +6371,8 @@ Excel file. For example,
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# str_subset(character_vector, regex_pattern)}
+
 \CommentTok{# nesting functions}
 \KeywordTok{str_subset}\NormalTok{(}\KeywordTok{excel_sheets}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{]), }\DataTypeTok{pattern =} \StringTok{"Table 1"}\NormalTok{)}
 
@@ -5923,8 +6390,8 @@ The \texttt{map*} functions are useful when you want to apply a function
 to a list or vector of inputs and obtain the return values for each
 input. This is very convenient when a function already exists that does
 exactly what you want. In the examples above we mapped the
-\texttt{excel\_sheets()} function to the elements of a vector containing
-file names.
+\texttt{excel\_sheets()} function to the elements of a character vector
+containing file names.
 
 However, there is no function that both:
 
@@ -5962,6 +6429,23 @@ easy. Functions require 3 elements:
 \CommentTok{#   return( results ) }
 \CommentTok{# \}}
 
+\NormalTok{myfun <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  x}\OperatorTok{^}\DecValTok{2}
+\NormalTok{\}}
+
+\KeywordTok{myfun}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+
+\NormalTok{myfun2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y) \{}
+\NormalTok{  z <-}\StringTok{ }\NormalTok{x}\OperatorTok{^}\DecValTok{2} \OperatorTok{+}\StringTok{ }\NormalTok{y}
+  \KeywordTok{return}\NormalTok{(z)}
+\NormalTok{\}}
+
+\KeywordTok{myfun}\NormalTok{(}\DataTypeTok{x=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{y=}\DecValTok{42}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{get_data_sheet_name <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, term)\{}
   \KeywordTok{excel_sheets}\NormalTok{(file) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\DataTypeTok{pattern =}\NormalTok{ term)}
 \NormalTok{\}}
@@ -5980,9 +6464,9 @@ Now we can map this new function over our vector of file names.
 \CommentTok{#     function that does task within each iteration, }
 \CommentTok{#     arguments to previous function)}
  
-\KeywordTok{map}\NormalTok{(boy_file_names,}
-\NormalTok{    get_data_sheet_name,}
-    \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{)}
+\KeywordTok{map}\NormalTok{(boy_file_names,      }\CommentTok{# list object}
+\NormalTok{    get_data_sheet_name, }\CommentTok{# function}
+    \DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{)    }\CommentTok{# argument to previous function}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6009,15 +6493,20 @@ the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 \end{Highlighting}
 \end{Shaded}
 
+Note that R has added a suffix to each column name \texttt{...1},
+\texttt{...2}, \texttt{...3}, etc. because duplicate names are not
+allowed, so the suffix serves to disambiguate. The trailing number
+represents the index of the column.
+
 \section{Exercise 1}\label{exercise-1-3}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Write a function that takes a file name as an argument and reads the
-  worksheet containing ``Table 1'' from that file. Don't forget to skip
-  the first 6 rows.
+  Write a function called \texttt{read\_boys\_names} that takes a file
+  name as an argument and reads the worksheet containing ``Table 1''
+  from that file. Don't forget to skip the first 6 rows.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6046,8 +6535,9 @@ the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Use the \texttt{map()} function to read data from all the Excel files,
-  using the function you wrote in step 1.
+  Use the \texttt{map()} function to create a list of data frames called
+  \texttt{boysNames}\\
+  from all the Excel files, using the function you wrote in step 1.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6125,8 +6615,98 @@ the \texttt{select()} function:
 \end{Highlighting}
 \end{Shaded}
 
-Why are we using \textbf{double brackets} \texttt{{[}{[}} to index this
-list object?
+\subsection{R data types and
+structures}\label{r-data-types-and-structures}
+
+We've now encountered several different data types and data structures.
+Let's take a step back and survey the options available in R.
+
+\textbf{Data types:}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Type & Description\tabularnewline
+\midrule
+\endhead
+1. character & ``a'', ``swc''\tabularnewline
+2. numeric (decimal) & 2, 15.5\tabularnewline
+3. integer & 2L (the L tells R to store this as an
+integer)\tabularnewline
+4. logical & TRUE, FALSE\tabularnewline
+5. complex & 1+4i (complex numbers with real and imaginary
+parts)\tabularnewline
+\bottomrule
+\end{longtable}
+
+There are two fundamental data structures in R: 1) vectors, and 2)
+lists.
+
+\textbf{Homogeneous data structures:}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
+Structure\strut
+\end{minipage} & \begin{minipage}[b]{0.80\columnwidth}\raggedright\strut
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+1. atomic vector\strut
+\end{minipage} & \begin{minipage}[t]{0.80\columnwidth}\raggedright\strut
+contains elements of the same \textbf{type}, which can be one of these
+\textbf{modes}: character, numeric, integer, logical\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+2. array\strut
+\end{minipage} & \begin{minipage}[t]{0.80\columnwidth}\raggedright\strut
+an atomic vector with attributes giving dimensions (1, 2, or
+\textgreater{}2)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+3. matrix\strut
+\end{minipage} & \begin{minipage}[t]{0.80\columnwidth}\raggedright\strut
+an array with 2 dimesions\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+4. factor\strut
+\end{minipage} & \begin{minipage}[t]{0.80\columnwidth}\raggedright\strut
+an atomic integer vector containing only predefined values, storing
+categorical data\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Heterogeneous data structures:}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
+Structure\strut
+\end{minipage} & \begin{minipage}[b]{0.80\columnwidth}\raggedright\strut
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+5. list\strut
+\end{minipage} & \begin{minipage}[t]{0.80\columnwidth}\raggedright\strut
+a container whose elements are not restricted to a single mode and can
+encompass any mixture of data types\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+6. data.frame\strut
+\end{minipage} & \begin{minipage}[t]{0.80\columnwidth}\raggedright\strut
+a rectangular list with elements (columns) containing atomic vectors of
+equal length\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Now that we know about data structures more generally, let's focus on
+the list structure we created for \texttt{boysNames}. Why are we using
+\textbf{double brackets} \texttt{{[}{[}} to index this list object?
 
 \begin{figure}
 \centering
@@ -6176,10 +6756,10 @@ within \texttt{tidyverse} to remove rows with missing values.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Write a function that takes a \texttt{data.frame} as an argument and
-  returns a modified version, which keeps only columns that include the
-  strings \texttt{Name} and \texttt{Count} in the column names. HINT:
-  see the \texttt{?matches} function.
+  Write a function called \texttt{namecount} that takes a data frame as
+  an argument and returns a modified version, which keeps only columns
+  that include the strings \texttt{Name} and \texttt{Count} in the
+  column names. HINT: see the \texttt{?matches} function.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6209,7 +6789,8 @@ within \texttt{tidyverse} to remove rows with missing values.
 \tightlist
 \item
   Use the \texttt{map()} function to each \texttt{data.frame} in the
-  list of boys names data.
+  list of boys names data and save it to the list called
+  \texttt{boysNames}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6230,8 +6811,11 @@ in this case we will be better off using a combination of
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{boysNames[[}\DecValTok{1}\NormalTok{]]}
-\KeywordTok{bind_rows}\NormalTok{(}\KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{),}
-          \KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{6}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{7}\NormalTok{))}
+
+\NormalTok{first_columns <-}\StringTok{ }\KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{)}
+\NormalTok{second_columns <-}\StringTok{ }\KeywordTok{select}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{6}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{7}\NormalTok{)}
+
+\KeywordTok{bind_rows}\NormalTok{(first_columns, second_columns)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6247,6 +6831,24 @@ first element of our \texttt{boysNames} list.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a new function called \texttt{cleanupNamesData} that:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion}
+
+\CommentTok{# 2) subset two separate data frames, with first and second set of `Name` and `Count` columns}
+
+\CommentTok{# 3) append the two datasets}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \tightlist
 \item
   Your task now is to use the \texttt{map()} function to apply each of
@@ -6273,7 +6875,7 @@ attention to organizing and storing the data.
 \subsection{\texorpdfstring{One \texttt{data.frame} for each
 year}{One data.frame for each year}}\label{one-data.frame-for-each-year}
 
-Right now we have a list of data.frames, one for each year. This is not
+Right now we have a list of data frames, one for each year. This is not
 a bad way to go. It has the advantage of making it easy to work with
 individual years; it has the disadvantage of making it more difficult to
 examine questions that require data from multiple years. To make the
@@ -6286,15 +6888,18 @@ list with the year it corresponds to.
 
 \KeywordTok{head}\NormalTok{(boy_file_names)}
 
+\CommentTok{# use regex to extract years from filenames}
 \NormalTok{Years <-}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(boy_file_names, }\DataTypeTok{pattern =} \StringTok{"[0-9]\{4\}"}\NormalTok{)}
+\NormalTok{Years}
 
-\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{# returns NULL}
+\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{# returns NULL - no names in the list}
 
-\KeywordTok{names}\NormalTok{(boysNames) <-}\StringTok{ }\NormalTok{Years }\CommentTok{# assigns years to list names}
+\CommentTok{# assign years to list names}
+\KeywordTok{names}\NormalTok{(boysNames) <-}\StringTok{ }\NormalTok{Years }
 
-\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{# returns the years}
+\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{# returns the years as list names}
 
-\KeywordTok{head}\NormalTok{(boysNames) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{(boysNames) }
+\KeywordTok{head}\NormalTok{(boysNames) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
@@ -6327,8 +6932,8 @@ information to each data.frame before flattening.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Turn the list of boys names data.frames into a single data.frame.
-  HINT: see \texttt{?bind\_rows}.
+  Turn the list of boys names \texttt{data.frames} into a single
+  \texttt{data.frame}. HINT: see \texttt{?bind\_rows}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -6358,8 +6963,21 @@ information to each data.frame before flattening.
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Finally, repeat the previous exercise, this time working with the data
-  in one big data.frame.
+  What were the five most popular names in 2013?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  How has the popularity of the name ``ANDREW'' changed over time?
 \end{enumerate}
 
 \begin{Shaded}
@@ -6516,7 +7134,7 @@ Working with the data in one big data.frame is often easier.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 1.  Turn the list of boys names data.frames into a single data.frame.}
+\NormalTok{## 1.  Turn the list of boys names `data.frames` into a single `data.frame`.}
 
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
 \KeywordTok{glimpse}\NormalTok{(boysNames)}
@@ -6530,8 +7148,7 @@ Working with the data in one big data.frame is often easier.
 \KeywordTok{write_csv}\NormalTok{(boysNames, }\StringTok{"dataSets/all/boys_names.csv"}\NormalTok{)}
 
 
-\NormalTok{## 3.  Finally, repeat the previous exercise, this time working with the data in one big data.frame.}
-\NormalTok{##     What were the five most popular names in 2013?}
+\NormalTok{## 3.  What were the five most popular names in 2013?   }
 
 \NormalTok{boysNames }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{filter}\NormalTok{(Year }\OperatorTok{==}\StringTok{ }\DecValTok{2013}\NormalTok{) }\OperatorTok{%>%}
@@ -6640,6 +7257,17 @@ These workshops are a work in progress, please provide any feedback to:
 
 \section{Setup}\label{setup-4}
 
+\subsection{Class Structure}\label{class-structure-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Informal --- Ask questions at any time. Really!
+\item
+  Collaboration is encouraged - please spend a minute introducing
+  yourself to your neighbors!
+\end{itemize}
+
 \subsection{Software \& Materials}\label{software-materials-4}
 
 \subsubsection{Install the Anaconda Python
@@ -6667,33 +7295,56 @@ materials}\label{download-workshop-materials}
   Mac) and move them to your desktop!
 \end{itemize}
 
-\subsubsection{Launch Jupyter Notebook}\label{launch-jupyter-notebook}
+\subsection{Prerequisites}\label{prerequisites-4}
 
-Start the \texttt{Anaconda\ Navigator} program in the usual way. Click
-the or \texttt{Launch} button under \texttt{Jupyter\ Notebook}.
+This is an introductory Python course:
 
-\subsection{Goals}\label{goals-3}
+\begin{itemize}
+\tightlist
+\item
+  Assumes no knowledge of Python
+\item
+  Relatively slow-paced
+\end{itemize}
 
-In this workshop you will * learn about the python package and
-application ecosystem, * learn python language basics and common idioms,
-and, * practice reading files and manipulating data in python.
+\subsection{Learning Outcomes}\label{learning-outcomes-4}
 
-A more general goal is to get you comfortable with Python so that it
-seems less scary and mystifying than it perhaps does now. Note that this
-is by no means a complete or thorough introduction to Python! It's just
-enough to get by.
+\begin{itemize}
+\tightlist
+\item
+  Python language basics and common idioms
+\item
+  Reading files and manipulating data in python
+\item
+  Iterating over data structures
+\item
+  Python package and application ecosystem
+\end{itemize}
 
-This workshop is relatively \emph{informal}, \emph{example-oriented},
-and \emph{hands-on}. We won't spend much time examining language
-features in detail. Instead we will work through an example, and learn
-some things about the language along the way.
+\subsection{Workshop Outline}\label{workshop-outline-3}
 
 As an example project we will analyze the text of Lewis Carroll's
-\emph{Alice's Adventures in Wonderland}. Among the questions we will use
-Python to answer are: * How many total and unique words are there? * How
-many chapters and paragraphs? * How many words are in each chapter, and
-what is the average words per chapter? * How many times is each main
-character mentioned?
+\emph{Alice's Adventures in Wonderland}. We will use Python to answer
+the following questions:
+
+DIVIDE INTO SECTIONS
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Reading data from a file
+\item
+  Working with nested structures
+\item
+  How many total and unique words are there?
+\item
+  How many chapters and paragraphs?
+\item
+  How many words are in each chapter, and what is the average words per
+  chapter?
+\item
+  How many times is each main character mentioned?
+\end{enumerate}
 
 \section{What is Python?}\label{what-is-python}
 
@@ -6707,43 +7358,43 @@ thought of as a \emph{platform} that runs a huge number and variety of
 packages. The language itself is mostly valuable because it makes it
 easy to create and use a large number of useful packages.
 
-\section{How can I interact with
-Python?}\label{how-can-i-interact-with-python}
-
 A number of interfaces designed to make it easy to interact with Python
 are available. The Anaconda distribution that we installed earlier
-includes both a web-based \emph{Jupyter Notebook} and a more
-conventional Integrated Development Environment called \emph{Spyder}.
-For this workshop I encourage you to use \emph{Jupyter Notebook}. In
+includes both a web-based \texttt{Jupyter\ Notebook} and a more
+conventional Integrated Development Environment called \texttt{Spyder}.
+For this workshop I encourage you to use \texttt{Jupyter\ Notebook}. In
 real life you should experiment and choose the interface that you find
 most comfortable.
 
-To get started, start the \emph{Jupyter Notebook} application, and
-navigate to the \emph{PythonIntro} directory you downloaded and
-extracted earlier. Start a new notebook by clicking
-\texttt{New\ =\textgreater{}\ Python\ 3} as shown below.
+\section{Launch Jupyter Notebook}\label{launch-jupyter-notebook}
 
-\begin{figure}
-\centering
-\includegraphics{Python/PythonIntro/images/notebook_new.png}
-\caption{notebook\_new.png}
-\end{figure}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Start the \texttt{Anaconda\ Navigator} program
+\item
+  Click the \texttt{Launch} button under \texttt{Jupyter\ Notebook}
+\item
+  Click \texttt{upload}, then in the pop-up window select the
+  \emph{PythonIntro} folder on the desktop
+\item
+  Open and upload 3 files (note, this is TWO steps):
+  \texttt{PythonIntro.ipnb}, \texttt{Alice\_in\_wonderland.txt}, and
+  \texttt{Characters.txt}
+\end{enumerate}
 
 A Jupyter Notebook contains one or more \emph{cells} containing notes or
 code. To insert a new cell click the \texttt{+} button in the upper
 left. To execute a cell, select it and press \texttt{Control+Enter} or
 click the \texttt{Run} button at the top.
 
-\section{Reading the text of Alice in Wonderland from a
-file}\label{reading-the-text-of-alice-in-wonderland-from-a-file}
+\section{Reading data from a file}\label{reading-data-from-a-file}
 
 Reading information from a file is the first step in many projects, so
 we'll start there. The workshop materials you downloaded earlier include
 a file named \texttt{Alice\_in\_wonderland.txt} which contains the text
 of Lewis Carroll's \emph{Alice's Adventures in Wonderland}.
-
-We can open a connection to a file using the \emph{open} function, and
-store the result using the \texttt{=} operator.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6751,14 +7402,52 @@ store the result using the \texttt{=} operator.
 \end{Highlighting}
 \end{Shaded}
 
-The name on the left of the equals sign (\texttt{alice\_file}) is one
-that we chose. When choosing names, \emph{start with a letter}, and use
-only \emph{letters}, \emph{numbers} and \emph{underscores}.
+\subsection{Python functions}\label{python-functions}
 
-The \texttt{alice\_file} object we just created does \emph{not} contain
-the contents of \texttt{Alice\_in\_wonderland.txt}. It a representation
-in Python of the \emph{file itself} rather than the \emph{contents} of
-the file.
+In Python functions perform tasks, and take the form:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# function_name(arg1, arg2, arg3, ... argn)}
+\end{Highlighting}
+\end{Shaded}
+
+where \texttt{arg1} etc. are arguments to the function.
+
+\textbf{The \texttt{open()} function}
+
+We can use the \texttt{open()} function to create a file \textbf{object}
+that makes a \textbf{connection} to the file. This means that the
+\texttt{alice\_file} object name we just created does \emph{not} contain
+the contents of \texttt{Alice\_in\_wonderland.txt}. It is a
+representation in Python of the \emph{file itself} rather than the
+\emph{contents} of the file.
+
+\subsection{Assignment}\label{assignment-1}
+
+In Python we can assign a result to an name using the \texttt{=}
+operator.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# objectName = thing_to_assign}
+\NormalTok{x }\OperatorTok{=} \DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+The name on the left of the equals sign (\texttt{alice\_file}) is one
+that we chose. When choosing names, they must:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  start with a \emph{letter}
+\item
+  use only \emph{letters}, \emph{numbers} and \emph{underscores}
+\end{enumerate}
+
+\subsection{Object methods}\label{object-methods}
 
 The \texttt{alice\_file} object provides \emph{methods} that we can use
 to do things with it. Methods are invoked using syntax that looks like
@@ -6767,6 +7456,7 @@ acting on an object by typing the object's name followed by a \texttt{.}
 and pressing the \texttt{tab} key. For example, typing
 \texttt{alice\_file.} and pressing \texttt{tab} will display a list of
 methods as shown below.
+
 \includegraphics{Python/PythonIntro/images/notebook_file_completion.png}.
 
 Among the methods we have for doing things with our \texttt{alice\_file}
@@ -6797,17 +7487,17 @@ object, and learn some more things about Python along the way.
 \section{Counting chapters, lines, \&
 words}\label{counting-chapters-lines-words}
 
-Now that we have the text we can start answering some questions about
+Now that we have the text, we can start answering some questions about
 it. To begin with, how many words does it contain? To answer this
-question we can split the text up so there is one element per word, and
+question, we can split the text up so there is one element per word, and
 then count the number of words.
 
 \subsection{Splitting a string into a list of
 words}\label{splitting-a-string-into-a-list-of-words}
 
-How do we figure out how to split strings in Python? By asking Python
+How do we figure out how to split strings in Python? We can ask Python
 what our \texttt{alice\_txt} object is and what methods it provides. We
-can ask Python what things are using the \texttt{type} function, like
+can ask Python what things are using the \texttt{type()} function, like
 this:
 
 \begin{Shaded}
@@ -6835,8 +7525,9 @@ counting the number of elements in the result.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{alice_words }\OperatorTok{=}\NormalTok{ alice_txt.split()}
-\BuiltInTok{len}\NormalTok{(alice_words)}
+\NormalTok{alice_words }\OperatorTok{=}\NormalTok{ alice_txt.split() }\CommentTok{# returns a list (we talk about lists below)}
+\BuiltInTok{type}\NormalTok{(alice_words)}
+\BuiltInTok{len}\NormalTok{(alice_words) }\CommentTok{# counts elements in a data structure}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6852,12 +7543,15 @@ all duplicates, giving a collection of the unique elements.
 \begin{Shaded}
 \begin{Highlighting}[]
 \BuiltInTok{len}\NormalTok{(}\BuiltInTok{set}\NormalTok{(alice_words))}
+
+\NormalTok{mySet }\OperatorTok{=}\NormalTok{ \{}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{\}}
+\BuiltInTok{len}\NormalTok{(mySet)}
 \end{Highlighting}
 \end{Shaded}
 
 There are 5295 unique words in the text.
 
-\section{Exercise 0}\label{exercise-0-4}
+\section{Exercise 0}\label{exercise-0-3}
 
 \textbf{Reading text from a file \& splitting}
 
@@ -6878,10 +7572,8 @@ documentation.
   Open the \texttt{Characters.txt} file and read its contents.
 \item
   Split text on newlines to produce a list with one element per line.
-  Store the result as ``alice\_characters''.
+  Store the result as \texttt{alice\_characters}.
 \end{enumerate}
-
-```
 
 \subsection{Working with lists}\label{working-with-lists}
 
@@ -6890,10 +7582,11 @@ in Wonderland} into words produced a \emph{list}. A lot of the
 techniques we'll use later to analyze this text also produce lists, so
 its worth taking a minute to learn more about them.
 
-It is always a good idea to know what type of things you're working with
-in Python. As you gain experience, you won't have to look this things up
-as often, but even experienced Python programmers use the \texttt{type}
-function to learn about the objects they are working with.
+It is always a good idea to know what type of data structure you're
+working with in Python. As you gain experience, you won't have to look
+these things up as often, but even experienced Python programmers use
+the \texttt{type()} function to learn about the objects they are working
+with.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6908,46 +7601,20 @@ of the object followed by a \texttt{.} and pressing \texttt{tab}.
 \subsection{Extracting subsets from
 lists}\label{extracting-subsets-from-lists}
 
-Among the things you can do with a list is extract subsets using bracket
-indexing notation. This is useful in many situations, including the
-current one where we want to inspect a long list without printing out
-the whole thing.
+Among the things you can do with a list is extract subsets using
+\textbf{bracket indexing notation}. This is useful in many situations,
+including the current one where we want to inspect a long list without
+printing out the whole thing.
 
 The examples below show how indexing works in Python.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{alice_words[}\DecValTok{0}\NormalTok{] }\CommentTok{# first word (yes, we count from zero!)}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# syntax}
+\CommentTok{# object[ start : end : by ]}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alice_words[}\DecValTok{1}\NormalTok{] }\CommentTok{# second word}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alice_words[:}\DecValTok{10}\NormalTok{] }\CommentTok{# first 10 words}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alice_words[}\DecValTok{10}\NormalTok{:}\DecValTok{20}\NormalTok{] }\CommentTok{# words 11 through 20}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alice_words[}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\CommentTok{# the last word}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alice_words[}\OperatorTok{-}\DecValTok{10}\NormalTok{:] }\CommentTok{# the last 10 words}
+\CommentTok{# default}
+\CommentTok{# object[ 0 : end : 1 ]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6958,37 +7625,22 @@ we see when we print a list:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{[}\StringTok{'her'}\NormalTok{,}
- \StringTok{'own'}\NormalTok{,}
- \StringTok{'child-life,'}\NormalTok{,}
- \StringTok{'and'}\NormalTok{,}
- \StringTok{'the'}\NormalTok{,}
- \StringTok{'happy'}\NormalTok{,}
- \StringTok{'summer'}\NormalTok{,}
- \StringTok{'days.'}\NormalTok{,}
- \StringTok{'THE'}\NormalTok{,}
- \StringTok{'END'}\NormalTok{]}
+\CommentTok{# create a list}
+\NormalTok{y }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{]}
+
+\NormalTok{y[}\DecValTok{0}\NormalTok{] }\CommentTok{# returns first element - the number 1 (yes, we count from zero!)}
+\NormalTok{y[}\DecValTok{1}\NormalTok{] }\CommentTok{# returns second element - the letter "b"}
+\NormalTok{y[ :}\DecValTok{3}\NormalTok{] }\CommentTok{# returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded}
+\NormalTok{y[}\DecValTok{2}\NormalTok{:}\DecValTok{5}\NormalTok{] }\CommentTok{# returns a list with elements 3, "D", 5}
+\NormalTok{y[}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\CommentTok{# returns last element - the number 6 }
+\NormalTok{y[}\OperatorTok{-}\DecValTok{4}\NormalTok{: ] }\CommentTok{# returns a list with last 4 elements}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Sorting \& other in-place
-methods}\label{sorting-other-in-place-methods}
-
-There are many other things we can do with lists besides extracting
-subsets using bracket indexing. For example, there are methods to append
-and remove elements from a list. When using a list method that you are
-unfamiliar with, it is always a good idea to read the documentation.
-
-Note that many methods modify the object \emph{in place}. For example,
-if we wanted to sort the last 10 words in \texttt{alice\_words} we would
-do it like this:
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{last_10 }\OperatorTok{=}\NormalTok{ alice_words[}\OperatorTok{-}\DecValTok{10}\NormalTok{:]}
-\BuiltInTok{print}\NormalTok{(last_10)}
-\NormalTok{last_10.sort()}
-\BuiltInTok{print}\NormalTok{(last_10)}
+\NormalTok{alice_words[}\DecValTok{11}\NormalTok{:}\DecValTok{20}\NormalTok{] }\CommentTok{# returns a list with words 11 through 20}
+\NormalTok{alice_words[}\OperatorTok{-}\DecValTok{10}\NormalTok{: ] }\CommentTok{# returns a list with the last 10 words}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7015,8 +7667,18 @@ chapter, this tells us there are twelve chapters in the book.
 
 We can count paragraphs in a similar way. Paragraphs are indicated by a
 blank line, i.e., two newlines in a row. When working with strings we
-can represent newlines with \texttt{\textbackslash{}n}, so our basic
-paragraph separator is \texttt{\textbackslash{}n\textbackslash{}n}.
+can represent newlines with \texttt{\textbackslash{}n}. Paragraphs are
+indicated by two new lines, and so our basic paragraph separator is
+\texttt{\textbackslash{}n\textbackslash{}n}. We can see this separator
+by looking at the content.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(alice_txt[:}\DecValTok{500}\NormalTok{]) }\CommentTok{# explicit printing --- formats text nicely}
+
+\NormalTok{alice_txt[:}\DecValTok{500}\NormalTok{] }\CommentTok{# returns content without printing it}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7032,9 +7694,6 @@ to see if it looks correct:
 \BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{0}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
 \BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{1}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
 \BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{2}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
-\BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{3}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
-\BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{4}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
-\BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{5}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7067,9 +7726,6 @@ about the main characters in the story.
 \item
   Extract and print just the first character from the list you created
   in the previous exercise.
-\item
-  (BONUS, optional): Sort the list you created in step 2 alphabetically,
-  and then extract the last element.
 \end{enumerate}
 
 \section{Working with nested
@@ -7132,40 +7788,6 @@ chapters and calculating the number of paragraphs in each chapter.
 \ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
 \NormalTok{    paragraphs }\OperatorTok{=}\NormalTok{ chapter.split(}\StringTok{"}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
     \BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(paragraphs))}
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{Iterating \& collecting paragraphs per chapter using list
-comprehension}\label{iterating-collecting-paragraphs-per-chapter-using-list-comprehension}
-
-We could use for-loops to fill in lists of values, but there is a
-special syntax in Python that is often better for this use case. This
-special syntax is called a \emph{list comprehension} and it looks like
-this:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{paragraphs_per_chapter }\OperatorTok{=}\NormalTok{ [}\BuiltInTok{len}\NormalTok{(chapter.split(}\StringTok{"}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)) }
-                          \ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]]}
-\BuiltInTok{print}\NormalTok{(paragraphs_per_chapter)}
-\end{Highlighting}
-\end{Shaded}
-
-Notice that \emph{list comprehension} is very similar to a \emph{for
-loop}, though the order is different. In a \emph{for-loop} the
-\texttt{for} part comes first and the expressions that make up the body
-come second and are indented. In a \emph{list comprehension} the
-expression comes first and the \texttt{for} part comes afterward. Notice
-also the square brackets surrounding the whole thing -- these brackets
-are what tells Python that you want a list.
-
-Here is another list comprehension that counts the number of times the
-name ``Alice'' appears in each chapter.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alices_per_chapter }\OperatorTok{=}\NormalTok{ [chapter.count(}\StringTok{"Alice"}\NormalTok{) }\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters]}
-\BuiltInTok{print}\NormalTok{(alices_per_chapter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7460,7 +8082,7 @@ Start the \texttt{Jupyter\ Notebook} application and open the
 \texttt{PythonWebScrape.ipynb} file in the \texttt{PythonWebScrape}
 folder you downloaded previously.
 
-\subsection{Goals}\label{goals-4}
+\subsection{Goals}\label{goals}
 
 In this workshop you will
 
@@ -7505,7 +8127,7 @@ your web scraping program so as to avoid impacting the availability of
 the web service for other users or the cost of hosting the service for
 the service provider.
 
-\section{Example project}\label{example-project-1}
+\section{Example project}\label{example-project}
 
 In this workshop I will demonstrate web scraping techniques using the
 Collections page at \url{https://www.harvardartmuseums.org/collections}
@@ -7720,7 +8342,7 @@ Python, we can iterate in the usual way.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Exercise 0}\label{exercise-0-5}
+\section{Exercise 0}\label{exercise-0-4}
 
 \textbf{Retrieve exhibits data}
 
@@ -8120,7 +8742,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-5}
+\subsection{Goals}\label{goals-1}
 
 \begin{itemize}
 \tightlist
@@ -8384,7 +9006,7 @@ program?}\label{what-if-my-data-is-from-another-statistical-software-program}
   from/to many common formats, including SAS, SPSS, Stata, and many more
 \end{itemize}
 
-\section{Exercise 0}\label{exercise-0-6}
+\section{Exercise 0}\label{exercise-0-5}
 
 \textbf{Importing data}
 
@@ -8854,7 +9476,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-6}
+\subsection{Goals}\label{goals-2}
 
 \begin{itemize}
 \tightlist
@@ -9199,7 +9821,7 @@ You will need to refer to the documentation to discover what else
 \texttt{egen} can do: type ``help egen'' in Stata to get a complete list
 of functions.
 
-\section{Exercise 0}\label{exercise-0-7}
+\section{Exercise 0}\label{exercise-0-6}
 
 \textbf{Generate, Replace, Recode \& Egen}
 
@@ -10298,7 +10920,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-7}
+\subsection{Goals}\label{goals-3}
 
 \begin{itemize}
 \tightlist
@@ -10728,7 +11350,7 @@ regress csat expense income percent high
 ------------------------------------------------------------------------------
 \end{verbatim}
 
-\section{Exercise 0}\label{exercise-0-8}
+\section{Exercise 0}\label{exercise-0-7}
 
 \textbf{Multiple Regression}
 

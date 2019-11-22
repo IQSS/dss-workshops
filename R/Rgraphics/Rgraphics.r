@@ -1,6 +1,7 @@
 # **Topics**
 #
 # * R `ggplot2` package
+# * Geometric objects and aesthetics
 # * Setup basic plots
 # * Add and modify scales and legends
 # * Manipulate plot labels
@@ -8,6 +9,11 @@
 
 # ## Setup
 #
+# ### Class Structure
+#
+# * Informal --- Ask questions at any time. Really!
+# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
 # ### Software & materials
 #
 # You should have R and RStudio installed --- if not:
@@ -27,6 +33,23 @@
 # * In Rstudio go to `File -> New Project`.
 # * Choose `Existing Directory` and browse to the `Rgraphics` directory.
 # * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
+
+# ### Installing & using R packages
+#
+# R is a modular environment that is extended by the use of **packages**.
+# Packages are collections of functions or commands that are designed to
+# perform specific tasks (e.g., fit a type of regression model). A large 
+# number of contributed packages are available (> 15,000). 
+#
+# Using an R package is a **two step process**:
+#
+# 1.  Install the package onto your computer using the
+#  `install.packages()` function. This only needs to
+#  be done the **first time** you use the package.
+#
+# 2.  Load the package into your R session's search path 
+#  using the `library()` function. This needs to be done
+#  **each time** you use the package.
 #
 # While R's built-in packages are powerful, in recent years there has
 # been a big surge in well-designed *contributed packages* for R. 
@@ -34,12 +57,27 @@
 # [tidyverse](https://www.tidyverse.org/) have been 
 # designed specifically for data science. All packages included in 
 # `tidyverse` share an underlying design philosophy, grammar, and 
-# data structures. We will use `tidyverse` packages throughout the 
-# workshop, so let's install them now, together with the `scales` and
-# `ggrepel` packages that provide additional functionality to `ggplot2`.
+# data structures. This philosopy is rooted in the idea of "tidy data":
+#
+# ![](R/Rintro/images/tidy_data.png)
+#
+# We will use `tidyverse` packages throughout the 
+# workshop, so let's install them now:
 
 # install.packages("tidyverse")
+
+# when you install tidyverse for the first time you will be asked
+# a question in the Console - please answer by typing "no" in the Console.
+
 library(tidyverse)
+
+# A typical workflow for using `tidyverse` packages looks like this:
+#
+# ![](R/Rintro/images/tidy_workflow.png)
+
+# The `ggplot2` package is contained within `tidyverse`, but we also want to 
+# install two additional packages, `scales` and `ggrepel`, which provide 
+# additional functionality.
 
 # install.packages("scales")
 library(scales)
@@ -56,29 +94,39 @@ library(rmarkdown)
 
 # The following RStudio, `tidyverse`, ``ggplot2`, and `rmarkdown` cheatsheets will provide a
 # useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
-
-# ### Goals
 #
-# Class Structure and Organization:
-#
-# * Ask questions at any time. Really!
-# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# ### Prerequisites
 #
 # This is an intermediate R course:
 #
 # * Assumes working knowledge of R
 # * Relatively fast-paced
-# * Focus is on `ggplot2` graphics; other packages will not be covered
+
+# ### Learning Outcomes
+#
+# * R `ggplot2` graphics syntax
+# * Grammar of graphics
+#     + Aesthetics
+#     + Geometric objects
+#     + Scales
+#     + Faceting
+# * Combining all the above together in a single plot
+
+# ### Workshop Outline
+#
+# 1.  Basic plots, **aesthetic mapping and inheritance**
+# 2.  Tailoring **statistical transformations** to particular plots
+# 3.  **Modifying scales** to change axes and add labels
+# 4.  **Faceting** to create many small plots
+# 5.  Changing plot **themes**
 
 # ## Why `ggplot2`?
 #
 # `ggplot2` is a package within in the `tidyverse` suite of packages. Advantages of `ggplot2` include:
 #
 # * consistent underlying `grammar of graphics` (Wilkinson, 2005)
-# * plot specification at a high level of abstraction
-# * very flexible
+# * very flexible --- plot specification at a high level of abstraction
 # * theme system for polishing plot appearance
-# * mature and complete graphics system
 # * many users, active mailing list
 #
 # That said, there are some things you cannot (or should not) do with `ggplot2`:
@@ -86,7 +134,7 @@ library(rmarkdown)
 # * 3-dimensional graphics (see the `rgl` package)
 # * Graph-theory type graphs (nodes/edges layout; see the `igraph` package)
 # * Interactive graphics (see the `ggvis` package)
-#
+
 # ### What is the Grammar Of Graphics?
 #
 # The basic idea: independently specify plot building blocks and combine them to create just 
@@ -110,7 +158,6 @@ library(rmarkdown)
 # * is more verbose for simple / canned graphics
 # * is less verbose for complex / custom graphics
 # * does not have methods (data should always be in a `data.frame`)
-# * uses a different system for adding plot elements
 # * has sensible defaults for generating legends
 
 # ## Geometric objects & aesthetics
@@ -189,15 +236,16 @@ ggplot(data = hp2001Q1, mapping = aes(x = Land_Value, y = Structure_Cost)) +
 
 # #### Lines (prediction line)
 #
-# A plot constructed with `ggplot()` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden. Our plot could use a regression line:
+# A plot constructed with `ggplot()` can have more than one geom. In that case the mappings established in the `ggplot()` call are plot defaults that can be added to or overridden --- this is referred to as **aesthetic inheritance**. Our plot could use a regression line:
 
+# get predicted values from a linear regression
 hp2001Q1$pred_SC <- lm(Structure_Cost ~ log(Land_Value), data = hp2001Q1) %>%
   predict()
 
 p1 <- ggplot(hp2001Q1, aes(x = log(Land_Value), y = Structure_Cost))
 
-p1 + geom_point(aes(color = Home_Value)) +
-  geom_line(aes(y = pred_SC))
+p1 + geom_point(aes(color = Home_Value)) + # values for x and y are inherited from the ggplot() call above
+  geom_line(aes(y = pred_SC)) # add predicted values to the plot overriding the y values from the ggplot() call above
 
 
 # #### Smoothers
@@ -224,7 +272,16 @@ p1 +
 
 # ### Aesthetic mapping VS assignment
 #
-# Note that variables are mapped to aesthetics with the `aes()` function, while fixed aesthetics are set outside the `aes()` call. 
+# 1.  Variables are **mapped** to aesthetics within the `aes()` function
+
+p1 +
+  geom_point(aes(size = Home_Value))
+
+# 2.  Constants are **fixed** to aesthetics outside the `aes()` call
+
+p1 +
+  geom_point(size = 2)
+
 # This sometimes leads to confusion, as in this example:
 
 p1 +
@@ -286,7 +343,7 @@ args(stat_bin)
 #
 # Arguments to `stat_` functions can be passed through `geom_` functions. This can be slightly annoying because in order to change it you have to first determine which stat the geom uses, then determine the arguments to that stat.
 #
-# For example, here is the default histogram of Home_Value:
+# For example, here is the default histogram of `Home_Value`:
 
 p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
@@ -339,7 +396,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 #
 # ### Controlling aesthetic mapping
 #
-# Aesthetic mapping (i.e., with `aes()`) only says that a variable should be mapped to an aesthetic. It doesn't say *how* that should happen. For example, when mapping a variable to *shape* with `aes(shape = x)` you don't say *what* shapes should be used. Similarly, `aes(color = z)` doesn't say *what* colors should be used. Describing what colors/shapes/sizes etc. to use is done by modifying the corresponding *scale*. In `ggplot2` scales include
+# Aesthetic mapping (i.e., with `aes()`) only says that a variable should be mapped to an aesthetic. It doesn't say *how* that should happen. For example, when mapping a variable to *shape* with `aes(shape = x)` you don't say *what* shapes should be used. Similarly, `aes(color = y)` doesn't say *what* colors should be used. Also, `aes(size = z)` doesn't say *what* sizes should be used. Describing what colors/shapes/sizes etc. to use is done by modifying the corresponding *scale*. In `ggplot2` scales include
 #
 # * position
 # * color and fill
@@ -384,14 +441,6 @@ p4 +
                          labels = c("'76", "'94", "'13"),
                          low = "blue", high = "red")
 
-# Now mute the colors:
-
-p4 +
-  scale_color_continuous(name="",
-                         breaks = c(1976, 1994, 2013),
-                         labels = c("'76", "'94", "'13"),
-                         low = muted("blue"), high = muted("red"))
-
 
 
 # ### Using different color scales
@@ -402,8 +451,8 @@ p4 +
   scale_color_gradient2(name="",
                         breaks = c(1976, 1994, 2013),
                         labels = c("'76", "'94", "'13"),
-                        low = muted("blue"),
-                        high = muted("red"),
+                        low = "blue",
+                        high = "red",
                         mid = "gray60",
                         midpoint = 1994)
 
@@ -441,7 +490,7 @@ p4 +
 # 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_discrete`.
 ## 
 
-# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual` and <https://www.color-hex.com/>.
+# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
 ## 
 
 
@@ -500,6 +549,8 @@ p5 + theme_light()
 #
 # Specific theme elements can be overridden using `theme()`. For example:
 
+# theme(thing_to_modify = modifying_function(arg1, arg2))
+
 p5 + theme_minimal() +
   theme(text = element_text(color = "turquoise"))  
 
@@ -514,7 +565,7 @@ theme_get()
 
 theme_new <- theme_bw() +
   theme(plot.background = element_rect(size = 1, color = "blue", fill = "black"),
-        text = element_text(size = 12, family = "Serif", color = "ivory"),
+        text = element_text(size = 12, color = "ivory"),
         axis.text.y = element_text(colour = "purple"),
         axis.text.x = element_text(colour = "red"),
         panel.background = element_rect(fill = "pink"),
@@ -538,6 +589,13 @@ ggsave(filename = "myplot.pdf", plot = p5, device = "pdf", height = 6, width = 6
 # The most frequently asked question goes something like this: *I have two variables in my data.frame, and I'd like to plot them as separate points, with different color depending on which variable it is. How do I do that?*
 #
 # **Wrong**
+#
+# Fixing, rather than mapping, the color aesthetic:
+#
+# 1.  Produces verbose code when using many colors
+# 2.  Results in no legend being produced
+# 3.  Means you cannot change color scales
+#
 
 housing_byyear <- 
   housing %>%
@@ -551,6 +609,12 @@ ggplot(housing_byyear, aes(x=Date)) +
   geom_line(aes(y=Land_Value_Mean), color="blue")
 
 # **Right**
+#
+# To avoid these pitfalls, we need to **map** our data to the color aesthetic. 
+# We can do this by **reshaping** our data from **wide format** to **long format**:
+#
+# IMAGE HERE
+#
 
 home_land_byyear <- gather(housing_byyear,
                            value = "value",
@@ -664,19 +728,14 @@ scale_x_continuous(name = "Corruption Perception Index") +
 scale_y_continuous(name = "Human Development Index") +
 scale_color_discrete(name = "Region of the world")
 
-# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual` and <https://www.color-hex.com/>.
+# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
 geom_point() +
 scale_x_continuous(name = "Corruption Perception Index") +
 scale_y_continuous(name = "Human Development Index") +
   scale_color_manual(name = "Region of the world",
-                     values = c("#24576D",
-                                "#099DD7",
-                                "#28AADC",
-                                "#248E84",
-                                "#F2583F",
-                                "#96503F"))
+                     values = c("red", "green", "blue", "orange", "grey", "brown"))
 
 
 # ### Ex 3: prototype

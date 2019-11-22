@@ -14,6 +14,11 @@
 
 # ## Setup
 #
+# ### Class Structure
+#
+# * Informal --- Ask questions at any time. Really!
+# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
 # ### Software & Materials
 #
 # ####  Install the Anaconda Python distribution
@@ -25,52 +30,87 @@
 #
 # * Download class materials at <https://github.com/IQSS/dss-workshops-redux/raw/master/Python/PythonIntro.zip>
 # * Extract materials from the zipped directory `PythonIntro.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
+
+# ### Prerequisites
 #
-# #### Launch Jupyter Notebook
-# Start the `Anaconda Navigator` program in the usual way. Click the or `Launch` button under `Jupyter Notebook`.
+# This is an introductory Python course:
 #
-# ### Goals
-# In this workshop you will
-# * learn about the python package and application ecosystem,
-# * learn python language basics and common idioms, and,
-# * practice reading files and manipulating data in python.
+# * Assumes no knowledge of Python
+# * Relatively slow-paced
+
+# ### Learning Outcomes
 #
-# A more general goal is to get you comfortable with Python so that it seems less scary and mystifying than it perhaps does now. Note that this is by no means a complete or thorough introduction to Python! It's just enough to get by.
+# * Python language basics and common idioms
+# * Reading files and manipulating data in python
+# * Iterating over data structures
+# * Python package and application ecosystem
+
+# ### Workshop Outline
 #
-# This workshop is relatively *informal*, *example-oriented*, and *hands-on*. We won't spend much time examining language features in detail. Instead we will work through an example, and learn some things about the language along the way.
+# As an example project we will analyze the text of Lewis Carroll's *Alice's Adventures in Wonderland*. 
+# We will use Python to answer the following questions:
 #
-# As an example project we will analyze the text of Lewis Carroll's *Alice's Adventures in Wonderland*. Among the questions we will use Python to answer are:
-# * How many total and unique words are there?
-# * How many chapters and paragraphs?
-# * How many words are in each chapter, and what is the average words per chapter?
-# * How many times is each main character mentioned?
+# DIVIDE INTO SECTIONS
+#
+# 1. Reading data from a file
+# 3. Working with nested structures
+#
+# 1.  How many total and unique words are there?
+# 2.  How many chapters and paragraphs?
+# 3.  How many words are in each chapter, and what is the average words per chapter?
+# 4.  How many times is each main character mentioned?
 
 # ## What is Python?
 # Python is a relatively easy to learn general purpose programming language. People use Python to manipulate, analyze, and visualize data, make web sites, write games, and much more. Youtube, DropBox, and BitTorrent are among the things people used python to make.
 #
 # Like most popular open source programming languages, Python can be thought of as a *platform* that runs a huge number and variety of packages. The language itself is mostly valuable because it makes it easy to create and use a large number of useful packages.
 #
-# ## How can I interact with Python?
-# A number of interfaces designed to make it easy to interact with Python are available. The Anaconda distribution that we installed earlier includes both a web-based *Jupyter Notebook* and a more conventional Integrated Development Environment called *Spyder*. For this workshop I encourage you to use *Jupyter Notebook*. In real life you should experiment and choose the interface that you find most comfortable.
+# A number of interfaces designed to make it easy to interact with Python are available. The Anaconda distribution that we installed earlier includes both a web-based `Jupyter Notebook` and a more conventional Integrated Development Environment called `Spyder`. For this workshop I encourage you to use `Jupyter Notebook`. In real life you should experiment and choose the interface that you find most comfortable.
+
+# ## Launch Jupyter Notebook
 #
-# To get started, start the *Jupyter Notebook* application, and navigate to the *PythonIntro* directory you downloaded and extracted earlier. Start a new notebook by clicking `New => Python 3` as shown below.
-#
-# ![notebook_new.png](Python/PythonIntro/images/notebook_new.png)
+# 1. Start the `Anaconda Navigator` program
+# 2. Click the `Launch` button under `Jupyter Notebook`
+# 3. Click `upload`, then in the pop-up window select the *PythonIntro* folder on the desktop
+# 4. Open and upload 3 files (note, this is TWO steps): `PythonIntro.ipnb`, `Alice_in_wonderland.txt`, and `Characters.txt`
 #
 # A Jupyter Notebook contains one or more *cells* containing notes or code. To insert a new cell click the `+` button in the upper left. To execute a cell, select it and press `Control+Enter` or click the `Run` button at the top.
 
-# ## Reading the text of Alice in Wonderland from a file
-# Reading information from a file is the first step in many projects, so we'll start there. The workshop materials you downloaded earlier include a file named `Alice_in_wonderland.txt` which contains the text of Lewis Carroll's *Alice's Adventures in Wonderland*.
+# ## Reading data from a file
 #
-# We can open a connection to a file using the *open* function, and store the result using the `=` operator.
+# Reading information from a file is the first step in many projects, so we'll start there. The workshop materials you downloaded earlier include a file named `Alice_in_wonderland.txt` which contains the text of Lewis Carroll's *Alice's Adventures in Wonderland*.
 
 alice_file = open("Alice_in_wonderland.txt")
 
-# The name on the left of the equals sign (`alice_file`) is one that we chose. When choosing names, *start with a letter*, and use only *letters*, *numbers* and *underscores*.
+# ### Python functions
 #
-# The `alice_file` object we just created does *not* contain the contents of `Alice_in_wonderland.txt`. It a representation in Python of the *file itself* rather than the *contents* of the file.
+# In Python functions perform tasks, and take the form:
+
+# function_name(arg1, arg2, arg3, ... argn)
+
+# where `arg1` etc. are arguments to the function.
 #
-# The `alice_file` object provides *methods* that we can use to do things with it. Methods are invoked using syntax that looks like `ObjectName.method()`. You can see the methods available for acting on an object by typing the object's name followed by a `.` and pressing the `tab` key. For example, typing `alice_file.` and pressing `tab` will display a list of methods as shown below. ![](Python/PythonIntro/images/notebook_file_completion.png).
+# **The `open()` function**
+#
+# We can use the `open()` function to create a file **object** that makes a **connection** to the file. This means that the `alice_file` object name we just created does *not* contain the contents of `Alice_in_wonderland.txt`. It is a representation in Python of the *file itself* rather than the *contents* of the file.
+#
+# ### Assignment
+#
+# In Python we can assign a result to an name using the `=` operator.
+
+# objectName = thing_to_assign
+x = 10
+
+# The name on the left of the equals sign (`alice_file`) is one that we chose. When choosing names, they must:
+#
+# 1. start with a *letter*
+# 2. use only *letters*, *numbers* and *underscores*
+#
+# ### Object methods
+#
+# The `alice_file` object provides *methods* that we can use to do things with it. Methods are invoked using syntax that looks like `ObjectName.method()`. You can see the methods available for acting on an object by typing the object's name followed by a `.` and pressing the `tab` key. For example, typing `alice_file.` and pressing `tab` will display a list of methods as shown below. 
+#
+# ![](Python/PythonIntro/images/notebook_file_completion.png).
 #
 # Among the methods we have for doing things with our `alice_file` object is one named `read`. We can use the `help` function to learn more about it.
 
@@ -84,10 +124,12 @@ print(alice_txt[:500]) # the [:500] gets the first 500 character -- more on this
 # That's all there is to it! We've read the contents of `Alice_in_wonderland.txt` and stored this text in a Python object we named `alice_txt`. Now let's start to explore this object, and learn some more things about Python along the way.
 
 # ## Counting chapters, lines, & words
-# Now that we have the text we can start answering some questions about it. To begin with, how many words does it contain? To answer this question we can split the text up so there is one element per word, and then count the number of words.
+#
+# Now that we have the text, we can start answering some questions about it. To begin with, how many words does it contain? To answer this question, we can split the text up so there is one element per word, and then count the number of words.
 #
 # ### Splitting a string into a list of words
-# How do we figure out how to split strings in Python? By asking Python what our `alice_txt` object is and what methods it provides. We can ask Python what things are using the `type` function, like this:
+#
+# How do we figure out how to split strings in Python? We can ask Python what our `alice_txt` object is and what methods it provides. We can ask Python what things are using the `type()` function, like this:
 
 type(alice_txt)
 
@@ -99,13 +141,17 @@ help(alice_txt.split)
 
 # Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the split method and counting the number of elements in the result.
 
-alice_words = alice_txt.split()
-len(alice_words)
+alice_words = alice_txt.split() # returns a list (we talk about lists below)
+type(alice_words)
+len(alice_words) # counts elements in a data structure
 
 # ### Using sets to calculate the number of unique words
 # According to our computation above, there are about 26 thousand total words in *Alice's Adventures in Wonderland*. But how many *unique* words are there? Python has a special data structure called a *set* that makes it easy to find out. A *set* drops all duplicates, giving a collection of the unique elements.
 
 len(set(alice_words))
+
+mySet = {1, 5, 9}
+len(mySet)
 
 # There are 5295 unique words in the text.
 
@@ -119,62 +165,47 @@ len(set(alice_words))
 #
 # 1. Open the `Characters.txt` file and read its contents.
 #
-# 2. Split text on newlines to produce a list with one element per line. Store the result as "alice_characters".
-#
-# ```
-#
+# 2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`.
+
 # ### Working with lists
+#
 # The `split` methods we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a minute to learn more about them.
 #
-# It is always a good idea to know what type of things you're working with in Python. As you gain experience, you won't have to look this things up as often, but even experienced Python programmers use the `type` function to learn about the objects they are working with.
-#
-# ```{python}
-# type(alice_words)
-# ```
-#
+# It is always a good idea to know what type of data structure you're working with in Python. As you gain experience, you won't have to look these things up as often, but even experienced Python programmers use the `type()` function to learn about the objects they are working with.
+
+type(alice_words)
+
 # A *list* in Python is used to store a collection of items. As with other types in Python, you can get a list of methods by typing the name of the object followed by a `.` and pressing `tab`.
 #
 # ### Extracting subsets from lists
-# Among the things you can do with a list is extract subsets using bracket indexing notation. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
+#
+# Among the things you can do with a list is extract subsets using **bracket indexing notation**. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
 #
 # The examples below show how indexing works in Python.
 
-alice_words[0] # first word (yes, we count from zero!)
+# syntax
+# object[ start : end : by ]
 
-alice_words[1] # second word
-
-alice_words[:10] # first 10 words
-
-alice_words[10:20] # words 11 through 20
-
-alice_words[-1] # the last word
-
-alice_words[-10:] # the last 10 words
+# default
+# object[ 0 : end : 1 ]
 
 # Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:
 
-['her',
- 'own',
- 'child-life,',
- 'and',
- 'the',
- 'happy',
- 'summer',
- 'days.',
- 'THE',
- 'END']
+# create a list
+y = [1, "b", 3, "D", 5, 6]
 
-# ### Sorting & other in-place methods
-# There are many other things we can do with lists besides extracting subsets using bracket indexing. For example, there are methods to append and remove elements from a list. When using a list method that you are unfamiliar with, it is always a good idea to read the documentation. 
-#
-# Note that many methods modify the object *in place*. For example, if we wanted to sort the last 10 words in `alice_words` we would do it like this:
+y[0] # returns first element - the number 1 (yes, we count from zero!)
+y[1] # returns second element - the letter "b"
+y[ :3] # returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded
+y[2:5] # returns a list with elements 3, "D", 5
+y[-1] # returns last element - the number 6 
+y[-4: ] # returns a list with last 4 elements
 
-last_10 = alice_words[-10:]
-print(last_10)
-last_10.sort()
-print(last_10)
+alice_words[11:20] # returns a list with words 11 through 20
+alice_words[-10: ] # returns a list with the last 10 words
 
 # ### Counting chapters & paragraphs
+#
 # Now that we know how to split a string and how to work with the resulting list, we can split on chapter markers to count the number of chapters. All we need to do is specify the string to split on. Since each chapter is marked with the string `'CHAPTER '` followed by the chapter number, we can split the text up into chapters using this as the separator.
 
 alice_chapters = alice_txt.split("CHAPTER ")
@@ -182,7 +213,11 @@ len(alice_chapters)
 
 # Since the first element contains the material *before* the first chapter, this tells us there are twelve chapters in the book.
 #
-# We can count paragraphs in a similar way. Paragraphs are indicated by a blank line, i.e., two newlines in a row. When working with strings we can represent newlines with `\n`, so our basic paragraph separator is `\n\n`.
+# We can count paragraphs in a similar way. Paragraphs are indicated by a blank line, i.e., two newlines in a row. When working with strings we can represent newlines with `\n`. Paragraphs are indicated by two new lines, and so our basic paragraph separator is `\n\n`. We can see this separator by looking at the content.
+
+print(alice_txt[:500]) # explicit printing --- formats text nicely
+
+alice_txt[:500] # returns content without printing it
 
 alice_paragraphs = alice_txt.split("\n\n")
 
@@ -191,10 +226,6 @@ alice_paragraphs = alice_txt.split("\n\n")
 print(alice_paragraphs[0], "\n==========")
 print(alice_paragraphs[1], "\n==========")
 print(alice_paragraphs[2], "\n==========")
-print(alice_paragraphs[3], "\n==========")
-print(alice_paragraphs[4], "\n==========")
-print(alice_paragraphs[5], "\n==========")
-
 
 # We're counting the title, author, and chapter lines as paragraphs, but this will do for a rough count.
 
@@ -204,14 +235,11 @@ len(alice_paragraphs)
 #
 # **Count the number of main characters**
 #
-# So far we've learned that there are 12 chapters, around 830 paragraphs, and about 26 thousand words in *Alice's Adventures in Wonderland*. Along the way we've also learned how to open a file and read its contents, split strings,  calculate the length of objects, discover methods for string and list objects, and index/subset lists in Python. Now it is time for you to put these skills to use to learn something about the main characters in the story.
+# So far we've learned that there are 12 chapters, around 830 paragraphs, and about 26 thousand words in *Alice's Adventures in Wonderland*. Along the way we've also learned how to open a file and read its contents, split strings, calculate the length of objects, discover methods for string and list objects, and index/subset lists in Python. Now it is time for you to put these skills to use to learn something about the main characters in the story.
 #
-# 1. Count the number of main characters in the story (i.e., get the length   of the list you created in previous exercise).
+# 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).
 #
-# 2. Extract and print just the first character from the list you created in
-#    the previous exercise.
-#
-# 3. (BONUS, optional): Sort the list you created in step 2 alphabetically, and then extract the last element.
+# 2. Extract and print just the first character from the list you created in the previous exercise.
 
 # ## Working with nested structures
 #
@@ -243,20 +271,6 @@ for <thing> in <collection>:
 for chapter in alice_chapters[1:]:
     paragraphs = chapter.split("\n\n")
     print(len(paragraphs))
-
-# ### Iterating & collecting paragraphs per chapter using list comprehension
-# We could use for-loops to fill in lists of values, but there is a special syntax in Python that is often better for this use case. This special syntax is called a *list comprehension* and it looks like this:
-
-paragraphs_per_chapter = [len(chapter.split("\n\n")) 
-                          for chapter in alice_chapters[1:]]
-print(paragraphs_per_chapter)
-
-# Notice that *list comprehension* is very similar to a *for loop*, though the order is different. In a *for-loop* the `for` part comes first and the expressions that make up the body come second and are indented. In a *list comprehension* the expression comes first and the `for` part comes afterward. Notice also the square brackets surrounding the whole thing -- these brackets are what tells Python that you want a list.
-#
-# Here is another list comprehension that counts the number of times the name "Alice" appears in each chapter.
-
-alices_per_chapter = [chapter.count("Alice") for chapter in alice_chapters]
-print(alices_per_chapter)
 
 # ### Organizing results in dictionaries
 # Our code for calculating the number of of times "Alice" was mentioned per chapter worked, but with a little effort we can make it much easier to interpret by associating each count with the chapter it corresponds to. In Python we can use a `dict` (i.e., "dictionary") to store key-value pairs.

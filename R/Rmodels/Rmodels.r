@@ -8,6 +8,11 @@
 
 # ## Setup
 #
+# ### Class Structure
+#
+# * Informal --- Ask questions at any time. Really!
+# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
 # ### Software & materials
 #
 # You should have R and RStudio installed --- if not:
@@ -27,6 +32,23 @@
 # * In Rstudio go to `File -> New Project`.
 # * Choose `Existing Directory` and browse to the `Rmodels` directory.
 # * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
+
+# ### Installing & using R packages
+#
+# R is a modular environment that is extended by the use of **packages**.
+# Packages are collections of functions or commands that are designed to
+# perform specific tasks (e.g., fit a type of regression model). A large 
+# number of contributed packages are available (> 15,000). 
+#
+# Using an R package is a **two step process**:
+#
+# 1.  Install the package onto your computer using the
+#  `install.packages()` function. This only needs to
+#  be done the **first time** you use the package.
+#
+# 2.  Load the package into your R session's search path 
+#  using the `library()` function. This needs to be done
+#  **each time** you use the package.
 #
 # While R's built-in packages are powerful, in recent years there has
 # been a big surge in well-designed *contributed packages* for R. 
@@ -34,12 +56,24 @@
 # [tidyverse](https://www.tidyverse.org/) have been 
 # designed specifically for data science. All packages included in 
 # `tidyverse` share an underlying design philosophy, grammar, and 
-# data structures. We will use `tidyverse` packages throughout the 
+# data structures. This philosopy is rooted in the idea of "tidy data":
+#
+# ![](R/Rintro/images/tidy_data.png)
+#
+# We will use `tidyverse` packages throughout the 
 # workshop, so let's install them now:
 
 # install.packages("tidyverse")
+
+# when you install tidyverse for the first time you will be asked
+# a question in the Console - please answer by typing "no" in the Console.
+
 library(tidyverse)
 
+# A typical workflow for using `tidyverse` packages looks like this:
+#
+# ![](R/Rintro/images/tidy_workflow.png)
+#
 # We can also install the `rmarkdown` package, which will allow us to
 # combine our text and code into a formatted document at the end of 
 # the workshop:
@@ -61,19 +95,28 @@ library(emmeans)  # for marginal effects
 # install.packages("effects")
 library(effects)  # for predicted marginal means
 
-
-# ### Goals
-#
-# Class Structure and Organization:
-#
-# * Ask questions at any time. Really!
-# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# ### Prerequisites
 #
 # This is an intermediate R course:
 #
 # * Assumes working knowledge of R
 # * Relatively fast-paced
-# * This is not a statistics course! We assume you know the theory behind the models
+# * This is not a statistics course! We assume you know the theory behind the models.
+
+# ### Learning Outcomes
+#
+# * R formula interface
+# * Fitting linear and non-linear models
+# * Understanding class methods
+# * Post-estimation tools
+# * Plotting model diagnostics
+
+# ### Workshop Outline
+#
+# 1.  Preliminary steps before modeling
+# 2.  Modeling continuous outcomes
+# 3.  Modeling binary outcomes
+# 4.  Modeling clustered data
 
 # ## Before fitting a model
 #
@@ -129,8 +172,13 @@ list.files("dataSets")
 # * Ordinary least squares (OLS) regression models can be fit with the `lm()` function
 # * For example, we can use `lm()` to predict SAT scores based on per-pupal expenditures:
 
+# R regression formula
+outcome ~ pred1 + pred2 + pred3
+
+# NOTE the ~ is a tilde
+
   # Fit our regression model
-  sat_mod <- lm(csat ~ expense, # regression formula
+  sat_mod <- lm(csat ~ 1 + expense, # regression formula
                 data=states_data) # data 
                 
   # Summarize and print the results
@@ -140,7 +188,7 @@ list.files("dataSets")
 #
 # Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?
 
-  lm(csat ~ expense + percent, data = states_data) %>% 
+  lm(csat ~ 1 + expense + percent, data = states_data) %>% 
   summary() 
 
 # ### The `lm` class & methods
@@ -161,6 +209,23 @@ list.files("dataSets")
   methods("summary")
   confint(sat_mod)
 
+# Selected **post-estimation** tools:
+#
+# | Function      | Package        | Output                                                  |
+# |:--------------|:---------------|:--------------------------------------------------------|
+# | `summary()`   | `stats` base R | standard errors, test statistics, p-values, GOF stats   |
+# | `confint()`   | `stats` base R | confidence intervals                                    |
+# | `anova()`     | `stats` base R | anova table (one model), model comparison (> one model) |
+# | `coef()`      | `stats` base R | point estimates                                         |
+# | `drop1()`     | `stats` base R | model comparison                                        |
+# | `predict()`   | `stats` base R | predicted response values                               |
+# | `fitted()`    | `stats` base R | predicted response values (for observed data)           |
+# | `residuals()` | `stats` base R | residuals                                               |
+# | `fixef()`     | `lme4`         | fixed effect point estimates (mixed models only)        |
+# | `ranef()`     | `lme4`         | random effect point estimates (mixed models only)       |
+# | `allEffects()`| `effects`      | predicted marginal means                                |
+# | `emmeans()`   | `emmeans`      | predicted marginal means & marginal effects             |
+
 # ### OLS regression assumptions
 #
 # OLS regression relies on several assumptions, including:
@@ -176,7 +241,7 @@ list.files("dataSets")
 #
 # Investigate assumptions #7 and #8 visually by plotting your model:
 
-  par(mfrow = c(2, 2)) 
+  par(mfrow = c(2, 2)) # splits the plotting window into 4 panels
   plot(sat_mod)
 
 # ### Comparing models
@@ -184,10 +249,25 @@ list.files("dataSets")
 # Do congressional voting patterns predict SAT scores over and above expense? Fit two models and compare them:
 
   # fit another model, adding house and senate as predictors
-  sat_voting_mod <- lm(csat ~ expense + house + senate,
+  sat_voting_mod <- lm(csat ~ 1 + expense + house + senate,
                         data = na.omit(states_data))
 
   summary(sat_voting_mod) %>% coef()
+
+# what does na.omit() do?
+
+dat <- data.frame(
+  x = 1:5, 
+  y = c(3, 2, 1, NA, 5), 
+  z = c(6, NA, 2, 7, 3))
+dat
+
+na.omit(dat) # listwise deletion of observations
+
+# also see
+?complete.cases
+dat[with(dat, complete.cases(expense, house, senate)), ]
+
 
   sat_mod <- update(sat_mod, data=na.omit(states_data))
 
@@ -198,7 +278,7 @@ list.files("dataSets")
 #
 # **Ordinary least squares regression**
 #
-# Use the *states.rds* data set. Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to
+# Use the *states.rds* data set. Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (`metro`). Be sure to
 #
 # 1.  Examine/plot the data before fitting the model
 ## 
@@ -209,7 +289,7 @@ list.files("dataSets")
 # 3.  `plot()` the model to look for deviations from modeling assumptions
 ## 
 
-# Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
+# Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 
 # ## Interactions & factors
 #
@@ -218,8 +298,8 @@ list.files("dataSets")
 # Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
 
     # Add the interaction to the model
-  sat_expense_by_percent <- lm(csat ~ expense + income + expense : income, data=states_data)
-  sat_expense_by_percent <- lm(csat ~ expense * income, data=states_data) # same as above, but shorter syntax
+  sat_expense_by_percent <- lm(csat ~ 1 + expense + income + expense : income, data=states_data)
+  sat_expense_by_percent <- lm(csat ~ 1 + expense * income, data=states_data) # same as above, but shorter syntax
 
   # Show the regression coefficients table
   summary(sat_expense_by_percent) %>% coef() 
@@ -233,25 +313,28 @@ list.files("dataSets")
   str(states_data$region)
   states_data$region <- factor(states_data$region)
 
+  # arguments to the factor() function
+  # factor(x, levels, labels)
+
+  levels(states_data$region)
+
   # Add region to the model
-  sat_region <- lm(csat ~ region, data=states_data) 
+  sat_region <- lm(csat ~ 1 + region, data=states_data) 
 
   # Show the results
   summary(sat_region) %>% coef() # show the regression coefficients table
   anova(sat_region) # show ANOVA table
 
 # Again, **make sure to tell R which variables are categorical by converting them to factors!**
-#
+
 # ### Setting factor reference groups & contrasts
 #
-# In the previous example we use the default contrasts for region. The default in R is treatment contrasts, with the first level as the reference. We can change the reference group or use another coding scheme using the `C()` function.
-
-  # print default contrasts
-  contrasts(states_data$region)
+# The default contrasts in R are "treatment" contrasts, or "dummy coding", with the first level as the reference category. 
+# We can also easily change the reference group or get all sets of pairwise contrasts.
 
   # change the reference group
   states_data$region <- relevel(states_data$region, ref = "Midwest")
-  m1 <- lm(csat ~ region, data=states_data)
+  m1 <- lm(csat ~ 1 + region, data=states_data)
   summary(m1) %>% coef()
 
   # get all pairwise contrasts between means
@@ -259,12 +342,6 @@ list.files("dataSets")
   means
   contrast(means, method = "pairwise")
 
-  # change the coding scheme
-  lm(csat ~ C(region, contr.helmert), data=states_data) %>%
-  summary() %>%
-  coef()
-
-# See `?contr.treatment` for other coding schemes and also `?contrasts` and `?relevel`.
 
 # ## Exercise 1
 #
@@ -295,7 +372,29 @@ list.files("dataSets")
 
 # ### Logistic regression example
 #
-# Let's predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi
+# Motivation for a logistic regression model; With a binary response:
+#
+# 1.  Errors will not be normally distributed
+# 2.  Variance will not be homoskedastic
+# 3.  Predictions should be constrained to be on the interval [0, 1]
+#
+# ![](R/Rmodels/images/logistic.png)
+
+# Anatomy of a glm:
+
+  # OLS model using lm()
+  # lm(outcome ~ 1 + pred1 + pred1, data = mydata)
+
+  # OLS model using glm()
+  # glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = gaussian(link = "identity"))
+ 
+  # logistic model using glm()
+  # glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = binomial(link = "logit"))
+
+# The `family` argument sets the error distribution for the model, while the `link` function
+# argument relates the predictors to the expected value of the outcome.
+
+# Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`
 
   str(NH11$hypev) # check stucture of hypev
   levels(NH11$hypev) # check levels of hypev
@@ -304,15 +403,17 @@ list.files("dataSets")
   NH11$hypev <- factor(NH11$hypev, levels=c("2 No", "1 Yes"))
 
   # run our regression model
-  hyp_out <- glm(hypev ~ age_p + sex + sleep + bmi,
+  hyp_out <- glm(hypev ~ 1 + age_p + sex + sleep + bmi,
                 data = NH11, family = binomial(link = "logit"))
   summary(hyp_out) %>% coef()
 
 # ### Logistic regression coefficients
 #
-# Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the age coefficient of .06 in the previous model tells us that for every one unit increase in age, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
+# Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the `age` coefficient of .06 in the previous model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 #
-# One solution is to transform the coefficients to make them easier to interpret
+# IMAGE HERE FOR SCALES
+#
+# One solution is to transform the coefficients to make them easier to interpret. Here we transform into odds ratios:
 
   hyp_out_tab <- summary(hyp_out) %>% coef()
   hyp_out_tab[, "Estimate"] <- coef(hyp_out) %>% exp()
@@ -323,7 +424,10 @@ list.files("dataSets")
 # Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
 
   eff <- allEffects(hyp_out)
-  plot(eff, type = "response")
+  plot(eff, type = "response") # "response" refers to the probability scale
+
+  # generate a sequence at which to get predictions of the outcome
+  seq(20, 80, by = 5)
 
   # override defaults
   eff <- allEffects(hyp_out, xlevels = list(age_p = seq(20, 80, by = 5)))
@@ -350,8 +454,7 @@ list.files("dataSets")
 # ### Multilevel modeling overview
 #
 # * Multi-level (AKA hierarchical) models are a type of **mixed-effects** models
-# * Used to model variation due to group membership where the goal is to generalize to a population of groups
-# * Can model different intercepts and/or slopes for each group
+# * Used to model data that are clustered
 # * Mixed-effecs models include two types of predictors: **fixed-effects** and **random effects**
 #   + **Fixed-effects** -- observed levels are of direct interest (.e.g, sex, political party...)
 #   + **Random-effects** -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
@@ -371,26 +474,25 @@ list.files("dataSets")
 
   Exam <- read_rds("dataSets/Exam.rds")
 
+
 # ### The null model & ICC
 #
 # As a preliminary step it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors).
 
+  # anatomy of lmer() function
+  # lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), data=mydata, REML = FALSE)
+
+
   # null model, grouping by school but not fixed effects.
-  Norm1 <-lmer(normexam ~ 1 + (1 | school),
-                data=na.omit(Exam), REML = FALSE)
+  Norm1 <-lmer(normexam ~ 1 + (1 | school), 
+              data=na.omit(Exam), REML = FALSE)
   summary(Norm1)
 
 # The is .161/(.161 + .852) = .159 = 16% of the variance is at the school level. 
 #
 # There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. 
 # But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite 
-# approximation) and you can use the same model syntax:
-
-  # install.packages("lmerTest")
-  Norm1_test <- lmerTest::lmer(normexam ~ 1 + (1 | school),
-                      data=na.omit(Exam), REML = FALSE)
-  summary(Norm1_test)
-
+# approximation).
 
 # ### Adding fixed-effects predictors
 #
@@ -479,7 +581,7 @@ data(bh1996, package="multilevel")
   plot(states_en_met_pop_wst)
   cor(states_en_met_pop_wst, use = "pairwise")
 
-  mod_en_met_pop_waste <- lm(energy ~ metro + pop + waste, data = states)
+  mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states)
   summary(mod_en_met_pop_waste)
   anova(mod_en_met, mod_en_met_pop_waste)
 
@@ -489,11 +591,11 @@ data(bh1996, package="multilevel")
 #
 # 1.  Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.
 
-  mod_en_metro_by_waste <- lm(energy ~ metro * waste, data = states)
+  mod_en_metro_by_waste <- lm(energy ~ 1 + metro * waste, data = states)
 
 # 2.  Try adding a region to the model. Are there significant differences across the four regions?
 
-  mod_en_region <- lm(energy ~ metro * waste + region, data = states)
+  mod_en_region <- lm(energy ~ 1 + metro * waste + region, data = states)
   anova(mod_en_region)
 
 # ### Ex 2: prototype
@@ -506,7 +608,7 @@ data(bh1996, package="multilevel")
                     everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
                     r_maritl = droplevels(r_maritl))
 
-  mod_wk_age_mar <- glm(everwrk ~ age_p + r_maritl, data = NH11,
+  mod_wk_age_mar <- glm(everwrk ~ 1 + age_p + r_maritl, data = NH11,
                         family = binomial(link = "logit"))
 
   summary(mod_wk_age_mar)
@@ -533,12 +635,12 @@ data(bh1996, package="multilevel")
 
 # 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
-  mod_grp1 <- lmer(WBEING ~ HRS + LEAD + (1 | GRP), data = bh1996)
+  mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = bh1996)
   summary(mod_grp1)
 
 # 3.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
-  mod_grp2 <- lmer(WBEING ~ HRS + LEAD + (1 + HRS | GRP), data = bh1996)
+  mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = bh1996)
   anova(mod_grp1, mod_grp2)
 
 # ## Wrap-up
