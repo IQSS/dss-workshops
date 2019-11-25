@@ -398,31 +398,40 @@ boysNames[[1]]
 #
 # **Data types:**
 #
-# | Type                 | Description                                          |
-# |:---------------------|:-----------------------------------------------------|
-# | 1. character         | "a", "swc"                                           |
-# | 2. numeric (decimal) | 2, 15.5                                              |
-# | 3. integer           | 2L (the L tells R to store this as an integer)       |
-# | 4. logical           | TRUE, FALSE                                          |
-# | 5. complex           | 1+4i (complex numbers with real and imaginary parts) |
+# | Type              | Description                                          |
+# |:------------------|:-----------------------------------------------------|
+# | character         | "a", "swc"                                           |
+# | numeric (decimal) | 2, 15.5                                              |
+# | integer           | 2L (the L tells R to store this as an integer)       |
+# | logical           | TRUE, FALSE                                          |
+# | complex           | 1+4i (complex numbers with real and imaginary parts) |
 
 # There are two fundamental data structures in R: 1) vectors, and 2) lists.
 #
 # **Homogeneous data structures:**
 #
-# | Structure         | Description                                                                                                       |
-# |:------------------|:------------------------------------------------------------------------------------------------------------------|
-# | 1. atomic vector  | contains elements of the same **type**, which can be one of these **modes**: character, numeric, integer, logical |
-# | 2. array          | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
-# | 3. matrix         | an array with 2 dimesions                                                                                         |
-# | 4. factor         | an atomic integer vector containing only predefined values, storing categorical data                              |
+# | Structure      | Description                                                                                                       |
+# |:---------------|:------------------------------------------------------------------------------------------------------------------|
+# | atomic vector  | contains elements of the same **type**, which can be one of four **modes**: character, numeric, integer, logical |
+# | array          | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
+# | matrix         | an array with 2 dimesions                                                                                         |
+# | factor         | an atomic integer vector containing only predefined values, storing categorical data                              |
 
 # **Heterogeneous data structures:**
 #
-# | Structure         | Description                                                                                                       |
-# |:------------------|:------------------------------------------------------------------------------------------------------------------|
-# | 5. list           | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
-# | 6. data.frame     | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
+# | Structure      | Description                                                                                                       |
+# |:---------------|:------------------------------------------------------------------------------------------------------------------|
+# | list           | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
+# | data.frame     | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
+
+# | Structure      | Type           | Description                                                                                                       |
+# |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------|
+# | atomic vector  | homogeneous    | contains elements of the same **type**, which can be one of four **modes**: character, numeric, integer, logical |
+# | array          | homogeneous    | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
+# | matrix         | homogeneous    | an array with 2 dimesions                                                                                         |
+# | factor         | homogeneous    | an atomic integer vector containing only predefined values, storing categorical data                              |
+# | list           | heterogeneous  | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
+# | data.frame     | heterogeneous  | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
 
 # Now that we know about data structures more generally, let's focus on the list structure we created for `boysNames`. 
 # Why are we using **double brackets** `[[` to index this list object?
