@@ -398,35 +398,26 @@ boysNames[[1]]
 #
 # **Data types:**
 #
-# | Type              | Description                                          |
-# |:------------------|:-----------------------------------------------------|
-# | character         | "a", "swc"                                           |
-# | numeric (decimal) | 2, 15.5                                              |
-# | integer           | 2L (the L tells R to store this as an integer)       |
-# | logical           | TRUE, FALSE                                          |
-# | complex           | 1+4i (complex numbers with real and imaginary parts) |
+# | Type                    | Description                                          |
+# |:------------------------|:-----------------------------------------------------|
+# | character               | "a", "swc"                                           |
+# | integer                 | 2L (the L tells R to store this as an integer)       |
+# | double (floating point) | 2, 15.5                                              |
+# | logical                 | TRUE, FALSE                                          |
+# | complex                 | 1+4i (complex numbers with real and imaginary parts) |
 
-# There are two fundamental data structures in R: 1) vectors, and 2) lists.
+# There are two foundational data structures in R:
 #
-# **Homogeneous data structures:**
+# 1. atomic vectors
+# 2. lists (also called generic vectors)
 #
-# | Structure      | Description                                                                                                       |
-# |:---------------|:------------------------------------------------------------------------------------------------------------------|
-# | atomic vector  | contains elements of the same **type**, which can be one of four **modes**: character, numeric, integer, logical |
-# | array          | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
-# | matrix         | an array with 2 dimesions                                                                                         |
-# | factor         | an atomic integer vector containing only predefined values, storing categorical data                              |
-
-# **Heterogeneous data structures:**
+# From these two, the following six structures are derived:
 #
-# | Structure      | Description                                                                                                       |
-# |:---------------|:------------------------------------------------------------------------------------------------------------------|
-# | list           | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
-# | data.frame     | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
-
-# | Structure      | Type           | Description                                                                                                       |
+# **Data structures:**
+#
+# | Structure      | Nature         | Description                                                                                                       |
 # |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------|
-# | atomic vector  | homogeneous    | contains elements of the same **type**, which can be one of four **modes**: character, numeric, integer, logical |
+# | atomic vector  | homogeneous    | contains elements of the same **type**, either: character, integer, double, logical, or complex                   |
 # | array          | homogeneous    | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
 # | matrix         | homogeneous    | an array with 2 dimesions                                                                                         |
 # | factor         | homogeneous    | an atomic integer vector containing only predefined values, storing categorical data                              |
