@@ -408,8 +408,8 @@ boysNames[[1]]
 
 # There are two foundational data structures in R:
 #
-# 1. atomic vectors
-# 2. lists (also called generic vectors)
+# 1. **atomic vectors**
+# 2. **lists** (also called generic vectors)
 #
 # From these two, the following six structures are derived:
 #
@@ -417,7 +417,7 @@ boysNames[[1]]
 #
 # | Structure      | Nature         | Description                                                                                                       |
 # |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------|
-# | atomic vector  | homogeneous    | contains elements of the same **type**, either: character, integer, double, logical, or complex                   |
+# | atomic vector  | homogeneous    | contains elements of the same **type**, one of: character, integer, double, logical, or complex                   |
 # | array          | homogeneous    | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
 # | matrix         | homogeneous    | an array with 2 dimesions                                                                                         |
 # | factor         | homogeneous    | an atomic integer vector containing only predefined values, storing categorical data                              |
