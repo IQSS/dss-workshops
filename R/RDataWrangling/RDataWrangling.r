@@ -423,7 +423,11 @@ boysNames[[1]]
 # | factor         | homogeneous    | an atomic integer vector containing only predefined values, storing categorical data                              |
 # | list           | heterogeneous  | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
 # | data.frame     | heterogeneous  | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
-
+#
+# You can query the **type** of an object using the `typeof()` function. Note that **type** is not the same as **class**: the latter is a property assigned to an object that determines how generic functions operate with it. The class of an object can be queried using the `class()` function.
+#
+# ### List indexing
+#
 # Now that we know about data structures more generally, let's focus on the list structure we created for `boysNames`. 
 # Why are we using **double brackets** `[[` to index this list object?
 #
