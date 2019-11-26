@@ -460,14 +460,14 @@ We've now encountered several different data types and data structures. Let's ta
 
 There are two foundational data structures in R:
 
-1. **atomic vectors**
-2. **lists** (also called generic vectors)
+1. **atomic vectors** (aka **vectors**): these hold **homogeneous elements**
+2. **generic vectors** (aka **lists**): these hold **heterogeneous elements**
 
 From these two, the following six structures are derived:
 
 **Data structures:**
 
-| Structure      | Nature         | Description                                                                                                       |
+| Type           | Elements       | Description                                                                                                       |
 |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------|
 | atomic vector  | homogeneous    | contains elements of the same **type**, one of: character, integer, double, logical, or complex                   |
 | array          | homogeneous    | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
@@ -475,6 +475,8 @@ From these two, the following six structures are derived:
 | factor         | homogeneous    | an atomic integer vector containing only predefined values, storing categorical data                              |
 | list           | heterogeneous  | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
 | data.frame     | heterogeneous  | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
+
+If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplist type required to store all the information. The order of coercion is: logical -> integer -> numeric -> complex -> character -> list.
 
 You can query the **type** of an object using the `typeof()` function. Note that **type** is not the same as **class**: the latter is a property assigned to an object that determines how generic functions operate with it. The class of an object can be queried using the `class()` function.
 

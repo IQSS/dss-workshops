@@ -6643,9 +6643,11 @@ There are two foundational data structures in R:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{atomic vectors}
+  \textbf{atomic vectors} (aka \textbf{vectors}): these hold
+  \textbf{homogeneous elements}
 \item
-  \textbf{lists} (also called generic vectors)
+  \textbf{generic vectors} (aka \textbf{lists}): these hold
+  \textbf{heterogeneous elements}
 \end{enumerate}
 
 From these two, the following six structures are derived:
@@ -6655,9 +6657,9 @@ From these two, the following six structures are derived:
 \begin{longtable}[]{@{}lll@{}}
 \toprule
 \begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-Structure\strut
+Type\strut
 \end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-Nature\strut
+Elements\strut
 \end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
 Description\strut
 \end{minipage}\tabularnewline
@@ -6712,6 +6714,12 @@ equal length\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
+
+If heterogeneous elements are stored in an atomic vector, R will
+\textbf{coerce} the vector to the simplist type required to store all
+the information. The order of coercion is: logical -\textgreater{}
+integer -\textgreater{} numeric -\textgreater{} complex -\textgreater{}
+character -\textgreater{} list.
 
 You can query the \textbf{type} of an object using the \texttt{typeof()}
 function. Note that \textbf{type} is not the same as \textbf{class}: the
@@ -7750,7 +7758,7 @@ structures}\label{working-with-nested-structures}
 
 \textbf{Words within paragraphs within chapters}
 
-This far our analysis as treated the text as a ``flat'' data structure.
+This far our analysis has treated the text as a ``flat'' data structure.
 For example, when we counted words we just counted words in the whole
 document, rather than counting the number of words in each chapter. If
 we want to treat our document as a nested structure, with words forming
@@ -7760,7 +7768,7 @@ Specifically, we need to learn how to iterate over lists (or other
 collections) and do things with each element in a collection.
 
 There are several ways to iterate in Python, of which we will focus on
-\emph{for loops} and \emph{list comprehensions}.
+\emph{for loops}.
 
 \subsection{Iterating over paragraphs using
 for-loops}\label{iterating-over-paragraphs-using-for-loops}
@@ -7771,6 +7779,33 @@ can cycle through the first 6 paragraphs and print each one. Cycling
 through with a loop makes it easy to insert a separator between the
 paragraphs, making it much easier to read the output.
 
+The for loop syntax is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for} \OperatorTok{<}\NormalTok{thing}\OperatorTok{>} \KeywordTok{in} \OperatorTok{<}\NormalTok{collection}\OperatorTok{>}\NormalTok{: }
+\NormalTok{    do stuff }\ControlFlowTok{with} \OperatorTok{<}\NormalTok{thing}\OperatorTok{>}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that the body of the for-loop is indented. This is important,
+because it is this indentation that defines the \emph{body} of the loop
+--- the place where things are done. White space matters in Python! A
+simple example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{10}\NormalTok{): }
+    \BuiltInTok{print}\NormalTok{(i)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{'DONE.'}\NormalTok{)    }
+\end{Highlighting}
+\end{Shaded}
+
+Notice that ``DONE.'' is only printed once, since
+\texttt{print(\textquotesingle{}DONE.\textquotesingle{})} is not
+indented and is therefore outside of the body of the loop. An example
+using the Alice text:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{ paragraph }\KeywordTok{in}\NormalTok{ alice_paragraphs[:}\DecValTok{6}\NormalTok{]:}
@@ -7779,19 +7814,6 @@ paragraphs, making it much easier to read the output.
 \BuiltInTok{print}\NormalTok{(}\StringTok{'DONE.'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-Notice that the syntax of a for-loop is
-
-\begin{verbatim}
-for <thing> in <collection>:
-    do stuff with <thing>
-\end{verbatim}
-
-Notice also that the body of the for-loop is indented. This is
-important, because it is this indentation that defines the body of the
-loop. Notice that ``DONE.'' is only printed once, since
-\texttt{print(\textquotesingle{}DONE.\textquotesingle{})} is not
-indented and is therefore outside of the body of the loop.
 
 Loops in Python are great because the syntax is relatively simple, and
 because they are very powerful. Inside of the body of a loop you can use
@@ -7811,30 +7833,75 @@ chapters and calculating the number of paragraphs in each chapter.
 \subsection{Organizing results in
 dictionaries}\label{organizing-results-in-dictionaries}
 
-Our code for calculating the number of of times ``Alice'' was mentioned
-per chapter worked, but with a little effort we can make it much easier
-to interpret by associating each count with the chapter it corresponds
-to. In Python we can use a \texttt{dict} (i.e., ``dictionary'') to store
+Our code for calculating the number of times ``Alice'' was mentioned per
+chapter worked, but with a little effort we can make it much easier to
+interpret by associating each count with the chapter it corresponds to.
+In Python we can use a \texttt{dict} (i.e., ``dictionary'') to store
 key-value pairs.
 
-First, we can iterate over each chapter and grab just the first line
-(that is, the chapter titles). These will become our keys.
+The dictionary structure looks like:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{chapter_names }\OperatorTok{=}\NormalTok{ [chapter.splitlines()[}\DecValTok{0}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]]}
+\NormalTok{mydict }\OperatorTok{=}\NormalTok{ \{key1:value1, key2:value2, key3:value3\}}
+\end{Highlighting}
+\end{Shaded}
+
+A simple example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydict }\OperatorTok{=}\NormalTok{ \{}\StringTok{"apple"}\NormalTok{:}\DecValTok{5}\NormalTok{, }\StringTok{"pear"}\NormalTok{:}\DecValTok{6}\NormalTok{, }\StringTok{"grape"}\NormalTok{:}\DecValTok{10}\NormalTok{\}}
+\BuiltInTok{print}\NormalTok{(mydict)}
+
+\CommentTok{# compare to a list}
+\NormalTok{mylist }\OperatorTok{=}\NormalTok{[}\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{10}\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(mylist)}
+\end{Highlighting}
+\end{Shaded}
+
+Now, with the Alice text, first we can iterate over each chapter and
+grab just the first line (that is, the chapter titles). These will
+become our keys.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{container }\OperatorTok{=}\NormalTok{ [] }\CommentTok{# a list}
+
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{10}\NormalTok{):}
+\NormalTok{    container.append(i) }\CommentTok{# append elements to the list}
+
+\BuiltInTok{print}\NormalTok{(container)    }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chapter_names }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
+\NormalTok{    chapter_names.append(chapter.splitlines()[}\DecValTok{0}\NormalTok{])}
+
 \BuiltInTok{print}\NormalTok{(chapter_names)}
 \end{Highlighting}
 \end{Shaded}
 
-Finally we can combine the chapter titles and counts and convert them to
+Finally we can combine the chapter names and counts and convert them to
 a dictionary.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(chapter_names, }
-\NormalTok{         [chapter.count(}\StringTok{"Alice"}\NormalTok{) }
-          \ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters]))}
+\CommentTok{# create counts for each chapter}
+\NormalTok{chapter_Alice }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
+\NormalTok{    chapter_Alice.append(chapter.count(}\StringTok{"Alice"}\NormalTok{))}
+
+\CommentTok{# combine names and counts}
+\NormalTok{mydict }\OperatorTok{=} \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(chapter_names, }
+\NormalTok{                  chapter_Alice))}
+
+\BuiltInTok{print}\NormalTok{(mydict)}
+
+\BuiltInTok{help}\NormalTok{(}\BuiltInTok{zip}\NormalTok{)         }
 \end{Highlighting}
 \end{Shaded}
 
@@ -7842,10 +7909,9 @@ a dictionary.
 
 \textbf{Iterating \& counting things}
 
-Now that we know how to iterate using for-loops and list comprehensions
-the possibilities really start to open up. For example, we can use these
-techniques to count the number of times each character appears in the
-story.
+Now that we know how to iterate using for-loops, the possibilities
+really start to open up. For example, we can use these techniques to
+count the number of times each character appears in the story.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7865,9 +7931,9 @@ if you have not already done so.
   Which chapter has the most words?
 \end{enumerate}
 
-Split the text into chaptes (i.e., split on ``CHAPTER'') and use a
-for-loop or list comprehension to iterate over the chapters. For each
-chapter, split it into words and calculate the length.
+Split the text into chapters (i.e., split on ``CHAPTER'') and use a
+for-loop to iterate over the chapters. For each chapter, split it into
+words and calculate the length.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7877,9 +7943,8 @@ chapter, split it into words and calculate the length.
   How many times is each character mentioned in the text?
 \end{enumerate}
 
-Iterate over the list of characters using a for-loop or list
-comprehension. For each character, call the count method with that
-character as the argument.
+Iterate over the list of characters using a for-loop. For each
+character, call the count method with that character as the argument.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7888,9 +7953,6 @@ character as the argument.
 \item
   (BONUS, optional): Put the character counts computed above in a
   dictionary with character names as the keys and counts as the values.
-\item
-  (BONUS, optional): Use a nested list comprehension to calculate the
-  number of times each character is mentioned in each chapter.
 \end{enumerate}
 
 \section{Importing numpy \& calculating simple
@@ -7900,18 +7962,25 @@ Now that we know how to iterate over lists and calculate numbers for
 each element, we may wish to do some simple math using these numbers.
 For example, we may want to calculate the mean and standard deviation of
 the distribution of the number of paragraphs in each chapter. Python has
-a handful of math functions built-in (e.g., \texttt{min} and
-\texttt{max}) but built-in math support is pretty limited.
+a handful of math functions built-in (e.g., \texttt{min()} and
+\texttt{max()}) but built-in math support is pretty limited.
 
 When you find that something isn't available in Python itself, its time
 to look for a package that does it. Although it is somewhat overkill for
 simply calculating a mean we're going to use a popular package called
-\emph{numpy} for this. The \emph{numpy} package is included in the
+\texttt{numpy} for this. The \texttt{numpy} package is included in the
 Anaconda Python distribution we are using, so we don't need to install
 it separately.
 
-In order to use \emph{numpy} or other packages, you must first import
-them. We can import numpy as follows:
+To use \texttt{numpy} or other packages, you must first import them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import} \OperatorTok{<}\NormalTok{package}\OperatorTok{-}\NormalTok{name}\OperatorTok{>}
+\end{Highlighting}
+\end{Shaded}
+
+We can import \texttt{numpy} as follows:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7919,7 +7988,16 @@ them. We can import numpy as follows:
 \end{Highlighting}
 \end{Shaded}
 
-The \emph{numpy} package is very popular and includes a lot of useful
+To use functions from a package, we can prefix the function with the
+package name, separated by a period:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{<}\NormalTok{package}\OperatorTok{-}\NormalTok{name}\OperatorTok{>}\NormalTok{.}\OperatorTok{<}\NormalTok{function_name}\OperatorTok{>}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{numpy} package is very popular and includes a lot of useful
 functions. For example, we can use it to calculate means and standard
 deviations:
 
@@ -7927,17 +8005,6 @@ deviations:
 \begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(numpy.mean(paragraphs_per_chapter))}
 \BuiltInTok{print}\NormalTok{(numpy.std(paragraphs_per_chapter))}
-\end{Highlighting}
-\end{Shaded}
-
-and compute correlations:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{words_per_chapter }\OperatorTok{=}\NormalTok{ [}\BuiltInTok{len}\NormalTok{(chapter.split()) }\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters]}
-\NormalTok{alices_per_chapter }\OperatorTok{=}\NormalTok{ [chapter.count(}\StringTok{"Alice"}\NormalTok{) }\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters]}
-
-\BuiltInTok{print}\NormalTok{(numpy.corrcoef(words_per_chapter, alices_per_chapter))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8128,6 +8195,19 @@ Note also that this workshop will not teach you everything you need to
 know in order to retrieve data from any web service you might wish to
 scrape. You can expect to learn just enough to be dangerous.
 
+\section{Workshop outline}\label{workshop-outline-4}
+
+This workshop is organized into two parts:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Retrive information in JSON format.
+\item
+  Parse HTML file.
+\end{enumerate}
+
 \section{Preliminary questions}\label{preliminary-questions}
 
 \subsection{What is web scraping?}\label{what-is-web-scraping}
@@ -8143,6 +8223,68 @@ mitigate some ethical issues by building delays and restrictions into
 your web scraping program so as to avoid impacting the availability of
 the web service for other users or the cost of hosting the service for
 the service provider.
+
+\section{How Does the Web Work?}\label{how-does-the-web-work}
+
+\subsection{Components}\label{components}
+
+Computers connected to the web are called clients and servers. A
+simplified diagram of how they interact might look like this:
+
+\begin{figure}
+\centering
+\includegraphics{Python/PythonWebScrape/images/client_server.png}
+\caption{}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Clients are the typical web user's internet-connected devices (for
+  example, your computer connected to your Wi-Fi) and web-accessing
+  software available on those devices (usually a web brwoser like
+  Firefox or Chrome).
+\item
+  Servers are computers that store webpages, sites, or apps. When a
+  client device wants to access a webpage, a copy of the webpage is
+  downloaded from the server onto the client machine to be displayed in
+  the user's web browser.
+\item
+  Your internet connection allows you to send and receive data on the
+  web.
+\item
+  TCP/IP are the communication protocols that define how data should
+  travel across the web.
+\item
+  Domain Name Servers are like an address book for websites.
+\item
+  HTTP is an application protocol that defines a language for clients
+  and servers to speak to each other.
+\end{itemize}
+
+\subsection{So What Happens, Exactly?}\label{so-what-happens-exactly}
+
+When you type a web address into your browser:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The browser goes to the DNS server, and finds the real address of the
+  server that the website lives on.
+\item
+  The browser sends an HTTP request message to the server, asking it to
+  send a copy of the website to the client. This message, and all other
+  data sent between the client and the server, is sent across your
+  internet connection using TCP/IP.
+\item
+  If the server approves the client's request, the server sends the
+  client a ``200 OK'' message, and then starts sending the website's
+  files to the browser as a series of small chunks called data packets.
+\item
+  The browser assembles the small chunks into a complete website and
+  displays it to you.
+\end{enumerate}
 
 \section{Example project}\label{example-project}
 
@@ -8395,13 +8537,33 @@ using them where possible. If you are really lucky, you'll find a
 shortcut that returns the data as JSON or XML. If you are not quite so
 lucky, you will have to parse HTML to retrieve the information you need.
 
+\subsection{Document Object Model
+(DOM)}\label{document-object-model-dom}
+
+To parse HTML, we need to have a nice tree structure that contains the
+whole HTML file through which we can locate the information. This
+tree-like structure is the Document Object Model (DOM). DOM is a
+cross-platform and language-independent interface that treats an XML or
+HTML document as a tree structure wherein each node is an object
+representing a part of the document. The DOM represents a document with
+a logical tree. Each branch of the tree ends in a node, and each node
+contains objects. DOM methods allow programmatic access to the tree;
+with them one can change the structure, style or content of a document.
+The following is an example of DOM hierarchy in an HTML document:
+
+\begin{figure}
+\centering
+\includegraphics{Python/PythonWebScrape/images/DOM.png}
+\caption{}
+\end{figure}
+
+\subsection{Retrieving HTML}\label{retrieving-html}
+
 For example, when I inspected the network traffic while interacting with
 \url{https://www.harvardartmuseums.org/visit/calendar} I didn't see any
 requests that returned JSON data. The best we can do appears to be
 \url{https://www.harvardartmuseums.org/visit/calendar?date=}, which
 unfortunately returns HTML.
-
-\subsection{Retrieving HTML}\label{retrieving-html}
 
 The first step is the same as before: we make at \texttt{GET} request.
 

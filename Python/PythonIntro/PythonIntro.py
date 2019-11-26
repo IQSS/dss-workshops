@@ -245,24 +245,31 @@ len(alice_paragraphs)
 #
 # **Words within paragraphs within chapters**
 #
-# This far our analysis as treated the text as a "flat" data structure. For example, when we counted words we just counted words in the whole document, rather than counting the number of words in each chapter. If we want to treat our document as a nested structure, with words forming sentences, sentences forming paragraphs, paragraphs forming chapters, and chapters forming the book, we need to learn some additional tools. Specifically, we need to learn how to iterate over lists (or other collections) and do things with each element in a collection.
+# This far our analysis has treated the text as a "flat" data structure. For example, when we counted words we just counted words in the whole document, rather than counting the number of words in each chapter. If we want to treat our document as a nested structure, with words forming sentences, sentences forming paragraphs, paragraphs forming chapters, and chapters forming the book, we need to learn some additional tools. Specifically, we need to learn how to iterate over lists (or other collections) and do things with each element in a collection.
 #
-# There are several ways to iterate in Python, of which we will focus on *for loops* and *list comprehensions*. 
+# There are several ways to iterate in Python, of which we will focus on *for loops*. 
 #
 # ### Iterating over paragraphs using for-loops
-# A *for loop* is a way of cycling through the elements of a collection and doing something with each one. As a simple example, we can cycle through the first 6 paragraphs and print each one\. Cycling through with a loop makes it easy to insert a separator between the paragraphs, making it much easier to read the output.
+#
+# A *for loop* is a way of cycling through the elements of a collection and doing something with each one. As a simple example, we can cycle through the first 6 paragraphs and print each one. Cycling through with a loop makes it easy to insert a separator between the paragraphs, making it much easier to read the output.
+#
+# The for loop syntax is:
+
+for <thing> in <collection>: 
+    do stuff with <thing>
+
+# Notice that the body of the for-loop is indented. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. White space matters in Python! A simple example:
+
+for i in range(10): 
+    print(i)
+print('DONE.')    
+
+# Notice that "DONE." is only printed once, since `print('DONE.')` is not indented and is therefore outside of the body of the loop. An example using the Alice text:
 
 for paragraph in alice_paragraphs[:6]:
     print(paragraph)
     print('==================================')
 print('DONE.')
-
-# Notice that the syntax of a for-loop is 
-
-for <thing> in <collection>:
-    do stuff with <thing>
-
-# Notice also that the body of the for-loop is indented. This is important, because it is this indentation that defines the body of the loop. Notice that "DONE." is only printed once, since `print('DONE.')` is not indented and is therefore outside of the body of the loop.
 
 # Loops in Python are great because the syntax is relatively simple, and because they are very powerful. Inside of the body of a loop you can use all the tools you use elsewhere in python.
 #
@@ -273,24 +280,58 @@ for chapter in alice_chapters[1:]:
     print(len(paragraphs))
 
 # ### Organizing results in dictionaries
-# Our code for calculating the number of of times "Alice" was mentioned per chapter worked, but with a little effort we can make it much easier to interpret by associating each count with the chapter it corresponds to. In Python we can use a `dict` (i.e., "dictionary") to store key-value pairs.
 #
-# First, we can iterate over each chapter and grab just the first line (that is, the chapter titles). These will become our keys.
+# Our code for calculating the number of times "Alice" was mentioned per chapter worked, but with a little effort we can make it much easier to interpret by associating each count with the chapter it corresponds to. In Python we can use a `dict` (i.e., "dictionary") to store key-value pairs.
+#
+# The dictionary structure looks like:
 
-chapter_names = [chapter.splitlines()[0] for chapter in alice_chapters[1:]]
+mydict = {key1:value1, key2:value2, key3:value3}
+
+# A simple example:
+
+mydict = {"apple":5, "pear":6, "grape":10}
+print(mydict)
+
+# compare to a list
+mylist =[5, 6, 10]
+print(mylist)
+
+# Now, with the Alice text, first we can iterate over each chapter and grab just the first line (that is, the chapter titles). These will become our keys.
+
+container = [] # a list
+
+for i in range(10):
+    container.append(i) # append elements to the list
+
+print(container)    
+
+chapter_names = []
+for chapter in alice_chapters[1:]:
+    chapter_names.append(chapter.splitlines()[0])
+
 print(chapter_names)
 
-# Finally we can combine the chapter titles and counts and convert them to a dictionary.
+# Finally we can combine the chapter names and counts and convert them to a dictionary.
 
-dict(zip(chapter_names, 
-         [chapter.count("Alice") 
-          for chapter in alice_chapters]))
+# create counts for each chapter
+chapter_Alice = []
+for chapter in alice_chapters[1:]:
+    chapter_Alice.append(chapter.count("Alice"))
+
+# combine names and counts
+mydict = dict(zip(chapter_names, 
+                  chapter_Alice))
+
+print(mydict)
+
+help(zip)         
+
 
 # ## Exercise 2
 #
 # **Iterating & counting things**
 #
-# Now that we know how to iterate using for-loops and list comprehensions the possibilities really start to open up. For example, we can use these techniques to count the number of times each character appears in the story. 
+# Now that we know how to iterate using for-loops, the possibilities really start to open up. For example, we can use these techniques to count the number of times each character appears in the story. 
 #
 # 1. Make sure you have both the text and the list of characters.
 #
@@ -299,44 +340,44 @@ dict(zip(chapter_names,
 #
 # 2. Which chapter has the most words?
 #
-# Split the text into chaptes (i.e., split on "CHAPTER ")
-# and use a for-loop or list comprehension to iterate over
-# the chapters. For each chapter, split it into words and 
+# Split the text into chapters (i.e., split on "CHAPTER ")
+# and use a for-loop to iterate over the chapters. 
+# For each chapter, split it into words and 
 # calculate the length.
 #
 # 3. How many times is each character mentioned in the text?
 #
-# Iterate over the list of characters using a for-loop or 
-# list comprehension. For each character, call the count method
+# Iterate over the list of characters using a for-loop. 
+# For each character, call the count method
 # with that character as the argument.
 #
 # 4. (BONUS, optional): Put the character counts computed 
 #    above in a dictionary with character names as the keys and 
 #    counts as the values.
-# 5. (BONUS, optional): Use a nested list comprehension 
-#    to calculate the number of times each character is 
-#    mentioned in each chapter.
 
 # ## Importing numpy & calculating simple statistics
-# Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min` and `max`) but built-in math support is pretty limited.
 #
-# When you find that something isn't available in Python itself, its time to look for a package that does it. Although it is somewhat overkill for simply calculating a mean we're going to use a popular package called *numpy* for this. The *numpy* package is included in the Anaconda Python distribution we are using, so we don't need to install it separately.
+# Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min()` and `max()`) but built-in math support is pretty limited.
 #
-# In order to use *numpy* or other packages, you must first import them. We can import numpy as follows:
+# When you find that something isn't available in Python itself, its time to look for a package that does it. Although it is somewhat overkill for simply calculating a mean we're going to use a popular package called `numpy` for this. The `numpy` package is included in the Anaconda Python distribution we are using, so we don't need to install it separately.
+#
+# To use `numpy` or other packages, you must first import them. 
+
+import <package-name>
+
+# We can import `numpy` as follows:
 
 import numpy
 
-# The *numpy* package is very popular and includes a lot of useful functions. For example, we can use it to calculate means and standard deviations:
+# To use functions from a package, we can prefix the function with the package name, separated by a period:
+
+<package-name>.<function_name>()
+
+# The `numpy` package is very popular and includes a lot of useful functions. For example, we can use it to calculate means and standard deviations:
 
 print(numpy.mean(paragraphs_per_chapter))
 print(numpy.std(paragraphs_per_chapter))
 
-# and compute correlations:
-
-words_per_chapter = [len(chapter.split()) for chapter in alice_chapters]
-alices_per_chapter = [chapter.count("Alice") for chapter in alice_chapters]
-
-print(numpy.corrcoef(words_per_chapter, alices_per_chapter))
 
 # ## Wrap-up
 #
