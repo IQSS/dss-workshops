@@ -6621,38 +6621,31 @@ structures}\label{r-data-types-and-structures}
 We've now encountered several different data types and data structures.
 Let's take a step back and survey the options available in R.
 
-\textbf{Data types:}
+\textbf{Data structures:}
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-Type & Description\tabularnewline
-\midrule
-\endhead
-character & ``a'', ``swc''\tabularnewline
-integer & 2L (the L tells R to store this as an integer)\tabularnewline
-double (floating point) & 2, 15.5\tabularnewline
-logical & TRUE, FALSE\tabularnewline
-complex & 1+4i (complex numbers with real and imaginary
-parts)\tabularnewline
-\bottomrule
-\end{longtable}
-
-There are two foundational data structures in R:
+In R, the most foundational data structures is the \textbf{vector},
+which comes in two basic forms:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{atomic vectors} (aka \textbf{vectors}): these hold
-  \textbf{homogeneous elements}
+  \textbf{atomic}: only hold elements of the same type --- they are
+  \textbf{homogeneous}
 \item
-  \textbf{generic vectors} (aka \textbf{lists}): these hold
-  \textbf{heterogeneous elements}
+  \textbf{lists}: can hold elements of different types --- they are
+  \textbf{heterogeneous}
 \end{enumerate}
 
-From these two, the following six structures are derived:
+\begin{figure}
+\centering
+\includegraphics{R/RDataWrangling/images/summary_tree.png}
+\caption{vector tree}
+\end{figure}
 
-\textbf{Data structures:}
+\texttt{NULL} is closely related to vectors and often serves the role of
+a generic zero length vector. From these two forms, the following six
+structures are derived:
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -6715,17 +6708,59 @@ equal length\strut
 \bottomrule
 \end{longtable}
 
-If heterogeneous elements are stored in an atomic vector, R will
-\textbf{coerce} the vector to the simplist type required to store all
-the information. The order of coercion is: logical -\textgreater{}
-integer -\textgreater{} numeric -\textgreater{} complex -\textgreater{}
-character -\textgreater{} list.
+Each vector can have \textbf{attributes}, which is a named list of
+arbitrary metadata that can include the vector's \textbf{dimensions} and
+its \textbf{class}. The latter is a property assigned to an object that
+determines how generic functions operate with it, and thus which methods
+are available for it. The class of an object can be queried using the
+\texttt{class()} function.
+
+You can learn details about R data structures here:
+\url{https://adv-r.hadley.nz/vectors-chap.html}
+
+\textbf{Data types:}
+
+There are four primary types of atomic vectors. Collectively, integer
+and double vectors are known as numeric vectors.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Type & Description\tabularnewline
+\midrule
+\endhead
+character & ``a'', ``swc''\tabularnewline
+integer & 2L (the L tells R to store this as an integer)\tabularnewline
+double (floating point) & 2, 15.5\tabularnewline
+logical & TRUE, FALSE\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{figure}
+\centering
+\includegraphics{R/RDataWrangling/images/summary_tree_atomic.png}
+\caption{vector tree}
+\end{figure}
 
 You can query the \textbf{type} of an object using the \texttt{typeof()}
-function. Note that \textbf{type} is not the same as \textbf{class}: the
-latter is a property assigned to an object that determines how generic
-functions operate with it. The class of an object can be queried using
-the \texttt{class()} function.
+function.
+
+\textbf{Coercion:}
+
+If heterogeneous elements are stored in an atomic vector, R will
+\textbf{coerce} the vector to the simplest type required to store all
+the information. The order of coercion is roughly: logical
+-\textgreater{} integer -\textgreater{} numeric -\textgreater{} complex
+-\textgreater{} character -\textgreater{} list. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\KeywordTok{typeof}\NormalTok{(x)}
+
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"a"}\NormalTok{)}
+\KeywordTok{typeof}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{List indexing}\label{list-indexing}
 

@@ -920,44 +920,17 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <div id="r-data-types-and-structures" class="section level3">
 <h3><span class="header-section-number">5.5.2</span> R data types and structures</h3>
 <p>We’ve now encountered several different data types and data structures. Let’s take a step back and survey the options available in R.</p>
-<p><strong>Data types:</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">character</td>
-<td align="left">“a”, “swc”</td>
-</tr>
-<tr class="even">
-<td align="left">integer</td>
-<td align="left">2L (the L tells R to store this as an integer)</td>
-</tr>
-<tr class="odd">
-<td align="left">double (floating point)</td>
-<td align="left">2, 15.5</td>
-</tr>
-<tr class="even">
-<td align="left">logical</td>
-<td align="left">TRUE, FALSE</td>
-</tr>
-<tr class="odd">
-<td align="left">complex</td>
-<td align="left">1+4i (complex numbers with real and imaginary parts)</td>
-</tr>
-</tbody>
-</table>
-<p>There are two foundational data structures in R:</p>
-<ol style="list-style-type: decimal">
-<li><strong>atomic vectors</strong> (aka <strong>vectors</strong>): these hold <strong>homogeneous elements</strong></li>
-<li><strong>generic vectors</strong> (aka <strong>lists</strong>): these hold <strong>heterogeneous elements</strong></li>
-</ol>
-<p>From these two, the following six structures are derived:</p>
 <p><strong>Data structures:</strong></p>
+<p>In R, the most foundational data structures is the <strong>vector</strong>, which comes in two basic forms:</p>
+<ol style="list-style-type: decimal">
+<li><strong>atomic</strong>: only hold elements of the same type — they are <strong>homogeneous</strong></li>
+<li><strong>lists</strong>: can hold elements of different types — they are <strong>heterogeneous</strong></li>
+</ol>
+<div class="figure">
+<img src="R/RDataWrangling/images/summary_tree.png" alt="vector tree" />
+<p class="caption">vector tree</p>
+</div>
+<p><code>NULL</code> is closely related to vectors and often serves the role of a generic zero length vector. From these two forms, the following six structures are derived:</p>
 <table>
 <colgroup>
 <col width="11%" />
@@ -1004,8 +977,48 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 </tr>
 </tbody>
 </table>
-<p>If heterogeneous elements are stored in an atomic vector, R will <strong>coerce</strong> the vector to the simplist type required to store all the information. The order of coercion is: logical -&gt; integer -&gt; numeric -&gt; complex -&gt; character -&gt; list.</p>
-<p>You can query the <strong>type</strong> of an object using the <code>typeof()</code> function. Note that <strong>type</strong> is not the same as <strong>class</strong>: the latter is a property assigned to an object that determines how generic functions operate with it. The class of an object can be queried using the <code>class()</code> function.</p>
+<p>Each vector can have <strong>attributes</strong>, which is a named list of arbitrary metadata that can include the vector’s <strong>dimensions</strong> and its <strong>class</strong>. The latter is a property assigned to an object that determines how generic functions operate with it, and thus which methods are available for it. The class of an object can be queried using the <code>class()</code> function.</p>
+<p>You can learn details about R data structures here: <a href="https://adv-r.hadley.nz/vectors-chap.html" class="uri">https://adv-r.hadley.nz/vectors-chap.html</a></p>
+<p><strong>Data types:</strong></p>
+<p>There are four primary types of atomic vectors. Collectively, integer and double vectors are known as numeric vectors.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">character</td>
+<td align="left">“a”, “swc”</td>
+</tr>
+<tr class="even">
+<td align="left">integer</td>
+<td align="left">2L (the L tells R to store this as an integer)</td>
+</tr>
+<tr class="odd">
+<td align="left">double (floating point)</td>
+<td align="left">2, 15.5</td>
+</tr>
+<tr class="even">
+<td align="left">logical</td>
+<td align="left">TRUE, FALSE</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="R/RDataWrangling/images/summary_tree_atomic.png" alt="vector tree" />
+<p class="caption">vector tree</p>
+</div>
+<p>You can query the <strong>type</strong> of an object using the <code>typeof()</code> function.</p>
+<p><strong>Coercion:</strong></p>
+<p>If heterogeneous elements are stored in an atomic vector, R will <strong>coerce</strong> the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -&gt; integer -&gt; numeric -&gt; complex -&gt; character -&gt; list. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<span class="kw">typeof</span>(x)
+
+x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="st">&quot;a&quot;</span>)
+<span class="kw">typeof</span>(x)</code></pre></div>
 </div>
 <div id="list-indexing" class="section level3">
 <h3><span class="header-section-number">5.5.3</span> List indexing</h3>

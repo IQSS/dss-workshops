@@ -396,24 +396,16 @@ boysNames[[1]]
 #
 # We've now encountered several different data types and data structures. Let's take a step back and survey the options available in R.
 #
-# **Data types:**
-#
-# | Type                    | Description                                          |
-# |:------------------------|:-----------------------------------------------------|
-# | character               | "a", "swc"                                           |
-# | integer                 | 2L (the L tells R to store this as an integer)       |
-# | double (floating point) | 2, 15.5                                              |
-# | logical                 | TRUE, FALSE                                          |
-# | complex                 | 1+4i (complex numbers with real and imaginary parts) |
-
-# There are two foundational data structures in R:
-#
-# 1. **atomic vectors** (aka **vectors**): these hold **homogeneous elements**
-# 2. **generic vectors** (aka **lists**): these hold **heterogeneous elements**
-#
-# From these two, the following six structures are derived:
-#
 # **Data structures:**
+#
+# In R, the most foundational data structures is the **vector**, which comes in two basic forms:
+#
+# 1. **atomic**: only hold elements of the same type --- they are **homogeneous**
+# 2. **lists**: can hold elements of different types --- they are **heterogeneous**
+#
+# ![vector tree](R/RDataWrangling/images/summary_tree.png)
+#
+# `NULL` is closely related to vectors and often serves the role of a generic zero length vector. From these two forms, the following six structures are derived:
 #
 # | Type           | Elements       | Description                                                                                                       |
 # |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------|
@@ -424,10 +416,36 @@ boysNames[[1]]
 # | list           | heterogeneous  | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
 # | data.frame     | heterogeneous  | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
 #
-# If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplist type required to store all the information. The order of coercion is: logical -> integer -> numeric -> complex -> character -> list.
+# Each vector can have **attributes**, which is a named list of arbitrary metadata that can include the vector's **dimensions** and its **class**. The latter is a property assigned to an object that determines how generic functions operate with it, and thus which methods are available for it. The class of an object can be queried using the `class()` function.
 #
-# You can query the **type** of an object using the `typeof()` function. Note that **type** is not the same as **class**: the latter is a property assigned to an object that determines how generic functions operate with it. The class of an object can be queried using the `class()` function.
+# You can learn details about R data structures here: <https://adv-r.hadley.nz/vectors-chap.html>
+
+# **Data types:**
 #
+# There are four primary types of atomic vectors. Collectively, integer and double vectors are known as numeric vectors.
+#
+# | Type                    | Description                                          |
+# |:------------------------|:-----------------------------------------------------|
+# | character               | "a", "swc"                                           |
+# | integer                 | 2L (the L tells R to store this as an integer)       |
+# | double (floating point) | 2, 15.5                                              |
+# | logical                 | TRUE, FALSE                                          |
+#
+# ![vector tree](R/RDataWrangling/images/summary_tree_atomic.png)
+#
+# You can query the **type** of an object using the `typeof()` function.
+
+# **Coercion:**
+#
+# If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> numeric -> complex -> character -> list. For example:
+
+x <- c(1, 2, 3)
+typeof(x)
+
+x <- c(1, 2, 3, "a")
+typeof(x)
+
+
 # ### List indexing
 #
 # Now that we know about data structures more generally, let's focus on the list structure we created for `boysNames`. 
