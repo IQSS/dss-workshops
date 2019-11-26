@@ -431,7 +431,7 @@ boysNames[[1]]
 # ### List indexing
 #
 # Now that we know about data structures more generally, let's focus on the list structure we created for `boysNames`. 
-# Why are we using **double brackets** `[[` to index this list object?
+# Why are we using **double brackets** `[[` to index this list object, instead of the single brackets `[` we used to index atomic vectors?
 #
 # ![list indexing](R/RDataWrangling/images/indexing_lists.png)
 
