@@ -17,7 +17,7 @@
 * Laptop users: you will need a copy of Stata installed on your machine. 
 * Harvard FAS affiliates can install a licensed version from <http://downloads.fas.harvard.edu/download>
 *
-* * Download class materials at <https://github.com/IQSS/dss-workshops-redux/raw/master/Stata/StataIntro.zip>
+* * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Stata/StataIntro.zip>
 * * Extract materials from the zipped directory `StataIntro.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 *
 * ### Organization
