@@ -28,7 +28,7 @@
 #
 # #### Download workshop materials
 #
-# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/raw/master/Python/PythonIntro.zip>
+# * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Python/PythonIntro.zip>
 # * Extract materials from the zipped directory `PythonIntro.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 
 # ### Prerequisites

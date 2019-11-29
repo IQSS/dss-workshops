@@ -33,7 +33,7 @@ pd.set_option('display.max_columns', 5)
 #
 # #### Workshop notes
 #
-# * Download class materials at <https://github.com/IQSS/dss-workshops-redux/raw/master/Python/PythonWebScrape.zip>
+# * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Python/PythonWebScrape.zip>
 # * Extract materials from the zipped directory `PythonWebScrape.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 #
 # Start the `Jupyter Notebook` application and open the
