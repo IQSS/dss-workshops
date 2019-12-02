@@ -18,73 +18,73 @@ knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, e
 
 ## Setup
 
-```{python, echo=FALSE, results=FALSE}
-## This sets some printing options
-## that make output look nicer.
-from pprint import pprint as print
-import pandas as pd
-pd.set_option('display.width', 133)
-pd.set_option('display.max_colwidth', 30)
-pd.set_option('display.max_columns', 5)
-```
+### Class Structure
+
+* Informal --- Ask questions at any time. Really!
+* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
 
 ### Software & Materials
 
 ####  Install the Anaconda Python distribution
+
 If using your own computer please install the Anaconda Python
 distribution from
 [https://www.anaconda.com/download/](https://www.anaconda.com/download/).
 (Note that Python version $\leq$ 3.0 differs considerably from more
 recent releases. For this workshop you will need version $\geq$ 3.6.x)
 
-Accepting the defaults proposed by the Anaconda installer is generally
-recommended.
+Accepting the defaults proposed by the Anaconda installer is generally recommended.
 
-#### Workshop notes
+#### Download materials
 
 * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Python/PythonWebScrape.zip>
 * Extract materials from the zipped directory `PythonWebScrape.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
 
-Start the `Jupyter Notebook` application and open the
-`PythonWebScrape.ipynb` file in the `PythonWebScrape` folder you
-downloaded previously. 
+### Prerequisites
 
-### Goals
-In this workshop you will
+This is an intermediate Python course:
 
-* learn basic web scraping principles and techniques,
-* learn how to use the `requests` package in Python,
-* practice making requests and manipulating responses from the server.
+* Assumes knowledge of Python, including:
+    + lists
+    + dictionaries
+    + logical indexing
+    + iteration with for-loops
+* Assumes basic knowledge of web page structure
+* Relatively fast-paced
 
-This workshop is relatively *informal*, *example-oriented*, and
-*hands-on*. We will learn by working through an example web scraping
-project.
+If you need an introduction to Python or a refresher, we recommend our
+[Python Introduction](https://iqss.github.io/dss-workshops/PythonIntro.html).
 
-Note that this is **not** an introductory workshop. Familiarity with
-Python, including but not limited to knowledge of lists and
-dictionaries, indexing, and loops and / or comprehensions is assumed.
-If you need an introduction to Python or a refresher, we recommend the
-[IQSS Introduction to Python](https://dss.iq.harvard.edu/workshop-materials#widget-0).
+
+### Learning Outcomes
+
+1. learn basic web scraping principles and techniques
+2. learn how to use the `requests` package in Python
+3. practice making requests and manipulating responses from the server
 
 Note also that this workshop will not teach you everything you need to
 know in order to retrieve data from any web service you might wish to
-scrape. You can expect to learn just enough to be dangerous.
+scrape. 
 
-## Workshop outline
+
+### Workshop Outline
 
 This workshop is organized into two parts:
 
-1. Retrive information in JSON format.
-2. Parse HTML file.
+1. Retrive information in JSON format
+2. Parse HTML file
 
 
 ## Preliminary questions
 
 ### What is web scraping?
+
 Web scraping is the activity of automating retrieval of information
 from a web service designed for human interaction.
 
 ### Is web scraping legal? Is it ethical?
+
 It depends. If you have legal questions seek legal counsel. You can
 mitigate some ethical issues by building delays and restrictions into
 your web scraping program so as to avoid impacting the availability of
@@ -95,6 +95,7 @@ the service provider.
 ## How Does the Web Work?
 
 ### Components
+
 Computers connected to the web are called clients and servers. A simplified diagram of how they interact might look like this:
 
 ![](Python/PythonWebScrape/images/client_server.png)
@@ -107,6 +108,7 @@ Computers connected to the web are called clients and servers. A simplified diag
 * HTTP is an application protocol that defines a language for clients and servers to speak to each other.
 
 ### So What Happens, Exactly?
+
 When you type a web address into your browser:
 
 1. The browser goes to the DNS server, and finds the real address of the server that the website lives on.
@@ -116,6 +118,7 @@ When you type a web address into your browser:
 
 
 ## Example project 
+
 In this workshop I will demonstrate web scraping techniques using the
 Collections page at
 <https://www.harvardartmuseums.org/collections> and let you use
@@ -128,6 +131,7 @@ the page you wish to retrieve data from, and copy/paste information
 from your web browser into your scraping program.
 
 ## Take shortcuts if you can
+
 We wish to extract information from
 <https://www.harvardartmuseums.org/collections>. Like most
 modern web pages, a lot goes on behind the scenes to produce the page
@@ -165,7 +169,29 @@ data is call make `GET` requests to
 <https://www.harvardartmuseums.org/browse> with the correct
 parameters.
 
-### Making requests using Python
+### Launch Jupyter Notebook
+
+1. Start the `Anaconda Navigator` program
+2. Click the `Launch` button under `Jupyter Notebook`
+3. Click `upload`, then in the pop-up window select the `PythonWebScrape` folder on the desktop
+4. Open and upload the `PythonWebScrape.ipynb` file (note, this is TWO steps)
+
+A Jupyter Notebook contains one or more *cells* containing notes or code. To insert a new cell click the `+` button in the upper left. To execute a cell, select it and press `Control+Enter` or click the `Run` button at the top.
+
+
+```{python, echo=FALSE, results=FALSE}
+## This sets some printing options
+## that make output look nicer.
+
+from pprint import pprint as print
+import pandas as pd
+pd.set_option('display.width', 133)
+pd.set_option('display.max_colwidth', 30)
+pd.set_option('display.max_columns', 5)
+```
+
+### Making requests
+
 The URL we want to retrieve data from has the following structure
 
     scheme                    domain    path  parameters

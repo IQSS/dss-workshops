@@ -22,11 +22,12 @@
 # ### Software & Materials
 #
 # ####  Install the Anaconda Python distribution
+#
 # If using your own computer please install the Anaconda Python distribution from [https://www.anaconda.com/download/](https://www.anaconda.com/download/). (Note that Python version$\leq$ 3.0 differs considerably from more recent releases. For this workshop you will need version$\geq$ 3.6.x)
 #
 # Accepting the defaults proposed by the Anaconda installer is generally recommended.
 #
-# #### Download workshop materials
+# #### Download materials
 #
 # * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Python/PythonIntro.zip>
 # * Extract materials from the zipped directory `PythonIntro.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
@@ -41,19 +42,14 @@
 # ### Learning Outcomes
 #
 # * Python language basics and common idioms
-# * Reading files and manipulating data in python
+# * Reading files and manipulating data in Python
 # * Iterating over data structures
 # * Python package and application ecosystem
 
 # ### Workshop Outline
 #
 # As an example project we will analyze the text of Lewis Carroll's *Alice's Adventures in Wonderland*. 
-# We will use Python to answer the following questions:
-#
-# DIVIDE INTO SECTIONS
-#
-# 1. Reading data from a file
-# 3. Working with nested structures
+# We will use Python to read data from this text file and then, working with nested data structures, ask the following questions:
 #
 # 1.  How many total and unique words are there?
 # 2.  How many chapters and paragraphs?
@@ -67,16 +63,18 @@
 #
 # A number of interfaces designed to make it easy to interact with Python are available. The Anaconda distribution that we installed earlier includes both a web-based `Jupyter Notebook` and a more conventional Integrated Development Environment called `Spyder`. For this workshop I encourage you to use `Jupyter Notebook`. In real life you should experiment and choose the interface that you find most comfortable.
 
-# ## Launch Jupyter Notebook
+# ## Python basics
+#
+# ### Launch Jupyter Notebook
 #
 # 1. Start the `Anaconda Navigator` program
 # 2. Click the `Launch` button under `Jupyter Notebook`
-# 3. Click `upload`, then in the pop-up window select the *PythonIntro* folder on the desktop
+# 3. Click `upload`, then in the pop-up window select the `PythonIntro` folder on the desktop
 # 4. Open and upload 3 files (note, this is TWO steps): `PythonIntro.ipnb`, `Alice_in_wonderland.txt`, and `Characters.txt`
 #
 # A Jupyter Notebook contains one or more *cells* containing notes or code. To insert a new cell click the `+` button in the upper left. To execute a cell, select it and press `Control+Enter` or click the `Run` button at the top.
 
-# ## Reading data from a file
+# ### Reading data from a file
 #
 # Reading information from a file is the first step in many projects, so we'll start there. The workshop materials you downloaded earlier include a file named `Alice_in_wonderland.txt` which contains the text of Lewis Carroll's *Alice's Adventures in Wonderland*.
 
