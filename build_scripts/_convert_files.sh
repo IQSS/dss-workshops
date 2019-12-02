@@ -99,6 +99,6 @@ mv StataModGraph.R StataModGraph.do  # change file suffix to .do
 sed -i "" 's/#/*/' StataModGraph.do # convert # to *
 sed -i "" '1,7d' StataModGraph.do # delete lines 1-7
 # then change hash comments to astericks
-cd ../..
+cd ..
 zip -r StataModGraph.zip StataModGraph -x "*.DS_Store"
-
+cd ..

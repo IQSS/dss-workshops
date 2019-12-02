@@ -340,16 +340,13 @@ help(zip)
 #
 # 2. Which chapter has the most words?
 #
-# Split the text into chapters (i.e., split on "CHAPTER ")
-# and use a for-loop to iterate over the chapters. 
-# For each chapter, split it into words and 
-# calculate the length.
+# Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters. 
+# For each chapter, split it into words and calculate the length.
 #
 # 3. How many times is each character mentioned in the text?
 #
 # Iterate over the list of characters using a for-loop. 
-# For each character, call the count method
-# with that character as the argument.
+# For each character, call the count method with that character as the argument.
 #
 # 4. (BONUS, optional): Put the character counts computed 
 #    above in a dictionary with character names as the keys and 
@@ -377,6 +374,69 @@ import numpy
 
 print(numpy.mean(paragraphs_per_chapter))
 print(numpy.std(paragraphs_per_chapter))
+
+# ## Exercise solutions
+#
+# ### Ex 0: prototype
+
+# 1. Open the Characters.txt file and read its contents.
+
+characters_file = open("Characters.txt")
+characters_txt = characters_file.read()
+
+# 2. Split text on newlines to produce a list with one element per line. 
+# Store the result as "alice_characters".
+
+alice_characters = characters_txt.splitlines()
+alice_characters
+
+# ### Ex 1: prototype
+
+# 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).
+
+len(alice_characters)
+
+# 2. Extract and print just the first character from the list you created in the previous exercise.
+
+print(alice_characters[0])
+
+# 3. (BONUS, optional): Sort the list you created in step 2 alphabetically, 
+# and then extract the last element.
+
+alice_characters.sort()
+alice_characters[-1]
+
+# ### Ex 2: prototype
+
+# 1. Make sure you have both the text and the list of characters.
+# Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.
+
+characters_txt = open("Characters.txt").read()
+alice_txt = open("Alice_in_wonderland.txt", encoding="utf-8-sig").read()
+
+# 2. Which chapter has the most words?
+# Split the text into chaptes (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters. 
+# For each chapter, split it into words and calculate the length.
+
+words_per_chapter = []
+for chapter in alice_chapters:
+    words_per_chapter.append(len(chapter.split()))
+words_per_chapter
+
+# 3. How many times is each character mentioned in the text?
+# Iterate over the list of characters using a for-loop. 
+# For each character, call the count method with that character as the argument.
+
+num_per_character = []
+for character in characters_txt.splitlines():
+    num_per_character.append(alice_txt.count(character))
+num_per_character
+
+# 4. (BONUS, optional): Put the character counts computed above in a 
+# dictionary with character names as the keys and counts as the values.
+
+characters = characters_txt.splitlines()
+dict(zip(characters, num_per_character))
 
 
 # ## Wrap-up
