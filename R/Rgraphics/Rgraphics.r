@@ -613,7 +613,7 @@ ggplot(housing_byyear, aes(x=Date)) +
 # To avoid these pitfalls, we need to **map** our data to the color aesthetic. 
 # We can do this by **reshaping** our data from **wide format** to **long format**:
 #
-# IMAGE HERE
+# ![](R/Rgraphics/images/wide_vs_long.png)
 #
 
 home_land_byyear <- gather(housing_byyear,

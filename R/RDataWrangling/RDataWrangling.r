@@ -507,6 +507,8 @@ boysNames[[1]]
 # the `gather()` function in the `tidyr` package is useful, but in this
 # case we will be better off using a combination of `select()` and
 # `bind_rows()`.
+#
+# ![](R/RDataWrangling/images/wide_vs_long.png)
 
 boysNames[[1]]
 
