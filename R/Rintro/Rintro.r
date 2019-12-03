@@ -1,3 +1,6 @@
+# knitr::opts_knit$set(base.dir = "/Users/nunnlab/Desktop/GitHub/rgriff23.github.io/")
+
+# # (PART) R {-}
 #
 # # R Introduction
 #

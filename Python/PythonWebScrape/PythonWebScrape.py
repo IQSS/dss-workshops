@@ -494,6 +494,13 @@ print(all_event_values)
 # can be a good option. More information is available at 
 # <https://www.seleniumhq.org/docs/03_webdriver.jsp>.
 
+# ## Exercise solutions
+#
+# ### Ex 0: prototype
+
+# ### Ex 1: prototype
+#
+
 # ## Wrap-up
 #
 # ### Feedback
