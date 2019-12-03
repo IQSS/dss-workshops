@@ -54,7 +54,7 @@
 # * Data cleaning and manipulation
 # * Conditional operations
 
-# ### What is R?
+# ## What is R?
 #
 # R is a free language and environment for statistical computing and graphics. 
 # R has existed for over 25 years and is now the most popular software for
