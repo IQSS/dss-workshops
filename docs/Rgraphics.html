@@ -719,27 +719,27 @@ data structures. This philosopy is rooted in the idea of “tidy data”:</p>
 <p><img src="R/Rintro/images/tidy_data.png" /></p>
 <p>We will use <code>tidyverse</code> packages throughout the
 workshop, so let’s install them now:</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="Rgraphics.html#cb166-1"></a><span class="co"># install.packages(&quot;tidyverse&quot;)</span></span>
-<span id="cb166-2"><a href="Rgraphics.html#cb166-2"></a></span>
-<span id="cb166-3"><a href="Rgraphics.html#cb166-3"></a><span class="co"># when you install tidyverse for the first time you will be asked</span></span>
-<span id="cb166-4"><a href="Rgraphics.html#cb166-4"></a><span class="co"># a question in the Console - please answer by typing &quot;no&quot; in the Console.</span></span>
-<span id="cb166-5"><a href="Rgraphics.html#cb166-5"></a></span>
-<span id="cb166-6"><a href="Rgraphics.html#cb166-6"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="Rgraphics.html#cb210-1"></a><span class="co"># install.packages(&quot;tidyverse&quot;)</span></span>
+<span id="cb210-2"><a href="Rgraphics.html#cb210-2"></a></span>
+<span id="cb210-3"><a href="Rgraphics.html#cb210-3"></a><span class="co"># when you install tidyverse for the first time you will be asked</span></span>
+<span id="cb210-4"><a href="Rgraphics.html#cb210-4"></a><span class="co"># a question in the Console - please answer by typing &quot;no&quot; in the Console.</span></span>
+<span id="cb210-5"><a href="Rgraphics.html#cb210-5"></a></span>
+<span id="cb210-6"><a href="Rgraphics.html#cb210-6"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <p>A typical workflow for using <code>tidyverse</code> packages looks like this:</p>
 <p><img src="R/Rintro/images/tidy_workflow.png" /></p>
 <p>The <code>ggplot2</code> package is contained within <code>tidyverse</code>, but we also want to
 install two additional packages, <code>scales</code> and <code>ggrepel</code>, which provide
 additional functionality.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="Rgraphics.html#cb167-1"></a><span class="co"># install.packages(&quot;scales&quot;)</span></span>
-<span id="cb167-2"><a href="Rgraphics.html#cb167-2"></a><span class="kw">library</span>(scales)</span>
-<span id="cb167-3"><a href="Rgraphics.html#cb167-3"></a></span>
-<span id="cb167-4"><a href="Rgraphics.html#cb167-4"></a><span class="co"># install.packages(&quot;ggrepel&quot;) </span></span>
-<span id="cb167-5"><a href="Rgraphics.html#cb167-5"></a><span class="kw">library</span>(ggrepel)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="Rgraphics.html#cb211-1"></a><span class="co"># install.packages(&quot;scales&quot;)</span></span>
+<span id="cb211-2"><a href="Rgraphics.html#cb211-2"></a><span class="kw">library</span>(scales)</span>
+<span id="cb211-3"><a href="Rgraphics.html#cb211-3"></a></span>
+<span id="cb211-4"><a href="Rgraphics.html#cb211-4"></a><span class="co"># install.packages(&quot;ggrepel&quot;) </span></span>
+<span id="cb211-5"><a href="Rgraphics.html#cb211-5"></a><span class="kw">library</span>(ggrepel)</span></code></pre></div>
 <p>We can also install the <code>rmarkdown</code> package, which will allow us to
 combine our text and code into a formatted document at the end of
 the workshop:</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="Rgraphics.html#cb168-1"></a><span class="co"># install.packages(&quot;rmarkdown&quot;)</span></span>
-<span id="cb168-2"><a href="Rgraphics.html#cb168-2"></a><span class="kw">library</span>(rmarkdown)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="Rgraphics.html#cb212-1"></a><span class="co"># install.packages(&quot;rmarkdown&quot;)</span></span>
+<span id="cb212-2"><a href="Rgraphics.html#cb212-2"></a><span class="kw">library</span>(rmarkdown)</span></code></pre></div>
 <p>The following RStudio, <code>tidyverse</code>, `<code>ggplot2</code>, and <code>rmarkdown</code> cheatsheets will provide a
 useful reference: <a href="https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf" class="uri">https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf</a></p>
 </div>
@@ -904,49 +904,49 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <p>Now that we know about geometric objects and aesthetic mapping, we can make a <code>ggplot()</code>. <code>geom_point()</code> requires mappings for x and y, all others are optional.</p>
 <p><strong>Example data: housing prices</strong></p>
 <p>Let’s look at housing prices.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="Rgraphics.html#cb169-1"></a>housing &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/landdata-states.csv&quot;</span>)</span>
-<span id="cb169-2"><a href="Rgraphics.html#cb169-2"></a><span class="kw">head</span>(housing[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
-<span id="cb169-3"><a href="Rgraphics.html#cb169-3"></a></span>
-<span id="cb169-4"><a href="Rgraphics.html#cb169-4"></a><span class="co"># create a subset for 1st quarter 2001</span></span>
-<span id="cb169-5"><a href="Rgraphics.html#cb169-5"></a>hp2001Q1 &lt;-<span class="st"> </span><span class="kw">filter</span>(housing, Date <span class="op">==</span><span class="st"> </span><span class="fl">2001.25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="Rgraphics.html#cb213-1"></a>housing &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/landdata-states.csv&quot;</span>)</span>
+<span id="cb213-2"><a href="Rgraphics.html#cb213-2"></a><span class="kw">head</span>(housing[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb213-3"><a href="Rgraphics.html#cb213-3"></a></span>
+<span id="cb213-4"><a href="Rgraphics.html#cb213-4"></a><span class="co"># create a subset for 1st quarter 2001</span></span>
+<span id="cb213-5"><a href="Rgraphics.html#cb213-5"></a>hp2001Q1 &lt;-<span class="st"> </span><span class="kw">filter</span>(housing, Date <span class="op">==</span><span class="st"> </span><span class="fl">2001.25</span>)</span></code></pre></div>
 <p><strong>Step 1:</strong> create a blank canvas by specifying data:</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="Rgraphics.html#cb170-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="Rgraphics.html#cb214-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1)</span></code></pre></div>
 <p><strong>Step 2:</strong> specify aesthetic mappings (how you want to map variables to visual aspects):</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="Rgraphics.html#cb171-1"></a><span class="co"># here we map &quot;Land_Value&quot; and &quot;Structure_Cost&quot; to the x- and y-axes.</span></span>
-<span id="cb171-2"><a href="Rgraphics.html#cb171-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost))</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="Rgraphics.html#cb215-1"></a><span class="co"># here we map &quot;Land_Value&quot; and &quot;Structure_Cost&quot; to the x- and y-axes.</span></span>
+<span id="cb215-2"><a href="Rgraphics.html#cb215-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost))</span></code></pre></div>
 <p><strong>Step 3:</strong> add new layers of geometric objects that will show up on the plot:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="Rgraphics.html#cb172-1"></a><span class="co"># here we use geom_point() to add a layer with point (dot) elements </span></span>
-<span id="cb172-2"><a href="Rgraphics.html#cb172-2"></a><span class="co"># as the geometric shapes to represent the data.</span></span>
-<span id="cb172-3"><a href="Rgraphics.html#cb172-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost)) <span class="op">+</span></span>
-<span id="cb172-4"><a href="Rgraphics.html#cb172-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="Rgraphics.html#cb216-1"></a><span class="co"># here we use geom_point() to add a layer with point (dot) elements </span></span>
+<span id="cb216-2"><a href="Rgraphics.html#cb216-2"></a><span class="co"># as the geometric shapes to represent the data.</span></span>
+<span id="cb216-3"><a href="Rgraphics.html#cb216-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost)) <span class="op">+</span></span>
+<span id="cb216-4"><a href="Rgraphics.html#cb216-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 </div>
 <div id="lines-prediction-line" class="section level4">
 <h4><span class="header-section-number">4.3.2.2</span> Lines (prediction line)</h4>
 <p>A plot constructed with <code>ggplot()</code> can have more than one geom. In that case the mappings established in the <code>ggplot()</code> call are plot defaults that can be added to or overridden — this is referred to as <strong>aesthetic inheritance</strong>. Our plot could use a regression line:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="Rgraphics.html#cb173-1"></a><span class="co"># get predicted values from a linear regression</span></span>
-<span id="cb173-2"><a href="Rgraphics.html#cb173-2"></a>hp2001Q1<span class="op">$</span>pred_SC &lt;-<span class="st"> </span><span class="kw">lm</span>(Structure_Cost <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(Land_Value), <span class="dt">data =</span> hp2001Q1) <span class="op">%&gt;%</span></span>
-<span id="cb173-3"><a href="Rgraphics.html#cb173-3"></a><span class="st">  </span><span class="kw">predict</span>()</span>
-<span id="cb173-4"><a href="Rgraphics.html#cb173-4"></a></span>
-<span id="cb173-5"><a href="Rgraphics.html#cb173-5"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hp2001Q1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(Land_Value), <span class="dt">y =</span> Structure_Cost))</span>
-<span id="cb173-6"><a href="Rgraphics.html#cb173-6"></a></span>
-<span id="cb173-7"><a href="Rgraphics.html#cb173-7"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span><span class="st"> </span><span class="co"># values for x and y are inherited from the ggplot() call above</span></span>
-<span id="cb173-8"><a href="Rgraphics.html#cb173-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred_SC)) <span class="co"># add predicted values to the plot overriding the y values from the ggplot() call above</span></span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="Rgraphics.html#cb217-1"></a><span class="co"># get predicted values from a linear regression</span></span>
+<span id="cb217-2"><a href="Rgraphics.html#cb217-2"></a>hp2001Q1<span class="op">$</span>pred_SC &lt;-<span class="st"> </span><span class="kw">lm</span>(Structure_Cost <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(Land_Value), <span class="dt">data =</span> hp2001Q1) <span class="op">%&gt;%</span></span>
+<span id="cb217-3"><a href="Rgraphics.html#cb217-3"></a><span class="st">  </span><span class="kw">predict</span>()</span>
+<span id="cb217-4"><a href="Rgraphics.html#cb217-4"></a></span>
+<span id="cb217-5"><a href="Rgraphics.html#cb217-5"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hp2001Q1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(Land_Value), <span class="dt">y =</span> Structure_Cost))</span>
+<span id="cb217-6"><a href="Rgraphics.html#cb217-6"></a></span>
+<span id="cb217-7"><a href="Rgraphics.html#cb217-7"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span><span class="st"> </span><span class="co"># values for x and y are inherited from the ggplot() call above</span></span>
+<span id="cb217-8"><a href="Rgraphics.html#cb217-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred_SC)) <span class="co"># add predicted values to the plot overriding the y values from the ggplot() call above</span></span></code></pre></div>
 </div>
 <div id="smoothers" class="section level4">
 <h4><span class="header-section-number">4.3.2.3</span> Smoothers</h4>
 <p>Not all geometric objects are simple shapes; the smooth geom includes a line and a ribbon.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="Rgraphics.html#cb174-1"></a>p1 <span class="op">+</span></span>
-<span id="cb174-2"><a href="Rgraphics.html#cb174-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span></span>
-<span id="cb174-3"><a href="Rgraphics.html#cb174-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="Rgraphics.html#cb218-1"></a>p1 <span class="op">+</span></span>
+<span id="cb218-2"><a href="Rgraphics.html#cb218-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span></span>
+<span id="cb218-3"><a href="Rgraphics.html#cb218-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
 </div>
 <div id="text-label-points" class="section level4">
 <h4><span class="header-section-number">4.3.2.4</span> Text (label points)</h4>
 <p>Each geom accepts a particular set of mappings; for example <code>geom_text()</code> accepts a <code>label</code> mapping.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="Rgraphics.html#cb175-1"></a>p1 <span class="op">+</span><span class="st"> </span></span>
-<span id="cb175-2"><a href="Rgraphics.html#cb175-2"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="Rgraphics.html#cb176-1"></a>p1 <span class="op">+</span><span class="st"> </span></span>
-<span id="cb176-2"><a href="Rgraphics.html#cb176-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb176-3"><a href="Rgraphics.html#cb176-3"></a><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="Rgraphics.html#cb219-1"></a>p1 <span class="op">+</span><span class="st"> </span></span>
+<span id="cb219-2"><a href="Rgraphics.html#cb219-2"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="Rgraphics.html#cb220-1"></a>p1 <span class="op">+</span><span class="st"> </span></span>
+<span id="cb220-2"><a href="Rgraphics.html#cb220-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb220-3"><a href="Rgraphics.html#cb220-3"></a><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span>State), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="aesthetic-mapping-vs-assignment" class="section level3">
@@ -954,51 +954,51 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <ol style="list-style-type: decimal">
 <li>Variables are <strong>mapped</strong> to aesthetics within the <code>aes()</code> function</li>
 </ol>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="Rgraphics.html#cb177-1"></a>p1 <span class="op">+</span></span>
-<span id="cb177-2"><a href="Rgraphics.html#cb177-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Home_Value))</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="Rgraphics.html#cb221-1"></a>p1 <span class="op">+</span></span>
+<span id="cb221-2"><a href="Rgraphics.html#cb221-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Home_Value))</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Constants are <strong>fixed</strong> to aesthetics outside the <code>aes()</code> call</li>
 </ol>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="Rgraphics.html#cb178-1"></a>p1 <span class="op">+</span></span>
-<span id="cb178-2"><a href="Rgraphics.html#cb178-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="Rgraphics.html#cb222-1"></a>p1 <span class="op">+</span></span>
+<span id="cb222-2"><a href="Rgraphics.html#cb222-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>This sometimes leads to confusion, as in this example:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="Rgraphics.html#cb179-1"></a>p1 <span class="op">+</span></span>
-<span id="cb179-2"><a href="Rgraphics.html#cb179-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="dv">2</span>),<span class="co"># incorrect! 2 is not a variable</span></span>
-<span id="cb179-3"><a href="Rgraphics.html#cb179-3"></a>             <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="co"># this is fine -- all points red</span></span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="Rgraphics.html#cb223-1"></a>p1 <span class="op">+</span></span>
+<span id="cb223-2"><a href="Rgraphics.html#cb223-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="dv">2</span>),<span class="co"># incorrect! 2 is not a variable</span></span>
+<span id="cb223-3"><a href="Rgraphics.html#cb223-3"></a>             <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="co"># this is fine -- all points red</span></span></code></pre></div>
 </div>
 <div id="mapping-variables-to-other-aesthetics" class="section level3">
 <h3><span class="header-section-number">4.3.4</span> Mapping variables to other aesthetics</h3>
 <p>Other aesthetics are mapped in the same way as x and y in the previous example.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="Rgraphics.html#cb180-1"></a>p1 <span class="op">+</span></span>
-<span id="cb180-2"><a href="Rgraphics.html#cb180-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value, <span class="dt">shape =</span> region))</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="Rgraphics.html#cb224-1"></a>p1 <span class="op">+</span></span>
+<span id="cb224-2"><a href="Rgraphics.html#cb224-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value, <span class="dt">shape =</span> region))</span></code></pre></div>
 </div>
 </div>
 <div id="exercise-0-2" class="section level2">
 <h2><span class="header-section-number">4.4</span> Exercise 0</h2>
 <p>The data for the exercises is available in the <code>dataSets/EconomistData.csv</code> file. Read it in with</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="Rgraphics.html#cb181-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/EconomistData.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="Rgraphics.html#cb225-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/EconomistData.csv&quot;</span>)</span></code></pre></div>
 <p>Original sources for these data are <a href="http://www.transparency.org/content/download/64476/1031428" class="uri">http://www.transparency.org/content/download/64476/1031428</a> <a href="http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&amp;lang=en" class="uri">http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&amp;lang=en</a></p>
 <p>These data consist of <em>Human Development Index</em> and <em>Corruption Perception Index</em> scores for several countries.</p>
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="Rgraphics.html#cb182-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="Rgraphics.html#cb226-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Color the points in the previous plot blue.</li>
 </ol>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="Rgraphics.html#cb183-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="Rgraphics.html#cb227-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Map the color of the the points to <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="Rgraphics.html#cb184-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="Rgraphics.html#cb228-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, make the points bigger by setting size to 2</li>
 </ol>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="Rgraphics.html#cb185-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="Rgraphics.html#cb229-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, map the size of the points to <code>HDI_Rank</code></li>
 </ol>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="Rgraphics.html#cb186-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="Rgraphics.html#cb230-1"></a><span class="co">## </span></span></code></pre></div>
 </div>
 <div id="statistical-transformations" class="section level2">
 <h2><span class="header-section-number">4.5</span> Statistical transformations</h2>
@@ -1010,34 +1010,34 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <li>for a smoother the y values must be transformed into predicted values</li>
 </ul>
 <p>Each geom has a default statistic, but these can be changed. For example, the default statistic for <code>geom_histogram()</code> is <code>stat_bin()</code>:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="Rgraphics.html#cb187-1"></a><span class="kw">args</span>(geom_histogram)</span>
-<span id="cb187-2"><a href="Rgraphics.html#cb187-2"></a><span class="kw">args</span>(stat_bin)</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="Rgraphics.html#cb231-1"></a><span class="kw">args</span>(geom_histogram)</span>
+<span id="cb231-2"><a href="Rgraphics.html#cb231-2"></a><span class="kw">args</span>(stat_bin)</span></code></pre></div>
 <p>Here is a list of geoms and their default statistics <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a></p>
 </div>
 <div id="setting-arguments" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> Setting arguments</h3>
 <p>Arguments to <code>stat_</code> functions can be passed through <code>geom_</code> functions. This can be slightly annoying because in order to change it you have to first determine which stat the geom uses, then determine the arguments to that stat.</p>
 <p>For example, here is the default histogram of <code>Home_Value</code>:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="Rgraphics.html#cb188-1"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value))</span>
-<span id="cb188-2"><a href="Rgraphics.html#cb188-2"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="Rgraphics.html#cb232-1"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value))</span>
+<span id="cb232-2"><a href="Rgraphics.html#cb232-2"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
 <p>can change it by passing the <code>binwidth</code> argument to the <code>stat_bin()</code> function:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="Rgraphics.html#cb189-1"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">stat =</span> <span class="st">&quot;bin&quot;</span>, <span class="dt">binwidth=</span><span class="dv">4000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="Rgraphics.html#cb233-1"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">stat =</span> <span class="st">&quot;bin&quot;</span>, <span class="dt">binwidth=</span><span class="dv">4000</span>)</span></code></pre></div>
 </div>
 <div id="changing-the-transformation" class="section level3">
 <h3><span class="header-section-number">4.5.3</span> Changing the transformation</h3>
 <p>Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="Rgraphics.html#cb190-1"></a>housing_sum &lt;-<span class="st"> </span></span>
-<span id="cb190-2"><a href="Rgraphics.html#cb190-2"></a><span class="st">  </span>housing <span class="op">%&gt;%</span></span>
-<span id="cb190-3"><a href="Rgraphics.html#cb190-3"></a><span class="st">  </span><span class="kw">group_by</span>(State) <span class="op">%&gt;%</span></span>
-<span id="cb190-4"><a href="Rgraphics.html#cb190-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value)) <span class="op">%&gt;%</span></span>
-<span id="cb190-5"><a href="Rgraphics.html#cb190-5"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
-<span id="cb190-6"><a href="Rgraphics.html#cb190-6"></a></span>
-<span id="cb190-7"><a href="Rgraphics.html#cb190-7"></a><span class="kw">head</span>(housing_sum)</span></code></pre></div>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="Rgraphics.html#cb191-1"></a><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb191-2"><a href="Rgraphics.html#cb191-2"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="Rgraphics.html#cb234-1"></a>housing_sum &lt;-<span class="st"> </span></span>
+<span id="cb234-2"><a href="Rgraphics.html#cb234-2"></a><span class="st">  </span>housing <span class="op">%&gt;%</span></span>
+<span id="cb234-3"><a href="Rgraphics.html#cb234-3"></a><span class="st">  </span><span class="kw">group_by</span>(State) <span class="op">%&gt;%</span></span>
+<span id="cb234-4"><a href="Rgraphics.html#cb234-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value)) <span class="op">%&gt;%</span></span>
+<span id="cb234-5"><a href="Rgraphics.html#cb234-5"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
+<span id="cb234-6"><a href="Rgraphics.html#cb234-6"></a></span>
+<span id="cb234-7"><a href="Rgraphics.html#cb234-7"></a><span class="kw">head</span>(housing_sum)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="Rgraphics.html#cb235-1"></a><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb235-2"><a href="Rgraphics.html#cb235-2"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span></code></pre></div>
 <p>What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, <code>geom_bar()</code> defaults to <code>stat = stat_count</code>; obviously this will not work. We can fix it by telling <code>geom_bar()</code> to use a different statistical transformation function:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="Rgraphics.html#cb192-1"></a><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb192-2"><a href="Rgraphics.html#cb192-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="Rgraphics.html#cb236-1"></a><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb236-2"><a href="Rgraphics.html#cb236-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="exercise-1-2" class="section level2">
@@ -1045,23 +1045,23 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <ol style="list-style-type: decimal">
 <li>Re-create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis (as you did in the previous exercise).</li>
 </ol>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="Rgraphics.html#cb193-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="Rgraphics.html#cb237-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="Rgraphics.html#cb194-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="Rgraphics.html#cb238-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code>, but use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
 </ol>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="Rgraphics.html#cb195-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="Rgraphics.html#cb239-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using the default <em>loess</em> method for <code>geom_smooth()</code>, but make it less smooth. Hint: see <code>?stat_smooth</code> and the <code>span</code> argument.</li>
 </ol>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="Rgraphics.html#cb196-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="Rgraphics.html#cb240-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>BONUS: Overlay a loess <code>(method = "loess")</code> smoothing line on top of the scatter plot using <code>geom_line()</code>. Hint: change the statistical transformation.</li>
 </ol>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="Rgraphics.html#cb197-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="Rgraphics.html#cb241-1"></a><span class="co">## </span></span></code></pre></div>
 </div>
 <div id="scales" class="section level2">
 <h2><span class="header-section-number">4.7</span> Scales</h2>
@@ -1091,32 +1091,32 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <div id="scale-modification-examples" class="section level3">
 <h3><span class="header-section-number">4.7.3</span> Scale modification examples</h3>
 <p>Start by constructing a dotplot showing the distribution of home values by <code>Date</code> and <code>State</code>.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="Rgraphics.html#cb198-1"></a>p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb198-2"><a href="Rgraphics.html#cb198-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,</span>
-<span id="cb198-3"><a href="Rgraphics.html#cb198-3"></a>               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="Rgraphics.html#cb242-1"></a>p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb242-2"><a href="Rgraphics.html#cb242-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb242-3"><a href="Rgraphics.html#cb242-3"></a>               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))</span></code></pre></div>
 <p>Now modify the breaks for the color scales</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="Rgraphics.html#cb199-1"></a>p4 <span class="op">+</span><span class="st"> </span></span>
-<span id="cb199-2"><a href="Rgraphics.html#cb199-2"></a><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</span>
-<span id="cb199-3"><a href="Rgraphics.html#cb199-3"></a>                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</span>
-<span id="cb199-4"><a href="Rgraphics.html#cb199-4"></a>                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="Rgraphics.html#cb243-1"></a>p4 <span class="op">+</span><span class="st"> </span></span>
+<span id="cb243-2"><a href="Rgraphics.html#cb243-2"></a><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb243-3"><a href="Rgraphics.html#cb243-3"></a>                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</span>
+<span id="cb243-4"><a href="Rgraphics.html#cb243-4"></a>                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>))</span></code></pre></div>
 <p>Next change the low and high values to blue and red:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="Rgraphics.html#cb200-1"></a>p4 <span class="op">+</span></span>
-<span id="cb200-2"><a href="Rgraphics.html#cb200-2"></a><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</span>
-<span id="cb200-3"><a href="Rgraphics.html#cb200-3"></a>                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</span>
-<span id="cb200-4"><a href="Rgraphics.html#cb200-4"></a>                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</span>
-<span id="cb200-5"><a href="Rgraphics.html#cb200-5"></a>                         <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="Rgraphics.html#cb244-1"></a>p4 <span class="op">+</span></span>
+<span id="cb244-2"><a href="Rgraphics.html#cb244-2"></a><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb244-3"><a href="Rgraphics.html#cb244-3"></a>                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</span>
+<span id="cb244-4"><a href="Rgraphics.html#cb244-4"></a>                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</span>
+<span id="cb244-5"><a href="Rgraphics.html#cb244-5"></a>                         <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 </div>
 <div id="using-different-color-scales" class="section level3">
 <h3><span class="header-section-number">4.7.4</span> Using different color scales</h3>
 <p><code>ggplot2</code> has a wide variety of color scales; here is an example using <code>scale_color_gradient2()</code> to interpolate between three different colors.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="Rgraphics.html#cb201-1"></a>p4 <span class="op">+</span></span>
-<span id="cb201-2"><a href="Rgraphics.html#cb201-2"></a><span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</span>
-<span id="cb201-3"><a href="Rgraphics.html#cb201-3"></a>                        <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</span>
-<span id="cb201-4"><a href="Rgraphics.html#cb201-4"></a>                        <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</span>
-<span id="cb201-5"><a href="Rgraphics.html#cb201-5"></a>                        <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>,</span>
-<span id="cb201-6"><a href="Rgraphics.html#cb201-6"></a>                        <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb201-7"><a href="Rgraphics.html#cb201-7"></a>                        <span class="dt">mid =</span> <span class="st">&quot;gray60&quot;</span>,</span>
-<span id="cb201-8"><a href="Rgraphics.html#cb201-8"></a>                        <span class="dt">midpoint =</span> <span class="dv">1994</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="Rgraphics.html#cb245-1"></a>p4 <span class="op">+</span></span>
+<span id="cb245-2"><a href="Rgraphics.html#cb245-2"></a><span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb245-3"><a href="Rgraphics.html#cb245-3"></a>                        <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</span>
+<span id="cb245-4"><a href="Rgraphics.html#cb245-4"></a>                        <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</span>
+<span id="cb245-5"><a href="Rgraphics.html#cb245-5"></a>                        <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb245-6"><a href="Rgraphics.html#cb245-6"></a>                        <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb245-7"><a href="Rgraphics.html#cb245-7"></a>                        <span class="dt">mid =</span> <span class="st">&quot;gray60&quot;</span>,</span>
+<span id="cb245-8"><a href="Rgraphics.html#cb245-8"></a>                        <span class="dt">midpoint =</span> <span class="dv">1994</span>)</span></code></pre></div>
 </div>
 <div id="available-scales" class="section level3">
 <h3><span class="header-section-number">4.7.5</span> Available scales</h3>
@@ -1218,15 +1218,15 @@ For a complete list of available scales see <a href="https://ggplot2.tidyverse.o
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis. Color the points to indicate <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="Rgraphics.html#cb202-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="Rgraphics.html#cb246-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out “Human development Index” instead of <code>HDI</code>). Hint: see <code>?scale_x_discrete</code>.</li>
 </ol>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="Rgraphics.html#cb203-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="Rgraphics.html#cb247-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code>. NOTE: you can specify color by name (e.g., “blue”) or by “Hex value” — see <a href="https://www.color-hex.com/" class="uri">https://www.color-hex.com/</a>.</li>
 </ol>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="Rgraphics.html#cb204-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="Rgraphics.html#cb248-1"></a><span class="co">## </span></span></code></pre></div>
 </div>
 <div id="faceting" class="section level2">
 <h2><span class="header-section-number">4.9</span> Faceting</h2>
@@ -1248,16 +1248,16 @@ For a complete list of available scales see <a href="https://ggplot2.tidyverse.o
 <ul>
 <li>Start by using a technique we already know; map <code>State</code> to color:</li>
 </ul>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="Rgraphics.html#cb205-1"></a>p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> Home_Value))</span>
-<span id="cb205-2"><a href="Rgraphics.html#cb205-2"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> State))  </span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="Rgraphics.html#cb249-1"></a>p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> Home_Value))</span>
+<span id="cb249-2"><a href="Rgraphics.html#cb249-2"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> State))  </span></code></pre></div>
 <p>There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.</p>
 </div>
 <div id="faceting-to-the-rescue" class="section level3">
 <h3><span class="header-section-number">4.9.3</span> Faceting to the rescue</h3>
 <p>We can remedy the deficiencies of the previous plot by faceting by <code>State</code> rather than mapping <code>State</code> to color.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="Rgraphics.html#cb206-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb206-2"><a href="Rgraphics.html#cb206-2"></a><span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>State, <span class="dt">ncol =</span> <span class="dv">10</span>)</span>
-<span id="cb206-3"><a href="Rgraphics.html#cb206-3"></a>p5</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="Rgraphics.html#cb250-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb250-2"><a href="Rgraphics.html#cb250-2"></a><span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>State, <span class="dt">ncol =</span> <span class="dv">10</span>)</span>
+<span id="cb250-3"><a href="Rgraphics.html#cb250-3"></a>p5</span></code></pre></div>
 </div>
 </div>
 <div id="themes" class="section level2">
@@ -1277,33 +1277,33 @@ For a complete list of available scales see <a href="https://ggplot2.tidyverse.o
 <li><code>theme_bw()</code></li>
 <li><code>theme_classic()</code></li>
 </ul>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="Rgraphics.html#cb207-1"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_linedraw</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="Rgraphics.html#cb208-1"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="Rgraphics.html#cb251-1"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_linedraw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="Rgraphics.html#cb252-1"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</span></code></pre></div>
 <p>You can see a list of available built-in themes here <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a></p>
 </div>
 <div id="overriding-theme-defaults" class="section level3">
 <h3><span class="header-section-number">4.10.2</span> Overriding theme defaults</h3>
 <p>Specific theme elements can be overridden using <code>theme()</code>. For example:</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="Rgraphics.html#cb209-1"></a><span class="co"># theme(thing_to_modify = modifying_function(arg1, arg2))</span></span>
-<span id="cb209-2"><a href="Rgraphics.html#cb209-2"></a></span>
-<span id="cb209-3"><a href="Rgraphics.html#cb209-3"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
-<span id="cb209-4"><a href="Rgraphics.html#cb209-4"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;turquoise&quot;</span>))  </span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="Rgraphics.html#cb253-1"></a><span class="co"># theme(thing_to_modify = modifying_function(arg1, arg2))</span></span>
+<span id="cb253-2"><a href="Rgraphics.html#cb253-2"></a></span>
+<span id="cb253-3"><a href="Rgraphics.html#cb253-3"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb253-4"><a href="Rgraphics.html#cb253-4"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;turquoise&quot;</span>))  </span></code></pre></div>
 <p>All theme options are documented in <code>?theme</code>. We can also see the
 existing default values using:</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="Rgraphics.html#cb210-1"></a><span class="kw">theme_get</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="Rgraphics.html#cb254-1"></a><span class="kw">theme_get</span>()</span></code></pre></div>
 </div>
 <div id="creating-saving-new-themes" class="section level3">
 <h3><span class="header-section-number">4.10.3</span> Creating &amp; saving new themes</h3>
 <p>You can create new themes, as in the following example:</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="Rgraphics.html#cb211-1"></a>theme_new &lt;-<span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb211-2"><a href="Rgraphics.html#cb211-2"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb211-3"><a href="Rgraphics.html#cb211-3"></a>        <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">color =</span> <span class="st">&quot;ivory&quot;</span>),</span>
-<span id="cb211-4"><a href="Rgraphics.html#cb211-4"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>),</span>
-<span id="cb211-5"><a href="Rgraphics.html#cb211-5"></a>        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>),</span>
-<span id="cb211-6"><a href="Rgraphics.html#cb211-6"></a>        <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;pink&quot;</span>),</span>
-<span id="cb211-7"><a href="Rgraphics.html#cb211-7"></a>        <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="kw">muted</span>(<span class="st">&quot;orange&quot;</span>)))</span>
-<span id="cb211-8"><a href="Rgraphics.html#cb211-8"></a></span>
-<span id="cb211-9"><a href="Rgraphics.html#cb211-9"></a>p5 <span class="op">+</span><span class="st"> </span>theme_new</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="Rgraphics.html#cb255-1"></a>theme_new &lt;-<span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb255-2"><a href="Rgraphics.html#cb255-2"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb255-3"><a href="Rgraphics.html#cb255-3"></a>        <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">color =</span> <span class="st">&quot;ivory&quot;</span>),</span>
+<span id="cb255-4"><a href="Rgraphics.html#cb255-4"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>),</span>
+<span id="cb255-5"><a href="Rgraphics.html#cb255-5"></a>        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb255-6"><a href="Rgraphics.html#cb255-6"></a>        <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;pink&quot;</span>),</span>
+<span id="cb255-7"><a href="Rgraphics.html#cb255-7"></a>        <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="kw">muted</span>(<span class="st">&quot;orange&quot;</span>)))</span>
+<span id="cb255-8"><a href="Rgraphics.html#cb255-8"></a></span>
+<span id="cb255-9"><a href="Rgraphics.html#cb255-9"></a>p5 <span class="op">+</span><span class="st"> </span>theme_new</span></code></pre></div>
 </div>
 </div>
 <div id="saving-plots" class="section level2">
@@ -1311,7 +1311,7 @@ existing default values using:</p>
 <p>We can save a plot to either a vector (e.g., pdf, eps, ps, svg)
 or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using
 the <code>ggsave()</code> function:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="Rgraphics.html#cb212-1"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;myplot.pdf&quot;</span>, <span class="dt">plot =</span> p5, <span class="dt">device =</span> <span class="st">&quot;pdf&quot;</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="Rgraphics.html#cb256-1"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;myplot.pdf&quot;</span>, <span class="dt">plot =</span> p5, <span class="dt">device =</span> <span class="st">&quot;pdf&quot;</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>)</span></code></pre></div>
 </div>
 <div id="the-1-faq" class="section level2">
 <h2><span class="header-section-number">4.12</span> The #1 FAQ</h2>
@@ -1325,58 +1325,58 @@ the <code>ggsave()</code> function:</p>
 <li>Results in no legend being produced</li>
 <li>Means you cannot change color scales</li>
 </ol>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="Rgraphics.html#cb213-1"></a>housing_byyear &lt;-<span class="st"> </span></span>
-<span id="cb213-2"><a href="Rgraphics.html#cb213-2"></a><span class="st">  </span>housing <span class="op">%&gt;%</span></span>
-<span id="cb213-3"><a href="Rgraphics.html#cb213-3"></a><span class="st">  </span><span class="kw">group_by</span>(Date) <span class="op">%&gt;%</span></span>
-<span id="cb213-4"><a href="Rgraphics.html#cb213-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value),</span>
-<span id="cb213-5"><a href="Rgraphics.html#cb213-5"></a>            <span class="dt">Land_Value_Mean =</span> <span class="kw">mean</span>(Land_Value)) <span class="op">%&gt;%</span></span>
-<span id="cb213-6"><a href="Rgraphics.html#cb213-6"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
-<span id="cb213-7"><a href="Rgraphics.html#cb213-7"></a></span>
-<span id="cb213-8"><a href="Rgraphics.html#cb213-8"></a><span class="kw">ggplot</span>(housing_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date)) <span class="op">+</span></span>
-<span id="cb213-9"><a href="Rgraphics.html#cb213-9"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Home_Value_Mean), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb213-10"><a href="Rgraphics.html#cb213-10"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Land_Value_Mean), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="Rgraphics.html#cb257-1"></a>housing_byyear &lt;-<span class="st"> </span></span>
+<span id="cb257-2"><a href="Rgraphics.html#cb257-2"></a><span class="st">  </span>housing <span class="op">%&gt;%</span></span>
+<span id="cb257-3"><a href="Rgraphics.html#cb257-3"></a><span class="st">  </span><span class="kw">group_by</span>(Date) <span class="op">%&gt;%</span></span>
+<span id="cb257-4"><a href="Rgraphics.html#cb257-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value),</span>
+<span id="cb257-5"><a href="Rgraphics.html#cb257-5"></a>            <span class="dt">Land_Value_Mean =</span> <span class="kw">mean</span>(Land_Value)) <span class="op">%&gt;%</span></span>
+<span id="cb257-6"><a href="Rgraphics.html#cb257-6"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
+<span id="cb257-7"><a href="Rgraphics.html#cb257-7"></a></span>
+<span id="cb257-8"><a href="Rgraphics.html#cb257-8"></a><span class="kw">ggplot</span>(housing_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date)) <span class="op">+</span></span>
+<span id="cb257-9"><a href="Rgraphics.html#cb257-9"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Home_Value_Mean), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb257-10"><a href="Rgraphics.html#cb257-10"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Land_Value_Mean), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><strong>Right</strong></p>
 <p>To avoid these pitfalls, we need to <strong>map</strong> our data to the color aesthetic.
 We can do this by <strong>reshaping</strong> our data from <strong>wide format</strong> to <strong>long format</strong>:</p>
 <p>IMAGE HERE</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="Rgraphics.html#cb214-1"></a>home_land_byyear &lt;-<span class="st"> </span><span class="kw">gather</span>(housing_byyear,</span>
-<span id="cb214-2"><a href="Rgraphics.html#cb214-2"></a>                           <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>,</span>
-<span id="cb214-3"><a href="Rgraphics.html#cb214-3"></a>                           <span class="dt">key =</span> <span class="st">&quot;type&quot;</span>,</span>
-<span id="cb214-4"><a href="Rgraphics.html#cb214-4"></a>                           Home_Value_Mean, Land_Value_Mean)</span>
-<span id="cb214-5"><a href="Rgraphics.html#cb214-5"></a></span>
-<span id="cb214-6"><a href="Rgraphics.html#cb214-6"></a><span class="kw">ggplot</span>(home_land_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date, <span class="dt">y=</span>value, <span class="dt">color=</span>type)) <span class="op">+</span></span>
-<span id="cb214-7"><a href="Rgraphics.html#cb214-7"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="Rgraphics.html#cb258-1"></a>home_land_byyear &lt;-<span class="st"> </span><span class="kw">gather</span>(housing_byyear,</span>
+<span id="cb258-2"><a href="Rgraphics.html#cb258-2"></a>                           <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>,</span>
+<span id="cb258-3"><a href="Rgraphics.html#cb258-3"></a>                           <span class="dt">key =</span> <span class="st">&quot;type&quot;</span>,</span>
+<span id="cb258-4"><a href="Rgraphics.html#cb258-4"></a>                           Home_Value_Mean, Land_Value_Mean)</span>
+<span id="cb258-5"><a href="Rgraphics.html#cb258-5"></a></span>
+<span id="cb258-6"><a href="Rgraphics.html#cb258-6"></a><span class="kw">ggplot</span>(home_land_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date, <span class="dt">y=</span>value, <span class="dt">color=</span>type)) <span class="op">+</span></span>
+<span id="cb258-7"><a href="Rgraphics.html#cb258-7"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="exercise-3-2" class="section level2">
 <h2><span class="header-section-number">4.13</span> Exercise 3</h2>
 <p>For this exercise, we’re going to use the built-in <code>midwest</code> dataset:</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="Rgraphics.html#cb215-1"></a><span class="kw">data</span>(<span class="st">&quot;midwest&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span>
-<span id="cb215-2"><a href="Rgraphics.html#cb215-2"></a><span class="kw">head</span>(midwest)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="Rgraphics.html#cb259-1"></a><span class="kw">data</span>(<span class="st">&quot;midwest&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb259-2"><a href="Rgraphics.html#cb259-2"></a><span class="kw">head</span>(midwest)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>area</code> on the x axis and the log of <code>poptotal</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="Rgraphics.html#cb216-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="Rgraphics.html#cb260-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Within the <code>geom_point()</code> call, map color to <code>state</code>, map size to the log of <code>popdensity</code>, and fix transparency (<code>alpha</code>) to 0.3.</li>
 </ol>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="Rgraphics.html#cb217-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="Rgraphics.html#cb261-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Add a smoother and turn off plotting the confidence interval. Hint: see the <code>se</code> argument to <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="Rgraphics.html#cb218-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="Rgraphics.html#cb262-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Facet the plot by <code>state</code>. Set the <code>scales</code> argument to <code>facet_wrap()</code> to allow separate ranges for the x-axis.</li>
 </ol>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="Rgraphics.html#cb219-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="Rgraphics.html#cb263-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Change the default color scale to use the discrete <code>RColorBrewer</code> palette called <code>Set1</code>. Hint: see <code>?scale_color_brewer</code>.</li>
 </ol>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="Rgraphics.html#cb220-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="Rgraphics.html#cb264-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>BONUS: Change the default theme to <code>theme_bw()</code> and modify it so that the axis text and facet label background are blue. Hint: see <code>?theme</code> and especially <code>axis.text</code> and <code>strip.background</code>.</li>
 </ol>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="Rgraphics.html#cb221-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="Rgraphics.html#cb265-1"></a><span class="co">## </span></span></code></pre></div>
 </div>
 <div id="exercise-solutions-2" class="section level2">
 <h2><span class="header-section-number">4.14</span> Exercise solutions</h2>
@@ -1385,115 +1385,115 @@ We can do this by <strong>reshaping</strong> our data from <strong>wide format</
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="Rgraphics.html#cb222-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb222-2"><a href="Rgraphics.html#cb222-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="Rgraphics.html#cb266-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb266-2"><a href="Rgraphics.html#cb266-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Color the points in the previous plot blue.</li>
 </ol>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="Rgraphics.html#cb223-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb223-2"><a href="Rgraphics.html#cb223-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="Rgraphics.html#cb267-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb267-2"><a href="Rgraphics.html#cb267-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Map the color of the the points to <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="Rgraphics.html#cb224-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb224-2"><a href="Rgraphics.html#cb224-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region))</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="Rgraphics.html#cb268-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb268-2"><a href="Rgraphics.html#cb268-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region))</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, make the points bigger by setting size to 2</li>
 </ol>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="Rgraphics.html#cb225-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb225-2"><a href="Rgraphics.html#cb225-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region), <span class="dt">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="Rgraphics.html#cb269-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb269-2"><a href="Rgraphics.html#cb269-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region), <span class="dt">size =</span> <span class="dv">2</span>)</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, map the size of the points to <code>HDI_Rank</code></li>
 </ol>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="Rgraphics.html#cb226-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb226-2"><a href="Rgraphics.html#cb226-2"></a><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region, <span class="dt">size =</span>  HDI_Rank))</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="Rgraphics.html#cb270-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb270-2"><a href="Rgraphics.html#cb270-2"></a><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region, <span class="dt">size =</span>  HDI_Rank))</span></code></pre></div>
 </div>
 <div id="ex-1-prototype-2" class="section level3">
 <h3><span class="header-section-number">4.14.2</span> Ex 1: prototype</h3>
 <ol style="list-style-type: decimal">
 <li>Re-create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis (as you did in the previous exercise).</li>
 </ol>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="Rgraphics.html#cb227-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb227-2"><a href="Rgraphics.html#cb227-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="Rgraphics.html#cb271-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb271-2"><a href="Rgraphics.html#cb271-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code></li>
 </ol>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="Rgraphics.html#cb228-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb228-2"><a href="Rgraphics.html#cb228-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb228-3"><a href="Rgraphics.html#cb228-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="Rgraphics.html#cb272-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb272-2"><a href="Rgraphics.html#cb272-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb272-3"><a href="Rgraphics.html#cb272-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code>, but use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
 </ol>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="Rgraphics.html#cb229-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb229-2"><a href="Rgraphics.html#cb229-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb229-3"><a href="Rgraphics.html#cb229-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="Rgraphics.html#cb273-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb273-2"><a href="Rgraphics.html#cb273-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb273-3"><a href="Rgraphics.html#cb273-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using the default <em>loess</em> method for <code>geom_smooth()</code>, but make it less smooth. Hint: see <code>?loess</code>.</li>
 </ol>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="Rgraphics.html#cb230-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb230-2"><a href="Rgraphics.html#cb230-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb230-3"><a href="Rgraphics.html#cb230-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">.4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="Rgraphics.html#cb274-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb274-2"><a href="Rgraphics.html#cb274-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb274-3"><a href="Rgraphics.html#cb274-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">.4</span>)</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>BONUS: Overlay a loess <code>(method = "loess")</code> smoothing line on top of the scatter plot using <code>geom_line()</code>. Hint: change the statistical transformation.</li>
 </ol>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="Rgraphics.html#cb231-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
-<span id="cb231-2"><a href="Rgraphics.html#cb231-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb231-3"><a href="Rgraphics.html#cb231-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">stat =</span> <span class="st">&quot;smooth&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="Rgraphics.html#cb275-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
+<span id="cb275-2"><a href="Rgraphics.html#cb275-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb275-3"><a href="Rgraphics.html#cb275-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">stat =</span> <span class="st">&quot;smooth&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>)</span></code></pre></div>
 </div>
 <div id="ex-2-prototype-1" class="section level3">
 <h3><span class="header-section-number">4.14.3</span> Ex 2: prototype</h3>
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis. Color the points to indicate <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="Rgraphics.html#cb232-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></span>
-<span id="cb232-2"><a href="Rgraphics.html#cb232-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="Rgraphics.html#cb276-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></span>
+<span id="cb276-2"><a href="Rgraphics.html#cb276-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out “Human development Index” instead of <code>HDI</code>).</li>
 </ol>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="Rgraphics.html#cb233-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></span>
-<span id="cb233-2"><a href="Rgraphics.html#cb233-2"></a><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb233-3"><a href="Rgraphics.html#cb233-3"></a><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></span>
-<span id="cb233-4"><a href="Rgraphics.html#cb233-4"></a><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></span>
-<span id="cb233-5"><a href="Rgraphics.html#cb233-5"></a><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="Rgraphics.html#cb277-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></span>
+<span id="cb277-2"><a href="Rgraphics.html#cb277-2"></a><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb277-3"><a href="Rgraphics.html#cb277-3"></a><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></span>
+<span id="cb277-4"><a href="Rgraphics.html#cb277-4"></a><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></span>
+<span id="cb277-5"><a href="Rgraphics.html#cb277-5"></a><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code>. NOTE: you can specify color by name (e.g., “blue”) or by “Hex value” — see <a href="https://www.color-hex.com/" class="uri">https://www.color-hex.com/</a>.</li>
 </ol>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="Rgraphics.html#cb234-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></span>
-<span id="cb234-2"><a href="Rgraphics.html#cb234-2"></a><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb234-3"><a href="Rgraphics.html#cb234-3"></a><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></span>
-<span id="cb234-4"><a href="Rgraphics.html#cb234-4"></a><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></span>
-<span id="cb234-5"><a href="Rgraphics.html#cb234-5"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>,</span>
-<span id="cb234-6"><a href="Rgraphics.html#cb234-6"></a>                     <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;grey&quot;</span>, <span class="st">&quot;brown&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="Rgraphics.html#cb278-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></span>
+<span id="cb278-2"><a href="Rgraphics.html#cb278-2"></a><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb278-3"><a href="Rgraphics.html#cb278-3"></a><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></span>
+<span id="cb278-4"><a href="Rgraphics.html#cb278-4"></a><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></span>
+<span id="cb278-5"><a href="Rgraphics.html#cb278-5"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>,</span>
+<span id="cb278-6"><a href="Rgraphics.html#cb278-6"></a>                     <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;grey&quot;</span>, <span class="st">&quot;brown&quot;</span>))</span></code></pre></div>
 </div>
 <div id="ex-3-prototype-2" class="section level3">
 <h3><span class="header-section-number">4.14.4</span> Ex 3: prototype</h3>
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>area</code> on the x axis and the log of <code>poptotal</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="Rgraphics.html#cb235-1"></a>p6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x=</span>area, <span class="dt">y=</span><span class="kw">log</span>(poptotal))) </span>
-<span id="cb235-2"><a href="Rgraphics.html#cb235-2"></a>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="Rgraphics.html#cb279-1"></a>p6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x=</span>area, <span class="dt">y=</span><span class="kw">log</span>(poptotal))) </span>
+<span id="cb279-2"><a href="Rgraphics.html#cb279-2"></a>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Within the <code>geom_point()</code> call, map color to <code>state</code>, map size to the log of <code>popdensity</code>, and fix transparency (<code>alpha</code>) to 0.3.</li>
 </ol>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="Rgraphics.html#cb236-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>state, <span class="dt">size=</span><span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="Rgraphics.html#cb280-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>state, <span class="dt">size=</span><span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) </span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Add a smoother and turn off plotting the confidence interval. Hint: see the <code>se</code> argument to <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="Rgraphics.html#cb237-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="Rgraphics.html#cb281-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>) </span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Facet the plot by <code>state</code>. Set the <code>scales</code> argument to <code>facet_wrap()</code> to allow separate ranges for the x-axis.</li>
 </ol>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="Rgraphics.html#cb238-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="Rgraphics.html#cb282-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Change the default color scale to use the discrete <code>RColorBrewer</code> palette called <code>Set1</code>. Hint: see <code>?scale_color_brewer</code>.</li>
 </ol>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="Rgraphics.html#cb239-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="Rgraphics.html#cb283-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>BONUS: Change the default theme to <code>theme_bw()</code> and modify it so that the axis text and facet label background are blue. Hint: see <code>?theme</code> and especially <code>axis.text</code> and <code>strip.background</code>.</li>
 </ol>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="Rgraphics.html#cb240-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb240-2"><a href="Rgraphics.html#cb240-2"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb240-3"><a href="Rgraphics.html#cb240-3"></a>          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="Rgraphics.html#cb284-1"></a>p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb284-2"><a href="Rgraphics.html#cb284-2"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb284-3"><a href="Rgraphics.html#cb284-3"></a>          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
 </div>
 </div>
 <div id="wrap-up-3" class="section level2">

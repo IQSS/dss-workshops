@@ -133,10 +133,12 @@
 # In this example we will compare the syntax for reading and summarizing data stored in a file.
 
 # * Stata
-
-import delimited using "https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv"
-sum
-
+#
+# ```stata
+# import delimited using "https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv"
+# sum
+# ```
+#
 #     set more off
 #      "EconomistData.csv"
 #     Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=gasp -Dswing.aatext=true -Dsun.java2d.opengl=true
@@ -155,10 +157,12 @@ sum
 #
 #
 # * R
-
-cpi <- read.csv("https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv")
-summary(cpi)
-
+#
+# ```r
+# cpi <- read.csv("https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv")
+# summary(cpi)
+# ```
+#
 #           X              Country       HDI.Rank           HDI        
 #     Min.   :  1   Afghanistan:  1   Min.   :  1.00   Min.   :0.2860  
 #     1st Qu.: 44   Albania    :  1   1st Qu.: 47.00   1st Qu.:0.5090  
@@ -174,7 +178,8 @@ summary(cpi)
 #     Mean   :4.052   EU W. Europe     :30  
 #     3rd Qu.:5.100   MENA             :18  
 #     Max.   :9.500   SSA              :46
-
+#
+#
 # * Matlab
 #
 # ```matlab
@@ -227,11 +232,13 @@ summary(cpi)
 #
 #
 # * Python
-
+#
+# ```python
 # import pandas as pd
 # cpi = pd.read_csv('https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv')
 # cpi.describe(include = 'all')
-
+# ```
+#
 #     Python 3.6.2 (default, Jul 20 2017, 03:52:27) 
 #     [GCC 7.1.1 20170630] on linux
 #     Type "help", "copyright", "credits" or "license" for more information.
@@ -247,15 +254,18 @@ summary(cpi)
 #     50%      87.000000     NaN   96.000000    0.698000    3.200000    NaN
 #     75%     130.000000     NaN  143.000000    0.793000    5.100000    NaN
 #     max     173.000000     NaN  187.000000    0.943000    9.500000    NaN
-
+#
+#
 # ### Examples: Fit a linear regression
 #
 # Fitting statistical models is pretty straight-forward in all popular programs.
 
 # * Stata
-
-regress hdi cpi
-
+#
+# ```stata
+# regress hdi cpi
+# ```
+#
 #     regress hdi cpi
 #     
 #           Source |       SS           df       MS      Number of obs   =       173
@@ -274,10 +284,12 @@ regress hdi cpi
 #
 #
 # * R
-
-summary(lm(HDI ~ CPI, data = cpi))
-
-
+#
+# ```r
+# summary(lm(HDI ~ CPI, data = cpi))
+# ```
+#
+#     
 #     Call:
 #     lm(formula = HDI ~ CPI, data = cpi)
 #     
@@ -331,13 +343,15 @@ summary(lm(HDI ~ CPI, data = cpi))
 #
 #
 # * Python
-
+#
+# ```python
 # import statsmodels.formula.api as model
 # X = cpi[['CPI']]
 # Y = cpi[['HDI']]
 # model.OLS(Y, X).fit().summary()
-
-
+# ```
+#
+#     
 #     <class 'statsmodels.iolib.summary.Summary'>
 #     """
 #                                 OLS Regression Results                            
@@ -372,22 +386,27 @@ summary(lm(HDI ~ CPI, data = cpi))
 # Retrieving data from a website is a common task. Here we parse a simple web page containing links to files we wish to download.
 
 # * Stata
-
-disp "Ha ha ha! No, you do not want to use Stata for this!"
-
+#
+# ```stata
+# disp "Ha ha ha! No, you do not want to use Stata for this!"
+# ```
+#
 #     disp "Ha ha ha! No, you do not want to use Stata for this!"
 #     Ha ha ha! No, you do not want to use Stata for this!
-
+#
+#
 # * R
-
-library(xml2)
-index_page <- read_html("http://tutorials.iq.harvard.edu/example_data/baby_names/EW/")
-all_anchors <- xml_find_all(index_page, "//a")
-all_hrefs <- xml_attr(all_anchors, "href")
-data_hrefs <- grep("\\.csv$", all_hrefs, value = TRUE)
-data_links <- paste0("http://tutorials.iq.harvard.edu/example_data/baby_names/EW/", data_hrefs)
-data_links
-
+#
+# ```r
+# library(xml2)
+# index_page <- read_html("http://tutorials.iq.harvard.edu/example_data/baby_names/EW/")
+# all_anchors <- xml_find_all(index_page, "//a")
+# all_hrefs <- xml_attr(all_anchors, "href")
+# data_hrefs <- grep("\\.csv$", all_hrefs, value = TRUE)
+# data_links <- paste0("http://tutorials.iq.harvard.edu/example_data/baby_names/EW/", data_hrefs)
+# data_links
+# ```
+#
 #      [1] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv" 
 #      [2] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv" 
 #      [3] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv" 
@@ -428,7 +447,8 @@ data_links
 #     [38] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv"
 #     [39] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv"
 #     [40] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv"
-
+#
+#
 # * Matlab
 #
 # ```matlab
@@ -495,7 +515,8 @@ data_links
 #
 #
 # * Python
-
+#
+# ```python
 # from lxml import etree
 # import requests
 #
@@ -506,8 +527,9 @@ data_links
 #               href[0] for href in all_hrefs if 'csv' in href[0]]
 # for link in data_links:
 #     print(link)
-
-
+# ```
+#
+#     
 #     http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv
 #     http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv
 #     http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv
@@ -548,7 +570,8 @@ data_links
 #     http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv
 #     http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv
 #     http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv
-
+#
+#
 # ## Creating reports
 #
 # Once you've analyzed your data you'll most likely want to communicate your results. For short informal projects this might take the form of a blog post or an email to your colleagues. For larger more formal projects you'll likely want to prepare a substantial report or manuscript for disseminating your findings via a journal publication or other means. Other common means of reporting research findings include posters or slides for a conference talk.

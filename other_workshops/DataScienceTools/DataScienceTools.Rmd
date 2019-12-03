@@ -1,7 +1,7 @@
 
 ```{r, include=FALSE, echo=FALSE}
 options(max.print = 100)
-knitr::opts_chunk$set(eval=FALSE, message=FALSE)
+knitr::opts_chunk$set( message=FALSE)
 # knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 ```
 
@@ -159,7 +159,7 @@ In this example we will compare the syntax for reading and summarizing data stor
 
 * Stata
 
-```{stata}
+```stata
 import delimited using "https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv"
 sum
 ```
@@ -183,7 +183,7 @@ sum
 
 * R
 
-```{r}
+```r
 cpi <- read.csv("https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv")
 summary(cpi)
 ```
@@ -258,7 +258,7 @@ summary(cpi)
 
 * Python
 
-```{python}
+```python
 import pandas as pd
 cpi = pd.read_csv('https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv')
 cpi.describe(include = 'all')
@@ -288,7 +288,7 @@ Fitting statistical models is pretty straight-forward in all popular programs.
 
 * Stata
 
-```{stata}
+```stata
 regress hdi cpi
 ```
 
@@ -311,7 +311,7 @@ regress hdi cpi
 
 * R
 
-```{r}
+```r
 summary(lm(HDI ~ CPI, data = cpi))
 ```
 
@@ -370,7 +370,7 @@ fitlm(cpi, 'HDI~CPI')
 
 * Python
 
-```{python}
+```python
 import statsmodels.formula.api as model
 X = cpi[['CPI']]
 Y = cpi[['HDI']]
@@ -414,7 +414,7 @@ Retrieving data from a website is a common task. Here we parse a simple web page
 
 * Stata
 
-```{stata}
+```stata
 disp "Ha ha ha! No, you do not want to use Stata for this!"
 ```
 
@@ -424,7 +424,7 @@ disp "Ha ha ha! No, you do not want to use Stata for this!"
 
 * R
 
-```{r}
+```r
 library(xml2)
 index_page <- read_html("http://tutorials.iq.harvard.edu/example_data/baby_names/EW/")
 all_anchors <- xml_find_all(index_page, "//a")
@@ -543,7 +543,7 @@ all_links = strcat('http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'
 
 * Python
 
-```{python}
+```python
 from lxml import etree
 import requests
 
