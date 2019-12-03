@@ -1,3 +1,4 @@
+
 # # (PART) General {-}
 #
 # # Data Science Tools
@@ -133,7 +134,7 @@
 
 # * Stata
 
-import delimited using "http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv"
+import delimited using "https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv"
 sum
 
 #     set more off
@@ -155,7 +156,7 @@ sum
 #
 # * R
 
-cpi <- read.csv("http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv")
+cpi <- read.csv("https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv")
 summary(cpi)
 
 #           X              Country       HDI.Rank           HDI        
@@ -177,12 +178,12 @@ summary(cpi)
 # * Matlab
 #
 # ```matlab
-# tmpfile = websave(tempname(), 'http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv');
+# tmpfile = websave(tempname(), 'https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv');
 # cpi = readtable(tmpfile);
 # summary(cpi)
 # ```
 #
-#     tmpfile = websave(tempname(), 'http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv');
+#     tmpfile = websave(tempname(), 'https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv');
 #     cpi = readtable(tmpfile);
 #     summary(cpi)
 #     
@@ -228,7 +229,7 @@ summary(cpi)
 # * Python
 
 # import pandas as pd
-# cpi = pd.read_csv('http://tutorials.iq.harvard.edu/R/Rgraphics/dataSets/EconomistData.csv')
+# cpi = pd.read_csv('https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv')
 # cpi.describe(include = 'all')
 
 #     Python 3.6.2 (default, Jul 20 2017, 03:52:27) 
