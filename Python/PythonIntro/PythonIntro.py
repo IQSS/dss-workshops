@@ -255,15 +255,17 @@ len(alice_paragraphs)
 #
 # A *for loop* is a way of cycling through the elements of a collection and doing something with each one. As a simple example, we can cycle through the first 6 paragraphs and print each one. Cycling through with a loop makes it easy to insert a separator between the paragraphs, making it much easier to read the output.
 #
-# The for loop syntax is:
+# The for loop logic is:
 #
-# ![](Python/PythonIntro/images/for_loop_pic.png)
+# ![](Python/PythonIntro/images/for_loop_pic_small.png)
+#
+# The for loop syntax is:
 
 for <thing> in <collection>: 
     do stuff with <thing>
 
-# ![](Python/PythonIntro/images/python_for_loop.png)
-#
+# ![](Python/PythonIntro/images/python_for_loop_small.png)
+
 # Notice that the body of the for-loop is indented. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. White space matters in Python! A simple example:
 
 for i in range(10): 
