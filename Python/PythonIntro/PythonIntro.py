@@ -152,7 +152,8 @@ len(alice_words) # counts elements in a data structure
 
 len(set(alice_words))
 
-mySet = {1, 5, 9}
+# set example
+mySet = {1, 5, 9, 9, 4, 5}
 len(mySet)
 
 # There are 5295 unique words in the text.
@@ -203,7 +204,7 @@ y[2:5] # returns a list with elements 3, "D", 5
 y[-1] # returns last element - the number 6 
 y[-4: ] # returns a list with last 4 elements
 
-alice_words[11:20] # returns a list with words 11 through 20
+alice_words[11:20] # returns a list with words 11 through 19
 alice_words[-10: ] # returns a list with the last 10 words
 
 # ### Counting chapters & paragraphs
@@ -315,7 +316,7 @@ print(container)
 
 chapter_names = []
 for chapter in alice_chapters[1:]:
-    chapter_names.append(chapter.splitlines()[0])
+    chapter_names.append(chapter.split(sep="\n")[0])
 
 print(chapter_names)
 
@@ -395,7 +396,7 @@ characters_txt = characters_file.read()
 # 2. Split text on newlines to produce a list with one element per line. 
 # Store the result as "alice_characters".
 
-alice_characters = characters_txt.splitlines()
+alice_characters = characters_txt.split(sep="\n")
 alice_characters
 
 # ### Ex 1: prototype
@@ -420,10 +421,10 @@ alice_characters[-1]
 # Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.
 
 characters_txt = open("Characters.txt").read()
-alice_txt = open("Alice_in_wonderland.txt", encoding="utf-8-sig").read()
+alice_txt = open("Alice_in_wonderland.txt").read()
 
 # 2. Which chapter has the most words?
-# Split the text into chaptes (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters. 
+# Split the text into chaptes (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
 # For each chapter, split it into words and calculate the length.
 
 words_per_chapter = []
@@ -436,14 +437,14 @@ words_per_chapter
 # For each character, call the count method with that character as the argument.
 
 num_per_character = []
-for character in characters_txt.splitlines():
+for character in characters_txt.split(sep="\n"):
     num_per_character.append(alice_txt.count(character))
 num_per_character
 
 # 4. (BONUS, optional): Put the character counts computed above in a 
 # dictionary with character names as the keys and counts as the values.
 
-characters = characters_txt.splitlines()
+characters = characters_txt.split(sep="\n")
 dict(zip(characters, num_per_character))
 
 

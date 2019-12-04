@@ -7970,7 +7970,8 @@ all duplicates, giving a collection of the unique elements.
 \begin{Highlighting}[]
 \BuiltInTok{len}\NormalTok{(}\BuiltInTok{set}\NormalTok{(alice_words))}
 
-\NormalTok{mySet }\OperatorTok{=}\NormalTok{ \{}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{\}}
+\CommentTok{# set example}
+\NormalTok{mySet }\OperatorTok{=}\NormalTok{ \{}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{\}}
 \BuiltInTok{len}\NormalTok{(mySet)}
 \end{Highlighting}
 \end{Shaded}
@@ -8065,7 +8066,7 @@ we see when we print a list:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{alice_words[}\DecValTok{11}\NormalTok{:}\DecValTok{20}\NormalTok{] }\CommentTok{# returns a list with words 11 through 20}
+\NormalTok{alice_words[}\DecValTok{11}\NormalTok{:}\DecValTok{20}\NormalTok{] }\CommentTok{# returns a list with words 11 through 19}
 \NormalTok{alice_words[}\OperatorTok{-}\DecValTok{10}\NormalTok{: ] }\CommentTok{# returns a list with the last 10 words}
 \end{Highlighting}
 \end{Shaded}
@@ -8294,7 +8295,7 @@ become our keys.
 \begin{Highlighting}[]
 \NormalTok{chapter_names }\OperatorTok{=}\NormalTok{ []}
 \ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
-\NormalTok{    chapter_names.append(chapter.splitlines()[}\DecValTok{0}\NormalTok{])}
+\NormalTok{    chapter_names.append(chapter.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)[}\DecValTok{0}\NormalTok{])}
 
 \BuiltInTok{print}\NormalTok{(chapter_names)}
 \end{Highlighting}
@@ -8437,7 +8438,7 @@ deviations:
 \CommentTok{# 2. Split text on newlines to produce a list with one element per line. }
 \CommentTok{# Store the result as "alice_characters".}
 
-\NormalTok{alice_characters }\OperatorTok{=}\NormalTok{ characters_txt.splitlines()}
+\NormalTok{alice_characters }\OperatorTok{=}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \NormalTok{alice_characters}
 \end{Highlighting}
 \end{Shaded}
@@ -8470,10 +8471,10 @@ deviations:
 \CommentTok{# Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.}
 
 \NormalTok{characters_txt }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Characters.txt"}\NormalTok{).read()}
-\NormalTok{alice_txt }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Alice_in_wonderland.txt"}\NormalTok{, encoding}\OperatorTok{=}\StringTok{"utf-8-sig"}\NormalTok{).read()}
+\NormalTok{alice_txt }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Alice_in_wonderland.txt"}\NormalTok{).read()}
 
 \CommentTok{# 2. Which chapter has the most words?}
-\CommentTok{# Split the text into chaptes (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters. }
+\CommentTok{# Split the text into chaptes (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.}
 \CommentTok{# For each chapter, split it into words and calculate the length.}
 
 \NormalTok{words_per_chapter }\OperatorTok{=}\NormalTok{ []}
@@ -8486,14 +8487,14 @@ deviations:
 \CommentTok{# For each character, call the count method with that character as the argument.}
 
 \NormalTok{num_per_character }\OperatorTok{=}\NormalTok{ []}
-\ControlFlowTok{for}\NormalTok{ character }\KeywordTok{in}\NormalTok{ characters_txt.splitlines():}
+\ControlFlowTok{for}\NormalTok{ character }\KeywordTok{in}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{):}
 \NormalTok{    num_per_character.append(alice_txt.count(character))}
 \NormalTok{num_per_character}
 
 \CommentTok{# 4. (BONUS, optional): Put the character counts computed above in a }
 \CommentTok{# dictionary with character names as the keys and counts as the values.}
 
-\NormalTok{characters }\OperatorTok{=}\NormalTok{ characters_txt.splitlines()}
+\NormalTok{characters }\OperatorTok{=}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(characters, num_per_character))}
 \end{Highlighting}
 \end{Shaded}

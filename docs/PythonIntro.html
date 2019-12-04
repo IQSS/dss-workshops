@@ -770,7 +770,8 @@ x <span class="op">=</span> <span class="dv">10</span></code></pre></div>
 <p>According to our computation above, there are about 26 thousand total words in <em>Alice’s Adventures in Wonderland</em>. But how many <em>unique</em> words are there? Python has a special data structure called a <em>set</em> that makes it easy to find out. A <em>set</em> drops all duplicates, giving a collection of the unique elements.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">len</span>(<span class="bu">set</span>(alice_words))
 
-mySet <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">9</span>}
+<span class="co"># set example</span>
+mySet <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">4</span>, <span class="dv">5</span>}
 <span class="bu">len</span>(mySet)</code></pre></div>
 <p>There are 5295 unique words in the text.</p>
 </div>
@@ -810,7 +811,7 @@ y[ :<span class="dv">3</span>] <span class="co"># returns a list with only the f
 y[<span class="dv">2</span>:<span class="dv">5</span>] <span class="co"># returns a list with elements 3, &quot;D&quot;, 5</span>
 y[<span class="op">-</span><span class="dv">1</span>] <span class="co"># returns last element - the number 6 </span>
 y[<span class="op">-</span><span class="dv">4</span>: ] <span class="co"># returns a list with last 4 elements</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">alice_words[<span class="dv">11</span>:<span class="dv">20</span>] <span class="co"># returns a list with words 11 through 20</span>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">alice_words[<span class="dv">11</span>:<span class="dv">20</span>] <span class="co"># returns a list with words 11 through 19</span>
 alice_words[<span class="op">-</span><span class="dv">10</span>: ] <span class="co"># returns a list with the last 10 words</span></code></pre></div>
 </div>
 <div id="counting-chapters-paragraphs" class="section level3">
@@ -897,7 +898,7 @@ mylist <span class="op">=</span>[<span class="dv">5</span>, <span class="dv">6</
 <span class="bu">print</span>(container)    </code></pre></div>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">chapter_names <span class="op">=</span> []
 <span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters[<span class="dv">1</span>:]:
-    chapter_names.append(chapter.splitlines()[<span class="dv">0</span>])
+    chapter_names.append(chapter.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>])
 
 <span class="bu">print</span>(chapter_names)</code></pre></div>
 <p>Finally we can combine the chapter names and counts and convert them to a dictionary.</p>
@@ -961,7 +962,7 @@ characters_txt <span class="op">=</span> characters_file.read()
 <span class="co"># 2. Split text on newlines to produce a list with one element per line. </span>
 <span class="co"># Store the result as &quot;alice_characters&quot;.</span>
 
-alice_characters <span class="op">=</span> characters_txt.splitlines()
+alice_characters <span class="op">=</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
 alice_characters</code></pre></div>
 </div>
 <div id="ex-1-prototype-4" class="section level3">
@@ -986,10 +987,10 @@ alice_characters[<span class="op">-</span><span class="dv">1</span>]</code></pre
 <span class="co"># Open and read both &quot;Alice_in_wonderland.txt&quot; and &quot;Characters.txt&quot; if you have not already done so.</span>
 
 characters_txt <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;Characters.txt&quot;</span>).read()
-alice_txt <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;Alice_in_wonderland.txt&quot;</span>, encoding<span class="op">=</span><span class="st">&quot;utf-8-sig&quot;</span>).read()
+alice_txt <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;Alice_in_wonderland.txt&quot;</span>).read()
 
 <span class="co"># 2. Which chapter has the most words?</span>
-<span class="co"># Split the text into chaptes (i.e., split on &quot;CHAPTER &quot;) and use a for-loop to iterate over the chapters. </span>
+<span class="co"># Split the text into chaptes (i.e., split on &quot;CHAPTER &quot;) and use a for-loop to iterate over the chapters.</span>
 <span class="co"># For each chapter, split it into words and calculate the length.</span>
 
 words_per_chapter <span class="op">=</span> []
@@ -1002,14 +1003,14 @@ words_per_chapter
 <span class="co"># For each character, call the count method with that character as the argument.</span>
 
 num_per_character <span class="op">=</span> []
-<span class="cf">for</span> character <span class="kw">in</span> characters_txt.splitlines():
+<span class="cf">for</span> character <span class="kw">in</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>):
     num_per_character.append(alice_txt.count(character))
 num_per_character
 
 <span class="co"># 4. (BONUS, optional): Put the character counts computed above in a </span>
 <span class="co"># dictionary with character names as the keys and counts as the values.</span>
 
-characters <span class="op">=</span> characters_txt.splitlines()
+characters <span class="op">=</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
 <span class="bu">dict</span>(<span class="bu">zip</span>(characters, num_per_character))</code></pre></div>
 </div>
 </div>
