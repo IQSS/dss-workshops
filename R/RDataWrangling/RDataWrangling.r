@@ -400,8 +400,8 @@ boysNames[[1]]
 #
 # In R, the most foundational data structure is the **vector**, which comes in two basic forms:
 #
-# 1. **atomic**: only hold elements of the same type --- **homogeneous**
-# 2. **lists**: can hold elements of different types --- **heterogeneous**
+# 1. **atomic**: only hold elements of the same type; they are **homogeneous**
+# 2. **lists**: can hold elements of different types; they are **heterogeneous**
 #
 # `NULL` is closely related to vectors and often serves the role of a generic zero length vector. 
 #
