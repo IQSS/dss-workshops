@@ -1,4 +1,4 @@
-* # Stata Data Management 
+* # Stata Data Management {-}
 *
 * **Topics**
 *
