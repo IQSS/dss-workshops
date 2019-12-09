@@ -1,7 +1,7 @@
 
 # # (PART) Python {-}
 #
-# # Python Introduction {-}
+# # Python Introduction
 #
 # **Topics**
 #

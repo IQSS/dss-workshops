@@ -1,5 +1,5 @@
 *
-* # Stata Introduction {-}
+* # Stata Introduction
 *
 * **Topics**
 *

@@ -1,4 +1,4 @@
-* # Stata Modeling & Graphing {-}
+* # Stata Modeling & Graphing
 *
 * **Topics**
 *
