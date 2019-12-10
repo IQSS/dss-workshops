@@ -145,11 +145,51 @@ help(alice_txt.split)
 
 alice_words = alice_txt.split() # returns a list (we talk about lists below)
 type(alice_words)
-len(alice_words) # counts elements in a data structure
+
+# ### Working with lists
+#
+# The `split` methods we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a minute to learn more about them.
+#
+# It is always a good idea to know what type of data structure you're working with in Python. As you gain experience, you won't have to look these things up as often, but even experienced Python programmers use the `type()` function to learn about the objects they are working with.
+
+type(alice_words)
+
+# A *list* in Python is used to store a collection of items:
+
+# create a list
+y = [1, "b", 3, "D", 5, 6]
+
+#  As with other types in Python, you can get a list of methods by typing the name of the object followed by a `.` and pressing `tab`.
+#
+# ### Extracting subsets from lists
+#
+# Among the things you can do with a list is extract subsets using **bracket indexing notation**. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
+#
+# The examples below show how indexing works in Python.
+
+# syntax
+object[ start : end : by ]
+
+# default
+object[ 0 : end : 1 ]
+
+# Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:
+
+y[0] # returns first element - the number 1 (yes, we count from zero!)
+y[1] # returns second element - the letter "b"
+y[ :3] # returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded
+y[2:5] # returns a list with elements 3, "D", 5
+y[-1] # returns last element - the number 6 
+y[-4: ] # returns a list with last 4 elements
+
+alice_words[11:20] # returns a list with words 11 through 19
+alice_words[-10: ] # returns a list with the last 10 words
 
 # ### Using sets to calculate the number of unique words
+#
 # According to our computation above, there are about 26 thousand total words in *Alice's Adventures in Wonderland*. But how many *unique* words are there? Python has a special data structure called a *set* that makes it easy to find out. A *set* drops all duplicates, giving a collection of the unique elements.
 
+len(alice_words) # counts elements in a data structure
 len(set(alice_words))
 
 # set example
@@ -169,43 +209,7 @@ len(mySet)
 # 1. Open the `Characters.txt` file and read its contents.
 #
 # 2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`.
-
-# ### Working with lists
 #
-# The `split` methods we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a minute to learn more about them.
-#
-# It is always a good idea to know what type of data structure you're working with in Python. As you gain experience, you won't have to look these things up as often, but even experienced Python programmers use the `type()` function to learn about the objects they are working with.
-
-type(alice_words)
-
-# A *list* in Python is used to store a collection of items. As with other types in Python, you can get a list of methods by typing the name of the object followed by a `.` and pressing `tab`.
-#
-# ### Extracting subsets from lists
-#
-# Among the things you can do with a list is extract subsets using **bracket indexing notation**. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
-#
-# The examples below show how indexing works in Python.
-
-# syntax
-# object[ start : end : by ]
-
-# default
-# object[ 0 : end : 1 ]
-
-# Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:
-
-# create a list
-y = [1, "b", 3, "D", 5, 6]
-
-y[0] # returns first element - the number 1 (yes, we count from zero!)
-y[1] # returns second element - the letter "b"
-y[ :3] # returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded
-y[2:5] # returns a list with elements 3, "D", 5
-y[-1] # returns last element - the number 6 
-y[-4: ] # returns a list with last 4 elements
-
-alice_words[11:20] # returns a list with words 11 through 19
-alice_words[-10: ] # returns a list with the last 10 words
 
 # ### Counting chapters & paragraphs
 #
@@ -314,18 +318,23 @@ for i in range(10):
 
 print(container)    
 
-chapter_names = []
+# We can create a list of chapter titles:
+
+chapter_titles = []
+
 for chapter in alice_chapters[1:]:
-    chapter_names.append(chapter.split(sep="\n")[0])
+    chapter_titles.append(chapter.split(sep="\n")[0])
 
-print(chapter_names)
+print(chapter_titles)
 
-# Finally we can combine the chapter names and counts and convert them to a dictionary.
+# We can also create counts for each chapter:
 
-# create counts for each chapter
 chapter_Alice = []
+
 for chapter in alice_chapters[1:]:
     chapter_Alice.append(chapter.count("Alice"))
+
+# Finally we can combine the chapter names and counts and convert them to a dictionary.
 
 # combine names and counts
 mydict = dict(zip(chapter_names, 

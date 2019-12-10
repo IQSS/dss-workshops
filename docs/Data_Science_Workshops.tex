@@ -7475,7 +7475,67 @@ Since the default is to split on whitespace (spaces, newlines, tabs) we can get 
 \begin{Highlighting}[]
 \NormalTok{alice_words }\OperatorTok{=}\NormalTok{ alice_txt.split() }\CommentTok{# returns a list (we talk about lists below)}
 \BuiltInTok{type}\NormalTok{(alice_words)}
-\BuiltInTok{len}\NormalTok{(alice_words) }\CommentTok{# counts elements in a data structure}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{working-with-lists}{%
+\subsection{Working with lists}\label{working-with-lists}}
+
+The \texttt{split} methods we used to break up the text of \emph{Alice in Wonderland} into words produced a \emph{list}. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a minute to learn more about them.
+
+It is always a good idea to know what type of data structure you're working with in Python. As you gain experience, you won't have to look these things up as often, but even experienced Python programmers use the \texttt{type()} function to learn about the objects they are working with.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(alice_words)}
+\end{Highlighting}
+\end{Shaded}
+
+A \emph{list} in Python is used to store a collection of items:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# create a list}
+\NormalTok{y }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+As with other types in Python, you can get a list of methods by typing the name of the object followed by a \texttt{.} and pressing \texttt{tab}.
+
+\hypertarget{extracting-subsets-from-lists}{%
+\subsection{Extracting subsets from lists}\label{extracting-subsets-from-lists}}
+
+Among the things you can do with a list is extract subsets using \textbf{bracket indexing notation}. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
+
+The examples below show how indexing works in Python.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# syntax}
+\BuiltInTok{object}\NormalTok{[ start : end : by ]}
+
+\CommentTok{# default}
+\BuiltInTok{object}\NormalTok{[ }\DecValTok{0}\NormalTok{ : end : }\DecValTok{1}\NormalTok{ ]}
+\end{Highlighting}
+\end{Shaded}
+
+Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y[}\DecValTok{0}\NormalTok{] }\CommentTok{# returns first element - the number 1 (yes, we count from zero!)}
+\NormalTok{y[}\DecValTok{1}\NormalTok{] }\CommentTok{# returns second element - the letter "b"}
+\NormalTok{y[ :}\DecValTok{3}\NormalTok{] }\CommentTok{# returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded}
+\NormalTok{y[}\DecValTok{2}\NormalTok{:}\DecValTok{5}\NormalTok{] }\CommentTok{# returns a list with elements 3, "D", 5}
+\NormalTok{y[}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\CommentTok{# returns last element - the number 6 }
+\NormalTok{y[}\OperatorTok{-}\DecValTok{4}\NormalTok{: ] }\CommentTok{# returns a list with last 4 elements}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alice_words[}\DecValTok{11}\NormalTok{:}\DecValTok{20}\NormalTok{] }\CommentTok{# returns a list with words 11 through 19}
+\NormalTok{alice_words[}\OperatorTok{-}\DecValTok{10}\NormalTok{: ] }\CommentTok{# returns a list with the last 10 words}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7486,6 +7546,7 @@ According to our computation above, there are about 26 thousand total words in \
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\BuiltInTok{len}\NormalTok{(alice_words) }\CommentTok{# counts elements in a data structure}
 \BuiltInTok{len}\NormalTok{(}\BuiltInTok{set}\NormalTok{(alice_words))}
 
 \CommentTok{# set example}
@@ -7512,61 +7573,6 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
 \item
   Split text on newlines to produce a list with one element per line. Store the result as \texttt{alice\_characters}.
 \end{enumerate}
-
-\hypertarget{working-with-lists}{%
-\subsection{Working with lists}\label{working-with-lists}}
-
-The \texttt{split} methods we used to break up the text of \emph{Alice in Wonderland} into words produced a \emph{list}. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a minute to learn more about them.
-
-It is always a good idea to know what type of data structure you're working with in Python. As you gain experience, you won't have to look these things up as often, but even experienced Python programmers use the \texttt{type()} function to learn about the objects they are working with.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\BuiltInTok{type}\NormalTok{(alice_words)}
-\end{Highlighting}
-\end{Shaded}
-
-A \emph{list} in Python is used to store a collection of items. As with other types in Python, you can get a list of methods by typing the name of the object followed by a \texttt{.} and pressing \texttt{tab}.
-
-\hypertarget{extracting-subsets-from-lists}{%
-\subsection{Extracting subsets from lists}\label{extracting-subsets-from-lists}}
-
-Among the things you can do with a list is extract subsets using \textbf{bracket indexing notation}. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
-
-The examples below show how indexing works in Python.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# syntax}
-\CommentTok{# object[ start : end : by ]}
-
-\CommentTok{# default}
-\CommentTok{# object[ 0 : end : 1 ]}
-\end{Highlighting}
-\end{Shaded}
-
-Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# create a list}
-\NormalTok{y }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{]}
-
-\NormalTok{y[}\DecValTok{0}\NormalTok{] }\CommentTok{# returns first element - the number 1 (yes, we count from zero!)}
-\NormalTok{y[}\DecValTok{1}\NormalTok{] }\CommentTok{# returns second element - the letter "b"}
-\NormalTok{y[ :}\DecValTok{3}\NormalTok{] }\CommentTok{# returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded}
-\NormalTok{y[}\DecValTok{2}\NormalTok{:}\DecValTok{5}\NormalTok{] }\CommentTok{# returns a list with elements 3, "D", 5}
-\NormalTok{y[}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\CommentTok{# returns last element - the number 6 }
-\NormalTok{y[}\OperatorTok{-}\DecValTok{4}\NormalTok{: ] }\CommentTok{# returns a list with last 4 elements}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alice_words[}\DecValTok{11}\NormalTok{:}\DecValTok{20}\NormalTok{] }\CommentTok{# returns a list with words 11 through 19}
-\NormalTok{alice_words[}\OperatorTok{-}\DecValTok{10}\NormalTok{: ] }\CommentTok{# returns a list with the last 10 words}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{counting-chapters-paragraphs}{%
 \subsection{Counting chapters \& paragraphs}\label{counting-chapters-paragraphs}}
@@ -7732,13 +7738,27 @@ Now, with the Alice text, first we can iterate over each chapter and grab just t
 \end{Highlighting}
 \end{Shaded}
 
+We can create a list of chapter titles:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{chapter_names }\OperatorTok{=}\NormalTok{ []}
-\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
-\NormalTok{    chapter_names.append(chapter.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)[}\DecValTok{0}\NormalTok{])}
+\NormalTok{chapter_titles }\OperatorTok{=}\NormalTok{ []}
 
-\BuiltInTok{print}\NormalTok{(chapter_names)}
+\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
+\NormalTok{    chapter_titles.append(chapter.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)[}\DecValTok{0}\NormalTok{])}
+
+\BuiltInTok{print}\NormalTok{(chapter_titles)}
+\end{Highlighting}
+\end{Shaded}
+
+We can also create counts for each chapter:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chapter_Alice }\OperatorTok{=}\NormalTok{ []}
+
+\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
+\NormalTok{    chapter_Alice.append(chapter.count(}\StringTok{"Alice"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7746,11 +7766,6 @@ Finally we can combine the chapter names and counts and convert them to a dictio
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# create counts for each chapter}
-\NormalTok{chapter_Alice }\OperatorTok{=}\NormalTok{ []}
-\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
-\NormalTok{    chapter_Alice.append(chapter.count(}\StringTok{"Alice"}\NormalTok{))}
-
 \CommentTok{# combine names and counts}
 \NormalTok{mydict }\OperatorTok{=} \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(chapter_names, }
 \NormalTok{                  chapter_Alice))}
