@@ -54,7 +54,11 @@
 # * Data cleaning and manipulation
 # * Conditional operations
 
-# ## What is R?
+# ## R basics
+#
+# **GOAL:**
+#
+# ### What is R?
 #
 # R is a free language and environment for statistical computing and graphics. 
 # R has existed for over 25 years and is now the most popular software for
@@ -88,7 +92,7 @@
 # The following RStudio and `rmarkdown` cheatsheets will also provide a
 # useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
-# ## Exercise 0
+# ### Exercise 0
 #
 # The purpose of this exercise is to give you an opportunity to explore
 # the interface provided by RStudio. You may not know how to do these things; 
@@ -108,13 +112,37 @@
 # 3.  R includes extensive documentation, including a manual named "An
 #     introduction to R". Use the RStudio help pane. to locate this manual.
 
-# ## R basics
-#
 # ### Syntax
 #
 # * R is case sensitive
 # * R ignores white space
 # * Object names should start with a letter
+
+# ### Function calls
+#
+# The general form for calling R functions is
+
+## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
+
+# Arguments can be **matched by name**; unnamed arguments will be **matched by position**.
+
+values <- c(1.45, 2.34, 5.68)
+round(x = values, digits = 1) # match by name
+round(values, 1) # match by position
+round(1, values) # be careful when matching by position!
+round(digits = 1, x = values) # matching by name is safer!
+
+# ### Assignment
+#
+# Values can be assigned names and used in subsequent operations
+#
+# * The **gets** `<-` operator (less than followed by a dash) is used to save values
+# * The name on the left **gets** the value on the right.
+
+sqrt(10) ## calculate square root of 10; result is not stored anywhere
+x <- sqrt(10) # assign result to a variable named x
+
+# Names should start with a letter, and contain only letters, numbers, underscores, and periods.
 
 # ### Asking for help
 #
@@ -146,33 +174,7 @@
 # where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
 # know which packages are popular, you can look at <https://r-pkg.org>.
 
-# ### Function calls
-#
-# The general form for calling R functions is
-
-## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
-
-# Arguments can be **matched by name**; unnamed arguments will be **matched by position**.
-
-values <- c(1.45, 2.34, 5.68)
-round(x = values, digits = 1) # match by name
-round(values, 1) # match by position
-round(1, values) # be careful when matching by position!
-round(digits = 1, x = values) # matching by name is safer!
-
-# ### Assignment
-#
-# Values can be assigned names and used in subsequent operations
-#
-# * The **gets** `<-` operator (less than followed by a dash) is used to save values
-# * The name on the left **gets** the value on the right.
-
-sqrt(10) ## calculate square root of 10; result is not stored anywhere
-x <- sqrt(10) # assign result to a variable named x
-
-# Names should start with a letter, and contain only letters, numbers, underscores, and periods.
-
-# ## Getting data into R
+# ### Getting data into R
 #
 # R has data reading functionality built-in -- see e.g.,
 # `help(read.table)`. However, faster and more robust tools are
@@ -261,7 +263,7 @@ library(rmarkdown)
 # 2. Which names have the highest popularity by **proportion** for each sex and year?
 # 3. How does the percentage of babies given one of the top 10 names of the year change over time?
 
-# ## Exercise 1
+# ### Exercise 1
 #
 # **Reading the baby names data** 
 #
@@ -275,7 +277,9 @@ library(rmarkdown)
 ##
 
 
-# ## Popularity of your name
+# ## Manipulating data 
+#
+# **GOAL: Popularity of your name**
 #
 # In this section we will pull out specific names and examine changes in 
 # their popularity over time. 
@@ -361,7 +365,7 @@ x > 7 | x < 3 # two conditions combined
 x %in% c(1, 5, 10) 
 
 
-# ## Exercise 2.1
+# ### Exercise 2.1
 #
 # **Peak popularity of your name**
 #
@@ -383,7 +387,7 @@ x %in% c(1, 5, 10)
 ##
 
 
-# ## Pipe operator in R
+# ### Pipe operator in R
 #
 # There is one very special operator in R called a **pipe** operator that 
 # looks like this: `%>%`. It allows us to "chain" several function calls and, 
@@ -427,7 +431,7 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 # 2. Less to type 
 # 3. Easier to read and follow the logic (especially avoiding using nested functions)
 
-# ## Exercise 2.2
+# ### Exercise 2.2
 #
 # Rewrite the solution to Exercise 2.1 using pipes. Remember that we were looking
 # for the year your name reached its maximum popularity. For that, we filtered 
@@ -436,7 +440,9 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 ##
 
 
-# ## Plotting baby name trends over time
+# ## Plotting data
+#
+# **GOAL: Plotting baby name trends over time**
 #
 # It can be difficult to spot trends when looking at summary tables.
 # Plotting the data makes it easier to identify interesting patterns.
@@ -460,7 +466,7 @@ qplot(x = Year, y = Count, color = Sex,
       data = baby_names_diana)
 
 
-# ## Exercise 3 
+# ### Exercise 3 
 #
 # **Plotting peak popularity of your name**
 #
@@ -481,7 +487,9 @@ qplot(x = Year, y = Count, color = Sex,
 ##
 
 
-# ## Finding the most popular names
+# ## Creating variables within groups
+#
+# **GOAL: Finding the most popular names**
 #
 # Our next goal is to find out which names have been the most popular.
 #
@@ -525,7 +533,7 @@ head(baby_names)
 #
 # ![](R/Rintro/images/split-apply-combine.png)
 
-# ## Exercise 4
+# ### Exercise 4
 #
 # **Most popular names**
 #
@@ -551,7 +559,9 @@ head(baby_names)
 ##
 
 
-# ## Percent choosing one of the top 10 names
+# ## Aggregating variables within groups
+#
+# **GOAL:Percent choosing one of the top 10 names**
 #
 # You may have noticed that the percentage of babies given the most 
 # popular name of the year appears to have decreased over time. We can
@@ -585,7 +595,7 @@ bn_by_year <-
 head(bn_by_year)
 
 
-# ## Exercise 5
+# ### Exercise 5
 #
 # **Popularity of the most popular names**
 #
@@ -607,7 +617,9 @@ head(bn_by_year)
 ##
 
 
-# ## Saving our Work
+# ## Saving work
+#
+# **GOAL:**
 #
 # Now that we have made some changes to our data set, we might want to
 # save those changes to a file.

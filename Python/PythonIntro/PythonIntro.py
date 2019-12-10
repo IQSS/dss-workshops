@@ -58,14 +58,16 @@
 # 3.  How many words are in each chapter, and what is the average words per chapter?
 # 4.  How many times is each main character mentioned?
 
-# ## What is Python?
+# ## Python basics
+#
+# **GOAL:**
+#
+# ### What is Python?
 # Python is a relatively easy to learn general purpose programming language. People use Python to manipulate, analyze, and visualize data, make web sites, write games, and much more. Youtube, DropBox, and BitTorrent are among the things people used python to make.
 #
 # Like most popular open source programming languages, Python can be thought of as a *platform* that runs a huge number and variety of packages. The language itself is mostly valuable because it makes it easy to create and use a large number of useful packages.
 #
 # A number of interfaces designed to make it easy to interact with Python are available. The Anaconda distribution that we installed earlier includes both a web-based `Jupyter Notebook` and a more conventional Integrated Development Environment called `Spyder`. For this workshop I encourage you to use `Jupyter Notebook`. In real life you should experiment and choose the interface that you find most comfortable.
-
-# ## Python basics
 #
 # ### Launch Jupyter Notebook
 #
@@ -76,12 +78,6 @@
 #
 # A Jupyter Notebook contains one or more *cells* containing notes or code. To insert a new cell click the `+` button in the upper left. To execute a cell, select it and press `Control+Enter` or click the `Run` button at the top.
 
-# ### Reading data from a file
-#
-# Reading information from a file is the first step in many projects, so we'll start there. The workshop materials you downloaded earlier include a file named `Alice_in_wonderland.txt` which contains the text of Lewis Carroll's *Alice's Adventures in Wonderland*.
-
-alice_file = open("Alice_in_wonderland.txt")
-
 # ### Python functions
 #
 # In Python functions perform tasks, and take the form:
@@ -89,23 +85,27 @@ alice_file = open("Alice_in_wonderland.txt")
 # function_name(arg1, arg2, arg3, ... argn)
 
 # where `arg1` etc. are arguments to the function.
-#
-# **The `open()` function**
-#
-# We can use the `open()` function to create a file **object** that makes a **connection** to the file. This means that the `alice_file` object name we just created does *not* contain the contents of `Alice_in_wonderland.txt`. It is a representation in Python of the *file itself* rather than the *contents* of the file.
-#
+
 # ### Assignment
 #
 # In Python we can assign a result to an name using the `=` operator.
 
-# objectName = thing_to_assign
+# name = thing_to_assign
 x = 10
 
-# The name on the left of the equals sign (`alice_file`) is one that we chose. When choosing names, they must:
+# The name on the left of the equals sign is one that we chose. When choosing names, they must:
 #
 # 1. start with a *letter*
 # 2. use only *letters*, *numbers* and *underscores*
+
+# ### Reading data from a file
 #
+# Reading information from a file is the first step in many projects, so we'll use functions to read data into Python and assign them to a named object. The workshop materials you downloaded earlier include a file named `Alice_in_wonderland.txt` which contains the text of Lewis Carroll's *Alice's Adventures in Wonderland*. We can use the `open()` function to create a file **object** that makes a **connection** to the file:
+
+alice_file = open("Alice_in_wonderland.txt")
+
+#  The `alice_file` object name we just created does *not* contain the contents of `Alice_in_wonderland.txt`. It is a representation in Python of the *file itself* rather than the *contents* of the file.
+
 # ### Object methods
 #
 # The `alice_file` object provides *methods* that we can use to do things with it. Methods are invoked using syntax that looks like `ObjectName.method()`. You can see the methods available for acting on an object by typing the object's name followed by a `.` and pressing the `tab` key. For example, typing `alice_file.` and pressing `tab` will display a list of methods as shown below. 
@@ -123,7 +123,9 @@ print(alice_txt[:500]) # the [:500] gets the first 500 character -- more on this
 
 # That's all there is to it! We've read the contents of `Alice_in_wonderland.txt` and stored this text in a Python object we named `alice_txt`. Now let's start to explore this object, and learn some more things about Python along the way.
 
-# ## Counting chapters, lines, & words
+# ## Using Python methods
+#
+# **Goal: Counting chapters, lines, & words**
 #
 # Now that we have the text, we can start answering some questions about it. To begin with, how many words does it contain? To answer this question, we can split the text up so there is one element per word, and then count the number of words.
 #
@@ -198,7 +200,7 @@ len(mySet)
 
 # There are 5295 unique words in the text.
 
-# ## Exercise 0
+# ### Exercise 0
 #
 # **Reading text from a file & splitting**
 #
@@ -238,7 +240,7 @@ print(alice_paragraphs[2], "\n==========")
 
 len(alice_paragraphs)
 
-# ## Exercise 1
+# ### Exercise 1
 #
 # **Count the number of main characters**
 #
@@ -248,8 +250,10 @@ len(alice_paragraphs)
 #
 # 2. Extract and print just the first character from the list you created in the previous exercise.
 
-# ## Working with nested structures
+# ## Iterating over data structures
 #
+# **Goal: Working with nested structures**
+
 # **Words within paragraphs within chapters**
 #
 # This far our analysis has treated the text as a "flat" data structure. For example, when we counted words we just counted words in the whole document, rather than counting the number of words in each chapter. If we want to treat our document as a nested structure, with words forming sentences, sentences forming paragraphs, paragraphs forming chapters, and chapters forming the book, we need to learn some additional tools. Specifically, we need to learn how to iterate over lists (or other collections) and do things with each element in a collection.
@@ -345,7 +349,7 @@ print(mydict)
 help(zip)         
 
 
-# ## Exercise 2
+# ### Exercise 2
 #
 # **Iterating & counting things**
 #
@@ -370,7 +374,9 @@ help(zip)
 #    above in a dictionary with character names as the keys and 
 #    counts as the values.
 
-# ## Importing numpy & calculating simple statistics
+# ## Importing packages
+#
+# **Goal: Import numpy & calculate simple statistics**
 #
 # Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min()` and `max()`) but built-in math support is pretty limited.
 #

@@ -67,7 +67,11 @@ Start RStudio and create a new project:
 * Conditional operations
 
 
-## What is R?
+## R basics
+
+**GOAL:**
+
+### What is R?
 
 R is a free language and environment for statistical computing and graphics. 
 R has existed for over 25 years and is now the most popular software for
@@ -103,7 +107,7 @@ The following RStudio and `rmarkdown` cheatsheets will also provide a
 useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 
-## Exercise 0
+### Exercise 0
 
 The purpose of this exercise is to give you an opportunity to explore
 the interface provided by RStudio. You may not know how to do these things; 
@@ -128,44 +132,11 @@ you are looking for should appear in a pop up!
     introduction to R". Use the RStudio help pane. to locate this manual.
 
 
-## R basics
-
 ### Syntax
 
 * R is case sensitive
 * R ignores white space
 * Object names should start with a letter
-
-
-### Asking for help
-
-1.  You can ask R for help using the `help` function, or the `?` shortcut.
-
-    ```{r, eval=FALSE}
-    help(help)
-    ?help
-    ?sqrt
-    ```
-
-    The `help` function can be used to look up the documentation for a function, or
-    to look up the documentation to a package. We can learn how to use the `stats`
-    package by reading its documentation like this:
-
-    ```{r, eval=FALSE}
-   help(package = "stats")
-    ```
-
-2.  If you know the name of the package you want to use, then Googling "R *package-name*" will
-often get you to the documentation. Packages are hosted on several different repositories, including:
-
-* CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
-* Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
-* Github: <http://rpkg.gepuro.net/>
-* R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
-
-3.  If you know the type of analysis you want to perform, you can Google "CRAN Task Views", 
-where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
-know which packages are popular, you can look at <https://r-pkg.org>.
 
 
 ### Function calls
@@ -201,7 +172,38 @@ x <- sqrt(10) # assign result to a variable named x
 Names should start with a letter, and contain only letters, numbers, underscores, and periods.
 
 
-## Getting data into R
+### Asking for help
+
+1.  You can ask R for help using the `help` function, or the `?` shortcut.
+
+    ```{r, eval=FALSE}
+    help(help)
+    ?help
+    ?sqrt
+    ```
+
+    The `help` function can be used to look up the documentation for a function, or
+    to look up the documentation to a package. We can learn how to use the `stats`
+    package by reading its documentation like this:
+
+    ```{r, eval=FALSE}
+   help(package = "stats")
+    ```
+
+2.  If you know the name of the package you want to use, then Googling "R *package-name*" will
+often get you to the documentation. Packages are hosted on several different repositories, including:
+
+* CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
+* Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
+* Github: <http://rpkg.gepuro.net/>
+* R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
+
+3.  If you know the type of analysis you want to perform, you can Google "CRAN Task Views", 
+where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
+know which packages are popular, you can look at <https://r-pkg.org>.
+
+
+### Getting data into R
 
 R has data reading functionality built-in -- see e.g.,
 `help(read.table)`. However, faster and more robust tools are
@@ -296,7 +298,7 @@ Here are the questions we will use R to answer:
 3. How does the percentage of babies given one of the top 10 names of the year change over time?
 
 
-## Exercise 1
+### Exercise 1
 
 **Reading the baby names data** 
 
@@ -314,7 +316,9 @@ with the name `baby_names`.
 ```
 
 
-## Popularity of your name
+## Manipulating data 
+
+**GOAL: Popularity of your name**
 
 In this section we will pull out specific names and examine changes in 
 their popularity over time. 
@@ -413,7 +417,7 @@ x %in% c(1, 5, 10)
 ```
 
 
-## Exercise 2.1
+### Exercise 2.1
 
 **Peak popularity of your name**
 
@@ -441,7 +445,7 @@ the `tidyverse` suite of packages and attached them with `library(tidyverse)`.
 ```
 
 
-## Pipe operator in R
+### Pipe operator in R
 
 There is one very special operator in R called a **pipe** operator that 
 looks like this: `%>%`. It allows us to "chain" several function calls and, 
@@ -492,7 +496,7 @@ Advantages of using the pipe:
 3. Easier to read and follow the logic (especially avoiding using nested functions)
 
 
-## Exercise 2.2
+### Exercise 2.2
 
 Rewrite the solution to Exercise 2.1 using pipes. Remember that we were looking
 for the year your name reached its maximum popularity. For that, we filtered 
@@ -503,7 +507,9 @@ the data and then arranged by `Count`.
 ```
 
 
-## Plotting baby name trends over time
+## Plotting data
+
+**GOAL: Plotting baby name trends over time**
 
 It can be difficult to spot trends when looking at summary tables.
 Plotting the data makes it easier to identify interesting patterns.
@@ -533,7 +539,7 @@ qplot(x = Year, y = Count, color = Sex,
 ```
 
 
-## Exercise 3 
+### Exercise 3 
 
 **Plotting peak popularity of your name**
 
@@ -562,7 +568,9 @@ have attached them using `library(tidyverse)`.
 ```
 
 
-## Finding the most popular names
+## Creating variables within groups
+
+**GOAL: Finding the most popular names**
 
 Our next goal is to find out which names have been the most popular.
 
@@ -613,7 +621,7 @@ running `group_by()` again or remove grouping information with
 ![](R/Rintro/images/split-apply-combine.png)
 
 
-## Exercise 4
+### Exercise 4
 
 **Most popular names**
 
@@ -647,7 +655,9 @@ In this exercise your goal is to identify the most popular names for each year.
 ```
 
 
-## Percent choosing one of the top 10 names
+## Aggregating variables within groups
+
+**GOAL:Percent choosing one of the top 10 names**
 
 You may have noticed that the percentage of babies given the most 
 popular name of the year appears to have decreased over time. We can
@@ -685,7 +695,7 @@ head(bn_by_year)
 ```
 
 
-## Exercise 5
+### Exercise 5
 
 **Popularity of the most popular names**
 
@@ -713,7 +723,9 @@ given one of the 10 most popular names each year.
 ```
 
 
-## Saving our Work
+## Saving work
+
+**GOAL:**
 
 Now that we have made some changes to our data set, we might want to
 save those changes to a file.
