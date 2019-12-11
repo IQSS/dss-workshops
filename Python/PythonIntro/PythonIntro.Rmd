@@ -11,14 +11,13 @@ knitr::opts_knit$set(root.dir="Python/PythonIntro") # base.url = "/" # base.dir=
 
 **Topics**
 
-* Reading data
-* Basic functions
+* Functions
+* Assignment
 * Finding help
-* Indexing data objects
-* Working with text data
-* Conditional operations
-* Iterating over data structures
-* Lists and dictionaries
+* List and dictionary structures
+* Indexing data structures
+* Iterating over collections of data
+* Importing packages
 
 
 ## Setup
@@ -51,28 +50,26 @@ This is an introductory Python course:
 * Relatively slow-paced
 
 
-### Learning Outcomes
+### Goals
 
-* Python language basics and common idioms
-* Reading files and manipulating data in Python
-* Iterating over data structures
-* Python package and application ecosystem
+We will learn about the Python language by analyzing the text of Lewis Carroll's *Alice's Adventures in Wonderland*. 
+In particular, our goals are to learn about:
 
-
-### Workshop Outline
-
-As an example project we will analyze the text of Lewis Carroll's *Alice's Adventures in Wonderland*. 
-We will use Python to read data from this text file and then, working with nested data structures, ask the following questions:
-
-1.  How many total and unique words are there?
-2.  How many chapters and paragraphs?
-3.  How many words are in each chapter, and what is the average words per chapter?
-4.  How many times is each main character mentioned?
+1.  Foundations of the language (functions, objects, assignment, methods)
+2.  Using methods and lists to analyze data
+3.  Iterating over collections of data to automate repetitive tasks
+4.  Storing related data in dictionaries (as key - value pairs)
+5.  Importing packages to add functionality
 
 
 ## Python basics
 
-**GOAL:**
+**GOAL: To learn about the foundations of the Python language**  
+**1.  Functions**
+**2.  Objects**
+**3.  Assignment**
+**4.  Methods**
+
 
 ### What is Python?
 Python is a relatively easy to learn general purpose programming language. People use Python to manipulate, analyze, and visualize data, make web sites, write games, and much more. Youtube, DropBox, and BitTorrent are among the things people used python to make.
@@ -91,9 +88,9 @@ A number of interfaces designed to make it easy to interact with Python are avai
 A Jupyter Notebook contains one or more *cells* containing notes or code. To insert a new cell click the `+` button in the upper left. To execute a cell, select it and press `Control+Enter` or click the `Run` button at the top.
 
 
-### Python functions
+### Function calls
 
-In Python functions perform tasks, and take the form:
+In Python, functions perform tasks and take the form:
 
 ```{python}
 # function_name(arg1, arg2, arg3, ... argn)
@@ -152,9 +149,12 @@ That's all there is to it! We've read the contents of `Alice_in_wonderland.txt` 
 
 ## Using Python methods
 
-**Goal: Counting chapters, lines, & words**
+**GOAL: To learn how to use methods and lists to analyze data. We will do this using the Alice text to count**  
+**1.  Words**
+**2.  Chapters**
+**3.  Paragraphs**
 
-Now that we have the text, we can start answering some questions about it. To begin with, how many words does it contain? To answer this question, we can split the text up so there is one element per word, and then count the number of words.
+How many words does the text contain? To answer this question, we can split the text up so there is one element per word, and then count the number of words.
 
 ### Splitting a string into a list of words
 
@@ -308,12 +308,12 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 2. Extract and print just the first character from the list you created in the previous exercise.
 
 
-## Iterating over data structures
+## Iterating over collections of data
 
-**Goal: Working with nested structures**
+**GOAL: To learn how to automate repetitive tasks by iterating over collections of data. We will do this using the Alice text to count**  
+**1.  Words nested within paragraphs**
+**2.  Paragraphs nested with chapters**
 
-
-**Words within paragraphs within chapters**
 
 This far our analysis has treated the text as a "flat" data structure. For example, when we counted words we just counted words in the whole document, rather than counting the number of words in each chapter. If we want to treat our document as a nested structure, with words forming sentences, sentences forming paragraphs, paragraphs forming chapters, and chapters forming the book, we need to learn some additional tools. Specifically, we need to learn how to iterate over lists (or other collections) and do things with each element in a collection.
 
@@ -337,7 +337,7 @@ for <thing> in <collection>:
 ![](Python/PythonIntro/images/python_for_loop_small.png)
 
 
-Notice that the body of the for-loop is indented. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. White space matters in Python! A simple example:
+Notice that the body of the for-loop is indented. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. **White space matters in Python!** A simple example:
 
 ```{python}
 for i in range(10): 
@@ -354,7 +354,7 @@ for paragraph in alice_paragraphs[:6]:
 print('DONE.')
 ```
 
-Loops in Python are great because the syntax is relatively simple, and because they are very powerful. Inside of the body of a loop you can use all the tools you use elsewhere in python.
+Loops in Python are great because the syntax is relatively simple, and because they are very powerful. Inside of the body of a loop you can use all the tools you use elsewhere in Python.
 
 Here is one more example of a loop, this time iterating over all the chapters and calculating the number of paragraphs in each chapter.
 
@@ -366,7 +366,7 @@ for chapter in alice_chapters[1:]:
 
 ### Organizing results in dictionaries
 
-Our code for calculating the number of times "Alice" was mentioned per chapter worked, but with a little effort we can make it much easier to interpret by associating each count with the chapter it corresponds to. In Python we can use a `dict` (i.e., "dictionary") to store key-value pairs.
+It's often useful to store separate pieces of data that are related to one another in a `dict` (i.e., "dictionary"), which is designed to store key-value pairs. For example, we can calculate the number of times "Alice" is mentioned per chapter and associate each count with the chapter title it corresponds to.
 
 The dictionary structure looks like:
 
@@ -385,7 +385,7 @@ mylist =[5, 6, 10]
 print(mylist)
 ```
 
-Now, with the Alice text, first we can iterate over each chapter and grab just the first line (that is, the chapter titles). These will become our keys.
+To associate chapter titles with "Alice" counts, we will first need to learn how to **append** elements to a list:
 
 ```{python}
 container = [] # a list
@@ -396,7 +396,7 @@ for i in range(10):
 print(container)    
 ```
 
-We can create a list of chapter titles:
+Now, with the Alice text, first we can iterate over each chapter and grab just the first line (that is, the chapter titles). These will become our **keys**.
 
 ```{python}
 chapter_titles = []
@@ -407,7 +407,7 @@ for chapter in alice_chapters[1:]:
 print(chapter_titles)
 ```
 
-We can also create counts for each chapter:
+Next, we can iterate over each chapter and count the number of times "Alice" was mentioned. These will become our **values**.
 
 ```{python}
 chapter_Alice = []
@@ -416,11 +416,11 @@ for chapter in alice_chapters[1:]:
     chapter_Alice.append(chapter.count("Alice"))
 ```    
 
-Finally we can combine the chapter names and counts and convert them to a dictionary.
+Finally we can combine the chapter titles (**keys**) and "Alice" counts (**values**) and convert them to a dictionary.
 
 ```{Python}
-# combine names and counts
-mydict = dict(zip(chapter_names, 
+# combine titles and counts
+mydict = dict(zip(chapter_titles, 
                   chapter_Alice))
 
 print(mydict)
@@ -457,7 +457,10 @@ For each character, call the count method with that character as the argument.
 
 ## Importing packages
 
-**Goal: Import numpy & calculate simple statistics**
+**GOAL: To learn how to expand Python's functionality by importing packages**  
+**1.  Import numpy**
+**2.  Calculate simple statistics**
+
 
 Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min()` and `max()`) but built-in math support is pretty limited.
 
