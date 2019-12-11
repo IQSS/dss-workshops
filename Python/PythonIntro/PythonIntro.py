@@ -263,7 +263,7 @@ len(alice_paragraphs)
 #
 # There are several ways to iterate in Python, of which we will focus on *for loops*. 
 #
-# ### Iterating over paragraphs using for-loops
+# ### Iterating over lists using for-loops
 #
 # A *for loop* is a way of cycling through the elements of a collection and doing something with each one. The for loop logic is:
 #
