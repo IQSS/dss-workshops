@@ -53,7 +53,8 @@
 
 # ## Python basics
 #
-# **GOAL: To learn about the foundations of the Python language**  
+# **GOAL: To learn about the foundations of the Python language.**  
+#
 # **1.  Functions**
 # **2.  Objects**
 # **3.  Assignment**
@@ -122,7 +123,8 @@ print(alice_txt[:500]) # the [:500] gets the first 500 character -- more on this
 
 # ## Using Python methods
 #
-# **GOAL: To learn how to use methods and lists to analyze data. We will do this using the Alice text to count**  
+# **GOAL: To learn how to use methods and lists to analyze data. We will do this using the Alice text to count:**  
+#
 # **1.  Words**
 # **2.  Chapters**
 # **3.  Paragraphs**
@@ -252,7 +254,8 @@ len(alice_paragraphs)
 
 # ## Iterating over collections of data
 #
-# **GOAL: To learn how to automate repetitive tasks by iterating over collections of data. We will do this using the Alice text to count**  
+# **GOAL: To learn how to automate repetitive tasks by iterating over collections of data. We will do this using the Alice text to count:**  
+#
 # **1.  Words nested within paragraphs**
 # **2.  Paragraphs nested with chapters**
 
@@ -262,9 +265,7 @@ len(alice_paragraphs)
 #
 # ### Iterating over paragraphs using for-loops
 #
-# A *for loop* is a way of cycling through the elements of a collection and doing something with each one. As a simple example, we can cycle through the first 6 paragraphs and print each one. Cycling through with a loop makes it easy to insert a separator between the paragraphs, making it much easier to read the output.
-#
-# The for loop logic is:
+# A *for loop* is a way of cycling through the elements of a collection and doing something with each one. The for loop logic is:
 #
 # ![](Python/PythonIntro/images/for_loop_pic_small.png)
 #
@@ -275,13 +276,15 @@ for <thing> in <collection>:
 
 # ![](Python/PythonIntro/images/python_for_loop_small.png)
 
-# Notice that the body of the for-loop is indented. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. **White space matters in Python!** A simple example:
+# Notice that **the body of the for-loop is indented**. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. **White space matters in Python!** A simple example:
 
 for i in range(10): 
     print(i)
 print('DONE.')    
 
-# Notice that "DONE." is only printed once, since `print('DONE.')` is not indented and is therefore outside of the body of the loop. An example using the Alice text:
+# Notice that "DONE." is only printed once, since `print('DONE.')` is not indented and is therefore outside of the body of the loop. 
+#
+# As a simple example using the Alice text, we can cycle through the first 6 paragraphs and print each one. Cycling through with a loop makes it easy to insert a separator between the paragraphs, making it much clearer to read the output:
 
 for paragraph in alice_paragraphs[:6]:
     print(paragraph)
@@ -376,7 +379,8 @@ help(zip)
 
 # ## Importing packages
 #
-# **GOAL: To learn how to expand Python's functionality by importing packages**  
+# **GOAL: To learn how to expand Python's functionality by importing packages.**  
+#
 # **1.  Import numpy**
 # **2.  Calculate simple statistics**
 
