@@ -1204,17 +1204,17 @@ These workshops are a work-in-progress, please provide any feedback to: \href{ma
 \begin{itemize}
 \tightlist
 \item
-  Assignment
+  Functions
 \item
-  Function arguments
+  Assignment
 \item
   Finding help
 \item
-  Reading data
+  Importing packages
 \item
-  Filtering rows, selecting columns, and arranging data
+  Basic data manipulation
 \item
-  Conditional operations
+  Operations within groups of data
 \item
   Saving data
 \end{itemize}
@@ -1282,27 +1282,46 @@ Start RStudio and create a new project:
   Relatively slow-paced
 \end{itemize}
 
-\hypertarget{learning-outcomes}{%
-\subsection{Learning Outcomes}\label{learning-outcomes}}
+\hypertarget{goals}{%
+\subsection{Goals}\label{goals}}
 
-\begin{itemize}
+We will learn about the R language by analyzing a dataset of baby names.
+In particular, our goals are to learn about:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Basic R syntax
+  Foundations of the language (functions, objects, assignment)
 \item
-  R package ecosystem
+  The \texttt{tidyverse} package ecosystem for data science
 \item
-  Reading / writing data and finding help
+  Basic data manipulation used to clean datasets
 \item
-  Data cleaning and manipulation
+  Working with grouped data
 \item
-  Conditional operations
-\end{itemize}
+  Aggregating data to create summaries
+\item
+  Saving objects, data, and scripts
+\end{enumerate}
 
 \hypertarget{r-basics}{%
 \section{R basics}\label{r-basics}}
 
-\textbf{GOAL:}
+\textbf{GOAL: To learn about the foundations of the R language.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Functions
+\item
+  Objects
+\item
+  Assignment
+\item
+  \texttt{tidyverse} package ecosystem for data science
+\end{enumerate}
 
 \hypertarget{what-is-r}{%
 \subsection{What is R?}\label{what-is-r}}
@@ -1310,39 +1329,55 @@ Start RStudio and create a new project:
 R is a free language and environment for statistical computing and graphics.
 R has existed for over 25 years and is now the most popular software for
 data analysis. It has an extensive ecosystem of about 15,000 add on packages
-covering all aspects of statistics.
+covering all aspects of statistics and machine learning.
 
 \hypertarget{r-interfaces}{%
 \subsection{R Interfaces}\label{r-interfaces}}
 
-There are many different ways you can interact with R. See the
-\href{./DataScienceTools.html}{Data Science Tools workshop notes}
-for details.
+\hypertarget{text-editors-integrated-development-environments-ides}{%
+\subsubsection{Text editors \& Integrated Development Environments (IDEs)}\label{text-editors-integrated-development-environments-ides}}
+
+There are many different text editors and IDEs available for R. Here are a few popular ones:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Editor / IDE & Features & Ease of use & Language support\tabularnewline
+\midrule
+\endhead
+RStudio & Excellent & Easy & R only\tabularnewline
+VS code & Excellent & Easy & Very good\tabularnewline
+Atom & Good & Moderate & Good\tabularnewline
+Vim & Excellent & Hard & Good\tabularnewline
+Emacs & Excellent & Hard & Excellent\tabularnewline
+\bottomrule
+\end{longtable}
 
 For this workshop we will use \href{https://rstudio.com/}{RStudio}; it is a good
-R-specific integrated development environment (IDE) with many features.
+R-specific IDE with many features.
 
-There are also several different formats for writing code for R. Two of
-the most popular are:
+\hypertarget{literate-programming-versus-source-code}{%
+\subsubsection{Literate programming versus source code}\label{literate-programming-versus-source-code}}
+
+There are also several different \textbf{formats} available for writing code in R.
+These basically boil down to a choice between:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{R scripts} --- a type of plain text file that allows you to write R code
-  and basic comments about the code:
+  \textbf{Source code:} the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a \texttt{.R} or \texttt{.r} suffix. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
 \item
-  \href{https://rmarkdown.rstudio.com/}{\textbf{Rmarkdown}} --- a type of text file that
-  allows you to include plain text with R code and easily convert the contents
-  into HTML (for a webpage), MS Word, or PDF (via LaTeX). Many people write
-  their journal papers, dissertations, and statistics/math class notes in
-  Rmarkdown, since it is easy to use and to convert into other formats later.
+  \textbf{Literate programming:} the practice of embedding computer code in a natural language document. In R this is often done using \href{https://rmarkdown.rstudio.com/}{\textbf{Rmarkdown}}, which involves embeddeding R code in a document that is authored using \emph{Markdown} and which has a \texttt{.Rmd} suffix. \emph{Markdown} is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at the results. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to use and to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX).
 \end{enumerate}
 
-Here are some resources for learning more about \texttt{rmarkdown}:
-\url{https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html}
+Here are some resources for learning more about \texttt{Rmarkdown} and RStudio:
 
-The following RStudio and \texttt{rmarkdown} cheatsheets will also provide a
-useful reference: \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
+\begin{itemize}
+\tightlist
+\item
+  \url{https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html}
+\item
+  \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
+\end{itemize}
 
 \hypertarget{exercise-0}{%
 \subsection{Exercise 0}\label{exercise-0}}
@@ -1698,9 +1733,22 @@ Make sure you have installed the \texttt{tidyverse} suite of packages and attach
 \hypertarget{manipulating-data}{%
 \section{Manipulating data}\label{manipulating-data}}
 
-\textbf{GOAL: Popularity of your name}
+\textbf{GOAL: To learn about basic data manipulation used to clean datasets.} In particular:
 
-In this section we will pull out specific names and examine changes in
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Filtering data by choosing rows
+\item
+  Selecting data by choosing columns
+\item
+  Arranging data by reordering rows
+\item
+  Using the pipe \texttt{\%\textgreater{}\%} operator to simplify sequential operations
+\end{enumerate}
+
+In this section we will pull out specific names from the baby names data and examine changes in
 their popularity over time.
 
 The \texttt{baby\_names} object we created in the last exercise is a \texttt{data.frame}.
@@ -2177,9 +2225,18 @@ have attached them using \texttt{library(tidyverse)}.
 \hypertarget{creating-variables-within-groups}{%
 \section{Creating variables within groups}\label{creating-variables-within-groups}}
 
-\textbf{GOAL: Finding the most popular names}
+\textbf{GOAL: To learn how to work with grouped data.} In particular:
 
-Our next goal is to find out which names have been the most popular.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Creating new variables (columns) using the \texttt{mutate()} function
+\item
+  Creating new variables within groups by combining the \texttt{mutate()} and \texttt{group\_by()} functions
+\end{enumerate}
+
+We want to use these skills to find out which names have been the most popular.
 
 \hypertarget{computing-better-measures-of-popularity}{%
 \subsection{Computing better measures of popularity}\label{computing-better-measures-of-popularity}}
@@ -2342,7 +2399,16 @@ In this exercise your goal is to identify the most popular names for each year.
 \hypertarget{aggregating-variables-within-groups}{%
 \section{Aggregating variables within groups}\label{aggregating-variables-within-groups}}
 
-\textbf{GOAL:Percent choosing one of the top 10 names}
+\textbf{GOAL: To learn how to aggregate data to create summaries.} In particular:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Using the \texttt{summarize()} function to collapse data into summaries
+\item
+  Combining the \texttt{summarize()} and \texttt{group\_by()} functions to create summaries within groups
+\end{enumerate}
 
 You may have noticed that the percentage of babies given the most
 popular name of the year appears to have decreased over time. We can
@@ -2459,7 +2525,7 @@ given one of the 10 most popular names each year.
 \hypertarget{saving-work}{%
 \section{Saving work}\label{saving-work}}
 
-\textbf{GOAL:}
+\textbf{GOAL: To learn how to save objects, data, and scripts for later use.}
 
 Now that we have made some changes to our data set, we might want to
 save those changes to a file.
@@ -3227,8 +3293,8 @@ This is an intermediate R course:
   This is not a statistics course! We assume you know the theory behind the models.
 \end{itemize}
 
-\hypertarget{learning-outcomes-1}{%
-\subsection{Learning Outcomes}\label{learning-outcomes-1}}
+\hypertarget{learning-outcomes}{%
+\subsection{Learning Outcomes}\label{learning-outcomes}}
 
 \begin{itemize}
 \tightlist
@@ -4500,8 +4566,8 @@ This is an intermediate R course:
   Relatively fast-paced
 \end{itemize}
 
-\hypertarget{learning-outcomes-2}{%
-\subsection{Learning Outcomes}\label{learning-outcomes-2}}
+\hypertarget{learning-outcomes-1}{%
+\subsection{Learning Outcomes}\label{learning-outcomes-1}}
 
 \begin{itemize}
 \tightlist
@@ -6124,8 +6190,8 @@ This is an intermediate / advanced R course:
   Relatively fast-paced
 \end{itemize}
 
-\hypertarget{learning-outcomes-3}{%
-\subsection{Learning Outcomes}\label{learning-outcomes-3}}
+\hypertarget{learning-outcomes-2}{%
+\subsection{Learning Outcomes}\label{learning-outcomes-2}}
 
 \begin{itemize}
 \tightlist
@@ -7310,8 +7376,8 @@ This is an introductory Python course:
   Relatively slow-paced
 \end{itemize}
 
-\hypertarget{goals}{%
-\subsection{Goals}\label{goals}}
+\hypertarget{goals-1}{%
+\subsection{Goals}\label{goals-1}}
 
 We will learn about the Python language by analyzing the text of Lewis Carroll's \emph{Alice's Adventures in Wonderland}.
 In particular, our goals are to learn about:
@@ -8182,8 +8248,8 @@ This is an intermediate Python course:
 If you need an introduction to Python or a refresher, we recommend our
 \href{https://iqss.github.io/dss-workshops/PythonIntro.html}{Python Introduction}.
 
-\hypertarget{learning-outcomes-4}{%
-\subsection{Learning Outcomes}\label{learning-outcomes-4}}
+\hypertarget{learning-outcomes-3}{%
+\subsection{Learning Outcomes}\label{learning-outcomes-3}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8899,8 +8965,8 @@ Harvard FAS affiliates can install a licensed version from \url{http://downloads
   Make comments in your Do-file - save on flash drive or email to yourself
 \end{itemize}
 
-\hypertarget{goals-1}{%
-\subsection{Goals}\label{goals-1}}
+\hypertarget{goals-2}{%
+\subsection{Goals}\label{goals-2}}
 
 \begin{itemize}
 \tightlist
@@ -9665,8 +9731,8 @@ Harvard FAS affiliates can install a licensed version from \url{http://downloads
   Make comments in your Do-file - save on flash drive or email to yourself
 \end{itemize}
 
-\hypertarget{goals-2}{%
-\subsection{Goals}\label{goals-2}}
+\hypertarget{goals-3}{%
+\subsection{Goals}\label{goals-3}}
 
 \begin{itemize}
 \tightlist
@@ -11070,8 +11136,8 @@ Harvard FAS affiliates can install a licensed version from \url{http://downloads
   Make comments in your Do-file - save on flash drive or email to yourself
 \end{itemize}
 
-\hypertarget{goals-3}{%
-\subsection{Goals}\label{goals-3}}
+\hypertarget{goals-4}{%
+\subsection{Goals}\label{goals-4}}
 
 \begin{itemize}
 \tightlist
