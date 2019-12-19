@@ -860,11 +860,12 @@ qplot(x = Year,
 #     + <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 #
 # * Online tutorials
-#     + <http://www.codeschool.com/courses/try-r>
-#     + <http://www.datacamp.org>
+#     + <https://swirlstats.com/>
+#     + <https://r4ds.had.co.nz/>
+#     + <https://hbs-rcs.github.io/R_Intro-gapminder/base-r/>
+#     + <https://www.pluralsight.com/search?q=R>
+#     + <https://www.datacamp.com/> 
 #     + <https://rmarkdown.rstudio.com/lesson-1.html>
-#     + <http://swirlstats.com/>
-#     + <http://r4ds.had.co.nz/>
 #
 # * Getting help:
 #     + Documentation and tutorials: <http://cran.r-project.org/other-docs.html>
