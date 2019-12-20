@@ -147,17 +147,13 @@ help(alice_txt.split)
 
 # Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the split method and counting the number of elements in the result.
 
-alice_words = alice_txt.split() # returns a list (we talk about lists below)
+alice_words = alice_txt.split() # returns a list
 type(alice_words)
 
 # ### Working with lists
 #
-# The `split` methods we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a minute to learn more about them.
+# The `split` methods we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.
 #
-# It is always a good idea to know what type of data structure you're working with in Python. As you gain experience, you won't have to look these things up as often, but even experienced Python programmers use the `type()` function to learn about the objects they are working with.
-
-type(alice_words)
-
 # A *list* in Python is used to store a collection of items:
 
 # create a list
@@ -172,12 +168,15 @@ y = [1, "b", 3, "D", 5, 6]
 # The examples below show how indexing works in Python.
 
 # syntax
-object[ start : end : by ]
+# object[ start : end : by ]
 
 # default
-object[ 0 : end : 1 ]
+# object[ 0 : end : 1 ]
 
 # Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:
+
+# create a list
+y = [1, "b", 3, "D", 5, 6]
 
 y[0] # returns first element - the number 1 (yes, we count from zero!)
 y[1] # returns second element - the letter "b"
@@ -191,14 +190,19 @@ alice_words[-10: ] # returns a list with the last 10 words
 
 # ### Using sets to calculate the number of unique words
 #
-# According to our computation above, there are about 26 thousand total words in *Alice's Adventures in Wonderland*. But how many *unique* words are there? Python has a special data structure called a *set* that makes it easy to find out. A *set* drops all duplicates, giving a collection of the unique elements.
+# Now that we have a list containing the individual words from *Alice's Adventures in Wonderland*, we can calculate how many words there are in total using the `len()` (length) function:
 
 len(alice_words) # counts elements in a data structure
-len(set(alice_words))
+
+# According to our above computation, there are about 26 thousand total words in the Alice text. But how many *unique* words are there? Python has a special data structure called a *set* that makes it easy to find out. A *set* drops all duplicates, giving a collection of the unique elements. Here's a simple example:
 
 # set example
 mySet = {1, 5, 9, 9, 4, 5}
 len(mySet)
+
+# We can now use the `set()` function to convert the list of all words (`alice_words`) into a set of *unique* words and then count them:
+
+len(set(alice_words)) # counts unique elements in a data structure
 
 # There are 5295 unique words in the text.
 
@@ -211,9 +215,13 @@ len(mySet)
 # NOTE: we will not always explicitly demonstrate everything you need to know in order to complete an exercise. Instead we focus on teaching you how to discover available methods and how use the help function to learn how to use them. It is expected that you will spend some time during the exercises looking for appropriate methods and perhaps reading documentation.
 #
 # 1. Open the `Characters.txt` file and read its contents.
-#
-# 2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`.
-#
+
+##
+
+# 2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`. HINT: you can split on newlines using the `\n` separator.
+
+##
+
 
 # ### Counting chapters & paragraphs
 #
@@ -249,8 +257,13 @@ len(alice_paragraphs)
 # So far we've learned that there are 12 chapters, around 830 paragraphs, and about 26 thousand words in *Alice's Adventures in Wonderland*. Along the way we've also learned how to open a file and read its contents, split strings, calculate the length of objects, discover methods for string and list objects, and index/subset lists in Python. Now it is time for you to put these skills to use to learn something about the main characters in the story.
 #
 # 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).
-#
+
+##
+
 # 2. Extract and print just the first character from the list you created in the previous exercise.
+
+##
+
 
 # ## Iterating over collections of data
 #
@@ -273,8 +286,8 @@ len(alice_paragraphs)
 #
 # The for loop syntax is:
 
-for <thing> in <collection>: 
-    do stuff with <thing>
+# for <thing> in <collection>: 
+#     do stuff with <thing>
 
 # <center>
 # ![](Python/PythonIntro/images/python_for_loop_small.png)
@@ -309,14 +322,14 @@ for chapter in alice_chapters[1:]:
 #
 # The dictionary structure looks like:
 
-mydict = {key1:value1, key2:value2, key3:value3}
+# mydict = {key1:value1, key2:value2, key3:value3}
 
 # A simple example:
 
 mydict = {"apple":5, "pear":6, "grape":10}
 print(mydict)
 
-# compare to a list
+# compare the above dict to a list
 mylist =[5, 6, 10]
 print(mylist)
 
@@ -348,8 +361,7 @@ for chapter in alice_chapters[1:]:
 # Finally we can combine the chapter titles (**keys**) and "Alice" counts (**values**) and convert them to a dictionary.
 
 # combine titles and counts
-mydict = dict(zip(chapter_titles, 
-                  chapter_Alice))
+mydict = dict(zip(chapter_titles, chapter_Alice))
 
 print(mydict)
 
@@ -360,26 +372,35 @@ help(zip)
 #
 # **Iterating & counting things**
 #
-# Now that we know how to iterate using for-loops, the possibilities really start to open up. For example, we can use these techniques to count the number of times each character appears in the story. 
+# Now that we know how to iterate using for-loops, the possibilities really start to open up. For example, we can use these techniques to count the number of times each character appears in the story.
 #
 # 1. Make sure you have both the text and the list of characters.
 #
 # Open and read both "Alice_in_wonderland.txt" and
 # "Characters.txt" if you have not already done so.
-#
+
+##
+
 # 2. Which chapter has the most words?
 #
-# Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters. 
+# Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
 # For each chapter, split it into words and calculate the length.
-#
+
+##
+
 # 3. How many times is each character mentioned in the text?
 #
 # Iterate over the list of characters using a for-loop. 
 # For each character, call the count method with that character as the argument.
-#
+
+##
+
 # 4. (BONUS, optional): Put the character counts computed 
 #    above in a dictionary with character names as the keys and 
 #    counts as the values.
+
+##
+
 
 # ## Importing packages
 #
@@ -394,7 +415,7 @@ help(zip)
 #
 # To use `numpy` or other packages, you must first import them. 
 
-import <package-name>
+# import <package-name>
 
 # We can import `numpy` as follows:
 
@@ -402,12 +423,12 @@ import numpy
 
 # To use functions from a package, we can prefix the function with the package name, separated by a period:
 
-<package-name>.<function_name>()
+# <package-name>.<function_name>()
 
 # The `numpy` package is very popular and includes a lot of useful functions. For example, we can use it to calculate means and standard deviations:
 
-print(numpy.mean(paragraphs_per_chapter))
-print(numpy.std(paragraphs_per_chapter))
+print(numpy.mean(chapter_Alice))
+print(numpy.std(chapter_Alice))
 
 # ## Exercise solutions
 #
