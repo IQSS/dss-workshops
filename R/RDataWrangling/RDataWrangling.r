@@ -272,7 +272,7 @@ glimpse(tmp)
 #  to disambiguate. The trailing number represents the index of the column.
 #
 
-# ## Exercise 1
+# ### Exercise 1
 #
 #   1. Write a function called `read_boys_names` that takes a file name as an argument 
 #      and reads the worksheet containing "Table 1" from that file. Don't forget
@@ -423,7 +423,7 @@ boysNames[[1]] <- boysNames[[1]] %>% drop_na()
 boysNames[[1]]
 
 
-# ## Exercise 2
+# ### Exercise 2
 #
 #   1. Write a function called `namecount` that takes a data frame as an 
 #      argument and returns a modified version, which keeps only columns that
@@ -458,7 +458,7 @@ second_columns <- select(boysNames[[1]], Name = Name...6, Count = Count...7)
 bind_rows(first_columns, second_columns)
 
 
-# ## Exercise 3
+# ### Exercise 3
 #
 # **Cleanup all the data**
 #
@@ -528,7 +528,7 @@ boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
 
 boysNames[1]
 
-# ## Exercise 4
+# ### Exercise 4
 #
 # **Make one big data.frame**
 #

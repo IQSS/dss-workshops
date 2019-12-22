@@ -164,6 +164,7 @@ outcome ~ pred1 + pred2 + pred3
 # | `residuals()` | `stats` base R | residuals                                               |
 # | `fixef()`     | `lme4`         | fixed effect point estimates (mixed models only)        |
 # | `ranef()`     | `lme4`         | random effect point estimates (mixed models only)       |
+# | `coef()`      | `lme4`         | empirical Bayes estimates (mixed models only)           |
 # | `allEffects()`| `effects`      | predicted marginal means                                |
 # | `emmeans()`   | `emmeans`      | predicted marginal means & marginal effects             |
 
@@ -215,7 +216,7 @@ dat[with(dat, complete.cases(expense, house, senate)), ]
   # compare using an F-test with the anova() function
   anova(sat_mod, sat_voting_mod)
 
-# ## Exercise 0
+# ### Exercise 0
 #
 # **Ordinary least squares regression**
 #
@@ -284,7 +285,7 @@ dat[with(dat, complete.cases(expense, house, senate)), ]
   contrast(means, method = "pairwise")
 
 
-# ## Exercise 1
+# ### Exercise 1
 #
 # **Interactions & factors**
 #
@@ -376,7 +377,7 @@ dat[with(dat, complete.cases(expense, house, senate)), ]
 
 # ![](R/Rmodels/images/effects1.png)
 
-# ## Exercise 2 
+# ### Exercise 2 
 #
 # **Logistic regression**
 #
@@ -463,7 +464,7 @@ dat[with(dat, complete.cases(expense, house, senate)), ]
 
   anova(Norm2, Norm3) 
 
-# ## Exercise 3
+# ### Exercise 3
 #
 # **Multilevel modeling**
 #

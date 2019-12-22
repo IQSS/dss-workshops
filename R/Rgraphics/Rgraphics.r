@@ -236,7 +236,7 @@ p1 +
   geom_point(aes(color = Home_Value, shape = region))
 
 
-# ## Exercise 0
+# ### Exercise 0
 #
 # The data for the exercises is available in the `dataSets/EconomistData.csv` file. Read it in with
 
@@ -313,7 +313,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
   geom_bar(stat="identity")
 
 
-# ## Exercise 1
+# ### Exercise 1
 #
 # 1.  Re-create a scatter plot with `CPI` on the x axis and `HDI` on the y axis (as you did in the previous exercise).
 ## 
@@ -421,7 +421,7 @@ p4 +
 # Note that in RStudio you can type `scale_` followed by `tab` to get the whole list of available scales. 
 # For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>
 
-# ## Exercise 2
+# ### Exercise 2
 #
 # 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
 ## 
@@ -564,7 +564,7 @@ ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
   geom_line()
 
 
-# ## Exercise 3
+# ### Exercise 3
 #
 # For this exercise, we're going to use the built-in `midwest` dataset:
 
