@@ -1,7 +1,6 @@
+
 # knitr::opts_knit$set(base.dir = "/Users/nunnlab/Desktop/GitHub/rgriff23.github.io/")
 
-# # (PART) R {-}
-#
 # # R Introduction
 #
 # **Topics**
@@ -78,7 +77,9 @@
 #
 # #### Text editors & Integrated Development Environments (IDEs)
 #
-# There are many different text editors and IDEs available for R. Here are a few popular ones:
+# Text editors and IDE’s are not really separate categories; as you add features to a text editor it becomes more like an IDE. A more useful distinction is between language-specific and general purpose editors/IDEs. The former are typically easier to set up since they come pre-configured for use with a specific language. General purpose editors/IDEs typically provide language support via plugins and may require extensive configuration for each language.
+#
+# Here are a few popular editors/IDEs that can be used with R:
 #
 # | Editor / IDE | Features  | Ease of use | Language support |
 # |:------------ |:--------- |:----------- |:---------------- |
@@ -89,7 +90,7 @@
 # | Emacs        | Excellent | Hard        | Excellent        |
 #
 # For this workshop we will use [RStudio](https://rstudio.com/); it is a good
-# R-specific IDE with many features.
+# R-specific IDE with many useful features.
 
 # #### Literate programming versus source code
 #
@@ -98,7 +99,7 @@
 #
 # 1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a `.R` or `.r` suffix. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
 #
-# 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embeddeding R code in a document that is authored using *Markdown* and which has a `.Rmd` suffix. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at the results. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to use and to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
+# 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embeddeding R code in a document that is authored using *Markdown* and which has a `.Rmd` suffix. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
 #
 # Here are some resources for learning more about `Rmarkdown` and RStudio: 
 #

@@ -1,0 +1,166 @@
+
+```{r, include=FALSE, echo=FALSE}
+options(max.print = 100)
+knitr::opts_chunk$set(message=FALSE, fig.path="R/Rintro/figures/")
+knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
+# knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+# knitr::opts_knit$set(base.dir = "/Users/nunnlab/Desktop/GitHub/rgriff23.github.io/")
+```
+
+# (PART) R {-}
+
+# R Installation
+
+## Software
+
+You must install **both R and RStudio**; it is essential that you have these pre-installed so that we can start the workshop on time.
+
+**Mac OS X:** 
+
+* Install R by downloading and running [this .pkg file](http://cran.r-project.org/bin/macosx/R-latest.pkg) from [CRAN](http://cran.r-project.org/index.html). 
+* Install the RStudio Desktop IDE by downloading and running [this .dmg file](https://download1.rstudio.org/desktop/macos/RStudio-1.2.5033.dmg).
+
+**Windows:** 
+
+* Install R by downloading and running [this .exe file](https://cran.r-project.org/bin/windows/base/release.htm) from [CRAN](http://cran.r-project.org/index.html). I
+* Install the RStudio Desktop IDE by downloading and running [this .exe file](https://https://download1.rstudio.org/desktop/windows/RStudio-1.2.5033.exe).
+
+**Linux:** 
+
+* Install R by downloading the binary files for your distribution from CRAN. Or you can use your package manager (e.g. for Debian/Ubuntu run sudo apt-get install r-base and for Fedora run sudo yum install R). 
+* Install the RStudio Desktop IDE [for your distribution](https://rstudio.com/products/rstudio/download/#download)
+
+Success? After both installations, please launch RStudio. If you were successful with the installations, you should see a window similar to this:
+
+![](R/Rinstall/images/rstudio_successful_install.png)
+
+(Please note that the version of R reported may be newer). If you are having any difficulties with the installations or your RStudio screen does not look like this one, please stop by the training room at least 20 minutes prior to the start of the  workshop.
+
+
+## Materials
+
+Download class materials for your workshop:
+
+* R Introduction: <https://github.com/IQSS/dss-workshops/raw/master/R/Rintro.zip>
+* R Models: <https://github.com/IQSS/dss-workshops/raw/master/R/Rmodels.zip>
+* R Graphics: <https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics.zip>
+* R Data Wrangling: <https://github.com/IQSS/dss-workshops/raw/master/R/Rdatawrangling.zip>
+
+Extract materials from the zipped directory (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
+
+
+## Launch an R session
+
+Start RStudio and create a new project:
+
+* On Windows click the start button and search for RStudio. On Mac
+    RStudio will be in your applications folder.
+* In Rstudio go to `File -> New Project`.
+* Choose `Existing Directory` and browse to the workshop materials directory.
+* Choose `File -> Open File` and select the blank version of the `.Rmd` file.
+
+
+## R Interfaces
+
+### Text editors & Integrated Development Environments (IDEs)
+
+Text editors and IDE’s are not really separate categories; as you add features to a text editor it becomes more like an IDE. A more useful distinction is between language-specific and general purpose editors/IDEs. The former are typically easier to set up since they come pre-configured for use with a specific language. General purpose editors/IDEs typically provide language support via plugins and may require extensive configuration for each language.
+
+Here are a few popular editors/IDEs that can be used with R:
+
+| Editor / IDE | Features  | Ease of use | Language support |
+|:------------ |:--------- |:----------- |:---------------- |
+| RStudio      | Excellent | Easy        | R only           |
+| VS code      | Excellent | Easy        | Very good        |
+| Atom         | Good      | Moderate    | Good             |
+| Vim          | Excellent | Hard        | Good             |
+| Emacs        | Excellent | Hard        | Excellent        |
+
+For this workshop we will use [RStudio](https://rstudio.com/); it is a good
+R-specific IDE with many useful features.
+
+
+### Literate programming versus source code
+
+There are also several different **formats** available for writing code in R. 
+These basically boil down to a choice between:
+
+1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a `.R` or `.r` suffix. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
+
+2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embeddeding R code in a document that is authored using *Markdown* and which has a `.Rmd` suffix. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
+
+Here are some resources for learning more about `Rmarkdown` and RStudio: 
+
+* <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
+*  <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
+
+
+## Installing R packages
+
+R is a modular environment that is extended by the use of **packages**.
+Packages are collections of functions or commands that are designed to
+perform specific tasks (e.g., fit a type of regression model). A large 
+number of contributed packages are available (> 15,000). 
+
+Using an R package is a **two step process**:
+
+1.  Install the package onto your computer using the
+ `install.packages()` function. This only needs to
+ be done the **first time** you use the package.
+
+2.  Load the package into your R session's search path 
+ using the `library()` function. This needs to be done
+ **each time** you use the package.
+
+
+## Installing the `tidyverse`
+
+While R's built-in packages are powerful, in recent years there has
+been a big surge in well-designed *contributed packages* for R. In 
+particular, a collection of R packages called 
+[`tidyverse`](https://www.tidyverse.org/) have been 
+designed specifically for data science. All packages included in 
+`tidyverse` share an underlying design philosophy, grammar, and 
+data structures. This philosopy is rooted in the idea of "tidy data":
+
+![](R/Rinstall/images/tidy_data.png)
+
+We will use `tidyverse` packages throughout the 
+R workshops, so let's install them now:
+
+```{r}
+## install.packages("tidyverse")
+
+# when you install tidyverse for the first time you will be asked
+# a question in the Console - please answer by typing "no" in the Console.
+
+library(tidyverse)
+```
+
+A typical workflow for using `tidyverse` packages looks like this:
+
+![](R/Rinstall/images/tidy_workflow.png)
+
+We can also install the `rmarkdown` package, which will allow us to
+combine our text and code into a formatted document at the end of 
+the workshops:
+
+```{r}
+## install.packages("rmarkdown")
+library(rmarkdown)
+```
+
+
+## Resources
+
+* IQSS 
+    + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
+    + Data Science Services: <https://dss.iq.harvard.edu/>
+    + Research Computing Environment: <https://iqss.github.io/dss-rce/>
+
+* HBS
+    + Research Computing Services workshops: <https://training.rcs.hbs.org/workshops>
+    + Other HBS RCS resources: <https://training.rcs.hbs.org/workshop-materials>
+    + RCS consulting email: <mailto:research@hbs.edu>
+
