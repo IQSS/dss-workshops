@@ -16,23 +16,6 @@
 # * Informal --- Ask questions at any time. Really!
 # * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 
-# ### Software & Materials
-#
-# ####  Install the Anaconda Python distribution
-#
-# If using your own computer please install the Anaconda Python
-# distribution from
-# [https://www.anaconda.com/download/](https://www.anaconda.com/download/).
-# (Note that Python version $\leq$ 3.0 differs considerably from more
-# recent releases. For this workshop you will need version $\geq$ 3.6.x)
-#
-# Accepting the defaults proposed by the Anaconda installer is generally recommended.
-#
-# #### Download materials
-#
-# * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Python/PythonWebScrape.zip>
-# * Extract materials from the zipped directory `PythonWebScrape.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
-#
 # ### Prerequisites
 #
 # This is an intermediate Python course:
@@ -80,7 +63,7 @@
 # the web service for other users or the cost of hosting the service for
 # the service provider.
 
-# ## How Does the Web Work?
+# ## How does the web work?
 #
 # ### Components
 #
@@ -273,7 +256,7 @@ records_final.to_csv("records_final.csv")
 
 print(records_final)
 
-# ## Exercise 0
+# ### Exercise 0
 #
 # **Retrieve exhibits data**
 #
@@ -449,7 +432,7 @@ all_event_values.to_csv("all_event_values.csv")
 
 print(all_event_values)
 
-# ## Exercise 1 
+# ### Exercise 1 
 #
 # **parsing HTML**
 #
