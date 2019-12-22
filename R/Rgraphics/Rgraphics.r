@@ -13,67 +13,33 @@
 #
 # * Informal --- Ask questions at any time. Really!
 # * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
-
-# ### Software & materials
 #
-# You should have R and RStudio installed --- if not:
+# ### Prerequisites
 #
-# * Download and install R: <http://cran.r-project.org>
-# * Download and install RStudio: <https://www.rstudio.com/products/rstudio/download/#download>
+# This is an intermediate R course:
 #
-# Download materials:
+# * Assumes working knowledge of R
+# * Relatively fast-paced
 #
-# * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics.zip>
-# * Extract materials from the zipped directory `Rgraphics.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
+# ### Launch an R session
 #
 # Start RStudio and create a new project:
 #
 # * On Windows click the start button and search for RStudio. On Mac
 #     RStudio will be in your applications folder.
 # * In Rstudio go to `File -> New Project`.
-# * Choose `Existing Directory` and browse to the `Rgraphics` directory.
-# * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
-
-# ### Installing & using R packages
+# * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
+# * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 #
-# R is a modular environment that is extended by the use of **packages**.
-# Packages are collections of functions or commands that are designed to
-# perform specific tasks (e.g., fit a type of regression model). A large 
-# number of contributed packages are available (> 15,000). 
+# ### Packages
 #
-# Using an R package is a **two step process**:
-#
-# 1.  Install the package onto your computer using the
-#  `install.packages()` function. This only needs to
-#  be done the **first time** you use the package.
-#
-# 2.  Load the package into your R session's search path 
-#  using the `library()` function. This needs to be done
-#  **each time** you use the package.
-#
-# While R's built-in packages are powerful, in recent years there has
-# been a big surge in well-designed *contributed packages* for R. 
-# In particular, a collection of R packages called 
-# [tidyverse](https://www.tidyverse.org/) have been 
-# designed specifically for data science. All packages included in 
-# `tidyverse` share an underlying design philosophy, grammar, and 
-# data structures. This philosopy is rooted in the idea of "tidy data":
-#
-# ![](R/Rintro/images/tidy_data.png)
-#
-# We will use `tidyverse` packages throughout the 
-# workshop, so let's install them now:
-
-# install.packages("tidyverse")
-
-# when you install tidyverse for the first time you will be asked
-# a question in the Console - please answer by typing "no" in the Console.
+# You should have already installed the `tidyverse` and `rmarkdown`
+# packages onto your computer before the workshop 
+# --- see [R Installation](./Rinstall.html). 
+# Now let's load these packages into the search path of our R session.
 
 library(tidyverse)
-
-# A typical workflow for using `tidyverse` packages looks like this:
-#
-# ![](R/Rintro/images/tidy_workflow.png)
+library(rmarkdown)
 
 # The `ggplot2` package is contained within `tidyverse`, but we also want to 
 # install two additional packages, `scales` and `ggrepel`, which provide 
@@ -84,33 +50,6 @@ library(scales)
 
 # install.packages("ggrepel") 
 library(ggrepel)
-
-# We can also install the `rmarkdown` package, which will allow us to
-# combine our text and code into a formatted document at the end of 
-# the workshop:
-
-# install.packages("rmarkdown")
-library(rmarkdown)
-
-# The following RStudio, `tidyverse`, ``ggplot2`, and `rmarkdown` cheatsheets will provide a
-# useful reference: <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
-#
-# ### Prerequisites
-#
-# This is an intermediate R course:
-#
-# * Assumes working knowledge of R
-# * Relatively fast-paced
-
-# ### Learning Outcomes
-#
-# * R `ggplot2` graphics syntax
-# * Grammar of graphics
-#     + Aesthetics
-#     + Geometric objects
-#     + Scales
-#     + Faceting
-# * Combining all the above together in a single plot
 
 # ### Workshop Outline
 #

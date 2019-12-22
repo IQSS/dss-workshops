@@ -1,4 +1,3 @@
-
 # knitr::opts_knit$set(base.dir = "/Users/nunnlab/Desktop/GitHub/rgriff23.github.io/")
 
 # # R Introduction
@@ -19,32 +18,12 @@
 #
 # * Informal --- Ask questions at any time. Really!
 # * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
-
-# ### Software & materials
 #
-# You should have R and RStudio installed --- if not:
-#
-# * Download and install R: <http://cran.r-project.org>
-# * Download and install RStudio: <https://www.rstudio.com/products/rstudio/download/#download>
-#
-# Download materials:
-#
-# * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/R/Rintro.zip>
-# * Extract materials from the zipped directory `Rintro.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
-#
-# Start RStudio and create a new project:
-#
-# * On Windows click the start button and search for RStudio. On Mac
-#     RStudio will be in your applications folder.
-# * In Rstudio go to `File -> New Project`.
-# * Choose `Existing Directory` and browse to the `Rintro` directory.
-# * Choose `File -> Open File` and select the blank version of the `.Rmd` file.
-
 # ### Prerequisites
 #
 # * None --- assumes no prior knowledge of R
 # * Relatively slow-paced
-
+#
 # ### Goals
 #
 # We will learn about the R language by analyzing a dataset of baby names. 
@@ -56,6 +35,16 @@
 # 4.  Working with grouped data
 # 5.  Aggregating data to create summaries
 # 6.  Saving objects, data, and scripts
+#
+# ### Launch an R session
+#
+# Start RStudio and create a new project:
+#
+# * On Windows click the start button and search for RStudio. On Mac
+#     RStudio will be in your applications folder.
+# * In Rstudio go to `File -> New Project`.
+# * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
+# * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 
 # ## R basics
 #
@@ -72,39 +61,6 @@
 # R has existed for over 25 years and is now the most popular software for
 # data analysis. It has an extensive ecosystem of about 15,000 add on packages
 # covering all aspects of statistics and machine learning. 
-
-# ### R Interfaces
-#
-# #### Text editors & Integrated Development Environments (IDEs)
-#
-# Text editors and IDE’s are not really separate categories; as you add features to a text editor it becomes more like an IDE. A more useful distinction is between language-specific and general purpose editors/IDEs. The former are typically easier to set up since they come pre-configured for use with a specific language. General purpose editors/IDEs typically provide language support via plugins and may require extensive configuration for each language.
-#
-# Here are a few popular editors/IDEs that can be used with R:
-#
-# | Editor / IDE | Features  | Ease of use | Language support |
-# |:------------ |:--------- |:----------- |:---------------- |
-# | RStudio      | Excellent | Easy        | R only           |
-# | VS code      | Excellent | Easy        | Very good        |
-# | Atom         | Good      | Moderate    | Good             |
-# | Vim          | Excellent | Hard        | Good             |
-# | Emacs        | Excellent | Hard        | Excellent        |
-#
-# For this workshop we will use [RStudio](https://rstudio.com/); it is a good
-# R-specific IDE with many useful features.
-
-# #### Literate programming versus source code
-#
-# There are also several different **formats** available for writing code in R. 
-# These basically boil down to a choice between:
-#
-# 1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a `.R` or `.r` suffix. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
-#
-# 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embeddeding R code in a document that is authored using *Markdown* and which has a `.Rmd` suffix. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
-#
-# Here are some resources for learning more about `Rmarkdown` and RStudio: 
-#
-# * <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
-# *  <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
 # ### Exercise 0
 #
@@ -212,6 +168,8 @@ x <- sqrt(10) # assign result to a variable named x
 # 2.  Load the package into your R session's search path 
 #  using the `library()` function. This needs to be done
 #  **each time** you use the package.
+
+# ### The `tidyverse`
 #
 # While R's built-in packages are powerful, in recent years there has
 # been a big surge in well-designed *contributed packages* for R. In 
@@ -223,27 +181,17 @@ x <- sqrt(10) # assign result to a variable named x
 #
 # ![](R/Rintro/images/tidy_data.png)
 #
-# We will use `tidyverse` packages throughout the 
-# workshop, so let's install them now:
-
-## install.packages("tidyverse")
-
-# when you install tidyverse for the first time you will be asked
-# a question in the Console - please answer by typing "no" in the Console.
-
-library(tidyverse)
-
 # A typical workflow for using `tidyverse` packages looks like this:
 #
 # ![](R/Rintro/images/tidy_workflow.png)
 #
-# We can also install the `rmarkdown` package, which will allow us to
-# combine our text and code into a formatted document at the end of 
-# the workshop:
+# You should have already installed the `tidyverse` and `rmarkdown`
+# packages onto your computer before the workshop 
+# --- see [R Installation](./Rinstall.html). 
+# Now let's load these packages into the search path of our R session.
 
-## install.packages("rmarkdown")
+library(tidyverse)
 library(rmarkdown)
-
 
 # ### Readers for common file types
 #

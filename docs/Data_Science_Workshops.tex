@@ -1282,8 +1282,8 @@ Emacs & Excellent & Hard & Excellent\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{literate-programming-versus-source-code}{%
-\subsection{Literate programming versus source code}\label{literate-programming-versus-source-code}}
+\hypertarget{source-code-literate-programming}{%
+\subsection{Source code \& literate programming}\label{source-code-literate-programming}}
 
 There are also several different \textbf{formats} available for writing code in R.
 These basically boil down to a choice between:
@@ -1347,6 +1347,23 @@ Using an R package is a \textbf{two step process}:
   using the \texttt{library()} function. This needs to be done
   \textbf{each time} you use the package.
 \end{enumerate}
+
+\hypertarget{tidyverse-for-data-science}{%
+\section{\texorpdfstring{\texttt{tidyverse} for data science}{tidyverse for data science}}\label{tidyverse-for-data-science}}
+
+While R's built-in packages are powerful, in recent years there has
+been a big surge in well-designed \emph{contributed packages} for R. In
+particular, a collection of R packages called
+\href{https://www.tidyverse.org/}{\texttt{tidyverse}} have been
+designed specifically for data science. All packages included in
+\texttt{tidyverse} share an underlying design philosophy, grammar, and
+data structures. This philosopy is rooted in the idea of ``tidy data'':
+
+\includegraphics{R/Rintro/images/tidy_data.png}
+
+A typical workflow for using \texttt{tidyverse} packages looks like this:
+
+\includegraphics{R/Rintro/images/tidy_workflow.png}
 
 \hypertarget{installing-the-tidyverse}{%
 \section{\texorpdfstring{Installing the \texttt{tidyverse}}{Installing the tidyverse}}\label{installing-the-tidyverse}}
@@ -1450,44 +1467,6 @@ stop by the training room at least 20 minutes before the start of your workshop.
   Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 \end{itemize}
 
-\hypertarget{software-materials}{%
-\subsection{Software \& materials}\label{software-materials}}
-
-You should have R and RStudio installed --- if not:
-
-\begin{itemize}
-\tightlist
-\item
-  Download and install R: \url{http://cran.r-project.org}
-\item
-  Download and install RStudio: \url{https://www.rstudio.com/products/rstudio/download/\#download}
-\end{itemize}
-
-Download materials:
-
-\begin{itemize}
-\tightlist
-\item
-  Download class materials at \url{https://github.com/IQSS/dss-workshops/raw/master/R/Rintro.zip}
-\item
-  Extract materials from the zipped directory \texttt{Rintro.zip} (Right-click =\textgreater{} Extract All on Windows, double-click on Mac) and move them to your desktop!
-\end{itemize}
-
-Start RStudio and create a new project:
-
-\begin{itemize}
-\tightlist
-\item
-  On Windows click the start button and search for RStudio. On Mac
-  RStudio will be in your applications folder.
-\item
-  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
-\item
-  Choose \texttt{Existing\ Directory} and browse to the \texttt{Rintro} directory.
-\item
-  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank version of the \texttt{.Rmd} file.
-\end{itemize}
-
 \hypertarget{prerequisites}{%
 \subsection{Prerequisites}\label{prerequisites}}
 
@@ -1522,6 +1501,24 @@ In particular, our goals are to learn about:
   Saving objects, data, and scripts
 \end{enumerate}
 
+\hypertarget{launch-an-r-session-1}{%
+\subsection{Launch an R session}\label{launch-an-r-session-1}}
+
+Start RStudio and create a new project:
+
+\begin{itemize}
+\tightlist
+\item
+  On Windows click the start button and search for RStudio. On Mac
+  RStudio will be in your applications folder.
+\item
+  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
+\item
+  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
+\item
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
+\end{itemize}
+
 \hypertarget{r-basics}{%
 \section{R basics}\label{r-basics}}
 
@@ -1547,56 +1544,6 @@ R is a free language and environment for statistical computing and graphics.
 R has existed for over 25 years and is now the most popular software for
 data analysis. It has an extensive ecosystem of about 15,000 add on packages
 covering all aspects of statistics and machine learning.
-
-\hypertarget{r-interfaces-1}{%
-\subsection{R Interfaces}\label{r-interfaces-1}}
-
-\hypertarget{text-editors-integrated-development-environments-ides-1}{%
-\subsubsection{Text editors \& Integrated Development Environments (IDEs)}\label{text-editors-integrated-development-environments-ides-1}}
-
-Text editors and IDE's are not really separate categories; as you add features to a text editor it becomes more like an IDE. A more useful distinction is between language-specific and general purpose editors/IDEs. The former are typically easier to set up since they come pre-configured for use with a specific language. General purpose editors/IDEs typically provide language support via plugins and may require extensive configuration for each language.
-
-Here are a few popular editors/IDEs that can be used with R:
-
-\begin{longtable}[]{@{}llll@{}}
-\toprule
-Editor / IDE & Features & Ease of use & Language support\tabularnewline
-\midrule
-\endhead
-RStudio & Excellent & Easy & R only\tabularnewline
-VS code & Excellent & Easy & Very good\tabularnewline
-Atom & Good & Moderate & Good\tabularnewline
-Vim & Excellent & Hard & Good\tabularnewline
-Emacs & Excellent & Hard & Excellent\tabularnewline
-\bottomrule
-\end{longtable}
-
-For this workshop we will use \href{https://rstudio.com/}{RStudio}; it is a good
-R-specific IDE with many useful features.
-
-\hypertarget{literate-programming-versus-source-code-1}{%
-\subsubsection{Literate programming versus source code}\label{literate-programming-versus-source-code-1}}
-
-There are also several different \textbf{formats} available for writing code in R.
-These basically boil down to a choice between:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{Source code:} the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a \texttt{.R} or \texttt{.r} suffix. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
-\item
-  \textbf{Literate programming:} the practice of embedding computer code in a natural language document. In R this is often done using \href{https://rmarkdown.rstudio.com/}{\textbf{Rmarkdown}}, which involves embeddeding R code in a document that is authored using \emph{Markdown} and which has a \texttt{.Rmd} suffix. \emph{Markdown} is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX).
-\end{enumerate}
-
-Here are some resources for learning more about \texttt{Rmarkdown} and RStudio:
-
-\begin{itemize}
-\tightlist
-\item
-  \url{https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html}
-\item
-  \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
-\end{itemize}
 
 \hypertarget{exercise-0}{%
 \subsection{Exercise 0}\label{exercise-0}}
@@ -1829,6 +1776,9 @@ Using an R package is a \textbf{two step process}:
   \textbf{each time} you use the package.
 \end{enumerate}
 
+\hypertarget{the-tidyverse}{%
+\subsection{\texorpdfstring{The \texttt{tidyverse}}{The tidyverse}}\label{the-tidyverse}}
+
 While R's built-in packages are powerful, in recent years there has
 been a big surge in well-designed \emph{contributed packages} for R. In
 particular, a collection of R packages called
@@ -1839,31 +1789,18 @@ data structures. This philosopy is rooted in the idea of ``tidy data'':
 
 \includegraphics{R/Rintro/images/tidy_data.png}
 
-We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{## install.packages("tidyverse")}
-
-\CommentTok{# when you install tidyverse for the first time you will be asked}
-\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
-
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\end{Highlighting}
-\end{Shaded}
-
 A typical workflow for using \texttt{tidyverse} packages looks like this:
 
 \includegraphics{R/Rintro/images/tidy_workflow.png}
 
-We can also install the \texttt{rmarkdown} package, which will allow us to
-combine our text and code into a formatted document at the end of
-the workshop:
+You should have already installed the \texttt{tidyverse} and \texttt{rmarkdown}
+packages onto your computer before the workshop
+--- see \href{./Rinstall.html}{R Installation}.
+Now let's load these packages into the search path of our R session.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## install.packages("rmarkdown")}
+\KeywordTok{library}\NormalTok{(tidyverse)}
 \KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
 \end{Shaded}
@@ -2363,7 +2300,7 @@ we can plot the number of babies given the name ``Diana'' over time like this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-29-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-28-1.pdf}
 
 Interestingly, there are usually some gender-atypical names, even for very strongly
 gendered names like ``Diana''. Splitting these trends out by \texttt{Sex} is very easy:
@@ -2375,7 +2312,7 @@ gendered names like ``Diana''. Splitting these trends out by \texttt{Sex} is ver
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-30-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-29-1.pdf}
 
 \hypertarget{exercise-3}{%
 \subsection{Exercise 3}\label{exercise-3}}
@@ -3024,7 +2961,7 @@ you previously created.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-71-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-70-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3038,7 +2975,7 @@ you previously created.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-73-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-72-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3052,7 +2989,7 @@ you previously created.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-75-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-74-1.pdf}
 
 \hypertarget{ex-4-prototype}{%
 \subsection{Ex 4: prototype}\label{ex-4-prototype}}
@@ -3167,7 +3104,7 @@ you previously created.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-83-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-82-1.pdf}
 
 \hypertarget{ex-5-prototype}{%
 \subsection{Ex 5: prototype}\label{ex-5-prototype}}
@@ -3240,7 +3177,7 @@ you previously created.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-89-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-88-1.pdf}
 
 \hypertarget{wrap-up-1}{%
 \section{Wrap-up}\label{wrap-up-1}}
@@ -3382,123 +3319,6 @@ These workshops are a work-in-progress, please provide any feedback to: \href{ma
   Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 \end{itemize}
 
-\hypertarget{software-materials-1}{%
-\subsection{Software \& materials}\label{software-materials-1}}
-
-You should have R and RStudio installed --- if not:
-
-\begin{itemize}
-\tightlist
-\item
-  Download and install R: \url{http://cran.r-project.org}
-\item
-  Download and install RStudio: \url{https://www.rstudio.com/products/rstudio/download/\#download}
-\end{itemize}
-
-Download materials:
-
-\begin{itemize}
-\tightlist
-\item
-  Download class materials at \url{https://github.com/IQSS/dss-workshops/raw/master/R/Rmodels.zip}
-\item
-  Extract materials from the zipped directory \texttt{Rmodels.zip} (Right-click =\textgreater{} Extract All on Windows, double-click on Mac) and move them to your desktop!
-\end{itemize}
-
-Start RStudio and create a new project:
-
-\begin{itemize}
-\tightlist
-\item
-  On Windows click the start button and search for RStudio. On Mac
-  RStudio will be in your applications folder.
-\item
-  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
-\item
-  Choose \texttt{Existing\ Directory} and browse to the \texttt{Rmodels} directory.
-\item
-  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank version of the \texttt{.Rmd} file.
-\end{itemize}
-
-\hypertarget{installing-using-r-packages-1}{%
-\subsection{Installing \& using R packages}\label{installing-using-r-packages-1}}
-
-R is a modular environment that is extended by the use of \textbf{packages}.
-Packages are collections of functions or commands that are designed to
-perform specific tasks (e.g., fit a type of regression model). A large
-number of contributed packages are available (\textgreater{} 15,000).
-
-Using an R package is a \textbf{two step process}:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Install the package onto your computer using the
-  \texttt{install.packages()} function. This only needs to
-  be done the \textbf{first time} you use the package.
-\item
-  Load the package into your R session's search path
-  using the \texttt{library()} function. This needs to be done
-  \textbf{each time} you use the package.
-\end{enumerate}
-
-While R's built-in packages are powerful, in recent years there has
-been a big surge in well-designed \emph{contributed packages} for R.
-In particular, a collection of R packages called
-\href{https://www.tidyverse.org/}{tidyverse} have been
-designed specifically for data science. All packages included in
-\texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. This philosopy is rooted in the idea of ``tidy data'':
-
-\includegraphics{R/Rintro/images/tidy_data.png}
-
-We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("tidyverse")}
-
-\CommentTok{# when you install tidyverse for the first time you will be asked}
-\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
-
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\end{Highlighting}
-\end{Shaded}
-
-A typical workflow for using \texttt{tidyverse} packages looks like this:
-
-\includegraphics{R/Rintro/images/tidy_workflow.png}
-
-We can also install the \texttt{rmarkdown} package, which will allow us to
-combine our text and code into a formatted document at the end of
-the workshop:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("rmarkdown")}
-\KeywordTok{library}\NormalTok{(rmarkdown)}
-\end{Highlighting}
-\end{Shaded}
-
-The following RStudio, \texttt{tidyverse}, and \texttt{rmarkdown} cheatsheets will provide a
-useful reference: \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
-
-Finally, lets install some packages that will help with modeling:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("lme4")}
-\KeywordTok{library}\NormalTok{(lme4)  }\CommentTok{# for mixed models}
-
-\CommentTok{# install.packages("emmeans")}
-\KeywordTok{library}\NormalTok{(emmeans)  }\CommentTok{# for marginal effects}
-
-\CommentTok{# install.packages("effects")}
-\KeywordTok{library}\NormalTok{(effects)  }\CommentTok{# for predicted marginal means}
-\end{Highlighting}
-\end{Shaded}
-
 \hypertarget{prerequisites-1}{%
 \subsection{Prerequisites}\label{prerequisites-1}}
 
@@ -3514,22 +3334,53 @@ This is an intermediate R course:
   This is not a statistics course! We assume you know the theory behind the models.
 \end{itemize}
 
-\hypertarget{learning-outcomes}{%
-\subsection{Learning Outcomes}\label{learning-outcomes}}
+\hypertarget{launch-an-r-session-2}{%
+\subsection{Launch an R session}\label{launch-an-r-session-2}}
+
+Start RStudio and create a new project:
 
 \begin{itemize}
 \tightlist
 \item
-  R formula interface
+  On Windows click the start button and search for RStudio. On Mac
+  RStudio will be in your applications folder.
 \item
-  Fitting linear and non-linear models
+  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
 \item
-  Understanding class methods
+  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
 \item
-  Post-estimation tools
-\item
-  Plotting model diagnostics
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
 \end{itemize}
+
+\hypertarget{packages}{%
+\subsection{Packages}\label{packages}}
+
+You should have already installed the \texttt{tidyverse} and \texttt{rmarkdown}
+packages onto your computer before the workshop
+--- see \href{./Rinstall.html}{R Installation}.
+Now let's load these packages into the search path of our R session.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
+\end{Highlighting}
+\end{Shaded}
+
+Finally, lets install some packages that will help with modeling:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("lme4")}
+\KeywordTok{library}\NormalTok{(lme4)  }\CommentTok{# for mixed models}
+
+\CommentTok{# install.packages("emmeans")}
+\KeywordTok{library}\NormalTok{(emmeans)  }\CommentTok{# for marginal effects}
+
+\CommentTok{# install.packages("effects")}
+\KeywordTok{library}\NormalTok{(effects)  }\CommentTok{# for predicted marginal means}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{workshop-outline}{%
 \subsection{Workshop Outline}\label{workshop-outline}}
@@ -4658,28 +4509,21 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
   Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 \end{itemize}
 
-\hypertarget{software-materials-2}{%
-\subsection{Software \& materials}\label{software-materials-2}}
+\hypertarget{prerequisites-2}{%
+\subsection{Prerequisites}\label{prerequisites-2}}
 
-You should have R and RStudio installed --- if not:
-
-\begin{itemize}
-\tightlist
-\item
-  Download and install R: \url{http://cran.r-project.org}
-\item
-  Download and install RStudio: \url{https://www.rstudio.com/products/rstudio/download/\#download}
-\end{itemize}
-
-Download materials:
+This is an intermediate R course:
 
 \begin{itemize}
 \tightlist
 \item
-  Download class materials at \url{https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics.zip}
+  Assumes working knowledge of R
 \item
-  Extract materials from the zipped directory \texttt{Rgraphics.zip} (Right-click =\textgreater{} Extract All on Windows, double-click on Mac) and move them to your desktop!
+  Relatively fast-paced
 \end{itemize}
+
+\hypertarget{launch-an-r-session-3}{%
+\subsection{Launch an R session}\label{launch-an-r-session-3}}
 
 Start RStudio and create a new project:
 
@@ -4691,60 +4535,25 @@ Start RStudio and create a new project:
 \item
   In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
 \item
-  Choose \texttt{Existing\ Directory} and browse to the \texttt{Rgraphics} directory.
+  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
 \item
-  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank version of the \texttt{.Rmd} file.
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
 \end{itemize}
 
-\hypertarget{installing-using-r-packages-2}{%
-\subsection{Installing \& using R packages}\label{installing-using-r-packages-2}}
+\hypertarget{packages-1}{%
+\subsection{Packages}\label{packages-1}}
 
-R is a modular environment that is extended by the use of \textbf{packages}.
-Packages are collections of functions or commands that are designed to
-perform specific tasks (e.g., fit a type of regression model). A large
-number of contributed packages are available (\textgreater{} 15,000).
-
-Using an R package is a \textbf{two step process}:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Install the package onto your computer using the
-  \texttt{install.packages()} function. This only needs to
-  be done the \textbf{first time} you use the package.
-\item
-  Load the package into your R session's search path
-  using the \texttt{library()} function. This needs to be done
-  \textbf{each time} you use the package.
-\end{enumerate}
-
-While R's built-in packages are powerful, in recent years there has
-been a big surge in well-designed \emph{contributed packages} for R.
-In particular, a collection of R packages called
-\href{https://www.tidyverse.org/}{tidyverse} have been
-designed specifically for data science. All packages included in
-\texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. This philosopy is rooted in the idea of ``tidy data'':
-
-\includegraphics{R/Rintro/images/tidy_data.png}
-
-We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
+You should have already installed the \texttt{tidyverse} and \texttt{rmarkdown}
+packages onto your computer before the workshop
+--- see \href{./Rinstall.html}{R Installation}.
+Now let's load these packages into the search path of our R session.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# install.packages("tidyverse")}
-
-\CommentTok{# when you install tidyverse for the first time you will be asked}
-\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
-
 \KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
 \end{Shaded}
-
-A typical workflow for using \texttt{tidyverse} packages looks like this:
-
-\includegraphics{R/Rintro/images/tidy_workflow.png}
 
 The \texttt{ggplot2} package is contained within \texttt{tidyverse}, but we also want to
 install two additional packages, \texttt{scales} and \texttt{ggrepel}, which provide
@@ -4759,58 +4568,6 @@ additional functionality.
 \KeywordTok{library}\NormalTok{(ggrepel)}
 \end{Highlighting}
 \end{Shaded}
-
-We can also install the \texttt{rmarkdown} package, which will allow us to
-combine our text and code into a formatted document at the end of
-the workshop:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("rmarkdown")}
-\KeywordTok{library}\NormalTok{(rmarkdown)}
-\end{Highlighting}
-\end{Shaded}
-
-The following RStudio, \texttt{tidyverse}, `\texttt{ggplot2}, and \texttt{rmarkdown} cheatsheets will provide a
-useful reference: \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
-
-\hypertarget{prerequisites-2}{%
-\subsection{Prerequisites}\label{prerequisites-2}}
-
-This is an intermediate R course:
-
-\begin{itemize}
-\tightlist
-\item
-  Assumes working knowledge of R
-\item
-  Relatively fast-paced
-\end{itemize}
-
-\hypertarget{learning-outcomes-1}{%
-\subsection{Learning Outcomes}\label{learning-outcomes-1}}
-
-\begin{itemize}
-\tightlist
-\item
-  R \texttt{ggplot2} graphics syntax
-\item
-  Grammar of graphics
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Aesthetics
-  \item
-    Geometric objects
-  \item
-    Scales
-  \item
-    Faceting
-  \end{itemize}
-\item
-  Combining all the above together in a single plot
-\end{itemize}
 
 \hypertarget{workshop-outline-1}{%
 \subsection{Workshop Outline}\label{workshop-outline-1}}
@@ -6294,110 +6051,6 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
   Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 \end{itemize}
 
-\hypertarget{software-materials-3}{%
-\subsection{Software \& materials}\label{software-materials-3}}
-
-You should have R and RStudio installed --- if not:
-
-\begin{itemize}
-\tightlist
-\item
-  Download and install R: \url{http://cran.r-project.org}
-\item
-  Download and install RStudio: \url{https://www.rstudio.com/products/rstudio/download/\#download}
-\end{itemize}
-
-Download materials:
-
-\begin{itemize}
-\tightlist
-\item
-  Download class materials at \url{https://github.com/IQSS/dss-workshops/raw/master/R/RDataWrangling.zip}
-\item
-  Extract materials from the zipped directory \texttt{RDataWrangling.zip} (Right-click =\textgreater{} Extract All on Windows, double-click on Mac) and move them to your desktop!
-\end{itemize}
-
-Start RStudio and create a new project:
-
-\begin{itemize}
-\tightlist
-\item
-  On Windows click the start button and search for RStudio. On Mac
-  RStudio will be in your applications folder.
-\item
-  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
-\item
-  Choose \texttt{Existing\ Directory} and browse to the \texttt{RDataWrangling} directory.
-\item
-  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the blank version of the \texttt{.Rmd} file.
-\end{itemize}
-
-\hypertarget{installing-using-r-packages-3}{%
-\subsection{Installing \& using R packages}\label{installing-using-r-packages-3}}
-
-R is a modular environment that is extended by the use of \textbf{packages}.
-Packages are collections of functions or commands that are designed to
-perform specific tasks (e.g., fit a type of regression model). A large
-number of contributed packages are available (\textgreater{} 15,000).
-
-Using an R package is a \textbf{two step process}:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Install the package onto your computer using the
-  \texttt{install.packages()} function. This only needs to
-  be done the \textbf{first time} you use the package.
-\item
-  Load the package into your R session's search path
-  using the \texttt{library()} function. This needs to be done
-  \textbf{each time} you use the package.
-\end{enumerate}
-
-While R's built-in packages are powerful, in recent years there has
-been a big surge in well-designed \emph{contributed packages} for R.
-In particular, a collection of R packages called
-\href{https://www.tidyverse.org/}{tidyverse} have been
-designed specifically for data science. All packages included in
-\texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. This philosopy is rooted in the idea of ``tidy data'':
-
-\includegraphics{R/Rintro/images/tidy_data.png}
-
-We will use \texttt{tidyverse} packages throughout the
-workshop, so let's install them now:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("tidyverse")}
-
-\CommentTok{# when you install tidyverse for the first time you will be asked}
-\CommentTok{# a question in the Console - please answer by typing "no" in the Console.}
-
-\KeywordTok{library}\NormalTok{(tidyverse)}
-
-\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{# installed with tidyverse, but not loaded into R session}
-\end{Highlighting}
-\end{Shaded}
-
-A typical workflow for using \texttt{tidyverse} packages looks like this:
-
-\includegraphics{R/Rintro/images/tidy_workflow.png}
-
-We can also install the \texttt{rmarkdown} package, which will allow us to
-combine our text and code into a formatted document at the end of
-the workshop:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# install.packages("rmarkdown")}
-\KeywordTok{library}\NormalTok{(rmarkdown)}
-\end{Highlighting}
-\end{Shaded}
-
-The following RStudio, \texttt{tidyverse}, and \texttt{rmarkdown} cheatsheets will provide a
-useful reference: \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
-
 \hypertarget{prerequisites-3}{%
 \subsection{Prerequisites}\label{prerequisites-3}}
 
@@ -6411,22 +6064,39 @@ This is an intermediate / advanced R course:
   Relatively fast-paced
 \end{itemize}
 
-\hypertarget{learning-outcomes-2}{%
-\subsection{Learning Outcomes}\label{learning-outcomes-2}}
+\hypertarget{launch-an-r-session-4}{%
+\subsection{Launch an R session}\label{launch-an-r-session-4}}
+
+Start RStudio and create a new project:
 
 \begin{itemize}
 \tightlist
 \item
-  Understanding R data structures
+  On Windows click the start button and search for RStudio. On Mac
+  RStudio will be in your applications folder.
 \item
-  Iteration over data structures
+  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
 \item
-  Writing functions
+  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
 \item
-  Regular expressions (regex)
-\item
-  Reshaping data
+  Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
 \end{itemize}
+
+\hypertarget{packages-2}{%
+\subsection{Packages}\label{packages-2}}
+
+You should have already installed the \texttt{tidyverse} and \texttt{rmarkdown}
+packages onto your computer before the workshop
+--- see \href{./Rinstall.html}{R Installation}.
+Now let's load these packages into the search path of our R session.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{# installed with tidyverse, but not loaded into R session}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{workshop-outline-2}{%
 \subsection{Workshop Outline}\label{workshop-outline-2}}
@@ -7563,8 +7233,8 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
   Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 \end{itemize}
 
-\hypertarget{software-materials-4}{%
-\subsection{Software \& Materials}\label{software-materials-4}}
+\hypertarget{software-materials}{%
+\subsection{Software \& Materials}\label{software-materials}}
 
 \hypertarget{install-the-anaconda-python-distribution}{%
 \subsubsection{Install the Anaconda Python distribution}\label{install-the-anaconda-python-distribution}}
@@ -8487,8 +8157,8 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
   Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 \end{itemize}
 
-\hypertarget{software-materials-5}{%
-\subsection{Software \& Materials}\label{software-materials-5}}
+\hypertarget{software-materials-1}{%
+\subsection{Software \& Materials}\label{software-materials-1}}
 
 \hypertarget{install-the-anaconda-python-distribution-1}{%
 \subsubsection{Install the Anaconda Python distribution}\label{install-the-anaconda-python-distribution-1}}
@@ -8542,8 +8212,8 @@ This is an intermediate Python course:
 If you need an introduction to Python or a refresher, we recommend our
 \href{https://iqss.github.io/dss-workshops/PythonIntro.html}{Python Introduction}.
 
-\hypertarget{learning-outcomes-3}{%
-\subsection{Learning Outcomes}\label{learning-outcomes-3}}
+\hypertarget{learning-outcomes}{%
+\subsection{Learning Outcomes}\label{learning-outcomes}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9230,8 +8900,8 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
 \hypertarget{setup-6}{%
 \section{Setup}\label{setup-6}}
 
-\hypertarget{software-materials-6}{%
-\subsection{Software \& Materials}\label{software-materials-6}}
+\hypertarget{software-materials-2}{%
+\subsection{Software \& Materials}\label{software-materials-2}}
 
 Laptop users: you will need a copy of Stata installed on your machine.
 Harvard FAS affiliates can install a licensed version from \url{http://downloads.fas.harvard.edu/download}
@@ -9996,8 +9666,8 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
 \hypertarget{setup-7}{%
 \section{Setup}\label{setup-7}}
 
-\hypertarget{software-materials-7}{%
-\subsection{Software \& Materials}\label{software-materials-7}}
+\hypertarget{software-materials-3}{%
+\subsection{Software \& Materials}\label{software-materials-3}}
 
 Laptop users: you will need a copy of Stata installed on your machine.
 Harvard FAS affiliates can install a licensed version from \url{http://downloads.fas.harvard.edu/download}
@@ -11401,8 +11071,8 @@ These workshops are a work-in-progress, please provide any feedback to: \href{ma
 \hypertarget{setup-8}{%
 \section{Setup}\label{setup-8}}
 
-\hypertarget{software-materials-8}{%
-\subsection{Software \& Materials}\label{software-materials-8}}
+\hypertarget{software-materials-4}{%
+\subsection{Software \& Materials}\label{software-materials-4}}
 
 Laptop users: you will need a copy of Stata installed on your machine.
 Harvard FAS affiliates can install a licensed version from \url{http://downloads.fas.harvard.edu/download}
