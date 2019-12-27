@@ -31,10 +31,15 @@
 #
 # 1.  Foundations of the language (functions, objects, assignment)
 # 2.  The `tidyverse` package ecosystem for data science
-# 3.  Basic data manipulation used to clean datasets
+# 3.  Basic data manipulation useful for cleaning datasets
 # 4.  Working with grouped data
 # 5.  Aggregating data to create summaries
 # 6.  Saving objects, data, and scripts
+#
+# This workshop will not cover how to iterate over collections of data, create 
+# your own functions, produce publication quality graphics, or fit models to data. 
+# These topics are covered in our [R Data Wrangling](./RDataWrangling.html), 
+# [R Graphics](./Rgraphics.html), and [R Regression Models](./Rmodels.html) workshops.
 #
 # ### Launch an R session
 #
@@ -238,6 +243,10 @@ library(rmarkdown)
 # with the name `baby_names`.
 ##
 
+# 3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
+# and as an R data set `babynames.rds`.
+##
+
 
 # ## Manipulating data 
 #
@@ -331,6 +340,28 @@ x > 7 | x < 3 # two conditions combined
 # elements of x matched in vector
 x %in% c(1, 5, 10) 
 
+# ### Control flow
+#
+# We won't be covering examples of control flow in this workshop, but we will briefly introduce the concept here. 
+# For more details see: <https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>
+#
+# There are two major tools for controlling the flow of code in a script: 
+#
+# 1. **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
+#
+#   ```{r, eval=FALSE}
+#   if (condition) true_action else false_action
+#   ```
+#
+#   If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, the optional `false_action` is evaluated.
+#
+# 2. **Loops:** such as `for` and `while`, allow you to repeatedly run code, typically with changing options. The basic form is: 
+#
+#   ```{r, eval=FALSE}
+#   for (item in vector) perform_action
+#   ```
+#
+#   For each item in `vector`, `perform_action` is called once; updating the value of `item` each time.
 
 # ### Exercise 2.1
 #
@@ -528,6 +559,9 @@ head(baby_names)
 #     given the most popular name changed over time?
 ##
 
+# 5. BONUS (optional): Which names are the most popular for both boys and girls?
+##
+
 
 # ## Aggregating variables within groups
 #
@@ -637,33 +671,32 @@ ls() # list objects
 #
 # ### Ex 0: prototype
 
-## 1. 2 plus 2
+# 1. 2 plus 2
 2 + 2
-## or
+# or
 sum(2, 2)
 
-## 2. square root of 10:
+# 2. square root of 10:
 sqrt(10)
-## or
+# or
 10^(1/2)
 
 
-## 3. Find "An Introduction to R".
+# 3. Find "An Introduction to R".
 
-## Go to the main help page by running 'help.start() or using the GUI
-## menu, find and click on the link to "An Introduction to R".
+# Go to the main help page by running 'help.start() or using the GUI
+# menu, find and click on the link to "An Introduction to R".
 
-##
 
 # ### Ex 1: prototype
 
-## read ?read_csv
+# read ?read_csv
 
 baby_names <- read_csv("babyNames.csv")
 
 # ### Ex 2.1: prototype
 
-# 1.  Use `filter` to extract data for your name (or another name of your choice).  
+# 1.  Use `filter` to extract data for your name (or another name of your choice).
 
 baby_names_george <- filter(baby_names, Name == "George")
 
@@ -709,8 +742,8 @@ qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
 
 # ### Ex 4: prototype
 
-## 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
-##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
+# 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
+#     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 
 baby_names <- 
   baby_names %>%
@@ -718,10 +751,10 @@ baby_names <-
   mutate(Proportion = Count/sum(Count)) %>%
   ungroup()
 
-head(baby_names)  
+head(baby_names) 
 
-## 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
-##     `Rank = rank(desc(Count))` for each `Year X Sex` group.
+# 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
+#     `Rank = rank(desc(Count))` for each `Year X Sex` group.
 
 baby_names <- 
   baby_names %>%
@@ -729,10 +762,10 @@ baby_names <-
   mutate(Rank = rank(desc(Count))) %>%
   ungroup()
 
-head(baby_names)   
+head(baby_names)
 
-## 3.  Filter the baby names data to display only the most popular name 
-##     for each `Year X Sex` group.
+# 3.  Filter the baby names data to display only the most popular name 
+#     for each `Year X Sex` group.
 
 top1 <- 
   baby_names %>%
@@ -741,9 +774,9 @@ top1 <-
 
 head(top1)
 
-## 4. Plot the data produced in step 3, putting `Year` on the x-axis
-##    and `Proportion` on the y-axis. How has the proportion of babies
-##    given the most popular name changed over time?
+# 4. Plot the data produced in step 3, putting `Year` on the x-axis
+#    and `Proportion` on the y-axis. How has the proportion of babies
+#    given the most popular name changed over time?
 
 qplot(x = Year, 
       y = Proportion, 
@@ -751,11 +784,24 @@ qplot(x = Year,
       data = top1, 
       geom = "line")
 
+# 5. BONUS (optional): Which names are the most popular for both boys 
+#    and girls?
+
+girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"), 
+                             filter(baby_names, Sex == "Girls"),
+                             by = c("Year", "Name"))
+
+girls_and_boys <- mutate(girls_and_boys,
+                         Product = Count.x * Count.y,
+                         Rank = rank(desc(Product)))
+
+filter(girls_and_boys, Rank == 1)
+
 
 # ### Ex 5: prototype
 
-## 1.  Filter the baby_names data, retaining only the 10 most 
-##     popular girl and boy names for each year.
+# 1.  Filter the baby_names data, retaining only the 10 most 
+#     popular girl and boy names for each year.
 
 most_popular <- 
   baby_names %>% 
@@ -764,16 +810,16 @@ most_popular <-
 
 head(most_popular, n = 10)
 
-## 2.  Summarize the data produced in step one to calculate the total
-##     Proportion of boys and girls given one of the top 10 names
-##     each year.
+# 2.  Summarize the data produced in step one to calculate the total
+#     Proportion of boys and girls given one of the top 10 names
+#     each year.
 
 top10 <- 
   most_popular %>% # it is already grouped by Year and Sex
   summarize(TotalProportion = sum(Proportion))
 
-## 3.  Plot the data produced in step 2, with year on the x-axis
-##     and total proportion on the y axis. Color by `Sex`.
+# 3.  Plot the data produced in step 2, with year on the x-axis
+#     and total proportion on the y axis. Color by `Sex`.
 
 qplot(x = Year, 
       y = TotalProportion, 

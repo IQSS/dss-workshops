@@ -168,6 +168,8 @@ Materials for the software workshops held at the \href{http://iq.harvard.edu}{In
 \item
   \href{./DataScienceTools.html}{Data Science Tools}
 \item
+  \href{./Rinstall.html}{R Installation}
+\item
   \href{./Rintro.html}{R Introduction}
 \item
   \href{./Rmodels.html}{R Regression Models}
@@ -175,6 +177,8 @@ Materials for the software workshops held at the \href{http://iq.harvard.edu}{In
   \href{./Rgraphics.html}{R Graphics}
 \item
   \href{./RDataWrangling.html}{R Data Wrangling}
+\item
+  \href{./PythonInstall.html}{Python Installation}
 \item
   \href{./PythonIntro.html}{Python Introduction}
 \item
@@ -1492,7 +1496,7 @@ In particular, our goals are to learn about:
 \item
   The \texttt{tidyverse} package ecosystem for data science
 \item
-  Basic data manipulation used to clean datasets
+  Basic data manipulation useful for cleaning datasets
 \item
   Working with grouped data
 \item
@@ -1500,6 +1504,11 @@ In particular, our goals are to learn about:
 \item
   Saving objects, data, and scripts
 \end{enumerate}
+
+This workshop will not cover how to iterate over collections of data, create
+your own functions, produce publication quality graphics, or fit models to data.
+These topics are covered in our \href{./RDataWrangling.html}{R Data Wrangling},
+\href{./Rgraphics.html}{R Graphics}, and \href{./Rmodels.html}{R Regression Models} workshops.
 
 \hypertarget{launch-an-r-session-1}{%
 \subsection{Launch an R session}\label{launch-an-r-session-1}}
@@ -1886,6 +1895,21 @@ Make sure you have installed the \texttt{tidyverse} suite of packages and attach
 \end{Highlighting}
 \end{Shaded}
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  BONUS (optional): Save the \texttt{baby\_names} data as a Stata data set \texttt{babynames.dta}
+  and as an R data set \texttt{babynames.rds}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{manipulating-data}{%
 \section{Manipulating data}\label{manipulating-data}}
 
@@ -2121,6 +2145,45 @@ These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (o
 ##  [1]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE
 \end{verbatim}
 
+\hypertarget{control-flow}{%
+\subsection{Control flow}\label{control-flow}}
+
+We won't be covering examples of control flow in this workshop, but we will briefly introduce the concept here.
+For more details see: \url{https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/}
+
+There are two major tools for controlling the flow of code in a script:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Choices:} such as \texttt{if} and \texttt{else} statements, allow you to run different code depending on the input. The basic form is:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (condition) true_action }\ControlFlowTok{else}\NormalTok{ false_action}
+\end{Highlighting}
+\end{Shaded}
+
+If \texttt{condition} is \texttt{TRUE}, \texttt{true\_action} is evaluated; if \texttt{condition} is \texttt{FALSE}, the optional \texttt{false\_action} is evaluated.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Loops:} such as \texttt{for} and \texttt{while}, allow you to repeatedly run code, typically with changing options. The basic form is:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (item }\ControlFlowTok{in}\NormalTok{ vector) perform_action}
+\end{Highlighting}
+\end{Shaded}
+
+For each item in \texttt{vector}, \texttt{perform\_action} is called once; updating the value of \texttt{item} each time.
+
 \hypertarget{exercise-2.1}{%
 \subsection{Exercise 2.1}\label{exercise-2.1}}
 
@@ -2300,7 +2363,7 @@ we can plot the number of babies given the name ``Diana'' over time like this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-28-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-31-1.pdf}
 
 Interestingly, there are usually some gender-atypical names, even for very strongly
 gendered names like ``Diana''. Splitting these trends out by \texttt{Sex} is very easy:
@@ -2312,7 +2375,7 @@ gendered names like ``Diana''. Splitting these trends out by \texttt{Sex} is ver
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-29-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-32-1.pdf}
 
 \hypertarget{exercise-3}{%
 \subsection{Exercise 3}\label{exercise-3}}
@@ -2552,6 +2615,20 @@ In this exercise your goal is to identify the most popular names for each year.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  BONUS (optional): Which names are the most popular for both boys and girls?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{aggregating-variables-within-groups}{%
 \section{Aggregating variables within groups}\label{aggregating-variables-within-groups}}
 
@@ -2757,7 +2834,7 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 1. 2 plus 2}
+\CommentTok{# 1. 2 plus 2}
 \DecValTok{2} \OperatorTok{+}\StringTok{ }\DecValTok{2}
 \end{Highlighting}
 \end{Shaded}
@@ -2768,7 +2845,7 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## or}
+\CommentTok{# or}
 \KeywordTok{sum}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2779,7 +2856,7 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 2. square root of 10:}
+\CommentTok{# 2. square root of 10:}
 \KeywordTok{sqrt}\NormalTok{(}\DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2790,7 +2867,7 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## or}
+\CommentTok{# or}
 \DecValTok{10}\OperatorTok{^}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2801,20 +2878,10 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 3. Find "An Introduction to R".}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 3. Find "An Introduction to R".}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{## Go to the main help page by running 'help.start() or using the GUI}
-\CommentTok{## menu, find and click on the link to "An Introduction to R".}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{##}
+\CommentTok{# Go to the main help page by running 'help.start() or using the GUI}
+\CommentTok{# menu, find and click on the link to "An Introduction to R".}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2823,7 +2890,7 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## read ?read_csv}
+\CommentTok{# read ?read_csv}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2838,12 +2905,8 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# 1.  Use `filter` to extract data for your name (or another name of your choice).  }
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 1.  Use `filter` to extract data for your name (or another name of your choice).}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{baby_names_george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2852,11 +2915,7 @@ you previously created.
 \begin{Highlighting}[]
 \CommentTok{# 2.  Arrange the data you produced in step 1 above by `Count`. }
 \CommentTok{#     In which year was the name most popular?}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{arrange}\NormalTok{(baby_names_george, }\KeywordTok{desc}\NormalTok{(Count))}
 \end{Highlighting}
 \end{Shaded}
@@ -2882,11 +2941,7 @@ you previously created.
 \begin{Highlighting}[]
 \CommentTok{# 3.  BONUS (optional): Filter the data to extract _only_ the }
 \CommentTok{#     row containing the most popular boys name in 1999.}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{baby_names_boys_}\DecValTok{1999}\NormalTok{ <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, }
 \NormalTok{                    Year }\OperatorTok{==}\StringTok{ }\DecValTok{1999} \OperatorTok{&}\StringTok{ }\NormalTok{Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{)}
 \end{Highlighting}
@@ -2939,11 +2994,7 @@ you previously created.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# 1. Use `filter()` to extract data for your name (same as previous exercise)  }
-\end{Highlighting}
-\end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{baby_names_george <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Name }\OperatorTok{==}\StringTok{ "George"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2952,64 +3003,48 @@ you previously created.
 \begin{Highlighting}[]
 \CommentTok{# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis}
 \CommentTok{#     and `Count` on the y-axis.}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{data =}\NormalTok{ baby_names_george)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-70-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-67-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# 3. Adjust the plot so that is shows boys and girls in different colors.}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ baby_names_george)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-72-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-68-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# 4.  BONUS (Optional): Adjust the plot to use lines instead of points.}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex, }\DataTypeTok{data =}\NormalTok{ baby_names_george, }\DataTypeTok{geom =} \StringTok{"line"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-74-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-69-1.pdf}
 
 \hypertarget{ex-4-prototype}{%
 \subsection{Ex 4: prototype}\label{ex-4-prototype}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`}
-\CommentTok{##     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`}
+\CommentTok{#     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{baby_names <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Proportion =}\NormalTok{ Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
-\KeywordTok{head}\NormalTok{(baby_names)  }
+\KeywordTok{head}\NormalTok{(baby_names) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -3027,20 +3062,16 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where }
-\CommentTok{##     `Rank = rank(desc(Count))` for each `Year X Sex` group.}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where }
+\CommentTok{#     `Rank = rank(desc(Count))` for each `Year X Sex` group.}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{baby_names <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count))) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
-\KeywordTok{head}\NormalTok{(baby_names)   }
+\KeywordTok{head}\NormalTok{(baby_names)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3058,13 +3089,9 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 3.  Filter the baby names data to display only the most popular name }
-\CommentTok{##     for each `Year X Sex` group.}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 3.  Filter the baby names data to display only the most popular name }
+\CommentTok{#     for each `Year X Sex` group.}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{top1 <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
@@ -3088,14 +3115,10 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 4. Plot the data produced in step 3, putting `Year` on the x-axis}
-\CommentTok{##    and `Proportion` on the y-axis. How has the proportion of babies}
-\CommentTok{##    given the most popular name changed over time?}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 4. Plot the data produced in step 3, putting `Year` on the x-axis}
+\CommentTok{#    and `Proportion` on the y-axis. How has the proportion of babies}
+\CommentTok{#    given the most popular name changed over time?}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }
       \DataTypeTok{y =}\NormalTok{ Proportion, }
       \DataTypeTok{color =}\NormalTok{ Sex, }
@@ -3104,20 +3127,42 @@ you previously created.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-82-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-73-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 5. BONUS (optional): Which names are the most popular for both boys }
+\CommentTok{#    and girls?}
+
+\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(}\KeywordTok{filter}\NormalTok{(baby_names, Sex }\OperatorTok{==}\StringTok{ "Boys"}\NormalTok{), }
+                             \KeywordTok{filter}\NormalTok{(baby_names, Sex }\OperatorTok{==}\StringTok{ "Girls"}\NormalTok{),}
+                             \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"Year"}\NormalTok{, }\StringTok{"Name"}\NormalTok{))}
+
+\NormalTok{girls_and_boys <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(girls_and_boys,}
+                         \DataTypeTok{Product =}\NormalTok{ Count.x }\OperatorTok{*}\StringTok{ }\NormalTok{Count.y,}
+                         \DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Product)))}
+
+\KeywordTok{filter}\NormalTok{(girls_and_boys, Rank }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 14
+##   Name  Sex.x Count.x  Year Count_1k.x Rank.x Proportion.x Sex.y Count.y
+##   <chr> <chr>   <dbl> <dbl>      <dbl>  <dbl>        <dbl> <chr>   <dbl>
+## 1 Tayl~ Boys     7688  1993       7.69     51      0.00392 Girls   21266
+## # ... with 5 more variables: Count_1k.y <dbl>, Rank.y <dbl>,
+## #   Proportion.y <dbl>, Product <dbl>, Rank <dbl>
+\end{verbatim}
 
 \hypertarget{ex-5-prototype}{%
 \subsection{Ex 5: prototype}\label{ex-5-prototype}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 1.  Filter the baby_names data, retaining only the 10 most }
-\CommentTok{##     popular girl and boy names for each year.}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 1.  Filter the baby_names data, retaining only the 10 most }
+\CommentTok{#     popular girl and boy names for each year.}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{most_popular <-}\StringTok{ }
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
@@ -3146,14 +3191,10 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 2.  Summarize the data produced in step one to calculate the total}
-\CommentTok{##     Proportion of boys and girls given one of the top 10 names}
-\CommentTok{##     each year.}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 2.  Summarize the data produced in step one to calculate the total}
+\CommentTok{#     Proportion of boys and girls given one of the top 10 names}
+\CommentTok{#     each year.}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{top10 <-}\StringTok{ }
 \StringTok{  }\NormalTok{most_popular }\OperatorTok{%>%}\StringTok{ }\CommentTok{# it is already grouped by Year and Sex}
 \StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{TotalProportion =} \KeywordTok{sum}\NormalTok{(Proportion))}
@@ -3162,13 +3203,9 @@ you previously created.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 3.  Plot the data produced in step 2, with year on the x-axis}
-\CommentTok{##     and total proportion on the y axis. Color by `Sex`.}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{# 3.  Plot the data produced in step 2, with year on the x-axis}
+\CommentTok{#     and total proportion on the y axis. Color by `Sex`.}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }
       \DataTypeTok{y =}\NormalTok{ TotalProportion, }
       \DataTypeTok{color =}\NormalTok{ Sex,}
@@ -3177,7 +3214,7 @@ you previously created.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-88-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-77-1.pdf}
 
 \hypertarget{wrap-up-1}{%
 \section{Wrap-up}\label{wrap-up-1}}
