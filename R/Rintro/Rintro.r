@@ -29,12 +29,13 @@
 # We will learn about the R language by analyzing a dataset of baby names. 
 # In particular, our goals are to learn about:
 #
-# 1.  Foundations of the language (functions, objects, assignment)
-# 2.  The `tidyverse` package ecosystem for data science
-# 3.  Basic data manipulation useful for cleaning datasets
-# 4.  Working with grouped data
-# 5.  Aggregating data to create summaries
-# 6.  Saving objects, data, and scripts
+# 1.  How we can interact with R
+# 2.  Foundations of the language (functions, objects, assignment)
+# 3.  The `tidyverse` package ecosystem for data science
+# 4.  Basic data manipulation useful for cleaning datasets
+# 5.  Working with grouped data
+# 6.  Aggregating data to create summaries
+# 7.  Saving objects, data, and scripts
 #
 # This workshop will not cover how to iterate over collections of data, create 
 # your own functions, produce publication quality graphics, or fit models to data. 
@@ -45,10 +46,11 @@
 #
 # **GOAL: To learn about the foundations of the R language.** 
 #
-# 1.  Functions
-# 2.  Objects
-# 3.  Assignment
-# 4.  `tidyverse` package ecosystem for data science
+# 1.  R interfaces
+# 2.  Functions
+# 3.  Objects
+# 4.  Assignment
+# 5.  `tidyverse` package ecosystem for data science
 
 # ### What is R?
 #
@@ -121,7 +123,7 @@
 # 3.  R includes extensive documentation, including a manual named "An
 #     introduction to R". Use the RStudio help pane. to locate this manual.
 
-# ### Syntax
+# ### Syntax rules
 #
 # * R is case sensitive
 # * R ignores white space
@@ -306,7 +308,7 @@ library(rmarkdown)
 #
 # ![](R/Rintro/images/dplyr.png)
 
-# ### Filtering, selecting, & arranging data
+# ### Filter, select, & arrange
 #
 # One way to find the year in which your name was the most popular
 # is to filter out just the rows corresponding to your name, and 
@@ -347,7 +349,7 @@ baby_names_subset <- select(baby_names, Name, Count)
 head(baby_names_subset)
 head(baby_names_subset, n = 6) # default is n = 6
 
-# ### Other logical operators
+# ### Logical operators
 #
 # In the previous example we used `==` to filter rows. Other relational
 # and logical operators are listed below.
@@ -376,21 +378,19 @@ x %in% c(1, 5, 10)
 
 # ### Control flow
 #
-# We won't be covering examples of control flow in this workshop, but we will briefly introduce the concept here. 
-# For more details see: <https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>
+# We won't be covering examples of control flow in this workshop, but we will briefly introduce this important concept here. 
+# For more details see: <https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>. Our [R Data Wrangling](./RDataWrangling.html) workshop also covers some of these topics.
 #
 # There are two major tools for controlling the flow of code in a script: 
 #
 # 1.   **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
-#
-#     ```{r, eval=FALSE}
-#     if (condition) true_action else false_action
-#     ```
+#      ```{r, eval=FALSE}
+#      if (condition) true_action else false_action
+#      ```
 #
 #     If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, the optional `false_action` is evaluated.
 #
 # 2. **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is: 
-#
 #     ```{r, eval=FALSE}
 #     for (item in collection) perform_action
 #     ```
@@ -484,7 +484,7 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 # However, again, we will make use of a *contributed
 # package* from `tidyverse` called `ggplot2`.
 #
-# For quick and simple plots we can use the `qplot()` function. For example,
+# For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example,
 # we can plot the number of babies given the name "Diana" over time like this:
 
 baby_names_diana <- filter(baby_names, Name == "Diana")
@@ -520,16 +520,16 @@ qplot(x = Year, y = Count, color = Sex,
 ##
 
 
-# ## Creating variables within groups
+# ## Creating variables
 #
-# **GOAL: To learn how to work with grouped data.** In particular:
+# **GOAL: To learn how to work create new variables with and without grouped data.** In particular:
 #
 # 1.  Creating new variables (columns) using the `mutate()` function
 # 2.  Creating new variables within groups by combining the `mutate()` and `group_by()` functions
 #
 # We want to use these skills to find out which names have been the most popular.
 
-# ### Computing better measures of popularity
+# ### Create or modify columns
 #
 # So far we've used `Count` as a measure of popularity. A better
 # approach is to use proportion to avoid confounding 
@@ -598,9 +598,9 @@ head(baby_names)
 ##
 
 
-# ## Aggregating variables within groups
+# ## Aggregating variables
 #
-# **GOAL: To learn how to aggregate data to create summaries.** In particular:
+# **GOAL: To learn how to aggregate data to create summaries with and without grouped data.** In particular:
 #
 # 1.  Using the `summarize()` function to collapse data into summaries
 # 2.  Combining the `summarize()` and `group_by()` functions to create summaries within groups

@@ -1455,6 +1455,8 @@ In particular, our goals are to learn about:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
+  How we can interact with R
+\item
   Foundations of the language (functions, objects, assignment)
 \item
   The \texttt{tidyverse} package ecosystem for data science
@@ -1481,6 +1483,8 @@ These topics are covered in our \href{./RDataWrangling.html}{R Data Wrangling},
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
+\item
+  R interfaces
 \item
   Functions
 \item
@@ -1630,8 +1634,8 @@ you are looking for should appear in a pop up!
   introduction to R''. Use the RStudio help pane. to locate this manual.
 \end{enumerate}
 
-\hypertarget{syntax}{%
-\subsection{Syntax}\label{syntax}}
+\hypertarget{syntax-rules}{%
+\subsection{Syntax rules}\label{syntax-rules}}
 
 \begin{itemize}
 \tightlist
@@ -1969,8 +1973,8 @@ to filter, select, and arrange data, as well as create new variables.
 
 \includegraphics{R/Rintro/images/dplyr.png}
 
-\hypertarget{filtering-selecting-arranging-data}{%
-\subsection{Filtering, selecting, \& arranging data}\label{filtering-selecting-arranging-data}}
+\hypertarget{filter-select-arrange}{%
+\subsection{Filter, select, \& arrange}\label{filter-select-arrange}}
 
 One way to find the year in which your name was the most popular
 is to filter out just the rows corresponding to your name, and
@@ -2105,8 +2109,8 @@ would just like to glance at the first few lines we can use the
 ## 6 Lisa  33702
 \end{verbatim}
 
-\hypertarget{other-logical-operators}{%
-\subsection{Other logical operators}\label{other-logical-operators}}
+\hypertarget{logical-operators}{%
+\subsection{Logical operators}\label{logical-operators}}
 
 In the previous example we used \texttt{==} to filter rows. Other relational
 and logical operators are listed below.
@@ -2174,23 +2178,24 @@ These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (o
 \hypertarget{control-flow}{%
 \subsection{Control flow}\label{control-flow}}
 
-We won't be covering examples of control flow in this workshop, but we will briefly introduce the concept here.
-For more details see: \url{https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/}
+We won't be covering examples of control flow in this workshop, but we will briefly introduce this important concept here.
+For more details see: \url{https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/}. Our \href{./RDataWrangling.html}{R Data Wrangling} workshop also covers some of these topics.
 
 There are two major tools for controlling the flow of code in a script:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   \textbf{Choices:} such as \texttt{if} and \texttt{else} statements, allow you to run different code depending on the input. The basic form is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (condition) true_action }\ControlFlowTok{else}\NormalTok{ false_action}
+\end{Highlighting}
+\end{Shaded}
 \end{enumerate}
 
 \begin{verbatim}
-```r
-if (condition) true_action else false_action
-```
-
 If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, the optional `false_action` is evaluated.
 \end{verbatim}
 
@@ -2372,7 +2377,7 @@ R has decent plotting tools built-in -- see e.g., \texttt{help(plot)}.
 However, again, we will make use of a \emph{contributed
 package} from \texttt{tidyverse} called \texttt{ggplot2}.
 
-For quick and simple plots we can use the \texttt{qplot()} function. For example,
+For quick and simple plots we can use the \texttt{qplot()} function from \texttt{ggplot2}. For example,
 we can plot the number of babies given the name ``Diana'' over time like this:
 
 \begin{Shaded}
@@ -2466,10 +2471,10 @@ have attached them using \texttt{library(tidyverse)}.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{creating-variables-within-groups}{%
-\section{Creating variables within groups}\label{creating-variables-within-groups}}
+\hypertarget{creating-variables}{%
+\section{Creating variables}\label{creating-variables}}
 
-\textbf{GOAL: To learn how to work with grouped data.} In particular:
+\textbf{GOAL: To learn how to work create new variables with and without grouped data.} In particular:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2482,8 +2487,8 @@ have attached them using \texttt{library(tidyverse)}.
 
 We want to use these skills to find out which names have been the most popular.
 
-\hypertarget{computing-better-measures-of-popularity}{%
-\subsection{Computing better measures of popularity}\label{computing-better-measures-of-popularity}}
+\hypertarget{create-or-modify-columns}{%
+\subsection{Create or modify columns}\label{create-or-modify-columns}}
 
 So far we've used \texttt{Count} as a measure of popularity. A better
 approach is to use proportion to avoid confounding
@@ -2654,10 +2659,10 @@ In this exercise your goal is to identify the most popular names for each year.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{aggregating-variables-within-groups}{%
-\section{Aggregating variables within groups}\label{aggregating-variables-within-groups}}
+\hypertarget{aggregating-variables}{%
+\section{Aggregating variables}\label{aggregating-variables}}
 
-\textbf{GOAL: To learn how to aggregate data to create summaries.} In particular:
+\textbf{GOAL: To learn how to aggregate data to create summaries with and without grouped data.} In particular:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
