@@ -40,7 +40,23 @@
 # your own functions, produce publication quality graphics, or fit models to data. 
 # These topics are covered in our [R Data Wrangling](./RDataWrangling.html), 
 # [R Graphics](./Rgraphics.html), and [R Regression Models](./Rmodels.html) workshops.
+
+# ## R basics
 #
+# **GOAL: To learn about the foundations of the R language.** 
+#
+# 1.  Functions
+# 2.  Objects
+# 3.  Assignment
+# 4.  `tidyverse` package ecosystem for data science
+
+# ### What is R?
+#
+# R is a free language and environment for statistical computing and graphics. 
+# R has existed for over 25 years and is now the most popular software for
+# data analysis. It has an extensive ecosystem of about 15,000 add on packages
+# covering all aspects of statistics and machine learning. 
+
 # ### R Interfaces
 #
 # #### Text editors, IDEs, & Notebooks
@@ -74,7 +90,7 @@
 # * <https://rmarkdown.rstudio.com/authoring_quick_tour.html>
 # * <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
 # *  <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
-#
+
 # ### Launch an R session
 #
 # Start RStudio and create a new project:
@@ -84,22 +100,6 @@
 # * In Rstudio go to `File -> New Project`.
 # * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
 # * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
-
-# ## R basics
-#
-# **GOAL: To learn about the foundations of the R language.** 
-#
-# 1.  Functions
-# 2.  Objects
-# 3.  Assignment
-# 4.  `tidyverse` package ecosystem for data science
-
-# ### What is R?
-#
-# R is a free language and environment for statistical computing and graphics. 
-# R has existed for over 25 years and is now the most popular software for
-# data analysis. It has an extensive ecosystem of about 15,000 add on packages
-# covering all aspects of statistics and machine learning. 
 
 # ### Exercise 0
 #
