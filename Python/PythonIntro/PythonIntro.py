@@ -30,28 +30,64 @@
 # We will learn about the Python language by analyzing the text of Lewis Carroll's *Alice's Adventures in Wonderland*. 
 # In particular, our goals are to learn about:
 #
-# 1.  Foundations of the language (functions, objects, assignment, methods)
-# 2.  Using methods and lists to analyze data
-# 3.  Iterating over collections of data to automate repetitive tasks
-# 4.  Storing related data in dictionaries (as key - value pairs)
-# 5.  Importing packages to add functionality
+# 1.  How we can interact with Python
+# 2.  Foundations of the language (functions, objects, assignment, methods)
+# 3.  Using methods and lists to analyze data
+# 4.  Iterating over collections of data to automate repetitive tasks
+# 5.  Storing related data in dictionaries (as key - value pairs)
+# 6.  Importing packages to add functionality
 
 # ## Python basics
 #
 # **GOAL: To learn about the foundations of the Python language.**
 #
-# 1.  Functions
-# 2.  Objects
-# 3.  Assignment
-# 4.  Methods
+# 1.  Python interfaces
+# 2.  Functions
+# 3.  Objects
+# 4.  Assignment
+# 5.  Methods
 
 # ### What is Python?
+#
 # Python is a relatively easy to learn general purpose programming language. People use Python to manipulate, analyze, and visualize data, make web sites, write games, and much more. Youtube, DropBox, and BitTorrent are among the things people used python to make.
 #
 # Like most popular open source programming languages, Python can be thought of as a *platform* that runs a huge number and variety of packages. The language itself is mostly valuable because it makes it easy to create and use a large number of useful packages.
+
+# ### Python interfaces
 #
-# A number of interfaces designed to make it easy to interact with Python are available. The Anaconda distribution that we installed earlier includes both a web-based `Jupyter Notebook` and a more conventional Integrated Development Environment called `Spyder`. For this workshop I encourage you to use `Jupyter Notebook`. In real life you should experiment and choose the interface that you find most comfortable.
+# #### Text editors, IDEs, & Notebooks
 #
+# There are different ways of interfacing with Python. The two main ways are through:
+#
+# 1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. Here are a few popular editors/IDEs that can be used with Python:
+#
+# | Editor / IDE | Features  | Ease of use | Language support |
+# |:------------ |:--------- |:----------- |:---------------- |
+# | Spyder       | Excellent | Easy        | Python only      |
+# | PyCharm      | Excellent | Moderate    | Python only      |
+# | Jupyter Lab  | Good      | Easy        | Excellent        |
+# | VS code      | Excellent | Easy        | Very good        |
+# | Atom         | Good      | Moderate    | Good             |
+# | Vim          | Excellent | Hard        | Good             |
+# | Emacs        | Excellent | Hard        | Excellent        |
+#
+# 2. **Notebooks:** Web-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. For these workshops, we will use a [Jupyter Notebook](https://jupyter.org/); an open source notebook that has support for 40+ languages. 
+
+# #### Source code & literate programming
+#
+# There are also several different **formats** available for writing code in Python. 
+# These basically boil down to a choice between:
+#
+# 1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In Python this is done by writing code in a text file with a `.py` extension. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
+#
+# 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In Python this is often done using the aformentioned [Jupyter Notebook](https://jupyter.org/), which is a [JSON](https://www.json.org/json-en.html) document containing an ordered list of input/output cells which can contain code, text (using *Markdown*), mathematics, plots, and rich media, usually ending with the `.ipynb` extension. Jupyter Notebooks are easy to write, human-readable, and the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Researchers can use Notebooks to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
+#
+# Here are some resources for learning more about Jupyter Notebooks: 
+#
+# * <https://www.dataquest.io/blog/jupyter-notebook-tutorial/>
+# * <https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook>
+# * <https://realpython.com/jupyter-notebook-introduction/>
+
 # ### Launch Jupyter Notebook
 #
 # 1. Start the `Anaconda Navigator` program

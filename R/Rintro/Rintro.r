@@ -388,14 +388,14 @@ x %in% c(1, 5, 10)
 #      if (condition) true_action else false_action
 #      ```
 #
-#     If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, the optional `false_action` is evaluated.
+#      If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, the optional `false_action` is evaluated.
 #
-# 2. **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is: 
-#     ```{r, eval=FALSE}
-#     for (item in collection) perform_action
-#     ```
+# 2.   **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is: 
+#      ```{r, eval=FALSE}
+#      for (item in collection) perform_action
+#      ```
 #
-#     For each `item` in `collection`, `perform_action` is called once; updating the value of `item` each time.
+#      For each `item` in `collection`, `perform_action` is called once; updating the value of `item` each time.
 #
 #
 # ### Exercise 2.1
