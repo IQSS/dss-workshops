@@ -387,8 +387,9 @@ x %in% c(1, 5, 10)
 #      ```{r, eval=FALSE}
 #      if (condition) true_action else false_action
 #      ```
-#
-#      If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, the optional `false_action` is evaluated.
+#      
+#       If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, 
+#       the optional `false_action` is evaluated.
 #
 # 2.   **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is: 
 #      ```{r, eval=FALSE}

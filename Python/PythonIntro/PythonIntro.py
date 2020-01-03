@@ -175,6 +175,8 @@ type(alice_words)
 #
 # The `split` methods we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.
 #
+# Note that the displayed representation of lists and other data structures in Python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list.
+#
 # A *list* in Python is used to store a collection of items:
 
 # create a list
@@ -184,22 +186,23 @@ y = [1, "b", 3, "D", 5, 6]
 #
 # ### Extracting subsets from lists
 #
-# Among the things you can do with a list is extract subsets using **bracket indexing notation**. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
+# Among the things you can do with a list is extract subsets of items using **bracket indexing notation**. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.
 #
-# The examples below show how indexing works in Python.
+# The examples below show how indexing works in Python. First using pseudocode:
 
 # syntax
 # object[ start : end : by ]
 
-# default
+# defaults
 # object[ 0 : end : 1 ]
 
-# Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:
+# Then using a real list:
+#
 
 # create a list
 y = [1, "b", 3, "D", 5, 6]
 
-y[0] # returns first element - the number 1 (yes, we count from zero!)
+y[0] # returns first element - the number 1 (yes, the index counts from zero!)
 y[1] # returns second element - the letter "b"
 y[ :3] # returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded
 y[2:5] # returns a list with elements 3, "D", 5
@@ -209,7 +212,7 @@ y[-4: ] # returns a list with last 4 elements
 alice_words[11:20] # returns a list with words 11 through 19
 alice_words[-10: ] # returns a list with the last 10 words
 
-# ### Using sets to calculate the number of unique words
+# ### Using sets to count unique items
 #
 # Now that we have a list containing the individual words from *Alice's Adventures in Wonderland*, we can calculate how many words there are in total using the `len()` (length) function:
 

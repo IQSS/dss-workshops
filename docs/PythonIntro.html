@@ -426,7 +426,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#splitting-a-string-into-a-list-of-words"><i class="fa fa-check"></i>Splitting a string into a list of words</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#working-with-lists"><i class="fa fa-check"></i>Working with lists</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#extracting-subsets-from-lists"><i class="fa fa-check"></i>Extracting subsets from lists</a></li>
-<li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#using-sets-to-calculate-the-number-of-unique-words"><i class="fa fa-check"></i>Using sets to calculate the number of unique words</a></li>
+<li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#using-sets-to-count-unique-items"><i class="fa fa-check"></i>Using sets to count unique items</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#exercise-0-3"><i class="fa fa-check"></i>Exercise 0</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#counting-chapters-paragraphs"><i class="fa fa-check"></i>Counting chapters &amp; paragraphs</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
@@ -873,6 +873,7 @@ These basically boil down to a choice between:</p>
 <div id="working-with-lists" class="section level3">
 <h3>Working with lists</h3>
 <p>The <code>split</code> methods we used to break up the text of <em>Alice in Wonderland</em> into words produced a <em>list</em>. A lot of the techniques we’ll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.</p>
+<p>Note that the displayed representation of lists and other data structures in Python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list.</p>
 <p>A <em>list</em> in Python is used to store a collection of items:</p>
 <div class="sourceCode" id="cb316"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb316-1"><a href="PythonIntro.html#cb316-1"></a><span class="co"># create a list</span></span>
 <span id="cb316-2"><a href="PythonIntro.html#cb316-2"></a>y <span class="op">=</span> [<span class="dv">1</span>, <span class="st">&quot;b&quot;</span>, <span class="dv">3</span>, <span class="st">&quot;D&quot;</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span></code></pre></div>
@@ -880,18 +881,18 @@ These basically boil down to a choice between:</p>
 </div>
 <div id="extracting-subsets-from-lists" class="section level3">
 <h3>Extracting subsets from lists</h3>
-<p>Among the things you can do with a list is extract subsets using <strong>bracket indexing notation</strong>. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.</p>
-<p>The examples below show how indexing works in Python.</p>
+<p>Among the things you can do with a list is extract subsets of items using <strong>bracket indexing notation</strong>. This is useful in many situations, including the current one where we want to inspect a long list without printing out the whole thing.</p>
+<p>The examples below show how indexing works in Python. First using pseudocode:</p>
 <div class="sourceCode" id="cb317"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb317-1"><a href="PythonIntro.html#cb317-1"></a><span class="co"># syntax</span></span>
 <span id="cb317-2"><a href="PythonIntro.html#cb317-2"></a><span class="co"># object[ start : end : by ]</span></span>
 <span id="cb317-3"><a href="PythonIntro.html#cb317-3"></a></span>
-<span id="cb317-4"><a href="PythonIntro.html#cb317-4"></a><span class="co"># default</span></span>
+<span id="cb317-4"><a href="PythonIntro.html#cb317-4"></a><span class="co"># defaults</span></span>
 <span id="cb317-5"><a href="PythonIntro.html#cb317-5"></a><span class="co"># object[ 0 : end : 1 ]</span></span></code></pre></div>
-<p>Note that the displayed representation of lists and other data structures in python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list:</p>
+<p>Then using a real list:</p>
 <div class="sourceCode" id="cb318"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb318-1"><a href="PythonIntro.html#cb318-1"></a><span class="co"># create a list</span></span>
 <span id="cb318-2"><a href="PythonIntro.html#cb318-2"></a>y <span class="op">=</span> [<span class="dv">1</span>, <span class="st">&quot;b&quot;</span>, <span class="dv">3</span>, <span class="st">&quot;D&quot;</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
 <span id="cb318-3"><a href="PythonIntro.html#cb318-3"></a></span>
-<span id="cb318-4"><a href="PythonIntro.html#cb318-4"></a>y[<span class="dv">0</span>] <span class="co"># returns first element - the number 1 (yes, we count from zero!)</span></span>
+<span id="cb318-4"><a href="PythonIntro.html#cb318-4"></a>y[<span class="dv">0</span>] <span class="co"># returns first element - the number 1 (yes, the index counts from zero!)</span></span>
 <span id="cb318-5"><a href="PythonIntro.html#cb318-5"></a>y[<span class="dv">1</span>] <span class="co"># returns second element - the letter &quot;b&quot;</span></span>
 <span id="cb318-6"><a href="PythonIntro.html#cb318-6"></a>y[ :<span class="dv">3</span>] <span class="co"># returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded</span></span>
 <span id="cb318-7"><a href="PythonIntro.html#cb318-7"></a>y[<span class="dv">2</span>:<span class="dv">5</span>] <span class="co"># returns a list with elements 3, &quot;D&quot;, 5</span></span>
@@ -900,8 +901,8 @@ These basically boil down to a choice between:</p>
 <div class="sourceCode" id="cb319"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb319-1"><a href="PythonIntro.html#cb319-1"></a>alice_words[<span class="dv">11</span>:<span class="dv">20</span>] <span class="co"># returns a list with words 11 through 19</span></span>
 <span id="cb319-2"><a href="PythonIntro.html#cb319-2"></a>alice_words[<span class="op">-</span><span class="dv">10</span>: ] <span class="co"># returns a list with the last 10 words</span></span></code></pre></div>
 </div>
-<div id="using-sets-to-calculate-the-number-of-unique-words" class="section level3">
-<h3>Using sets to calculate the number of unique words</h3>
+<div id="using-sets-to-count-unique-items" class="section level3">
+<h3>Using sets to count unique items</h3>
 <p>Now that we have a list containing the individual words from <em>Alice’s Adventures in Wonderland</em>, we can calculate how many words there are in total using the <code>len()</code> (length) function:</p>
 <div class="sourceCode" id="cb320"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb320-1"><a href="PythonIntro.html#cb320-1"></a><span class="bu">len</span>(alice_words) <span class="co"># counts elements in a data structure</span></span></code></pre></div>
 <p>According to our above computation, there are about 26 thousand total words in the Alice text. But how many <em>unique</em> words are there? Python has a special data structure called a <em>set</em> that makes it easy to find out. A <em>set</em> drops all duplicates, giving a collection of the unique elements. Here’s a simple example:</p>
