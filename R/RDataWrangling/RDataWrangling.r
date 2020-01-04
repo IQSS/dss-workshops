@@ -353,16 +353,14 @@ boysNames[[1]]
 #
 # | Type           | Elements       | Description                                                                                                       |
 # |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------|
-# | atomic vector  | homogeneous    | contains elements of the same **type**, one of: character, integer, double, logical, or complex                   |
+# | atomic vector  | homogeneous    | contains elements of the same **type**, one of: character, integer, double, logical                   |
 # | array          | homogeneous    | an atomic vector with attributes giving dimensions (1, 2, or >2)                                                  |
-# | matrix         | homogeneous    | an array with 2 dimesions                                                                                         |
+# | matrix         | homogeneous    | an array with 2 dimensions                                                                                         |
 # | factor         | homogeneous    | an atomic integer vector containing only predefined values, storing categorical data                              |
-# | list           | heterogeneous  | a container whose elements are not restricted to a single mode and can encompass any mixture of data types        |
+# | list           | heterogeneous  | a container whose elements can encompass any mixture of data types        |
 # | data.frame     | heterogeneous  | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
 #
-# Each vector can have **attributes**, which is a named list of arbitrary metadata that can include the vector's **dimensions** and its **class**. The latter is a property assigned to an object that determines how generic functions operate with it, and thus which **methods** are available for it. The class of an object can be queried using the `class()` function.
-#
-# You can learn more details about R data structures here: <https://adv-r.hadley.nz/vectors-chap.html>
+# Each vector can have **attributes**, which are a named list of metadata that can include the vector's **dimensions** and its **class**. The latter is a property assigned to an object that determines how **generic functions** operate with it, and thus which **methods** are available for it. The class of an object can be queried using the `class()` function. You can learn more details about R data structures here: <https://adv-r.hadley.nz/vectors-chap.html>
 
 # **Data types:**
 #
@@ -381,7 +379,7 @@ boysNames[[1]]
 
 # **Coercion:**
 #
-# If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> numeric -> complex -> character -> list. For example:
+# If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> numeric -> character -> list. For example:
 
 x <- c(1, 2, 3)
 typeof(x)
@@ -392,7 +390,7 @@ typeof(x)
 
 # ### List indexing
 #
-# Now that we know about data structures more generally, let's focus on the list structure we created for `boysNames`. 
+# Now that we know about data structures more generally, let's focus on the *list* structure we created for `boysNames`. 
 # Why are we using **double brackets** `[[` to index this list object, instead of the single brackets `[` we used to index atomic vectors?
 #
 # ![list indexing](R/RDataWrangling/images/indexing_lists.png)
