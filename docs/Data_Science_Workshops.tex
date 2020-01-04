@@ -3971,7 +3971,7 @@ Load the National Health Interview Survey data:
 \hypertarget{logistic-regression-example}{%
 \subsection{Logistic regression example}\label{logistic-regression-example}}
 
-Motivation for a logistic regression model; With a binary response:
+Motivation for a logistic regression model --- with a binary response:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6291,8 +6291,8 @@ within \texttt{tidyverse} to list the worksheet names from this file.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{iterating-over-file-names-with-map}{%
-\subsection{\texorpdfstring{Iterating over file names with \texttt{map()}}{Iterating over file names with map()}}\label{iterating-over-file-names-with-map}}
+\hypertarget{iterating-with-map}{%
+\subsection{\texorpdfstring{Iterating with \texttt{map()}}{Iterating with map()}}\label{iterating-with-map}}
 
 Now that we know how to retrieve the names of the worksheets in an
 Excel file, we could start writing code to extract the sheet names from
@@ -6323,8 +6323,8 @@ so we'll use that.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{filtering-strings-using-regular-expressions}{%
-\subsection{Filtering strings using regular expressions}\label{filtering-strings-using-regular-expressions}}
+\hypertarget{filtering-strings-using-regex}{%
+\subsection{Filtering strings using regex}\label{filtering-strings-using-regex}}
 
 To extract the correct worksheet names we need a way to extract
 strings containing ``Table 1''.
@@ -6816,7 +6816,7 @@ to remove rows with missing values.
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Test your function on the first \texttt{data.frame} in the list of boys
+  Test your function on the first data frame in the list of boys
   names data.
 \end{enumerate}
 
@@ -6831,7 +6831,7 @@ to remove rows with missing values.
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Use the \texttt{map()} function to each \texttt{data.frame} in the list of boys
+  Use the \texttt{map()} function to each data frame in the list of boys
   names data and save it to the list called \texttt{boysNames}.
 \end{enumerate}
 
@@ -6841,8 +6841,8 @@ to remove rows with missing values.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{re-arranging-into-a-single-table}{%
-\subsection{Re-arranging into a single table}\label{re-arranging-into-a-single-table}}
+\hypertarget{reshaping-from-wide-to-long}{%
+\subsection{Reshaping from wide to long}\label{reshaping-from-wide-to-long}}
 
 Our final task is to re-arrange the data so that it is all in a single
 table instead of in two side-by-side tables. For many similar tasks
@@ -6916,10 +6916,10 @@ function.
 
 Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.
 
-\hypertarget{one-data.frame-for-each-year}{%
-\subsection{\texorpdfstring{One \texttt{data.frame} for each year}{One data.frame for each year}}\label{one-data.frame-for-each-year}}
+\hypertarget{a-list-of-data-frames}{%
+\subsection{A list of data frames}\label{a-list-of-data-frames}}
 
-Right now we have a list of data frames, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
+Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6927,7 +6927,7 @@ Right now we have a list of data frames, one for each year. This is not a bad wa
 
 \KeywordTok{head}\NormalTok{(boy_file_names)}
 
-\CommentTok{# use regex to extract years from filenames}
+\CommentTok{# use regex to extract years from file names}
 \NormalTok{Years <-}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(boy_file_names, }\DataTypeTok{pattern =} \StringTok{"[0-9]\{4\}"}\NormalTok{)}
 \NormalTok{Years}
 
@@ -6942,17 +6942,17 @@ Right now we have a list of data frames, one for each year. This is not a bad wa
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{one-big-data.frame}{%
-\subsection{\texorpdfstring{One big \texttt{data.frame}}{One big data.frame}}\label{one-big-data.frame}}
+\hypertarget{one-big-data-frame}{%
+\subsection{One big data frame}\label{one-big-data-frame}}
 
-While storing the data in separate data.frames by year makes some sense,
+While storing the data in separate data frames by year makes some sense,
 many operations will be easier if the data is simply stored in one big
-data.frame. We've already seen how to turn a list of data.frames into a
+data frame. We've already seen how to turn a list of data frames into a
 single data.frame using \texttt{bind\_rows()}, but there is a problem; The year
 information is stored in the names of the list elements, and so
 flattening the data.frames into one will result in losing the year
 information! Fortunately it is not too much trouble to add the year
-information to each data.frame before flattening.
+information to each data frame before flattening.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6972,7 +6972,7 @@ information to each data.frame before flattening.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Turn the list of boys names \texttt{data.frames} into a single \texttt{data.frame}. HINT: see \texttt{?bind\_rows}.
+  Turn the list of boys names data frames into a single data frame. HINT: see \texttt{?bind\_rows}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -7102,7 +7102,7 @@ different input formats.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \CommentTok{## 1. Write a function that takes a `data.frame` as an argument and}
+  \CommentTok{## 1. Write a function that takes a data frame as an argument and}
   \CommentTok{##   returns a modified version, which keeps only columns that}
   \CommentTok{##   include the strings `Name` and `Count` in the column names.}
   \CommentTok{##   HINT: see the `?matches` function.}
@@ -7111,12 +7111,12 @@ different input formats.
       \KeywordTok{select}\NormalTok{(data, }\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{))}
 \NormalTok{  \}}
      
-  \CommentTok{## 2. Test your function on the first `data.frame` in the list of boys}
+  \CommentTok{## 2. Test your function on the first data frame in the list of boys}
   \CommentTok{##    names data.}
 
   \KeywordTok{namecount}\NormalTok{(boysNames[[}\DecValTok{1}\NormalTok{]])}
   
-  \CommentTok{## 3. Use the `map` function to each `data.frame` in the list of boys}
+  \CommentTok{## 3. Use the `map` function to each data frame in the list of boys}
   \CommentTok{##    names data.}
 
 \NormalTok{  boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, namecount)}
@@ -7156,11 +7156,11 @@ There are different ways you can go about it. Here is one:
 \NormalTok{\}}
 
 
-\CommentTok{## test it out on the second data.frame in the list}
+\CommentTok{## test it out on the second data frame in the list}
 \NormalTok{boysNames[[}\DecValTok{2}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{() }\CommentTok{# before cleanup}
 \NormalTok{boysNames[[}\DecValTok{2}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{cleanupNamesData}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{() }\CommentTok{# after cleanup}
 
-\CommentTok{## apply the cleanup function to all the data.frames in the list}
+\CommentTok{## apply the cleanup function to all the data frames in the list}
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, cleanupNamesData)}
 \end{Highlighting}
 \end{Shaded}
@@ -7168,11 +7168,11 @@ There are different ways you can go about it. Here is one:
 \hypertarget{ex-4-prototype-1}{%
 \subsection{Ex 4: prototype}\label{ex-4-prototype-1}}
 
-Working with the data in one big data.frame is often easier.
+Working with the data in one big data frame is often easier.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 1.  Turn the list of boys names `data.frames` into a single `data.frame`.}
+\CommentTok{## 1.  Turn the list of boys names data frames into a single data frame.}
 
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
 \KeywordTok{glimpse}\NormalTok{(boysNames)}
@@ -8445,24 +8445,24 @@ the service provider.
 \hypertarget{components}{%
 \subsection{Components}\label{components}}
 
-Computers connected to the web are called clients and servers. A simplified diagram of how they interact might look like this:
+Computers connected to the web are called \textbf{clients} and \textbf{servers}. A simplified diagram of how they interact might look like this:
 
 \includegraphics{Python/PythonWebScrape/images/client_server.png}
 
 \begin{itemize}
 \tightlist
 \item
-  Clients are the typical web user's internet-connected devices (for example, your computer connected to your Wi-Fi) and web-accessing software available on those devices (usually a web brwoser like Firefox or Chrome).
+  \textbf{Clients} are the typical web user's internet-connected devices (for example, your computer connected to your Wi-Fi) and web-accessing software available on those devices (usually a web browser like Firefox or Chrome).
 \item
-  Servers are computers that store webpages, sites, or apps. When a client device wants to access a webpage, a copy of the webpage is downloaded from the server onto the client machine to be displayed in the user's web browser.
+  \textbf{Servers} are computers that store webpages, sites, or apps. When a client device wants to access a webpage, a copy of the webpage is downloaded from the server onto the client machine to be displayed in the user's web browser.
 \item
   Your internet connection allows you to send and receive data on the web.
 \item
-  TCP/IP are the communication protocols that define how data should travel across the web.
+  \textbf{TCP/IP} are the communication protocols that define how data should travel across the web.
 \item
-  Domain Name Servers are like an address book for websites.
+  \textbf{Domain Name Servers (DNS)} are like an address book for websites.
 \item
-  HTTP is an application protocol that defines a language for clients and servers to speak to each other.
+  \textbf{HTTP} is an application protocol that defines a language for clients and servers to speak to each other.
 \end{itemize}
 
 \hypertarget{so-what-happens-exactly}{%
@@ -8478,7 +8478,7 @@ When you type a web address into your browser:
 \item
   The browser sends an HTTP request message to the server, asking it to send a copy of the website to the client. This message, and all other data sent between the client and the server, is sent across your internet connection using TCP/IP.
 \item
-  If the server approves the client's request, the server sends the client a ``200 OK'' message, and then starts sending the website's files to the browser as a series of small chunks called data packets.
+  If the server approves the client's request, the server sends the client a ``200 OK'' message, and then starts sending the website's files to the browser as a series of small chunks called \emph{data packets}.
 \item
   The browser assembles the small chunks into a complete website and displays it to you.
 \end{enumerate}
@@ -8510,8 +8510,8 @@ we'll find a resource that returns the data we're looking for in a
 structured format like \href{https://json.org/}{JSON} or
 \href{https://en.wikipedia.org/wiki/XML}{XML}.
 
-\hypertarget{examining-the-structure-of-our-target-web-service}{%
-\subsection{Examining the structure of our target web service}\label{examining-the-structure-of-our-target-web-service}}
+\hypertarget{examine-the-websites-structure}{%
+\subsection{Examine the website's structure}\label{examine-the-websites-structure}}
 
 We start by opening the collections web page in a web browser and
 inspecting it.
@@ -8749,14 +8749,14 @@ information you need.
 \hypertarget{document-object-model-dom}{%
 \subsection{Document Object Model (DOM)}\label{document-object-model-dom}}
 
-To parse HTML, we need to have a nice tree structure that contains the whole HTML file through which we can locate the information. This tree-like structure is the Document Object Model (DOM). DOM is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree. Each branch of the tree ends in a node, and each node contains objects. DOM methods allow programmatic access to the tree; with them one can change the structure, style or content of a document. The following is an example of DOM hierarchy in an HTML document:
+To parse HTML, we need to have a nice tree structure that contains the whole HTML file through which we can locate the information. This tree-like structure is the \textbf{Document Object Model (DOM)}. DOM is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree. \emph{Each branch of the tree ends in a node, and each node contains objects}. DOM methods allow programmatic access to the tree; with them one can change the structure, style or content of a document. The following is an example of DOM hierarchy in an HTML document:
 
 \includegraphics{Python/PythonWebScrape/images/DOM.png}
 
 \hypertarget{retrieving-html}{%
 \subsection{Retrieving HTML}\label{retrieving-html}}
 
-For example, when I inspected the network traffic while interacting
+When I inspected the network traffic while interacting
 with \url{https://www.harvardartmuseums.org/visit/calendar} I didn't see
 any requests that returned JSON data. The best we can do appears to be
 \url{https://www.harvardartmuseums.org/visit/calendar?date=}, which
@@ -8810,7 +8810,7 @@ from the \texttt{lxml} library; others prefer an alternative called
 \end{Shaded}
 
 \hypertarget{using-xpath-to-extract-content-from-html}{%
-\subsection{Using xpath to extract content from HTML}\label{using-xpath-to-extract-content-from-html}}
+\subsection{Using XPath to extract content from HTML}\label{using-xpath-to-extract-content-from-html}}
 
 \texttt{XPath} is a tool for identifying particular elements withing a HTML
 document. The developer tools built into modern web browsers make it

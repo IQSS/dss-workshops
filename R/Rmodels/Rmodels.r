@@ -314,7 +314,7 @@ dat[with(dat, complete.cases(expense, house, senate)), ]
 
 # ### Logistic regression example
 #
-# Motivation for a logistic regression model; With a binary response:
+# Motivation for a logistic regression model --- with a binary response:
 #
 # 1.  Errors will not be normally distributed
 # 2.  Variance will not be homoskedastic

@@ -121,7 +121,7 @@ boy_file_names[1]
 
 excel_sheets(boy_file_names[1])
 
-# ### Iterating over file names with `map()`
+# ### Iterating with `map()`
 #
 # Now that we know how to retrieve the names of the worksheets in an
 # Excel file, we could start writing code to extract the sheet names from
@@ -145,7 +145,7 @@ excel_sheets(boy_file_names[20])
 
 map(boy_file_names, excel_sheets)
 
-# ### Filtering strings using regular expressions
+# ### Filtering strings using regex
 #
 # To extract the correct worksheet names we need a way to extract
 # strings containing "Table 1". 
@@ -431,16 +431,16 @@ boysNames[[1]]
 #      HINT: see the `?matches` function. 
 ## 
 
-#   2. Test your function on the first `data.frame` in the list of boys
+#   2. Test your function on the first data frame in the list of boys
 #      names data.
 ## 
 
-#   3. Use the `map()` function to each `data.frame` in the list of boys
+#   3. Use the `map()` function to each data frame in the list of boys
 #      names data and save it to the list called `boysNames`.
 ## 
 
 
-# ### Re-arranging into a single table
+# ### Reshaping from wide to long
 #
 # Our final task is to re-arrange the data so that it is all in a single
 # table instead of in two side-by-side tables. For many similar tasks
@@ -490,15 +490,15 @@ bind_rows(first_columns, second_columns)
 #
 # Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.
 
-# ### One `data.frame` for each year
+# ### A list of data frames
 #
-# Right now we have a list of data frames, one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
+# Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
 head(boysNames) %>% glimpse()
 
 head(boy_file_names)
 
-# use regex to extract years from filenames
+# use regex to extract years from file names
 Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
 Years
 
@@ -512,16 +512,16 @@ names(boysNames) # returns the years as list names
 head(boysNames) %>% glimpse() 
 
 
-# ### One big `data.frame`
+# ### One big data frame
 #
-# While storing the data in separate data.frames by year makes some sense,
+# While storing the data in separate data frames by year makes some sense,
 # many operations will be easier if the data is simply stored in one big
-# data.frame. We've already seen how to turn a list of data.frames into a
+# data frame. We've already seen how to turn a list of data frames into a
 # single data.frame using `bind_rows()`, but there is a problem; The year
 # information is stored in the names of the list elements, and so
 # flattening the data.frames into one will result in losing the year
 # information! Fortunately it is not too much trouble to add the year
-# information to each data.frame before flattening.
+# information to each data frame before flattening.
 
 # apply name of the list element (.y) as a new column in the data.frame (.x)
 boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
@@ -532,7 +532,7 @@ boysNames[1]
 #
 # **Make one big data.frame**
 #
-# 1.  Turn the list of boys names `data.frames` into a single `data.frame`. HINT: see `?bind_rows`.
+# 1.  Turn the list of boys names data frames into a single data frame. HINT: see `?bind_rows`.
 ## 
 
 # 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file.
@@ -600,7 +600,7 @@ boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 
 # ### Ex 2: prototype
 
-  ## 1. Write a function that takes a `data.frame` as an argument and
+  ## 1. Write a function that takes a data frame as an argument and
   ##   returns a modified version, which keeps only columns that
   ##   include the strings `Name` and `Count` in the column names.
   ##   HINT: see the `?matches` function.
@@ -609,12 +609,12 @@ boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
       select(data, matches("Name|Count"))
   }
      
-  ## 2. Test your function on the first `data.frame` in the list of boys
+  ## 2. Test your function on the first data frame in the list of boys
   ##    names data.
 
   namecount(boysNames[[1]])
   
-  ## 3. Use the `map` function to each `data.frame` in the list of boys
+  ## 3. Use the `map` function to each data frame in the list of boys
   ##    names data.
 
   boysNames <- map(boysNames, namecount)
@@ -650,18 +650,18 @@ cleanupNamesData <- function(file){
 }
 
 
-## test it out on the second data.frame in the list
+## test it out on the second data frame in the list
 boysNames[[2]] %>% glimpse() # before cleanup
 boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
 
-## apply the cleanup function to all the data.frames in the list
+## apply the cleanup function to all the data frames in the list
 boysNames <- map(boysNames, cleanupNamesData)
 
 # ### Ex 4: prototype
 #
-# Working with the data in one big data.frame is often easier.
+# Working with the data in one big data frame is often easier.
 
-## 1.  Turn the list of boys names `data.frames` into a single `data.frame`.
+## 1.  Turn the list of boys names data frames into a single data frame.
 
 boysNames <- bind_rows(boysNames)
 glimpse(boysNames)
