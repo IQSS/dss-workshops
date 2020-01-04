@@ -345,7 +345,9 @@ boysNames[[1]]
 #
 # `NULL` is closely related to vectors and often serves the role of a generic zero length vector. 
 #
+# <center>
 # ![vector tree](R/RDataWrangling/images/summary_tree.png)
+# </center>
 #
 # From these two forms, the following six structures are derived:
 #
@@ -373,7 +375,9 @@ boysNames[[1]]
 # | double (floating point) | 2, 15.5                                              |
 # | logical                 | TRUE, FALSE                                          |
 #
-# ![vector tree](R/RDataWrangling/images/summary_tree_atomic.png)
+# <center>
+# ![atomic tree](R/RDataWrangling/images/summary_tree_atomic.png)
+# </center>
 
 # **Coercion:**
 #
@@ -448,7 +452,9 @@ boysNames[[1]]
 # case we will be better off using a combination of `select()` and
 # `bind_rows()`.
 #
+# <center>
 # ![](R/RDataWrangling/images/wide_vs_long.png)
+# </center>
 
 boysNames[[1]]
 
