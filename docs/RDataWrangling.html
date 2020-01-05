@@ -377,7 +377,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#data-cleanup"><i class="fa fa-check"></i>Data cleanup</a><ul>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
-<li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#r-data-types-and-structures"><i class="fa fa-check"></i>R data types and structures</a></li>
+<li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#data-types-and-structures"><i class="fa fa-check"></i>Data types and structures</a></li>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#list-indexing"><i class="fa fa-check"></i>List indexing</a></li>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#dropping-missing-values"><i class="fa fa-check"></i>Dropping missing values</a></li>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
@@ -978,14 +978,14 @@ We can do that using the <code>select()</code> function:</p>
 <span id="cb287-3"><a href="RDataWrangling.html#cb287-3"></a>boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], Name...<span class="dv">2</span>, Name...<span class="dv">6</span>, Count...<span class="dv">3</span>, Count...<span class="dv">7</span>)</span>
 <span id="cb287-4"><a href="RDataWrangling.html#cb287-4"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
 </div>
-<div id="r-data-types-and-structures" class="section level3">
-<h3>R data types and structures</h3>
+<div id="data-types-and-structures" class="section level3">
+<h3>Data types and structures</h3>
 <p>We’ve now encountered several different data types and data structures. Let’s take a step back and survey the options available in R.</p>
 <p><strong>Data structures:</strong></p>
 <p>In R, the most foundational data structure is the <strong>vector</strong>, which comes in two basic forms:</p>
 <ol style="list-style-type: decimal">
 <li><strong>atomic</strong>: only hold elements of the same type; they are <strong>homogeneous</strong></li>
-<li><strong>lists</strong>: can hold elements of different types; they are <strong>heterogeneous</strong></li>
+<li><strong>list</strong>: can hold elements of different types; they are <strong>heterogeneous</strong></li>
 </ol>
 <p><code>NULL</code> is closely related to vectors and often serves the role of a generic zero length vector.</p>
 <center>
@@ -1041,6 +1041,9 @@ We can do that using the <code>select()</code> function:</p>
 <p>Each vector can have <strong>attributes</strong>, which are a named list of metadata that can include the vector’s <strong>dimensions</strong> and its <strong>class</strong>. The latter is a property assigned to an object that determines how <strong>generic functions</strong> operate with it, and thus which <strong>methods</strong> are available for it. The class of an object can be queried using the <code>class()</code> function. You can learn more details about R data structures here: <a href="https://adv-r.hadley.nz/vectors-chap.html" class="uri">https://adv-r.hadley.nz/vectors-chap.html</a></p>
 <p><strong>Data types:</strong></p>
 <p>There are four primary types of atomic vectors. Collectively, integer and double vectors are known as numeric vectors. You can query the <strong>type</strong> of an object using the <code>typeof()</code> function.</p>
+<center>
+<img src="R/RDataWrangling/images/summary_tree_atomic.png" title="fig:" alt="atomic tree" />
+</center>
 <table>
 <thead>
 <tr class="header">
@@ -1067,9 +1070,6 @@ We can do that using the <code>select()</code> function:</p>
 </tr>
 </tbody>
 </table>
-<center>
-<img src="R/RDataWrangling/images/summary_tree_atomic.png" title="fig:" alt="atomic tree" />
-</center>
 <p><strong>Coercion:</strong></p>
 <p>If heterogeneous elements are stored in an atomic vector, R will <strong>coerce</strong> the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -&gt; integer -&gt; numeric -&gt; character -&gt; list. For example:</p>
 <div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="RDataWrangling.html#cb288-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
