@@ -1,35 +1,46 @@
-\documentclass[]{book}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Data Science Workshops},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1.5in]{geometry}
-\usepackage{hyperref}
-\hypersetup{unicode=true,
-            pdftitle={Data Science Workshops},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\usepackage{natbib}
-\bibliographystyle{apalike}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -71,6 +82,14 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -80,51 +99,14 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
-
-%%% Change title format to be more compact
-\usepackage{titling}
-
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{Data Science Workshops}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{}
-    \preauthor{}\postauthor{}
-      \predate{\centering\large\emph}
-  \postdate{\par}
-    \date{January 2020}
-
 \usepackage{booktabs}
 
 \usepackage{graphicx}
@@ -145,14 +127,22 @@
 \urlstyle{tt}
 
 \graphicspath{{R/Rintro/}{R/Rmodels/}{R/Rgraphics/}{R/RDataWrangling/}}
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{Data Science Workshops}
+\author{}
+\date{\vspace{-2.5em}January 2020}
 
 \begin{document}
+\frontmatter
 \maketitle
 
 {
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
+\mainmatter
 \hypertarget{introduction}{%
 \chapter*{Introduction}\label{introduction}}
 \addcontentsline{toc}{chapter}{Introduction}
@@ -1457,7 +1447,7 @@ In particular, our goals are to learn about:
 \item
   How we can interact with R
 \item
-  Foundations of the language (functions, objects, assignment)
+  Foundations of the language (functions, assignment)
 \item
   The \texttt{tidyverse} package ecosystem for data science
 \item
@@ -1488,9 +1478,9 @@ These topics are covered in our \href{./RDataWrangling.html}{R Data Wrangling},
 \item
   Functions
 \item
-  Objects
-\item
   Assignment
+\item
+  Getting help
 \item
   \texttt{tidyverse} package ecosystem for data science
 \end{enumerate}
@@ -1503,13 +1493,13 @@ R has existed for over 25 years and is now the most popular software for
 data analysis. It has an extensive ecosystem of about 15,000 add on packages
 covering all aspects of statistics and machine learning.
 
-\hypertarget{r-interfaces}{%
-\subsection{R Interfaces}\label{r-interfaces}}
+\hypertarget{interfaces}{%
+\subsection{Interfaces}\label{interfaces}}
 
 \hypertarget{text-editors-ides-notebooks}{%
 \subsubsection{Text editors, IDEs, \& Notebooks}\label{text-editors-ides-notebooks}}
 
-There are different ways of interfacing with R. The two main ways are through:
+There are different ways of interacting with R. The two main ways are through:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1554,7 +1544,7 @@ These basically boil down to a choice between:
   \textbf{Literate programming:} the practice of embedding computer code in a natural language document. In R this is often done using \href{https://rmarkdown.rstudio.com/}{\textbf{Rmarkdown}}, which involves embeddeding R code in a document that is authored using \emph{Markdown} and which has a \texttt{.Rmd} extension. \emph{Markdown} is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX).
 \end{enumerate}
 
-Here are some resources for learning more about \texttt{Rmarkdown} and RStudio:
+Here are some resources for learning more about Rmarkdown and RStudio:
 
 \begin{itemize}
 \tightlist
@@ -1566,8 +1556,8 @@ Here are some resources for learning more about \texttt{Rmarkdown} and RStudio:
   \url{https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf}
 \end{itemize}
 
-\hypertarget{launch-an-r-session-1}{%
-\subsection{Launch an R session}\label{launch-an-r-session-1}}
+\hypertarget{launch-a-session}{%
+\subsection{Launch a session}\label{launch-a-session}}
 
 Start RStudio and create a new project:
 
@@ -1784,8 +1774,8 @@ Names should start with a letter, and contain only letters, numbers, underscores
   know which packages are popular, you can look at \url{https://r-pkg.org}.
 \end{enumerate}
 
-\hypertarget{getting-data-into-r}{%
-\subsection{Getting data into R}\label{getting-data-into-r}}
+\hypertarget{reading-data}{%
+\subsection{Reading data}\label{reading-data}}
 
 R has data reading functionality built-in -- see e.g.,
 \texttt{help(read.table)}. However, faster and more robust tools are
@@ -1793,8 +1783,8 @@ available, and so to make things easier on ourselves we will use a
 \emph{contributed package} instead. This requires that we
 learn a little bit about packages in R.
 
-\hypertarget{installing-using-r-packages}{%
-\subsection{Installing \& using R packages}\label{installing-using-r-packages}}
+\hypertarget{installing-using-packages}{%
+\subsection{Installing \& using packages}\label{installing-using-packages}}
 
 R is a modular environment that is extended by the use of \textbf{packages}.
 Packages are collections of functions or commands that are designed to
@@ -2262,8 +2252,8 @@ the \texttt{tidyverse} suite of packages and attached them with \texttt{library(
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{pipe-operator-in-r}{%
-\subsection{Pipe operator in R}\label{pipe-operator-in-r}}
+\hypertarget{pipe-operator}{%
+\subsection{Pipe operator}\label{pipe-operator}}
 
 There is one very special operator in R called a \textbf{pipe} operator that
 looks like this: \texttt{\%\textgreater{}\%}. It allows us to ``chain'' several function calls and,
@@ -2568,7 +2558,7 @@ Note that the data remains grouped until you change the groups by
 running \texttt{group\_by()} again or remove grouping information with
 \texttt{ungroup()}.
 
-\includegraphics{R/Rintro/images/split-apply-combine.png}
+\includegraphics{R/Rintro/images/mutate_group_by.png}
 
 \hypertarget{exercise-4}{%
 \subsection{Exercise 4}\label{exercise-4}}
@@ -2824,8 +2814,8 @@ You might find functions \texttt{write\_csv()} and \texttt{write\_rds()} from pa
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{saving-loading-r-workspaces}{%
-\subsection{Saving \& loading R workspaces}\label{saving-loading-r-workspaces}}
+\hypertarget{saving-loading-workspaces}{%
+\subsection{Saving \& loading workspaces}\label{saving-loading-workspaces}}
 
 In addition to importing individual datasets, R can save and load entire
 ``workspaces''. The workspace is your current R working environment and includes
@@ -3395,8 +3385,8 @@ This is an intermediate R course:
   This is not a statistics course! We assume you know the theory behind the models.
 \end{itemize}
 
-\hypertarget{launch-an-r-session-2}{%
-\subsection{Launch an R session}\label{launch-an-r-session-2}}
+\hypertarget{launch-an-r-session-1}{%
+\subsection{Launch an R session}\label{launch-an-r-session-1}}
 
 Start RStudio and create a new project:
 
@@ -4590,8 +4580,8 @@ This is an intermediate R course:
   Relatively fast-paced
 \end{itemize}
 
-\hypertarget{launch-an-r-session-3}{%
-\subsection{Launch an R session}\label{launch-an-r-session-3}}
+\hypertarget{launch-an-r-session-2}{%
+\subsection{Launch an R session}\label{launch-an-r-session-2}}
 
 Start RStudio and create a new project:
 
@@ -6132,8 +6122,8 @@ This is an intermediate / advanced R course:
   Relatively fast-paced
 \end{itemize}
 
-\hypertarget{launch-an-r-session-4}{%
-\subsection{Launch an R session}\label{launch-an-r-session-4}}
+\hypertarget{launch-an-r-session-3}{%
+\subsection{Launch an R session}\label{launch-an-r-session-3}}
 
 Start RStudio and create a new project:
 
@@ -7441,13 +7431,13 @@ Python is a relatively easy to learn general purpose programming language. Peopl
 
 Like most popular open source programming languages, Python can be thought of as a \emph{platform} that runs a huge number and variety of packages. The language itself is mostly valuable because it makes it easy to create and use a large number of useful packages.
 
-\hypertarget{python-interfaces}{%
-\subsection{Python interfaces}\label{python-interfaces}}
+\hypertarget{interfaces-1}{%
+\subsection{Interfaces}\label{interfaces-1}}
 
 \hypertarget{text-editors-ides-notebooks-1}{%
 \subsubsection{Text editors, IDEs, \& Notebooks}\label{text-editors-ides-notebooks-1}}
 
-There are different ways of interfacing with Python. The two main ways are through:
+There are different ways of interacting with Python. The two main ways are through:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7559,8 +7549,8 @@ The name on the left of the equals sign is one that we chose. When choosing name
   use only \emph{letters}, \emph{numbers} and \emph{underscores}
 \end{enumerate}
 
-\hypertarget{reading-data-from-a-file}{%
-\subsection{Reading data from a file}\label{reading-data-from-a-file}}
+\hypertarget{reading-data-1}{%
+\subsection{Reading data}\label{reading-data-1}}
 
 Reading information from a file is the first step in many projects, so we'll use functions to read data into Python and assign them to a named object. The workshop materials you downloaded earlier include a file named \texttt{Alice\_in\_wonderland.txt} which contains the text of Lewis Carroll's \emph{Alice's Adventures in Wonderland}. We can use the \texttt{open()} function to create a file \textbf{object} that makes a \textbf{connection} to the file:
 
@@ -7773,8 +7763,8 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{counting-chapters-paragraphs}{%
-\subsection{Counting chapters \& paragraphs}\label{counting-chapters-paragraphs}}
+\hypertarget{counting-list-elements}{%
+\subsection{Counting list elements}\label{counting-list-elements}}
 
 Now that we know how to split a string and how to work with the resulting list, we can split on chapter markers to count the number of chapters. All we need to do is specify the string to split on. Since each chapter is marked with the string \texttt{\textquotesingle{}CHAPTER\ \textquotesingle{}} followed by the chapter number, we can split the text up into chapters using this as the separator.
 
@@ -12771,5 +12761,5 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
   \end{itemize}
 \end{itemize}
 
-
+\backmatter
 \end{document}

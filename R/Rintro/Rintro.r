@@ -30,7 +30,7 @@
 # In particular, our goals are to learn about:
 #
 # 1.  How we can interact with R
-# 2.  Foundations of the language (functions, objects, assignment)
+# 2.  Foundations of the language (functions, assignment)
 # 3.  The `tidyverse` package ecosystem for data science
 # 4.  Basic data manipulation useful for cleaning datasets
 # 5.  Working with grouped data
@@ -48,8 +48,8 @@
 #
 # 1.  R interfaces
 # 2.  Functions
-# 3.  Objects
-# 4.  Assignment
+# 3.  Assignment
+# 4.  Getting help
 # 5.  `tidyverse` package ecosystem for data science
 
 # ### What is R?
@@ -59,11 +59,11 @@
 # data analysis. It has an extensive ecosystem of about 15,000 add on packages
 # covering all aspects of statistics and machine learning. 
 
-# ### R Interfaces
+# ### Interfaces
 #
 # #### Text editors, IDEs, & Notebooks
 #
-# There are different ways of interfacing with R. The two main ways are through:
+# There are different ways of interacting with R. The two main ways are through:
 #
 # 1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. For these workshops we will use [RStudio](https://rstudio.com/); it is a good R-specific IDE with many useful features. Here are a few popular editors/IDEs that can be used with R:
 #
@@ -87,13 +87,13 @@
 #
 # 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embeddeding R code in a document that is authored using *Markdown* and which has a `.Rmd` extension. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
 #
-# Here are some resources for learning more about `Rmarkdown` and RStudio: 
+# Here are some resources for learning more about Rmarkdown and RStudio: 
 #
 # * <https://rmarkdown.rstudio.com/authoring_quick_tour.html>
 # * <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
 # *  <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
 
-# ### Launch an R session
+# ### Launch a session
 #
 # Start RStudio and create a new project:
 #
@@ -185,7 +185,7 @@ x <- sqrt(10) # assign result to a variable named x
 # where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
 # know which packages are popular, you can look at <https://r-pkg.org>.
 
-# ### Getting data into R
+# ### Reading data
 #
 # R has data reading functionality built-in -- see e.g.,
 # `help(read.table)`. However, faster and more robust tools are
@@ -193,7 +193,7 @@ x <- sqrt(10) # assign result to a variable named x
 # *contributed package* instead. This requires that we
 # learn a little bit about packages in R.
 
-# ### Installing & using R packages
+# ### Installing & using packages
 #
 # R is a modular environment that is extended by the use of **packages**.
 # Packages are collections of functions or commands that are designed to
@@ -421,7 +421,7 @@ x %in% c(1, 5, 10)
 ##
 
 
-# ### Pipe operator in R
+# ### Pipe operator
 #
 # There is one very special operator in R called a **pipe** operator that 
 # looks like this: `%>%`. It allows us to "chain" several function calls and, 
@@ -568,7 +568,7 @@ head(baby_names)
 # running `group_by()` again or remove grouping information with
 # `ungroup()`.
 #
-# ![](R/Rintro/images/split-apply-combine.png)
+# ![](R/Rintro/images/mutate_group_by.png)
 
 # ### Exercise 4
 #
@@ -686,7 +686,7 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 ## Load the "myDataFiles.RData"
 ## load("myDataFiles.RData") 
 
-# ### Saving & loading R workspaces
+# ### Saving & loading workspaces
 #
 # In addition to importing individual datasets, R can save and load entire
 # "workspaces". The workspace is your current R working environment and includes
