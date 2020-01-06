@@ -2527,8 +2527,13 @@ If we like, we can also \texttt{select()} a subset of columns from the baby name
 \subsection{Operating by group}\label{operating-by-group}}
 
 Because of the nested nature of our data, we want to compute rank
-or proportion within each \texttt{Sex} by \texttt{Year} group. The \texttt{dplyr}
-package makes this relatively straightforward.
+or proportion \textbf{within} each \texttt{Sex} by \texttt{Year} group. The \texttt{dplyr}
+package makes this relatively straightforward. Here's the logic
+behind this process:
+
+\includegraphics{R/Rintro/images/mutate_group_by.png}
+
+Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2554,11 +2559,11 @@ package makes this relatively straightforward.
 ## 6 Lisa  Girls 33702  1960     33.7  7326
 \end{verbatim}
 
-Note that the data remains grouped until you change the groups by
-running \texttt{group\_by()} again or remove grouping information with
+Note that the \texttt{group\_by()} function converts a \textbf{data frame} into a
+\textbf{grouped data frame} --- that is, a data frame with metadata identifying
+the groups. The data remain grouped until you change the groups by
+running \texttt{group\_by()} again or remove the grouping metadata using
 \texttt{ungroup()}.
-
-\includegraphics{R/Rintro/images/mutate_group_by.png}
 
 \hypertarget{exercise-4}{%
 \subsection{Exercise 4}\label{exercise-4}}
@@ -2686,10 +2691,12 @@ code outputs the total number of girls and boys in the data:
 ## 1  814744 537459
 \end{verbatim}
 
+Next, using \texttt{group\_by()} and \texttt{summarize()} together, we can calculate the
+number of babies born each year. Here's the logic behind this process:
+
 \includegraphics{R/Rintro/images/summarize_group_by.png}
 
-Next, using \texttt{group\_by()} and \texttt{summarize()} together, we can calculate the
-number of babies born each year:
+Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7277,7 +7284,7 @@ in mind and contains a curated set of 270+ pre-installed packages.
 
 Success? After installing, please start the \texttt{Anaconda\ Navigator} program. If you were successful with the installation, you should see a window similar to this:
 
-\includegraphics{R/Rinstall/images/rstudio_successful_install.png}
+\includegraphics{Python/PythonInstall/images/Anaconda_navigator.png}
 
 To check that the installation is working correctly, click the \texttt{Launch} button under \texttt{Jupyter\ Notebook}. A new blank notebook should be created.
 

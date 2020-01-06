@@ -552,9 +552,13 @@ baby_names %>%
 # ### Operating by group
 #
 # Because of the nested nature of our data, we want to compute rank 
-# or proportion  within each `Sex` by `Year` group. The `dplyr` 
-# package makes this relatively straightforward.
+# or proportion **within** each `Sex` by `Year` group. The `dplyr` 
+# package makes this relatively straightforward. Here's the logic
+# behind this process:
 #
+# ![](R/Rintro/images/mutate_group_by.png)
+#
+# Here's the code that implements the calculation:
 
 baby_names <- 
   baby_names %>%
@@ -564,11 +568,11 @@ baby_names <-
 
 head(baby_names)
 
-# Note that the data remains grouped until you change the groups by
-# running `group_by()` again or remove grouping information with
+# Note that the `group_by()` function converts a **data frame** into a
+# **grouped data frame** --- that is, a data frame with metadata identifying
+# the groups. The data remain grouped until you change the groups by
+# running `group_by()` again or remove the grouping metadata using
 # `ungroup()`.
-#
-# ![](R/Rintro/images/mutate_group_by.png)
 
 # ### Exercise 4
 #
@@ -624,10 +628,12 @@ baby_names %>%
   summarize(Girls_n = sum(Sex=="Girls"),
             Boys_n = sum(Sex=="Boys"))
 
+# Next, using `group_by()` and `summarize()` together, we can calculate the 
+# number of babies born each year. Here's the logic behind this process:
+#
 # ![](R/Rintro/images/summarize_group_by.png)
 #
-# Next, using `group_by()` and `summarize()` together, we can calculate the 
-# number of babies born each year:
+# Here's the code that implements the calculation:
 
 bn_by_year <-
   baby_names %>%

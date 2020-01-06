@@ -1352,8 +1352,11 @@ of each name in each year:</p>
 <div id="operating-by-group" class="section level3">
 <h3>Operating by group</h3>
 <p>Because of the nested nature of our data, we want to compute rank
-or proportion within each <code>Sex</code> by <code>Year</code> group. The <code>dplyr</code>
-package makes this relatively straightforward.</p>
+or proportion <strong>within</strong> each <code>Sex</code> by <code>Year</code> group. The <code>dplyr</code>
+package makes this relatively straightforward. Here’s the logic
+behind this process:</p>
+<p><img src="R/Rintro/images/mutate_group_by.png" /></p>
+<p>Here’s the code that implements the calculation:</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="Rintro.html#cb88-1"></a>baby_names &lt;-<span class="st"> </span></span>
 <span id="cb88-2"><a href="Rintro.html#cb88-2"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
 <span id="cb88-3"><a href="Rintro.html#cb88-3"></a><span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span></span>
@@ -1370,10 +1373,11 @@ package makes this relatively straightforward.</p>
 ## 4 Karen Girls 36376  1960     36.4  7328
 ## 5 Donna Girls 34133  1960     34.1  7327
 ## 6 Lisa  Girls 33702  1960     33.7  7326</code></pre>
-<p>Note that the data remains grouped until you change the groups by
-running <code>group_by()</code> again or remove grouping information with
+<p>Note that the <code>group_by()</code> function converts a <strong>data frame</strong> into a
+<strong>grouped data frame</strong> — that is, a data frame with metadata identifying
+the groups. The data remain grouped until you change the groups by
+running <code>group_by()</code> again or remove the grouping metadata using
 <code>ungroup()</code>.</p>
-<p><img src="R/Rintro/images/mutate_group_by.png" /></p>
 </div>
 <div id="exercise-4" class="section level3">
 <h3>Exercise 4</h3>
@@ -1433,9 +1437,10 @@ code outputs the total number of girls and boys in the data:</p>
 ##   Girls_n Boys_n
 ##     &lt;int&gt;  &lt;int&gt;
 ## 1  814744 537459</code></pre>
-<p><img src="R/Rintro/images/summarize_group_by.png" /></p>
 <p>Next, using <code>group_by()</code> and <code>summarize()</code> together, we can calculate the
-number of babies born each year:</p>
+number of babies born each year. Here’s the logic behind this process:</p>
+<p><img src="R/Rintro/images/summarize_group_by.png" /></p>
+<p>Here’s the code that implements the calculation:</p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="Rintro.html#cb97-1"></a>bn_by_year &lt;-</span>
 <span id="cb97-2"><a href="Rintro.html#cb97-2"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
 <span id="cb97-3"><a href="Rintro.html#cb97-3"></a><span class="st">  </span><span class="kw">group_by</span>(Year) <span class="op">%&gt;%</span></span>
