@@ -67,14 +67,11 @@
 *
 * To get help in Stata type `help` followed by topic or command, e.g., `help codebook`.
 *
-* ### General Stata command syntax
+* ### Syntax rules
 *
 * Most Stata commands follow the same basic syntax: `Command varlist, options`.
 *
-* ### Commenting & formatting syntax
-*
-* Start with comment describing your Do-file and use comments throughout
-*
+* Use comments liberally --- start with a comment describing your Do-file and use comments throughout
 
 * Use '*' to comment a line and '//' for in-line comments
 
@@ -99,7 +96,7 @@ disp "Hello" ///
 // cd "C://Users/dataclass/Desktop/StataIntro"
 
 
-* ## Getting data into Stata
+* ## Reading data
 *
 * ### Data file commands
 *
@@ -130,7 +127,7 @@ save newgss.dta, replace // "replace" option means OK to overwrite existing file
 * * Always keep any changes to your data in your Do-file
 * * Avoid temptation of making manual changes by viewing data via the browser rather than editor
 *
-* ### What if my data is not a Stata file?
+* ### Reading non-Stata data
 *
 * * Import delimited text files
 
@@ -156,14 +153,14 @@ clear
 import excel gss.xlsx
 export excel gss_new, replace
 
-* ### What if my data is from another statistical software program?
+* What if my data is from another statistical software program?
 *
 * * SPSS/PASW will allow you to save your data as a Stata file
 *     + Go to: file -> save as -> Stata (use most recent version available)
 *     + Then you can just go into Stata and open it
 * * Another option is **StatTransfer**, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more
 
-* ## Exercise 0
+* ### Exercise 0
 *
 * **Importing data**
 *
@@ -236,7 +233,7 @@ bysort sex: tab happy // tabulate happy separately for men and women
 bysort marital: sum educ // summarize eudcation by marital status
 
 
-* ## Exercise 1
+* ### Exercise 1
 *
 * **Descriptive statistics**
 *
@@ -279,7 +276,7 @@ bysort marital: sum educ // summarize eudcation by marital status
   /* assign our label set to the sex variable*/
   label val sex  mySexLabel
 
-* ## Exercise 2
+* ### Exercise 2
 *
 * **Variable labels & value labels**
 *
@@ -350,7 +347,7 @@ bysort marital: sum educ // summarize eudcation by marital status
   replace young=1 if age_wealth==1 | age_wealth==2
 
 
-* ## Exercise 3
+* ### Exercise 3
 *
 * **Manipulating variables**
 *
@@ -362,13 +359,17 @@ bysort marital: sum educ // summarize eudcation by marital status
 * ## Exercise solutions
 *
 * ### Ex 0: prototype
-*
+**
+
 * ### Ex 1: prototype
-*
+**
+
 * ### Ex 2: prototype
-*
+**
+
 * ### Ex 3: prototype
-*
+**
+
 
 * ## Wrap-up
 *

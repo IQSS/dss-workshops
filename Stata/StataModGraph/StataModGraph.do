@@ -41,7 +41,7 @@
 *     + Plot basic graphs in Stata
 *     + Plot two-way graphs
 
-* ## Fitting models in Stata
+* ## Fitting models
 *
 * ### Today's Dataset
 *
@@ -53,7 +53,7 @@
 * * Dependent variable: csat
 * * Independent variable: expense
 *
-* ### Opening Files in Stata
+* ### Opening Files
 *
 * * Look at bottom left hand corner of Stata screen
 *     + This is the directory Stata is currently reading from
@@ -108,7 +108,7 @@
 
 * ## Simple regression
 *
-* ### Steps for Running Regression
+* ### Steps for running regression
 *
 * 1.  Examine descriptive statistics
 * 2.  Look at relationship graphically and test correlation(s)
@@ -219,14 +219,13 @@
 * ------------------------------------------------------------------------------
 * ```
 *
-* ### OLS Assumptions
+* ### OLS assumptions
 *
 * * Assumption 1: Specification is appropriate (i.e., no relevant omitted variables)
 * * Assumption 2: Homoscedasticity (The variance around the regression model is the same for all values of the predictor variable)
 * * Assumption 3: Errors are independent
 * * Assumption 4: Relationships are linear
-* * Assumption 5: Normal Distribution (only needed for inference)
-*    + The errors of regression equation are normally distributed
+* * Assumption 5: Normal Distribution of errors (only needed for inference)
 *
 * #### Specification
 *
@@ -318,7 +317,7 @@
 * ------------------------------------------------------------------------------
 * ```
 *
-* ## Exercise 0
+* ### Exercise 0
 *
 * **Multiple Regression**
 *
@@ -470,7 +469,7 @@
 * ------------------------------------------------------------------------------
 * ```
 *
-* ## Exercise 1
+* ### Exercise 1
 *
 * **Regression, Categorical Predictors, & Interactions**
 *
@@ -730,7 +729,7 @@
 
 * ![](Stata/StataModGraph/images/bargraph.png)
 *
-* ## Exercise 2
+* ### Exercise 2
 *
 * **Histograms Bar Graphs**
 *
@@ -839,7 +838,7 @@
       xlabel(0(200)2400) note(Source: National Neighborhood ///
                               Crime Study 2000) legend(off)
 
-* ## Exercise 3
+* ### Exercise 3
 *
 * **The TwoWay Family**
 *
@@ -886,13 +885,17 @@
 * ## Exercise Solutions
 *
 * ### Ex 0: prototype
-*
+**
+
 * ### Ex 1: prototype
-*
+**
+
 * ### Ex 2: prototype
-*
+**
+
 * ### Ex 3: prototype
-*
+**
+
 
 * ## Wrap-up
 *

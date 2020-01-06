@@ -39,7 +39,7 @@
 *     + Variable types and conversion
 *     + Merging and appending datasets
 
-* ## Opening Files in Stata
+* ## Opening Files
 *
 * * Look at bottom left hand corner of Stata screen
 *     + This is the directory Stata is currently reading from
@@ -271,7 +271,7 @@
 *
 * You will need to refer to the documentation to discover what else `egen` can do: type "help egen" in Stata to get a complete list of functions.
 
-* ## Exercise 0
+* ### Exercise 0
 *
 * **Generate, Replace, Recode & Egen**
 *
@@ -534,7 +534,7 @@
 *      +------------------+
 * ```
 *
-* ## Exercise 1
+* ### Exercise 1
 *
 * **Missing Values, String Conversion, & by Processing**
 *
@@ -857,7 +857,7 @@
 *
 * You could also generate different statistics for multiple variables
 *
-* ## Exercise 2
+* ### Exercise 2
 *
 * **Merge, Append, & Collapse**
 *
