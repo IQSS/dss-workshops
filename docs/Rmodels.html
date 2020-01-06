@@ -1107,7 +1107,6 @@ argument relates the predictors to the expected value of the outcome.</p>
 <div id="logistic-regression-coefficients" class="section level3">
 <h3>Logistic regression coefficients</h3>
 <p>Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the <code>age</code> coefficient of .06 in the previous model tells us that for every one unit increase in <code>age</code>, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!</p>
-<p>IMAGE HERE FOR SCALES</p>
 <p>One solution is to transform the coefficients to make them easier to interpret. Here we transform into odds ratios:</p>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="Rmodels.html#cb170-1"></a>  hyp_out_tab &lt;-<span class="st"> </span><span class="kw">summary</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span>
 <span id="cb170-2"><a href="Rmodels.html#cb170-2"></a>  hyp_out_tab[, <span class="st">&quot;Estimate&quot;</span>] &lt;-<span class="st"> </span><span class="kw">coef</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span>
