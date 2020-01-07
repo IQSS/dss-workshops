@@ -1,3 +1,4 @@
+
 # knitr::opts_knit$set(base.dir = "/Users/nunnlab/Desktop/GitHub/rgriff23.github.io/")
 
 # # R Introduction
@@ -734,6 +735,13 @@ sqrt(10)
 # 2.  Read the baby names data using the `read_csv()` function and assign the result with the name `baby_names`.
 
 baby_names <- read_csv("babyNames.csv")
+
+# 3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` and as an R data set `babynames.rds`.
+
+write_dta(baby_names, file = “babynames.dta”)
+ 
+write_rds(baby_names, file = “babynames.rds”)
+
 
 # ### Ex 2.1: prototype
 #
