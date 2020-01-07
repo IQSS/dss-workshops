@@ -230,7 +230,7 @@ myfun2 <- function(x, y) {
   return(z)
 }
 
-myfun(x=1:10, y=42)
+myfun2(x=1:10, y=42)
 
 get_data_sheet_name <- function(file, term){
   excel_sheets(file) %>% str_subset(pattern = term)
