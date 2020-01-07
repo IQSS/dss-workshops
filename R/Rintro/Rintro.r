@@ -558,6 +558,12 @@ baby_names %>%
 #
 # ![](R/Rintro/images/mutate_group_by.png)
 #
+# Note that the `group_by()` function converts a **data frame** into a
+# **grouped data frame** --- that is, a data frame with metadata identifying
+# the groups. The data remain grouped until you change the groups by
+# running `group_by()` again or remove the grouping metadata using
+# `ungroup()`.
+#
 # Here's the code that implements the calculation:
 
 baby_names <- 
@@ -568,11 +574,6 @@ baby_names <-
 
 head(baby_names)
 
-# Note that the `group_by()` function converts a **data frame** into a
-# **grouped data frame** --- that is, a data frame with metadata identifying
-# the groups. The data remain grouped until you change the groups by
-# running `group_by()` again or remove the grouping metadata using
-# `ungroup()`.
 
 # ### Exercise 4
 #
