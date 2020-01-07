@@ -208,8 +208,8 @@ dat
 na.omit(dat) # listwise deletion of observations
 
 # also see
-?complete.cases
-dat[with(dat, complete.cases(expense, house, senate)), ]
+# ?complete.cases
+dat[with(dat, complete.cases(x, y, z)), ]
 
 
   sat_mod <- update(sat_mod, data=na.omit(states_data))
