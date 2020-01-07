@@ -364,7 +364,7 @@ head(baby_names_subset, n = 6) # default is n = 6
 #  | `<=`      | less than or equal to     | 
 #  | `%in%`    | contained in              | 
 #
-# These operators may be combined with `&` (and) or `|` (or).
+# These operators may be combined with `&` (and) or `|` (or). For example:
 
 x <- 1:10 # a vector
 x
@@ -446,9 +446,8 @@ baby_names %>%
   filter(Year == 1992 & (Name == "Alex" | Name == "Mark")) %>%
   arrange(desc(Count))
 
-# Hint: try pronouncing "then" whenever you see `%>%`.
-
-# pseudocode
+# Hint: try pronouncing "then" whenever you see `%>%`. Using pseudocode,
+# we can see what the pipe is doing:
 
 # unpiped version
 filter(dataset, condition)
@@ -538,23 +537,17 @@ qplot(x = Year, y = Count, color = Sex,
 #
 # The `mutate()` function makes it easy to add or modify the columns 
 # of a `data.frame`. For example, we can use it to rescale the count
-#  of each name in each year:
+# of each name in each year:
 
 baby_names <- mutate(baby_names, Count_1k = Count/1000)
 head(baby_names) 
 
-# If we like, we can also `select()` a subset of columns from the baby names data:
-
-baby_names %>% 
-  select(Name, Sex, Year, Count_1k) %>%
-  head()
-
 # ### Operating by group
 #
-# Because of the nested nature of our data, we want to compute rank 
-# or proportion **within** each `Sex` by `Year` group. The `dplyr` 
-# package makes this relatively straightforward. Here's the logic
-# behind this process:
+# Because of the nested nature of our data, we want to compute proportion 
+# or rank **within** each `Sex` by `Year` group. The `dplyr` 
+# package has a `group_by()` function that makes this relatively 
+# straightforward. Here's the logic behind this process:
 #
 # ![](R/Rintro/images/mutate_group_by.png)
 #
@@ -595,12 +588,12 @@ head(baby_names)
 #     `Sex`, and `Proportion`.
 ##
 
-# 4. Plot the data produced in step 3, putting `Year` on the x-axis
+# 4.  Plot the data produced in step 3, putting `Year` on the x-axis
 #     and `Proportion` on the y-axis. How has the proportion of babies
 #     given the most popular name changed over time?
 ##
 
-# 5. BONUS (optional): Which names are the most popular for both boys and girls?
+# 5.  BONUS (optional): Which names are the most popular for both boys and girls?
 ##
 
 

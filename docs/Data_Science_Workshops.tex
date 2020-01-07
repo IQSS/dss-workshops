@@ -2120,7 +2120,7 @@ Operator & Meaning\tabularnewline
 \bottomrule
 \end{longtable}
 
-These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (or).
+These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (or). For example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2306,12 +2306,11 @@ rewrite the sequence of commands to output ordered counts for names
 ## 4 Mark  Girls    20  1992    0.02  10666
 \end{verbatim}
 
-Hint: try pronouncing ``then'' whenever you see \texttt{\%\textgreater{}\%}.
+Hint: try pronouncing ``then'' whenever you see \texttt{\%\textgreater{}\%}. Using pseudocode,
+we can see what the pipe is doing:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# pseudocode}
-
 \CommentTok{# unpiped version}
 \KeywordTok{filter}\NormalTok{(dataset, condition)}
 
@@ -2501,35 +2500,13 @@ of each name in each year:
 ## 6 Lisa  Girls 33702  1960     33.7  7326
 \end{verbatim}
 
-If we like, we can also \texttt{select()} a subset of columns from the baby names data:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(Name, Sex, Year, Count_1k) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 6 x 4
-##   Name  Sex    Year Count_1k
-##   <chr> <chr> <dbl>    <dbl>
-## 1 Mary  Girls  1960     51.5
-## 2 Susan Girls  1960     39.2
-## 3 Linda Girls  1960     37.3
-## 4 Karen Girls  1960     36.4
-## 5 Donna Girls  1960     34.1
-## 6 Lisa  Girls  1960     33.7
-\end{verbatim}
-
 \hypertarget{operating-by-group}{%
 \subsection{Operating by group}\label{operating-by-group}}
 
-Because of the nested nature of our data, we want to compute rank
-or proportion \textbf{within} each \texttt{Sex} by \texttt{Year} group. The \texttt{dplyr}
-package makes this relatively straightforward. Here's the logic
-behind this process:
+Because of the nested nature of our data, we want to compute proportion
+or rank \textbf{within} each \texttt{Sex} by \texttt{Year} group. The \texttt{dplyr}
+package has a \texttt{group\_by()} function that makes this relatively
+straightforward. Here's the logic behind this process:
 
 \includegraphics{R/Rintro/images/mutate_group_by.png}
 
@@ -3090,7 +3067,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-67-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-66-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3106,7 +3083,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-68-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-67-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3122,7 +3099,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-69-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-68-1.pdf}
 
 \hypertarget{ex-4-prototype}{%
 \subsection{Ex 4: prototype}\label{ex-4-prototype}}
@@ -3239,7 +3216,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-73-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-72-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3344,7 +3321,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-77-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-76-1.pdf}
 
 \hypertarget{wrap-up-1}{%
 \section{Wrap-up}\label{wrap-up-1}}
