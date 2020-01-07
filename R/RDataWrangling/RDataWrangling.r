@@ -1,3 +1,4 @@
+#
 # **Topics**
 #
 # * Loading Excel worksheets
@@ -448,11 +449,13 @@ boysNames[[1]]
 # table instead of in two side-by-side tables. For many similar tasks
 # the `gather()` function in the `tidyr` package is useful, but in this
 # case we will be better off using a combination of `select()` and
-# `bind_rows()`.
+# `bind_rows()`. Here's the logic behind this step:
 #
 # <center>
 # ![](R/RDataWrangling/images/wide_vs_long.png)
 # </center>
+#
+# Here’s the code that implements the transformation:
 
 boysNames[[1]]
 

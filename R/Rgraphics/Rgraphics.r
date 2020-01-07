@@ -148,9 +148,7 @@ library(ggrepel)
 # | `geom_smooth()`  | Conditional means |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
 # | `geom_label()`   | Text              |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
 #
-# You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>
-#
-# or simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
+# You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>. Or, simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
 
 # #### Points (scatterplot)
 #
@@ -560,10 +558,12 @@ ggplot(housing_byyear, aes(x=Date)) +
 # **Right**
 #
 # To avoid these pitfalls, we need to **map** our data to the color aesthetic. 
-# We can do this by **reshaping** our data from **wide format** to **long format**:
+# We can do this by **reshaping** our data from **wide format** to **long format**. 
+# Here is the logic behind this process:
 #
 # ![](R/Rgraphics/images/wide_vs_long.png)
 #
+# Here's the code that implements this transformation:
 
 home_land_byyear <- gather(housing_byyear,
                            value = "value",
