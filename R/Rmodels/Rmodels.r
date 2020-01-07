@@ -167,6 +167,7 @@ outcome ~ pred1 + pred2 + pred3
 # | `coef()`      | `lme4`         | empirical Bayes estimates (mixed models only)           |
 # | `allEffects()`| `effects`      | predicted marginal means                                |
 # | `emmeans()`   | `emmeans`      | predicted marginal means & marginal effects             |
+# | `margins()`   | `margins`      | predicted marginal means & marginal effects             |
 
 # ### OLS regression assumptions
 #
@@ -231,7 +232,9 @@ dat[with(dat, complete.cases(expense, house, senate)), ]
 # 3.  `plot()` the model to look for deviations from modeling assumptions
 ## 
 
-# Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
+# 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
+## 
+
 
 # ## Interactions & factors
 #
@@ -496,25 +499,25 @@ data(bh1996, package="multilevel")
 
   states <- read_rds("dataSets/states.rds")
 
-# Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to
+# Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to:
 #
-# 1.  Examine/plot the data before fitting the model
+# 1.  Examine/plot the data before fitting the model.
 
   states_en_met <- subset(states, select = c("metro", "energy"))
   summary(states_en_met)
   plot(states_en_met)
   cor(states_en_met, use="pairwise")
 
-# 2.  Print and interpret the model `summary()`
+# 2.  Print and interpret the model `summary()`.
 
   mod_en_met <- lm(energy ~ metro, data = states)
   summary(mod_en_met)
 
-# 3.  `plot()` the model to look for deviations from modeling assumptions
+# 3.  `plot()` the model to look for deviations from modeling assumptions.
 
   plot(mod_en_met)
 
-# Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
+# 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
 
   states_en_met_pop_wst <- subset(states, select = c("energy", "metro", "pop", "waste"))
   summary(states_en_met_pop_wst)
@@ -553,7 +556,7 @@ data(bh1996, package="multilevel")
 
   summary(mod_wk_age_mar)
 
-# 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`
+# 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`.
 
   eff <- allEffects(mod_wk_age_mar)
   as.data.frame(eff[["r_maritl"]])
@@ -568,7 +571,7 @@ data(bh1996, package="multilevel")
 #
 # > Variables are Leadership Climate (`LEAD`), Well-Being (`WBEING`), and Work Hours (`HRS`). The group identifier is named `GRP`.
 #
-# 1.  Create a null model predicting wellbeing (`WBEING`)
+# 1.  Create a null model predicting wellbeing (`WBEING`).
 
   mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
   summary(mod_grp0)
@@ -582,6 +585,7 @@ data(bh1996, package="multilevel")
 
   mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = bh1996)
   anova(mod_grp1, mod_grp2)
+
 
 # ## Wrap-up
 #

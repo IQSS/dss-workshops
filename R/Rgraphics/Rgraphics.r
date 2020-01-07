@@ -51,7 +51,11 @@ library(scales)
 # install.packages("ggrepel") 
 library(ggrepel)
 
-# ### Workshop Outline
+# ### Goals
+#
+# We will learn about the `grammar of graphics` --- a system for understanding
+# the building blocks of a graph --- using the `ggplot2` package. In particular,
+# we'll learn about:  
 #
 # 1.  Basic plots, **aesthetic mapping and inheritance**
 # 2.  Tailoring **statistical transformations** to particular plots
@@ -89,6 +93,11 @@ library(ggrepel)
 # * position adjustments
 # * faceting
 # * themes
+#
+# By the end of this workshop, you should understand what these building blocks do and
+# how to use them to create the following plot:
+#
+# ![](R/Rgraphics/images/final_plot.png)
 
 # ### `ggplot2` VS base graphics
 #
@@ -98,6 +107,7 @@ library(ggrepel)
 # * is less verbose for complex / custom graphics
 # * does not have methods (data should always be in a `data.frame`)
 # * has sensible defaults for generating legends
+#
 
 # ## Geometric objects & aesthetics
 #
@@ -609,12 +619,12 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region))
 
-# 4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2
+# 4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(aes(color = Region), size = 2)
 
-# 5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`
+# 5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
 geom_point(aes(color = Region, size =  HDI_Rank))
@@ -627,7 +637,7 @@ geom_point(aes(color = Region, size =  HDI_Rank))
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point()
 
-# 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`
+# 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
@@ -703,8 +713,19 @@ p6 <- p6 + scale_color_brewer(palette = "Set1")
 # 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: see `?theme` and especially `axis.text` and `strip.background`.
 
 p6 <- p6 + theme_bw() +
-    theme(axis.title = element_text(color = "blue"),
-          strip.background = element_rect(fill = "blue"))
+    theme(axis.title = element_text(color = "blue", face = "bold"),
+          strip.background = element_rect(fill = "yellow"))
+
+# Here's the complete code for the Exercise 3 plot:
+
+p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) +
+    geom_point(aes(color=state, size=log(popdensity)), alpha = 0.3) +
+    geom_smooth(method="loess", se=FALSE) +
+    facet_wrap(~ state, scales = "free_x") +
+    scale_color_brewer(palette = "Set1") +
+    theme_bw() +
+    theme(axis.title = element_text(color = "blue", face = "bold"),
+         strip.background = element_rect(fill = "yellow"))
 
 
 # ## Wrap-up

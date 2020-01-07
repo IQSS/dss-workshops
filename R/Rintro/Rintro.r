@@ -272,10 +272,10 @@ library(rmarkdown)
 #
 # Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`. 
 #
-# 1. Open the `read_csv` help page to determine how to use it to read in data.
+# 1. Open the `read_csv()` help page to determine how to use it to read in data.
 ##
 
-# 2. Read the baby names data using the `read_csv` function and assign the result 
+# 2. Read the baby names data using the `read_csv()` function and assign the result 
 # with the name `baby_names`.
 ##
 
@@ -712,17 +712,18 @@ ls() # list objects
 # ## Exercise solutions
 #
 # ### Ex 0: prototype
-
+#
 # 1. 2 plus 2
+
 2 + 2
 # or
 sum(2, 2)
 
-# 2. square root of 10:
+# 2. square root of 10
+
 sqrt(10)
 # or
 10^(1/2)
-
 
 # 3. Find "An Introduction to R".
 
@@ -731,24 +732,26 @@ sqrt(10)
 
 
 # ### Ex 1: prototype
+#
+# 1.  Open the `read_csv()` help page to determine how to use it to read in data.
 
-# read ?read_csv
+?read_csv
+
+# 2.  Read the baby names data using the `read_csv()` function and assign the result with the name `baby_names`.
 
 baby_names <- read_csv("babyNames.csv")
 
 # ### Ex 2.1: prototype
-
+#
 # 1.  Use `filter` to extract data for your name (or another name of your choice).
 
 baby_names_george <- filter(baby_names, Name == "George")
 
-# 2.  Arrange the data you produced in step 1 above by `Count`. 
-#     In which year was the name most popular?
+# 2.  Arrange the data you produced in step 1 above by `Count`. In which year was the name most popular?
 
 arrange(baby_names_george, desc(Count))
 
-# 3.  BONUS (optional): Filter the data to extract _only_ the 
-#     row containing the most popular boys name in 1999.
+# 3.  BONUS (optional): Filter the data to extract _only_ the row containing the most popular boys name in 1999.
 
 baby_names_boys_1999 <- filter(baby_names, 
                     Year == 1999 & Sex == "Boys")
@@ -756,6 +759,8 @@ baby_names_boys_1999 <- filter(baby_names,
 filter(baby_names_boys_1999, Count == max(Count))
 
 # ### Ex 2.2: prototype
+#
+# Rewrite the solution to Exercise 2.1 using pipes.
 
 baby_names %>% 
   filter(Name == "George") %>%
@@ -763,13 +768,12 @@ baby_names %>%
 
 
 # ### Ex 3: prototype
-
-# 1. Use `filter()` to extract data for your name (same as previous exercise)  
+#
+# 1. Use `filter()` to extract data for your name (same as previous exercise).  
 
 baby_names_george <- filter(baby_names, Name == "George")
 
-# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
-#     and `Count` on the y-axis.
+# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis and `Count` on the y-axis.
 
 qplot(x = Year, y = Count, data = baby_names_george)
 
@@ -783,9 +787,8 @@ qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
 
 
 # ### Ex 4: prototype
-
-# 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
-#     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
+#
+# 1.  Use `mutate()` and `group_by()` to create a column named `Proportion` where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 
 baby_names <- 
   baby_names %>%
@@ -795,8 +798,7 @@ baby_names <-
 
 head(baby_names) 
 
-# 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
-#     `Rank = rank(desc(Count))` for each `Year X Sex` group.
+# 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where `Rank = rank(desc(Count))` for each `Year X Sex` group.
 
 baby_names <- 
   baby_names %>%
@@ -806,8 +808,7 @@ baby_names <-
 
 head(baby_names)
 
-# 3.  Filter the baby names data to display only the most popular name 
-#     for each `Year X Sex` group.
+# 3.  Filter the baby names data to display only the most popular name for each `Year X Sex` group.
 
 top1 <- 
   baby_names %>%
@@ -816,9 +817,7 @@ top1 <-
 
 head(top1)
 
-# 4. Plot the data produced in step 3, putting `Year` on the x-axis
-#    and `Proportion` on the y-axis. How has the proportion of babies
-#    given the most popular name changed over time?
+# 4.  Plot the data produced in step 3, putting `Year` on the x-axis and `Proportion` on the y-axis. How has the proportion of babies given the most popular name changed over time?
 
 qplot(x = Year, 
       y = Proportion, 
@@ -826,8 +825,7 @@ qplot(x = Year,
       data = top1, 
       geom = "line")
 
-# 5. BONUS (optional): Which names are the most popular for both boys 
-#    and girls?
+# 5.  BONUS (optional): Which names are the most popular for both boys and girls?
 
 girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"), 
                              filter(baby_names, Sex == "Girls"),
@@ -841,9 +839,8 @@ filter(girls_and_boys, Rank == 1)
 
 
 # ### Ex 5: prototype
-
-# 1.  Filter the baby_names data, retaining only the 10 most 
-#     popular girl and boy names for each year.
+#
+# 1.  Filter the baby_names data, retaining only the 10 most popular girl and boy names for each year.
 
 most_popular <- 
   baby_names %>% 
@@ -852,16 +849,13 @@ most_popular <-
 
 head(most_popular, n = 10)
 
-# 2.  Summarize the data produced in step one to calculate the total
-#     Proportion of boys and girls given one of the top 10 names
-#     each year.
+# 2.  Summarize the data produced in step one to calculate the total Proportion of boys and girls given one of the top 10 names each year.
 
 top10 <- 
   most_popular %>% # it is already grouped by Year and Sex
   summarize(TotalProportion = sum(Proportion))
 
-# 3.  Plot the data produced in step 2, with year on the x-axis
-#     and total proportion on the y axis. Color by `Sex`.
+# 3.  Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by `Sex`.
 
 qplot(x = Year, 
       y = TotalProportion, 

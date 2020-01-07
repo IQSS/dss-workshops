@@ -534,7 +534,7 @@ boysNames[1]
 
 # ### Exercise 4
 #
-# **Make one big data.frame**
+# **Make one big `data.frame`**
 #
 # 1.  Turn the list of boys names data frames into a single data frame. HINT: see `?bind_rows`.
 ## 
@@ -579,10 +579,9 @@ boysNames[1]
 # different input formats.
 
 # ### Ex 1: prototype
+#
+# 1.  Write a function that takes a file name as an argument and reads the worksheet containing "Table 1" from that file.
 
-  ## 1. Write a function that takes a file name as an argument and reads
-  ##    the worksheet containing "Table 1" from that file.
- 
 read_boys_names <- function(file, sheet_name) {
   read_excel(
     path = file,
@@ -590,51 +589,38 @@ read_boys_names <- function(file, sheet_name) {
     skip = 6
   )
 }
-  
-  ## 2. Test your function by using it to read *one* of the boys names
-  ##    Excel files.
+
+# 2.  Test your function by using it to read *one* of the boys names Excel files.
 
 read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
 
-
-  ## 3. Use the `map` function to read data from all the Excel files,
-  ##    using the function you wrote in step 1.
+# 3.  Use the `map()` function to read data from all the Excel files, using the function you wrote in step 1.
 
 boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 
 # ### Ex 2: prototype
-
-  ## 1. Write a function that takes a data frame as an argument and
-  ##   returns a modified version, which keeps only columns that
-  ##   include the strings `Name` and `Count` in the column names.
-  ##   HINT: see the `?matches` function.
+#
+# 1.  Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
 
   namecount <- function(data) {
       select(data, matches("Name|Count"))
   }
-     
-  ## 2. Test your function on the first data frame in the list of boys
-  ##    names data.
+
+# 2.  Test your function on the first data frame in the list of boys names data.
 
   namecount(boysNames[[1]])
-  
-  ## 3. Use the `map` function to each data frame in the list of boys
-  ##    names data.
+
+# 3.  Use the `map()` function to each data frame in the list of boys names data.
 
   boysNames <- map(boysNames, namecount)
 
 # ### Ex 3: prototype
 #
-# There are different ways you can go about it. Here is one:
+# 1.  Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
 #
-
-## 1.  Your task now is to use the `map()` function to apply each of these
-##     transformations to all the elements in `boysNames`. 
-
-## NOTE: some Excel files include extra blank columns between the first and second 
-## set of `Name` and `Count` columns, resulting in different numeric suffixes
-## for the second set of columns. You will need to use a regular expression
-## to match each of these different column names. HINT: see the `?matches` function.
+# NOTE: some Excel files include extra blank columns between the first and second set of `Name` and `Count` columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression to match each of these different column names. HINT: see the `?matches` function.
+#
+# There are different ways you can go about it. Here is one:
 
 cleanupNamesData <- function(file){
 
@@ -653,7 +639,6 @@ cleanupNamesData <- function(file){
   bind_rows(first_columns, second_columns)
 }
 
-
 ## test it out on the second data frame in the list
 boysNames[[2]] %>% glimpse() # before cleanup
 boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
@@ -663,31 +648,25 @@ boysNames <- map(boysNames, cleanupNamesData)
 
 # ### Ex 4: prototype
 #
-# Working with the data in one big data frame is often easier.
-
-## 1.  Turn the list of boys names data frames into a single data frame.
+# 1.  Turn the list of boys names data frames into a single data frame.
 
 boysNames <- bind_rows(boysNames)
 glimpse(boysNames)
 
-
-## 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. 
-##     HINT: see the `?dir.create` and `?write_csv` functions.
+# 2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. HINT: see the `?dir.create` and `?write_csv` functions.
 
 dir.create("dataSets/all")
 
 write_csv(boysNames, "dataSets/all/boys_names.csv")
 
-
-## 3.  What were the five most popular names in 2013?   
+# 3.  What were the five most popular names in 2013?   
 
 boysNames %>% 
   filter(Year == 2013) %>%
   arrange(desc(Count)) %>%
   head()
 
-
-## How has the popularity of the name "ANDREW" changed over time?
+# 4.  How has the popularity of the name "ANDREW" changed over time?
 
 andrew <- filter(boysNames, Name == "ANDREW")
 
