@@ -1,0 +1,842 @@
+
+# R Introduction
+
+**Topics**
+
+* Functions
+* Assignment
+* Finding help
+* Importing packages
+* Basic data manipulation
+* Operations within groups of data
+* Saving data
+
+
+## Setup
+
+### Class Structure
+
+* Informal --- Ask questions at any time. Really!
+* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
+### Prerequisites
+
+* None --- assumes no prior knowledge of R
+* Relatively slow-paced
+
+### Goals
+
+We will learn about the R language by analyzing a dataset of baby names. 
+In particular, our goals are to learn about:
+
+1.  How we can interact with R
+2.  Foundations of the language (functions, assignment)
+3.  The `tidyverse` package ecosystem for data science
+4.  Basic data manipulation useful for cleaning datasets
+5.  Working with grouped data
+6.  Aggregating data to create summaries
+7.  Saving objects, data, and scripts
+
+This workshop will not cover how to iterate over collections of data, create 
+your own functions, produce publication quality graphics, or fit models to data. 
+These topics are covered in our [R Data Wrangling](./RDataWrangling.html), 
+[R Graphics](./Rgraphics.html), and [R Regression Models](./Rmodels.html) workshops.
+
+
+## R basics
+
+**GOAL: To learn about the foundations of the R language.** 
+
+1.  R interfaces
+2.  Functions
+3.  Assignment
+4.  Getting help
+5.  `tidyverse` package ecosystem for data science
+
+
+### What is R?
+
+R is a free language and environment for statistical computing and graphics. 
+R has existed for over 25 years and is now the most popular software for
+data analysis. It has an extensive ecosystem of about 15,000 add on packages
+covering all aspects of statistics and machine learning. 
+
+
+### Interfaces
+
+#### Text editors, IDEs, & Notebooks
+
+There are different ways of interacting with R. The two main ways are through:
+
+1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. For these workshops we will use [RStudio](https://rstudio.com/); it is a good R-specific IDE with many useful features. Here are a few popular editors/IDEs that can be used with R:
+
+| Editor / IDE | Features  | Ease of use | Language support |
+|:------------ |:--------- |:----------- |:---------------- |
+| RStudio      | Excellent | Easy        | R only           |
+| Jupyter Lab  | Good      | Easy        | Excellent        |
+| VS code      | Excellent | Easy        | Very good        |
+| Atom         | Good      | Moderate    | Good             |
+| Vim          | Excellent | Hard        | Good             |
+| Emacs        | Excellent | Hard        | Excellent        |
+
+2. **Notebooks:** Web-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. A popular notebook is the open source [Jupyter Notebook](https://jupyter.org/) that has support for 40+ languages. 
+
+#### Source code & literate programming
+
+There are also several different **formats** available for writing code in R. 
+These basically boil down to a choice between:
+
+1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a `.R` or `.r` extension. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
+
+2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embeddeding R code in a document that is authored using *Markdown* and which has a `.Rmd` extension. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
+
+Here are some resources for learning more about Rmarkdown and RStudio: 
+
+* <https://rmarkdown.rstudio.com/authoring_quick_tour.html>
+* <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
+*  <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
+
+
+### Launch a session
+
+Start RStudio and create a new project:
+
+* On Windows click the start button and search for RStudio. On Mac
+    RStudio will be in your applications folder.
+* In Rstudio go to `File -> New Project`.
+* Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
+* Choose `File -> Open File` and select the file with the word "BLANK" in the name.
+
+
+### Exercise 0
+
+The purpose of this exercise is to give you an opportunity to explore
+the interface provided by RStudio. You may not know how to do these things; 
+that's fine! This is an opportunity to figure it out.
+
+Also keep in mind that we are living in a golden age of tab completion.
+If you don't know the name of an R function, try guessing the first two
+or three letters and pressing TAB. If you guessed correctly the function
+you are looking for should appear in a pop up!
+
+-------------------------------------------
+
+1.  Try to get R to add 2 plus 2.
+```{r}
+##
+```
+2.  Try to calculate the square root of 10.
+```{r}
+##
+```
+3.  R includes extensive documentation, including a manual named "An
+    introduction to R". Use the RStudio help pane. to locate this manual.
+
+
+### Syntax rules
+
+* R is case sensitive
+* R ignores white space
+* Object names should start with a letter
+
+
+### Function calls
+
+The general form for calling R functions is
+
+```{r}
+## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
+```
+
+Arguments can be **matched by name**; unnamed arguments will be **matched by position**.
+
+```{r}
+#
+```
+
+### Assignment
+
+Values can be assigned names and used in subsequent operations
+
+* The **gets** `<-` operator (less than followed by a dash) is used to save values
+* The name on the left **gets** the value on the right.
+
+```{r}
+## calculate square root of 10; result is not stored anywhere
+# assign result to a variable named x
+```
+
+Names should start with a letter, and contain only letters, numbers, underscores, and periods.
+
+
+### Asking for help
+
+1.  You can ask R for help using the `help` function, or the `?` shortcut.
+
+    ```{r, eval=FALSE}
+##
+    ```
+
+    The `help` function can be used to look up the documentation for a function, or
+    to look up the documentation to a package. We can learn how to use the `stats`
+    package by reading its documentation like this:
+
+    ```{r, eval=FALSE}
+##
+    ```
+
+2.  If you know the name of the package you want to use, then Googling "R *package-name*" will
+often get you to the documentation. Packages are hosted on several different repositories, including:
+
+* CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
+* Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
+* Github: <http://rpkg.gepuro.net/>
+* R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
+
+3.  If you know the type of analysis you want to perform, you can Google "CRAN Task Views", 
+where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
+know which packages are popular, you can look at <https://r-pkg.org>.
+
+
+### Reading data
+
+R has data reading functionality built-in -- see e.g.,
+`help(read.table)`. However, faster and more robust tools are
+available, and so to make things easier on ourselves we will use a
+*contributed package* instead. This requires that we
+learn a little bit about packages in R.
+
+
+### Installing & using packages
+
+R is a modular environment that is extended by the use of **packages**.
+Packages are collections of functions or commands that are designed to
+perform specific tasks (e.g., fit a type of regression model). A large 
+number of contributed packages are available (> 15,000). 
+
+Using an R package is a **two step process**:
+
+1.  Install the package onto your computer using the
+ `install.packages()` function. This only needs to
+ be done the **first time** you use the package.
+
+2.  Load the package into your R session's search path 
+ using the `library()` function. This needs to be done
+ **each time** you use the package.
+
+
+### The `tidyverse`
+
+While R's built-in packages are powerful, in recent years there has
+been a big surge in well-designed *contributed packages* for R. In 
+particular, a collection of R packages called 
+[`tidyverse`](https://www.tidyverse.org/) have been 
+designed specifically for data science. All packages included in 
+`tidyverse` share an underlying design philosophy, grammar, and 
+data structures. This philosopy is rooted in the idea of "tidy data":
+
+![](images/tidy_data.png)
+
+A typical workflow for using `tidyverse` packages looks like this:
+
+![](images/tidy_workflow.png)
+
+You should have already installed the `tidyverse` and `rmarkdown`
+packages onto your computer before the workshop 
+--- see [R Installation](./Rinstall.html). 
+Now let's load these packages into the search path of our R session.
+
+```{r}
+library(tidyverse)
+library(rmarkdown)
+```
+
+### Readers for common file types
+
+To read data from a file, you have to know what kind of file
+it is. The table below lists functions from the `readr` package, which
+is part of `tidyverse`, that can import data from common plain-text formats.
+
+| Data Type                 | Function        |
+|:--------------------------|:----------------|
+| comma separated           | `read_csv()`    |
+| tab separated             | `read_delim()`  |
+| other delimited formats   | `read_table()`  |
+| fixed width               | `read_fwf()`    |
+
+**Note** You may be confused by the existence of similar functions,
+e.g., `read.csv` and `read.delim`. These are legacy functions that
+tend to be slower and less robust than the `readr` functions. One way
+to tell them apart is that the faster more robust versions use
+underscores in their names (e.g., `read_csv`) while the older
+functions use dots (e.g., `read.csv`). My advice is to use the more
+robust newer versions, i.e., the ones with underscores.
+
+### Baby names data
+
+As an example project we will analyze the popularity of baby names in the US from 1960 through 2017. The data were retrieved from
+https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data.
+
+Here are the questions we will use R to answer:
+
+1. In which year did your name (or another name) occur most frequently by **count**?
+2. Which names have the highest popularity by **proportion** for each sex and year?
+3. How does the percentage of babies given one of the top 10 names of the year change over time?
+
+
+### Exercise 1
+
+**Reading the baby names data** 
+
+Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`. 
+
+1. Open the `read_csv()` help page to determine how to use it to read in data.
+```{r}
+##
+```
+
+2. Read the baby names data using the `read_csv()` function and assign the result 
+with the name `baby_names`.
+```{r}
+##
+```
+
+3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
+and as an R data set `babynames.rds`.
+```{r}
+##
+```
+
+
+## Manipulating data 
+
+**GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+
+1.  Filtering data by choosing rows
+2.  Selecting data by choosing columns
+3.  Arranging data by reordering rows
+4.  Using the pipe `%>%` operator to simplify sequential operations
+
+
+In this section we will pull out specific names from the baby names data and examine changes in 
+their popularity over time. 
+
+The `baby_names` object we created in the last exercise is a `data.frame`.
+There are many other data structures in R, but for now we'll focus on 
+working with `data.frames`. Think of a `data.frame` as a spreadsheet.
+
+R has decent data manipulation tools built-in -- see e.g.,
+`help(Extract)`. But, `tidyverse` packages often provide
+more intuitive syntax for accomplishing the same task. In
+particular, we will use the `dplyr` package from `tidyverse`
+to filter, select, and arrange data, as well as create new variables.
+
+![](images/dplyr.png)
+
+
+### Filter, select, & arrange
+
+One way to find the year in which your name was the most popular
+is to filter out just the rows corresponding to your name, and 
+then arrange (sort) by Count. 
+
+To demonstrate these techniques we'll try to determine whether 
+"Alex"" or "Mark" was more popular in 1992. We start by filtering the
+data so that we keep only rows where Year is equal to `1992` and Name is
+either "Alex" or "Mark".
+
+```{r}
+## Read in the baby names data if you haven't already
+##
+```
+
+```{r}
+##
+
+# explicit printing             
+# implicit printing
+```
+
+Notice that we can combine conditions using `&` (AND) 
+and `|` (OR). 
+
+In this case it's pretty easy to see that "Mark" is more popular, 
+but to make it even easier we can arrange the data so that the 
+most popular name is listed first.
+
+```{r}
+##
+```
+
+```{r}
+##
+```
+
+We can also use the `select()` function to subset the `data.frame`
+by columns. We can then assign the output to a new object. If we 
+would just like to glance at the first few lines we can use the
+ `head()` function:
+
+```{r}
+#
+
+
+# default is n = 6
+```
+
+### Logical operators
+
+In the previous example we used `==` to filter rows. Other relational
+and logical operators are listed below.
+
+ | Operator  | Meaning                   | 
+ |:----------|:--------------------------| 
+ | `==`      | equal to                  | 
+ | `!=`      | not equal to              | 
+ | `>`       | greater than              | 
+ | `>=`      | greater than or equal to  | 
+ | `<`       | less than                 | 
+ | `<=`      | less than or equal to     | 
+ | `%in%`    | contained in              | 
+
+These operators may be combined with `&` (and) or `|` (or). For example:
+
+```{r}
+# a vector
+
+
+# a simple condition
+# two conditions combined
+
+# x %in% vector
+# elements of x matched in vector
+
+```
+
+### Control flow
+
+We won't be covering examples of control flow in this workshop, but we will briefly introduce this important concept here. 
+For more details see: <https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>. Our [R Data Wrangling](./RDataWrangling.html) workshop also covers some of these topics.
+
+There are two major tools for controlling the flow of code in a script: 
+
+1.   **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
+     ```{r, eval=FALSE}
+     if (condition) true_action else false_action
+     ```
+     
+      If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, 
+      the optional `false_action` is evaluated.
+
+2.   **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is: 
+     ```{r, eval=FALSE}
+     for (item in collection) perform_action
+     ```
+
+     For each `item` in `collection`, `perform_action` is called once; updating the value of `item` each time.
+
+
+### Exercise 2.1
+
+**Peak popularity of your name**
+
+In this exercise you will discover the year your name reached its maximum popularity.
+
+Read in the "babyNames.csv" file if you have not already done so,
+assigning the result to `baby_names`. Make sure you have installed 
+the `tidyverse` suite of packages and attached them with `library(tidyverse)`.
+
+1.  Use `filter` to extract data for your name (or another name of your choice).  
+```{r}
+##
+```
+
+2.  Arrange the data you produced in step 1 above by `Count`. 
+    In which year was the name most popular?
+```{r}
+##
+```
+
+3.  BONUS (optional): Filter the data to extract *only* the 
+     row containing the most popular boys name in 1999.
+```{r}
+##
+```
+
+
+### Pipe operator
+
+There is one very special operator in R called a **pipe** operator that 
+looks like this: `%>%`. It allows us to "chain" several function calls and, 
+as each function returns an object, feed it into the next call in a single 
+statement, without needing extra variables to store the intermediate 
+results. The point of the pipe is to help you write code in a way that is
+easier to read and understand as we will see below.
+
+![](images/magrittr.png)
+
+There is no need to load any additional packages as the operator is made 
+available via the `magrittr` package installed as part of `tidyverse`. Let's 
+rewrite the sequence of commands to output ordered counts for names 
+"Alex" or "Mark".
+
+```{r}
+# unpiped version
+
+```
+
+```{r}
+# piped version
+
+```
+
+Hint: try pronouncing "then" whenever you see `%>%`. Using pseudocode,
+we can see what the pipe is doing:
+
+```{r, eval=FALSE}
+# unpiped version
+filter(dataset, condition)
+
+# piped version
+dataset %>% filter(condition)
+
+# what the pipe is doing
+output_of_thing_on_left %>% becomes_input_of_thing_on_right
+```
+
+Advantages of using the pipe:
+
+1. We can avoid creating intermediate variables, such as `baby_names_alexmark`
+2. Less to type 
+3. Easier to read and follow the logic (especially avoiding using nested functions)
+
+
+### Exercise 2.2
+
+Rewrite the solution to Exercise 2.1 using pipes. Remember that we were looking
+for the year your name reached its maximum popularity. For that, we filtered 
+the data and then arranged by `Count`.
+
+```{r}
+##
+```
+
+
+## Plotting data
+
+**GOAL: Plotting baby name trends over time**
+
+It can be difficult to spot trends when looking at summary tables.
+Plotting the data makes it easier to identify interesting patterns.
+
+R has decent plotting tools built-in -- see e.g., `help(plot)`.
+However, again, we will make use of a *contributed
+package* from `tidyverse` called `ggplot2`.
+
+For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example,
+we can plot the number of babies given the name "Diana" over time like this:
+
+```{r}
+##
+```
+
+```{r}
+##
+```
+
+Interestingly, there are usually some gender-atypical names, even for very strongly 
+gendered names like "Diana". Splitting these trends out by `Sex` is very easy:
+
+```{r}
+##
+```
+
+
+### Exercise 3 
+
+**Plotting peak popularity of your name**
+
+Make sure the `tidyverse` suite of packages is installed, and that you 
+have attached them using `library(tidyverse)`.
+
+1.  Use `filter` to extract data for your name (same as previous exercise)
+```{r}
+##
+```
+
+2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
+    and `Count` on the y-axis.
+```{r}
+##
+```
+
+3. Adjust the plot so that is shows boys and girls in different colors.
+```{r}
+##
+```
+
+4. BONUS (Optional): Adust the plot to use lines instead of points.
+```{r}
+##
+```
+
+
+## Creating variables
+
+**GOAL: To learn how to work create new variables with and without grouped data.** In particular:
+
+1.  Creating new variables (columns) using the `mutate()` function
+2.  Creating new variables within groups by combining the `mutate()` and `group_by()` functions
+
+We want to use these skills to find out which names have been the most popular.
+
+
+### Create or modify columns
+
+So far we've used `Count` as a measure of popularity. A better
+approach is to use proportion to avoid confounding 
+popularity with the number of babies born in a given year. 
+
+The `mutate()` function makes it easy to add or modify the columns 
+of a `data.frame`. For example, we can use it to rescale the count
+of each name in each year:
+
+```{r}
+##
+```
+
+### Operating by group
+
+Because of the nested nature of our data, we want to compute proportion 
+or rank **within** each `Sex` by `Year` group. The `dplyr` 
+package has a `group_by()` function that makes this relatively 
+straightforward. Here's the logic behind this process:
+
+![](images/mutate_group_by.png)
+
+Note that the `group_by()` function converts a **data frame** into a
+**grouped data frame** --- that is, a data frame with metadata identifying
+the groups. The data remain grouped until you change the groups by
+running `group_by()` again or remove the grouping metadata using
+`ungroup()`.
+
+Here's the code that implements the calculation:
+
+```{r}
+#
+
+#
+```
+
+
+### Exercise 4
+
+**Most popular names**
+
+In this exercise your goal is to identify the most popular names for each year.
+
+1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
+    where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
+    Use pipes wherever it makes sense.
+```{r}
+## 
+```
+
+2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
+    `Rank = rank(desc(Count))` for each `Year X Sex` group. 
+```{r}
+##
+```
+
+3.  Filter the baby names data to display only the most popular name 
+    for each `Year X Sex` group. Keep only the columns: `Year`, `Name`, 
+    `Sex`, and `Proportion`.
+```{r}
+##
+```
+
+4.  Plot the data produced in step 3, putting `Year` on the x-axis
+    and `Proportion` on the y-axis. How has the proportion of babies
+    given the most popular name changed over time?
+```{r}
+##
+```
+
+5.  BONUS (optional): Which names are the most popular for both boys and girls?
+```{r}
+##
+```
+
+
+## Aggregating variables
+
+**GOAL: To learn how to aggregate data to create summaries with and without grouped data.** In particular:
+
+1.  Using the `summarize()` function to collapse data into summaries
+2.  Combining the `summarize()` and `group_by()` functions to create summaries within groups
+
+
+You may have noticed that the percentage of babies given the most 
+popular name of the year appears to have decreased over time. We can
+compute a more robust measure of the popularity of the most popular
+names by calculating the number of babies given one of the top 10 girl
+or boy names of the year.
+
+To compute this measure we need to operate within groups, as
+we did using `mutate()` above, but this time we need to collapse each
+group into a single summary statistic. We can achieve this using the
+`summarize()` function. 
+
+First, let's see how this function works without grouping. The following 
+code outputs the total number of girls and boys in the data:
+
+```{r}
+##
+```
+
+Next, using `group_by()` and `summarize()` together, we can calculate the 
+number of babies born each year. Here's the logic behind this process:
+
+![](images/summarize_group_by.png)
+
+Here's the code that implements the calculation:
+
+```{r}
+#
+
+#
+```
+
+
+### Exercise 5
+
+**Popularity of the most popular names**
+
+In this exercise we will plot trends in the proportion of boys and girls 
+given one of the 10 most popular names each year.
+
+1.  Filter the `baby_names` data, retaining only the 10 most popular girl
+    and boy names for each year.
+```{r}
+##
+```
+
+2.  Summarize the data produced in step one to calculate the total
+    Proportion of boys and girls given one of the top 10 names
+    each year.
+```{r}
+##
+```
+
+3.  Plot the data produced in step 2, with year on the x-axis
+    and total proportion on the y axis. Color by `Sex` and notice
+    the trend.
+```{r}
+##
+```
+
+
+## Saving work
+
+**GOAL: To learn how to save objects, data, and scripts for later use.**
+
+Now that we have made some changes to our data set, we might want to
+save those changes to a file.
+
+### Saving individual datasets
+
+You might find functions `write_csv()` and `write_rds()` from package 
+`readr` handy!
+
+```{r, eval=FALSE}
+# write data to a .csv file
+#
+```
+
+```{r, eval=FALSE}
+# write data to an R file
+#
+```
+
+### Saving multiple datasets
+
+```{r, eval=FALSE}
+# list objects in our workspace
+```
+
+```{r, eval=FALSE}
+## Load the "myDataFiles.RData"
+## load("myDataFiles.RData") 
+```
+
+### Saving & loading workspaces
+
+In addition to importing individual datasets, R can save and load entire
+"workspaces". The workspace is your current R working environment and includes
+any user-defined objects. At the end of a session, you can save an "image"
+of the current workspace, which allows you to automatically reload the objects
+you previously created.
+
+```{r, eval=FALSE}
+# list objects in our workspace
+# save workspace 
+# remove all objects from our workspace 
+# list stored objects to make sure they are deleted
+```
+
+```{r, eval=FALSE}
+## Load the "myWorkspace.RData" file and check that it is restored
+# load myWorkspace.RData
+# list objects
+```
+
+
+
+
+## Wrap-up
+
+### Feedback
+
+These workshops are a work-in-progress, please provide any feedback to: help@iq.harvard.edu
+
+### Resources
+
+* IQSS 
+    + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
+    + Data Science Services: <https://dss.iq.harvard.edu/>
+    + Research Computing Environment: <https://iqss.github.io/dss-rce/>
+
+* HBS
+    + Research Computing Services workshops: <https://training.rcs.hbs.org/workshops>
+    + Other HBS RCS resources: <https://training.rcs.hbs.org/workshop-materials>
+    + RCS consulting email: <mailto:research@hbs.edu>
+
+* Software (all free!):
+    + R and R package download: <http://cran.r-project.org>
+    + Rstudio download: <http://rstudio.org>
+    + ESS (emacs R package): <http://ess.r-project.org/>
+
+* Cheatsheets
+    + <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
+
+* Online tutorials
+    + <https://swirlstats.com/>
+    + <https://r4ds.had.co.nz/>
+    + <https://hbs-rcs.github.io/R_Intro-gapminder/base-r/>
+    + <https://www.pluralsight.com/search?q=R>
+    + <https://www.datacamp.com/> 
+    + <https://rmarkdown.rstudio.com/lesson-1.html>
+
+* Getting help:
+    + Documentation and tutorials: <http://cran.r-project.org/other-docs.html>
+    + Recommended R packages by topic: <http://cran.r-project.org/web/views/>
+    + Mailing list: <https://stat.ethz.ch/mailman/listinfo/r-help>
+    + StackOverflow: <http://stackoverflow.com/questions/tagged/r>
+    + R-Bloggers: <https://www.r-bloggers.com/>
+
+* Coming from ...
+    + Stata: <http://www.princeton.edu/~otorres/RStata.pdf>
+    + SAS/SPSS: <http://r4stats.com/books/free-version/>
+    + Matlab: <http://www.math.umaine.edu/~hiebeler/comp/matlabR.pdf>
+    + Python: <http://mathesaurus.sourceforge.net/matlab-python-xref.pdf>
+
