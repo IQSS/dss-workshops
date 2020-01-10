@@ -525,7 +525,7 @@ qplot(x = Year, y = Count, color = Sex,
 
 # ## Creating variables
 #
-# **GOAL: To learn how to work create new variables with and without grouped data.** In particular:
+# **GOAL: To learn how to create new variables with and without grouped data.** In particular:
 #
 # 1.  Creating new variables (columns) using the `mutate()` function
 # 2.  Creating new variables within groups by combining the `mutate()` and `group_by()` functions
