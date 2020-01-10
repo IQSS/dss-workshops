@@ -385,6 +385,7 @@ x %in% c(1, 5, 10)
 # There are two major tools for controlling the flow of code in a script: 
 #
 # 1.   **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
+#
 #      ```{r, eval=FALSE}
 #      if (condition) true_action else false_action
 #      ```
@@ -393,6 +394,7 @@ x %in% c(1, 5, 10)
 #       the optional `false_action` is evaluated.
 #
 # 2.   **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is: 
+#
 #      ```{r, eval=FALSE}
 #      for (item in collection) perform_action
 #      ```
