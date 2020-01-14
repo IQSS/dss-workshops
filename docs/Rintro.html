@@ -1048,42 +1048,42 @@ either “Alex” or “Mark”.</p>
 <span id="cb46-2"><a href="Rintro.html#cb46-2"></a>             Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))</span>
 <span id="cb46-3"><a href="Rintro.html#cb46-3"></a></span>
 <span id="cb46-4"><a href="Rintro.html#cb46-4"></a><span class="kw">print</span>(baby_names_alexmark) <span class="co"># explicit printing             </span></span></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   Name  Sex   Count  Year Count_1k   Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Alex  Girls   366  1992    0.366 14994.
-## 2 Mark  Girls    20  1992    0.02  10666 
-## 3 Mark  Boys   8743  1992    8.74   9768 
-## 4 Alex  Boys   7348  1992    7.35   9763</code></pre>
+<pre><code>## # A tibble: 4 x 4
+##   Name  Sex   Count  Year
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Alex  Girls   366  1992
+## 2 Mark  Girls    20  1992
+## 3 Mark  Boys   8743  1992
+## 4 Alex  Boys   7348  1992</code></pre>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="Rintro.html#cb48-1"></a>baby_names_alexmark <span class="co"># implicit printing</span></span></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   Name  Sex   Count  Year Count_1k   Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Alex  Girls   366  1992    0.366 14994.
-## 2 Mark  Girls    20  1992    0.02  10666 
-## 3 Mark  Boys   8743  1992    8.74   9768 
-## 4 Alex  Boys   7348  1992    7.35   9763</code></pre>
+<pre><code>## # A tibble: 4 x 4
+##   Name  Sex   Count  Year
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Alex  Girls   366  1992
+## 2 Mark  Girls    20  1992
+## 3 Mark  Boys   8743  1992
+## 4 Alex  Boys   7348  1992</code></pre>
 <p>Notice that we can combine conditions using <code>&amp;</code> (AND)
 and <code>|</code> (OR).</p>
 <p>In this case it’s pretty easy to see that “Mark” is more popular,
 but to make it even easier we can arrange the data so that the
 most popular name is listed first.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="Rintro.html#cb50-1"></a><span class="kw">arrange</span>(baby_names_alexmark, Count)</span></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   Name  Sex   Count  Year Count_1k   Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Mark  Girls    20  1992    0.02  10666 
-## 2 Alex  Girls   366  1992    0.366 14994.
-## 3 Alex  Boys   7348  1992    7.35   9763 
-## 4 Mark  Boys   8743  1992    8.74   9768</code></pre>
+<pre><code>## # A tibble: 4 x 4
+##   Name  Sex   Count  Year
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Mark  Girls    20  1992
+## 2 Alex  Girls   366  1992
+## 3 Alex  Boys   7348  1992
+## 4 Mark  Boys   8743  1992</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="Rintro.html#cb52-1"></a><span class="kw">arrange</span>(baby_names_alexmark, <span class="kw">desc</span>(Count))</span></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   Name  Sex   Count  Year Count_1k   Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Mark  Boys   8743  1992    8.74   9768 
-## 2 Alex  Boys   7348  1992    7.35   9763 
-## 3 Alex  Girls   366  1992    0.366 14994.
-## 4 Mark  Girls    20  1992    0.02  10666</code></pre>
+<pre><code>## # A tibble: 4 x 4
+##   Name  Sex   Count  Year
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Mark  Boys   8743  1992
+## 2 Alex  Boys   7348  1992
+## 3 Alex  Girls   366  1992
+## 4 Mark  Girls    20  1992</code></pre>
 <p>We can also use the <code>select()</code> function to subset the <code>data.frame</code>
 by columns. We can then assign the output to a new object. If we
 would just like to glance at the first few lines we can use the
@@ -1219,24 +1219,24 @@ rewrite the sequence of commands to output ordered counts for names
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="Rintro.html#cb71-1"></a><span class="co"># unpiped version</span></span>
 <span id="cb71-2"><a href="Rintro.html#cb71-2"></a>baby_names_alexmark &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))</span>
 <span id="cb71-3"><a href="Rintro.html#cb71-3"></a><span class="kw">arrange</span>(baby_names_alexmark, <span class="kw">desc</span>(Count))</span></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   Name  Sex   Count  Year Count_1k   Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Mark  Boys   8743  1992    8.74   9768 
-## 2 Alex  Boys   7348  1992    7.35   9763 
-## 3 Alex  Girls   366  1992    0.366 14994.
-## 4 Mark  Girls    20  1992    0.02  10666</code></pre>
+<pre><code>## # A tibble: 4 x 4
+##   Name  Sex   Count  Year
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Mark  Boys   8743  1992
+## 2 Alex  Boys   7348  1992
+## 3 Alex  Girls   366  1992
+## 4 Mark  Girls    20  1992</code></pre>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="Rintro.html#cb73-1"></a><span class="co"># piped version</span></span>
 <span id="cb73-2"><a href="Rintro.html#cb73-2"></a>baby_names <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb73-3"><a href="Rintro.html#cb73-3"></a><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>)) <span class="op">%&gt;%</span></span>
 <span id="cb73-4"><a href="Rintro.html#cb73-4"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Count))</span></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   Name  Sex   Count  Year Count_1k   Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Mark  Boys   8743  1992    8.74   9768 
-## 2 Alex  Boys   7348  1992    7.35   9763 
-## 3 Alex  Girls   366  1992    0.366 14994.
-## 4 Mark  Girls    20  1992    0.02  10666</code></pre>
+<pre><code>## # A tibble: 4 x 4
+##   Name  Sex   Count  Year
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Mark  Boys   8743  1992
+## 2 Alex  Boys   7348  1992
+## 3 Alex  Girls   366  1992
+## 4 Mark  Girls    20  1992</code></pre>
 <p>Hint: try pronouncing “then” whenever you see <code>%&gt;%</code>. Using pseudocode,
 we can see what the pipe is doing:</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="Rintro.html#cb75-1"></a><span class="co"># unpiped version</span></span>
@@ -1323,15 +1323,15 @@ of a <code>data.frame</code>. For example, we can use it to rescale the count
 of each name in each year:</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="Rintro.html#cb84-1"></a>baby_names &lt;-<span class="st"> </span><span class="kw">mutate</span>(baby_names, <span class="dt">Count_1k =</span> Count<span class="op">/</span><span class="dv">1000</span>)</span>
 <span id="cb84-2"><a href="Rintro.html#cb84-2"></a><span class="kw">head</span>(baby_names) </span></code></pre></div>
-<pre><code>## # A tibble: 6 x 6
-##   Name  Sex   Count  Year Count_1k  Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-## 1 Mary  Girls 51474  1960     51.5  7331
-## 2 Susan Girls 39200  1960     39.2  7330
-## 3 Linda Girls 37314  1960     37.3  7329
-## 4 Karen Girls 36376  1960     36.4  7328
-## 5 Donna Girls 34133  1960     34.1  7327
-## 6 Lisa  Girls 33702  1960     33.7  7326</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   Name  Sex   Count  Year Count_1k
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mary  Girls 51474  1960     51.5
+## 2 Susan Girls 39200  1960     39.2
+## 3 Linda Girls 37314  1960     37.3
+## 4 Karen Girls 36376  1960     36.4
+## 5 Donna Girls 34133  1960     34.1
+## 6 Lisa  Girls 33702  1960     33.7</code></pre>
 </div>
 <div id="operating-by-group" class="section level3">
 <h3>Operating by group</h3>
@@ -1420,7 +1420,7 @@ code outputs the total number of girls and boys in the data:</p>
 <pre><code>## # A tibble: 1 x 2
 ##   Girls_n Boys_n
 ##     &lt;int&gt;  &lt;int&gt;
-## 1  814744 537459</code></pre>
+## 1  641084 407491</code></pre>
 <p>Next, using <code>group_by()</code> and <code>summarize()</code> together, we can calculate the
 number of babies born each year. Here’s the logic behind this process:</p>
 <p><img src="R/Rintro/images/summarize_group_by.png" /></p>
@@ -1555,30 +1555,30 @@ you previously created.</p>
 <li>Arrange the data you produced in step 1 above by <code>Count</code>. In which year was the name most popular?</li>
 </ol>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="Rintro.html#cb119-1"></a><span class="kw">arrange</span>(baby_names_george, <span class="kw">desc</span>(Count))</span></code></pre></div>
-<pre><code>## # A tibble: 111 x 6
-##    Name   Sex   Count  Year Count_1k  Rank
-##    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-##  1 George Boys  14063  1960    14.1   4558
-##  2 George Boys  13638  1961    13.6   4622
-##  3 George Boys  12553  1962    12.6   4592
-##  4 George Boys  12084  1963    12.1   4586
-##  5 George Boys  11793  1964    11.8   4561
-##  6 George Boys  10683  1965    10.7   4387
-##  7 George Boys   9942  1966     9.94  4500
-##  8 George Boys   9702  1967     9.70  4515
-##  9 George Boys   9388  1968     9.39  4706
-## 10 George Boys   9203  1969     9.20  5003
-## # … with 101 more rows</code></pre>
+<pre><code>## # A tibble: 97 x 4
+##    Name   Sex   Count  Year
+##    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 George Boys  14063  1960
+##  2 George Boys  13638  1961
+##  3 George Boys  12553  1962
+##  4 George Boys  12084  1963
+##  5 George Boys  11793  1964
+##  6 George Boys  10683  1965
+##  7 George Boys   9942  1966
+##  8 George Boys   9702  1967
+##  9 George Boys   9388  1968
+## 10 George Boys   9203  1969
+## # … with 87 more rows</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>BONUS (optional): Filter the data to extract <em>only</em> the row containing the most popular boys name in 1999.</li>
 </ol>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="Rintro.html#cb121-1"></a>baby_names_boys_<span class="dv">1999</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, </span>
 <span id="cb121-2"><a href="Rintro.html#cb121-2"></a>                    Year <span class="op">==</span><span class="st"> </span><span class="dv">1999</span> <span class="op">&amp;</span><span class="st"> </span>Sex <span class="op">==</span><span class="st"> &quot;Boys&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="Rintro.html#cb122-1"></a><span class="kw">filter</span>(baby_names_boys_<span class="dv">1999</span>, Count <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Count))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 6
-##   Name  Sex   Count  Year Count_1k  Rank
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-## 1 Jacob Boys  35361  1999     35.4 11609</code></pre>
+<pre><code>## # A tibble: 1 x 4
+##   Name  Sex   Count  Year
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Jacob Boys  35361  1999</code></pre>
 </div>
 <div id="ex-2.2-prototype" class="section level3">
 <h3>Ex 2.2: prototype</h3>
@@ -1586,20 +1586,20 @@ you previously created.</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="Rintro.html#cb124-1"></a>baby_names <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb124-2"><a href="Rintro.html#cb124-2"></a><span class="st">  </span><span class="kw">filter</span>(Name <span class="op">==</span><span class="st"> &quot;George&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb124-3"><a href="Rintro.html#cb124-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Count))</span></code></pre></div>
-<pre><code>## # A tibble: 111 x 6
-##    Name   Sex   Count  Year Count_1k  Rank
-##    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-##  1 George Boys  14063  1960    14.1   4558
-##  2 George Boys  13638  1961    13.6   4622
-##  3 George Boys  12553  1962    12.6   4592
-##  4 George Boys  12084  1963    12.1   4586
-##  5 George Boys  11793  1964    11.8   4561
-##  6 George Boys  10683  1965    10.7   4387
-##  7 George Boys   9942  1966     9.94  4500
-##  8 George Boys   9702  1967     9.70  4515
-##  9 George Boys   9388  1968     9.39  4706
-## 10 George Boys   9203  1969     9.20  5003
-## # … with 101 more rows</code></pre>
+<pre><code>## # A tibble: 97 x 4
+##    Name   Sex   Count  Year
+##    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 George Boys  14063  1960
+##  2 George Boys  13638  1961
+##  3 George Boys  12553  1962
+##  4 George Boys  12084  1963
+##  5 George Boys  11793  1964
+##  6 George Boys  10683  1965
+##  7 George Boys   9942  1966
+##  8 George Boys   9702  1967
+##  9 George Boys   9388  1968
+## 10 George Boys   9203  1969
+## # … with 87 more rows</code></pre>
 </div>
 <div id="ex-3-prototype" class="section level3">
 <h3>Ex 3: prototype</h3>
@@ -1635,15 +1635,15 @@ you previously created.</p>
 <span id="cb130-5"><a href="Rintro.html#cb130-5"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
 <span id="cb130-6"><a href="Rintro.html#cb130-6"></a></span>
 <span id="cb130-7"><a href="Rintro.html#cb130-7"></a><span class="kw">head</span>(baby_names) </span></code></pre></div>
-<pre><code>## # A tibble: 6 x 7
-##   Name  Sex   Count  Year Count_1k  Rank Proportion
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
-## 1 Mary  Girls 51474  1960     51.5  7331     0.0255
-## 2 Susan Girls 39200  1960     39.2  7330     0.0194
-## 3 Linda Girls 37314  1960     37.3  7329     0.0185
-## 4 Karen Girls 36376  1960     36.4  7328     0.0180
-## 5 Donna Girls 34133  1960     34.1  7327     0.0169
-## 6 Lisa  Girls 33702  1960     33.7  7326     0.0167</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   Name  Sex   Count  Year Proportion
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Mary  Girls 51474  1960     0.0255
+## 2 Susan Girls 39200  1960     0.0194
+## 3 Linda Girls 37314  1960     0.0185
+## 4 Karen Girls 36376  1960     0.0180
+## 5 Donna Girls 34133  1960     0.0169
+## 6 Lisa  Girls 33702  1960     0.0167</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>mutate()</code> and <code>group_by()</code> to create a column named <code>Rank</code> where <code>Rank = rank(desc(Count))</code> for each <code>Year X Sex</code> group.</li>
 </ol>
@@ -1654,15 +1654,15 @@ you previously created.</p>
 <span id="cb132-5"><a href="Rintro.html#cb132-5"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
 <span id="cb132-6"><a href="Rintro.html#cb132-6"></a></span>
 <span id="cb132-7"><a href="Rintro.html#cb132-7"></a><span class="kw">head</span>(baby_names)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 7
-##   Name  Sex   Count  Year Count_1k  Rank Proportion
-##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
-## 1 Mary  Girls 51474  1960     51.5     1     0.0255
-## 2 Susan Girls 39200  1960     39.2     2     0.0194
-## 3 Linda Girls 37314  1960     37.3     3     0.0185
-## 4 Karen Girls 36376  1960     36.4     4     0.0180
-## 5 Donna Girls 34133  1960     34.1     5     0.0169
-## 6 Lisa  Girls 33702  1960     33.7     6     0.0167</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   Name  Sex   Count  Year Proportion  Rank
+##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+## 1 Mary  Girls 51474  1960     0.0255     1
+## 2 Susan Girls 39200  1960     0.0194     2
+## 3 Linda Girls 37314  1960     0.0185     3
+## 4 Karen Girls 36376  1960     0.0180     4
+## 5 Donna Girls 34133  1960     0.0169     5
+## 6 Lisa  Girls 33702  1960     0.0167     6</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Filter the baby names data to display only the most popular name for each <code>Year X Sex</code> group.</li>
 </ol>
@@ -1702,12 +1702,11 @@ you previously created.</p>
 <span id="cb137-7"><a href="Rintro.html#cb137-7"></a>                         <span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="kw">desc</span>(Product)))</span>
 <span id="cb137-8"><a href="Rintro.html#cb137-8"></a></span>
 <span id="cb137-9"><a href="Rintro.html#cb137-9"></a><span class="kw">filter</span>(girls_and_boys, Rank <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 14
-##   Name  Sex.x Count.x  Year Count_1k.x Rank.x Proportion.x Sex.y Count.y
-##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
-## 1 Tayl… Boys     7688  1993       7.69     51      0.00392 Girls   21266
-## # … with 5 more variables: Count_1k.y &lt;dbl&gt;, Rank.y &lt;dbl&gt;, Proportion.y &lt;dbl&gt;,
-## #   Product &lt;dbl&gt;, Rank &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 1 x 12
+##   Name  Sex.x Count.x  Year Proportion.x Rank.x Sex.y Count.y Proportion.y
+##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Tayl… Boys     7688  1993      0.00392     51 Girls   21266       0.0118
+## # … with 3 more variables: Rank.y &lt;dbl&gt;, Product &lt;dbl&gt;, Rank &lt;dbl&gt;</code></pre>
 </div>
 <div id="ex-5-prototype" class="section level3">
 <h3>Ex 5: prototype</h3>
@@ -1720,20 +1719,20 @@ you previously created.</p>
 <span id="cb139-4"><a href="Rintro.html#cb139-4"></a><span class="st">  </span><span class="kw">filter</span>(Rank <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>)</span>
 <span id="cb139-5"><a href="Rintro.html#cb139-5"></a></span>
 <span id="cb139-6"><a href="Rintro.html#cb139-6"></a><span class="kw">head</span>(most_popular, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 10 x 7
+<pre><code>## # A tibble: 10 x 6
 ## # Groups:   Year, Sex [1]
-##    Name     Sex   Count  Year Count_1k  Rank Proportion
-##    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
-##  1 Mary     Girls 51474  1960     51.5     1     0.0255
-##  2 Susan    Girls 39200  1960     39.2     2     0.0194
-##  3 Linda    Girls 37314  1960     37.3     3     0.0185
-##  4 Karen    Girls 36376  1960     36.4     4     0.0180
-##  5 Donna    Girls 34133  1960     34.1     5     0.0169
-##  6 Lisa     Girls 33702  1960     33.7     6     0.0167
-##  7 Patricia Girls 32102  1960     32.1     7     0.0159
-##  8 Debra    Girls 26737  1960     26.7     8     0.0132
-##  9 Cynthia  Girls 26725  1960     26.7     9     0.0132
-## 10 Deborah  Girls 25264  1960     25.3    10     0.0125</code></pre>
+##    Name     Sex   Count  Year Proportion  Rank
+##    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+##  1 Mary     Girls 51474  1960     0.0255     1
+##  2 Susan    Girls 39200  1960     0.0194     2
+##  3 Linda    Girls 37314  1960     0.0185     3
+##  4 Karen    Girls 36376  1960     0.0180     4
+##  5 Donna    Girls 34133  1960     0.0169     5
+##  6 Lisa     Girls 33702  1960     0.0167     6
+##  7 Patricia Girls 32102  1960     0.0159     7
+##  8 Debra    Girls 26737  1960     0.0132     8
+##  9 Cynthia  Girls 26725  1960     0.0132     9
+## 10 Deborah  Girls 25264  1960     0.0125    10</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Summarize the data produced in step one to calculate the total Proportion of boys and girls given one of the top 10 names each year.</li>
 </ol>
