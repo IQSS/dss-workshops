@@ -289,9 +289,9 @@ library(rmarkdown)
 #
 # **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
 #
-# 1.  Filtering data by choosing rows
-# 2.  Selecting data by choosing columns
-# 3.  Arranging data by reordering rows
+# 1.  Filtering data by choosing rows --- using the `filter()` function
+# 2.  Selecting data by choosing columns --- using the `select()` function
+# 3.  Arranging data by reordering rows --- using the `arrange()` function
 # 4.  Using the pipe `%>%` operator to simplify sequential operations
 
 # In this section we will pull out specific names from the baby names data and examine changes in 
@@ -519,7 +519,7 @@ qplot(x = Year, y = Count, color = Sex,
 # 3. Adjust the plot so that is shows boys and girls in different colors.
 ##
 
-# 4. BONUS (Optional): Adust the plot to use lines instead of points.
+# 4. BONUS (Optional): Adjust the plot to use lines instead of points.
 ##
 
 
