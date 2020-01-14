@@ -542,7 +542,7 @@ qplot(x = Year, y = Count, color = Sex,
 # of a `data.frame`. For example, we can use it to rescale the count
 # of each name in each year:
 
-baby_names <- mutate(baby_names, Count_1k = Count/1000)
+baby_names <- baby_names %>% mutate(Count_1k = Count/1000)
 head(baby_names) 
 
 # ### Operating by group
