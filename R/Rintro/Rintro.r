@@ -527,8 +527,8 @@ qplot(x = Year, y = Count, color = Sex,
 #
 # **GOAL: To learn how to create new variables with and without grouped data.** In particular:
 #
-# 1.  Creating new variables (columns) using the `mutate()` function
-# 2.  Creating new variables within groups by combining the `mutate()` and `group_by()` functions
+# 1.  Creating new variables (columns) --- using the `mutate()` function
+# 2.  Creating new variables within groups --- by combining the `mutate()` and `group_by()` functions
 #
 # We want to use these skills to find out which names have been the most popular.
 
@@ -604,8 +604,8 @@ head(baby_names)
 #
 # **GOAL: To learn how to aggregate data to create summaries with and without grouped data.** In particular:
 #
-# 1.  Using the `summarize()` function to collapse data into summaries
-# 2.  Combining the `summarize()` and `group_by()` functions to create summaries within groups
+# 1.  Collapsing data into summaries --- using the `summarize()` function 
+# 2.  Creating summaries within groups --- by combining the `summarize()` and `group_by()` functions 
 
 # You may have noticed that the percentage of babies given the most 
 # popular name of the year appears to have decreased over time. We can
