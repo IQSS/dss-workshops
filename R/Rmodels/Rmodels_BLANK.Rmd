@@ -135,15 +135,17 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 
 ## Models with continuous outcomes
 
-* Ordinary least squares (OLS) regression models can be fit with the `lm()` function
-* For example, we can use `lm()` to predict SAT scores based on per-pupal expenditures:
+Ordinary least squares (OLS) regression models can be fit with the `lm()` function.
+In R, we convert our theoretical model into a `formula` --- a symbolic representation of the model:
 
 ```{r, eval=FALSE}
 # R regression formula
 outcome ~ pred1 + pred2 + pred3
 
-# NOTE the ~ is a tilde
+# NOTE: the ~ is a tilde
 ```
+
+For example, we can use `lm()` to predict SAT scores based on per-pupil expenditures:
 
 ```{r}
   # Fit our regression model
@@ -235,10 +237,15 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 
 ```
 
+What does na.omit() do?
+
 ```{r}
-# what does na.omit() do?
-
-
+# fake data
+dat <- data.frame(
+  x = 1:5, 
+  y = c(3, 2, 1, NA, 5), 
+  z = c(6, NA, 2, 7, 3))
+dat
 
 
 # listwise deletion of observations
@@ -249,6 +256,7 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 
 ```
 
+Now let's update our first model using `na.omit()`:
 
 ```{r}
   

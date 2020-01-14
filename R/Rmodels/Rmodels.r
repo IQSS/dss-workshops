@@ -113,13 +113,15 @@ list.files("dataSets")
 
 # ## Models with continuous outcomes
 #
-# * Ordinary least squares (OLS) regression models can be fit with the `lm()` function
-# * For example, we can use `lm()` to predict SAT scores based on per-pupal expenditures:
+# Ordinary least squares (OLS) regression models can be fit with the `lm()` function.
+# In R, we convert our theoretical model into a `formula` --- a symbolic representation of the model:
 
 # R regression formula
 outcome ~ pred1 + pred2 + pred3
 
 # NOTE the ~ is a tilde
+
+# For example, we can use `lm()` to predict SAT scores based on per-pupil expenditures:
 
   # Fit our regression model
   sat_mod <- lm(csat ~ 1 + expense, # regression formula
@@ -200,8 +202,9 @@ outcome ~ pred1 + pred2 + pred3
 
   summary(sat_voting_mod) %>% coef()
 
-# what does na.omit() do?
+# What does na.omit() do?
 
+# fake data
 dat <- data.frame(
   x = 1:5, 
   y = c(3, 2, 1, NA, 5), 
@@ -214,6 +217,7 @@ na.omit(dat) # listwise deletion of observations
 # ?complete.cases
 dat[with(dat, complete.cases(x, y, z)), ]
 
+# Now let's update our first model using `na.omit()`:
 
   sat_mod <- update(sat_mod, data = na.omit(states_data))
 

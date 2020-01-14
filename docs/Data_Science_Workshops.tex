@@ -3637,13 +3637,8 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \hypertarget{models-with-continuous-outcomes}{%
 \section{Models with continuous outcomes}\label{models-with-continuous-outcomes}}
 
-\begin{itemize}
-\tightlist
-\item
-  Ordinary least squares (OLS) regression models can be fit with the \texttt{lm()} function
-\item
-  For example, we can use \texttt{lm()} to predict SAT scores based on per-pupal expenditures:
-\end{itemize}
+Ordinary least squares (OLS) regression models can be fit with the \texttt{lm()} function.
+In R, we convert our theoretical model into a \texttt{formula} --- a symbolic representation of the model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3653,6 +3648,8 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \CommentTok{# }\AlertTok{NOTE}\CommentTok{ the ~ is a tilde}
 \end{Highlighting}
 \end{Shaded}
+
+For example, we can use \texttt{lm()} to predict SAT scores based on per-pupil expenditures:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3876,10 +3873,11 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 \end{Highlighting}
 \end{Shaded}
 
+What does na.omit() do?
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# what does na.omit() do?}
-
+\CommentTok{# fake data}
 \NormalTok{dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
   \DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }
   \DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{5}\NormalTok{), }
@@ -3893,6 +3891,8 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 \NormalTok{dat[}\KeywordTok{with}\NormalTok{(dat, }\KeywordTok{complete.cases}\NormalTok{(x, y, z)), ]}
 \end{Highlighting}
 \end{Shaded}
+
+Now let's update our first model using \texttt{na.omit()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -818,14 +818,13 @@ Now let’s load these packages into the search path of our R session.</p>
 </div>
 <div id="models-with-continuous-outcomes" class="section level2">
 <h2>Models with continuous outcomes</h2>
-<ul>
-<li>Ordinary least squares (OLS) regression models can be fit with the <code>lm()</code> function</li>
-<li>For example, we can use <code>lm()</code> to predict SAT scores based on per-pupal expenditures:</li>
-</ul>
+<p>Ordinary least squares (OLS) regression models can be fit with the <code>lm()</code> function.
+In R, we convert our theoretical model into a <code>formula</code> — a symbolic representation of the model:</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="Rmodels.html#cb149-1"></a><span class="co"># R regression formula</span></span>
 <span id="cb149-2"><a href="Rmodels.html#cb149-2"></a>outcome <span class="op">~</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2 <span class="op">+</span><span class="st"> </span>pred3</span>
 <span id="cb149-3"><a href="Rmodels.html#cb149-3"></a></span>
 <span id="cb149-4"><a href="Rmodels.html#cb149-4"></a><span class="co"># </span><span class="al">NOTE</span><span class="co"> the ~ is a tilde</span></span></code></pre></div>
+<p>For example, we can use <code>lm()</code> to predict SAT scores based on per-pupil expenditures:</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="Rmodels.html#cb150-1"></a>  <span class="co"># Fit our regression model</span></span>
 <span id="cb150-2"><a href="Rmodels.html#cb150-2"></a>  sat_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>expense, <span class="co"># regression formula</span></span>
 <span id="cb150-3"><a href="Rmodels.html#cb150-3"></a>                <span class="dt">data =</span> states_data) <span class="co"># data </span></span>
@@ -968,19 +967,20 @@ Now let’s load these packages into the search path of our R session.</p>
 <span id="cb155-3"><a href="Rmodels.html#cb155-3"></a>                        <span class="dt">data =</span> <span class="kw">na.omit</span>(states_data))</span>
 <span id="cb155-4"><a href="Rmodels.html#cb155-4"></a></span>
 <span id="cb155-5"><a href="Rmodels.html#cb155-5"></a>  <span class="kw">summary</span>(sat_voting_mod) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="Rmodels.html#cb156-1"></a><span class="co"># what does na.omit() do?</span></span>
-<span id="cb156-2"><a href="Rmodels.html#cb156-2"></a></span>
-<span id="cb156-3"><a href="Rmodels.html#cb156-3"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb156-4"><a href="Rmodels.html#cb156-4"></a>  <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
-<span id="cb156-5"><a href="Rmodels.html#cb156-5"></a>  <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">5</span>), </span>
-<span id="cb156-6"><a href="Rmodels.html#cb156-6"></a>  <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">6</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>))</span>
-<span id="cb156-7"><a href="Rmodels.html#cb156-7"></a>dat</span>
-<span id="cb156-8"><a href="Rmodels.html#cb156-8"></a></span>
-<span id="cb156-9"><a href="Rmodels.html#cb156-9"></a><span class="kw">na.omit</span>(dat) <span class="co"># listwise deletion of observations</span></span>
-<span id="cb156-10"><a href="Rmodels.html#cb156-10"></a></span>
-<span id="cb156-11"><a href="Rmodels.html#cb156-11"></a><span class="co"># also see</span></span>
-<span id="cb156-12"><a href="Rmodels.html#cb156-12"></a><span class="co"># ?complete.cases</span></span>
-<span id="cb156-13"><a href="Rmodels.html#cb156-13"></a>dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, y, z)), ]</span></code></pre></div>
+<p>What does na.omit() do?</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="Rmodels.html#cb156-1"></a><span class="co"># fake data</span></span>
+<span id="cb156-2"><a href="Rmodels.html#cb156-2"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb156-3"><a href="Rmodels.html#cb156-3"></a>  <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
+<span id="cb156-4"><a href="Rmodels.html#cb156-4"></a>  <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">5</span>), </span>
+<span id="cb156-5"><a href="Rmodels.html#cb156-5"></a>  <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">6</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb156-6"><a href="Rmodels.html#cb156-6"></a>dat</span>
+<span id="cb156-7"><a href="Rmodels.html#cb156-7"></a></span>
+<span id="cb156-8"><a href="Rmodels.html#cb156-8"></a><span class="kw">na.omit</span>(dat) <span class="co"># listwise deletion of observations</span></span>
+<span id="cb156-9"><a href="Rmodels.html#cb156-9"></a></span>
+<span id="cb156-10"><a href="Rmodels.html#cb156-10"></a><span class="co"># also see</span></span>
+<span id="cb156-11"><a href="Rmodels.html#cb156-11"></a><span class="co"># ?complete.cases</span></span>
+<span id="cb156-12"><a href="Rmodels.html#cb156-12"></a>dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, y, z)), ]</span></code></pre></div>
+<p>Now let’s update our first model using <code>na.omit()</code>:</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="Rmodels.html#cb157-1"></a>  sat_mod &lt;-<span class="st"> </span><span class="kw">update</span>(sat_mod, <span class="dt">data =</span> <span class="kw">na.omit</span>(states_data))</span>
 <span id="cb157-2"><a href="Rmodels.html#cb157-2"></a></span>
 <span id="cb157-3"><a href="Rmodels.html#cb157-3"></a>  <span class="co"># compare using an F-test with the anova() function</span></span>
