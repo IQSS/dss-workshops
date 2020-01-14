@@ -3609,7 +3609,10 @@ Start by examining the data to check for problems.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# summary of expense and csat columns, all rows}
-\NormalTok{  sts_ex_sat <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states_data, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"expense"}\NormalTok{, }\StringTok{"csat"}\NormalTok{))}
+\NormalTok{  sts_ex_sat <-}\StringTok{ }
+\StringTok{      }\NormalTok{states_data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{select}\NormalTok{(expense, csat)}
+  
   \KeywordTok{summary}\NormalTok{(sts_ex_sat)}
 
   \CommentTok{# correlation between expense and csat}
@@ -3645,13 +3648,13 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# R regression formula}
-\NormalTok{outcome }\OperatorTok{~}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred2 }\OperatorTok{+}\StringTok{ }\NormalTok{pred3}
+\CommentTok{# outcome ~ pred1 + pred2 + pred3}
 
 \CommentTok{# }\AlertTok{NOTE}\CommentTok{ the ~ is a tilde}
 
   \CommentTok{# Fit our regression model}
 \NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense, }\CommentTok{# regression formula}
-                \DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# data }
+                \DataTypeTok{data =}\NormalTok{ states_data) }\CommentTok{# data }
                 
   \CommentTok{# Summarize and print the results}
   \KeywordTok{summary}\NormalTok{(sat_mod) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }\CommentTok{# show regression coefficients table}
@@ -3693,7 +3696,7 @@ OK, we fit our model. Now what?
 \begin{itemize}
 \tightlist
 \item
-  Use function methods to get more information about the fit
+  Use function methods to get more information about the fit:
 \end{itemize}
 
 \begin{Shaded}
@@ -3705,7 +3708,7 @@ OK, we fit our model. Now what?
 \end{Highlighting}
 \end{Shaded}
 
-Selected \textbf{post-estimation} tools:
+Selected \textbf{post-estimation} tools you may find useful:
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -3889,7 +3892,7 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat_mod, }\DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(states_data))}
+\NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{update}\NormalTok{(sat_mod, }\DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states_data))}
 
   \CommentTok{# compare using an F-test with the anova() function}
   \KeywordTok{anova}\NormalTok{(sat_mod, sat_voting_mod)}
@@ -3969,8 +3972,8 @@ Interactions allow us assess the extent to which the association between one pre
 \begin{Shaded}
 \begin{Highlighting}[]
     \CommentTok{# Add the interaction to the model}
-\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data)}
-\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data=}\NormalTok{states_data) }\CommentTok{# same as above, but shorter syntax}
+\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states_data)}
+\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states_data) }\CommentTok{# same as above, but shorter syntax}
 
   \CommentTok{# Show the regression coefficients table}
   \KeywordTok{summary}\NormalTok{(sat_expense_by_percent) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }
@@ -3999,7 +4002,7 @@ Note that you must make sure R does not think your categorical variable is numer
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# Add region to the model}
-\NormalTok{  sat_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data) }
+\NormalTok{  sat_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states_data) }
 
   \CommentTok{# Show the results}
   \KeywordTok{summary}\NormalTok{(sat_region) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }\CommentTok{# show the regression coefficients table}
@@ -4019,7 +4022,7 @@ We can also easily change the reference group or get all sets of pairwise contra
 \begin{Highlighting}[]
   \CommentTok{# change the reference group}
 \NormalTok{  states_data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"Midwest"}\NormalTok{)}
-\NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data=}\NormalTok{states_data)}
+\NormalTok{  m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states_data)}
   \KeywordTok{summary}\NormalTok{(m1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 
   \CommentTok{# get all pairwise contrasts between means}
@@ -4103,25 +4106,30 @@ Motivation for a logistic regression model --- with a binary response:
 
 \includegraphics{R/Rmodels/images/logistic.png}
 
-Anatomy of a glm:
+Anatomy of a generalized linear model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# OLS model using lm()}
-  \CommentTok{# lm(outcome ~ 1 + pred1 + pred1, data = mydata)}
+  \KeywordTok{lm}\NormalTok{(outcome }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred1, }
+     \DataTypeTok{data =}\NormalTok{ mydata)}
 
   \CommentTok{# OLS model using glm()}
-  \CommentTok{# glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = gaussian(link = "identity"))}
+  \KeywordTok{glm}\NormalTok{(outcome }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred1, }
+      \DataTypeTok{data =}\NormalTok{ mydata, }
+      \DataTypeTok{family =} \KeywordTok{gaussian}\NormalTok{(}\DataTypeTok{link =} \StringTok{"identity"}\NormalTok{))}
  
   \CommentTok{# logistic model using glm()}
-  \CommentTok{# glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = binomial(link = "logit"))}
+  \KeywordTok{glm}\NormalTok{(outcome }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred1, }
+      \DataTypeTok{data =}\NormalTok{ mydata, }
+      \DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 The \texttt{family} argument sets the error distribution for the model, while the \texttt{link} function
 argument relates the predictors to the expected value of the outcome.
 
-Let's predict the probability of being diagnosed with hypertension based on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}
+Let's predict the probability of being diagnosed with hypertension based on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4133,7 +4141,9 @@ Let's predict the probability of being diagnosed with hypertension based on \tex
 
   \CommentTok{# run our regression model}
 \NormalTok{  hyp_out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{sleep }\OperatorTok{+}\StringTok{ }\NormalTok{bmi,}
-                \DataTypeTok{data =}\NormalTok{ NH11, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
+                 \DataTypeTok{data =}\NormalTok{ NH11, }
+                 \DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
+
   \KeywordTok{summary}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -4143,20 +4153,23 @@ Let's predict the probability of being diagnosed with hypertension based on \tex
 
 Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the \texttt{age} coefficient of .06 in the previous model tells us that for every one unit increase in \texttt{age}, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 
-One solution is to transform the coefficients to make them easier to interpret. Here we transform into odds ratios:
+One solution is to transform the coefficients to make them easier to interpret.
+Here we transform them into odds ratios by exponentiating:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  hyp_out_tab <-}\StringTok{ }\KeywordTok{summary}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
-\NormalTok{  hyp_out_tab[, }\StringTok{"Estimate"}\NormalTok{] <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{exp}\NormalTok{()}
-\NormalTok{  hyp_out_tab}
+  \CommentTok{# point estimates}
+  \KeywordTok{coef}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{exp}\NormalTok{()}
+  
+  \CommentTok{# confidence intervals}
+  \KeywordTok{confint}\NormalTok{(hyp_out) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{exp}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{packages-for-computing-graphing-predicted-values}{%
 \subsection{Packages for computing \& graphing predicted values}\label{packages-for-computing-graphing-predicted-values}}
 
-Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
+Instead of doing this manually, we can use the effects package to compute quantities of interest for us.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4168,7 +4181,8 @@ Instead of doing all this ourselves, we can use the effects package to compute q
 
   \CommentTok{# override defaults}
 \NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(hyp_out, }\DataTypeTok{xlevels =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{age_p =} \KeywordTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DataTypeTok{by =} \DecValTok{5}\NormalTok{)))}
-  \KeywordTok{as.data.frame}\NormalTok{(eff) }\CommentTok{# confidence intervals}
+\NormalTok{  eff_df <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(eff) }\CommentTok{# confidence intervals}
+\NormalTok{  eff_df}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4269,12 +4283,17 @@ As a preliminary step it is often useful to partition the variance in the depend
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# anatomy of lmer() function}
-  \CommentTok{# lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), data=mydata, REML = FALSE)}
+  \KeywordTok{lmer}\NormalTok{(outcome }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred2 }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{grouping_variable), }
+       \DataTypeTok{data =}\NormalTok{ mydata, }
+       \DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-
+\begin{Shaded}
+\begin{Highlighting}[]
   \CommentTok{# null model, grouping by school but not fixed effects.}
 \NormalTok{  Norm1 <-}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school), }
-              \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
+              \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{)}
   \KeywordTok{summary}\NormalTok{(Norm1)}
 \end{Highlighting}
 \end{Shaded}
@@ -4293,7 +4312,7 @@ Predict exam scores from student's standardized tests scores
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  Norm2 <-}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{standLRT }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school),}
-               \DataTypeTok{data=}\KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
+               \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(Exam), }\DataTypeTok{REML =} \OtherTok{FALSE}\NormalTok{) }
   \KeywordTok{summary}\NormalTok{(Norm2) }
 \end{Highlighting}
 \end{Shaded}
@@ -4436,7 +4455,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \NormalTok{  states_en_met <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(states, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(}\StringTok{"metro"}\NormalTok{, }\StringTok{"energy"}\NormalTok{))}
   \KeywordTok{summary}\NormalTok{(states_en_met)}
   \KeywordTok{plot}\NormalTok{(states_en_met)}
-  \KeywordTok{cor}\NormalTok{(states_en_met, }\DataTypeTok{use=}\StringTok{"pairwise"}\NormalTok{)}
+  \KeywordTok{cor}\NormalTok{(states_en_met, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4538,10 +4557,11 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  NH11 <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(NH11,}
-                    \DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
-                    \DataTypeTok{r_maritl =} \KeywordTok{droplevels}\NormalTok{(r_maritl))}
+                     \DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
+                     \DataTypeTok{r_maritl =} \KeywordTok{droplevels}\NormalTok{(r_maritl))}
 
-\NormalTok{  mod_wk_age_mar <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(everwrk }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{r_maritl, }\DataTypeTok{data =}\NormalTok{ NH11,}
+\NormalTok{  mod_wk_age_mar <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(everwrk }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{r_maritl, }
+                        \DataTypeTok{data =}\NormalTok{ NH11,}
                         \DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{))}
 
   \KeywordTok{summary}\NormalTok{(mod_wk_age_mar)}
@@ -4559,7 +4579,7 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(mod_wk_age_mar)}
-  \KeywordTok{as.data.frame}\NormalTok{(eff[[}\StringTok{"r_maritl"}\NormalTok{]])}
+  \KeywordTok{as.data.frame}\NormalTok{(eff)}
 \end{Highlighting}
 \end{Shaded}
 

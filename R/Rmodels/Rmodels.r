@@ -93,7 +93,10 @@ list.files("dataSets")
 # Start by examining the data to check for problems.
 
   # summary of expense and csat columns, all rows
-  sts_ex_sat <- subset(states_data, select = c("expense", "csat"))
+  sts_ex_sat <- 
+      states_data %>% 
+      select(expense, csat)
+  
   summary(sts_ex_sat)
 
   # correlation between expense and csat
@@ -114,13 +117,13 @@ list.files("dataSets")
 # * For example, we can use `lm()` to predict SAT scores based on per-pupal expenditures:
 
 # R regression formula
-outcome ~ pred1 + pred2 + pred3
+# outcome ~ pred1 + pred2 + pred3
 
 # NOTE the ~ is a tilde
 
   # Fit our regression model
   sat_mod <- lm(csat ~ 1 + expense, # regression formula
-                data=states_data) # data 
+                data = states_data) # data 
                 
   # Summarize and print the results
   summary(sat_mod) %>% coef() # show regression coefficients table
@@ -143,14 +146,14 @@ outcome ~ pred1 + pred2 + pred3
   names(sat_mod)
   methods(class = class(sat_mod))
 
-# * Use function methods to get more information about the fit
+# * Use function methods to get more information about the fit:
 
   summary(sat_mod)
   summary(sat_mod) %>% coef()
   methods("summary")
   confint(sat_mod)
 
-# Selected **post-estimation** tools:
+# Selected **post-estimation** tools you may find useful:
 #
 # | Function      | Package        | Output                                                  |
 # |:--------------|:---------------|:--------------------------------------------------------|
@@ -212,7 +215,7 @@ na.omit(dat) # listwise deletion of observations
 dat[with(dat, complete.cases(x, y, z)), ]
 
 
-  sat_mod <- update(sat_mod, data=na.omit(states_data))
+  sat_mod <- update(sat_mod, data = na.omit(states_data))
 
   # compare using an F-test with the anova() function
   anova(sat_mod, sat_voting_mod)
@@ -243,8 +246,8 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
 
     # Add the interaction to the model
-  sat_expense_by_percent <- lm(csat ~ 1 + expense + income + expense : income, data=states_data)
-  sat_expense_by_percent <- lm(csat ~ 1 + expense * income, data=states_data) # same as above, but shorter syntax
+  sat_expense_by_percent <- lm(csat ~ 1 + expense + income + expense : income, data = states_data)
+  sat_expense_by_percent <- lm(csat ~ 1 + expense * income, data = states_data) # same as above, but shorter syntax
 
   # Show the regression coefficients table
   summary(sat_expense_by_percent) %>% coef() 
@@ -264,7 +267,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
   levels(states_data$region)
 
   # Add region to the model
-  sat_region <- lm(csat ~ 1 + region, data=states_data) 
+  sat_region <- lm(csat ~ 1 + region, data = states_data) 
 
   # Show the results
   summary(sat_region) %>% coef() # show the regression coefficients table
@@ -279,7 +282,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   # change the reference group
   states_data$region <- relevel(states_data$region, ref = "Midwest")
-  m1 <- lm(csat ~ 1 + region, data=states_data)
+  m1 <- lm(csat ~ 1 + region, data = states_data)
   summary(m1) %>% coef()
 
   # get all pairwise contrasts between means
@@ -325,21 +328,26 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # ![](R/Rmodels/images/logistic.png)
 
-# Anatomy of a glm:
+# Anatomy of a generalized linear model:
 
   # OLS model using lm()
-  # lm(outcome ~ 1 + pred1 + pred1, data = mydata)
+  lm(outcome ~ 1 + pred1 + pred1, 
+     data = mydata)
 
   # OLS model using glm()
-  # glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = gaussian(link = "identity"))
+  glm(outcome ~ 1 + pred1 + pred1, 
+      data = mydata, 
+      family = gaussian(link = "identity"))
  
   # logistic model using glm()
-  # glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = binomial(link = "logit"))
+  glm(outcome ~ 1 + pred1 + pred1, 
+      data = mydata, 
+      family = binomial(link = "logit"))
 
 # The `family` argument sets the error distribution for the model, while the `link` function
 # argument relates the predictors to the expected value of the outcome.
 
-# Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`
+# Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`:
 
   str(NH11$hypev) # check stucture of hypev
   levels(NH11$hypev) # check levels of hypev
@@ -349,22 +357,27 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   # run our regression model
   hyp_out <- glm(hypev ~ 1 + age_p + sex + sleep + bmi,
-                data = NH11, family = binomial(link = "logit"))
+                 data = NH11, 
+                 family = binomial(link = "logit"))
+
   summary(hyp_out) %>% coef()
 
 # ### Logistic regression coefficients
 #
 # Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the `age` coefficient of .06 in the previous model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 #
-# One solution is to transform the coefficients to make them easier to interpret. Here we transform into odds ratios:
+# One solution is to transform the coefficients to make them easier to interpret. 
+# Here we transform them into odds ratios by exponentiating:
 
-  hyp_out_tab <- summary(hyp_out) %>% coef()
-  hyp_out_tab[, "Estimate"] <- coef(hyp_out) %>% exp()
-  hyp_out_tab
+  # point estimates
+  coef(hyp_out) %>% exp()
+  
+  # confidence intervals
+  confint(hyp_out) %>% exp()
 
 # ### Packages for computing & graphing predicted values
 #
-# Instead of doing all this ourselves, we can use the effects package to compute quantities of interest for us.
+# Instead of doing this manually, we can use the effects package to compute quantities of interest for us.
 
   eff <- allEffects(hyp_out)
   plot(eff, type = "response") # "response" refers to the probability scale
@@ -374,7 +387,8 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   # override defaults
   eff <- allEffects(hyp_out, xlevels = list(age_p = seq(20, 80, by = 5)))
-  as.data.frame(eff) # confidence intervals
+  eff_df <- as.data.frame(eff) # confidence intervals
+  eff_df
 
 # ![](R/Rmodels/images/effects1.png)
 
@@ -423,12 +437,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # As a preliminary step it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors).
 
   # anatomy of lmer() function
-  # lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), data=mydata, REML = FALSE)
-
+  lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), 
+       data = mydata, 
+       REML = FALSE)
 
   # null model, grouping by school but not fixed effects.
   Norm1 <-lmer(normexam ~ 1 + (1 | school), 
-              data=na.omit(Exam), REML = FALSE)
+              data = na.omit(Exam), REML = FALSE)
   summary(Norm1)
 
 # The is .161/(.161 + .852) = .159 = 16% of the variance is at the school level. 
@@ -442,7 +457,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # Predict exam scores from student's standardized tests scores
 
   Norm2 <-lmer(normexam ~ 1 + standLRT + (1 | school),
-               data=na.omit(Exam), REML = FALSE) 
+               data = na.omit(Exam), REML = FALSE) 
   summary(Norm2) 
 
 # ### Multiple degree of freedom comparisons
@@ -506,7 +521,7 @@ data(bh1996, package="multilevel")
   states_en_met <- subset(states, select = c("metro", "energy"))
   summary(states_en_met)
   plot(states_en_met)
-  cor(states_en_met, use="pairwise")
+  cor(states_en_met, use = "pairwise")
 
 # 2.  Print and interpret the model `summary()`.
 
@@ -548,10 +563,11 @@ data(bh1996, package="multilevel")
 # 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
   NH11 <- mutate(NH11,
-                    everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
-                    r_maritl = droplevels(r_maritl))
+                     everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
+                     r_maritl = droplevels(r_maritl))
 
-  mod_wk_age_mar <- glm(everwrk ~ 1 + age_p + r_maritl, data = NH11,
+  mod_wk_age_mar <- glm(everwrk ~ 1 + age_p + r_maritl, 
+                        data = NH11,
                         family = binomial(link = "logit"))
 
   summary(mod_wk_age_mar)
@@ -559,7 +575,7 @@ data(bh1996, package="multilevel")
 # 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`.
 
   eff <- allEffects(mod_wk_age_mar)
-  as.data.frame(eff[["r_maritl"]])
+  as.data.frame(eff)
 
 # ### Ex 3: prototype
 #

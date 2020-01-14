@@ -403,24 +403,29 @@ Motivation for a logistic regression model --- with a binary response:
 ![](images/logistic.png)
 
 
-Anatomy of a glm:
+Anatomy of a generalized linear model:
 
-```{r}
+```{r, eval=FALSE}
   # OLS model using lm()
-  # lm(outcome ~ 1 + pred1 + pred1, data = mydata)
+  lm(outcome ~ 1 + pred1 + pred1, 
+     data = mydata)
 
   # OLS model using glm()
-  # glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = gaussian(link = "identity"))
+  glm(outcome ~ 1 + pred1 + pred1, 
+      data = mydata, 
+      family = gaussian(link = "identity"))
  
   # logistic model using glm()
-  # glm(outcome ~ 1 + pred1 + pred1, data = mydata, family = binomial(link = "logit"))
+  glm(outcome ~ 1 + pred1 + pred1, 
+      data = mydata, 
+      family = binomial(link = "logit"))
 ```
 
 The `family` argument sets the error distribution for the model, while the `link` function
 argument relates the predictors to the expected value of the outcome.
 
 
-Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`
+Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`:
 
 ```{r}
   # check stucture of hypev
@@ -440,7 +445,8 @@ Let's predict the probability of being diagnosed with hypertension based on `age
 
 Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the `age` coefficient of .06 in the previous model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 
-One solution is to transform the coefficients to make them easier to interpret. Here we transform into odds ratios:
+One solution is to transform the coefficients to make them easier to interpret. 
+Here we transform them into odds ratios by exponentiating:
 
 ```{r}
  
