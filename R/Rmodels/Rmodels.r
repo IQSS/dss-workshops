@@ -202,7 +202,7 @@ outcome ~ pred1 + pred2 + pred3
 
   summary(sat_voting_mod) %>% coef()
 
-# What does na.omit() do?
+# What does `na.omit()` do?
 
 # fake data
 dat <- data.frame(

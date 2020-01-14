@@ -561,7 +561,9 @@ ggplot(housing_byyear, aes(x=Date)) +
 # We can do this by **reshaping** our data from **wide format** to **long format**. 
 # Here is the logic behind this process:
 #
+# <center>
 # ![](R/Rgraphics/images/wide_vs_long.png)
+# </center>
 #
 # Here's the code that implements this transformation:
 
