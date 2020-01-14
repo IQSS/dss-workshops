@@ -100,7 +100,7 @@ list.files("dataSets")
   summary(sts_ex_sat)
 
   # correlation between expense and csat
-  cor(sts_ex_sat) 
+  cor(sts_ex_sat, use = "pairwise") 
 
 # ### Plot the data
 #
@@ -117,7 +117,7 @@ list.files("dataSets")
 # * For example, we can use `lm()` to predict SAT scores based on per-pupal expenditures:
 
 # R regression formula
-# outcome ~ pred1 + pred2 + pred3
+outcome ~ pred1 + pred2 + pred3
 
 # NOTE the ~ is a tilde
 

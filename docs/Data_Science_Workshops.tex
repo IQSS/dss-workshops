@@ -3616,7 +3616,7 @@ Start by examining the data to check for problems.
   \KeywordTok{summary}\NormalTok{(sts_ex_sat)}
 
   \CommentTok{# correlation between expense and csat}
-  \KeywordTok{cor}\NormalTok{(sts_ex_sat) }
+  \KeywordTok{cor}\NormalTok{(sts_ex_sat, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -3648,10 +3648,14 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# R regression formula}
-\CommentTok{# outcome ~ pred1 + pred2 + pred3}
+\NormalTok{outcome }\OperatorTok{~}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred2 }\OperatorTok{+}\StringTok{ }\NormalTok{pred3}
 
 \CommentTok{# }\AlertTok{NOTE}\CommentTok{ the ~ is a tilde}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
   \CommentTok{# Fit our regression model}
 \NormalTok{  sat_mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense, }\CommentTok{# regression formula}
                 \DataTypeTok{data =}\NormalTok{ states_data) }\CommentTok{# data }
