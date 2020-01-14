@@ -430,7 +430,7 @@ help(zip)
 #
 # **GOAL: To learn how to expand Python's functionality by importing packages.**  
 #
-# 1.  Import numpy
+# 1.  Import `numpy`
 # 2.  Calculate simple statistics
 
 # Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min()` and `max()`) but built-in math support is pretty limited.
