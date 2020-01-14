@@ -478,7 +478,7 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 
 # ## Plotting data
 #
-# **GOAL: Plotting baby name trends over time**
+# **GOAL: Plot baby name trends over time -- using the `qplot()` function**
 #
 # It can be difficult to spot trends when looking at summary tables.
 # Plotting the data makes it easier to identify interesting patterns.
@@ -504,7 +504,7 @@ qplot(x = Year, y = Count, color = Sex,
 
 # ### Exercise 3 
 #
-# **Plotting peak popularity of your name**
+# **Plot peak popularity of your name**
 #
 # Make sure the `tidyverse` suite of packages is installed, and that you 
 # have attached them using `library(tidyverse)`.
