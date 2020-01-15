@@ -385,9 +385,7 @@ In R, the most foundational data structure is the **vector**, which comes in two
 
 `NULL` is closely related to vectors and often serves the role of a generic zero length vector. 
 
-<center>
 ![vector tree](images/summary_tree.png)
-</center>
 
 From these two forms, the following six structures are derived:
 
@@ -407,9 +405,7 @@ Each vector can have **attributes**, which are a named list of metadata that can
 
 There are four primary types of atomic vectors. Collectively, integer and double vectors are known as numeric vectors. You can query the **type** of an object using the `typeof()` function.
 
-<center>
 ![atomic tree](images/summary_tree_atomic.png)
-</center>
 
 | Type                    | Description                                          |
 |:------------------------|:-----------------------------------------------------|
@@ -424,10 +420,10 @@ There are four primary types of atomic vectors. Collectively, integer and double
 If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> numeric -> character -> list. For example:
 
 ```{r}
-x <- c(1, 2, 3)
+x <- c(1.5, 2.7, 3.9)
 typeof(x)
 
-x <- c(1, 2, 3, "a")
+x <- c(1.5, 2.7, 3.9, "a")
 typeof(x)
 ```
 
@@ -444,7 +440,7 @@ Why are we using **double brackets** `[[` to index this list object, instead of 
 numbers <- 1:10
 letters <- LETTERS[1:4]
 dat <- head(mtcars)
-x <- 237
+x <- 237L
 
 # combine in a list
 mylist <- list(numbers, letters, dat, x)
@@ -513,9 +509,9 @@ the `gather()` function in the `tidyr` package is useful, but in this
 case we will be better off using a combination of `select()` and
 `bind_rows()`. Here's the logic behind this step:
 
-<center>
+
 ![](images/wide_vs_long.png)
-</center>
+
 
 Here’s the code that implements the transformation:
 

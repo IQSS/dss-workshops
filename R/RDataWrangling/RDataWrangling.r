@@ -382,10 +382,10 @@ boysNames[[1]]
 #
 # If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> numeric -> character -> list. For example:
 
-x <- c(1, 2, 3)
+x <- c(1.5, 2.7, 3.9)
 typeof(x)
 
-x <- c(1, 2, 3, "a")
+x <- c(1.5, 2.7, 3.9, "a")
 typeof(x)
 
 
@@ -400,7 +400,7 @@ typeof(x)
 numbers <- 1:10
 letters <- LETTERS[1:4]
 dat <- head(mtcars)
-x <- 237
+x <- 237L
 
 # combine in a list
 mylist <- list(numbers, letters, dat, x)
