@@ -53,8 +53,10 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 # **Overall Goal** 
 #
 # Our mission is to extract and graph the **top 100** boys names in England and Wales for every year since 1996. 
-#  
+#
+# <center>
 # ![goal](R/RDataWrangling/images/goal.png)
+# </center>
 #
 # **Exercise 0: Problems with the data**
 #
@@ -192,7 +194,7 @@ excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 # The next step is to retrieve worksheet names and subset them.
 #
 # The `map*` functions are useful when you want to apply a function to a
-# list or vector of inputs and obtain the return values for each input. This 
+# vector of inputs and obtain the return values for each input. This 
 # is very convenient when a function already exists that does exactly what you
 # want. In the examples above we mapped the `excel_sheets()` function to
 # the elements of a character vector containing file names. 
@@ -209,15 +211,16 @@ excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 # 2.  One or more **arguments**
 # 3.  A **body** containing computations
 #
+# Anatomy of a function:
 
-# Anatomy of a function
+function_name <- function(arg1, arg2, ....) {
+  
+    body of function # where stuff happens 
 
-# function_name <- function(arg1, arg2, ....) {
-#  
-#   # body of function - where stuff happens #
-#
-#   return( results ) 
-# }
+    return( results ) 
+}
+
+# Simple examples:
 
 myfun <- function(x) {
   x^2
@@ -231,6 +234,8 @@ myfun2 <- function(x, y) {
 }
 
 myfun2(x=1:10, y=42)
+
+# Examples using the Excel data:
 
 get_data_sheet_name <- function(file, term){
   excel_sheets(file) %>% str_subset(pattern = term)
@@ -313,11 +318,15 @@ glimpse(boysNames[[20]])
 
 # In short, we want to go from this:
 #
+# <center>
 # ![messy](R/RDataWrangling/images/messy.png)
+# </center>
 #
 # to this:
 #
+# <center>
 # ![tidy](R/RDataWrangling/images/clean.png)
+# </center>
 #
 # There are many ways to do this kind of data manipulation in R. We're
 # going to use the `dplyr` and `tidyr` packages from within `tidyverse`
@@ -394,7 +403,9 @@ typeof(x)
 # Now that we know about data structures more generally, let's focus on the *list* structure we created for `boysNames`. 
 # Why are we using **double brackets** `[[` to index this list object, instead of the single brackets `[` we used to index atomic vectors?
 #
+# <center>
 # ![list indexing](R/RDataWrangling/images/indexing_lists.png)
+# </center>
 
 # various data structures
 numbers <- 1:10
