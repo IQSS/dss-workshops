@@ -1011,11 +1011,11 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 </ol>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="Rgraphics.html#cb227-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code>, but use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
+<li>Make the smoothing line in <code>geom_smooth()</code> less smooth. Hint: see <code>?loess</code>.</li>
 </ol>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="Rgraphics.html#cb228-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Overlay a smoothing line on top of the scatter plot using the default <em>loess</em> method for <code>geom_smooth()</code>, but make it less smooth. Hint: see <code>?stat_smooth</code> and the <code>span</code> argument.</li>
+<li>Change the smoothing line in <code>geom_smooth()</code> to use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
 </ol>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="Rgraphics.html#cb229-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
@@ -1180,7 +1180,7 @@ For a complete list of available scales see <a href="https://ggplot2.tidyverse.o
 </ol>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="Rgraphics.html#cb235-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out “Human development Index” instead of <code>HDI</code>). Hint: see <code>?scale_x_discrete</code>.</li>
+<li>Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out “Human development Index” instead of <code>HDI</code>). Hint: see <code>?scale_x_continous</code>, <code>?scale_y_continuous</code>, and <code>?scale_color_discrete</code>.</li>
 </ol>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="Rgraphics.html#cb236-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
@@ -1387,17 +1387,17 @@ Here is the logic behind this process:</p>
 <span id="cb261-2"><a href="Rgraphics.html#cb261-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb261-3"><a href="Rgraphics.html#cb261-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code>, but use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
+<li>Make the smoothing line in <code>geom_smooth()</code> less smooth. Hint: see <code>?loess</code>.</li>
 </ol>
 <div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="Rgraphics.html#cb262-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
 <span id="cb262-2"><a href="Rgraphics.html#cb262-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb262-3"><a href="Rgraphics.html#cb262-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<span id="cb262-3"><a href="Rgraphics.html#cb262-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">.4</span>)</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Overlay a smoothing line on top of the scatter plot using the default <em>loess</em> method for <code>geom_smooth()</code>, but make it less smooth. Hint: see <code>?loess</code>.</li>
+<li>Change the smoothing line in <code>geom_smooth()</code> to use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
 </ol>
 <div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="Rgraphics.html#cb263-1"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></span>
 <span id="cb263-2"><a href="Rgraphics.html#cb263-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb263-3"><a href="Rgraphics.html#cb263-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">.4</span>)</span></code></pre></div>
+<span id="cb263-3"><a href="Rgraphics.html#cb263-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>BONUS: Overlay a loess <code>(method = "loess")</code> smoothing line on top of the scatter plot using <code>geom_line()</code>. Hint: change the statistical transformation.</li>
 </ol>

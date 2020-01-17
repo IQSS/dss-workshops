@@ -329,10 +329,10 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 # 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`.
 ## 
 
-# 3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
+# 3.  Make the smoothing line in `geom_smooth()` less smooth. Hint: see `?loess`.
 ## 
 
-# 4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?stat_smooth` and the `span` argument.
+# 4.  Change the smoothing line in `geom_smooth()` to use a linear model for the predictions. Hint: see `?stat_smooth`.
 ## 
 
 # 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
@@ -434,7 +434,7 @@ p4 +
 # 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
 ## 
 
-# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_discrete`.
+# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_continous`, `?scale_y_continuous`, and `?scale_color_discrete`.
 ## 
 
 # 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
@@ -645,17 +645,17 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
   geom_smooth()
 
-# 3.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`, but use a linear model for the predictions. Hint: see `?stat_smooth`.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-
-# 4.  Overlay a smoothing line on top of the scatter plot using the default *loess* method for `geom_smooth()`, but make it less smooth. Hint: see `?loess`.
+# 3.  Make the smoothing line in `geom_smooth()` less smooth. Hint: see `?loess`.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
   geom_smooth(span = .4)
+
+# 4.  Change the smoothing line in `geom_smooth()` to use a linear model for the predictions. Hint: see `?stat_smooth`.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point() +
+  geom_smooth(method = "lm")
 
 # 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
 
