@@ -348,18 +348,21 @@ boysNames[[1]]
 #
 # **Data structures:**
 #
-# In R, the most foundational data structure is the **vector**, which comes in two basic forms:
+# In R, the most foundational data structure is the **vector**. Vectors are *containers* that
+# can hold a *collection* of values. Vectors come in two basic forms:
 #
 # 1. **atomic**: only hold elements of the same type; they are **homogeneous**
+#                The `c()` function can be used to create atomic vectors
 # 2. **list**: can hold elements of different types; they are **heterogeneous**
+#              The `list()` function can be used to create list vectors
 #
-# `NULL` is closely related to vectors and often serves the role of a generic zero length vector. 
+# `NULL` is closely related to vectors and often serves the role of a zero length vector. 
 #
 # <center>
 # ![vector tree](R/RDataWrangling/images/summary_tree.png)
 # </center>
 #
-# From these two forms, the following six structures are derived:
+# From these two basic forms, the following six structures are derived:
 #
 # | Type           | Elements       | Description                                                                                                       |
 # |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------|
@@ -389,13 +392,13 @@ boysNames[[1]]
 
 # **Coercion:**
 #
-# If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> numeric -> character -> list. For example:
+# If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> double -> character -> list. For example:
 
 x <- c(1.5, 2.7, 3.9)
 typeof(x)
 
-x <- c(1.5, 2.7, 3.9, "a")
-typeof(x)
+y <- c(1.5, 2.7, 3.9, "a")
+typeof(y)
 
 
 # ### List indexing
@@ -485,6 +488,12 @@ bind_rows(first_columns, second_columns)
 # our data with `select()` and `bind_rows()`. In each case we applied the
 # changes only to the first element of our `boysNames` list.
 #
+# NOTE: some Excel files include extra blank columns between the first and second 
+# set of `Name` and `Count` columns, resulting in different numeric suffixes
+# for the second set of columns. You will need to use a regular expression
+# to match each of these different column names. HINT: see the `?matches`
+# function.
+#
 # 1.  Create a new function called `cleanupNamesData` that:
 # 1) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
 
@@ -495,12 +504,6 @@ bind_rows(first_columns, second_columns)
 
 # 2.  Your task now is to use the `map()` function to apply each of these
 # transformations to all the elements in `boysNames`. 
-#
-# NOTE: some Excel files include extra blank columns between the first and second 
-# set of `Name` and `Count` columns, resulting in different numeric suffixes
-# for the second set of columns. You will need to use a regular expression
-# to match each of these different column names. HINT: see the `?matches`
-# function.
 ## 
 
 
@@ -630,11 +633,7 @@ boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 
 # ### Ex 3: prototype
 #
-# 1.  Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
-#
-# NOTE: some Excel files include extra blank columns between the first and second set of `Name` and `Count` columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression to match each of these different column names. HINT: see the `?matches` function.
-#
-# There are different ways you can go about it. Here is one:
+# 1.  Create a new function called `cleanupNamesData` that:
 
 cleanupNamesData <- function(file){
 
@@ -653,11 +652,13 @@ cleanupNamesData <- function(file){
   bind_rows(first_columns, second_columns)
 }
 
+
 ## test it out on the second data frame in the list
 boysNames[[2]] %>% glimpse() # before cleanup
 boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
 
-## apply the cleanup function to all the data frames in the list
+# 2.  Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
+
 boysNames <- map(boysNames, cleanupNamesData)
 
 # ### Ex 4: prototype

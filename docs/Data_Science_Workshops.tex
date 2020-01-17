@@ -6792,22 +6792,25 @@ We've now encountered several different data types and data structures. Let's ta
 
 \textbf{Data structures:}
 
-In R, the most foundational data structure is the \textbf{vector}, which comes in two basic forms:
+In R, the most foundational data structure is the \textbf{vector}. Vectors are \emph{containers} that
+can hold a \emph{collection} of values. Vectors come in two basic forms:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   \textbf{atomic}: only hold elements of the same type; they are \textbf{homogeneous}
+  The \texttt{c()} function can be used to create atomic vectors
 \item
   \textbf{list}: can hold elements of different types; they are \textbf{heterogeneous}
+  The \texttt{list()} function can be used to create list vectors
 \end{enumerate}
 
-\texttt{NULL} is closely related to vectors and often serves the role of a generic zero length vector.
+\texttt{NULL} is closely related to vectors and often serves the role of a zero length vector.
 
 \includegraphics{R/RDataWrangling/images/summary_tree.png}
 
-From these two forms, the following six structures are derived:
+From these two basic forms, the following six structures are derived:
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -6887,15 +6890,15 @@ logical & TRUE, FALSE\tabularnewline
 
 \textbf{Coercion:}
 
-If heterogeneous elements are stored in an atomic vector, R will \textbf{coerce} the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -\textgreater{} integer -\textgreater{} numeric -\textgreater{} character -\textgreater{} list. For example:
+If heterogeneous elements are stored in an atomic vector, R will \textbf{coerce} the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -\textgreater{} integer -\textgreater{} double -\textgreater{} character -\textgreater{} list. For example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\FloatTok{2.7}\NormalTok{, }\FloatTok{3.9}\NormalTok{)}
 \KeywordTok{typeof}\NormalTok{(x)}
 
-\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\FloatTok{2.7}\NormalTok{, }\FloatTok{3.9}\NormalTok{, }\StringTok{"a"}\NormalTok{)}
-\KeywordTok{typeof}\NormalTok{(x)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\FloatTok{2.7}\NormalTok{, }\FloatTok{3.9}\NormalTok{, }\StringTok{"a"}\NormalTok{)}
+\KeywordTok{typeof}\NormalTok{(y)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7027,6 +7030,12 @@ In the previous examples we learned how to drop empty rows with
 our data with \texttt{select()} and \texttt{bind\_rows()}. In each case we applied the
 changes only to the first element of our \texttt{boysNames} list.
 
+NOTE: some Excel files include extra blank columns between the first and second
+set of \texttt{Name} and \texttt{Count} columns, resulting in different numeric suffixes
+for the second set of columns. You will need to use a regular expression
+to match each of these different column names. HINT: see the \texttt{?matches}
+function.
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
@@ -7052,12 +7061,6 @@ changes only to the first element of our \texttt{boysNames} list.
   Your task now is to use the \texttt{map()} function to apply each of these
   transformations to all the elements in \texttt{boysNames}.
 \end{enumerate}
-
-NOTE: some Excel files include extra blank columns between the first and second
-set of \texttt{Name} and \texttt{Count} columns, resulting in different numeric suffixes
-for the second set of columns. You will need to use a regular expression
-to match each of these different column names. HINT: see the \texttt{?matches}
-function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7325,12 +7328,8 @@ different input formats.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Your task now is to use the \texttt{map()} function to apply each of these transformations to all the elements in \texttt{boysNames}.
+  Create a new function called \texttt{cleanupNamesData} that:
 \end{enumerate}
-
-NOTE: some Excel files include extra blank columns between the first and second set of \texttt{Name} and \texttt{Count} columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression to match each of these different column names. HINT: see the \texttt{?matches} function.
-
-There are different ways you can go about it. Here is one:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7351,11 +7350,23 @@ There are different ways you can go about it. Here is one:
   \KeywordTok{bind_rows}\NormalTok{(first_columns, second_columns)}
 \NormalTok{\}}
 
+
 \CommentTok{## test it out on the second data frame in the list}
 \NormalTok{boysNames[[}\DecValTok{2}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{() }\CommentTok{# before cleanup}
 \NormalTok{boysNames[[}\DecValTok{2}\NormalTok{]] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{cleanupNamesData}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{() }\CommentTok{# after cleanup}
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{## apply the cleanup function to all the data frames in the list}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Your task now is to use the \texttt{map()} function to apply each of these transformations to all the elements in \texttt{boysNames}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, cleanupNamesData)}
 \end{Highlighting}
 \end{Shaded}
