@@ -398,6 +398,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#ex-3-prototype-3"><i class="fa fa-check"></i>Ex 3: prototype</a></li>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#ex-4-prototype-1"><i class="fa fa-check"></i>Ex 4: prototype</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#complete-code"><i class="fa fa-check"></i>Complete code</a></li>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#wrap-up-4"><i class="fa fa-check"></i>Wrap-up</a><ul>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#feedback-4"><i class="fa fa-check"></i>Feedback</a></li>
 <li class="chapter" data-level="" data-path="RDataWrangling.html"><a href="RDataWrangling.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
@@ -738,7 +739,7 @@ with these data difficult?</p>
 <p>In what ways is the format different between the two files?</p></li>
 </ol>
 <p><strong>Steps to accomplish this goal:</strong></p>
-<ol style="list-style-type: decimal">
+<ol start="0" style="list-style-type: decimal">
 <li><p><strong>Explore example data to highlight problems (see Exercise 0)</strong></p></li>
 <li><p><strong>Reading data from multiple Excel worksheets into R data frames</strong></p>
 <ul>
@@ -905,13 +906,13 @@ read those data into R. We can do that using the <code>read_excel()</code> funct
 that it works. Recall that the actual data starts on row 7, so we want
 to skip the first 6 rows. We can use the <code>glimpse()</code> function from
 the <code>dplyr</code> package within <code>tidyverse</code> to view the output.</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="RDataWrangling.html#cb286-1"></a>tmp &lt;-<span class="st"> </span><span class="kw">read_excel</span>(</span>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="RDataWrangling.html#cb286-1"></a>temp &lt;-<span class="st"> </span><span class="kw">read_excel</span>(</span>
 <span id="cb286-2"><a href="RDataWrangling.html#cb286-2"></a>  <span class="dt">path =</span> boy_file_names[<span class="dv">1</span>],</span>
 <span id="cb286-3"><a href="RDataWrangling.html#cb286-3"></a>  <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>),</span>
 <span id="cb286-4"><a href="RDataWrangling.html#cb286-4"></a>  <span class="dt">skip =</span> <span class="dv">6</span></span>
 <span id="cb286-5"><a href="RDataWrangling.html#cb286-5"></a>)</span>
 <span id="cb286-6"><a href="RDataWrangling.html#cb286-6"></a></span>
-<span id="cb286-7"><a href="RDataWrangling.html#cb286-7"></a><span class="kw">glimpse</span>(tmp)</span></code></pre></div>
+<span id="cb286-7"><a href="RDataWrangling.html#cb286-7"></a><span class="kw">glimpse</span>(temp)</span></code></pre></div>
 <p>Note that R has added a suffix to each column name <code>...1</code>, <code>...2</code>,
 <code>...3</code>, etc. because duplicate names are not allowed, so the suffix serves
 to disambiguate. The trailing number represents the index of the column.</p>
@@ -983,10 +984,8 @@ We can do that using the <code>select()</code> function:</p>
 <p>In R, the most foundational data structure is the <strong>vector</strong>. Vectors are <em>containers</em> that
 can hold a <em>collection</em> of values. Vectors come in two basic forms:</p>
 <ol style="list-style-type: decimal">
-<li><strong>atomic</strong>: only hold elements of the same type; they are <strong>homogeneous</strong>
-The <code>c()</code> function can be used to create atomic vectors</li>
-<li><strong>list</strong>: can hold elements of different types; they are <strong>heterogeneous</strong>
-The <code>list()</code> function can be used to create list vectors</li>
+<li><strong>atomic</strong>: only hold elements of the same type; they are <strong>homogeneous</strong>. The <code>c()</code> function can be used to create atomic vectors.</li>
+<li><strong>list</strong>: can hold elements of different types; they are <strong>heterogeneous</strong>. The <code>list()</code> function can be used to create list vectors.</li>
 </ol>
 <p><code>NULL</code> is closely related to vectors and often serves the role of a zero length vector.</p>
 <center>
@@ -1366,6 +1365,54 @@ different input formats.</p>
 <span id="cb319-4"><a href="RDataWrangling.html#cb319-4"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb319-5"><a href="RDataWrangling.html#cb319-5"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of Andrew, over time&quot;</span>)</span></code></pre></div>
 </div>
+</div>
+<div id="complete-code" class="section level2">
+<h2>Complete code</h2>
+<ol style="list-style-type: decimal">
+<li>Code for Section 1: Reading data from multiple Excel worksheets into R data frames</li>
+</ol>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="RDataWrangling.html#cb320-1"></a>boy_file_names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;dataSets/boys&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb320-2"><a href="RDataWrangling.html#cb320-2"></a></span>
+<span id="cb320-3"><a href="RDataWrangling.html#cb320-3"></a>get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</span>(file, term){</span>
+<span id="cb320-4"><a href="RDataWrangling.html#cb320-4"></a>  <span class="kw">excel_sheets</span>(file) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> term)</span>
+<span id="cb320-5"><a href="RDataWrangling.html#cb320-5"></a>}</span>
+<span id="cb320-6"><a href="RDataWrangling.html#cb320-6"></a></span>
+<span id="cb320-7"><a href="RDataWrangling.html#cb320-7"></a>read_boys_names &lt;-<span class="st"> </span><span class="cf">function</span>(file, sheet_name) {</span>
+<span id="cb320-8"><a href="RDataWrangling.html#cb320-8"></a>  <span class="kw">read_excel</span>(</span>
+<span id="cb320-9"><a href="RDataWrangling.html#cb320-9"></a>    <span class="dt">path =</span> file,</span>
+<span id="cb320-10"><a href="RDataWrangling.html#cb320-10"></a>    <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(file, <span class="dt">term =</span> sheet_name),</span>
+<span id="cb320-11"><a href="RDataWrangling.html#cb320-11"></a>    <span class="dt">skip =</span> <span class="dv">6</span></span>
+<span id="cb320-12"><a href="RDataWrangling.html#cb320-12"></a>  )</span>
+<span id="cb320-13"><a href="RDataWrangling.html#cb320-13"></a>}</span>
+<span id="cb320-14"><a href="RDataWrangling.html#cb320-14"></a></span>
+<span id="cb320-15"><a href="RDataWrangling.html#cb320-15"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_boys_names, <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Code for Section 2: Clean up data within each R data frame</li>
+</ol>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="RDataWrangling.html#cb321-1"></a>cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){</span>
+<span id="cb321-2"><a href="RDataWrangling.html#cb321-2"></a>  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span></span>
+<span id="cb321-3"><a href="RDataWrangling.html#cb321-3"></a>  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span></span>
+<span id="cb321-4"><a href="RDataWrangling.html#cb321-4"></a><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb321-5"><a href="RDataWrangling.html#cb321-5"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
+<span id="cb321-6"><a href="RDataWrangling.html#cb321-6"></a>  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
+<span id="cb321-7"><a href="RDataWrangling.html#cb321-7"></a>  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) </span>
+<span id="cb321-8"><a href="RDataWrangling.html#cb321-8"></a>  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),</span>
+<span id="cb321-9"><a href="RDataWrangling.html#cb321-9"></a>                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))</span>
+<span id="cb321-10"><a href="RDataWrangling.html#cb321-10"></a>  <span class="co"># append the two datasets</span></span>
+<span id="cb321-11"><a href="RDataWrangling.html#cb321-11"></a>  <span class="kw">bind_rows</span>(first_columns, second_columns)</span>
+<span id="cb321-12"><a href="RDataWrangling.html#cb321-12"></a>}</span>
+<span id="cb321-13"><a href="RDataWrangling.html#cb321-13"></a></span>
+<span id="cb321-14"><a href="RDataWrangling.html#cb321-14"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Code for Section 3: Organize the data into one large data frame and store it</li>
+</ol>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="RDataWrangling.html#cb322-1"></a>Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)</span>
+<span id="cb322-2"><a href="RDataWrangling.html#cb322-2"></a></span>
+<span id="cb322-3"><a href="RDataWrangling.html#cb322-3"></a><span class="kw">names</span>(boysNames) &lt;-<span class="st"> </span>Years</span>
+<span id="cb322-4"><a href="RDataWrangling.html#cb322-4"></a></span>
+<span id="cb322-5"><a href="RDataWrangling.html#cb322-5"></a>boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, <span class="op">~</span><span class="st"> </span><span class="kw">mutate</span>(.x, <span class="dt">Year =</span> <span class="kw">as.integer</span>(.y)))</span>
+<span id="cb322-6"><a href="RDataWrangling.html#cb322-6"></a></span>
+<span id="cb322-7"><a href="RDataWrangling.html#cb322-7"></a>boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)</span></code></pre></div>
 </div>
 <div id="wrap-up-4" class="section level2">
 <h2>Wrap-up</h2>

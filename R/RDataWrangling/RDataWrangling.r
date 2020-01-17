@@ -78,19 +78,19 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 # **Steps to accomplish this goal:**
 #
-# 1.  **Explore example data to highlight problems (see Exercise 0)**
+# 0.  **Explore example data to highlight problems (see Exercise 0)**
 #
-# 2.  **Reading data from multiple Excel worksheets into R data frames**
+# 1.  **Reading data from multiple Excel worksheets into R data frames**
 #     + list Excel file names in a character vector
 #     + read Excel sheetnames into a list of character vectors
 #     + read Excel data for "Table 1" only into a list of data frames
 #
-# 3.  **Clean up data within each R data frame**
+# 2.  **Clean up data within each R data frame**
 #     + sort and merge columns within each data frame inside the list
 #     + drop missing values from each data frame
 #     + reshape format from wide to long
 #
-# 4.  **Organize the data into one large data frame and store it**
+# 3.  **Organize the data into one large data frame and store it**
 #     + create a year column within each data frame in the list
 #     + append all the data frames in the list into one large data frame
 #
@@ -265,13 +265,13 @@ map(boy_file_names,      # list object
 # to skip the first 6 rows. We can use the `glimpse()` function from
 # the `dplyr` package within `tidyverse` to view the output.
 
-tmp <- read_excel(
+temp <- read_excel(
   path = boy_file_names[1],
   sheet = get_data_sheet_name(boy_file_names[1], term = "Table 1"),
   skip = 6
 )
 
-glimpse(tmp)
+glimpse(temp)
 
 # Note that R has added a suffix to each column name `...1`, `...2`,
 # `...3`, etc. because duplicate names are not allowed, so the suffix serves
@@ -351,10 +351,8 @@ boysNames[[1]]
 # In R, the most foundational data structure is the **vector**. Vectors are *containers* that
 # can hold a *collection* of values. Vectors come in two basic forms:
 #
-# 1. **atomic**: only hold elements of the same type; they are **homogeneous**
-#                The `c()` function can be used to create atomic vectors
-# 2. **list**: can hold elements of different types; they are **heterogeneous**
-#              The `list()` function can be used to create list vectors
+# 1. **atomic**: only hold elements of the same type; they are **homogeneous**. The `c()` function can be used to create atomic vectors.
+# 2. **list**: can hold elements of different types; they are **heterogeneous**. The `list()` function can be used to create list vectors.
 #
 # `NULL` is closely related to vectors and often serves the role of a zero length vector. 
 #
@@ -688,6 +686,51 @@ andrew <- filter(boysNames, Name == "ANDREW")
 ggplot(andrew, aes(x = Year, y = Count)) +
     geom_line() +
     ggtitle("Popularity of Andrew, over time")
+
+
+# ## Complete code
+#
+# 1.  Code for Section 1: Reading data from multiple Excel worksheets into R data frames
+boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
+
+get_data_sheet_name <- function(file, term){
+  excel_sheets(file) %>% str_subset(pattern = term)
+}
+
+read_boys_names <- function(file, sheet_name) {
+  read_excel(
+    path = file,
+    sheet = get_data_sheet_name(file, term = sheet_name),
+    skip = 6
+  )
+}
+
+boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
+
+# 2.  Code for Section 2: Clean up data within each R data frame
+cleanupNamesData <- function(file){
+  # subset data to include only those columns that include the term `Name` and `Count`
+  subsetted_file <- file %>%
+    select(matches("Name|Count")) %>%
+    drop_na()
+  # subset two separate data frames, with first and second set of `Name` and `Count` columns 
+  first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
+  second_columns <- select(subsetted_file, Name = matches("Name...6|Name...7|Name...8"),
+                                           Count = matches("Count...7|Count...8|Count...9"))
+  # append the two datasets
+  bind_rows(first_columns, second_columns)
+}
+
+boysNames <- map(boysNames, cleanupNamesData)
+
+# 3.  Code for Section 3: Organize the data into one large data frame and store it
+Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
+
+names(boysNames) <- Years
+
+boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
+
+boysNames <- bind_rows(boysNames)
 
 
 # ## Wrap-up

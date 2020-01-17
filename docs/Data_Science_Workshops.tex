@@ -6376,6 +6376,7 @@ There are several things that make our goal challenging. Let's take a look at th
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{-1}
 \item
   \textbf{Explore example data to highlight problems (see Exercise 0)}
 \item
@@ -6661,13 +6662,13 @@ the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tmp <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}
+\NormalTok{temp <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}
   \DataTypeTok{path =}\NormalTok{ boy_file_names[}\DecValTok{1}\NormalTok{],}
   \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(boy_file_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{),}
   \DataTypeTok{skip =} \DecValTok{6}
 \NormalTok{)}
 
-\KeywordTok{glimpse}\NormalTok{(tmp)}
+\KeywordTok{glimpse}\NormalTok{(temp)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6799,11 +6800,9 @@ can hold a \emph{collection} of values. Vectors come in two basic forms:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{atomic}: only hold elements of the same type; they are \textbf{homogeneous}
-  The \texttt{c()} function can be used to create atomic vectors
+  \textbf{atomic}: only hold elements of the same type; they are \textbf{homogeneous}. The \texttt{c()} function can be used to create atomic vectors.
 \item
-  \textbf{list}: can hold elements of different types; they are \textbf{heterogeneous}
-  The \texttt{list()} function can be used to create list vectors
+  \textbf{list}: can hold elements of different types; they are \textbf{heterogeneous}. The \texttt{list()} function can be used to create list vectors.
 \end{enumerate}
 
 \texttt{NULL} is closely related to vectors and often serves the role of a zero length vector.
@@ -7436,6 +7435,83 @@ different input formats.
 \KeywordTok{ggplot}\NormalTok{(andrew, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Popularity of Andrew, over time"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{complete-code}{%
+\section{Complete code}\label{complete-code}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Code for Section 1: Reading data from multiple Excel worksheets into R data frames
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boy_file_names <-}\StringTok{ }\KeywordTok{list.files}\NormalTok{(}\StringTok{"dataSets/boys"}\NormalTok{, }\DataTypeTok{full.names =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{get_data_sheet_name <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, term)\{}
+  \KeywordTok{excel_sheets}\NormalTok{(file) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_subset}\NormalTok{(}\DataTypeTok{pattern =}\NormalTok{ term)}
+\NormalTok{\}}
+
+\NormalTok{read_boys_names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, sheet_name) \{}
+  \KeywordTok{read_excel}\NormalTok{(}
+    \DataTypeTok{path =}\NormalTok{ file,}
+    \DataTypeTok{sheet =} \KeywordTok{get_data_sheet_name}\NormalTok{(file, }\DataTypeTok{term =}\NormalTok{ sheet_name),}
+    \DataTypeTok{skip =} \DecValTok{6}
+\NormalTok{  )}
+\NormalTok{\}}
+
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boy_file_names, read_boys_names, }\DataTypeTok{sheet_name =} \StringTok{"Table 1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Code for Section 2: Clean up data within each R data frame
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cleanupNamesData <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file)\{}
+  \CommentTok{# subset data to include only those columns that include the term `Name` and `Count`}
+\NormalTok{  subsetted_file <-}\StringTok{ }\NormalTok{file }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{drop_na}\NormalTok{()}
+  \CommentTok{# subset two separate data frames, with first and second set of `Name` and `Count` columns }
+\NormalTok{  first_columns <-}\StringTok{ }\KeywordTok{select}\NormalTok{(subsetted_file, }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{) }
+\NormalTok{  second_columns <-}\StringTok{ }\KeywordTok{select}\NormalTok{(subsetted_file, }\DataTypeTok{Name =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Name...6|Name...7|Name...8"}\NormalTok{),}
+                                           \DataTypeTok{Count =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Count...7|Count...8|Count...9"}\NormalTok{))}
+  \CommentTok{# append the two datasets}
+  \KeywordTok{bind_rows}\NormalTok{(first_columns, second_columns)}
+\NormalTok{\}}
+
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{map}\NormalTok{(boysNames, cleanupNamesData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Code for Section 3: Organize the data into one large data frame and store it
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Years <-}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(boy_file_names, }\DataTypeTok{pattern =} \StringTok{"[0-9]\{4\}"}\NormalTok{)}
+
+\KeywordTok{names}\NormalTok{(boysNames) <-}\StringTok{ }\NormalTok{Years}
+
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames, }\OperatorTok{~}\StringTok{ }\KeywordTok{mutate}\NormalTok{(.x, }\DataTypeTok{Year =} \KeywordTok{as.integer}\NormalTok{(.y)))}
+
+\NormalTok{boysNames <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(boysNames)}
 \end{Highlighting}
 \end{Shaded}
 
