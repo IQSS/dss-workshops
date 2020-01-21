@@ -18,7 +18,7 @@
 
 # ### Prerequisites
 #
-# This is an intermediate Python course:
+# This is an intermediate / advanced Python course:
 #
 # * Assumes knowledge of Python, including:
 #     + lists
@@ -31,22 +31,16 @@
 # If you need an introduction to Python or a refresher, we recommend our
 # [Python Introduction](https://iqss.github.io/dss-workshops/PythonIntro.html).
 
-# ### Learning Outcomes
-#
-# 1. learn basic web scraping principles and techniques
-# 2. learn how to use the `requests` package in Python
-# 3. practice making requests and manipulating responses from the server
-#
-# Note also that this workshop will not teach you everything you need to
-# know in order to retrieve data from any web service you might wish to
-# scrape. 
-
 # ### Workshop Outline
 #
 # This workshop is organized into two parts:
 #
 # 1. Retrive information in JSON format
-# 2. Parse HTML file
+# 2. Parse HTML files
+#
+# Note also that this workshop will not teach you everything you need to
+# know in order to retrieve data from any web service you might wish to
+# scrape.
 
 # ## Preliminary questions
 #
@@ -325,7 +319,7 @@ events0.headers['Content-Type']
 # While JSON parsing is built into the Python `requests` library, parsing
 # HTML requires a separate library. I recommend using the HTML parser
 # from the `lxml` library; others prefer an alternative called
-# `BeautyfulSoup`.
+# `beautifulsoup4`.
 
 from lxml import html
 
