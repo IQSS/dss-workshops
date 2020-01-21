@@ -38,9 +38,8 @@
 # 1. Retrive information in JSON format
 # 2. Parse HTML files
 #
-# Note also that this workshop will not teach you everything you need to
-# know in order to retrieve data from any web service you might wish to
-# scrape.
+# Note that this workshop will not teach you everything you need to know in
+# order to retrieve data from any web service you might wish to scrape.
 
 # ## Preliminary questions
 #
@@ -440,13 +439,16 @@ print(all_event_values)
 #    the `XPath` to the element containing the list of level
 #    information. (HINT: the element if interest is a `ul`, i.e.,
 #    `unordered list`.)
+#
 # 2. Make a `get` request in Python to retrieve the web page at
 #    <https://www.harvardartmuseums.org/visit/floor-plan>. Extract the
 #    content from your request object and parse it using `html.fromstring`
 #    from the `lxml` library.
+#
 # 3. Use your web browser to find the `XPath`s to the facilities housed on
 #    level one. Use Python to extract the text from those `Xpath`s.
-# 4. Bonus (optional): Write a *loop* or *list comprehension* in Python
+#
+# 4. Bonus (optional): Write a *for loop* or *list comprehension* in Python
 #    to retrieve data for all the levels.
 
 # ## `Scrapy`: for large / complex projects
@@ -455,18 +457,18 @@ print(all_event_values)
 # learn basic web scraping techniques. It is a good choice for small to
 # medium size projects. For very large or complicated scraping tasks the
 # `scrapy` library offers a number of conveniences, including
-# asynchronously retrieval, session management, convenient methods for
+# asynchronous retrieval, session management, convenient methods for
 # extracting and storing values, and more. More information about
 # `scrapy` can be found at <https://doc.scrapy.org>.
 #
 # ## Browser drivers: a last resort
 # It is sometimes necessary (or sometimes just easier) to use a web
-# browser as an intermediary rather than communicating directly with a
-# web service. This method has the advantage of being about to use the
-# javascript engine and session management features of a web browser;
-# the main disadvantage is that it is slower and tends to be more
-# fragile than using `requests` or `scrapy` to make requests directly
-# from python. For small scraping projects involving complicated sites
+# browser as an intermediary rather than communicate directly with a
+# web service. This method of using a "browser driver" has the advantage 
+# of being able to use the javascript engine and session management features 
+# of a web browser; the main disadvantage is that it is slower and tends to 
+# be more fragile than using `requests` or `scrapy` to make requests directly
+# from Python. For small scraping projects involving complicated sites
 # with CAPTHAs or lots of complicated javascript using a browser driver
 # can be a good option. More information is available at 
 # <https://www.seleniumhq.org/docs/03_webdriver.jsp>.
