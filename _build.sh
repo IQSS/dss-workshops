@@ -9,7 +9,7 @@ set -ev
 rm -rf docs _bookdown_files
 
 # remove previous .zip, .r, .py, .do, and .ipynb files throughout directory tree
-find ./ -type f \( -iname \*.zip -o -iname \*.py -o -iname \*.ipynb \) -delete  # -o -iname \*.r -o -iname \*.do
+find ./ -type f \( -iname \*.zip -o -iname \*.py \) -delete  #  -o -iname \*.r     #  -o -iname \*.do     # -o -iname \*.ipynb
 
 Rscript -e "bookdown::render_book('rmd_files', 'bookdown::gitbook')"
 Rscript -e "bookdown::render_book('rmd_files', 'bookdown::pdf_book')"
