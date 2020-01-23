@@ -88,12 +88,12 @@
 # * <https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook>
 # * <https://realpython.com/jupyter-notebook-introduction/>
 
-# ### Launch Jupyter Notebook
+# ### Launch JupyterLab
 #
 # 1. Start the `Anaconda Navigator` program
-# 2. Click the `Launch` button under `Jupyter Notebook`
-# 3. Click `upload`, then in the pop-up window select the `PythonIntro` folder on the desktop
-# 4. Open and upload 3 files (note, this is TWO steps): `PythonIntro.ipnb`, `Alice_in_wonderland.txt`, and `Characters.txt`
+# 2. Click the `Launch` button under `Jupyter Lab`
+# 3. A browser window will open with your computer's files listed on the left hand side of the page. Navigate to the folder called `PythonIntro` that you downloaded to your desktop and double-click on the folder
+# 4. Within the `PythonIntro` folder, double-click on the file with the word "BLANK" in the name (`PythonIntro_BLANK.ipynb`). A pop-up window will ask you to `Select Kernal` --- you should select the Python 3 kernal. The Jupyter Notebook should now open on the right hand side of the page
 #
 # A Jupyter Notebook contains one or more *cells* containing notes or code. To insert a new cell click the `+` button in the upper left. To execute a cell, select it and press `Control+Enter` or click the `Run` button at the top.
 
