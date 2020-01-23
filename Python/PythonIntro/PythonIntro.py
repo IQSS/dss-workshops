@@ -294,7 +294,7 @@ len(alice_paragraphs)
 # **GOAL: To learn how to automate repetitive tasks by iterating over collections of data.** We will do this using the Alice text to count:
 #
 # 1.  Words nested within paragraphs
-# 2.  Paragraphs nested with chapters
+# 2.  Paragraphs nested within chapters
 
 # This far our analysis has treated the text as a "flat" data structure. For example, when we counted words we just counted words in the whole document, rather than counting the number of words in each chapter. If we want to treat our document as a nested structure, with words forming sentences, sentences forming paragraphs, paragraphs forming chapters, and chapters forming the book, we need to learn some additional tools. Specifically, we need to learn how to iterate over lists (or other collections) and do things with each element in a collection.
 #
@@ -494,7 +494,7 @@ characters_txt = open("Characters.txt").read()
 alice_txt = open("Alice_in_wonderland.txt").read()
 
 # 2. Which chapter has the most words?
-# Split the text into chaptes (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
+# Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
 # For each chapter, split it into words and calculate the length.
 
 words_per_chapter = []
