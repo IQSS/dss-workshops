@@ -1009,31 +1009,38 @@ retrieve data for all the events listed on the page we need to iterate
 over the events. If we are very lucky, each event will have exactly
 the same information structured in exactly the same way and we can
 simply extend the code we wrote above to iterate over the events list.</p>
-<p>Unfortunately not all these elements are available for every event, so
+<p>Unfortunately, not all these elements are available for every event, so
 we need to take care to handle the case where one or more of these
-elements is not available. We can do that by defining a function that
+elements is not available. We can do that by <strong>defining a function</strong> that
 tries to retrieve a value and returns an empty string if it fails.</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb390-1"><a href="PythonWebScrape.html#cb390-1"></a><span class="kw">def</span> get_event_info(event, path):</span>
-<span id="cb390-2"><a href="PythonWebScrape.html#cb390-2"></a>    <span class="cf">try</span>:</span>
-<span id="cb390-3"><a href="PythonWebScrape.html#cb390-3"></a>        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text.strip()</span>
-<span id="cb390-4"><a href="PythonWebScrape.html#cb390-4"></a>    <span class="cf">except</span>:</span>
-<span id="cb390-5"><a href="PythonWebScrape.html#cb390-5"></a>        info <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
-<span id="cb390-6"><a href="PythonWebScrape.html#cb390-6"></a>    <span class="cf">return</span> info</span></code></pre></div>
+<p>If you’re not familiar with Python functions, here’s the basic syntax:</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb390-1"><a href="PythonWebScrape.html#cb390-1"></a><span class="co"># anatomy of a function</span></span>
+<span id="cb390-2"><a href="PythonWebScrape.html#cb390-2"></a></span>
+<span id="cb390-3"><a href="PythonWebScrape.html#cb390-3"></a><span class="kw">def</span> name_of_function(arg1, arg2, ...argn):  <span class="co"># define the function name and arguments</span></span>
+<span id="cb390-4"><a href="PythonWebScrape.html#cb390-4"></a>    <span class="op">&lt;</span>body of function<span class="op">&gt;</span>   <span class="co"># specify calculations</span></span>
+<span id="cb390-5"><a href="PythonWebScrape.html#cb390-5"></a>    <span class="cf">return</span> <span class="op">&lt;</span>result<span class="op">&gt;</span>      <span class="co"># output result of calculations</span></span></code></pre></div>
+<p>Here’s a function to perform our task:</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb391-1"><a href="PythonWebScrape.html#cb391-1"></a><span class="kw">def</span> get_event_info(event, path):</span>
+<span id="cb391-2"><a href="PythonWebScrape.html#cb391-2"></a>    <span class="cf">try</span>:</span>
+<span id="cb391-3"><a href="PythonWebScrape.html#cb391-3"></a>        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text.strip()</span>
+<span id="cb391-4"><a href="PythonWebScrape.html#cb391-4"></a>    <span class="cf">except</span>:</span>
+<span id="cb391-5"><a href="PythonWebScrape.html#cb391-5"></a>        info <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb391-6"><a href="PythonWebScrape.html#cb391-6"></a>    <span class="cf">return</span> info</span></code></pre></div>
 <p>Armed with this function we can iterate over the list of events and
 extract the available information for each one.</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb391-1"><a href="PythonWebScrape.html#cb391-1"></a>all_event_values <span class="op">=</span> {}</span>
-<span id="cb391-2"><a href="PythonWebScrape.html#cb391-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
-<span id="cb391-3"><a href="PythonWebScrape.html#cb391-3"></a>    key_values <span class="op">=</span> []</span>
-<span id="cb391-4"><a href="PythonWebScrape.html#cb391-4"></a>    <span class="cf">for</span> event <span class="kw">in</span> events_list_html: </span>
-<span id="cb391-5"><a href="PythonWebScrape.html#cb391-5"></a>        key_values.append(get_event_info(event, elements_we_want[key]))</span>
-<span id="cb391-6"><a href="PythonWebScrape.html#cb391-6"></a>    all_event_values[key] <span class="op">=</span> key_values</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb392-1"><a href="PythonWebScrape.html#cb392-1"></a>all_event_values <span class="op">=</span> {}</span>
+<span id="cb392-2"><a href="PythonWebScrape.html#cb392-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
+<span id="cb392-3"><a href="PythonWebScrape.html#cb392-3"></a>    key_values <span class="op">=</span> []</span>
+<span id="cb392-4"><a href="PythonWebScrape.html#cb392-4"></a>    <span class="cf">for</span> event <span class="kw">in</span> events_list_html: </span>
+<span id="cb392-5"><a href="PythonWebScrape.html#cb392-5"></a>        key_values.append(get_event_info(event, elements_we_want[key]))</span>
+<span id="cb392-6"><a href="PythonWebScrape.html#cb392-6"></a>    all_event_values[key] <span class="op">=</span> key_values</span></code></pre></div>
 <p>For convenience we can arrange these values in a pandas <code>DataFrame</code>
 and save them as .csv files, just as we did with our exhibitions data earlier.</p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb392-1"><a href="PythonWebScrape.html#cb392-1"></a>all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</span>
-<span id="cb392-2"><a href="PythonWebScrape.html#cb392-2"></a></span>
-<span id="cb392-3"><a href="PythonWebScrape.html#cb392-3"></a>all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</span>
-<span id="cb392-4"><a href="PythonWebScrape.html#cb392-4"></a></span>
-<span id="cb392-5"><a href="PythonWebScrape.html#cb392-5"></a><span class="bu">print</span>(all_event_values)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb393-1"><a href="PythonWebScrape.html#cb393-1"></a>all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</span>
+<span id="cb393-2"><a href="PythonWebScrape.html#cb393-2"></a></span>
+<span id="cb393-3"><a href="PythonWebScrape.html#cb393-3"></a>all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</span>
+<span id="cb393-4"><a href="PythonWebScrape.html#cb393-4"></a></span>
+<span id="cb393-5"><a href="PythonWebScrape.html#cb393-5"></a><span class="bu">print</span>(all_event_values)</span></code></pre></div>
 </div>
 <div id="exercise-1-5" class="section level3">
 <h3>Exercise 1</h3>

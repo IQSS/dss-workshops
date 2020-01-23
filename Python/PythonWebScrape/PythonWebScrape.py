@@ -393,10 +393,21 @@ print(first_event_values)
 # the same information structured in exactly the same way and we can
 # simply extend the code we wrote above to iterate over the events list.
 #
-# Unfortunately not all these elements are available for every event, so
+# Unfortunately, not all these elements are available for every event, so
 # we need to take care to handle the case where one or more of these
-# elements is not available. We can do that by defining a function that
+# elements is not available. We can do that by **defining a function** that
 # tries to retrieve a value and returns an empty string if it fails.
+#
+# If you're not familiar with Python functions, here's the basic syntax:
+
+# anatomy of a function
+
+def name_of_function(arg1, arg2, ...argn):  # define the function name and arguments
+    <body of function>   # specify calculations
+    return <result>      # output result of calculations
+
+
+# Here's a function to perform our task:
 
 def get_event_info(event, path):
     try:
