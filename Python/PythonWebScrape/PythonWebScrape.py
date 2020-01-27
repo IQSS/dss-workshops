@@ -261,13 +261,23 @@ print(records_final)
 #    page at `https://www.harvardartmuseums.org/visit/exhibitions`. Examine
 #    the network traffic as you interact with the page. Try to find
 #    where the data displayed on that page comes from.
-# 2. Make a `get` request in Python to retrieve the data from the URL
-#    identified in step1.
-# 3. Write a *loop* or *list comprehension* in Python to retrieve data
-#    for the first 5 pages of exhibitions data.
+##
+``
+
+2. Make a `get` request in Python to retrieve the data from the URL
+   identified in step1.
+```{Python}
+##
+``
+
+3. Write a *loop* or *list comprehension* in Python to retrieve data
+   for the first 5 pages of exhibitions data.
+```{Python}
+##
+
 # 4. Bonus (optional): Convert the data you retrieved into a pandas 
 #   `DataFrame` and save it to a `.csv` file.
-#
+##
 
 # ## Parse HTML if you have to
 # As we've seen, you can often inspect network traffic or other sources
@@ -455,12 +465,15 @@ print(all_event_values)
 #    <https://www.harvardartmuseums.org/visit/floor-plan>. Extract the
 #    content from your request object and parse it using `html.fromstring`
 #    from the `lxml` library.
-#
+##
+
 # 3. Use your web browser to find the `XPath`s to the facilities housed on
 #    level one. Use Python to extract the text from those `Xpath`s.
-#
+##
+
 # 4. Bonus (optional): Write a *for loop* or *list comprehension* in Python
 #    to retrieve data for all the levels.
+##
 
 # ## `Scrapy`: for large / complex projects
 # Scraping websites using the `requests` library to make GET and POST
@@ -487,8 +500,66 @@ print(all_event_values)
 # ## Exercise solutions
 #
 # ### Ex 0: prototype
+#
+# Question #1: 
+museum_domain = "https://www.harvardartmuseums.org"
+exhibit_path = "search/load_next"
+exhibit_url = museum_domain + "/" + exhibit_path
+print(exhibit_url)
+
+# Question #2:
+import requests
+from pprint import pprint as print 
+exhibit1 = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': 1})
+print(exhibit1.headers["Content-Type"])
+exhibit1 = exhibit1.json()
+print(exhibit1)
+
+# Questions #3+4 (loop solution):
+firstFivePages = []
+for page in range(1, 6):
+    records_per_page = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records']
+    firstFivePages.extend(records_per_page)
+firstFivePages_records = pd.DataFrame.from_records(firstFivePages)
+print(firstFivePages_records)
+
+# Questions #3+4 (list comprehension solution):
+first5Pages = [requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
+from itertools import chain
+first5Pages = list(chain.from_iterable(first5Pages))
+import pandas as pd
+first5Pages_records = pd.DataFrame.from_records(first5Pages)
+print(first5Pages_records)
 
 # ### Ex 1: prototype
+#
+# Question #2:
+from lxml import html
+floor_plan = requests.get('https://www.harvardartmuseums.org/visit/floor-plan')
+floor_plan_html = html.fromstring(floor_plan.text)
+
+# Question #3:
+level_one = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul')[0]
+print(type(level_one))
+print(len(level_one))
+
+level_one_facilities = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul/li')
+print(len(level_one_facilities))
+
+print([facility.text_content() for facility in level_one_facilities])
+
+# Question #4:
+all_levels = floor_plan_html.xpath('/html/body/main/section/ul/li')
+print(len(all_levels))
+
+all_levels_facilities = []
+for level in all_levels:
+    level_facilities = []
+    level_facilities_collection = level.xpath('div[2]/ul/li')
+    for level_facility in level_facilities_collection:
+        level_facilities.append(level_facility.text_content())
+    all_levels_facilities.append(level_facilities)
+print(all_levels_facilities)
 #
 
 # ## Wrap-up
