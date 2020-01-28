@@ -79,14 +79,14 @@ There are different ways of interacting with R. The two main ways are through:
 
 1. **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. For these workshops we will use [RStudio](https://rstudio.com/); it is a good R-specific IDE with many useful features. Here are a few popular editors/IDEs that can be used with R:
 
-   | Editor / IDE | Features  | Ease of use | Language support |
-   |:------------ |:--------- |:----------- |:---------------- |
-   | RStudio      | Excellent | Easy        | R only           |
-   | Jupyter Lab  | Good      | Easy        | Excellent        |
-   | VS code      | Excellent | Easy        | Very good        |
-   | Atom         | Good      | Moderate    | Good             |
-   | Vim          | Excellent | Hard        | Good             |
-   | Emacs        | Excellent | Hard        | Excellent        |
+    | Editor / IDE | Features  | Ease of use | Language support |
+    |:------------ |:--------- |:----------- |:---------------- |
+    | RStudio      | Excellent | Easy        | R only           |
+    | Jupyter Lab  | Good      | Easy        | Excellent        |
+    | VS code      | Excellent | Easy        | Very good        |
+    | Atom         | Good      | Moderate    | Good             |
+    | Vim          | Excellent | Hard        | Good             |
+    | Emacs        | Excellent | Hard        | Excellent        |
 
 2. **Notebooks:** Web-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. A popular notebook is the open source [Jupyter Notebook](https://jupyter.org/) that has support for 40+ languages. 
 
@@ -191,27 +191,27 @@ Names should start with a letter, and contain only letters, numbers, underscores
 
 1. You can ask R for help using the `help` function, or the `?` shortcut.
 
-   ```{r, eval=FALSE}
-   help(help)
-   ?help
-   ?sqrt
-   ```
+    ```{r, eval=FALSE}
+    help(help)
+    ?help
+    ?sqrt
+    ```
 
    The `help` function can be used to look up the documentation for a function, or
    to look up the documentation to a package. We can learn how to use the `stats`
    package by reading its documentation like this:
 
-   ```{r, eval=FALSE}
-   help(package = "stats")
-   ```
+    ```{r, eval=FALSE}
+    help(package = "stats")
+    ```
 
 2. If you know the name of the package you want to use, then Googling "R *package-name*" will
 often get you to the documentation. Packages are hosted on several different repositories, including:
 
-   * CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
-   * Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
-   * Github: <http://rpkg.gepuro.net/>
-   * R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
+    * CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
+    * Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
+    * Github: <http://rpkg.gepuro.net/>
+    * R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
 
 3. If you know the type of analysis you want to perform, you can Google "CRAN Task Views", 
 where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
@@ -874,206 +874,206 @@ ls() # list objects
 
 1. 2 plus 2
 
-```{r}
-2 + 2
-# or
-sum(2, 2)
-```
+    ```{r}
+    2 + 2
+    # or
+    sum(2, 2)
+    ```
 
 2. square root of 10
 
-```{r}
-sqrt(10)
-# or
-10^(1/2)
-```
+    ```{r}
+    sqrt(10)
+    # or
+    10^(1/2)
+    ```
 
 3. Find "An Introduction to R".
 
-```{r}
-# Go to the main help page by running 'help.start() or using the GUI
-# menu, find and click on the link to "An Introduction to R".
-```
+    ```{r}
+    # Go to the main help page by running 'help.start() or using the GUI
+    # menu, find and click on the link to "An Introduction to R".
+    ```
 
 
 ### Ex 1: prototype
 
 1. Open the `read_csv()` help page to determine how to use it to read in data.
 
-```{r, eval=FALSE}
-?read_csv
-```
+    ```{r, eval=FALSE}
+    ?read_csv
+    ```
 
 2. Read the baby names data using the `read_csv()` function and assign the result with the name `baby_names`.
 
-```{r}
-baby_names <- read_csv("babyNames.csv")
-```
+    ```{r}
+    baby_names <- read_csv("babyNames.csv")
+    ```
 
 3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` and as an R data set `babynames.rds`.
  
-```{r, eval=FALSE} 
-write_dta(baby_names, version = 15, path = “babynames.dta”)
- 
-write_rds(baby_names, file = “babynames.rds”)
-```
+    ```{r, eval=FALSE} 
+    write_dta(baby_names, version = 15, path = “babynames.dta”)
+     
+    write_rds(baby_names, file = “babynames.rds”)
+    ```
 
 
 ### Ex 2.1: prototype
 
 1. Use `filter` to extract data for your name (or another name of your choice).
 
-```{r}
-baby_names_george <- filter(baby_names, Name == "George")
-```
+    ```{r}
+    baby_names_george <- filter(baby_names, Name == "George")
+    ```
 
 2. Arrange the data you produced in step 1 above by `Count`. In which year was the name most popular?
 
-```{r}
-arrange(baby_names_george, desc(Count))
-```
+    ```{r}
+    arrange(baby_names_george, desc(Count))
+    ```
 
 3. BONUS (optional): Filter the data to extract _only_ the row containing the most popular boys name in 1999.
 
-```{r}
-baby_names_boys_1999 <- filter(baby_names, 
-                    Year == 1999 & Sex == "Boys")
-```
+    ```{r}
+    baby_names_boys_1999 <- filter(baby_names,
+                                   Year == 1999 & Sex == "Boys")
+    ```
 
-```{r}
-filter(baby_names_boys_1999, Count == max(Count))
-```
+    ```{r}
+    filter(baby_names_boys_1999, Count == max(Count))
+    ```
 
 ### Ex 2.2: prototype
 
 Rewrite the solution to Exercise 2.1 using pipes.
 
-```{r}
-baby_names %>% 
-  filter(Name == "George") %>%
-  arrange(desc(Count))
-```
+    ```{r}
+    baby_names %>% 
+      filter(Name == "George") %>%
+      arrange(desc(Count))
+    ```
 
 
 ### Ex 3: prototype
 
 1. Use `filter()` to extract data for your name (same as previous exercise).  
 
-```{r}
-baby_names_george <- filter(baby_names, Name == "George")
-```
+    ```{r}
+    baby_names_george <- filter(baby_names, Name == "George")
+    ```
 
 2. Plot the data you produced in step 1 above, with `Year` on the x-axis and `Count` on the y-axis.
 
-```{r}
-qplot(x = Year, y = Count, data = baby_names_george)
-```
+    ```{r}
+    qplot(x = Year, y = Count, data = baby_names_george)
+    ```
 
 3. Adjust the plot so that is shows boys and girls in different colors.
 
-```{r}
-qplot(x = Year, y = Count, color = Sex, data = baby_names_george)
-```
+    ```{r}
+    qplot(x = Year, y = Count, color = Sex, data = baby_names_george)
+    ```
 
 4. BONUS (Optional): Adjust the plot to use lines instead of points.
 
-```{r}
-qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
-```
+    ```{r}
+    qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
+    ```
 
 
 ### Ex 4: prototype
 
 1. Use `mutate()` and `group_by()` to create a column named `Proportion` where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 
-```{r}
-baby_names <- 
-  baby_names %>%
-  group_by(Year, Sex) %>%
-  mutate(Proportion = Count/sum(Count)) %>%
-  ungroup()
+    ```{r}
+    baby_names <- 
+      baby_names %>%
+      group_by(Year, Sex) %>%
+      mutate(Proportion = Count/sum(Count)) %>%
+      ungroup()
 
-head(baby_names) 
-```
+    head(baby_names) 
+    ```
 
 2. Use `mutate()` and `group_by()` to create a column named `Rank` where `Rank = rank(desc(Count))` for each `Year X Sex` group.
 
-```{r}
-baby_names <- 
-  baby_names %>%
-  group_by(Year, Sex) %>%
-  mutate(Rank = rank(desc(Count))) %>%
-  ungroup()
+    ```{r}
+    baby_names <- 
+      baby_names %>%
+      group_by(Year, Sex) %>%
+      mutate(Rank = rank(desc(Count))) %>%
+      ungroup()
 
-head(baby_names)
-```
+    head(baby_names)
+    ```
 
 3. Filter the baby names data to display only the most popular name for each `Year X Sex` group.
 
-```{r}
-top1 <- 
-  baby_names %>%
-  filter(Rank == 1) %>%
-  select(Year, Name, Sex, Proportion)
+    ```{r}
+    top1 <- 
+      baby_names %>%
+      filter(Rank == 1) %>%
+      select(Year, Name, Sex, Proportion)
 
-head(top1)
-```
+    head(top1)
+    ```
 
 4. Plot the data produced in step 3, putting `Year` on the x-axis and `Proportion` on the y-axis. How has the proportion of babies given the most popular name changed over time?
 
-```{r}
-qplot(x = Year, 
-      y = Proportion, 
-      color = Sex, 
-      data = top1, 
-      geom = "line")
-```
+    ```{r}
+    qplot(x = Year, 
+          y = Proportion, 
+          color = Sex, 
+          data = top1, 
+          geom = "line")
+    ```
 
 5. BONUS (optional): Which names are the most popular for both boys and girls?
 
-```{r}
-girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"), 
-                             filter(baby_names, Sex == "Girls"),
-                             by = c("Year", "Name"))
+    ```{r}
+    girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"), 
+                                filter(baby_names, Sex == "Girls"),
+                                by = c("Year", "Name"))
 
-girls_and_boys <- mutate(girls_and_boys,
-                         Product = Count.x * Count.y,
-                         Rank = rank(desc(Product)))
+    girls_and_boys <- mutate(girls_and_boys,
+                            Product = Count.x * Count.y,
+                            Rank = rank(desc(Product)))
 
-filter(girls_and_boys, Rank == 1)
-```
+    filter(girls_and_boys, Rank == 1)
+    ```
 
 
 ### Ex 5: prototype
 
 1. Filter the baby_names data, retaining only the 10 most popular girl and boy names for each year.
 
-```{r}
-most_popular <- 
-  baby_names %>% 
-  group_by(Year, Sex) %>%
-  filter(Rank <= 10)
+    ```{r}
+    most_popular <- 
+      baby_names %>% 
+      group_by(Year, Sex) %>%
+      filter(Rank <= 10)
 
-head(most_popular, n = 10)
-```
+    head(most_popular, n = 10)
+    ```
 
 2. Summarize the data produced in step one to calculate the total Proportion of boys and girls given one of the top 10 names each year.
 
-```{r}
-top10 <- 
-  most_popular %>% # it is already grouped by Year and Sex
-  summarize(TotalProportion = sum(Proportion))
-```
+    ```{r}
+    top10 <- 
+      most_popular %>% # it is already grouped by Year and Sex
+      summarize(TotalProportion = sum(Proportion))
+    ```
 
 3. Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by `Sex`.
 
-```{r}
-qplot(x = Year, 
-      y = TotalProportion, 
-      color = Sex,
-      data = top10,
-      geom = "line")
-```
+    ```{r}
+    qplot(x = Year, 
+          y = TotalProportion, 
+          color = Sex,
+          data = top10,
+          geom = "line")
+    ```
 
 
 ## Wrap-up
