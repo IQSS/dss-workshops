@@ -385,7 +385,7 @@ x > 7 | x < 3 # two conditions combined
 x %in% c(1, 5, 10) 
 
 # Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
-# The logical vectors returned by logical operators can themselves be operated on by other functions:
+# The logical vectors returned by logical operators can themselves be operated on by functions:
 
 x > 7
 sum(x > 7)
@@ -400,18 +400,18 @@ sum(x > 7)
 #
 # 1.   **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
 #
-#      ```{r, eval=FALSE}
-#      if (condition) true_action else false_action
-#      ```
+#       ```{r, eval=FALSE}
+#       if (condition) true_action else false_action
+#       ```
 #      
 #       If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, 
 #       the optional `false_action` is evaluated.
 #
-# 2.   **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is: 
+# 2.   **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is:
 #
-#      ```{r, eval=FALSE}
-#      for (item in collection) perform_action
-#      ```
+#       ```{r, eval=FALSE}
+#       for (item in collection) perform_action
+#       ```
 #
 #      For each `item` in `collection`, `perform_action` is called once; updating the value of `item` each time.
 #
