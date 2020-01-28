@@ -274,17 +274,22 @@ library(rmarkdown)
 #
 # Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`. 
 #
-# 1. Open the `read_csv()` help page to determine how to use it to read in data.
-##
-
-# 2. Read the baby names data using the `read_csv()` function and assign the result 
+#  1. Open the `read_csv()` help page to determine how to use it to read in data.
+#     ```{r}
+#     ##
+#     ```
+#
+#  2. Read the baby names data using the `read_csv()` function and assign the result 
 # with the name `baby_names`.
-##
-
-# 3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
+#     ```{r}
+#     ##
+#     ```
+#
+#  3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
 # and as an R data set `babynames.rds`.
-##
-
+#     ```{r}
+#     ##
+#     ```
 
 # ## Manipulating data 
 #
