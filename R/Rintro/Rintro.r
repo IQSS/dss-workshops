@@ -175,9 +175,9 @@ x <- sqrt(10) # assign result to a variable named x
 #     ?sqrt
 #     ```
 #
-#    The `help` function can be used to look up the documentation for a function, or
-#    to look up the documentation to a package. We can learn how to use the `stats`
-#    package by reading its documentation like this:
+#     The `help` function can be used to look up the documentation for a function, or
+#     to look up the documentation to a package. We can learn how to use the `stats`
+#     package by reading its documentation like this:
 #
 #     ```{r, eval=FALSE}
 #     help(package = "stats")
