@@ -396,24 +396,24 @@ sum(x > 7)
 # We won't be covering examples of control flow in this workshop, but we will briefly introduce this important concept here. 
 # For more details see: <https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>. Our [R Data Wrangling](./RDataWrangling.html) workshop also covers some of these topics.
 #
-# There are two major tools for controlling the flow of code in a script: 
+# There are two major tools for controlling the flow of code in a script:
 #
-# 1.   **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
+#  1. **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
 #
-#       ```{r, eval=FALSE}
-#       if (condition) true_action else false_action
-#       ```
-#      
-#       If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, 
-#       the optional `false_action` is evaluated.
+#     ```{r, eval=FALSE}
+#     if (condition) true_action else false_action
+#     ```
 #
-# 2.   **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is:
+#     If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
+#     the optional `false_action` is evaluated.
 #
-#       ```{r, eval=FALSE}
-#       for (item in collection) perform_action
-#       ```
+#  2. **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is:
 #
-#      For each `item` in `collection`, `perform_action` is called once; updating the value of `item` each time.
+#     ```{r, eval=FALSE}
+#     for (item in collection) perform_action
+#     ```
+#
+#     For each `item` in `collection`, `perform_action` is called once; updating the value of `item` each time.
 #
 #
 # ### Exercise 2.1
