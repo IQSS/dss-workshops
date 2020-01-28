@@ -68,14 +68,14 @@
 #
 # 1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. For these workshops we will use [RStudio](https://rstudio.com/); it is a good R-specific IDE with many useful features. Here are a few popular editors/IDEs that can be used with R:
 #
-# | Editor / IDE | Features  | Ease of use | Language support |
-# |:------------ |:--------- |:----------- |:---------------- |
-# | RStudio      | Excellent | Easy        | R only           |
-# | Jupyter Lab  | Good      | Easy        | Excellent        |
-# | VS code      | Excellent | Easy        | Very good        |
-# | Atom         | Good      | Moderate    | Good             |
-# | Vim          | Excellent | Hard        | Good             |
-# | Emacs        | Excellent | Hard        | Excellent        |
+#     | Editor / IDE | Features  | Ease of use | Language support |
+#     |:------------ |:--------- |:----------- |:---------------- |
+#     | RStudio      | Excellent | Easy        | R only           |
+#     | Jupyter Lab  | Good      | Easy        | Excellent        |
+#     | VS code      | Excellent | Easy        | Very good        |
+#     | Atom         | Good      | Moderate    | Good             |
+#     | Vim          | Excellent | Hard        | Good             |
+#     | Emacs        | Excellent | Hard        | Excellent        |
 #
 # 2. **Notebooks:** Web-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. A popular notebook is the open source [Jupyter Notebook](https://jupyter.org/) that has support for 40+ languages. 
 #
@@ -118,11 +118,13 @@
 # -------------------------------------------
 #
 #  1.  Try to get R to add 2 plus 2.
+#
 #      ```{r}
 #      ##
 #      ```
 #
 #  2.  Try to calculate the square root of 10.
+#
 #      ```{r}
 #      ##
 #      ```
@@ -184,10 +186,10 @@ x <- sqrt(10) # assign result to a variable named x
 # 2.  If you know the name of the package you want to use, then Googling "R *package-name*" will
 # often get you to the documentation. Packages are hosted on several different repositories, including:
 #
-# * CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
-# * Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
-# * Github: <http://rpkg.gepuro.net/>
-# * R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
+#     * CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
+#     * Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
+#     * Github: <http://rpkg.gepuro.net/>
+#     * R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
 #
 # 3.  If you know the type of analysis you want to perform, you can Google "CRAN Task Views", 
 # where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to
@@ -210,13 +212,13 @@ x <- sqrt(10) # assign result to a variable named x
 #
 # Using an R package is a **two step process**:
 #
-# 1.  Install the package onto your computer using the
-#  `install.packages()` function. This only needs to
-#  be done the **first time** you use the package.
+#  1.  Install the package onto your computer using the
+#      `install.packages()` function. This only needs to
+#      be done the **first time** you use the package.
 #
-# 2.  Load the package into your R session's search path 
-#  using the `library()` function. This needs to be done
-#  **each time** you use the package.
+#  2.  Load the package into your R session's search path 
+#      using the `library()` function. This needs to be done
+#      **each time** you use the package.
 
 # ### The `tidyverse`
 #
@@ -280,23 +282,27 @@ library(rmarkdown)
 #
 # Make sure you have installed the `tidyverse` suite of packages and attached them with `library(tidyverse)`. 
 #
-#  1. Open the `read_csv()` help page to determine how to use it to read in data.
-#     ```{r}
-#     ##
-#     ```
+#  1.  Open the `read_csv()` help page to determine how to use it to read in data.
 #
-#  2. Read the baby names data using the `read_csv()` function and assign the result 
-# with the name `baby_names`.
-#     ```{r}
-#     ##
-#     ```
+#      ```{r}
+#      ##
+#      ```
 #
-#  3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
-# and as an R data set `babynames.rds`.
-#     ```{r}
-#     ##
-#     ```
-
+#  2.  Read the baby names data using the `read_csv()` function and assign the result 
+#      with the name `baby_names`.
+#
+#      ```{r}
+#      ##
+#      ```
+#
+#  3.  BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` 
+#      and as an R data set `babynames.rds`.
+#
+#      ```{r}
+#      ##
+#      ```
+#
+#
 # ## Manipulating data 
 #
 # **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
@@ -437,23 +443,27 @@ sum(x > 7)
 # assigning the result to `baby_names`. Make sure you have installed 
 # the `tidyverse` suite of packages and attached them with `library(tidyverse)`.
 #
-#  1.  Use `filter` to extract data for your name (or another name of your choice).  
+#  1.  Use `filter` to extract data for your name (or another name of your choice). 
+#
 #      ```{r}
 #      ##
 #      ```
 #
 #  2.  Arrange the data you produced in step 1 above by `Count`. 
 #      In which year was the name most popular?
+#
 #      ```{r}
 #      ##
 #      ```
 #
 #  3.  BONUS (optional): Filter the data to extract *only* the 
 #      row containing the most popular boys name in 1999.
+#
 #      ```{r}
 #      ##
 #      ```
-
+#
+#
 # ### Pipe operator
 #
 # There is one very special operator in R called a **pipe** operator that 
@@ -540,26 +550,31 @@ qplot(x = Year, y = Count, color = Sex,
 # have attached them using `library(tidyverse)`.
 #
 #  1.  Use `filter` to extract data for your name (same as previous exercise)
+#
 #      ```{r}
 #      ##
 #      ```
 #
 #  2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
 #      and `Count` on the y-axis.
+#
 #      ```{r}
 #      ##
 #      ```
 #
 #  3.  Adjust the plot so that is shows boys and girls in different colors.
+#
 #      ```{r}
 #       ##
-#     ```
+#      ```
 #
 #  4.  BONUS (Optional): Adjust the plot to use lines instead of points.
+#
 #      ```{r}
 #      ##
 #      ```
-
+#
+#
 # ## Creating variables
 #
 # **GOAL: To learn how to create new variables with and without grouped data.** In particular:
@@ -617,12 +632,14 @@ head(baby_names)
 #  1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
 #      where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 #      Use pipes wherever it makes sense.
+#
 #      ```{r}
 #      ## 
 #      ```
 #
 #  2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
 #     `Rank = rank(desc(Count))` for each `Year X Sex` group. 
+#
 #      ```{r}
 #      ##
 #      ```
@@ -630,6 +647,7 @@ head(baby_names)
 #  3.  Filter the baby names data to display only the most popular name 
 #      for each `Year X Sex` group. Keep only the columns: `Year`, `Name`, 
 #      `Sex`, and `Proportion`.
+#
 #      ```{r}
 #      ##
 #      ```
@@ -637,15 +655,18 @@ head(baby_names)
 #  4.  Plot the data produced in step 3, putting `Year` on the x-axis
 #      and `Proportion` on the y-axis. How has the proportion of babies
 #      given the most popular name changed over time?
+#
 #      ```{r}
 #      ##
 #      ```
 #
 #  5.  BONUS (optional): Which names are the most popular for both boys and girls?
+#
 #      ```{r}
 #      ##
 #      ```
-
+#
+#
 # ## Aggregating variables
 #
 # **GOAL: To learn how to aggregate data to create summaries with and without grouped data.** In particular:
@@ -699,6 +720,7 @@ head(bn_by_year)
 #
 #  1.  Filter the `baby_names` data, retaining only the 10 most popular girl
 #      and boy names for each year.
+#
 #      ```{r}
 #      ##
 #      ```
@@ -706,6 +728,7 @@ head(bn_by_year)
 #  2.  Summarize the data produced in step one to calculate the total
 #      Proportion of boys and girls given one of the top 10 names
 #      each year.
+#
 #      ```{r}
 #      ##
 #      ```
@@ -713,10 +736,12 @@ head(bn_by_year)
 #  3.  Plot the data produced in step 2, with year on the x-axis
 #      and total proportion on the y axis. Color by `Sex` and notice
 #      the trend.
+#
 #      ```{r}
 #      ##
 #      ```
-
+#
+#
 # ## Saving work
 #
 # **GOAL: To learn how to save objects, data, and scripts for later use.**
