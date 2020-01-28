@@ -367,8 +367,8 @@ head(baby_names_subset, n = 6) # default is n = 6
 #  | `%in%`    | contained in              | 
 #
 # These operators may be combined with `&` (and) or `|` (or). For example,
-# we can create a **vector**, which is a **collection of values** and demonstrate 
-# some combinations of operators:
+# we can create a **vector**, which is a **collection of values**, and demonstrate 
+# some ways to combine operators:
 
 x <- 1:10 # a vector
 x
