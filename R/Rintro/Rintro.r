@@ -300,7 +300,9 @@ library(rmarkdown)
 #
 # The `baby_names` object we created in the last exercise is a `data.frame`.
 # There are many other data structures in R, but for now we'll focus on 
-# working with `data.frames`. Think of a `data.frame` as a spreadsheet.
+# working with `data.frames`. Think of a `data.frame` as a spreadsheet. 
+# If you want to know more about R data structures, you can see a summary
+# in our [R Data Wrangling](./RDataWrangling.html#data-types-and-structures) workshop.
 #
 # R has decent data manipulation tools built-in -- see e.g.,
 # `help(Extract)`. But, `tidyverse` packages often provide
@@ -367,7 +369,7 @@ head(baby_names_subset, n = 6) # default is n = 6
 #  | `%in%`    | contained in              | 
 #
 # These operators may be combined with `&` (and) or `|` (or). For example,
-# we can create a **vector**, which is a **collection of values**, and demonstrate 
+# we can create a **vector** (a **container for a collection of values**) and demonstrate 
 # some ways to combine operators:
 
 x <- 1:10 # a vector
@@ -376,13 +378,13 @@ x
 x > 7 # a simple condition
 x > 7 | x < 3 # two conditions combined
 
-# Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
 # If we want to match multiple elements from two vectors we can use the `%in%` operator:
 
 # x %in% vector
 # elements of x matched in vector
 x %in% c(1, 5, 10) 
 
+# Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
 # The logical vectors returned by logical operators can themselves be operated on by other functions:
 
 x > 7
