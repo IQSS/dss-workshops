@@ -128,7 +128,8 @@
 #
 # * R is case sensitive
 # * R ignores white space
-# * Object names should start with a letter
+# * Variable names should start with a letter
+# * Comments can be inserted using a hash `#` symbol
 
 # ### Function calls
 #
@@ -365,7 +366,9 @@ head(baby_names_subset, n = 6) # default is n = 6
 #  | `<=`      | less than or equal to     | 
 #  | `%in%`    | contained in              | 
 #
-# These operators may be combined with `&` (and) or `|` (or). For example:
+# These operators may be combined with `&` (and) or `|` (or). For example,
+# we can create a **vector**, which is a **collection of values** and demonstrate 
+# some combinations of operators:
 
 x <- 1:10 # a vector
 x
@@ -373,9 +376,18 @@ x
 x > 7 # a simple condition
 x > 7 | x < 3 # two conditions combined
 
+# Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
+# If we want to match multiple elements from two vectors we can use the `%in%` operator:
+
 # x %in% vector
 # elements of x matched in vector
 x %in% c(1, 5, 10) 
+
+# The logical vectors returned by logical operators can themselves be operated on by other functions:
+
+x > 7
+sum(x > 7)
+
 
 # ### Control flow
 #
@@ -629,6 +641,9 @@ baby_names %>%
 # number of babies born each year. Here's the logic behind this process:
 #
 # ![](R/Rintro/images/summarize_group_by.png)
+#
+# Note that, unlike with the `mutate()` function, the `summarize()` function returns a data frame
+# with fewer rows than the original, because of aggregation.
 #
 # Here's the code that implements the calculation:
 

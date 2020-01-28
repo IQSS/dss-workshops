@@ -138,6 +138,7 @@ you are looking for should appear in a pop up!
 * R is case sensitive
 * R ignores white space
 * Object names should start with a letter
+* Comments can be inserted using a hash `#` symbol
 
 
 ### Function calls
@@ -399,7 +400,9 @@ and logical operators are listed below.
  | `<=`      | less than or equal to     | 
  | `%in%`    | contained in              | 
 
-These operators may be combined with `&` (and) or `|` (or). For example:
+These operators may be combined with `&` (and) or `|` (or). For example,
+we can create a **vector**, which is a **collection of values** and demonstrate 
+some combinations of operators:
 
 ```{r}
 # a vector
@@ -407,11 +410,23 @@ These operators may be combined with `&` (and) or `|` (or). For example:
 
 # a simple condition
 # two conditions combined
+```
 
+Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
+If we want to match multiple elements from two vectors we can use the `%in%` operator:
+
+```{r}
 # x %in% vector
 # elements of x matched in vector
+ 
+```
+
+The logical vectors returned by logical operators can themselves be operated on by other functions:
+
+```{r}
 
 ```
+
 
 ### Control flow
 
@@ -699,6 +714,9 @@ Next, using `group_by()` and `summarize()` together, we can calculate the
 number of babies born each year. Here's the logic behind this process:
 
 ![](images/summarize_group_by.png)
+
+Note that, unlike with the `mutate()` function, the `summarize()` function returns a data frame
+with fewer rows than the original, because of aggregation.
 
 Here's the code that implements the calculation:
 

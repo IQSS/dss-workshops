@@ -1303,7 +1303,7 @@ Here are the steps involved:
 
   \texttt{library(tidyverse)}
 
-  You should see the following message in the console:
+  You should see the following message in the console (note that the version numbers reported may be newer):
 
   \includegraphics{R/Rinstall/images/tidyverse_install.png}
 
@@ -1611,7 +1611,9 @@ you are looking for should appear in a pop up!
 \item
   R ignores white space
 \item
-  Object names should start with a letter
+  Variable names should start with a letter
+\item
+  Comments can be inserted using a hash \texttt{\#} symbol
 \end{itemize}
 
 \hypertarget{function-calls}{%
@@ -2097,7 +2099,9 @@ Operator & Meaning\tabularnewline
 \bottomrule
 \end{longtable}
 
-These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (or). For example:
+These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (or). For example,
+we can create a \textbf{vector}, which is a \textbf{collection of values} and demonstrate
+some combinations of operators:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2130,6 +2134,9 @@ These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (o
 ##  [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
 \end{verbatim}
 
+Notice that logical operators return \textbf{logical vectors} of \texttt{TRUE} and \texttt{FALSE} values.
+If we want to match multiple elements from two vectors we can use the \texttt{\%in\%} operator:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# x %in% vector}
@@ -2140,6 +2147,28 @@ These operators may be combined with \texttt{\&} (and) or \texttt{\textbar{}} (o
 
 \begin{verbatim}
 ##  [1]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE
+\end{verbatim}
+
+The logical vectors returned by logical operators can themselves be operated on by other functions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{>}\StringTok{ }\DecValTok{7}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(x }\OperatorTok{>}\StringTok{ }\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
 \end{verbatim}
 
 \hypertarget{control-flow}{%
@@ -2353,7 +2382,7 @@ we can plot the number of babies given the name ``Diana'' over time like this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-31-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-33-1.pdf}
 
 Interestingly, there are usually some gender-atypical names, even for very strongly
 gendered names like ``Diana''. Splitting these trends out by \texttt{Sex} is very easy:
@@ -2365,7 +2394,7 @@ gendered names like ``Diana''. Splitting these trends out by \texttt{Sex} is ver
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-32-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-34-1.pdf}
 
 \hypertarget{exercise-3}{%
 \subsection{Exercise 3}\label{exercise-3}}
@@ -2649,6 +2678,9 @@ Next, using \texttt{group\_by()} and \texttt{summarize()} together, we can calcu
 number of babies born each year. Here's the logic behind this process:
 
 \includegraphics{R/Rintro/images/summarize_group_by.png}
+
+Note that, unlike with the \texttt{mutate()} function, the \texttt{summarize()} function returns a data frame
+with fewer rows than the original, because of aggregation.
 
 Here's the code that implements the calculation:
 
@@ -3060,7 +3092,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-67-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-69-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3076,7 +3108,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-68-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-70-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3092,7 +3124,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-69-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-71-1.pdf}
 
 \hypertarget{ex-4-prototype}{%
 \subsection{Ex 4: prototype}\label{ex-4-prototype}}
@@ -3209,7 +3241,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-73-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-75-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3313,7 +3345,7 @@ Rewrite the solution to Exercise 2.1 using pipes.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-77-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-79-1.pdf}
 
 \hypertarget{wrap-up-1}{%
 \section{Wrap-up}\label{wrap-up-1}}
