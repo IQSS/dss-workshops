@@ -117,11 +117,17 @@
 #
 # -------------------------------------------
 #
-# 1.  Try to get R to add 2 plus 2.
-##
-# 2.  Try to calculate the square root of 10.
-##
-# 3.  R includes extensive documentation, including a manual named "An
+#  1.  Try to get R to add 2 plus 2.
+#      ```{r}
+#      ##
+#      ```
+#
+#  2.  Try to calculate the square root of 10.
+#      ```{r}
+#      ##
+#      ```
+#
+#  3.  R includes extensive documentation, including a manual named "An
 #     introduction to R". Use the RStudio help pane. to locate this manual.
 
 # ### Syntax rules
@@ -431,17 +437,22 @@ sum(x > 7)
 # assigning the result to `baby_names`. Make sure you have installed 
 # the `tidyverse` suite of packages and attached them with `library(tidyverse)`.
 #
-# 1.  Use `filter` to extract data for your name (or another name of your choice).  
-##
-
-# 2.  Arrange the data you produced in step 1 above by `Count`. 
-#     In which year was the name most popular?
-##
-
-# 3.  BONUS (optional): Filter the data to extract *only* the 
+#  1.  Use `filter` to extract data for your name (or another name of your choice).  
+#      ```{r}
+#      ##
+#      ```
+#
+#  2.  Arrange the data you produced in step 1 above by `Count`. 
+#      In which year was the name most popular?
+#      ```{r}
+#      ##
+#      ```
+#
+#  3.  BONUS (optional): Filter the data to extract *only* the 
 #      row containing the most popular boys name in 1999.
-##
-
+#      ```{r}
+#      ##
+#      ```
 
 # ### Pipe operator
 #
@@ -528,19 +539,26 @@ qplot(x = Year, y = Count, color = Sex,
 # Make sure the `tidyverse` suite of packages is installed, and that you 
 # have attached them using `library(tidyverse)`.
 #
-# 1.  Use `filter` to extract data for your name (same as previous exercise)
-##
-
-# 2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
-#     and `Count` on the y-axis.
-##
-
-# 3. Adjust the plot so that is shows boys and girls in different colors.
-##
-
-# 4. BONUS (Optional): Adjust the plot to use lines instead of points.
-##
-
+#  1.  Use `filter` to extract data for your name (same as previous exercise)
+#      ```{r}
+#      ##
+#      ```
+#
+#  2.  Plot the data you produced in step 1 above, with `Year` on the x-axis
+#      and `Count` on the y-axis.
+#      ```{r}
+#      ##
+#      ```
+#
+#  3.  Adjust the plot so that is shows boys and girls in different colors.
+#      ```{r}
+#       ##
+#     ```
+#
+#  4.  BONUS (Optional): Adjust the plot to use lines instead of points.
+#      ```{r}
+#      ##
+#      ```
 
 # ## Creating variables
 #
@@ -596,28 +614,37 @@ head(baby_names)
 #
 # In this exercise your goal is to identify the most popular names for each year.
 #
-# 1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
-#     where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
-#     Use pipes wherever it makes sense.
-## 
-
-# 2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
+#  1.  Use `mutate()` and `group_by()` to create a column named `Proportion`
+#      where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
+#      Use pipes wherever it makes sense.
+#      ```{r}
+#      ## 
+#      ```
+#
+#  2.  Use `mutate()` and `group_by()` to create a column named `Rank` where 
 #     `Rank = rank(desc(Count))` for each `Year X Sex` group. 
-##
-
-# 3.  Filter the baby names data to display only the most popular name 
-#     for each `Year X Sex` group. Keep only the columns: `Year`, `Name`, 
-#     `Sex`, and `Proportion`.
-##
-
-# 4.  Plot the data produced in step 3, putting `Year` on the x-axis
-#     and `Proportion` on the y-axis. How has the proportion of babies
-#     given the most popular name changed over time?
-##
-
-# 5.  BONUS (optional): Which names are the most popular for both boys and girls?
-##
-
+#      ```{r}
+#      ##
+#      ```
+#
+#  3.  Filter the baby names data to display only the most popular name 
+#      for each `Year X Sex` group. Keep only the columns: `Year`, `Name`, 
+#      `Sex`, and `Proportion`.
+#      ```{r}
+#      ##
+#      ```
+#
+#  4.  Plot the data produced in step 3, putting `Year` on the x-axis
+#      and `Proportion` on the y-axis. How has the proportion of babies
+#      given the most popular name changed over time?
+#      ```{r}
+#      ##
+#      ```
+#
+#  5.  BONUS (optional): Which names are the most popular for both boys and girls?
+#      ```{r}
+#      ##
+#      ```
 
 # ## Aggregating variables
 #
@@ -670,20 +697,25 @@ head(bn_by_year)
 # In this exercise we will plot trends in the proportion of boys and girls 
 # given one of the 10 most popular names each year.
 #
-# 1.  Filter the `baby_names` data, retaining only the 10 most popular girl
-#     and boy names for each year.
-##
-
-# 2.  Summarize the data produced in step one to calculate the total
-#     Proportion of boys and girls given one of the top 10 names
-#     each year.
-##
-
-# 3.  Plot the data produced in step 2, with year on the x-axis
-#     and total proportion on the y axis. Color by `Sex` and notice
-#     the trend.
-##
-
+#  1.  Filter the `baby_names` data, retaining only the 10 most popular girl
+#      and boy names for each year.
+#      ```{r}
+#      ##
+#      ```
+#
+#  2.  Summarize the data produced in step one to calculate the total
+#      Proportion of boys and girls given one of the top 10 names
+#      each year.
+#      ```{r}
+#      ##
+#      ```
+#
+#  3.  Plot the data produced in step 2, with year on the x-axis
+#      and total proportion on the y axis. Color by `Sex` and notice
+#      the trend.
+#      ```{r}
+#      ##
+#      ```
 
 # ## Saving work
 #
