@@ -65,10 +65,43 @@ These topics are covered in our [R Data Wrangling](./RDataWrangling.html),
 
 ### What is R?
 
-R is a free language and environment for statistical computing and graphics. 
-R has existed for over 25 years and is now the most popular software for
-data analysis. It has an extensive ecosystem of about 15,000 add on packages
-covering all aspects of statistics and machine learning. 
+* R is a free language and environment for statistical computing and graphics 
+* R is an interpreted language, not a compiled one, meaning that all commands 
+  typed on the keyboard are directly executed without requiring to build a complete 
+  program (like Python and unlike C, Fortran, Pascal etc.)
+* R has existed for over 25 years
+* R is modular --- most functionality is from add on packages
+
+
+### Why use R?
+
+* The most popular software for data analysis
+* Extremely flexible
+* Cutting edge statistical tools
+* Publication quality graphics
+* 15,000+ add on packages covering all aspects of statistics and machine learning
+* Active community of users
+
+
+### How does R work?
+
+While graphical-based statistical software (e.g., SPSS) displays immediately 
+the results of an analysis, R stores these results in an `object`, so that an
+analysis can be done with no result displayed. Such a feature is very useful,
+since a user can extract only that part of the results which is of interest.
+
+For example, if one runs a series of 20 regressions and wants to compare the
+different regression coefficients, R can display only the estimated coefficients:
+thus the results may take a single line, whereas a graphical-based software could well
+open 20 results windows.
+
+When R is running, variables, data, functions, results, etc., are stored in
+the memory of the computer in the form of `objects`, which have a name.
+The user can perform actions on these objects with `operators` (arithmetic, logical,
+comparison, etc.) and `functions` (which are themselves objects). Here's a schematic
+of how this all fits together:
+
+![](R/Rintro/images/R_works.png)
 
 
 ### Interfaces
@@ -117,6 +150,9 @@ Start RStudio and create a new project:
 * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 
 
+RSTUDIO GRAPHIC HERE
+
+
 ### Exercise 0
 
 The purpose of this exercise is to give you an opportunity to explore
@@ -150,17 +186,29 @@ you are looking for should appear in a pop up!
 
 * R is case sensitive
 * R ignores white space
-* Variable names should start with a letter
+* Variable names should start with a letter (A-Z and a-z) 
+  and can include letters, digits (0-9), dots (.), and underscores (_)
 * Comments can be inserted using a hash `#` symbol
+* Functions must be written with parentheses, even
+  if there is nothing within them; for example: `ls()`
 
 
 ### Function calls
 
+**Functions perform actions** --- they take some input, called `arguments` and return some
+output (i.e., a result). Here's a schematic of how a function works:
+
+![](R/Rintro/images/function.png)
+
 The general form for calling R functions is
 
 ```{r}
-## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n - value.n)
+## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n = value.n)
 ```
+
+The arguments in a function can be objects (data, formulae, expressions, etc.), 
+some of which could be defined by default in the function; these default values may
+be modified by the user by specifying options.
 
 Arguments can be **matched by name**; unnamed arguments will be **matched by position**.
 
@@ -948,11 +996,11 @@ ls() # list objects
 
 Rewrite the solution to Exercise 2.1 using pipes.
 
-    ```{r}
-    baby_names %>% 
-      filter(Name == "George") %>%
-      arrange(desc(Count))
-    ```
+```{r}
+baby_names %>% 
+    filter(Name == "George") %>%
+    arrange(desc(Count))
+```
 
 
 ### Ex 3: prototype
