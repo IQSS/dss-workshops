@@ -22,7 +22,8 @@
 #
 # ### Prerequisites
 #
-# * None --- assumes no prior knowledge of R
+# * Assumes no prior knowledge of *how to use* R
+# * We do assume you know *why* you want to learn R. If you don't, see our [Data Science Tools](./DataScienceTools.html) workshop
 # * Relatively slow-paced
 #
 # ### Goals
@@ -30,28 +31,30 @@
 # We will learn about the R language by analyzing a dataset of baby names. 
 # In particular, our goals are to learn about:
 #
-# 1. How we can interact with R
-# 2. Foundations of the language (functions, assignment)
-# 3. The `tidyverse` package ecosystem for data science
-# 4. Basic data manipulation useful for cleaning datasets
-# 5. Working with grouped data
-# 6. Aggregating data to create summaries
-# 7. Saving objects, data, and scripts
+# 1. What R is and how it works
+# 2. How we can interact with R
+# 3. Foundations of the language (functions, assignment)
+# 4. The `tidyverse` package ecosystem for data science
+# 5. Basic data manipulation useful for cleaning datasets
+# 7. Working with grouped data
+# 8. Aggregating data to create summaries
+# 9. Saving objects, data, and scripts
 #
-# This workshop will not cover how to iterate over collections of data, create 
-# your own functions, produce publication quality graphics, or fit models to data. 
-# These topics are covered in our [R Data Wrangling](./RDataWrangling.html), 
+# This workshop will not cover how to iterate over collections of data, create
+# your own functions, produce publication quality graphics, or fit models to data.
+# These topics are covered in our [R Data Wrangling](./RDataWrangling.html),
 # [R Graphics](./Rgraphics.html), and [R Regression Models](./Rmodels.html) workshops.
 
 # ## R basics
 #
 # **GOAL: To learn about the foundations of the R language.** 
 #
-# 1. R interfaces
-# 2. Functions
-# 3. Assignment
-# 4. Getting help
-# 5. `tidyverse` package ecosystem for data science
+# 1. What R is and how it works
+# 2. R interfaces
+# 3. Functions
+# 4. Assignment
+# 5. Getting help
+# 6. `tidyverse` package ecosystem for data science
 
 # ### What is R?
 #
@@ -83,11 +86,13 @@
 # thus the results may take a single line, whereas a graphical-based software could
 # open 20 results windows.
 #
-# When R is running, variables, data, functions, results, etc., are **stored** in
-# the memory of the computer in the form of `objects`, which have a name.
-# The user can **perform actions** on these objects with `operators` (arithmetic, logical,
-# comparison, etc.) and `functions` (which are themselves objects). Here's a schematic
-# of how this all fits together:
+# ![](R/Rintro/images/R_chain.png)
+#
+# When R is running, variables, data, functions, results, etc., are **stored in memory**
+# on the computer in the form of `objects`, which have a name. The user can
+# **perform actions** on these objects with `operators` (arithmetic, logical,
+# comparison, etc.) and `functions` (which are themselves objects). Here's a
+# schematic of how this all fits together:
 #
 # ![](R/Rintro/images/R_works.png)
 
