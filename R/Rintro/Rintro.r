@@ -82,9 +82,9 @@
 # useful, since a user can extract only that part of the results that is of interest
 # and can pass results into further analyses.
 #
-# For example, if one runs a series of 20 regressions and wants to compare the
+# For example, if you run a series of 20 regressions and want to compare the
 # different regression coefficients, R can display only the estimated coefficients:
-# thus the results may take a single line, whereas a graphical-based software could
+# thus the results may take a single line, whereas graphical-based software could
 # open 20 results windows. In addition, these regression coefficients can be passed
 # directly into further analyses --- such as generating predictions.
 #
