@@ -64,7 +64,12 @@ Download class materials for your workshop:
 * R Graphics: <https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics.zip>
 * R Data Wrangling: <https://github.com/IQSS/dss-workshops/raw/master/R/RDataWrangling.zip>
 
-Extract materials from the zipped directory (Right-click -> Extract All on Windows, double-click on Mac) and move them to your desktop!
+Extract materials from the zipped directory (Right-click -> Extract All on Windows, double-click on Mac) and move them to your desktop. 
+
+It will be useful when you view the above materials to see different file extensions on your computer:
+
+* Instructions for [Mac OS](https://support.apple.com/guide/mac-help/show-or-hide-filename-extensions-on-mac-mchlp2304/mac)
+* Instructions for [Windows OS](http://kb.winzip.com/kb/entry/26/)
 
 
 ## Installing the `tidyverse`
@@ -78,12 +83,13 @@ Here are the steps involved:
     RStudio will be in your applications folder --- double click on it.
 
 
-2.  In the left-hand side window (called the `console`), at the command prompt `>` type the following and press enter:
+2.  In the lower left-hand side window (called the `console`), at the command prompt `>` type the following and press enter:
 
     `install.packages("tidyverse")`
 
-    **When you install `tidyverse` for the first time you may be asked a question**
-    **about installing packages from source - please answer by typing "no" in the console.**
+    **If a choice appears that says something like "Do you want to install from sources** 
+    **the package which needs compilation?", type “No” in the console.**
+    
     A number of messages will then scroll by, and there will be a long minute or two
     pause where nothing appears to happen (but the installation is actually occurring).
     At last, the output parade should end with a message like:
@@ -99,9 +105,40 @@ Here are the steps involved:
 
     ![](R/Rinstall/images/tidyverse_install.png)
 
-    **If you do not see the above message, please stop by the training room 20 minutes before the start of your workshop.**
+    If you do not see this message and encounter an error --- try troubleshooting this in the next section.
 
-4.  We will also install the `rmarkdown` package, which will allow us to
+
+### Troubleshooting `tidyverse` installation
+
+Sometimes, you may run into problems installing the `tidyverse` suite of packages. Here are some commonly encountered errors and suggestions for how to fix them:
+
+1.  `tidyverse` is not available for R version...
+    * Solution: make sure you have the latest versions of both R (3.6.2) and RStudio (1.2.5033) installed.
+
+2.  there is no package `rlang`...
+    * Solution: run this command in the console `install.packages("dplyr")`. If a choice appears that says something  like "Do you want to install from sources the package which needs compilation?"", type “No” in the console.
+
+3.  there is no package `broom`... 
+    * Solution: run these commands in the console in this order:
+    * `install.packages("backports")`
+    * `install.packages("zeallot")`
+    * `install.packages("broom")`
+    * `install.packages("tidyverse")`
+    * If a choice appears at any point that says something like "Do you want to install from sources the package which needs compilation?"", type “No” in the console.
+
+4.  rlang and/or broom still do not work
+    * Solution: load individual packages that we need from the `tidyverse` suite using the following commands in the console:
+    * `library("dplyr")`   # for the pipe function %>% and other SQL commands
+    * `library("ggplot2")` # modern data visualization
+    * `library("readr")`   # to load CSV data files
+    * `library("tidyr")`   # to reshape data frames with functions like gather or spread
+
+**If you still have not successfully installed `tidyverse` after troubleshooting, please stop by the training room 20 minutes before the start of your workshop so we can help you.**
+
+
+## Installing `rmarkdown` (optional)
+
+1.  We can also install the `rmarkdown` package, which will allow us to
     combine our text and code into a formatted document at the end of
     the workshops. Please enter the command:
 
@@ -112,7 +149,7 @@ Here are the steps involved:
 
     `The downloaded source/binary packages are in....`
 
-5.  We can check that `rmarkdown` has installed correctly by connecting it to our R session. 
+2.  We can check that `rmarkdown` has installed correctly by connecting it to our R session. 
     Type the following in the console and press enter:
 
     `library(rmarkdown)`
