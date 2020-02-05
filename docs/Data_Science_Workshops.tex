@@ -3554,6 +3554,11 @@ Finally, lets install some packages that will help with modeling:
   Modeling clustered data
 \end{enumerate}
 
+\hypertarget{modeling-pipeline}{%
+\section{Modeling pipeline}\label{modeling-pipeline}}
+
+\includegraphics{R/Rmodels/images/R_model_pipeline.png}
+
 \hypertarget{before-fitting-a-model}{%
 \section{Before fitting a model}\label{before-fitting-a-model}}
 
@@ -3647,6 +3652,10 @@ In R, we convert our theoretical model into a \texttt{formula} --- a symbolic re
 \end{Shaded}
 
 For example, we can use \texttt{lm()} to predict SAT scores based on per-pupil expenditures:
+
+\[
+csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
+\]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4132,6 +4141,10 @@ argument relates the predictors to the expected value of the outcome.
 
 Let's predict the probability of being diagnosed with hypertension based on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}:
 
+\[
+hypev_i = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+\]
+
 \begin{Shaded}
 \begin{Highlighting}[]
   \KeywordTok{str}\NormalTok{(NH11}\OperatorTok{$}\NormalTok{hypev) }\CommentTok{# check stucture of hypev}
@@ -4308,7 +4321,11 @@ approximation).
 \hypertarget{adding-fixed-effects-predictors}{%
 \subsection{Adding fixed-effects predictors}\label{adding-fixed-effects-predictors}}
 
-Predict exam scores from student's standardized tests scores
+Predict exam scores from student's standardized tests scores:
+
+\[
+normexam_{ij} = \beta_01 + \beta_1standLRT_{ij} + \gamma_0school_j + \epsilon_{ij}
+\]
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -59,6 +59,10 @@ library(effects)  # for predicted marginal means
 # 3.  Modeling binary outcomes
 # 4.  Modeling clustered data
 
+# ## Modeling pipeline
+#
+# ![](R/Rmodels/images/R_model_pipeline.png)
+
 # ## Before fitting a model
 #
 # ### Load the data
@@ -122,6 +126,10 @@ outcome ~ pred1 + pred2 + pred3
 # NOTE the ~ is a tilde
 
 # For example, we can use `lm()` to predict SAT scores based on per-pupil expenditures:
+#
+# $$
+# csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
+# $$
 
   # Fit our regression model
   sat_mod <- lm(csat ~ 1 + expense, # regression formula
@@ -352,6 +360,10 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # argument relates the predictors to the expected value of the outcome.
 
 # Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`:
+#
+# $$
+# hypev_i = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+# $$
 
   str(NH11$hypev) # check stucture of hypev
   levels(NH11$hypev) # check levels of hypev
@@ -458,7 +470,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### Adding fixed-effects predictors
 #
-# Predict exam scores from student's standardized tests scores
+# Predict exam scores from student's standardized tests scores:
+#
+# $$
+# normexam_{ij} = \beta_01 + \beta_1standLRT_{ij} + \gamma_0school_j + \epsilon_{ij}
+# $$
 
   Norm2 <-lmer(normexam ~ 1 + standLRT + (1 | school),
                data = na.omit(Exam), REML = FALSE) 

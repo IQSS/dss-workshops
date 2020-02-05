@@ -259,6 +259,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="Rmodels.html"><a href="Rmodels.html#packages"><i class="fa fa-check"></i>Packages</a></li>
 <li class="chapter" data-level="" data-path="Rmodels.html"><a href="Rmodels.html#workshop-outline"><i class="fa fa-check"></i>Workshop Outline</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="Rmodels.html"><a href="Rmodels.html#modeling-pipeline"><i class="fa fa-check"></i>Modeling pipeline</a></li>
 <li class="chapter" data-level="" data-path="Rmodels.html"><a href="Rmodels.html#before-fitting-a-model"><i class="fa fa-check"></i>Before fitting a model</a><ul>
 <li class="chapter" data-level="" data-path="Rmodels.html"><a href="Rmodels.html#load-the-data"><i class="fa fa-check"></i>Load the data</a></li>
 <li class="chapter" data-level="" data-path="Rmodels.html"><a href="Rmodels.html#examine-the-data"><i class="fa fa-check"></i>Examine the data</a></li>
@@ -742,6 +743,10 @@ Now let’s load these packages into the search path of our R session.</p>
 </ol>
 </div>
 </div>
+<div id="modeling-pipeline" class="section level2">
+<h2>Modeling pipeline</h2>
+<p><img src="R/Rmodels/images/R_model_pipeline.png" /></p>
+</div>
 <div id="before-fitting-a-model" class="section level2">
 <h2>Before fitting a model</h2>
 <div id="load-the-data" class="section level3">
@@ -835,6 +840,9 @@ In R, we convert our theoretical model into a <code>formula</code> — a symboli
 <span id="cb153-3"><a href="Rmodels.html#cb153-3"></a></span>
 <span id="cb153-4"><a href="Rmodels.html#cb153-4"></a><span class="co"># </span><span class="al">NOTE</span><span class="co"> the ~ is a tilde</span></span></code></pre></div>
 <p>For example, we can use <code>lm()</code> to predict SAT scores based on per-pupil expenditures:</p>
+<p><span class="math display">\[
+csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
+\]</span></p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="Rmodels.html#cb154-1"></a>  <span class="co"># Fit our regression model</span></span>
 <span id="cb154-2"><a href="Rmodels.html#cb154-2"></a>  sat_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>expense, <span class="co"># regression formula</span></span>
 <span id="cb154-3"><a href="Rmodels.html#cb154-3"></a>                <span class="dt">data =</span> states_data) <span class="co"># data </span></span>
@@ -1116,6 +1124,9 @@ We can also easily change the reference group or get all sets of pairwise contra
 <p>The <code>family</code> argument sets the error distribution for the model, while the <code>link</code> function
 argument relates the predictors to the expected value of the outcome.</p>
 <p>Let’s predict the probability of being diagnosed with hypertension based on <code>age</code>, <code>sex</code>, <code>sleep</code>, and <code>bmi</code>:</p>
+<p><span class="math display">\[
+hypev_i = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+\]</span></p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="Rmodels.html#cb174-1"></a>  <span class="kw">str</span>(NH11<span class="op">$</span>hypev) <span class="co"># check stucture of hypev</span></span>
 <span id="cb174-2"><a href="Rmodels.html#cb174-2"></a>  <span class="kw">levels</span>(NH11<span class="op">$</span>hypev) <span class="co"># check levels of hypev</span></span>
 <span id="cb174-3"><a href="Rmodels.html#cb174-3"></a></span>
@@ -1235,7 +1246,10 @@ approximation).</p>
 </div>
 <div id="adding-fixed-effects-predictors" class="section level3">
 <h3>Adding fixed-effects predictors</h3>
-<p>Predict exam scores from student’s standardized tests scores</p>
+<p>Predict exam scores from student’s standardized tests scores:</p>
+<p><span class="math display">\[
+normexam_{ij} = \beta_01 + \beta_1standLRT_{ij} + \gamma_0school_j + \epsilon_{ij}
+\]</span></p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="Rmodels.html#cb182-1"></a>  Norm2 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school),</span>
 <span id="cb182-2"><a href="Rmodels.html#cb182-2"></a>               <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam), <span class="dt">REML =</span> <span class="ot">FALSE</span>) </span>
 <span id="cb182-3"><a href="Rmodels.html#cb182-3"></a>  <span class="kw">summary</span>(Norm2) </span></code></pre></div>
@@ -1462,6 +1476,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
