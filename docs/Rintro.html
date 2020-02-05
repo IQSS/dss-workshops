@@ -426,6 +426,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#python-basics"><i class="fa fa-check"></i>Python basics</a><ul>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#what-is-python"><i class="fa fa-check"></i>What is Python?</a></li>
+<li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#why-use-python"><i class="fa fa-check"></i>Why use Python?</a></li>
+<li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#how-does-python-work"><i class="fa fa-check"></i>How does Python work?</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#interfaces-1"><i class="fa fa-check"></i>Interfaces</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#launch-jupyterlab-1"><i class="fa fa-check"></i>Launch JupyterLab</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#function-calls-1"><i class="fa fa-check"></i>Function calls</a></li>
@@ -696,9 +698,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="prerequisites" class="section level3">
 <h3>Prerequisites</h3>
+<p>This is an introductory R course:</p>
 <ul>
 <li>Assumes no prior knowledge of <strong>how to use</strong> R</li>
-<li>We do assume you know <strong>why</strong> you want to learn R. If you don’t, see our <a href="./DataScienceTools.html">Data Science Tools</a> workshop</li>
+<li>We do assume you know <strong>why</strong> you want to learn R. If you don’t, and want a comparison of R to other statistical software, see our <a href="./DataScienceTools.html">Data Science Tools</a> workshop</li>
 <li>Relatively slow-paced</li>
 </ul>
 </div>
@@ -709,7 +712,7 @@ In particular, our goals are to learn about:</p>
 <ol style="list-style-type: decimal">
 <li>What R is and how it works</li>
 <li>How we can interact with R</li>
-<li>Foundations of the language (functions, assignment)</li>
+<li>Foundations of the language (functions, objects, assignment)</li>
 <li>The <code>tidyverse</code> package ecosystem for data science</li>
 <li>Basic data manipulation useful for cleaning datasets</li>
 <li>Working with grouped data</li>
@@ -724,15 +727,18 @@ These topics are covered in our <a href="./RDataWrangling.html">R Data Wrangling
 </div>
 <div id="r-basics" class="section level2">
 <h2>R basics</h2>
+<div class="alert alert-info">
 <p><strong>GOAL: To learn about the foundations of the R language.</strong></p>
 <ol style="list-style-type: decimal">
 <li>What R is and how it works</li>
 <li>R interfaces</li>
 <li>Functions</li>
+<li>Objects</li>
 <li>Assignment</li>
 <li>Getting help</li>
 <li><code>tidyverse</code> package ecosystem for data science</li>
 </ol>
+</div>
 <div id="what-is-r" class="section level3">
 <h3>What is R?</h3>
 <ul>
@@ -741,14 +747,16 @@ These topics are covered in our <a href="./RDataWrangling.html">R Data Wrangling
 typed on the keyboard are directly executed without requiring to build a complete
 program (this is like Python and unlike C, Fortran, Pascal, etc.)</li>
 <li>R has existed for over 25 years</li>
-<li>R is modular — most functionality is from add-on packages</li>
+<li>R is modular — most functionality is from add-on packages. So the language can
+be thought of as a <em>platform</em> for creating and running a large number of useful packages.</li>
 </ul>
 </div>
 <div id="why-use-r" class="section level3">
 <h3>Why use R?</h3>
 <ul>
 <li>The most popular software for data analysis</li>
-<li>Extremely flexible</li>
+<li>Extremely flexible: can be used to manipulate, analyze, and visualize
+any kind of data</li>
 <li>Cutting edge statistical tools</li>
 <li>Publication quality graphics</li>
 <li>15,000+ add on packages covering all aspects of statistics and machine learning</li>
@@ -758,7 +766,7 @@ program (this is like Python and unlike C, Fortran, Pascal, etc.)</li>
 <div id="how-does-r-work" class="section level3">
 <h3>How does R work?</h3>
 <p>While graphical-based statistical software (e.g., SPSS) immediately display
-the results of an analysis, R stores results in an <code>object</code> (a data structure),
+the results of an analysis, <strong>R stores results in an <code>object</code> (a data structure)</strong>,
 so that an analysis can be done with no result displayed. Such a feature is very
 useful, since a user can extract only that part of the results that is of interest
 and can pass results into further analyses.</p>
@@ -1060,6 +1068,7 @@ and as an R data set <code>babynames.rds</code>.</p>
 </div>
 <div id="manipulating-data" class="section level2">
 <h2>Manipulating data</h2>
+<div class="alert alert-info">
 <p><strong>GOAL: To learn about basic data manipulation used to clean datasets.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
 <li>Filtering data by choosing rows — using the <code>filter()</code> function</li>
@@ -1067,8 +1076,9 @@ and as an R data set <code>babynames.rds</code>.</p>
 <li>Arranging data by reordering rows — using the <code>arrange()</code> function</li>
 <li>Using the pipe <code>%&gt;%</code> operator to simplify sequential operations</li>
 </ol>
-<p>In this section we will pull out specific names from the baby names data and examine changes in
-their popularity over time.</p>
+</div>
+<p>In this section we will pull out specific names from the baby names data and
+examine changes in their popularity over time.</p>
 <p>The <code>baby_names</code> object we created in the last exercise is a <code>data.frame</code>.
 There are many other data structures in R, but for now we’ll focus on
 working with <code>data.frames</code>. Think of a <code>data.frame</code> as a spreadsheet.
@@ -1316,7 +1326,9 @@ the data and then arranged by <code>Count</code>.</p>
 </div>
 <div id="plotting-data" class="section level2">
 <h2>Plotting data</h2>
+<div class="alert alert-info">
 <p><strong>GOAL: Plot baby name trends over time – using the <code>qplot()</code> function</strong></p>
+</div>
 <p>It can be difficult to spot trends when looking at summary tables.
 Plotting the data makes it easier to identify interesting patterns.</p>
 <p>R has decent plotting tools built-in – see e.g., <code>help(plot)</code>.
@@ -1353,11 +1365,13 @@ and <code>Count</code> on the y-axis.</p>
 </div>
 <div id="creating-variables" class="section level2">
 <h2>Creating variables</h2>
+<div class="alert alert-info">
 <p><strong>GOAL: To learn how to create new variables with and without grouped data.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
 <li>Creating new variables (columns) — using the <code>mutate()</code> function</li>
 <li>Creating new variables within groups — by combining the <code>mutate()</code> and <code>group_by()</code> functions</li>
 </ol>
+</div>
 <p>We want to use these skills to find out which names have been the most popular.</p>
 <div id="create-or-modify-columns" class="section level3">
 <h3>Create or modify columns</h3>
@@ -1436,11 +1450,13 @@ given the most popular name changed over time?</p>
 </div>
 <div id="aggregating-variables" class="section level2">
 <h2>Aggregating variables</h2>
+<div class="alert alert-info">
 <p><strong>GOAL: To learn how to aggregate data to create summaries with and without grouped data.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
 <li>Collapsing data into summaries — using the <code>summarize()</code> function</li>
 <li>Creating summaries within groups — by combining the <code>summarize()</code> and <code>group_by()</code> functions</li>
 </ol>
+</div>
 <p>You may have noticed that the percentage of babies given the most
 popular name of the year appears to have decreased over time. We can
 compute a more robust measure of the popularity of the most popular
@@ -1503,7 +1519,9 @@ the trend.</p>
 </div>
 <div id="saving-work" class="section level2">
 <h2>Saving work</h2>
+<div class="alert alert-info">
 <p><strong>GOAL: To learn how to save objects, data, and scripts for later use.</strong></p>
+</div>
 <p>Now that we have made some changes to our data set, we might want to
 save those changes to a file.</p>
 <div id="saving-individual-datasets" class="section level3">

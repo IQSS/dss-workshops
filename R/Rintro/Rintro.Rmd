@@ -30,8 +30,10 @@ knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 
 ### Prerequisites
 
+This is an introductory R course:
+
 * Assumes no prior knowledge of **how to use** R
-* We do assume you know **why** you want to learn R. If you don't, see our [Data Science Tools](./DataScienceTools.html) workshop
+* We do assume you know **why** you want to learn R. If you don't, and want a comparison of R to other statistical software, see our [Data Science Tools](./DataScienceTools.html) workshop
 * Relatively slow-paced
 
 ### Goals
@@ -41,7 +43,7 @@ In particular, our goals are to learn about:
 
 1. What R is and how it works
 2. How we can interact with R
-3. Foundations of the language (functions, assignment)
+3. Foundations of the language (functions, objects, assignment)
 4. The `tidyverse` package ecosystem for data science
 5. Basic data manipulation useful for cleaning datasets
 7. Working with grouped data
@@ -56,14 +58,17 @@ These topics are covered in our [R Data Wrangling](./RDataWrangling.html),
 
 ## R basics
 
+<div class="alert alert-info">
 **GOAL: To learn about the foundations of the R language.** 
 
 1. What R is and how it works
 2. R interfaces
 3. Functions
-4. Assignment
-5. Getting help
-6. `tidyverse` package ecosystem for data science
+4. Objects
+5. Assignment
+6. Getting help
+7. `tidyverse` package ecosystem for data science
+</div>
 
 
 ### What is R?
@@ -73,13 +78,15 @@ These topics are covered in our [R Data Wrangling](./RDataWrangling.html),
   typed on the keyboard are directly executed without requiring to build a complete 
   program (this is like Python and unlike C, Fortran, Pascal, etc.)
 * R has existed for over 25 years
-* R is modular --- most functionality is from add-on packages
+* R is modular --- most functionality is from add-on packages. So the language can
+  be thought of as a *platform* for creating and running a large number of useful packages.
 
 
 ### Why use R?
 
 * The most popular software for data analysis
-* Extremely flexible
+* Extremely flexible: can be used to manipulate, analyze, and visualize 
+  any kind of data
 * Cutting edge statistical tools
 * Publication quality graphics
 * 15,000+ add on packages covering all aspects of statistics and machine learning
@@ -89,7 +96,7 @@ These topics are covered in our [R Data Wrangling](./RDataWrangling.html),
 ### How does R work?
 
 While graphical-based statistical software (e.g., SPSS) immediately display
-the results of an analysis, R stores results in an `object` (a data structure),
+the results of an analysis, **R stores results in an `object` (a data structure)**,
 so that an analysis can be done with no result displayed. Such a feature is very
 useful, since a user can extract only that part of the results that is of interest
 and can pass results into further analyses.
@@ -388,16 +395,17 @@ Make sure you have installed the `tidyverse` suite of packages and attached them
 
 ## Manipulating data 
 
+<div class="alert alert-info">
 **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
 
 1. Filtering data by choosing rows --- using the `filter()` function
 2. Selecting data by choosing columns --- using the `select()` function
 3. Arranging data by reordering rows --- using the `arrange()` function
 4. Using the pipe `%>%` operator to simplify sequential operations
+</div>
 
-
-In this section we will pull out specific names from the baby names data and examine changes in 
-their popularity over time. 
+In this section we will pull out specific names from the baby names data and 
+examine changes in their popularity over time. 
 
 The `baby_names` object we created in the last exercise is a `data.frame`.
 There are many other data structures in R, but for now we'll focus on 
@@ -628,7 +636,9 @@ the data and then arranged by `Count`.
 
 ## Plotting data
 
+<div class="alert alert-info">
 **GOAL: Plot baby name trends over time -- using the `qplot()` function**
+</div>
 
 It can be difficult to spot trends when looking at summary tables.
 Plotting the data makes it easier to identify interesting patterns.
@@ -693,10 +703,12 @@ have attached them using `library(tidyverse)`.
 
 ## Creating variables
 
+<div class="alert alert-info">
 **GOAL: To learn how to create new variables with and without grouped data.** In particular:
 
 1. Creating new variables (columns) --- using the `mutate()` function
 2. Creating new variables within groups --- by combining the `mutate()` and `group_by()` functions
+</div>
 
 We want to use these skills to find out which names have been the most popular.
 
@@ -790,11 +802,12 @@ In this exercise your goal is to identify the most popular names for each year.
 
 ## Aggregating variables
 
+<div class="alert alert-info">
 **GOAL: To learn how to aggregate data to create summaries with and without grouped data.** In particular:
 
 1. Collapsing data into summaries --- using the `summarize()` function 
 2. Creating summaries within groups --- by combining the `summarize()` and `group_by()` functions 
-
+</div>
 
 You may have noticed that the percentage of babies given the most 
 popular name of the year appears to have decreased over time. We can
@@ -870,7 +883,9 @@ given one of the 10 most popular names each year.
 
 ## Saving work
 
+<div class="alert alert-info">
 **GOAL: To learn how to save objects, data, and scripts for later use.**
+</div>
 
 Now that we have made some changes to our data set, we might want to
 save those changes to a file.
