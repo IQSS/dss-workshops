@@ -304,11 +304,11 @@ len(set(alice_words)) # counts unique elements in a data structure
 #     If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
 #     the optional `false_action` is evaluated.
 #
-# The conditions that are evaluated use **logical and relational operators** to determine equivelance or make some other relational comparisons.
+# The conditions that are evaluated use **logical and relational operators** to determine equivalence or make some other relational comparisons.
 
 # ### Logical & relational operators
 #
-# Here's a table of commonly used relational and logical operators:
+# Here's a table of commonly used relational operators:
 #
 #  | Operator  | Meaning                   | 
 #  |:----------|:--------------------------| 
@@ -319,8 +319,8 @@ len(set(alice_words)) # counts unique elements in a data structure
 #  | `<`       | less than                 | 
 #  | `<=`      | less than or equal to     |  
 #
-# These operators may be combined with `and` or `or`. For example,
-# we can create a **vector** (a **container for a collection of values**) and demonstrate 
+# These relational operators may be combined with logical operators, such as `and` or `or`.
+# For example, we can create a **vector** (a **container for a collection of values**) and demonstrate
 # some ways to combine operators:
 
 x = 1:10 # a vector
@@ -329,8 +329,8 @@ x
 x > 7 # a simple condition
 x > 7 or x < 3 # two conditions combined
 
-# Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
-# The logical vectors returned by logical operators can themselves be operated on by functions:
+# Notice that logical and relational operators return **logical vectors** of `true` and `false` values.
+# The logical vectors returned by these operators can themselves be operated on by functions:
 
 x > 7
 sum(x > 7)
@@ -353,7 +353,7 @@ print(bunny_count_ch1)
 duck_count_ch2 = alice_chapters[2].count("Duck")
 print(duck_count_ch2)
 
-# By combining choice statements with logical or relational operators, we can then determine which of these two characters
+# By combining choice statements with logical and/or relational operators, we can then determine which of these two characters
 # appears more often in Chapter 2:
 
 if bunny_count_ch2 < duck_count_ch2:
@@ -380,6 +380,8 @@ print(alice_paragraphs[2], "\n==========")
 # We're counting the title, author, and chapter lines as paragraphs, but this will do for a rough count.
 
 len(alice_paragraphs)
+
+# Now let's use a logical operator to find out if "Alice" or "Eaglet" appear in Chapter 10:
 
 alice_eaglet_exist = "Alice" in alice_paragraphs[10] or "Eaglet" in alice_paragraphs[10]
 alice_eaglet_exist

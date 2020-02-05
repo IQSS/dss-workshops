@@ -188,8 +188,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#manipulating-data"><i class="fa fa-check"></i>Manipulating data</a><ul>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#filter-select-arrange"><i class="fa fa-check"></i>Filter, select, &amp; arrange</a></li>
-<li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#logical-operators"><i class="fa fa-check"></i>Logical operators</a></li>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#control-flow"><i class="fa fa-check"></i>Control flow</a></li>
+<li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#logical-relational-operators"><i class="fa fa-check"></i>Logical &amp; relational operators</a></li>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#exercise-2.1"><i class="fa fa-check"></i>Exercise 2.1</a></li>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#pipe-operator"><i class="fa fa-check"></i>Pipe operator</a></li>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#exercise-2.2"><i class="fa fa-check"></i>Exercise 2.2</a></li>
@@ -416,7 +416,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#using-sets-to-count-unique-items"><i class="fa fa-check"></i>Using sets to count unique items</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#exercise-0-3"><i class="fa fa-check"></i>Exercise 0</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#control-flow-1"><i class="fa fa-check"></i>Control flow</a></li>
-<li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#logical-relational-operators"><i class="fa fa-check"></i>Logical &amp; relational operators</a></li>
+<li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#logical-relational-operators-1"><i class="fa fa-check"></i>Logical &amp; relational operators</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#counting-list-elements"><i class="fa fa-check"></i>Counting list elements</a></li>
 <li class="chapter" data-level="" data-path="PythonIntro.html"><a href="PythonIntro.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
 </ul></li>
@@ -1074,9 +1074,21 @@ baby_names &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span 
 ## 5 Donna 34133
 ## 6 Lisa  33702</code></pre>
 </div>
-<div id="logical-operators" class="section level3">
-<h3>Logical operators</h3>
-<p>In the previous example we used <code>==</code> to filter rows. Other relational and logical operators are listed below.</p>
+<div id="control-flow" class="section level3">
+<h3>Control flow</h3>
+<p>We will only briefly touch on the concept of control flow in this workshop. For more details see: <a href="https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/" class="uri">https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/</a>. Our <a href="./RDataWrangling.html">R Data Wrangling</a> workshop also covers some of these topics.</p>
+<p>Sometimes we may want to control the flow of code in an analysis using <strong>choices</strong>, such as <code>if</code> and <code>else</code> statements, which allow you to run different code depending on the input. The basic form is:</p>
+<pre><code>```python
+if (condition) true_action else false_action
+```
+
+If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
+the optional `false_action` is evaluated.</code></pre>
+<p>The conditions that are evaluated use <strong>logical and relational operators</strong> to determine equivalence or make some other relational comparisons.</p>
+</div>
+<div id="logical-relational-operators" class="section level3">
+<h3>Logical &amp; relational operators</h3>
+<p>In a previous example we used <code>==</code> to filter rows. Here’s a table of other commonly used relational operators:</p>
 <table>
 <thead>
 <tr class="header">
@@ -1115,7 +1127,7 @@ baby_names &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span 
 </tr>
 </tbody>
 </table>
-<p>These operators may be combined with <code>&amp;</code> (and) or <code>|</code> (or). For example, we can create a <strong>vector</strong> (a <strong>container for a collection of values</strong>) and demonstrate some ways to combine operators:</p>
+<p>These relational operators may be combined with logical operators, such as <code>&amp;</code> (and) or <code>|</code> (or). For example, we can create a <strong>vector</strong> (a <strong>container for a collection of values</strong>) and demonstrate some ways to combine operators:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="co"># a vector</span>
 x</code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
@@ -1128,24 +1140,11 @@ x</code></pre></div>
 <span class="co"># elements of x matched in vector</span>
 x <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>) </code></pre></div>
 <pre><code>##  [1]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE</code></pre>
-<p>Notice that logical operators return <strong>logical vectors</strong> of <code>TRUE</code> and <code>FALSE</code> values. The logical vectors returned by logical operators can themselves be operated on by functions:</p>
+<p>Notice that logical and relational operators return <strong>logical vectors</strong> of <code>TRUE</code> and <code>FALSE</code> values. The logical vectors returned by these operators can themselves be operated on by functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">&gt;</span><span class="st"> </span><span class="dv">7</span></code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">7</span>)</code></pre></div>
 <pre><code>## [1] 3</code></pre>
-</div>
-<div id="control-flow" class="section level3">
-<h3>Control flow</h3>
-<p>We won’t be covering examples of control flow in this workshop, but we will briefly introduce this important concept here. For more details see: <a href="https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/" class="uri">https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/</a>. Our <a href="./RDataWrangling.html">R Data Wrangling</a> workshop also covers some of these topics.</p>
-<p>There are two major tools for controlling the flow of code in a script:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Choices:</strong> such as <code>if</code> and <code>else</code> statements, allow you to run different code depending on the input. The basic form is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (condition) true_action <span class="cf">else</span> false_action</code></pre></div>
-<p>If <code>condition</code> is <code>TRUE</code>, <code>true_action</code> is evaluated; if <code>condition</code> is <code>FALSE</code>, the optional <code>false_action</code> is evaluated.</p></li>
-<li><p><strong>Loops:</strong> such as <code>for</code> and <code>while</code> loops, allow you to repeatedly run code, typically with changing options. The basic form is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (item <span class="cf">in</span> collection) perform_action</code></pre></div>
-<p>For each <code>item</code> in <code>collection</code>, <code>perform_action</code> is called once; updating the value of <code>item</code> each time.</p></li>
-</ol>
 </div>
 <div id="exercise-2.1" class="section level3">
 <h3>Exercise 2.1</h3>
@@ -1223,11 +1222,11 @@ output_of_thing_on_left <span class="op">%&gt;%</span><span class="st"> </span>b
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_diana &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Name <span class="op">==</span><span class="st"> &quot;Diana&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count,
      <span class="dt">data =</span> baby_names_diana)</code></pre></div>
-<p><img src="R/Rintro/figures/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="R/Rintro/figures/unnamed-chunk-32-1.png" width="672" /></p>
 <p>Interestingly, there are usually some gender-atypical names, even for very strongly gendered names like “Diana”. Splitting these trends out by <code>Sex</code> is very easy:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex,
       <span class="dt">data =</span> baby_names_diana)</code></pre></div>
-<p><img src="R/Rintro/figures/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="R/Rintro/figures/unnamed-chunk-33-1.png" width="672" /></p>
 <div id="exercise-3" class="section level3">
 <h3>Exercise 3</h3>
 <p><strong>Plot peak popularity of your name</strong></p>
@@ -1497,13 +1496,13 @@ output_of_thing_on_left <span class="op">%&gt;%</span><span class="st"> </span>b
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baby_names_george &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Name <span class="op">==</span><span class="st"> &quot;George&quot;</span>)</code></pre></div></li>
 <li><p>Plot the data you produced in step 1 above, with <code>Year</code> on the x-axis and <code>Count</code> on the y-axis.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">data =</span> baby_names_george)</code></pre></div>
-<p><img src="R/Rintro/figures/unnamed-chunk-69-1.png" width="672" /></p></li>
+<p><img src="R/Rintro/figures/unnamed-chunk-68-1.png" width="672" /></p></li>
 <li><p>Adjust the plot so that is shows boys and girls in different colors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex, <span class="dt">data =</span> baby_names_george)</code></pre></div>
-<p><img src="R/Rintro/figures/unnamed-chunk-70-1.png" width="672" /></p></li>
+<p><img src="R/Rintro/figures/unnamed-chunk-69-1.png" width="672" /></p></li>
 <li><p>BONUS (Optional): Adjust the plot to use lines instead of points.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex, <span class="dt">data =</span> baby_names_george, <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
-<p><img src="R/Rintro/figures/unnamed-chunk-71-1.png" width="672" /></p></li>
+<p><img src="R/Rintro/figures/unnamed-chunk-70-1.png" width="672" /></p></li>
 </ol>
 </div>
 <div id="ex-4-prototype" class="section level3">
@@ -1565,7 +1564,7 @@ output_of_thing_on_left <span class="op">%&gt;%</span><span class="st"> </span>b
       <span class="dt">color =</span> Sex, 
       <span class="dt">data =</span> top1, 
       <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
-<p><img src="R/Rintro/figures/unnamed-chunk-75-1.png" width="672" /></p></li>
+<p><img src="R/Rintro/figures/unnamed-chunk-74-1.png" width="672" /></p></li>
 <li><p>BONUS (optional): Which names are the most popular for both boys and girls?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">girls_and_boys &lt;-<span class="st"> </span><span class="kw">inner_join</span>(<span class="kw">filter</span>(baby_names, Sex <span class="op">==</span><span class="st"> &quot;Boys&quot;</span>), 
                             <span class="kw">filter</span>(baby_names, Sex <span class="op">==</span><span class="st"> &quot;Girls&quot;</span>),
@@ -1616,7 +1615,7 @@ girls_and_boys &lt;-<span class="st"> </span><span class="kw">mutate</span>(girl
       <span class="dt">color =</span> Sex,
       <span class="dt">data =</span> top10,
       <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
-<p><img src="R/Rintro/figures/unnamed-chunk-79-1.png" width="672" /></p></li>
+<p><img src="R/Rintro/figures/unnamed-chunk-78-1.png" width="672" /></p></li>
 </ol>
 </div>
 </div>

@@ -474,10 +474,29 @@ head(baby_names_subset)
 head(baby_names_subset, n = 6) # default is n = 6
 ```
 
-### Logical operators
+### Control flow
 
-In the previous example we used `==` to filter rows. Other relational
-and logical operators are listed below.
+We will only briefly touch on the concept of control flow in this workshop. For more details see:
+<https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>.
+Our [R Data Wrangling](./RDataWrangling.html) workshop also covers some of these topics.
+
+Sometimes we may want to control the flow of code in an analysis using **choices**,
+such as `if` and `else` statements, which allow you to run different code depending on the input.
+The basic form is:
+
+    ```{python, eval=FALSE}
+    if (condition) true_action else false_action
+    ```
+
+    If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
+    the optional `false_action` is evaluated.
+
+The conditions that are evaluated use **logical and relational operators** to determine equivalence or make some other relational comparisons.
+
+### Logical & relational operators
+
+In a previous example we used `==` to filter rows.
+Here's a table of other commonly used relational operators:
 
  | Operator  | Meaning                   | 
  |:----------|:--------------------------| 
@@ -489,8 +508,8 @@ and logical operators are listed below.
  | `<=`      | less than or equal to     | 
  | `%in%`    | contained in              | 
 
-These operators may be combined with `&` (and) or `|` (or). For example,
-we can create a **vector** (a **container for a collection of values**) and demonstrate 
+These relational operators may be combined with logical operators, such as `&` (and) or `|` (or).
+For example, we can create a **vector** (a **container for a collection of values**) and demonstrate
 some ways to combine operators:
 
 ```{r}
@@ -509,39 +528,13 @@ If we want to match multiple elements from two vectors we can use the `%in%` ope
 x %in% c(1, 5, 10) 
 ```
 
-Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
-The logical vectors returned by logical operators can themselves be operated on by functions:
+Notice that logical and relational operators return **logical vectors** of `TRUE` and `FALSE` values.
+The logical vectors returned by these operators can themselves be operated on by functions:
 
 ```{r}
 x > 7
 sum(x > 7)
 ```
-
-
-### Control flow
-
-We won't be covering examples of control flow in this workshop, but we will briefly introduce this important concept here. 
-For more details see: <https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>. Our [R Data Wrangling](./RDataWrangling.html) workshop also covers some of these topics.
-
-There are two major tools for controlling the flow of code in a script:
-
- 1. **Choices:** such as `if` and `else` statements, allow you to run different code depending on the input. The basic form is:
-
-    ```{r, eval=FALSE}
-    if (condition) true_action else false_action
-    ```
-
-    If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
-    the optional `false_action` is evaluated.
-
- 2. **Loops:** such as `for` and `while` loops, allow you to repeatedly run code, typically with changing options. The basic form is:
-
-    ```{r, eval=FALSE}
-    for (item in collection) perform_action
-    ```
-
-    For each `item` in `collection`, `perform_action` is called once; updating the value of `item` each time.
-
 
 ### Exercise 2.1
 
