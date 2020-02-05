@@ -6,6 +6,7 @@
 # **Topics**
 #
 # * Functions
+# * Objects
 # * Assignment
 # * Finding help
 # * Importing packages
@@ -83,7 +84,7 @@
 
 # ### How does R work?
 #
-# While graphical-based statistical software (e.g., SPSS) immediately display
+# While graphical-based statistical software (e.g., SPSS, GraphPad) immediately display
 # the results of an analysis, **R stores results in an `object` (a data structure)**,
 # so that an analysis can be done with no result displayed. Such a feature is very
 # useful, since a user can extract only that part of the results that is of interest

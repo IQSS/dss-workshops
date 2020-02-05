@@ -4,6 +4,7 @@
 # **Topics**
 #
 # * Functions
+# * Objects
 # * Assignment
 # * Finding help
 # * List and dictionary structures
@@ -25,7 +26,7 @@
 # * Assumes no prior knowledge of **how to use** Python
 # * We do assume you know **why** you want to learn Python. If you don't, and want a comparison of Python to other statistical software, see our [Data Science Tools](./DataScienceTools.html) workshop
 # * Relatively slow-paced
-#
+
 # ### Goals
 #
 # We will learn about the Python language by analyzing the text of Lewis Carroll's *Alice's Adventures in Wonderland*. 
@@ -41,6 +42,7 @@
 
 # ## Python basics
 #
+# <div class="alert alert-info">
 # **GOAL: To learn about the foundations of the Python language.**
 #
 # 1. What Python is and how it works
@@ -49,6 +51,7 @@
 # 4. Objects
 # 5. Assignment
 # 6. Methods
+# </div>
 
 # ### What is Python?
 #
@@ -72,7 +75,7 @@
 
 # ### How does Python work?
 #
-# While graphical-based statistical software (e.g., SPSS) immediately display
+# While graphical-based statistical software (e.g., SPSS, GraphPad) immediately display
 # the results of an analysis, **Python stores results in an `object` (a data structure)**,
 # so that an analysis can be done with no result displayed. Such a feature is very
 # useful, since a user can extract only that part of the results that is of interest
@@ -185,11 +188,13 @@ print(alice_txt[:500]) # the [:500] gets the first 500 character -- more on this
 
 # ## Using object methods & lists
 #
+# <div class="alert alert-info">
 # **GOAL: To learn how to use methods and lists to analyze data.** We will do this using the Alice text to count: 
 #
 # 1.  Words
 # 2.  Chapters
 # 3.  Paragraphs
+# </div>
 #
 # How many words does the text contain? To answer this question, we can split the text up so there is one element per word, and then count the number of words.
 #
@@ -238,7 +243,6 @@ y = [1, "b", 3, "D", 5, 6]
 # object[ 0 : end : 1 ]
 
 # Then using a real list:
-#
 
 # create a list
 y = [1, "b", 3, "D", 5, 6]
@@ -332,11 +336,13 @@ len(alice_paragraphs)
 
 # ## Iterating over collections of data
 #
+# <div class="alert alert-info">
 # **GOAL: To learn how to automate repetitive tasks by iterating over collections of data.** We will do this using the Alice text to count:
 #
 # 1.  Words nested within paragraphs
 # 2.  Paragraphs nested within chapters
-
+# </div>
+#
 # This far our analysis has treated the text as a "flat" data structure. For example, when we counted words we just counted words in the whole document, rather than counting the number of words in each chapter. If we want to treat our document as a nested structure, with words forming sentences, sentences forming paragraphs, paragraphs forming chapters, and chapters forming the book, we need to learn some additional tools. Specifically, we need to learn how to iterate over lists (or other collections) and do things with each element in a collection.
 #
 # There are several ways to iterate in Python, of which we will focus on *for loops*. 
@@ -469,11 +475,13 @@ help(zip)
 
 # ## Importing packages
 #
+# <div class="alert alert-info">
 # **GOAL: To learn how to expand Python's functionality by importing packages.**  
 #
 # 1.  Import `numpy`
 # 2.  Calculate simple statistics
-
+# </div>
+#
 # Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min()` and `max()`) but built-in math support is pretty limited.
 #
 # When you find that something isn't available in Python itself, its time to look for a package that does it. Although it is somewhat overkill for simply calculating a mean we're going to use a popular package called `numpy` for this. The `numpy` package is included in the Anaconda Python distribution we are using, so we don't need to install it separately.
