@@ -54,16 +54,33 @@ library(effects)  # for predicted marginal means
 
 # ### Workshop Outline
 #
-# 1.  Preliminary steps before modeling
-# 2.  Modeling continuous outcomes
-# 3.  Modeling binary outcomes
-# 4.  Modeling clustered data
+# 1. Modeling workflow
+# 1. Preliminary steps before modeling
+# 2. Modeling continuous outcomes
+# 3. Modeling binary outcomes
+# 4. Modeling clustered data
 
 # ## Modeling pipeline
 #
+# Before we delve into the details of how to fit models in R, it's worth taking a step
+# back and thinking more broadly about the components of the modeling process. These
+# can roughly be divided into 3 stages:
+#
+# 1. Pre-estimation
+# 2. Estimation
+# 3. Post-estimaton
+#
+# At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis),
+# but the process is sequential --- we move through the stages in order (though often many times in one project!)
+#
 # ![](R/Rmodels/images/R_model_pipeline.png)
+#
+# Throughout this workshop we will go through these stages several times as we fit different types of model.
 
 # ## Before fitting a model
+#
+# One important part of the pre-estimation stage, is gaining an understanding of the data we wish to model
+# by creating plots and summaries. Let's do this now.
 #
 # ### Load the data
 #
@@ -117,19 +134,26 @@ list.files("dataSets")
 
 # ## Models with continuous outcomes
 #
-# Ordinary least squares (OLS) regression models can be fit with the `lm()` function.
-# In R, we convert our theoretical model into a `formula` --- a symbolic representation of the model:
+# Once the data have been inspected and cleaned, we can start estimating models.
+# The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes.
+# Typically, for these outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS),
+# which in R can be fit with the `lm()` (linear model) function.
+#
+# To fit a model in R, we first have to convert our theoretical model into
+# a `formula` --- a symbolic representation of the model in R syntax:
 
 # R regression formula
 outcome ~ pred1 + pred2 + pred3
 
 # NOTE the ~ is a tilde
 
-# For example, we can use `lm()` to predict SAT scores based on per-pupil expenditures:
+# For example, the following model predicts SAT scores based on per-pupil expenditures:
 #
 # $$
 # csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
 # $$
+#
+# We can use `lm()` to fit this model:
 
   # Fit our regression model
   sat_mod <- lm(csat ~ 1 + expense, # regression formula
@@ -147,23 +171,33 @@ outcome ~ pred1 + pred2 + pred3
 
 # ### The `lm` class & methods
 #
-# OK, we fit our model. Now what?
+# Okay, we fitted our model. Now what? Typically, the main goal in the **post-estimation stage** of analysis
+# is to extract **quantities of interest** from our fitted model. These quantities could be things like:
 #
-# * Examine the model object:
+# 1. Testing whether one group is different on average from another group
+# 2. Generating predicted outcomes from the model for interesting combinations of predictor values
+# 3. Calculating interval estimates for particular coefficients
+#
+# But before we can do any of that, we need to know more about **what a fitted model actually is,**
+# **what information it contains, and how we can extract from it information that we want to report**.
+#
+# Let's start by examining the model object:
 
   class(sat_mod)
   str(sat_mod)
   names(sat_mod)
   methods(class = class(sat_mod))
 
-# * Use function methods to get more information about the fit:
+# We can use function methods to get more information about the fit:
 
   summary(sat_mod)
   summary(sat_mod) %>% coef()
   methods("summary")
   confint(sat_mod)
 
-# Selected **post-estimation** tools you may find useful:
+# It's always worth examining what function methods are available for the class of model you're fitting.
+# Here's a summary table of some of the most often used methods. These are post-estimation tools you
+# will want in your toolbox:
 #
 # | Function      | Package        | Output                                                  |
 # |:--------------|:---------------|:--------------------------------------------------------|
@@ -358,18 +392,23 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # The `family` argument sets the error distribution for the model, while the `link` function
 # argument relates the predictors to the expected value of the outcome.
-
-# Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`:
+#
+# Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`.
+# Here's the model:
 #
 # $$
-# hypev_i = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+# P(hypev_i = 1) = e^{(\beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i)}
 # $$
+#
+# And here's how we fit this in R. First, let's clean up the hypertension outcome by making it binary:
 
   str(NH11$hypev) # check stucture of hypev
   levels(NH11$hypev) # check levels of hypev
 
   # collapse all missing values to NA
   NH11$hypev <- factor(NH11$hypev, levels=c("2 No", "1 Yes"))
+
+# Now let's use `glm()` to estimate the model:
 
   # run our regression model
   hyp_out <- glm(hypev ~ 1 + age_p + sex + sleep + bmi,
@@ -426,12 +465,12 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # ### Multilevel modeling overview
 #
-# * Multi-level (AKA hierarchical) models are a type of **mixed-effects** models
-# * Used to model data that are clustered
+# * Multi-level (AKA hierarchical) models are a type of **mixed-effects** model
+# * They are used to model data that are clustered (i.e., non-independent)
 # * Mixed-effecs models include two types of predictors: **fixed-effects** and **random effects**
 #   + **Fixed-effects** -- observed levels are of direct interest (.e.g, sex, political party...)
 #   + **Random-effects** -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
-#   + In R the `lme4` package is the most popular for mixed effects models
+#   + In R, the `lme4` package is the most popular for mixed effects models
 #   + Use the `lmer()` function for liner mixed models, `glmer()` for generalized linear mixed models
 
 # ### The Exam data
@@ -470,11 +509,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### Adding fixed-effects predictors
 #
-# Predict exam scores from student's standardized tests scores:
+# Here's a model that predicts exam scores from student's standardized tests scores:
 #
 # $$
-# normexam_{ij} = \beta_01 + \beta_1standLRT_{ij} + \gamma_0school_j + \epsilon_{ij}
+# normexam_{ij} = \mu + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 # $$
+#
+# where $U_{0j}$ is the random intercept for `school`. Let's implement this in R using `lmer()`:
 
   Norm2 <-lmer(normexam ~ 1 + standLRT + (1 | school),
                data = na.omit(Exam), REML = FALSE) 

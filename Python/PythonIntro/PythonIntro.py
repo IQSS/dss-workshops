@@ -435,18 +435,23 @@ alice_eaglet_exist
 #
 # The for loop syntax is:
 
-# for <thing> in <collection>: 
-#     do stuff with <thing>
+for <thing> in <collection>:
+    do stuff with <thing>
 
 # <center>
 # ![](Python/PythonIntro/images/python_for_loop_small.png)
 # </center>
 #
-# Notice that **the body of the for-loop is indented**. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. **White space matters in Python!** A simple example:
+# Notice that:
+#
+# 1. **the body of the for-loop is indented**. This is important, because it is this indentation that defines the *body* of the loop --- the place where things are done. 
+# 2. **White space matters in Python!**
+#
+# A simple example:
 
-for i in range(10): 
+for i in range(10):
     print(i)
-print('DONE.')    
+print('DONE.')
 
 # Notice that "DONE." is only printed once, since `print('DONE.')` is not indented and is therefore outside of the body of the loop. 
 #

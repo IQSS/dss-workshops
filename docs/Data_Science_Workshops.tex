@@ -1289,7 +1289,7 @@ These workshops are a work-in-progress, please provide any feedback to:
 \textbf{Your professional conduct is greatly appreciated. Out of respect
 to your fellow workshop attendees and instructors, please arrive at your
 workshop on time, having pre-installed all necessary software and
-materials. This will likely take 15-20 minutes}
+materials. This will likely take 15-20 minutes.}
 
 Before starting any of our R workshops, it is necessary to complete 4
 tasks. Please make sure all these tasks are completed \textbf{before}
@@ -3831,6 +3831,8 @@ Finally, lets install some packages that will help with modeling:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
+  Modeling workflow
+\item
   Preliminary steps before modeling
 \item
   Modeling continuous outcomes
@@ -3842,13 +3844,40 @@ Finally, lets install some packages that will help with modeling:
 
 \section{Modeling pipeline}\label{modeling-pipeline}
 
+Before we delve into the details of how to fit models in R, it's worth
+taking a step back and thinking more broadly about the components of the
+modeling process. These can roughly be divided into 3 stages:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Pre-estimation
+\item
+  Estimation
+\item
+  Post-estimaton
+\end{enumerate}
+
+At each stage, the goal is to complete a different task (e.g., to clean
+data, fit a model, test a hypothesis), but the process is sequential ---
+we move through the stages in order (though often many times in one
+project!)
+
 \begin{figure}
 \centering
 \includegraphics{R/Rmodels/images/R_model_pipeline.png}
 \caption{}
 \end{figure}
 
+Throughout this workshop we will go through these stages several times
+as we fit different types of model.
+
 \section{Before fitting a model}\label{before-fitting-a-model}
+
+One important part of the pre-estimation stage, is gaining an
+understanding of the data we wish to model by creating plots and
+summaries. Let's do this now.
 
 \subsection{Load the data}\label{load-the-data}
 
@@ -3930,9 +3959,15 @@ relationships etc.
 \section{Models with continuous
 outcomes}\label{models-with-continuous-outcomes}
 
-Ordinary least squares (OLS) regression models can be fit with the
-\texttt{lm()} function. In R, we convert our theoretical model into a
-\texttt{formula} --- a symbolic representation of the model:
+Once the data have been inspected and cleaned, we can start estimating
+models. The simplest models (but those with the most assumptions) are
+those for continuous and unbounded outcomes. Typically, for these
+outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS),
+which in R can be fit with the \texttt{lm()} (linear model) function.
+
+To fit a model in R, we first have to convert our theoretical model into
+a \texttt{formula} --- a symbolic representation of the model in R
+syntax:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3943,12 +3978,14 @@ Ordinary least squares (OLS) regression models can be fit with the
 \end{Highlighting}
 \end{Shaded}
 
-For example, we can use \texttt{lm()} to predict SAT scores based on
-per-pupil expenditures:
+For example, the following model predicts SAT scores based on per-pupil
+expenditures:
 
 \[
 csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
 \]
+
+We can use \texttt{lm()} to fit this model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3982,13 +4019,29 @@ SAT?
 \subsection{\texorpdfstring{The \texttt{lm} class \&
 methods}{The lm class \& methods}}\label{the-lm-class-methods}
 
-OK, we fit our model. Now what?
+Okay, we fitted our model. Now what? Typically, the main goal in the
+\textbf{post-estimation stage} of analysis is to extract
+\textbf{quantities of interest} from our fitted model. These quantities
+could be things like:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Examine the model object:
-\end{itemize}
+  Testing whether one group is different on average from another group
+\item
+  Generating predicted outcomes from the model for interesting
+  combinations of predictor values
+\item
+  Calculating interval estimates for particular coefficients
+\end{enumerate}
+
+But before we can do any of that, we need to know more about
+\textbf{what a fitted model actually is,} \textbf{what information it
+contains, and how we can extract from it information that we want to
+report}.
+
+Let's start by examining the model object:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3999,11 +4052,7 @@ OK, we fit our model. Now what?
 \end{Highlighting}
 \end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  Use function methods to get more information about the fit:
-\end{itemize}
+We can use function methods to get more information about the fit:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4014,7 +4063,10 @@ OK, we fit our model. Now what?
 \end{Highlighting}
 \end{Shaded}
 
-Selected \textbf{post-estimation} tools you may find useful:
+It's always worth examining what function methods are available for the
+class of model you're fitting. Here's a summary table of some of the
+most often used methods. These are post-estimation tools you will want
+in your toolbox:
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -4467,11 +4519,15 @@ while the \texttt{link} function argument relates the predictors to the
 expected value of the outcome.
 
 Let's predict the probability of being diagnosed with hypertension based
-on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}:
+on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}. Here's
+the model:
 
 \[
-hypev_i = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+P(hypev_i = 1) = e^{(\beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i)}
 \]
+
+And here's how we fit this in R. First, let's clean up the hypertension
+outcome by making it binary:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4480,7 +4536,13 @@ hypev_i = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_
 
   \CommentTok{# collapse all missing values to NA}
 \NormalTok{  NH11}\OperatorTok{$}\NormalTok{hypev <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(NH11}\OperatorTok{$}\NormalTok{hypev, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\StringTok{"2 No"}\NormalTok{, }\StringTok{"1 Yes"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
+Now let's use \texttt{glm()} to estimate the model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
   \CommentTok{# run our regression model}
 \NormalTok{  hyp_out <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(hypev }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{age_p }\OperatorTok{+}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{sleep }\OperatorTok{+}\StringTok{ }\NormalTok{bmi,}
                  \DataTypeTok{data =}\NormalTok{ NH11, }
@@ -4593,9 +4655,9 @@ overview}\label{multilevel-modeling-overview}
 \tightlist
 \item
   Multi-level (AKA hierarchical) models are a type of
-  \textbf{mixed-effects} models
+  \textbf{mixed-effects} model
 \item
-  Used to model data that are clustered
+  They are used to model data that are clustered (i.e., non-independent)
 \item
   Mixed-effecs models include two types of predictors:
   \textbf{fixed-effects} and \textbf{random effects}
@@ -4607,7 +4669,7 @@ overview}\label{multilevel-modeling-overview}
   goal is to make inferences to a population represented by observed
   levels
 \item
-  In R the \texttt{lme4} package is the most popular for mixed effects
+  In R, the \texttt{lme4} package is the most popular for mixed effects
   models
 \item
   Use the \texttt{lmer()} function for liner mixed models,
@@ -4673,11 +4735,15 @@ p-values, the \texttt{lmerTest} package will calculate p-values for you
 \subsection{Adding fixed-effects
 predictors}\label{adding-fixed-effects-predictors}
 
-Predict exam scores from student's standardized tests scores:
+Here's a model that predicts exam scores from student's standardized
+tests scores:
 
 \[
-normexam_{ij} = \beta_01 + \beta_1standLRT_{ij} + \gamma_0school_j + \epsilon_{ij}
+normexam_{ij} = \mu + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 \]
+
+where \(U_{0j}\) is the random intercept for \texttt{school}. Let's
+implement this in R using \texttt{lmer()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8136,7 +8202,7 @@ These workshops are a work in progress, please provide any feedback to:
 \textbf{Your professional conduct is greatly appreciated. Out of respect
 to your fellow workshop attendees and instructors, please arrive at your
 workshop on time, having pre-installed all necessary software and
-materials. This will likely take 15-20 minutes}
+materials. This will likely take 15-20 minutes.}
 
 Before starting any of our Python workshops, it is necessary to complete
 2 tasks. Please make sure both of these tasks are completed
@@ -9284,23 +9350,33 @@ The for loop syntax is:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# for <thing> in <collection>: }
-\CommentTok{#     do stuff with <thing>}
+\ControlFlowTok{for} \OperatorTok{<}\NormalTok{thing}\OperatorTok{>} \KeywordTok{in} \OperatorTok{<}\NormalTok{collection}\OperatorTok{>}\NormalTok{:}
+\NormalTok{    do stuff }\ControlFlowTok{with} \OperatorTok{<}\NormalTok{thing}\OperatorTok{>}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{Python/PythonIntro/images/python_for_loop_small.png}
 
-Notice that \textbf{the body of the for-loop is indented}. This is
-important, because it is this indentation that defines the \emph{body}
-of the loop --- the place where things are done. \textbf{White space
-matters in Python!} A simple example:
+Notice that:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{the body of the for-loop is indented}. This is important,
+  because it is this indentation that defines the \emph{body} of the
+  loop --- the place where things are done.
+\item
+  \textbf{White space matters in Python!}
+\end{enumerate}
+
+A simple example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{10}\NormalTok{): }
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{10}\NormalTok{):}
     \BuiltInTok{print}\NormalTok{(i)}
-\BuiltInTok{print}\NormalTok{(}\StringTok{'DONE.'}\NormalTok{)    }
+\BuiltInTok{print}\NormalTok{(}\StringTok{'DONE.'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
