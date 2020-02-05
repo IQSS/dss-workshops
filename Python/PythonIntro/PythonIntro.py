@@ -291,6 +291,51 @@ len(set(alice_words)) # counts unique elements in a data structure
 
 ##
 
+# ### Control flow
+#
+# Sometimes we may want to control the flow of code in an analysis using **choices**,
+# such as `if` and `else` statements, which allow you to run different code depending on the input
+#
+# The basic form is:
+#
+#     ```{python, eval=FALSE}
+#     if (condition) true_action else false_action
+#     ```
+#
+#     If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
+#     the optional `false_action` is evaluated.
+#
+# The conditions that are evaluated use **logical operators** to determine equivelance or make some other relational comparisons.
+
+# ### Logical operators
+#
+# Here's a table of relational and logical operators are listed below.
+#
+#  | Operator  | Meaning                   | 
+#  |:----------|:--------------------------| 
+#  | `==`      | equal to                  | 
+#  | `!=`      | not equal to              | 
+#  | `>`       | greater than              | 
+#  | `>=`      | greater than or equal to  | 
+#  | `<`       | less than                 | 
+#  | `<=`      | less than or equal to     |  
+#
+# These operators may be combined with `and` or `or`. For example,
+# we can create a **vector** (a **container for a collection of values**) and demonstrate 
+# some ways to combine operators:
+
+x = 1:10 # a vector
+x
+
+x > 7 # a simple condition
+x > 7 | x < 3 # two conditions combined
+
+# Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
+# The logical vectors returned by logical operators can themselves be operated on by functions:
+
+x > 7
+sum(x > 7)
+
 
 # ### Counting list elements
 #
@@ -301,7 +346,15 @@ len(alice_chapters)
 
 # Since the first element contains the material *before* the first chapter, this tells us there are twelve chapters in the book.
 #
-# We can count paragraphs in a similar way. Paragraphs are indicated by a blank line, i.e., two newlines in a row. When working with strings we can represent newlines with `\n`. Paragraphs are indicated by two new lines, and so our basic paragraph separator is `\n\n`. We can see this separator by looking at the content.
+# We can also count the number of times the "Bunny" OR the "Duck" character appear in a given chapter:
+
+bunny_OR_duck_count = alice_chapters.count("Bunny" or "Duck")
+
+# Or, the number of times the "Alice" AND the "Eaglet" character appear in a given chapter:
+
+alice_AND_eaglet_count = alice_chapters.count("Alice" and "Eaglet")
+
+# We can count paragraphs in a similar way to chapters. Paragraphs are indicated by a blank line, i.e., two newlines in a row. When working with strings we can represent newlines with `\n`. Paragraphs are indicated by two new lines, and so our basic paragraph separator is `\n\n`. We can see this separator by looking at the content.
 
 print(alice_txt[:500]) # explicit printing --- formats text nicely
 
@@ -330,6 +383,10 @@ len(alice_paragraphs)
 ##
 
 # 2. Extract and print just the first character from the list you created in the previous exercise.
+
+##
+
+# 3. ?????.
 
 ##
 
