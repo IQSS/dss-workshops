@@ -1115,7 +1115,7 @@ dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, 
 <p>The <code>family</code> argument sets the error distribution for the model, while the <code>link</code> function argument relates the predictors to the expected value of the outcome.</p>
 <p>Let’s predict the probability of being diagnosed with hypertension based on <code>age</code>, <code>sex</code>, <code>sleep</code>, and <code>bmi</code>. Here’s the model:</p>
 <p><span class="math display">\[
-P(hypev_i = 1) = e^{(\beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i)}
+ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon
 \]</span></p>
 <p>And here’s how we fit this in R. First, let’s clean up the hypertension outcome by making it binary:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">str</span>(NH11<span class="op">$</span>hypev) <span class="co"># check stucture of hypev</span>

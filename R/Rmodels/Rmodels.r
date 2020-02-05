@@ -397,7 +397,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # Here's the model:
 #
 # $$
-# P(hypev_i = 1) = e^{(\beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i)}
+# ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon
 # $$
 #
 # And here's how we fit this in R. First, let's clean up the hypertension outcome by making it binary:
