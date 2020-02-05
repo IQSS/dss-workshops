@@ -363,7 +363,7 @@ The basic form is:
 The conditions that are evaluated use **logical operators** to determine equivelance or make some other relational comparisons.
 
 
-### Logical operators
+### Logical & relational operators
 
 Here's a table of commonly used relational and logical operators:
 
@@ -408,16 +408,26 @@ len(alice_chapters)
 
 Since the first element contains the material *before* the first chapter, this tells us there are twelve chapters in the book.
 
-We can also count the number of times the "Bunny" OR the "Duck" character appear in a given chapter:
+We can also count the number of times the "Bunny" and "Duck" characters appear in a given Chapter, say Chapter 2:
 
 ```{python}
-bunny_OR_duck_count = alice_chapters.count("Bunny" or "Duck")
+bunny_count_ch2 = alice_chapters[2].count("Bunny")
+print(bunny_count_ch1)
+
+duck_count_ch2 = alice_chapters[2].count("Duck")
+print(duck_count_ch2)
 ```
 
-Or, the number of times the "Alice" AND the "Eaglet" character appear in a given chapter:
+By combining choice statements with logical or relational operators, we can then determine which of these two characters
+appears more often in Chapter2:
 
 ```{python}
-alice_AND_eaglet_count = alice_chapters.count("Alice" and "Eaglet")
+if bunny_count_ch2 < duck_count_ch2:
+    print("Bunny count is less than Duck count in Chapter II.")
+elif bunny_count_ch2 > duck_count_ch2:
+    print("Bunny count is larger than Duck count in Chapter II.")
+else:
+    print("Bunny count is equal to Duck count in Chapter II.")
 ```
 
 We can count paragraphs in a similar way to chapters. Paragraphs are indicated by a blank line, i.e., two newlines in a row. When working with strings we can represent newlines with `\n`. Paragraphs are indicated by two new lines, and so our basic paragraph separator is `\n\n`. We can see this separator by looking at the content.

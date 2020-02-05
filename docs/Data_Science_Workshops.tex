@@ -9041,7 +9041,8 @@ the optional `false_action` is evaluated.
 The conditions that are evaluated use \textbf{logical operators} to
 determine equivelance or make some other relational comparisons.
 
-\subsection{Logical operators}\label{logical-operators-1}
+\subsection{Logical \& relational
+operators}\label{logical-relational-operators}
 
 Here's a table of commonly used relational and logical operators:
 
@@ -9104,21 +9105,31 @@ separator.
 Since the first element contains the material \emph{before} the first
 chapter, this tells us there are twelve chapters in the book.
 
-We can also count the number of times the ``Bunny'' OR the ``Duck''
-character appear in a given chapter:
+We can also count the number of times the ``Bunny'' and ``Duck''
+characters appear in a given Chapter, say Chapter 2:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bunny_OR_duck_count }\OperatorTok{=}\NormalTok{ alice_chapters.count(}\StringTok{"Bunny"} \KeywordTok{or} \StringTok{"Duck"}\NormalTok{)}
+\NormalTok{bunny_count_ch2 }\OperatorTok{=}\NormalTok{ alice_chapters[}\DecValTok{2}\NormalTok{].count(}\StringTok{"Bunny"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(bunny_count_ch1)}
+
+\NormalTok{duck_count_ch2 }\OperatorTok{=}\NormalTok{ alice_chapters[}\DecValTok{2}\NormalTok{].count(}\StringTok{"Duck"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(duck_count_ch2)}
 \end{Highlighting}
 \end{Shaded}
 
-Or, the number of times the ``Alice'' AND the ``Eaglet'' character
-appear in a given chapter:
+By combining choice statements with logical or relational operators, we
+can then determine which of these two characters appears more often in
+Chapter2:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{alice_AND_eaglet_count }\OperatorTok{=}\NormalTok{ alice_chapters.count(}\StringTok{"Alice"} \KeywordTok{and} \StringTok{"Eaglet"}\NormalTok{)}
+\ControlFlowTok{if}\NormalTok{ bunny_count_ch2 }\OperatorTok{<}\NormalTok{ duck_count_ch2:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Bunny count is less than Duck count in Chapter II."}\NormalTok{)}
+\ControlFlowTok{elif}\NormalTok{ bunny_count_ch2 }\OperatorTok{>}\NormalTok{ duck_count_ch2:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Bunny count is larger than Duck count in Chapter II."}\NormalTok{)}
+\ControlFlowTok{else}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Bunny count is equal to Duck count in Chapter II."}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
