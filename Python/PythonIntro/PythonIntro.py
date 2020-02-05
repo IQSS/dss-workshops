@@ -294,8 +294,7 @@ len(set(alice_words)) # counts unique elements in a data structure
 # ### Control flow
 #
 # Sometimes we may want to control the flow of code in an analysis using **choices**,
-# such as `if` and `else` statements, which allow you to run different code depending on the input
-#
+# such as `if` and `else` statements, which allow you to run different code depending on the input.
 # The basic form is:
 #
 #     ```{python, eval=FALSE}
@@ -309,7 +308,7 @@ len(set(alice_words)) # counts unique elements in a data structure
 
 # ### Logical operators
 #
-# Here's a table of relational and logical operators are listed below.
+# Here's a table of commonly used relational and logical operators:
 #
 #  | Operator  | Meaning                   | 
 #  |:----------|:--------------------------| 
@@ -328,7 +327,7 @@ x = 1:10 # a vector
 x
 
 x > 7 # a simple condition
-x > 7 | x < 3 # two conditions combined
+x > 7 or x < 3 # two conditions combined
 
 # Notice that logical operators return **logical vectors** of `TRUE` and `FALSE` values.
 # The logical vectors returned by logical operators can themselves be operated on by functions:
