@@ -92,6 +92,13 @@ library(effects)  # for predicted marginal means
 
 # ## Before fitting a model
 #
+# <div class="alert alert-info">
+# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+#
+# 1. item 1
+# 2. item 2
+# </div>
+#
 # One important part of the pre-estimation stage of model fitting, is gaining an understanding
 # of the data we wish to model by creating plots and summaries. Let's do this now.
 #
@@ -150,6 +157,15 @@ list.files("dataSets")
 
 # ## Models with continuous outcomes
 #
+# <div class="alert alert-info">
+# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+#
+# 1. Filtering data by choosing rows --- using the `filter()` function
+# 2. Selecting data by choosing columns --- using the `select()` function
+# 3. Arranging data by reordering rows --- using the `arrange()` function
+# 4. Using the pipe `%>%` operator to simplify sequential operations
+# </div>
+#
 # Once the data have been inspected and cleaned, we can start estimating models.
 # The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes.
 # Typically, for these outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS),
@@ -165,7 +181,7 @@ outcome ~ pred1 + pred2 + pred3
 
 # For example, the following model predicts SAT scores based on per-pupil expenditures:
 #
-# <div class="blue">
+# <div class="alert alert-secondary">
 # $$
 # csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
 # $$
@@ -306,6 +322,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ## Interactions & factors
 #
+# <div class="alert alert-info">
+# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+#
+# 1. item 1
+# 2. item 2
+# </div>
+#
 # ### Modeling interactions
 #
 # Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
@@ -380,6 +403,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ## Models with binary outcomes
 #
+# <div class="alert alert-info">
+# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+#
+# 1. item 1
+# 2. item 2
+# </div>
+#
 # ### Logistic regression
 #
 # This far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited --- in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
@@ -424,7 +454,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`.
 # Here's the model:
 #
-# <div class="blue">
+# <div class="alert alert-secondary">
 # $$
 # ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon
 # $$
@@ -498,6 +528,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ## Multilevel modeling
 #
+# <div class="alert alert-info">
+# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+#
+# 1. item 1
+# 2. item 2
+# </div>
+#
 # ### Multilevel modeling overview
 #
 # * Multi-level (AKA hierarchical) models are a type of **mixed-effects** model
@@ -546,7 +583,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # Here's a model that predicts exam scores from student's standardized tests scores:
 #
-# <div class="blue">
+# <div class="alert alert-secondary">
 # $$
 # normexam_{ij} = \mu + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 # $$

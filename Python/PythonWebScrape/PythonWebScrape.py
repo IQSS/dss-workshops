@@ -60,14 +60,14 @@
 #
 # No two websites are identical --- websites are built for different purposes by different people
 # and so have different underlying structures. Because they are heterogeneous, there is no single way to
-# scrape a website. The scraping approach has to be tailored to each individual site. Here are some commonly
-# used approaches:
+# scrape a website. **The scraping approach therefore has to be tailored to each individual site.**
+# Here are some commonly used approaches:
 #
 # 1. Use requests to extract information from structured JSON / XML files
 # 2. Use requests to extract information from HTML
 # 3. Automate a browser to retrieve information from HTML
 #
-# ![APPROACHES](Python/PythonWebScrape/images/json-format.png)
+# ![](Python/PythonWebScrape/images/json-format.png)
 
 # ### How does the web work?
 #
@@ -111,7 +111,7 @@
 # looking for in a structured format like [JSON](https://json.org/) or
 # [XML](https://en.wikipedia.org/wiki/XML).
 #
-# ![JSON](Python/PythonWebScrape/images/json-format.png)
+# ![](Python/PythonWebScrape/images/json-format.png)
 #
 # This is useful because it is very easy to convert data from JSON or XML
 # into a spreadsheet type format --- like a csv or Excel file.
