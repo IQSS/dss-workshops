@@ -40,9 +40,9 @@ If you need an introduction to Python or a refresher, we recommend our
 [Python Introduction](https://iqss.github.io/dss-workshops/PythonIntro.html).
 
 
-### Workshop Outline
+### Goals
 
-This workshop is organized into two parts:
+This workshop is organized into two main parts:
 
 1. Retrive information in JSON format
 2. Parse HTML files
@@ -51,7 +51,7 @@ Note that this workshop will not teach you everything you need to know in
 order to retrieve data from any web service you might wish to scrape.
 
 
-## Preliminary questions
+## Webscraping background
 
 ### What is web scraping?
 
@@ -65,11 +65,24 @@ mitigate some ethical issues by building delays and restrictions into
 your web scraping program so as to avoid impacting the availability of
 the web service for other users or the cost of hosting the service for
 the service provider.
- 
 
-## How does the web work?
+### Web scraping approaches
 
-### Components
+No two websites are identical --- websites are built for different purposes by different people
+and so have different underlying structures. Because they are heterogeneous, there is no single way to
+scrape a website. The scraping approach has to be tailored to each individual site. Here are some commonly
+used approaches:
+
+1. Use requests to extract information from structured JSON / XML files
+2. Use requests to extract information from HTML
+3. Automate a browser to retrieve information from HTML
+
+![APPROACHES](Python/PythonWebScrape/images/json-format.png)
+
+
+### How does the web work?
+
+#### Components
 
 Computers connected to the web are called **clients** and **servers**. A simplified diagram of how they interact might look like this:
 
@@ -77,48 +90,50 @@ Computers connected to the web are called **clients** and **servers**. A simplif
 
 * **Clients** are the typical web user's internet-connected devices (for example, your computer connected to your Wi-Fi) and web-accessing software available on those devices (usually a web browser like Firefox or Chrome).
 * **Servers** are computers that store webpages, sites, or apps. When a client device wants to access a webpage, a copy of the webpage is downloaded from the server onto the client machine to be displayed in the user's web browser.
-* Your internet connection allows you to send and receive data on the web.
-* **TCP/IP** are the communication protocols that define how data should travel across the web.
-* **Domain Name Servers (DNS)** are like an address book for websites. 
-* **HTTP** is an application protocol that defines a language for clients and servers to speak to each other.
+* **HTTP** is a language for clients and servers to speak to each other.
 
-### So What Happens, Exactly?
+#### So What Happens?
 
 When you type a web address into your browser:
 
-1. The browser goes to the DNS server, and finds the real address of the server that the website lives on.
-2. The browser sends an HTTP request message to the server, asking it to send a copy of the website to the client. This message, and all other data sent between the client and the server, is sent across your internet connection using TCP/IP.
-3. If the server approves the client's request, the server sends the client a "200 OK" message, and then starts sending the website's files to the browser as a series of small chunks called *data packets*.
-4. The browser assembles the small chunks into a complete website and displays it to you.
+1. The browser finds the address of the server that the website lives on.
+2. The browser sends an **HTTP request message** to the server, asking it to send a copy of the website to the client. 
+3. If the server approves the client's request, the server sends the client a "200 OK" message, and then starts displaying the website in the browser.
 
 
-## Example project 
+## Retrieve data in JSON format if you can
 
-In this workshop I will demonstrate web scraping techniques using the
-Collections page at
-<https://www.harvardartmuseums.org/collections> and let you use
-the skills you'll learn to retrieve information from other parts of
-the Harvard Art Museums website.
+<div class="alert alert-info">
+**GOAL: To retrieve information in JSON format and organize it into a spreadsheet.**
 
-The basic strategy is pretty much the same for most scraping projects.
-We will use our web browser (Chrome or Firefox recommended) to examine
-the page you wish to retrieve data from, and copy/paste information
-from your web browser into your scraping program.
-
-## Take shortcuts if you can
+1. Inspect the website to check if the content is stored in JSON format
+2. Make a request to the website server to retrieve the JSON file
+3. Convert from JSON format into a Python dictionary
+4. Extract the data from the dictionary and store in a .csv file
+</div>
 
 We wish to extract information from
 <https://www.harvardartmuseums.org/collections>. Like most
 modern web pages, a lot goes on behind the scenes to produce the page
 we see in our browser. Our goal is to pull back the curtain to see
 what the website does when we interact with it. Once we see how the
-website works we can start retrieving data from it. If we are lucky
-we'll find a resource that returns the data we're looking for in a
-structured format like [JSON](https://json.org/) or
+website works we can start retrieving data from it. 
+
+If we are lucky we'll find a resource that returns the data we're 
+looking for in a structured format like [JSON](https://json.org/) or
 [XML](https://en.wikipedia.org/wiki/XML).
 
+![JSON](Python/PythonWebScrape/images/json-format.png)
+
+This is useful because it is very easy to convert data from JSON or XML
+into a spreadsheet type format --- like a csv or Excel file.
 
 ### Examine the website's structure
+
+The basic strategy is pretty much the same for most scraping projects.
+We will use our web browser (Chrome or Firefox recommended) to examine
+the page you wish to retrieve data from, and copy/paste information
+from your web browser into your scraping program.
 
 We start by opening the collections web page in a web browser and
 inspecting it.
@@ -218,7 +233,7 @@ collections1 = requests.get(
 collections1.headers['Content-Type']
 ```
 
-Since JSON is a structured data format, parsing it into python data
+Since JSON is a structured data format, parsing it into Python data
 structures is easy. In fact, there's a method for that!
 
 ```{python}
@@ -322,8 +337,19 @@ exhibitions at Harvard Art Museums from
 ```{Python}
 ##
 ```
-   
-## Parse HTML if you have to
+
+
+## Parsing HTML if you have to
+
+<div class="alert alert-info">
+**GOAL: To retrieve information in HTML format and organize it into a spreadsheet.**
+
+1. Make a request to the website server to retrieve the HTML
+2. Inspect the HTML to determine the XPATHs that point to the data we want
+3. Extract the information from the location the XPATHs point to and store in a dictionary
+4. Convert from a dictionary to a .csv file
+</div>
+
 As we've seen, you can often inspect network traffic or other sources
 to locate the source of the data you are interested in and the API
 used to retrieve it. You should always start by looking for these
@@ -333,7 +359,15 @@ are not quite so lucky, you will have to parse HTML to retrieve the
 information you need.
 
 ### Document Object Model (DOM)
-To parse HTML, we need to have a nice tree structure that contains the whole HTML file through which we can locate the information. This tree-like structure is the **Document Object Model (DOM)**. DOM is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree. *Each branch of the tree ends in a node, and each node contains objects*. DOM methods allow programmatic access to the tree; with them one can change the structure, style or content of a document. The following is an example of DOM hierarchy in an HTML document:
+
+To parse HTML, we need to have a nice tree structure that contains the whole HTML 
+file through which we can locate the information. This tree-like structure is the 
+**Document Object Model (DOM)**. DOM is a cross-platform and language-independent 
+interface that treats an XML or HTML document as a tree structure wherein each node 
+is an object representing a part of the document. The DOM represents a document with 
+a logical tree. *Each branch of the tree ends in a node, and each node contains objects*. 
+DOM methods allow programmatic access to the tree; with them one can change the structure, 
+style or content of a document. The following is an example of DOM hierarchy in an HTML document:
 
 ![](Python/PythonWebScrape/images/DOM.png)
 
@@ -368,6 +402,7 @@ events0.headers['Content-Type']
 ```
 
 ### Parsing HTML using the lxml library
+
 Like JSON, HTML is structured; unlike JSON it is designed to be
 rendered into a human-readable page rather than simply to store and
 exchange data in a computer-readable format. Consequently, parsing
@@ -386,6 +421,7 @@ events_html = html.fromstring(events0.text)
 ```
 
 ### Using XPath to extract content from HTML
+
 `XPath` is a tool for identifying particular elements withing a HTML
 document. The developer tools built into modern web browsers make it
 easy to generate `XPath`s that can used to identify the elements of a
@@ -457,6 +493,7 @@ print(first_event_values)
 ```
 
 ### Iterating to retrieve content from a list of HTML elements
+
 So far we've retrieved information only for the first event. To
 retrieve data for all the events listed on the page we need to iterate
 over the events. If we are very lucky, each event will have exactly
@@ -548,6 +585,7 @@ information in HTML from.
 ```
 
 ## `Scrapy`: for large / complex projects
+
 Scraping websites using the `requests` library to make GET and POST
 requests, and the `lxml` library to process HTML is a good way to
 learn basic web scraping techniques. It is a good choice for small to
@@ -558,6 +596,7 @@ extracting and storing values, and more. More information about
 `scrapy` can be found at <https://doc.scrapy.org>.
 
 ## Browser drivers: a last resort
+
 It is sometimes necessary (or sometimes just easier) to use a web
 browser as an intermediary rather than communicate directly with a
 web service. This method of using a "browser driver" has the advantage 

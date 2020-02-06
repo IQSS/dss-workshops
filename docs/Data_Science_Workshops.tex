@@ -9923,9 +9923,9 @@ If you need an introduction to Python or a refresher, we recommend our
 \href{https://iqss.github.io/dss-workshops/PythonIntro.html}{Python
 Introduction}.
 
-\subsection{Workshop Outline}\label{workshop-outline-1}
+\subsection{Goals}\label{goals-4}
 
-This workshop is organized into two parts:
+This workshop is organized into two main parts:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9939,7 +9939,7 @@ This workshop is organized into two parts:
 Note that this workshop will not teach you everything you need to know
 in order to retrieve data from any web service you might wish to scrape.
 
-\section{Preliminary questions}\label{preliminary-questions}
+\section{Webscraping background}\label{webscraping-background}
 
 \subsection{What is web scraping?}\label{what-is-web-scraping}
 
@@ -9955,9 +9955,34 @@ your web scraping program so as to avoid impacting the availability of
 the web service for other users or the cost of hosting the service for
 the service provider.
 
-\section{How does the web work?}\label{how-does-the-web-work}
+\subsection{Web scraping approaches}\label{web-scraping-approaches}
 
-\subsection{Components}\label{components}
+No two websites are identical --- websites are built for different
+purposes by different people and so have different underlying
+structures. Because they are heterogeneous, there is no single way to
+scrape a website. The scraping approach has to be tailored to each
+individual site. Here are some commonly used approaches:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use requests to extract information from structured JSON / XML files
+\item
+  Use requests to extract information from HTML
+\item
+  Automate a browser to retrieve information from HTML
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics{Python/PythonWebScrape/images/json-format.png}
+\caption{APPROACHES}
+\end{figure}
+
+\subsection{How does the web work?}\label{how-does-the-web-work}
+
+\subsubsection{Components}\label{components}
 
 Computers connected to the web are called \textbf{clients} and
 \textbf{servers}. A simplified diagram of how they interact might look
@@ -9982,20 +10007,11 @@ like this:
   is downloaded from the server onto the client machine to be displayed
   in the user's web browser.
 \item
-  Your internet connection allows you to send and receive data on the
-  web.
-\item
-  \textbf{TCP/IP} are the communication protocols that define how data
-  should travel across the web.
-\item
-  \textbf{Domain Name Servers (DNS)} are like an address book for
-  websites.
-\item
-  \textbf{HTTP} is an application protocol that defines a language for
-  clients and servers to speak to each other.
+  \textbf{HTTP} is a language for clients and servers to speak to each
+  other.
 \end{itemize}
 
-\subsection{So What Happens, Exactly?}\label{so-what-happens-exactly}
+\subsubsection{So What Happens?}\label{so-what-happens}
 
 When you type a web address into your browser:
 
@@ -10003,49 +10019,62 @@ When you type a web address into your browser:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  The browser goes to the DNS server, and finds the real address of the
-  server that the website lives on.
+  The browser finds the address of the server that the website lives on.
 \item
-  The browser sends an HTTP request message to the server, asking it to
-  send a copy of the website to the client. This message, and all other
-  data sent between the client and the server, is sent across your
-  internet connection using TCP/IP.
+  The browser sends an \textbf{HTTP request message} to the server,
+  asking it to send a copy of the website to the client.
 \item
   If the server approves the client's request, the server sends the
-  client a ``200 OK'' message, and then starts sending the website's
-  files to the browser as a series of small chunks called \emph{data
-  packets}.
-\item
-  The browser assembles the small chunks into a complete website and
-  displays it to you.
+  client a ``200 OK'' message, and then starts displaying the website in
+  the browser.
 \end{enumerate}
 
-\section{Example project}\label{example-project}
+\section{Retrieve data in JSON format if you
+can}\label{retrieve-data-in-json-format-if-you-can}
 
-In this workshop I will demonstrate web scraping techniques using the
-Collections page at \url{https://www.harvardartmuseums.org/collections}
-and let you use the skills you'll learn to retrieve information from
-other parts of the Harvard Art Museums website.
+\textbf{GOAL: To retrieve information in JSON format and organize it
+into a spreadsheet.}
 
-The basic strategy is pretty much the same for most scraping projects.
-We will use our web browser (Chrome or Firefox recommended) to examine
-the page you wish to retrieve data from, and copy/paste information from
-your web browser into your scraping program.
-
-\section{Take shortcuts if you can}\label{take-shortcuts-if-you-can}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Inspect the website to check if the content is stored in JSON format
+\item
+  Make a request to the website server to retrieve the JSON file
+\item
+  Convert from JSON format into a Python dictionary
+\item
+  Extract the data from the dictionary and store in a .csv file
+\end{enumerate}
 
 We wish to extract information from
 \url{https://www.harvardartmuseums.org/collections}. Like most modern
 web pages, a lot goes on behind the scenes to produce the page we see in
 our browser. Our goal is to pull back the curtain to see what the
 website does when we interact with it. Once we see how the website works
-we can start retrieving data from it. If we are lucky we'll find a
-resource that returns the data we're looking for in a structured format
-like \href{https://json.org/}{JSON} or
-\href{https://en.wikipedia.org/wiki/XML}{XML}.
+we can start retrieving data from it.
+
+If we are lucky we'll find a resource that returns the data we're
+looking for in a structured format like \href{https://json.org/}{JSON}
+or \href{https://en.wikipedia.org/wiki/XML}{XML}.
+
+\begin{figure}
+\centering
+\includegraphics{Python/PythonWebScrape/images/json-format.png}
+\caption{JSON}
+\end{figure}
+
+This is useful because it is very easy to convert data from JSON or XML
+into a spreadsheet type format --- like a csv or Excel file.
 
 \subsection{Examine the website's
 structure}\label{examine-the-websites-structure}
+
+The basic strategy is pretty much the same for most scraping projects.
+We will use our web browser (Chrome or Firefox recommended) to examine
+the page you wish to retrieve data from, and copy/paste information from
+your web browser into your scraping program.
 
 We start by opening the collections web page in a web browser and
 inspecting it.
@@ -10171,7 +10200,7 @@ make our first request in Python.
 \end{Highlighting}
 \end{Shaded}
 
-Since JSON is a structured data format, parsing it into python data
+Since JSON is a structured data format, parsing it into Python data
 structures is easy. In fact, there's a method for that!
 
 \begin{Shaded}
@@ -10321,7 +10350,25 @@ at Harvard Art Museums from
 \end{Highlighting}
 \end{Shaded}
 
-\section{Parse HTML if you have to}\label{parse-html-if-you-have-to}
+\section{Parsing HTML if you have to}\label{parsing-html-if-you-have-to}
+
+\textbf{GOAL: To retrieve information in HTML format and organize it
+into a spreadsheet.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make a request to the website server to retrieve the HTML
+\item
+  Inspect the HTML to determine the XPATHs that point to the data we
+  want
+\item
+  Extract the information from the location the XPATHs point to and
+  store in a dictionary
+\item
+  Convert from a dictionary to a .csv file
+\end{enumerate}
 
 As we've seen, you can often inspect network traffic or other sources to
 locate the source of the data you are interested in and the API used to
@@ -10870,7 +10917,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-4}
+\subsection{Goals}\label{goals-5}
 
 \begin{itemize}
 \tightlist
@@ -11615,7 +11662,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-5}
+\subsection{Goals}\label{goals-6}
 
 \begin{itemize}
 \tightlist
@@ -13059,7 +13106,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-6}
+\subsection{Goals}\label{goals-7}
 
 \begin{itemize}
 \tightlist
