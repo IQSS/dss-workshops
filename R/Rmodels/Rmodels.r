@@ -1,8 +1,12 @@
+# </style>
+
+# # R Regression Models
+#
 # **Topics**
 #
-# * R formula interface
-# * Run and interpret variety of regression models in R
-# * Factor contrasts to test specific hypotheses
+# * Formula interface for model specification
+# * Function methods for extracting quantities of interest from models
+# * Contrasts to test specific hypotheses
 # * Model comparisons
 # * Predicted marginal effects
 
@@ -19,7 +23,23 @@
 #
 # * Assumes working knowledge of R
 # * Relatively fast-paced
-# * This is not a statistics course! We assume you know the theory behind the models.
+# * This is not a statistics course! We will teach you *how* to fit models in R,
+#   but we assume you know the theory behind the models.
+#
+# ### Goals
+#
+# We will learn about the R modeling ecosystem by fitting a variety of statistical models to
+# different datasets. In particular, our goals are to learn about:
+#
+# 1. Modeling workflow
+# 2. Visualizing and summarizing data before modeling
+# 3. Modeling continuous outcomes
+# 4. Modeling binary outcomes
+# 5. Modeling clustered data
+#
+# We will not spend much time *interpreting* the models we fit, since this is not a statistics workshop.
+# But, we will walk you through how model results are organized and orientate you to where you can find
+# typical quantities of interest.
 #
 # ### Launch an R session
 #
@@ -34,8 +54,8 @@
 # ### Packages
 #
 # You should have already installed the `tidyverse` and `rmarkdown`
-# packages onto your computer before the workshop 
-# --- see [R Installation](./Rinstall.html). 
+# packages onto your computer before the workshop
+# --- see [R Installation](./Rinstall.html).
 # Now let's load these packages into the search path of our R session.
 
 library(tidyverse)
@@ -52,15 +72,8 @@ library(emmeans)  # for marginal effects
 # install.packages("effects")
 library(effects)  # for predicted marginal means
 
-# ### Workshop Outline
-#
-# 1. Modeling workflow
-# 1. Preliminary steps before modeling
-# 2. Modeling continuous outcomes
-# 3. Modeling binary outcomes
-# 4. Modeling clustered data
 
-# ## Modeling pipeline
+# ## Modeling workflow
 #
 # Before we delve into the details of how to fit models in R, it's worth taking a step
 # back and thinking more broadly about the components of the modeling process. These
@@ -79,8 +92,8 @@ library(effects)  # for predicted marginal means
 
 # ## Before fitting a model
 #
-# One important part of the pre-estimation stage, is gaining an understanding of the data we wish to model
-# by creating plots and summaries. Let's do this now.
+# One important part of the pre-estimation stage of model fitting, is gaining an understanding
+# of the data we wish to model by creating plots and summaries. Let's do this now.
 #
 # ### Load the data
 #
@@ -91,7 +104,7 @@ list.files("dataSets")
 # We're going to use the `states` data first, which originally appeared in *Statistics with Stata* by Lawrence C. Hamilton.
 
   # read the states data
-  states_data <- read_rds("dataSets/states.rds") 
+  states_data <- read_rds("dataSets/states.rds")
 
   # look at the last few rows
   tail(states_data)
@@ -131,6 +144,9 @@ list.files("dataSets")
   plot(sts_ex_sat)
 
 # ![](R/Rmodels/images/statesCorr1.png)
+#
+# Obviously, in a real project, you would want to spend more time investigating the data,
+# but we'll now move on to modeling.
 
 # ## Models with continuous outcomes
 #
@@ -142,16 +158,18 @@ list.files("dataSets")
 # To fit a model in R, we first have to convert our theoretical model into
 # a `formula` --- a symbolic representation of the model in R syntax:
 
-# R regression formula
+# formula for model specification
 outcome ~ pred1 + pred2 + pred3
 
 # NOTE the ~ is a tilde
 
 # For example, the following model predicts SAT scores based on per-pupil expenditures:
 #
+# <div class="blue">
 # $$
 # csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
 # $$
+# </div>
 #
 # We can use `lm()` to fit this model:
 
@@ -175,7 +193,7 @@ outcome ~ pred1 + pred2 + pred3
 # is to extract **quantities of interest** from our fitted model. These quantities could be things like:
 #
 # 1. Testing whether one group is different on average from another group
-# 2. Generating predicted outcomes from the model for interesting combinations of predictor values
+# 2. Generating average response values from the model for interesting combinations of predictor values
 # 3. Calculating interval estimates for particular coefficients
 #
 # But before we can do any of that, we need to know more about **what a fitted model actually is,**
@@ -244,12 +262,12 @@ outcome ~ pred1 + pred2 + pred3
 
   summary(sat_voting_mod) %>% coef()
 
-# What does `na.omit()` do?
+# Why are we using `na.omit()`? Let's see what `na.omit()` does.
 
 # fake data
 dat <- data.frame(
-  x = 1:5, 
-  y = c(3, 2, 1, NA, 5), 
+  x = 1:5,
+  y = c(3, 2, 1, NA, 5),
   z = c(6, NA, 2, 7, 3))
 dat
 
@@ -259,6 +277,7 @@ na.omit(dat) # listwise deletion of observations
 # ?complete.cases
 dat[with(dat, complete.cases(x, y, z)), ]
 
+# To compare models, we must fit them to the same data. This is why we need `na.omit()`.
 # Now let's update our first model using `na.omit()`:
 
   sat_mod <- update(sat_mod, data = na.omit(states_data))
@@ -291,9 +310,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
 
-    # Add the interaction to the model
+  # Add the interaction to the model
   sat_expense_by_percent <- lm(csat ~ 1 + expense + income + expense : income, data = states_data)
-  sat_expense_by_percent <- lm(csat ~ 1 + expense * income, data = states_data) # same as above, but shorter syntax
+
+  # same as above, but shorter syntax
+  sat_expense_by_percent <- lm(csat ~ 1 + expense * income, data = states_data) 
 
   # Show the regression coefficients table
   summary(sat_expense_by_percent) %>% coef() 
@@ -319,12 +340,19 @@ dat[with(dat, complete.cases(x, y, z)), ]
   summary(sat_region) %>% coef() # show the regression coefficients table
   anova(sat_region) # show ANOVA table
 
-# Again, **make sure to tell R which variables are categorical by converting them to factors!**
+# So, make sure to tell R which variables are categorical by converting them to factors!
 
 # ### Setting factor reference groups & contrasts
 #
-# The default contrasts in R are "treatment" contrasts, or "dummy coding", with the first level as the reference category. 
-# We can also easily change the reference group or get all sets of pairwise contrasts.
+# **Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models.
+# All statistical sofware use contrasts, but each sofware has different defaults and their own way of overriding these.
+#
+# The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor
+# is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category.
+# They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group)
+# and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something
+# other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in
+# treatment contrasts or get all sets of pairwise contrasts between factor levels.
 
   # change the reference group
   states_data$region <- relevel(states_data$region, ref = "Midwest")
@@ -354,7 +382,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # ### Logistic regression
 #
-# This far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited--in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
+# This far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited --- in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
 #
 # For these models we will use a different dataset, drawn from the National Health Interview Survey. From the [CDC website](http://www.cdc.gov/nchs/nhis.htm):
 #
@@ -368,9 +396,9 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # Motivation for a logistic regression model --- with a binary response:
 #
-# 1.  Errors will not be normally distributed
-# 2.  Variance will not be homoskedastic
-# 3.  Predictions should be constrained to be on the interval [0, 1]
+# 1. Errors will not be normally distributed
+# 2. Variance will not be homoskedastic
+# 3. Predictions should be constrained to be on the interval [0, 1]
 #
 # ![](R/Rmodels/images/logistic.png)
 
@@ -396,9 +424,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`.
 # Here's the model:
 #
+# <div class="blue">
 # $$
 # ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon
 # $$
+# </div>
 #
 # And here's how we fit this in R. First, let's clean up the hypertension outcome by making it binary:
 
@@ -417,11 +447,14 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   summary(hyp_out) %>% coef()
 
-# ### Logistic regression coefficients
+# ### Odds ratios
 #
-# Generalized linear models use link functions, so raw coefficients are difficult to interpret. For example, the `age` coefficient of .06 in the previous model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
+# Generalized linear models use link functions to relate the average value of the response to the predictors,
+# so raw coefficients are difficult to interpret. For example, the `age` coefficient of .06 in the previous
+# model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases
+# by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 #
-# One solution is to transform the coefficients to make them easier to interpret. 
+# One solution is to transform the coefficients to make them easier to interpret.
 # Here we transform them into odds ratios by exponentiating:
 
   # point estimates
@@ -430,9 +463,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
   # confidence intervals
   confint(hyp_out) %>% exp()
 
-# ### Packages for computing & graphing predicted values
+# ### Predicted marginal means
 #
-# Instead of doing this manually, we can use the effects package to compute quantities of interest for us.
+# Instead of reporting odds ratios, we may want to calculate predicted marginal means (average response values
+# at particulat levels of the predictors) on the response scale (i.e., the probability scale). We can use the
+# `effects` package to compute these quantities of interest for us.
 
   eff <- allEffects(hyp_out)
   plot(eff, type = "response") # "response" refers to the probability scale
@@ -511,9 +546,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # Here's a model that predicts exam scores from student's standardized tests scores:
 #
+# <div class="blue">
 # $$
 # normexam_{ij} = \mu + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 # $$
+# </div>
 #
 # where $U_{0j}$ is the random intercept for `school`. Let's implement this in R using `lmer()`:
 

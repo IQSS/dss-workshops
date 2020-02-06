@@ -3738,11 +3738,11 @@ These workshops are a work-in-progress, please provide any feedback to:
 \begin{itemize}
 \tightlist
 \item
-  R formula interface
+  Formula interface for model specification
 \item
-  Run and interpret variety of regression models in R
+  Function methods for extracting quantities of interest from models
 \item
-  Factor contrasts to test specific hypotheses
+  Contrasts to test specific hypotheses
 \item
   Model comparisons
 \item
@@ -3773,9 +3773,35 @@ This is an intermediate R course:
 \item
   Relatively fast-paced
 \item
-  This is not a statistics course! We assume you know the theory behind
-  the models.
+  This is not a statistics course! We will teach you \emph{how} to fit
+  models in R, but we assume you know the theory behind the models.
 \end{itemize}
+
+\subsection{Goals}\label{goals-1}
+
+We will learn about the R modeling ecosystem by fitting a variety of
+statistical models to different datasets. In particular, our goals are
+to learn about:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Modeling workflow
+\item
+  Visualizing and summarizing data before modeling
+\item
+  Modeling continuous outcomes
+\item
+  Modeling binary outcomes
+\item
+  Modeling clustered data
+\end{enumerate}
+
+We will not spend much time \emph{interpreting} the models we fit, since
+this is not a statistics workshop. But, we will walk you through how
+model results are organized and orientate you to where you can find
+typical quantities of interest.
 
 \subsection{Launch an R session}\label{launch-an-r-session}
 
@@ -3825,24 +3851,7 @@ Finally, lets install some packages that will help with modeling:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Workshop Outline}\label{workshop-outline}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Modeling workflow
-\item
-  Preliminary steps before modeling
-\item
-  Modeling continuous outcomes
-\item
-  Modeling binary outcomes
-\item
-  Modeling clustered data
-\end{enumerate}
-
-\section{Modeling pipeline}\label{modeling-pipeline}
+\section{Modeling workflow}\label{modeling-workflow}
 
 Before we delve into the details of how to fit models in R, it's worth
 taking a step back and thinking more broadly about the components of the
@@ -3875,9 +3884,9 @@ as we fit different types of model.
 
 \section{Before fitting a model}\label{before-fitting-a-model}
 
-One important part of the pre-estimation stage, is gaining an
-understanding of the data we wish to model by creating plots and
-summaries. Let's do this now.
+One important part of the pre-estimation stage of model fitting, is
+gaining an understanding of the data we wish to model by creating plots
+and summaries. Let's do this now.
 
 \subsection{Load the data}\label{load-the-data}
 
@@ -3895,7 +3904,7 @@ appeared in \emph{Statistics with Stata} by Lawrence C. Hamilton.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{# read the states data}
-\NormalTok{  states_data <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{) }
+\NormalTok{  states_data <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{)}
 
   \CommentTok{# look at the last few rows}
   \KeywordTok{tail}\NormalTok{(states_data)}
@@ -3956,6 +3965,9 @@ relationships etc.
 \caption{}
 \end{figure}
 
+Obviously, in a real project, you would want to spend more time
+investigating the data, but we'll now move on to modeling.
+
 \section{Models with continuous
 outcomes}\label{models-with-continuous-outcomes}
 
@@ -3971,7 +3983,7 @@ syntax:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# R regression formula}
+\CommentTok{# formula for model specification}
 \NormalTok{outcome }\OperatorTok{~}\StringTok{ }\NormalTok{pred1 }\OperatorTok{+}\StringTok{ }\NormalTok{pred2 }\OperatorTok{+}\StringTok{ }\NormalTok{pred3}
 
 \CommentTok{# }\AlertTok{NOTE}\CommentTok{ the ~ is a tilde}
@@ -4030,7 +4042,7 @@ could be things like:
 \item
   Testing whether one group is different on average from another group
 \item
-  Generating predicted outcomes from the model for interesting
+  Generating average response values from the model for interesting
   combinations of predictor values
 \item
   Calculating interval estimates for particular coefficients
@@ -4235,14 +4247,15 @@ expense? Fit two models and compare them:
 \end{Highlighting}
 \end{Shaded}
 
-What does \texttt{na.omit()} do?
+Why are we using \texttt{na.omit()}? Let's see what \texttt{na.omit()}
+does.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# fake data}
 \NormalTok{dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
-  \DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }
-  \DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{5}\NormalTok{), }
+  \DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{,}
+  \DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{5}\NormalTok{),}
   \DataTypeTok{z =} \KeywordTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{))}
 \NormalTok{dat}
 
@@ -4254,7 +4267,9 @@ What does \texttt{na.omit()} do?
 \end{Highlighting}
 \end{Shaded}
 
-Now let's update our first model using \texttt{na.omit()}:
+To compare models, we must fit them to the same data. This is why we
+need \texttt{na.omit()}. Now let's update our first model using
+\texttt{na.omit()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4342,9 +4357,11 @@ the median income in the state?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-    \CommentTok{# Add the interaction to the model}
+  \CommentTok{# Add the interaction to the model}
 \NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states_data)}
-\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states_data) }\CommentTok{# same as above, but shorter syntax}
+
+  \CommentTok{# same as above, but shorter syntax}
+\NormalTok{  sat_expense_by_percent <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states_data) }
 
   \CommentTok{# Show the regression coefficients table}
   \KeywordTok{summary}\NormalTok{(sat_expense_by_percent) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }
@@ -4382,15 +4399,28 @@ is numeric.
 \end{Highlighting}
 \end{Shaded}
 
-Again, \textbf{make sure to tell R which variables are categorical by
-converting them to factors!}
+So, make sure to tell R which variables are categorical by converting
+them to factors!
 
 \subsection{Setting factor reference groups \&
 contrasts}\label{setting-factor-reference-groups-contrasts}
 
-The default contrasts in R are ``treatment'' contrasts, or ``dummy
-coding'', with the first level as the reference category. We can also
-easily change the reference group or get all sets of pairwise contrasts.
+\textbf{Contrasts} is the umbrella term used to describe the process of
+testing linear combinations of parameters from regression models. All
+statistical sofware use contrasts, but each sofware has different
+defaults and their own way of overriding these.
+
+The default contrasts in R are ``treatment'' contrasts (aka ``dummy
+coding''), where each level within a factor is identified within a
+matrix of binary \texttt{0} / \texttt{1} variables, with the first level
+chosen as the reference category. They're called ``treatment''
+contrasts, because of the typical use case where there is one control
+group (the reference group) and one or more treatment groups that are to
+be compared to the controls. It is easy to change the default contrasts
+to something other than treatment contrasts, though this is rarely
+needed. More often, we may want to change the reference group in
+treatment contrasts or get all sets of pairwise contrasts between factor
+levels.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4446,9 +4476,9 @@ Use the \texttt{states} data set.
 \subsection{Logistic regression}\label{logistic-regression}
 
 This far we have used the \texttt{lm()} function to fit our regression
-models. \texttt{lm()} is great, but limited--in particular it only fits
-models for continuous dependent variables. For categorical dependent
-variables we can use the \texttt{glm()} function.
+models. \texttt{lm()} is great, but limited --- in particular it only
+fits models for continuous dependent variables. For categorical
+dependent variables we can use the \texttt{glm()} function.
 
 For these models we will use a different dataset, drawn from the
 National Health Interview Survey. From the
@@ -4552,12 +4582,12 @@ Now let's use \texttt{glm()} to estimate the model:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Logistic regression
-coefficients}\label{logistic-regression-coefficients}
+\subsection{Odds ratios}\label{odds-ratios}
 
-Generalized linear models use link functions, so raw coefficients are
-difficult to interpret. For example, the \texttt{age} coefficient of .06
-in the previous model tells us that for every one unit increase in
+Generalized linear models use link functions to relate the average value
+of the response to the predictors, so raw coefficients are difficult to
+interpret. For example, the \texttt{age} coefficient of .06 in the
+previous model tells us that for every one unit increase in
 \texttt{age}, the log odds of hypertension diagnosis increases by 0.06.
 Since most of us are not used to thinking in log odds this is not too
 helpful!
@@ -4575,11 +4605,13 @@ interpret. Here we transform them into odds ratios by exponentiating:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Packages for computing \& graphing predicted
-values}\label{packages-for-computing-graphing-predicted-values}
+\subsection{Predicted marginal means}\label{predicted-marginal-means}
 
-Instead of doing this manually, we can use the effects package to
-compute quantities of interest for us.
+Instead of reporting odds ratios, we may want to calculate predicted
+marginal means (average response values at particulat levels of the
+predictors) on the response scale (i.e., the probability scale). We can
+use the \texttt{effects} package to compute these quantities of interest
+for us.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5241,7 +5273,7 @@ we also want to install two additional packages, \texttt{scales} and
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Goals}\label{goals-1}
+\subsection{Goals}\label{goals-2}
 
 We will learn about the \texttt{grammar\ of\ graphics} --- a system for
 understanding the building blocks of a graph --- using the
@@ -6907,7 +6939,7 @@ packages into the search path of our R session.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Workshop Outline}\label{workshop-outline-1}
+\subsection{Workshop Outline}\label{workshop-outline}
 
 \textbf{Example data}
 
@@ -8523,7 +8555,7 @@ This is an introductory Python course:
   Relatively slow-paced
 \end{itemize}
 
-\subsection{Goals}\label{goals-2}
+\subsection{Goals}\label{goals-3}
 
 We will learn about the Python language by analyzing the text of Lewis
 Carroll's \emph{Alice's Adventures in Wonderland}. In particular, our
@@ -9891,7 +9923,7 @@ If you need an introduction to Python or a refresher, we recommend our
 \href{https://iqss.github.io/dss-workshops/PythonIntro.html}{Python
 Introduction}.
 
-\subsection{Workshop Outline}\label{workshop-outline-2}
+\subsection{Workshop Outline}\label{workshop-outline-1}
 
 This workshop is organized into two parts:
 
@@ -10838,7 +10870,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-3}
+\subsection{Goals}\label{goals-4}
 
 \begin{itemize}
 \tightlist
@@ -11583,7 +11615,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-4}
+\subsection{Goals}\label{goals-5}
 
 \begin{itemize}
 \tightlist
@@ -13027,7 +13059,7 @@ Harvard FAS affiliates can install a licensed version from
   yourself
 \end{itemize}
 
-\subsection{Goals}\label{goals-5}
+\subsection{Goals}\label{goals-6}
 
 \begin{itemize}
 \tightlist
