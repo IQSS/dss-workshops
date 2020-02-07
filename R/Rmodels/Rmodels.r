@@ -94,13 +94,11 @@ library(effects)  # for predicted marginal means
 # | Models              | Packages                            |             
 # |:--------------------|:------------------------------------|
 # | Generalized linear  | `stats`, `biglm`                    | 
-# | Mixed effects       | `lme4`, `nlme`                      |                                     
-# | Econometric         | `pglm`                              | 
+# | Mixed effects       | `lme4`, `nlme`, `glmmTMB`           |                                     
+# | Econometric         | `pglm`, `VGAM`, `pscl`, `survival`  | 
 # | Bayesian            | `brms`, `blme`, `MCMCglmm`, `rstan` | 
 # | Machine learning    | `mlr`, `caret`                      | 
 
-# ## Before fitting a model
-#
 # <div class="alert alert-info">
 # **GOAL: To learn about the data by creating summaries and visualizations.**
 # </div>
