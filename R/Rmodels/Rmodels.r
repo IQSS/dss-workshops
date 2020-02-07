@@ -1,7 +1,3 @@
-# </style>
-
-# # R Regression Models
-#
 # **Topics**
 #
 # * Formula interface for model specification
@@ -71,7 +67,6 @@ library(emmeans)  # for marginal effects
 
 # install.packages("effects")
 library(effects)  # for predicted marginal means
-
 
 # ## Modeling workflow
 #
@@ -160,10 +155,8 @@ list.files("dataSets")
 # <div class="alert alert-info">
 # **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
 #
-# 1. Filtering data by choosing rows --- using the `filter()` function
-# 2. Selecting data by choosing columns --- using the `select()` function
-# 3. Arranging data by reordering rows --- using the `arrange()` function
-# 4. Using the pipe `%>%` operator to simplify sequential operations
+# 1. item 1
+# 2. item 2
 # </div>
 #
 # Once the data have been inspected and cleaned, we can start estimating models.
@@ -456,7 +449,8 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <div class="alert alert-secondary">
 # $$
-# ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon
+# logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i \\
+# ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
 # $$
 # </div>
 #

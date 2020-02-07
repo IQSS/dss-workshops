@@ -150,8 +150,6 @@
 # * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
 # * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 
-# RSTUDIO GRAPHIC HERE
-
 # ### Exercise 0
 #
 # The purpose of this exercise is to give you an opportunity to explore
@@ -162,9 +160,7 @@
 # If you don't know the name of an R function, try guessing the first two
 # or three letters and pressing TAB. If you guessed correctly the function
 # you are looking for should appear in a pop up!
-#
-# -------------------------------------------
-#
+
 #  1. Try to get R to add 2 plus 2.
 #
 #     ```{r}
@@ -432,25 +428,6 @@ baby_names_subset <- select(baby_names, Name, Count)
 head(baby_names_subset)
 head(baby_names_subset, n = 6) # default is n = 6
 
-# ### Control flow
-#
-# We will only briefly touch on the concept of control flow in this workshop. For more details see:
-# <https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/>.
-# Our [R Data Wrangling](./RDataWrangling.html) workshop also covers some of these topics.
-#
-# Sometimes we may want to control the flow of code in an analysis using **choices**,
-# such as `if` and `else` statements, which allow you to run different code depending on the input.
-# The basic form is:
-#
-#     ```{python, eval=FALSE}
-#     if (condition) true_action else false_action
-#     ```
-#
-#     If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
-#     the optional `false_action` is evaluated.
-#
-# The conditions that are evaluated use **logical and relational operators** to determine equivalence or make some other relational comparisons.
-#
 # ### Logical & relational operators
 #
 # In a previous example we used `==` to filter rows.
@@ -639,10 +616,11 @@ qplot(x = Year, y = Count, color = Sex,
 #
 # 1. Creating new variables (columns) --- using the `mutate()` function
 # 2. Creating new variables within groups --- by combining the `mutate()` and `group_by()` functions
+# 3. Recode existing variables --- by combining the `mutate()` and `case_when()` functions
 # </div>
 #
 # We want to use these skills to find out which names have been the most popular.
-
+#
 # ### Create or modify columns
 #
 # So far we've used `Count` as a measure of popularity. A better
@@ -673,7 +651,7 @@ head(baby_names)
 #
 # Here's the code that implements the calculation:
 
-baby_names <- 
+baby_names <-
   baby_names %>%
   group_by(Year, Sex) %>%
   mutate(Rank = rank(Count_1k)) %>%
@@ -681,6 +659,20 @@ baby_names <-
 
 head(baby_names)
 
+# ### Recoding variables
+#
+# It's often necessary to create a new variable that is a recoded version of an existing variable.
+# For example, we might want to take our `Count_1k` variable and create a new variable that divides
+# it into `low`, `medium`, and `high` categories. To do this, we can use the `case_when()`
+# function within the `mutate()` function:
+
+baby_names <-
+  baby_names %>%
+  mutate(Rank_levels = case_when(
+                           Count_1k <= 10                  ~ "low",
+                           Count_1k  > 10 & Count_1k <= 40 ~ "medium",
+                           Count_1k  > 40                  ~ "high"
+                           ))
 
 # ### Exercise 4
 #

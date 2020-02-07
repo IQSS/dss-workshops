@@ -619,8 +619,6 @@
 * dir : seeout
 * ```
 
-* ***
-*
 * ## Graphing in Stata
 *
 * ### Graphing Strategies

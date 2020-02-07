@@ -79,6 +79,8 @@ Here are some commonly used approaches:
 
 ![](Python/PythonWebScrape/images/json-format.png)
 
+Bear in mind that even once you've decided upon the best approach for a particular site,
+it will be necessary to modified that approach to suit your particular use-case.
 
 ### How does the web work?
 
@@ -182,9 +184,21 @@ pd.set_option('display.max_columns', 5)
 
 ### Making requests
 
-The URL we want to retrieve data from has the following structure
+To retrieve information from the website (i.e., make a request),
+we need to know the location of the information we want to collect.
+The Uniform Resource Locator (URL) --- commonly know as a "web address",
+specifies the location of a resource (such as a web page) on the internet.
 
-    scheme                    domain    path  parameters
+A URL is usually composed of 5 parts:
+
+![](Python/PythonWebScrape/images/URL.png)
+
+The 4th part, the "query string", contains one or more **parameters**.
+The 5th part, the "fragment", is an internal page reference and may not be present.
+
+For example, the URL we want to retrieve data from has the following structure:
+
+  protocol                    domain    path  parameters
      https www.harvardartmuseums.org  browse  load_amount=10&offset=0
 
 It is often convenient to create variables containing the domain(s)
@@ -225,11 +239,17 @@ collections1 = requests.get(
 )
 ```
 
+Note that the parameters `load_amount` and `offset` are essentially
+another way of setting page numbers --- they refer to the amount of
+information retrieved at one time and the starting position, respectively.
+
+### Parsing JSON data
+
+We already know from inspecting network traffic in our web
+browser that this URL returns JSON, but we can use Python 
+to verify this assumption.
+
 ```{python}
-# ### Parsing JSON data
-# We already know from inspecting network traffic in our web
-# browser that this URL returns JSON, but we can use Python to verify
-# this assumption.
 collections1.headers['Content-Type']
 ```
 
@@ -243,7 +263,7 @@ print(collections1)
 
 That's it. Really, we are done here. Everyone go home!
 
-OK not really, there is still more we can lean. But you have to admit
+OK not really, there is still more we can learn. But you have to admit
 that was pretty easy. If you can identify a service that returns the
 data you want in structured from, web scraping becomes a pretty
 trivial enterprise. We'll discuss several other scenarios and topics,

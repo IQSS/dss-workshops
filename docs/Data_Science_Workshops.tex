@@ -127,7 +127,7 @@
 
 \urlstyle{tt}
 
-\graphicspath{{R/Rintro/}{R/Rmodels/}{R/Rgraphics/}{R/RDataWrangling/}}
+\graphicspath{{R/Rintro/}{R/Rmodels/}{R/Rgraphics/}{R/RDataWrangling/}{Python/PythonIntro/}{Python/PythonWebScrape/}{Stata/StataIntro/}{Stata/StataDatMan/}{Stata/StataModGraph/}}
 
 \title{Data Science Workshops}
 \author{}
@@ -1942,8 +1942,6 @@ Start RStudio and create a new project:
   with the word ``BLANK'' in the name.
 \end{itemize}
 
-RSTUDIO GRAPHIC HERE
-
 \subsection{Exercise 0}\label{exercise-0}
 
 The purpose of this exercise is to give you an opportunity to explore
@@ -1954,8 +1952,6 @@ Also keep in mind that we are living in a golden age of tab completion.
 If you don't know the name of an R function, try guessing the first two
 or three letters and pressing TAB. If you guessed correctly the function
 you are looking for should appear in a pop up!
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2487,32 +2483,6 @@ use the \texttt{head()} function:
 ## 6 Lisa  33702
 \end{verbatim}
 
-\subsection{Control flow}\label{control-flow}
-
-We will only briefly touch on the concept of control flow in this
-workshop. For more details see:
-\url{https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/}.
-Our \href{./RDataWrangling.html}{R Data Wrangling} workshop also covers
-some of these topics.
-
-Sometimes we may want to control the flow of code in an analysis using
-\textbf{choices}, such as \texttt{if} and \texttt{else} statements,
-which allow you to run different code depending on the input. The basic
-form is:
-
-\begin{verbatim}
-```python
-if (condition) true_action else false_action
-```
-
-If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
-the optional `false_action` is evaluated.
-\end{verbatim}
-
-The conditions that are evaluated use \textbf{logical and relational
-operators} to determine equivalence or make some other relational
-comparisons.
-
 \subsection{Logical \& relational
 operators}\label{logical-relational-operators}
 
@@ -2783,7 +2753,7 @@ the name ``Diana'' over time like this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-32-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-31-1.pdf}
 
 Interestingly, there are usually some gender-atypical names, even for
 very strongly gendered names like ``Diana''. Splitting these trends out
@@ -2796,7 +2766,7 @@ by \texttt{Sex} is very easy:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rintro/figures/unnamed-chunk-33-1.pdf}
+\includegraphics{R/Rintro/figures/unnamed-chunk-32-1.pdf}
 
 \subsection{Exercise 3}\label{exercise-3}
 
@@ -2857,6 +2827,9 @@ grouped data.} In particular:
 \item
   Creating new variables within groups --- by combining the
   \texttt{mutate()} and \texttt{group\_by()} functions
+\item
+  Recode existing variables --- by combining the \texttt{mutate()} and
+  \texttt{case\_when()} functions
 \end{enumerate}
 
 We want to use these skills to find out which names have been the most
@@ -2914,7 +2887,7 @@ Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{baby_names <-}\StringTok{ }
+\NormalTok{baby_names <-}
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(Count_1k)) }\OperatorTok{%>%}
@@ -2935,6 +2908,27 @@ Here's the code that implements the calculation:
 ## 5 Donna Girls 34133  1960     34.1  7327
 ## 6 Lisa  Girls 33702  1960     33.7  7326
 \end{verbatim}
+
+\subsection{Recoding variables}\label{recoding-variables}
+
+It's often necessary to create a new variable that is a recoded version
+of an existing variable. For example, we might want to take our
+\texttt{Count\_1k} variable and create a new variable that divides it
+into \texttt{low}, \texttt{medium}, and \texttt{high} categories. To do
+this, we can use the \texttt{case\_when()} function within the
+\texttt{mutate()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baby_names <-}
+\StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank_levels =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{                           Count_1k }\OperatorTok{<=}\StringTok{ }\DecValTok{10}                  \OperatorTok{~}\StringTok{ "low"}\NormalTok{,}
+\NormalTok{                           Count_1k  }\OperatorTok{>}\StringTok{ }\DecValTok{10} \OperatorTok{&}\StringTok{ }\NormalTok{Count_1k }\OperatorTok{<=}\StringTok{ }\DecValTok{40} \OperatorTok{~}\StringTok{ "medium"}\NormalTok{,}
+\NormalTok{                           Count_1k  }\OperatorTok{>}\StringTok{ }\DecValTok{40}                  \OperatorTok{~}\StringTok{ "high"}
+\NormalTok{                           ))}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Exercise 4}\label{exercise-4}
 
@@ -3990,17 +3984,9 @@ datasets.} In particular:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Filtering data by choosing rows --- using the \texttt{filter()}
-  function
+  item 1
 \item
-  Selecting data by choosing columns --- using the \texttt{select()}
-  function
-\item
-  Arranging data by reordering rows --- using the \texttt{arrange()}
-  function
-\item
-  Using the pipe \texttt{\%\textgreater{}\%} operator to simplify
-  sequential operations
+  item 2
 \end{enumerate}
 
 Once the data have been inspected and cleaned, we can start estimating
@@ -4609,7 +4595,8 @@ on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}. Here's
 the model:
 
 \[
-ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon
+logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i \\
+ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
 \]
 
 And here's how we fit this in R. First, let's clean up the hypertension
@@ -8861,6 +8848,24 @@ code. To insert a new cell click the \texttt{+} button in the upper
 left. To execute a cell, select it and press \texttt{Control+Enter} or
 click the \texttt{Run} button at the top.
 
+\subsection{Syntax rules}\label{syntax-rules-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Python is case sensitive
+\item
+  Python uses white space as part of the syntax (it's important!)
+\item
+  Variable names should start with a letter (A-Z and a-z) and can
+  include letters, digits (0-9), and underscores (\_)
+\item
+  Comments can be inserted using a hash \texttt{\#} symbol
+\item
+  Functions must be written with parentheses, even if there is nothing
+  within them; for example: \texttt{len()}
+\end{itemize}
+
 \subsection{Function calls}\label{function-calls-1}
 
 In Python, functions perform tasks and take the form:
@@ -9172,7 +9177,7 @@ documentation.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Control flow}\label{control-flow-1}
+\subsection{Control flow}\label{control-flow}
 
 Sometimes we may want to control the flow of code in an analysis using
 \textbf{choices}, such as \texttt{if} and \texttt{else} statements,
@@ -10049,6 +10054,10 @@ approaches:
 \caption{}
 \end{figure}
 
+Bear in mind that even once you've decided upon the best approach for a
+particular site, it will be necessary to modified that approach to suit
+your particular use-case.
+
 \subsection{How does the web work?}\label{how-does-the-web-work}
 
 \subsubsection{Components}\label{components}
@@ -10210,12 +10219,28 @@ click the \texttt{Run} button at the top.
 
 \subsection{Making requests}\label{making-requests}
 
-The URL we want to retrieve data from has the following structure
+To retrieve information from the website (i.e., make a request), we need
+to know the location of the information we want to collect. The Uniform
+Resource Locator (URL) --- commonly know as a ``web address'', specifies
+the location of a resource (such as a web page) on the internet.
 
-\begin{verbatim}
-scheme                    domain    path  parameters
- https www.harvardartmuseums.org  browse  load_amount=10&offset=0
-\end{verbatim}
+A URL is usually composed of 5 parts:
+
+\begin{figure}
+\centering
+\includegraphics{Python/PythonWebScrape/images/URL.png}
+\caption{}
+\end{figure}
+
+The 4th part, the ``query string'', contains one or more
+\textbf{parameters}. The 5th part, the ``fragment'', is an internal page
+reference and may not be present.
+
+For example, the URL we want to retrieve data from has the following
+structure:
+
+protocol domain path parameters https www.harvardartmuseums.org browse
+load\_amount=10\&offset=0
 
 It is often convenient to create variables containing the domain(s) and
 path(s) you'll be working with, as this allows you to swap out paths and
@@ -10259,12 +10284,18 @@ make our first request in Python.
 \end{Highlighting}
 \end{Shaded}
 
+Note that the parameters \texttt{load\_amount} and \texttt{offset} are
+essentially another way of setting page numbers --- they refer to the
+amount of information retrieved at one time and the starting position,
+respectively.
+
+\subsection{Parsing JSON data}\label{parsing-json-data}
+
+We already know from inspecting network traffic in our web browser that
+this URL returns JSON, but we can use Python to verify this assumption.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# }\AlertTok{###}\CommentTok{ Parsing JSON data}
-\CommentTok{# We already know from inspecting network traffic in our web}
-\CommentTok{# browser that this URL returns JSON, but we can use Python to verify}
-\CommentTok{# this assumption.}
 \NormalTok{collections1.headers[}\StringTok{'Content-Type'}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
@@ -10281,7 +10312,7 @@ structures is easy. In fact, there's a method for that!
 
 That's it. Really, we are done here. Everyone go home!
 
-OK not really, there is still more we can lean. But you have to admit
+OK not really, there is still more we can learn. But you have to admit
 that was pretty easy. If you can identify a service that returns the
 data you want in structured from, web scraping becomes a pretty trivial
 enterprise. We'll discuss several other scenarios and topics, but for
@@ -11078,7 +11109,7 @@ Harvard FAS affiliates can install a licensed version from
 To get help in Stata type \texttt{help} followed by topic or command,
 e.g., \texttt{help\ codebook}.
 
-\subsection{Syntax rules}\label{syntax-rules-1}
+\subsection{Syntax rules}\label{syntax-rules-2}
 
 Most Stata commands follow the same basic syntax:
 \texttt{Command\ varlist,\ options}.
@@ -13999,8 +14030,6 @@ outreg2 [Model1 Model2] using csatprediction.xls, replace
 csatprediction.xls
 dir : seeout
 \end{verbatim}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \section{Graphing in Stata}\label{graphing-in-stata}
 

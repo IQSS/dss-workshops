@@ -141,6 +141,16 @@
 #
 # A Jupyter Notebook contains one or more *cells* containing notes or code. To insert a new cell click the `+` button in the upper left. To execute a cell, select it and press `Control+Enter` or click the `Run` button at the top.
 
+# ### Syntax rules
+#
+# * Python is case sensitive
+# * Python uses white space as part of the syntax (it's important!)
+# * Variable names should start with a letter (A-Z and a-z) 
+#   and can include letters, digits (0-9), and underscores (_)
+# * Comments can be inserted using a hash `#` symbol
+# * Functions must be written with parentheses, even
+#   if there is nothing within them; for example: `len()`
+
 # ### Function calls
 #
 # In Python, functions perform tasks and take the form:
