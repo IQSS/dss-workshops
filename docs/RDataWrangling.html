@@ -711,7 +711,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <p>What issues can you identify that might make working with these data difficult?</p>
 <p>In what ways is the format different between the two files?</p></li>
 </ol>
-<p><strong>Steps to accomplish this goal:</strong></p>
+<div class="alert alert-info">
+<p><strong>Steps to accomplish the goal of extracting and graphing the </strong>top 100** boys names in England and Wales for every year since 1996:**</p>
 <ol start="0" style="list-style-type: decimal">
 <li><p><strong>Explore example data to highlight problems (see Exercise 0)</strong></p></li>
 <li><strong>Reading data from multiple Excel worksheets into R data frames</strong>
@@ -724,19 +725,28 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>sort and merge columns within each data frame inside the list</li>
 <li>drop missing values from each data frame</li>
-<li>reshape format from wide to long</li>
+<li>reshape data format from wide to long</li>
 </ul></li>
 <li><strong>Organize the data into one large data frame and store it</strong>
 <ul>
-<li>create a year column within each data frame in the list</li>
+<li>create a year column within each data frame within the list</li>
 <li>append all the data frames in the list into one large data frame</li>
 </ul></li>
 </ol>
+</div>
 <p>NOTE: please make sure you close the Excel files before continuing with the workshop, otherwise you may encounter issues with file paths when reading the data into R.</p>
 </div>
 </div>
 <div id="working-with-excel-worksheets" class="section level2">
 <h2>Working with Excel worksheets</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To learn how to read data from multiple Excel worksheets into R data frames.</strong> In particular:</p>
+<ol style="list-style-type: decimal">
+<li>List Excel file names in a character vector</li>
+<li>Read Excel sheetnames into a list of character vectors</li>
+<li>Read Excel data for “Table 1” only into a list of data frames</li>
+</ol>
+</div>
 <p>As you can see, the data is in quite a messy state. Note that this is not a contrived example; this is exactly the way the data came to us from the UK government website! Let’s start cleaning and organizing it.</p>
 <p>Each Excel file contains a worksheet with the boy names data we want. Each file also contains additional supplemental worksheets that we are not currently interested in. As noted above, the worksheet of interest differs from year to year, but always has “Table 1” in the sheet name.</p>
 <p>The first step is to get a character vector of file names.</p>
@@ -871,6 +881,14 @@ from all the Excel files, using the function you wrote in step 1.</li>
 </div>
 <div id="data-cleanup" class="section level2">
 <h2>Data cleanup</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To learn how to clean up data within each R data frame.</strong> In particular:</p>
+<ol style="list-style-type: decimal">
+<li>Sort and merge columns within each data frame inside the list</li>
+<li>Drop missing values from each data frame</li>
+<li>Reshape data format from wide to long</li>
+</ol>
+</div>
 <p>Now that we’ve read in the data, we can see that there are some problems we need to fix. Specifically, we need to:</p>
 <ol style="list-style-type: decimal">
 <li>fix column names</li>
@@ -1087,6 +1105,13 @@ second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(boys
 </div>
 <div id="data-organization-storage" class="section level2">
 <h2>Data organization &amp; storage</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To learn how to organize the data into one large data frame and store it.</strong> In particular:</p>
+<ol style="list-style-type: decimal">
+<li>Create a year column within each data frame within the list</li>
+<li>Append all the data frames in the list into one large data frame</li>
+</ol>
+</div>
 <p>Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.</p>
 <div id="a-list-of-data-frames" class="section level3">
 <h3>A list of data frames</h3>

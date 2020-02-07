@@ -88,10 +88,7 @@ library(effects)  # for predicted marginal means
 # ## Before fitting a model
 #
 # <div class="alert alert-info">
-# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
-#
-# 1. item 1
-# 2. item 2
+# **GOAL: To learn about the data by creating summaries and visualizations.**
 # </div>
 #
 # One important part of the pre-estimation stage of model fitting, is gaining an understanding
@@ -153,10 +150,12 @@ list.files("dataSets")
 # ## Models with continuous outcomes
 #
 # <div class="alert alert-info">
-# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+# **GOAL: To learn about the R modeling ecosystem by fitting ordinary least squares (OLS) models.** In particular:
 #
-# 1. item 1
-# 2. item 2
+# 1. Formula representation of a model specification
+# 2. Model classes
+# 3. Function methods
+# 4. Model comparison
 # </div>
 #
 # Once the data have been inspected and cleaned, we can start estimating models.
@@ -316,10 +315,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # ## Interactions & factors
 #
 # <div class="alert alert-info">
-# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+# **GOAL: To learn how to specify interaction effects and fit models with categorical predictors.** In particular:
 #
-# 1. item 1
-# 2. item 2
+# 1. Formula syntax for interaction effects
+# 2. Factor levels and labels
+# 3. Contrasts and pairwise comparisons
 # </div>
 #
 # ### Modeling interactions
@@ -397,10 +397,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # ## Models with binary outcomes
 #
 # <div class="alert alert-info">
-# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+# **GOAL: To learn how to use the `glm()` function to model binary outcomes.** In particular:
 #
-# 1. item 1
-# 2. item 2
+# 1. The `family` and `link` components of the `glm()` function call
+# 2. Transforming model coefficients into odds ratios
+# 3. Transforming model coefficients into predicted marginal means
 # </div>
 #
 # ### Logistic regression
@@ -449,8 +450,15 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i \\
-# ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+# logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+# $$
+# </div>
+#
+# where $logit(\cdot)$ is the link function, which is equivelent to the log odds of `hypev`:
+#
+# <div class="alert alert-secondary">
+# $$
+# logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
 # $$
 # </div>
 #
@@ -489,9 +497,10 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### Predicted marginal means
 #
-# Instead of reporting odds ratios, we may want to calculate predicted marginal means (average response values
-# at particulat levels of the predictors) on the response scale (i.e., the probability scale). We can use the
-# `effects` package to compute these quantities of interest for us.
+# Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least squares means").
+# These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these
+# marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute
+# these quantities of interest for us (by default, the numerical output will be on the response scale).
 
   eff <- allEffects(hyp_out)
   plot(eff, type = "response") # "response" refers to the probability scale
@@ -523,10 +532,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # ## Multilevel modeling
 #
 # <div class="alert alert-info">
-# **GOAL: To learn about basic data manipulation used to clean datasets.** In particular:
+# **GOAL: To learn about how to use the `lmer()` function to model clustered data.** In particular:
 #
-# 1. item 1
-# 2. item 2
+# 1. The formula syntax for incorporating random effects into a model
+# 2. Calculating the intraclass correlation (ICC)
+# 3. Model comparison for fixed and random effects
 # </div>
 #
 # ### Multilevel modeling overview

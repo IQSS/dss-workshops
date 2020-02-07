@@ -184,8 +184,8 @@ pd.set_option('display.max_columns', 5)
 #
 # For example, the URL we want to retrieve data from has the following structure:
 #
-#   protocol                    domain    path  parameters
-#      https www.harvardartmuseums.org  browse  load_amount=10&offset=0
+#     protocol                    domain    path  parameters
+#        https www.harvardartmuseums.org  browse  load_amount=10&offset=0
 #
 # It is often convenient to create variables containing the domain(s)
 # and path(s) you'll be working with, as this allows you to swap out

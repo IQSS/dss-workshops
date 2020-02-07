@@ -76,7 +76,8 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #     In what ways is the format different between the two files?
 #
 #
-# **Steps to accomplish this goal:**
+# <div class="alert alert-info">
+# **Steps to accomplish the goal of extracting and graphing the **top 100** boys names in England and Wales for every year since 1996:**
 #
 # 0.  **Explore example data to highlight problems (see Exercise 0)**
 #
@@ -88,17 +89,26 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 # 2.  **Clean up data within each R data frame**
 #     + sort and merge columns within each data frame inside the list
 #     + drop missing values from each data frame
-#     + reshape format from wide to long
+#     + reshape data format from wide to long
 #
 # 3.  **Organize the data into one large data frame and store it**
-#     + create a year column within each data frame in the list
+#     + create a year column within each data frame within the list
 #     + append all the data frames in the list into one large data frame
+# </div>
 #
 # NOTE: please make sure you close the Excel files before continuing with the
 # workshop, otherwise you may encounter issues with file paths when reading
 # the data into R.
 
 # ## Working with Excel worksheets
+#
+# <div class="alert alert-info">
+# **GOAL: To learn how to read data from multiple Excel worksheets into R data frames.** In particular:
+#
+# 1. List Excel file names in a character vector
+# 2. Read Excel sheetnames into a list of character vectors
+# 3. Read Excel data for "Table 1" only into a list of data frames
+# </div>
 #
 # As you can see, the data is in quite a messy state. Note that this is
 # not a contrived example; this is exactly the way the data came to us
@@ -295,6 +305,14 @@ glimpse(temp)
 
 
 # ## Data cleanup
+#
+# <div class="alert alert-info">
+# **GOAL: To learn how to clean up data within each R data frame.** In particular:
+#
+# 1. Sort and merge columns within each data frame inside the list
+# 2. Drop missing values from each data frame
+# 3. Reshape data format from wide to long
+# </div>
 #
 # Now that we've read in the data, we can see that there are some
 # problems we need to fix. Specifically, we need to:
@@ -507,8 +525,15 @@ bind_rows(first_columns, second_columns)
 
 # ## Data organization & storage
 #
+# <div class="alert alert-info">
+# **GOAL: To learn how to organize the data into one large data frame and store it.** In particular:
+#
+# 1. Create a year column within each data frame within the list
+# 2. Append all the data frames in the list into one large data frame
+# </div>
+#
 # Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.
-
+#
 # ### A list of data frames
 #
 # Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
@@ -529,7 +554,6 @@ names(boysNames) <- Years
 names(boysNames) # returns the years as list names
 
 head(boysNames) %>% glimpse() 
-
 
 # ### One big data frame
 #

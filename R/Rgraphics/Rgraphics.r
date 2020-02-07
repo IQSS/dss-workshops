@@ -53,6 +53,7 @@ library(ggrepel)
 
 # ### Goals
 #
+# <div class="alert alert-info">
 # We will learn about the `grammar of graphics` --- a system for understanding
 # the building blocks of a graph --- using the `ggplot2` package. In particular,
 # we'll learn about:  
@@ -62,7 +63,8 @@ library(ggrepel)
 # 3.  **Modifying scales** to change axes and add labels
 # 4.  **Faceting** to create many small plots
 # 5.  Changing plot **themes**
-
+# </div>
+#
 # ## Why `ggplot2`?
 #
 # `ggplot2` is a package within in the `tidyverse` suite of packages. Advantages of `ggplot2` include:
@@ -107,7 +109,6 @@ library(ggrepel)
 # * is less verbose for complex / custom graphics
 # * does not have methods (data should always be in a `data.frame`)
 # * has sensible defaults for generating legends
-#
 
 # ## Geometric objects & aesthetics
 #

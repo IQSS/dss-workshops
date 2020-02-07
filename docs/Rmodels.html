@@ -734,11 +734,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="before-fitting-a-model" class="section level2">
 <h2>Before fitting a model</h2>
 <div class="alert alert-info">
-<p><strong>GOAL: To learn about basic data manipulation used to clean datasets.</strong> In particular:</p>
-<ol style="list-style-type: decimal">
-<li>item 1</li>
-<li>item 2</li>
-</ol>
+<p><strong>GOAL: To learn about the data by creating summaries and visualizations.</strong></p>
 </div>
 <p>One important part of the pre-estimation stage of model fitting, is gaining an understanding of the data we wish to model by creating plots and summaries. Let’s do this now.</p>
 <div id="load-the-data" class="section level3">
@@ -830,10 +826,12 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="models-with-continuous-outcomes" class="section level2">
 <h2>Models with continuous outcomes</h2>
 <div class="alert alert-info">
-<p><strong>GOAL: To learn about basic data manipulation used to clean datasets.</strong> In particular:</p>
+<p><strong>GOAL: To learn about the R modeling ecosystem by fitting ordinary least squares (OLS) models.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
-<li>item 1</li>
-<li>item 2</li>
+<li>Formula representation of a model specification</li>
+<li>Model classes</li>
+<li>Function methods</li>
+<li>Model comparison</li>
 </ol>
 </div>
 <p>Once the data have been inspected and cleaned, we can start estimating models. The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes. Typically, for these outcomes, we’d use a model estimated using Ordinary Least Lquares (OLS), which in R can be fit with the <code>lm()</code> (linear model) function.</p>
@@ -1037,10 +1035,11 @@ dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, 
 <div id="interactions-factors" class="section level2">
 <h2>Interactions &amp; factors</h2>
 <div class="alert alert-info">
-<p><strong>GOAL: To learn about basic data manipulation used to clean datasets.</strong> In particular:</p>
+<p><strong>GOAL: To learn how to specify interaction effects and fit models with categorical predictors.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
-<li>item 1</li>
-<li>item 2</li>
+<li>Formula syntax for interaction effects</li>
+<li>Factor levels and labels</li>
+<li>Contrasts and pairwise comparisons</li>
 </ol>
 </div>
 <div id="modeling-interactions" class="section level3">
@@ -1105,10 +1104,11 @@ dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, 
 <div id="models-with-binary-outcomes" class="section level2">
 <h2>Models with binary outcomes</h2>
 <div class="alert alert-info">
-<p><strong>GOAL: To learn about basic data manipulation used to clean datasets.</strong> In particular:</p>
+<p><strong>GOAL: To learn how to use the <code>glm()</code> function to model binary outcomes.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
-<li>item 1</li>
-<li>item 2</li>
+<li>The <code>family</code> and <code>link</code> components of the <code>glm()</code> function call</li>
+<li>Transforming model coefficients into odds ratios</li>
+<li>Transforming model coefficients into predicted marginal means</li>
 </ol>
 </div>
 <div id="logistic-regression" class="section level3">
@@ -1151,8 +1151,13 @@ dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, 
 <p>Let’s predict the probability of being diagnosed with hypertension based on <code>age</code>, <code>sex</code>, <code>sleep</code>, and <code>bmi</code>. Here’s the model:</p>
 <div class="alert alert-secondary">
 <p><span class="math display">\[
-logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i \\
-ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+\]</span></p>
+</div>
+<p>where <span class="math inline">\(logit(\cdot)\)</span> is the link function, which is equivelent to the log odds of <code>hypev</code>:</p>
+<div class="alert alert-secondary">
+<p><span class="math display">\[
+logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
 \]</span></p>
 </div>
 <p>And here’s how we fit this in R. First, let’s clean up the hypertension outcome by making it binary:</p>
@@ -1181,7 +1186,7 @@ ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex
 </div>
 <div id="predicted-marginal-means" class="section level3">
 <h3>Predicted marginal means</h3>
-<p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (average response values at particulat levels of the predictors) on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us.</p>
+<p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called “least squares means”). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  eff &lt;-<span class="st"> </span><span class="kw">allEffects</span>(hyp_out)
   <span class="kw">plot</span>(eff, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># &quot;response&quot; refers to the probability scale</span>
 
@@ -1215,10 +1220,11 @@ ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex
 <div id="multilevel-modeling" class="section level2">
 <h2>Multilevel modeling</h2>
 <div class="alert alert-info">
-<p><strong>GOAL: To learn about basic data manipulation used to clean datasets.</strong> In particular:</p>
+<p><strong>GOAL: To learn about how to use the <code>lmer()</code> function to model clustered data.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
-<li>item 1</li>
-<li>item 2</li>
+<li>The formula syntax for incorporating random effects into a model</li>
+<li>Calculating the intraclass correlation (ICC)</li>
+<li>Model comparison for fixed and random effects</li>
 </ol>
 </div>
 <div id="multilevel-modeling-overview" class="section level3">

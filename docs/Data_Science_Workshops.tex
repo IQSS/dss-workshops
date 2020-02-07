@@ -3878,17 +3878,8 @@ as we fit different types of model.
 
 \section{Before fitting a model}\label{before-fitting-a-model}
 
-\textbf{GOAL: To learn about basic data manipulation used to clean
-datasets.} In particular:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  item 1
-\item
-  item 2
-\end{enumerate}
+\textbf{GOAL: To learn about the data by creating summaries and
+visualizations.}
 
 One important part of the pre-estimation stage of model fitting, is
 gaining an understanding of the data we wish to model by creating plots
@@ -3977,16 +3968,20 @@ investigating the data, but we'll now move on to modeling.
 \section{Models with continuous
 outcomes}\label{models-with-continuous-outcomes}
 
-\textbf{GOAL: To learn about basic data manipulation used to clean
-datasets.} In particular:
+\textbf{GOAL: To learn about the R modeling ecosystem by fitting
+ordinary least squares (OLS) models.} In particular:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  item 1
+  Formula representation of a model specification
 \item
-  item 2
+  Model classes
+\item
+  Function methods
+\item
+  Model comparison
 \end{enumerate}
 
 Once the data have been inspected and cleaned, we can start estimating
@@ -4366,16 +4361,18 @@ metropolitan areas (\texttt{metro}). Be sure to
 
 \section{Interactions \& factors}\label{interactions-factors}
 
-\textbf{GOAL: To learn about basic data manipulation used to clean
-datasets.} In particular:
+\textbf{GOAL: To learn how to specify interaction effects and fit models
+with categorical predictors.} In particular:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  item 1
+  Formula syntax for interaction effects
 \item
-  item 2
+  Factor levels and labels
+\item
+  Contrasts and pairwise comparisons
 \end{enumerate}
 
 \subsection{Modeling interactions}\label{modeling-interactions}
@@ -4503,16 +4500,19 @@ Use the \texttt{states} data set.
 
 \section{Models with binary outcomes}\label{models-with-binary-outcomes}
 
-\textbf{GOAL: To learn about basic data manipulation used to clean
-datasets.} In particular:
+\textbf{GOAL: To learn how to use the \texttt{glm()} function to model
+binary outcomes.} In particular:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  item 1
+  The \texttt{family} and \texttt{link} components of the \texttt{glm()}
+  function call
 \item
-  item 2
+  Transforming model coefficients into odds ratios
+\item
+  Transforming model coefficients into predicted marginal means
 \end{enumerate}
 
 \subsection{Logistic regression}\label{logistic-regression}
@@ -4595,8 +4595,14 @@ on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}. Here's
 the model:
 
 \[
-logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i \\
-ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)} = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i
+logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+\]
+
+where \(logit(\cdot)\) is the link function, which is equivelent to the
+log odds of \texttt{hypev}:
+
+\[
+logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
 \]
 
 And here's how we fit this in R. First, let's clean up the hypertension
@@ -4651,10 +4657,12 @@ interpret. Here we transform them into odds ratios by exponentiating:
 \subsection{Predicted marginal means}\label{predicted-marginal-means}
 
 Instead of reporting odds ratios, we may want to calculate predicted
-marginal means (average response values at particulat levels of the
-predictors) on the response scale (i.e., the probability scale). We can
-use the \texttt{effects} package to compute these quantities of interest
-for us.
+marginal means (sometimes called ``least squares means''). These are
+average values of the outcome at particular levels of the predictors.
+For ease of interpretation, we want these marginal means to be on the
+response scale (i.e., the probability scale). We can use the
+\texttt{effects} package to compute these quantities of interest for us
+(by default, the numerical output will be on the response scale).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4723,16 +4731,18 @@ model.
 
 \section{Multilevel modeling}\label{multilevel-modeling}
 
-\textbf{GOAL: To learn about basic data manipulation used to clean
-datasets.} In particular:
+\textbf{GOAL: To learn about how to use the \texttt{lmer()} function to
+model clustered data.} In particular:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  item 1
+  The formula syntax for incorporating random effects into a model
 \item
-  item 2
+  Calculating the intraclass correlation (ICC)
+\item
+  Model comparison for fixed and random effects
 \end{enumerate}
 
 \subsection{Multilevel modeling
@@ -7032,7 +7042,8 @@ look at the data:
   In what ways is the format different between the two files?
 \end{enumerate}
 
-\textbf{Steps to accomplish this goal:}
+\textbf{Steps to accomplish the goal of extracting and graphing the }top
+100** boys names in England and Wales for every year since 1996:**
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7062,7 +7073,7 @@ look at the data:
   \item
     drop missing values from each data frame
   \item
-    reshape format from wide to long
+    reshape data format from wide to long
   \end{itemize}
 \item
   \textbf{Organize the data into one large data frame and store it}
@@ -7070,7 +7081,7 @@ look at the data:
   \begin{itemize}
   \tightlist
   \item
-    create a year column within each data frame in the list
+    create a year column within each data frame within the list
   \item
     append all the data frames in the list into one large data frame
   \end{itemize}
@@ -7082,6 +7093,20 @@ reading the data into R.
 
 \section{Working with Excel
 worksheets}\label{working-with-excel-worksheets}
+
+\textbf{GOAL: To learn how to read data from multiple Excel worksheets
+into R data frames.} In particular:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  List Excel file names in a character vector
+\item
+  Read Excel sheetnames into a list of character vectors
+\item
+  Read Excel data for ``Table 1'' only into a list of data frames
+\end{enumerate}
 
 As you can see, the data is in quite a messy state. Note that this is
 not a contrived example; this is exactly the way the data came to us
@@ -7390,6 +7415,20 @@ represents the index of the column.
 \end{Shaded}
 
 \section{Data cleanup}\label{data-cleanup}
+
+\textbf{GOAL: To learn how to clean up data within each R data frame.}
+In particular:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sort and merge columns within each data frame inside the list
+\item
+  Drop missing values from each data frame
+\item
+  Reshape data format from wide to long
+\end{enumerate}
 
 Now that we've read in the data, we can see that there are some problems
 we need to fix. Specifically, we need to:
@@ -7756,6 +7795,18 @@ names. HINT: see the \texttt{?matches} function.
 \end{Shaded}
 
 \section{Data organization \& storage}\label{data-organization-storage}
+
+\textbf{GOAL: To learn how to organize the data into one large data
+frame and store it.} In particular:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a year column within each data frame within the list
+\item
+  Append all the data frames in the list into one large data frame
+\end{enumerate}
 
 Now that we have the data cleaned up and augmented, we can turn our
 attention to organizing and storing the data.
@@ -10239,8 +10290,10 @@ reference and may not be present.
 For example, the URL we want to retrieve data from has the following
 structure:
 
-protocol domain path parameters https www.harvardartmuseums.org browse
-load\_amount=10\&offset=0
+\begin{verbatim}
+protocol                    domain    path  parameters
+   https www.harvardartmuseums.org  browse  load_amount=10&offset=0
+\end{verbatim}
 
 It is often convenient to create variables containing the domain(s) and
 path(s) you'll be working with, as this allows you to swap out paths and
