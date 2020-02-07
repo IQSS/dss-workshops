@@ -99,6 +99,8 @@ library(effects)  # for predicted marginal means
 # | Bayesian            | `brms`, `blme`, `MCMCglmm`, `rstan` | 
 # | Machine learning    | `mlr`, `caret`                      | 
 
+# ## Before fitting a model
+#
 # <div class="alert alert-info">
 # **GOAL: To learn about the data by creating summaries and visualizations.**
 # </div>
