@@ -77,9 +77,9 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 #
 # <div class="alert alert-info">
-# **Steps to accomplish the goal of extracting and graphing the **top 100** boys names in England and Wales for every year since 1996:**
+# **Steps to accomplish the goal of extracting and graphing the *top 100* boys names in England and Wales for every year since 1996:**
 #
-# 0.  **Explore example data to highlight problems (see Exercise 0)**
+# 0.  **Explore example data to highlight problems (already done!)**
 #
 # 1.  **Reading data from multiple Excel worksheets into R data frames**
 #     + list Excel file names in a character vector

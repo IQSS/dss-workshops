@@ -454,7 +454,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # $$
 # </div>
 #
-# where $logit(\cdot)$ is the link function, which is equivelent to the log odds of `hypev`:
+# where $logit(\cdot)$ is the link function, which is equivalent to the log odds of `hypev`:
 #
 # <div class="alert alert-secondary">
 # $$

@@ -67,8 +67,6 @@
 # 2. Use requests to extract information from HTML
 # 3. Automate a browser to retrieve information from HTML
 #
-# ![](Python/PythonWebScrape/images/json-format.png)
-#
 # Bear in mind that even once you've decided upon the best approach for a particular site,
 # it will be necessary to modified that approach to suit your particular use-case.
 #

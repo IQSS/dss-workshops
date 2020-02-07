@@ -51,7 +51,7 @@
 # ## R basics
 #
 # <div class="alert alert-info">
-# **GOAL: To learn about the foundations of the R language.** 
+# **GOAL: To learn about the foundations of the R language.** In particular:
 #
 # 1. What R is and how it works
 # 2. R interfaces
@@ -668,11 +668,11 @@ head(baby_names)
 
 baby_names <-
   baby_names %>%
-  mutate(Rank_levels = case_when(
-                           Count_1k <= 10                  ~ "low",
-                           Count_1k  > 10 & Count_1k <= 40 ~ "medium",
-                           Count_1k  > 40                  ~ "high"
-                           ))
+  mutate(Count_levels = case_when(
+                            Count_1k <= 10                  ~ "low",
+                            Count_1k  > 10 & Count_1k <= 40 ~ "medium",
+                            Count_1k  > 40                  ~ "high"
+                            ))
 
 # ### Exercise 4
 #
