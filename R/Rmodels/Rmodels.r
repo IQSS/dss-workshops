@@ -87,17 +87,17 @@ library(effects)  # for predicted marginal means
 #
 # ## R modeling ecosystem
 #
-# There are literally thousands of R packages that provide model fitting functionality.
+# There are literally hundreds of R packages that provide model fitting functionality.
 # We're going to focus on just two during this workshop. Here's a table showing some
 # of the most popular packages for particular types of model.
 #
-# | Models              | Packages                            |             
-# |:--------------------|:------------------------------------|
-# | Generalized linear  | `stats`, `biglm`                    | 
-# | Mixed effects       | `lme4`, `nlme`, `glmmTMB`           |                                     
-# | Econometric         | `pglm`, `VGAM`, `pscl`, `survival`  | 
-# | Bayesian            | `brms`, `blme`, `MCMCglmm`, `rstan` | 
-# | Machine learning    | `mlr`, `caret`                      | 
+# | Models              | Packages                               |             
+# |:--------------------|:---------------------------------------|
+# | Generalized linear  | `stats`, `biglm`, `MASS`, `robustbase` | 
+# | Mixed effects       | `lme4`, `nlme`, `glmmTMB`, `MASS`      |                                     
+# | Econometric         | `pglm`, `VGAM`, `pscl`, `survival`     | 
+# | Bayesian            | `brms`, `blme`, `MCMCglmm`, `rstan`    | 
+# | Machine learning    | `mlr`, `caret`, `h2o`, `tensorflow`    | 
 
 # ## Before fitting a model
 #
