@@ -88,8 +88,11 @@ library(effects)  # for predicted marginal means
 # ## R modeling ecosystem
 #
 # There are literally hundreds of R packages that provide model fitting functionality.
-# We're going to focus on just two during this workshop. Here's a table showing some
-# of the most popular packages for particular types of model.
+# We're going to focus on just two during this workshop --- `stats`, from Base R, and
+# `lme4`. It's a good idea to look at [CRAN Task Views](https://cran.r-project.org/web/views/) 
+# when trying to find a modeling package for your needs, as they provide an extensive 
+# curated list. But, here's a more digestable table showing some of the most popular
+#  packages for particular types of model.
 #
 # | Models              | Packages                               |             
 # |:--------------------|:---------------------------------------|
