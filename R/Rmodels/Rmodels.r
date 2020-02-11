@@ -238,10 +238,13 @@ outcome ~ pred1 + pred2 + pred3
   methods("summary")
   confint(sat_mod)
 
-# How does R know which method to call? R uses `generic functions`, which provide
-# access to `methods`. Method dispatch takes place based on the `class` of the
+# How does R know which method to call for a given object? 
+# R uses `generic functions`, which provide access to `methods`. 
+# Method dispatch takes place based on the `class` of the
 # first argument to the generic function. For example, for the generic 
-# function `summary()` and an object of class `lm`:
+# function `summary()` and an object of class `lm`, the method 
+# dispatched will be `summary.lm()`. Function methods always take 
+# the form `generic.method()`:
 #
 # ![](R/Rmodels/images/methods.png)
 #
