@@ -239,7 +239,8 @@ outcome ~ pred1 + pred2 + pred3
   confint(sat_mod)
 
 # R uses `generic functions`, which provide access to `methods`. Method dispatch takes 
-# place based on the class of the first argument to the generic function:
+# place based on the `class` of the first argument to the generic function. For example,
+# for the generic function `summary()` and a model of class `lm`:
 #
 # ![](R/Rmodels/images/methods.png)
 #
