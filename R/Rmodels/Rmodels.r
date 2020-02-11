@@ -231,13 +231,18 @@ outcome ~ pred1 + pred2 + pred3
   names(sat_mod)
   methods(class = class(sat_mod))
 
-# We can use function methods to get more information about the fit:
+# We can use `function methods` to get more information about the fit:
 
   summary(sat_mod)
   summary(sat_mod) %>% coef()
   methods("summary")
   confint(sat_mod)
 
+# R uses `generic functions`, which provide access to `methods`. Method dispatch takes 
+# place based on the class of the first argument to the generic function:
+#
+# ![](R/Rmodels/images/methods.png)
+#
 # It's always worth examining what function methods are available for the class of model you're fitting.
 # Here's a summary table of some of the most often used methods. These are post-estimation tools you
 # will want in your toolbox:
