@@ -746,11 +746,8 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <pre class="stata"><code>* Use &#39;*&#39; to comment a line and &#39;//&#39; for in-line comments
 
 * Make Stata say hello:
-disp &quot;Hello &quot; &quot;World!&quot; // &#39;disp&#39; is short for &#39;display&#39;
-</code></pre>
-<ul>
-<li>Use <code>///</code> to break varlists over multiple lines:</li>
-</ul>
+disp &quot;Hello &quot; &quot;World!&quot; // &#39;disp&#39; is short for &#39;display&#39;</code></pre>
+<p>Use <code>///</code> to break varlists over multiple lines:</p>
 <pre class="stata"><code>disp &quot;Hello&quot; ///
      &quot; World!&quot;</code></pre>
 </div>
@@ -771,10 +768,7 @@ cd &quot;C:/Users/yiw640/Desktop/StataIntro/&quot;</code></pre>
 <h2>Reading data</h2>
 <div id="data-file-commands" class="section level3">
 <h3>Data file commands</h3>
-<ul>
-<li>Next, we want to open our data file</li>
-<li>Open/save data sets with “use” and “save”:</li>
-</ul>
+<p>Next, we want to open our data file Open/save data sets with “use” and “save”:</p>
 <pre class="stata"><code>cd dataSets
 
 // open the gss.dta data set
@@ -805,24 +799,18 @@ save newgss.dta, replace // &quot;replace&quot; option means OK to overwrite exi
 </div>
 <div id="reading-non-stata-data" class="section level3">
 <h3>Reading non-Stata data</h3>
-<ul>
-<li>Import delimited text files</li>
-</ul>
+<p>Import delimited text files:</p>
 <pre class="stata"><code>* import data from a .csv file
 import delimited gss.csv, clear
 
 * save data to a .csv file
 export delimited gss_new.csv, replace</code></pre>
-<ul>
-<li>Import data from SAS</li>
-</ul>
+<p>Import data from SAS:</p>
 <pre class="stata"><code>* import/export SAS xport files
 clear
 import sasxport5 gss.xpt
 export sasxport5 gss_new, replace</code></pre>
-<ul>
-<li>Import data from Excel</li>
-</ul>
+<p>Import data from Excel:</p>
 <pre class="stata"><code>* import/export Excel files
 clear
 import excel gss.xlsx
@@ -841,9 +829,9 @@ export excel gss_new, replace</code></pre>
 <h3>Exercise 0</h3>
 <p><strong>Importing data</strong></p>
 <ol style="list-style-type: decimal">
-<li>Save any work you’ve done so far. Close down Stata and open a new session.</li>
-<li>Start Stata and open your <code>.do</code> file.</li>
-<li>Change directory (<code>cd</code>) to the <code>dataSets</code> folder.</li>
+<li><p>Save any work you’ve done so far. Close down Stata and open a new session.</p></li>
+<li><p>Start Stata and open your <code>.do</code> file.</p></li>
+<li><p>Change directory (<code>cd</code>) to the <code>dataSets</code> folder.</p></li>
 <li>Try opening the following files:
 <ul>
 <li>A comma separated value file: <code>gss.csv</code></li>
@@ -874,32 +862,23 @@ export excel gss_new, replace</code></pre>
 sum educ // statistical summary of education</code></pre>
 <pre class="stata"><code>codebook region // information about how region is coded</code></pre>
 <pre class="stata"><code>tab sex // numbers of male and female participants</code></pre>
-<ul>
-<li>If you run these commands without specifying variables, Stata will produce output for every variable</li>
-</ul>
+<p>If you run these commands without specifying variables, Stata will produce output for every variable</p>
 </div>
 <div id="basic-graphing-commands" class="section level3">
 <h3>Basic graphing commands</h3>
-<ul>
-<li>Univariate distribution(s) using <strong>hist</strong></li>
-</ul>
+<p>Univariate distribution(s) using <strong>hist:</strong></p>
 <pre class="stata"><code>  /* Histograms */
   hist educ</code></pre>
 <pre class="stata"><code>  // histogram with normal curve; see &quot;help hist&quot; for other options
   hist age, normal  </code></pre>
-<ul>
-<li>View bivariate distributions with scatterplots</li>
-</ul>
+<p>View bivariate distributions with scatterplots:</p>
 <pre class="stata"><code>   /* scatterplots */
    twoway (scatter educ age)</code></pre>
 <pre class="stata"><code>graph matrix educ age inc</code></pre>
 </div>
 <div id="the-by-command" class="section level3">
 <h3>The <code>by</code> command</h3>
-<ul>
-<li>Sometimes, you’d like to generate output based on different categories of a grouping variable</li>
-<li>The “by” command does just this</li>
-</ul>
+<p>Sometimes, you’d like to generate output based on different categories of a grouping variable The <code>by</code> command does just this:</p>
 <pre class="stata"><code>* By Processing
 bysort sex: tab happy // tabulate happy separately for men and women</code></pre>
 <pre class="stata"><code>bysort marital: sum educ // summarize eudcation by marital status</code></pre>
@@ -909,12 +888,12 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 <p><strong>Descriptive statistics</strong></p>
 <p>The Generations of Talent Study sought to examine quality of employment as experienced by today’s multigenerational workforces. The primary goal was to explore how country-related factors and age-related factors affect employees’ perceptions of quality of employment. Demographic variables included gender, birth year, race/ethnicity, education, marital * status, number of children, hourly wage, salary, and household income.</p>
 <ol style="list-style-type: decimal">
-<li>Use the dataset, “talent.dta”, open a new do-file and write on the do-file, after the exercise save it to the folder</li>
+<li>Use the dataset, <code>talent.dta</code>, open a new do-file and write on the do-file, after the exercise save it to the folder</li>
 <li>Examine a few selected variables using the describe, sum and codebook commands</li>
-<li>Tabulate the variable, marital status (“marital”), with and without labels</li>
-<li>Summarize the total household income last year (“income”) by marital status</li>
-<li>Cross-tabulate marital status with respondents’ type of main job (“job”)</li>
-<li>Summarize the total household income last year (“income”) for married individuals only</li>
+<li>Tabulate the variable, marital status (<code>marital</code>), with and without labels</li>
+<li>Summarize the total household income last year (<code>income</code>) by marital status</li>
+<li>Cross-tabulate marital status with respondents’ type of main job (<code>job</code>)</li>
+<li>Summarize the total household income last year (<code>income</code>) for married individuals only</li>
 </ol>
 </div>
 </div>
@@ -931,9 +910,7 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </div>
 <div id="variable-value-labels" class="section level3">
 <h3>Variable &amp; value labels</h3>
-<ul>
-<li>Variable labels</li>
-</ul>
+<p>Variable labels</p>
 <pre class="stata"><code>  /* Labelling and renaming */
   // Label variable inc &quot;household income&quot;
   label var inc &quot;household income&quot;
@@ -943,9 +920,7 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 
   // you can search names and labels with &#39;lookfor&#39;
   lookfor household</code></pre>
-<ul>
-<li>Value labels are a two step process: define a value label, then assign defined label to variable(s)</li>
-</ul>
+<p>Value labels are a two step process: define a value label, then assign defined label to variable(s)</p>
 <pre class="stata"><code>  /*define a value label for sex */
   label define mySexLabel 1 &quot;Male&quot; 2 &quot;Female&quot;
 
@@ -1006,7 +981,7 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </tr>
 </tbody>
 </table>
-<ol style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Add value labels to your <code>marital</code> variable using this codebook:</li>
 </ol>
 <table>
@@ -1043,10 +1018,7 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </div>
 <div id="working-on-subsets" class="section level2">
 <h2>Working on subsets</h2>
-<ul>
-<li>It is often useful to select just those rows of your data where some condition holds–for example select only rows where sex is 1 (male)</li>
-<li>The following operators allow you to do this:</li>
-</ul>
+<p>It is often useful to select just those rows of your data where some condition holds–for example select only rows where sex is 1 (male). The following operators allow you to do this:</p>
 <table>
 <thead>
 <tr class="header">
@@ -1089,21 +1061,15 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Note the double equals signs for testing equality</li>
-</ul>
+<p>Note the double equals sign <code>==</code> is for testing equality.</p>
 </div>
 <div id="generating-replacing-variables" class="section level2">
 <h2>Generating &amp; replacing variables</h2>
-<ul>
-<li>Create new variables using <code>gen</code></li>
-</ul>
+<p>Create new variables using <code>gen</code></p>
 <pre class="stata"><code>  // create a new variable named mc_inc
   //   equal to inc minus the mean of inc
   gen mc_inc = inc - 15.37  </code></pre>
-<ul>
-<li>Sometimes useful to start with blank values and fill them in based on values of existing variables</li>
-</ul>
+<p>Sometimes useful to start with blank values and fill them in based on values of existing variables</p>
 <pre class="stata"><code>  /* the &#39;generate and replace&#39; strategy */
   // generate a column of missings
   gen age_wealth = .
@@ -1118,35 +1084,41 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 <p><strong>Manipulating variables with gen and replace</strong></p>
 <ol style="list-style-type: decimal">
 <li>Use the dataset, <code>talent.dta</code>, work on the previous do-file. Save any changes to the data to original data</li>
-<li>Generate a new “overwork” dummy variable from the original variable “workperweek” that will take on a value of “1” if a person works more than 40 hours per week, and “0” if a person works equal to or less than 40 hours per week</li>
-<li>Generate a new “marital_dummy” dummy variable from the original variable “marital” that will take on a value of “1” if a person is either married or partnered and “0” otherwise</li>
+<li>Generate a new “overwork” dummy variable from the original variable <code>workperweek</code> that will take on a value of <code>1</code> if a person works more than 40 hours per week, and <code>0</code> if a person works equal to or less than 40 hours per week</li>
+<li>Generate a new <code>marital_dummy</code> dummy variable from the original variable <code>marital</code> that will take on a value of <code>1</code> if a person is either married or partnered and <code>0</code> otherwise</li>
 <li>Save the changes to the original dataset</li>
 </ol>
 </div>
 <div id="use-drop-to-delete-variables-and-keep-to-keep-them" class="section level3">
 <h3>Use drop to delete variables and keep to keep them</h3>
-<p>use gss.dta, clear drop inc</p>
-<p>clear all keep age region happy educ sex</p>
-<p>You can drop cases selectively using the conditional “if”, for example</p>
-<p>drop if sex == 1 /<em>this will drop observtions (rows) where gender = 1</em>/ drop if age &gt; 40 /<em>this will drop observations where age &gt; 40</em>/</p>
+<pre class="stata"><code>use gss.dta, clear
+drop inc
+
+clear all
+keep age region happy educ sex</code></pre>
+<p>You can drop cases selectively using the conditional <code>if</code>, for example:</p>
+<pre class="stata"><code>drop if sex == 1 /*this will drop observtions (rows) where gender = 1*/
+drop if age &gt; 40 /*this will drop observations where age &gt; 40*/</code></pre>
 </div>
 <div id="alternatively-you-can-keep-options-you-want" class="section level3">
 <h3>Alternatively, you can keep options you want</h3>
-<p>keep if sex == 0 keep if age &lt; 40 keep if region == “north” | region == “south”</p>
-<p>For more detials type help keep or help drop.</p>
+<pre class="stata"><code>keep if sex == 0
+keep if age &lt; 40
+keep if region == &quot;north&quot; | region == &quot;south&quot;</code></pre>
+<p>For more detials type <code>help keep</code> or <code>help drop</code>.</p>
 </div>
 <div id="exercise-4-2" class="section level3">
 <h3>Exercise 4</h3>
 <p>Combine all what we have leanred together!</p>
 <ol style="list-style-type: decimal">
 <li>Use the dataset, <code>talent.dta</code></li>
-<li>Rename the Sex/gender variable and give it a more intuitive name</li>
-<li>Use codebook, describe, tab, and browse commands to know more about how the three variables “A3”, “A5”, and “A7” are coded and store, give them new names</li>
-<li>Plot a histogram distribution for “workperweek” and add a normal curve</li>
-<li>Give a variable label and value labels for the variable “overwork”</li>
-<li>Generate a new variable called “work_family” and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance</li>
-<li>Drop the B3C variable that is not used in our exercise</li>
-<li>Save the changes to a new dataset called “talent_new.dta” and save it to our folder</li>
+<li>Rename the <code>Sex</code> variable and give it a more intuitive name</li>
+<li>Use <code>codebook</code>, <code>describe</code>, <code>tab</code>, and <code>browse</code> commands to know more about how the three variables <code>A3</code>, <code>A5</code>, and <code>A7</code> are coded and store, give them new names</li>
+<li>Plot a histogram distribution for <code>workperweek</code> and add a normal curve</li>
+<li>Give a variable label and value labels for the variable <code>overwork</code></li>
+<li>Generate a new variable called <code>work_family</code> and code it as <code>2</code> if a respondent perceived work to be more important than family, <code>1</code> if a respondent perceived family to be more important than work, and <code>0</code> if the two are of equal importance</li>
+<li>Drop the <code>B3C</code> variable that is not used in our exercise</li>
+<li>Save the changes to a new dataset called <code>talent_new.dta</code> and save it to our folder</li>
 </ol>
 </div>
 </div>

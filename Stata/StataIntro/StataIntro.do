@@ -78,8 +78,7 @@
 * Make Stata say hello:
 disp "Hello " "World!" // 'disp' is short for 'display'
 
-
-* * Use `///` to break varlists over multiple lines:
+* Use `///` to break varlists over multiple lines:
 
 disp "Hello" ///
      " World!"
@@ -99,8 +98,8 @@ cd "C:/Users/yiw640/Desktop/StataIntro/"
 *
 * ### Data file commands
 *
-* * Next, we want to open our data file
-* * Open/save data sets with "use" and "save":
+* Next, we want to open our data file
+* Open/save data sets with "use" and "save":
 
 cd dataSets
 
@@ -126,7 +125,7 @@ save newgss.dta, replace // "replace" option means OK to overwrite existing file
 *
 * ### Reading non-Stata data
 *
-* * Import delimited text files
+* Import delimited text files:
 
 * import data from a .csv file
 import delimited gss.csv, clear
@@ -134,14 +133,14 @@ import delimited gss.csv, clear
 * save data to a .csv file
 export delimited gss_new.csv, replace
 
-* * Import data from SAS
+* Import data from SAS:
 
 * import/export SAS xport files
 clear
 import sasxport5 gss.xpt
 export sasxport5 gss_new, replace
 
-* * Import data from Excel
+* Import data from Excel:
 
 * import/export Excel files
 clear
@@ -160,9 +159,12 @@ export excel gss_new, replace
 * **Importing data**
 *
 * 1. Save any work you've done so far. Close down Stata and open a new session.
+*
 * 2. Start Stata and open your `.do` file.
+*
 * 3. Change directory (`cd`) to the `dataSets` folder.
-* 3. Try opening the following files:
+*
+* 4. Try opening the following files:
 *     + A comma separated value file: `gss.csv`
 *     + An Excel file: `gss.xlsx`
 
@@ -194,11 +196,11 @@ codebook region // information about how region is coded
 tab sex // numbers of male and female participants
 
 
-* * If you run these commands without specifying variables, Stata will produce output for every variable
+* If you run these commands without specifying variables, Stata will produce output for every variable
 *
 * ### Basic graphing commands
 *
-* * Univariate distribution(s) using **hist**
+* Univariate distribution(s) using **hist:**
 
   /* Histograms */
   hist educ
@@ -208,7 +210,7 @@ tab sex // numbers of male and female participants
   hist age, normal  
 
 
-* * View bivariate distributions with scatterplots
+* View bivariate distributions with scatterplots:
 
    /* scatterplots */
    twoway (scatter educ age)
@@ -219,8 +221,8 @@ graph matrix educ age inc
 
 * ### The `by` command
 *
-* * Sometimes, you'd like to generate output based on different categories of a grouping variable
-* * The "by" command does just this
+* Sometimes, you'd like to generate output based on different categories of a grouping variable
+* The `by` command does just this:
 
 * By Processing
 bysort sex: tab happy // tabulate happy separately for men and women
@@ -234,12 +236,12 @@ bysort marital: sum educ // summarize eudcation by marital status
 *
 * The Generations of Talent Study sought to examine quality of employment as experienced by today's multigenerational workforces. The primary goal was to explore how country-related factors and age-related factors affect employees' perceptions of quality of employment. Demographic variables included gender, birth year, race/ethnicity, education, marital * status, number of children, hourly wage, salary, and household income.
 *
-* 1. Use the dataset, "talent.dta", open a new do-file and write on the do-file, after the exercise save it to the folder
+* 1. Use the dataset, `talent.dta`, open a new do-file and write on the do-file, after the exercise save it to the folder
 * 2. Examine a few selected variables using the describe, sum and codebook commands
-* 3. Tabulate the variable, marital status ("marital"), with and without labels
-* 4. Summarize the total household income last year ("income") by marital status
-* 5. Cross-tabulate marital status with respondents' type of main job ("job")
-* 6. Summarize the total household income last year ("income") for married individuals only
+* 3. Tabulate the variable, marital status (`marital`), with and without labels
+* 4. Summarize the total household income last year (`income`) by marital status
+* 5. Cross-tabulate marital status with respondents' type of main job (`job`)
+* 6. Summarize the total household income last year (`income`) for married individuals only
 
 * ## Basic data management
 *
@@ -252,7 +254,7 @@ bysort marital: sum educ // summarize eudcation by marital status
 *
 * ### Variable & value labels
 *
-* * Variable labels
+* Variable labels
 
   /* Labelling and renaming */
   // Label variable inc "household income"
@@ -264,7 +266,7 @@ bysort marital: sum educ // summarize eudcation by marital status
   // you can search names and labels with 'lookfor'
   lookfor household
 
-* * Value labels are a two step process: define a value label, then assign defined label to variable(s)
+* Value labels are a two step process: define a value label, then assign defined label to variable(s)
 
   /*define a value label for sex */
   label define mySexLabel 1 "Male" 2 "Female"
@@ -290,7 +292,7 @@ bysort marital: sum educ // summarize eudcation by marital status
 * | v6      | happy         | general happiness   |
 * | v7      | region        | region of interview |
 *
-* 1. Add value labels to your `marital` variable using this codebook:
+* 4. Add value labels to your `marital` variable using this codebook:
 *
 * | Value     | Label           |
 * |:----------|:----------------|
@@ -302,8 +304,8 @@ bysort marital: sum educ // summarize eudcation by marital status
 *
 * ## Working on subsets
 *
-* * It is often useful to select just those rows of your data where some condition holds--for example select only rows where sex is 1 (male)
-* * The following operators allow you to do this:
+* It is often useful to select just those rows of your data where some condition holds--for example select only rows where sex is 1 (male).
+* The following operators allow you to do this:
 *
 * | Operator | Meaning                  |
 * |:---------|:-------------------------|
@@ -316,17 +318,17 @@ bysort marital: sum educ // summarize eudcation by marital status
 * | &        | and                      |
 * | \|       | or                       |
 *
-* * Note the double equals signs for testing equality
+* Note the double equals sign `==` is for testing equality.
 *
 * ## Generating & replacing variables
 *
-* * Create new variables using `gen`
+* Create new variables using `gen`
 
   // create a new variable named mc_inc
   //   equal to inc minus the mean of inc
   gen mc_inc = inc - 15.37  
 
-* * Sometimes useful to start with blank values and fill them in based on values of existing variables
+* Sometimes useful to start with blank values and fill them in based on values of existing variables
 
   /* the 'generate and replace' strategy */
   // generate a column of missings
@@ -343,44 +345,44 @@ bysort marital: sum educ // summarize eudcation by marital status
 * **Manipulating variables with gen and replace**
 *
 * 1. Use the dataset, `talent.dta`, work on the previous do-file. Save any changes to the data to original data
-* 2. Generate a new "overwork" dummy variable from the original variable "workperweek" that will take on a value of "1" if a person works more than 40 hours per week, and "0" if a person works equal to or less than 40 hours per week
-* 3. Generate a new "marital_dummy" dummy variable from the original variable "marital" that will take on a value of "1" if a person is either married or partnered and "0" otherwise
+* 2. Generate a new "overwork" dummy variable from the original variable `workperweek` that will take on a value of `1` if a person works more than 40 hours per week, and `0` if a person works equal to or less than 40 hours per week
+* 3. Generate a new `marital_dummy` dummy variable from the original variable `marital` that will take on a value of `1` if a person is either married or partnered and `0` otherwise
 * 4. Save the changes to the original dataset
 *
 * ### Use drop to delete variables and keep to keep them
-*
-* use gss.dta, clear
-* drop inc
-*
-* clear all
-* keep age region happy educ sex
-*
-* You can drop cases selectively using the conditional "if", for example
-*
-* drop if sex == 1 /*this will drop observtions (rows) where gender = 1*/
-* drop if age > 40 /*this will drop observations where age > 40*/
-*
+
+use gss.dta, clear
+drop inc
+
+clear all
+keep age region happy educ sex
+
+* You can drop cases selectively using the conditional `if`, for example:
+
+drop if sex == 1 /*this will drop observtions (rows) where gender = 1*/
+drop if age > 40 /*this will drop observations where age > 40*/
+
 * ### Alternatively, you can keep options you want
-*
-* keep if sex == 0
-* keep if age < 40
-* keep if region == "north" | region == "south"
-*
-* For more detials type help keep or help drop.
+
+keep if sex == 0
+keep if age < 40
+keep if region == "north" | region == "south"
+
+* For more detials type `help keep` or `help drop`.
 *
 * ### Exercise 4
 *
 * Combine all what we have leanred together!
 *
 * 1. Use the dataset, `talent.dta`
-* 2. Rename the Sex/gender variable and give it a more intuitive name
-* 3. Use codebook,  describe, tab, and browse commands to know more about how the three variables "A3", "A5", and "A7" are coded and store, give them new names
-* 4. Plot a histogram distribution for "workperweek" and add a normal curve
-* 5. Give a variable label and value labels for the variable "overwork"
-* 6. Generate a new variable called "work_family" and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance
-* 7. Drop the B3C variable that is not used in our exercise
-* 8. Save the changes to a new dataset called "talent_new.dta" and save it to our folder
-*
+* 2. Rename the `Sex` variable and give it a more intuitive name
+* 3. Use `codebook`, `describe`, `tab`, and `browse` commands to know more about how the three variables `A3`, `A5`, and `A7` are coded and store, give them new names
+* 4. Plot a histogram distribution for `workperweek` and add a normal curve
+* 5. Give a variable label and value labels for the variable `overwork`
+* 6. Generate a new variable called `work_family` and code it as `2` if a respondent perceived work to be more important than family, `1` if a respondent perceived family to be more important than work, and `0` if the two are of equal importance
+* 7. Drop the `B3C` variable that is not used in our exercise
+* 8. Save the changes to a new dataset called `talent_new.dta` and save it to our folder
+
 * ## Exercise solutions
 *
 * ### Ex 0: prototype
