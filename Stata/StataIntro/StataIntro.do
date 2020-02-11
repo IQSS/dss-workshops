@@ -9,12 +9,12 @@
 * * Basic summary statistics
 * * Basic graphs
 * * Basic data management
-
+*
 * ## Setup
 *
 * ### Software & Materials
 *
-* Laptop users: you will need a copy of Stata installed on your machine. 
+* Laptop users: you will need a copy of Stata installed on your machine.
 * Harvard FAS affiliates can install a licensed version from <http://downloads.fas.harvard.edu/download>
 *
 * * Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Stata/StataIntro.zip>
@@ -48,7 +48,7 @@
 *
 * ### Stata interface
 *
-* ![](Stata/StataIntro/images/StataInterface.png)
+* ![](images/StataInterface.png)
 *
 * * Review and Variable windows can be closed (user preference)
 * * Command window can be shortened (recommended)
@@ -93,8 +93,7 @@ disp "Hello" ///
 *
 
 * change directory
-// cd "C://Users/dataclass/Desktop/StataIntro"
-
+cd "C:/Users/yiw640/Desktop/StataIntro/"
 
 * ## Reading data
 *
@@ -102,7 +101,6 @@ disp "Hello" ///
 *
 * * Next, we want to open our data file
 * * Open/save data sets with "use" and "save":
-*
 
 cd dataSets
 
@@ -112,10 +110,9 @@ use gss.dta, clear
 // save data file:
 save newgss.dta, replace // "replace" option means OK to overwrite existing file
 
-
 * ### A note about path names
 *
-* * If your path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the path as is
+* * If your path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the path as it is
 * * If there are spaces, you need to put your pathname in quotes
 * * Best to get in the habit of quoting paths
 *
@@ -137,14 +134,12 @@ import delimited gss.csv, clear
 * save data to a .csv file
 export delimited gss_new.csv, replace
 
-
 * * Import data from SAS
 
 * import/export SAS xport files
 clear
-import sasxport gss.xpt
-export sasxport gss_new, replace
-
+import sasxport5 gss.xpt
+export sasxport5 gss_new, replace
 
 * * Import data from Excel
 
@@ -164,10 +159,10 @@ export excel gss_new, replace
 *
 * **Importing data**
 *
-* 1.  Save any work you've done so far. Close down Stata and open a new session.
-* 2.  Start Stata and open your `.do` file. 
-* 3.  Change directory (`cd`) to the `dataSets` folder.
-* 3.  Try opening the following files:
+* 1. Save any work you've done so far. Close down Stata and open a new session.
+* 2. Start Stata and open your `.do` file.
+* 3. Change directory (`cd`) to the `dataSets` folder.
+* 3. Try opening the following files:
 *     + A comma separated value file: `gss.csv`
 *     + An Excel file: `gss.xlsx`
 
@@ -237,12 +232,14 @@ bysort marital: sum educ // summarize eudcation by marital status
 *
 * **Descriptive statistics**
 *
-* 1.  Use the dataset, `gss.dta`
-* 2.  Examine a few selected variables using the describe, sum and codebook commands
-* 3.  Tabulate the variable, "marital," with and without labels
-* 4.  Summarize the variable, "income" by marital status
-* 5.  Cross-tabulate marital with region
-* 6.  Summarize the variable `happy` for married individuals only
+* The Generations of Talent Study sought to examine quality of employment as experienced by today's multigenerational workforces. The primary goal was to explore how country-related factors and age-related factors affect employees' perceptions of quality of employment. Demographic variables included gender, birth year, race/ethnicity, education, marital * status, number of children, hourly wage, salary, and household income.
+*
+* 1. Use the dataset, "talent.dta", open a new do-file and write on the do-file, after the exercise save it to the folder
+* 2. Examine a few selected variables using the describe, sum and codebook commands
+* 3. Tabulate the variable, marital status ("marital"), with and without labels
+* 4. Summarize the total household income last year ("income") by marital status
+* 5. Cross-tabulate marital status with respondents' type of main job ("job")
+* 6. Summarize the total household income last year ("income") for married individuals only
 
 * ## Basic data management
 *
@@ -264,9 +261,8 @@ bysort marital: sum educ // summarize eudcation by marital status
   // change the name 'educ' to 'education'
   rename educ education
 
-  // you can search names and labels with 'lookfor' 
+  // you can search names and labels with 'lookfor'
   lookfor household
-
 
 * * Value labels are a two step process: define a value label, then assign defined label to variable(s)
 
@@ -274,15 +270,15 @@ bysort marital: sum educ // summarize eudcation by marital status
   label define mySexLabel 1 "Male" 2 "Female"
 
   /* assign our label set to the sex variable*/
-  label val sex  mySexLabel
+  label values sex mySexLabel
 
 * ### Exercise 2
 *
 * **Variable labels & value labels**
 *
-* 1.  Open the data set `gss.csv`
-* 2.  Familiarize yourself with the data using describe, sum, etc.
-* 3.  Rename and label variables using the following codebook:
+* 1. Open the data set `gss.csv`
+* 2. Familiarize yourself with the data using describe, sum, etc.
+* 3. Rename and label variables using the following codebook:
 *
 * | Var     | Rename to     | Label with          |
 * |:--------|:--------------|:--------------------|
@@ -294,7 +290,7 @@ bysort marital: sum educ // summarize eudcation by marital status
 * | v6      | happy         | general happiness   |
 * | v7      | region        | region of interview |
 *
-* 1.  Add value labels to your `marital` variable using this codebook:
+* 1. Add value labels to your `marital` variable using this codebook:
 *
 * | Value     | Label           |
 * |:----------|:----------------|
@@ -332,44 +328,140 @@ bysort marital: sum educ // summarize eudcation by marital status
 
 * * Sometimes useful to start with blank values and fill them in based on values of existing variables
 
-  /* the 'generate and replace' strategy */ 
+  /* the 'generate and replace' strategy */
   // generate a column of missings
   gen age_wealth = .
 
   // Next, start adding your qualifications
-  replace age_wealth=1 if age<30 & inc < 10
-  replace age_wealth=2 if age<30 & inc > 10
-  replace age_wealth=3 if age>30 & inc < 10
-  replace age_wealth=4 if age>30 & inc > 10
-
-  // conditions can also be combined with "or"
-  gen young=0
-  replace young=1 if age_wealth==1 | age_wealth==2
-
+  replace age_wealth=1 if age < 30 & inc < 10
+  replace age_wealth=2 if age < 30 & inc > 10
+  replace age_wealth=3 if age > 30 & inc < 10
+  replace age_wealth=4 if age > 30 & inc > 10
 
 * ### Exercise 3
 *
-* **Manipulating variables**
+* **Manipulating variables with gen and replace**
 *
-* 1.  Use the dataset, `gss.dta`
-* 2.  Generate a new variable, `age2` equal to `age` squared
-* 3.  Generate a new `high_income` variable that will take on a value of "1" if a person has an income value greater than "15" and "0" otherwise
-* 4.  Generate a new `divorced_separated` dummy variable that will take on a value of "1" if a person is either divorced or separated and "0" otherwise
-
+* 1. Use the dataset, `talent.dta`, work on the previous do-file. Save any changes to the data to original data
+* 2. Generate a new "overwork" dummy variable from the original variable "workperweek" that will take on a value of "1" if a person works more than 40 hours per week, and "0" if a person works equal to or less than 40 hours per week
+* 3. Generate a new "marital_dummy" dummy variable from the original variable "marital" that will take on a value of "1" if a person is either married or partnered and "0" otherwise
+* 4. Save the changes to the original dataset
+*
+* ### Use drop to delete variables and keep to keep them
+*
+* use gss.dta, clear
+* drop inc
+*
+* clear all
+* keep age region happy educ sex
+*
+* You can drop cases selectively using the conditional "if", for example
+*
+* drop if sex == 1 /*this will drop observtions (rows) where gender = 1*/
+* drop if age > 40 /*this will drop observations where age > 40*/
+*
+* ### Alternatively, you can keep options you want
+*
+* keep if sex == 0
+* keep if age < 40
+* keep if region == "north" | region == "south"
+*
+* For more detials type help keep or help drop.
+*
+* ### Exercise 4
+*
+* Combine all what we have leanred together!
+*
+* 1. Use the dataset, `talent.dta`
+* 2. Rename the Sex/gender variable and give it a more intuitive name
+* 3. Use codebook,  describe, tab, and browse commands to know more about how the three variables "A3", "A5", and "A7" are coded and store, give them new names
+* 4. Plot a histogram distribution for "workperweek" and add a normal curve
+* 5. Give a variable label and value labels for the variable "overwork"
+* 6. Generate a new variable called "work_family" and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance
+* 7. Drop the B3C variable that is not used in our exercise
+* 8. Save the changes to a new dataset called "talent_new.dta" and save it to our folder
+*
 * ## Exercise solutions
 *
 * ### Ex 0: prototype
-**
+clear
+cd "C:\Users\yiw640\Desktop\StataIntro\dataSets"
+
+import delimited gss.csv, clear
+import excel gss.xlsx, clear
 
 * ### Ex 1: prototype
-**
+use talent.dta, clear
+describe workperweek
+tab I3
+sum income
+codebook job
+
+tab marital
+tab marital, nol
+
+bysort marital: sum income
+tabulate marital job
+summarize income if marital == 1
 
 * ### Ex 2: prototype
-**
+import delimited gss.csv, clear
+rename v1 marital
+label var marital "marital status"
+label define marital_label 1 "married" 2 "widowed" 3 " divorced" 4 "seperated" 5 "never married"
+label val marital marital_label
+
+rename v2 age
+rename v3 educ
+rename v4 sex
+rename v5 inc
+rename v6 happy
+rename v7 region
+
+
+label var age "age of respondent"
+label var educ "education"
+label var sex "respondent's sex"
+label var inc "household income"
+label var happy "general happiness"
+label var region "region of interview"
 
 * ### Ex 3: prototype
-**
+use talent.dta, clear
+gen overwork = .
+replace overwork = 1 if workperweek > 40
+replace overwork = 0 if workperweek <= 40
+tab overwork
 
+gen marital_dummy = .
+replace marital_dummy = 1 if marital == 1 | marital == 2
+replace marital_dummy = 0 if marital != 1 & marital != 2
+tab marital_dummy
+
+* ### Ex 4: prototype
+use talent.dta, clear
+rename I3 Sex
+
+codebook A3
+describe A5
+tab A7
+
+rename A3 otherjob
+rename A5 workschedule
+rename A7 parttime
+
+hist workperweek, normal
+
+label variable overwork "whether someone works more than 40 hours per week"
+label define overworklabel 1 "Yes" 0 "No"
+label values overwork overworklabel
+
+gen work_family = .
+replace work_family = 2 if B3A > B3B
+replace work_family = 1 if B3A < B3B
+replace work_family = 0 if B3A == B3B
+
+drop B3C
 
 * ## Wrap-up
 *

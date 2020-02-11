@@ -11155,7 +11155,7 @@ Harvard FAS affiliates can install a licensed version from
 
 \begin{figure}
 \centering
-\includegraphics{Stata/StataIntro/images/StataInterface.png}
+\includegraphics{images/StataInterface.png}
 \caption{}
 \end{figure}
 
@@ -11246,7 +11246,7 @@ disp "Hello" ///
 
 \begin{verbatim}
 * change directory
-// cd "C://Users/dataclass/Desktop/StataIntro"
+cd "C:/Users/yiw640/Desktop/StataIntro/"
 \end{verbatim}
 
 \section{Reading data}\label{reading-data-2}
@@ -11278,7 +11278,7 @@ save newgss.dta, replace // "replace" option means OK to overwrite existing file
 \item
   If your path has no spaces in the name (that means all directories,
   folders, file names, etc. can have no spaces), you can write the path
-  as is
+  as it is
 \item
   If there are spaces, you need to put your pathname in quotes
 \item
@@ -11331,8 +11331,8 @@ export delimited gss_new.csv, replace
 \begin{verbatim}
 * import/export SAS xport files
 clear
-import sasxport gss.xpt
-export sasxport gss_new, replace
+import sasxport5 gss.xpt
+export sasxport5 gss_new, replace
 \end{verbatim}
 
 \begin{itemize}
@@ -11505,22 +11505,35 @@ bysort marital: sum educ // summarize eudcation by marital status
 
 \textbf{Descriptive statistics}
 
+The Generations of Talent Study sought to examine quality of employment
+as experienced by today's multigenerational workforces. The primary goal
+was to explore how country-related factors and age-related factors
+affect employees' perceptions of quality of employment. Demographic
+variables included gender, birth year, race/ethnicity, education,
+marital * status, number of children, hourly wage, salary, and household
+income.
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use the dataset, \texttt{gss.dta}
+  Use the dataset, ``talent.dta'', open a new do-file and write on the
+  do-file, after the exercise save it to the folder
 \item
   Examine a few selected variables using the describe, sum and codebook
   commands
 \item
-  Tabulate the variable, ``marital,'' with and without labels
+  Tabulate the variable, marital status (``marital''), with and without
+  labels
 \item
-  Summarize the variable, ``income'' by marital status
+  Summarize the total household income last year (``income'') by marital
+  status
 \item
-  Cross-tabulate marital with region
+  Cross-tabulate marital status with respondents' type of main job
+  (``job'')
 \item
-  Summarize the variable \texttt{happy} for married individuals only
+  Summarize the total household income last year (``income'') for
+  married individuals only
 \end{enumerate}
 
 \section{Basic data management}\label{basic-data-management}
@@ -11557,7 +11570,7 @@ bysort marital: sum educ // summarize eudcation by marital status
   // change the name 'educ' to 'education'
   rename educ education
 
-  // you can search names and labels with 'lookfor' 
+  // you can search names and labels with 'lookfor'
   lookfor household
 \end{verbatim}
 
@@ -11573,7 +11586,7 @@ bysort marital: sum educ // summarize eudcation by marital status
   label define mySexLabel 1 "Male" 2 "Female"
 
   /* assign our label set to the sex variable*/
-  label val sex  mySexLabel
+  label values sex mySexLabel
 \end{verbatim}
 
 \subsection{Exercise 2}\label{exercise-2-4}
@@ -11683,40 +11696,91 @@ variables}\label{generating-replacing-variables}
 \end{itemize}
 
 \begin{verbatim}
-  /* the 'generate and replace' strategy */ 
+  /* the 'generate and replace' strategy */
   // generate a column of missings
   gen age_wealth = .
 
   // Next, start adding your qualifications
-  replace age_wealth=1 if age<30 & inc < 10
-  replace age_wealth=2 if age<30 & inc > 10
-  replace age_wealth=3 if age>30 & inc < 10
-  replace age_wealth=4 if age>30 & inc > 10
-
-  // conditions can also be combined with "or"
-  gen young=0
-  replace young=1 if age_wealth==1 | age_wealth==2
+  replace age_wealth=1 if age < 30 & inc < 10
+  replace age_wealth=2 if age < 30 & inc > 10
+  replace age_wealth=3 if age > 30 & inc < 10
+  replace age_wealth=4 if age > 30 & inc > 10
 \end{verbatim}
 
 \subsection{Exercise 3}\label{exercise-3-4}
 
-\textbf{Manipulating variables}
+\textbf{Manipulating variables with gen and replace}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use the dataset, \texttt{gss.dta}
+  Use the dataset, \texttt{talent.dta}, work on the previous do-file.
+  Save any changes to the data to original data
 \item
-  Generate a new variable, \texttt{age2} equal to \texttt{age} squared
+  Generate a new ``overwork'' dummy variable from the original variable
+  ``workperweek'' that will take on a value of ``1'' if a person works
+  more than 40 hours per week, and ``0'' if a person works equal to or
+  less than 40 hours per week
 \item
-  Generate a new \texttt{high\_income} variable that will take on a
-  value of ``1'' if a person has an income value greater than ``15'' and
-  ``0'' otherwise
+  Generate a new ``marital\_dummy'' dummy variable from the original
+  variable ``marital'' that will take on a value of ``1'' if a person is
+  either married or partnered and ``0'' otherwise
 \item
-  Generate a new \texttt{divorced\_separated} dummy variable that will
-  take on a value of ``1'' if a person is either divorced or separated
-  and ``0'' otherwise
+  Save the changes to the original dataset
+\end{enumerate}
+
+\subsection{Use drop to delete variables and keep to keep
+them}\label{use-drop-to-delete-variables-and-keep-to-keep-them}
+
+use gss.dta, clear drop inc
+
+clear all keep age region happy educ sex
+
+You can drop cases selectively using the conditional ``if'', for example
+
+drop if sex == 1 /\emph{this will drop observtions (rows) where gender =
+1}/ drop if age \textgreater{} 40 /\emph{this will drop observations
+where age \textgreater{} 40}/
+
+\subsection{Alternatively, you can keep options you
+want}\label{alternatively-you-can-keep-options-you-want}
+
+keep if sex == 0 keep if age \textless{} 40 keep if region == ``north''
+\textbar{} region == ``south''
+
+For more detials type help keep or help drop.
+
+\subsection{Exercise 4}\label{exercise-4-2}
+
+Combine all what we have leanred together!
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use the dataset, \texttt{talent.dta}
+\item
+  Rename the Sex/gender variable and give it a more intuitive name
+\item
+  Use codebook, describe, tab, and browse commands to know more about
+  how the three variables ``A3'', ``A5'', and ``A7'' are coded and
+  store, give them new names
+\item
+  Plot a histogram distribution for ``workperweek'' and add a normal
+  curve
+\item
+  Give a variable label and value labels for the variable ``overwork''
+\item
+  Generate a new variable called ``work\_family'' and code it as 2 if a
+  respondent perceived work to be more important than family, 1 if a
+  respondent perceived family to be more important than work, and 0 if
+  the two are of equal importance
+\item
+  Drop the B3C variable that is not used in our exercise
+\item
+  Save the changes to a new dataset called ``talent\_new.dta'' and save
+  it to our folder
 \end{enumerate}
 
 \section{Exercise solutions}\label{exercise-solutions-6}
@@ -11724,25 +11788,96 @@ variables}\label{generating-replacing-variables}
 \subsection{Ex 0: prototype}\label{ex-0-prototype-6}
 
 \begin{verbatim}
-**
+clear
+cd "C:\Users\yiw640\Desktop\StataIntro\dataSets"
+
+import delimited gss.csv, clear
+import excel gss.xlsx, clear
 \end{verbatim}
 
 \subsection{Ex 1: prototype}\label{ex-1-prototype-6}
 
 \begin{verbatim}
-**
+use talent.dta, clear
+describe workperweek
+tab I3
+sum income
+codebook job
+
+tab marital
+tab marital, nol
+
+bysort marital: sum income
+tabulate marital job
+summarize income if marital == 1
 \end{verbatim}
 
 \subsection{Ex 2: prototype}\label{ex-2-prototype-4}
 
 \begin{verbatim}
-**
+import delimited gss.csv, clear
+rename v1 marital
+label var marital "marital status"
+label define marital_label 1 "married" 2 "widowed" 3 " divorced" 4 "seperated" 5 "never married"
+label val marital marital_label
+
+rename v2 age
+rename v3 educ
+rename v4 sex
+rename v5 inc
+rename v6 happy
+rename v7 region
+
+
+label var age "age of respondent"
+label var educ "education"
+label var sex "respondent's sex"
+label var inc "household income"
+label var happy "general happiness"
+label var region "region of interview"
 \end{verbatim}
 
 \subsection{Ex 3: prototype}\label{ex-3-prototype-4}
 
 \begin{verbatim}
-**
+use talent.dta, clear
+gen overwork = .
+replace overwork = 1 if workperweek > 40
+replace overwork = 0 if workperweek <= 40
+tab overwork
+
+gen marital_dummy = .
+replace marital_dummy = 1 if marital == 1 | marital == 2
+replace marital_dummy = 0 if marital != 1 & marital != 2
+tab marital_dummy
+\end{verbatim}
+
+\subsection{Ex 4: prototype}\label{ex-4-prototype-2}
+
+\begin{verbatim}
+use talent.dta, clear
+rename I3 Sex
+
+codebook A3
+describe A5
+tab A7
+
+rename A3 otherjob
+rename A5 workschedule
+rename A7 parttime
+
+hist workperweek, normal
+
+label variable overwork "whether someone works more than 40 hours per week"
+label define overworklabel 1 "Yes" 0 "No"
+label values overwork overworklabel
+
+gen work_family = .
+replace work_family = 2 if B3A > B3B
+replace work_family = 1 if B3A < B3B
+replace work_family = 0 if B3A == B3B
+
+drop B3C
 \end{verbatim}
 
 \section{Wrap-up}\label{wrap-up-7}

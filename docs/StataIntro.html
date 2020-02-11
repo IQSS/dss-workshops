@@ -513,12 +513,16 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#working-on-subsets"><i class="fa fa-check"></i>Working on subsets</a></li>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#generating-replacing-variables"><i class="fa fa-check"></i>Generating &amp; replacing variables</a><ul>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#exercise-3-4"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#use-drop-to-delete-variables-and-keep-to-keep-them"><i class="fa fa-check"></i>Use drop to delete variables and keep to keep them</a></li>
+<li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#alternatively-you-can-keep-options-you-want"><i class="fa fa-check"></i>Alternatively, you can keep options you want</a></li>
+<li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#exercise-4-2"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#exercise-solutions-6"><i class="fa fa-check"></i>Exercise solutions</a><ul>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#ex-0-prototype-6"><i class="fa fa-check"></i>Ex 0: prototype</a></li>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#ex-1-prototype-6"><i class="fa fa-check"></i>Ex 1: prototype</a></li>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#ex-2-prototype-4"><i class="fa fa-check"></i>Ex 2: prototype</a></li>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#ex-3-prototype-4"><i class="fa fa-check"></i>Ex 3: prototype</a></li>
+<li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#ex-4-prototype-2"><i class="fa fa-check"></i>Ex 4: prototype</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#wrap-up-7"><i class="fa fa-check"></i>Wrap-up</a><ul>
 <li class="chapter" data-level="" data-path="StataIntro.html"><a href="StataIntro.html#feedback-7"><i class="fa fa-check"></i>Feedback</a></li>
@@ -709,7 +713,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <div id="stata-interface" class="section level3">
 <h3>Stata interface</h3>
 <div class="figure">
-<img src="Stata/StataIntro/images/StataInterface.png" />
+<img src="images/StataInterface.png" />
 
 </div>
 <ul>
@@ -760,7 +764,7 @@ disp &quot;Hello &quot; &quot;World!&quot; // &#39;disp&#39; is short for &#39;d
 </ul></li>
 </ul>
 <pre class="stata"><code>* change directory
-// cd &quot;C://Users/dataclass/Desktop/StataIntro&quot;</code></pre>
+cd &quot;C:/Users/yiw640/Desktop/StataIntro/&quot;</code></pre>
 </div>
 </div>
 <div id="reading-data-2" class="section level2">
@@ -782,7 +786,7 @@ save newgss.dta, replace // &quot;replace&quot; option means OK to overwrite exi
 <div id="a-note-about-path-names" class="section level3">
 <h3>A note about path names</h3>
 <ul>
-<li>If your path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the path as is</li>
+<li>If your path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the path as it is</li>
 <li>If there are spaces, you need to put your pathname in quotes</li>
 <li>Best to get in the habit of quoting paths</li>
 </ul>
@@ -814,8 +818,8 @@ export delimited gss_new.csv, replace</code></pre>
 </ul>
 <pre class="stata"><code>* import/export SAS xport files
 clear
-import sasxport gss.xpt
-export sasxport gss_new, replace</code></pre>
+import sasxport5 gss.xpt
+export sasxport5 gss_new, replace</code></pre>
 <ul>
 <li>Import data from Excel</li>
 </ul>
@@ -903,13 +907,14 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 <div id="exercise-1-6" class="section level3">
 <h3>Exercise 1</h3>
 <p><strong>Descriptive statistics</strong></p>
+<p>The Generations of Talent Study sought to examine quality of employment as experienced by today’s multigenerational workforces. The primary goal was to explore how country-related factors and age-related factors affect employees’ perceptions of quality of employment. Demographic variables included gender, birth year, race/ethnicity, education, marital * status, number of children, hourly wage, salary, and household income.</p>
 <ol style="list-style-type: decimal">
-<li>Use the dataset, <code>gss.dta</code></li>
+<li>Use the dataset, “talent.dta”, open a new do-file and write on the do-file, after the exercise save it to the folder</li>
 <li>Examine a few selected variables using the describe, sum and codebook commands</li>
-<li>Tabulate the variable, “marital,” with and without labels</li>
-<li>Summarize the variable, “income” by marital status</li>
-<li>Cross-tabulate marital with region</li>
-<li>Summarize the variable <code>happy</code> for married individuals only</li>
+<li>Tabulate the variable, marital status (“marital”), with and without labels</li>
+<li>Summarize the total household income last year (“income”) by marital status</li>
+<li>Cross-tabulate marital status with respondents’ type of main job (“job”)</li>
+<li>Summarize the total household income last year (“income”) for married individuals only</li>
 </ol>
 </div>
 </div>
@@ -936,7 +941,7 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
   // change the name &#39;educ&#39; to &#39;education&#39;
   rename educ education
 
-  // you can search names and labels with &#39;lookfor&#39; 
+  // you can search names and labels with &#39;lookfor&#39;
   lookfor household</code></pre>
 <ul>
 <li>Value labels are a two step process: define a value label, then assign defined label to variable(s)</li>
@@ -945,7 +950,7 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
   label define mySexLabel 1 &quot;Male&quot; 2 &quot;Female&quot;
 
   /* assign our label set to the sex variable*/
-  label val sex  mySexLabel</code></pre>
+  label values sex mySexLabel</code></pre>
 </div>
 <div id="exercise-2-4" class="section level3">
 <h3>Exercise 2</h3>
@@ -1099,27 +1104,49 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 <ul>
 <li>Sometimes useful to start with blank values and fill them in based on values of existing variables</li>
 </ul>
-<pre class="stata"><code>  /* the &#39;generate and replace&#39; strategy */ 
+<pre class="stata"><code>  /* the &#39;generate and replace&#39; strategy */
   // generate a column of missings
   gen age_wealth = .
 
   // Next, start adding your qualifications
-  replace age_wealth=1 if age&lt;30 &amp; inc &lt; 10
-  replace age_wealth=2 if age&lt;30 &amp; inc &gt; 10
-  replace age_wealth=3 if age&gt;30 &amp; inc &lt; 10
-  replace age_wealth=4 if age&gt;30 &amp; inc &gt; 10
-
-  // conditions can also be combined with &quot;or&quot;
-  gen young=0
-  replace young=1 if age_wealth==1 | age_wealth==2</code></pre>
+  replace age_wealth=1 if age &lt; 30 &amp; inc &lt; 10
+  replace age_wealth=2 if age &lt; 30 &amp; inc &gt; 10
+  replace age_wealth=3 if age &gt; 30 &amp; inc &lt; 10
+  replace age_wealth=4 if age &gt; 30 &amp; inc &gt; 10</code></pre>
 <div id="exercise-3-4" class="section level3">
 <h3>Exercise 3</h3>
-<p><strong>Manipulating variables</strong></p>
+<p><strong>Manipulating variables with gen and replace</strong></p>
 <ol style="list-style-type: decimal">
-<li>Use the dataset, <code>gss.dta</code></li>
-<li>Generate a new variable, <code>age2</code> equal to <code>age</code> squared</li>
-<li>Generate a new <code>high_income</code> variable that will take on a value of “1” if a person has an income value greater than “15” and “0” otherwise</li>
-<li>Generate a new <code>divorced_separated</code> dummy variable that will take on a value of “1” if a person is either divorced or separated and “0” otherwise</li>
+<li>Use the dataset, <code>talent.dta</code>, work on the previous do-file. Save any changes to the data to original data</li>
+<li>Generate a new “overwork” dummy variable from the original variable “workperweek” that will take on a value of “1” if a person works more than 40 hours per week, and “0” if a person works equal to or less than 40 hours per week</li>
+<li>Generate a new “marital_dummy” dummy variable from the original variable “marital” that will take on a value of “1” if a person is either married or partnered and “0” otherwise</li>
+<li>Save the changes to the original dataset</li>
+</ol>
+</div>
+<div id="use-drop-to-delete-variables-and-keep-to-keep-them" class="section level3">
+<h3>Use drop to delete variables and keep to keep them</h3>
+<p>use gss.dta, clear drop inc</p>
+<p>clear all keep age region happy educ sex</p>
+<p>You can drop cases selectively using the conditional “if”, for example</p>
+<p>drop if sex == 1 /<em>this will drop observtions (rows) where gender = 1</em>/ drop if age &gt; 40 /<em>this will drop observations where age &gt; 40</em>/</p>
+</div>
+<div id="alternatively-you-can-keep-options-you-want" class="section level3">
+<h3>Alternatively, you can keep options you want</h3>
+<p>keep if sex == 0 keep if age &lt; 40 keep if region == “north” | region == “south”</p>
+<p>For more detials type help keep or help drop.</p>
+</div>
+<div id="exercise-4-2" class="section level3">
+<h3>Exercise 4</h3>
+<p>Combine all what we have leanred together!</p>
+<ol style="list-style-type: decimal">
+<li>Use the dataset, <code>talent.dta</code></li>
+<li>Rename the Sex/gender variable and give it a more intuitive name</li>
+<li>Use codebook, describe, tab, and browse commands to know more about how the three variables “A3”, “A5”, and “A7” are coded and store, give them new names</li>
+<li>Plot a histogram distribution for “workperweek” and add a normal curve</li>
+<li>Give a variable label and value labels for the variable “overwork”</li>
+<li>Generate a new variable called “work_family” and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance</li>
+<li>Drop the B3C variable that is not used in our exercise</li>
+<li>Save the changes to a new dataset called “talent_new.dta” and save it to our folder</li>
 </ol>
 </div>
 </div>
@@ -1127,19 +1154,88 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 <h2>Exercise solutions</h2>
 <div id="ex-0-prototype-6" class="section level3">
 <h3>Ex 0: prototype</h3>
-<pre class="stata"><code>**</code></pre>
+<pre class="stata"><code>clear
+cd &quot;C:\Users\yiw640\Desktop\StataIntro\dataSets&quot;
+
+import delimited gss.csv, clear
+import excel gss.xlsx, clear</code></pre>
 </div>
 <div id="ex-1-prototype-6" class="section level3">
 <h3>Ex 1: prototype</h3>
-<pre class="stata"><code>**</code></pre>
+<pre class="stata"><code>use talent.dta, clear
+describe workperweek
+tab I3
+sum income
+codebook job
+
+tab marital
+tab marital, nol
+
+bysort marital: sum income
+tabulate marital job
+summarize income if marital == 1</code></pre>
 </div>
 <div id="ex-2-prototype-4" class="section level3">
 <h3>Ex 2: prototype</h3>
-<pre class="stata"><code>**</code></pre>
+<pre class="stata"><code>import delimited gss.csv, clear
+rename v1 marital
+label var marital &quot;marital status&quot;
+label define marital_label 1 &quot;married&quot; 2 &quot;widowed&quot; 3 &quot; divorced&quot; 4 &quot;seperated&quot; 5 &quot;never married&quot;
+label val marital marital_label
+
+rename v2 age
+rename v3 educ
+rename v4 sex
+rename v5 inc
+rename v6 happy
+rename v7 region
+
+
+label var age &quot;age of respondent&quot;
+label var educ &quot;education&quot;
+label var sex &quot;respondent&#39;s sex&quot;
+label var inc &quot;household income&quot;
+label var happy &quot;general happiness&quot;
+label var region &quot;region of interview&quot;</code></pre>
 </div>
 <div id="ex-3-prototype-4" class="section level3">
 <h3>Ex 3: prototype</h3>
-<pre class="stata"><code>**</code></pre>
+<pre class="stata"><code>use talent.dta, clear
+gen overwork = .
+replace overwork = 1 if workperweek &gt; 40
+replace overwork = 0 if workperweek &lt;= 40
+tab overwork
+
+gen marital_dummy = .
+replace marital_dummy = 1 if marital == 1 | marital == 2
+replace marital_dummy = 0 if marital != 1 &amp; marital != 2
+tab marital_dummy</code></pre>
+</div>
+<div id="ex-4-prototype-2" class="section level3">
+<h3>Ex 4: prototype</h3>
+<pre class="stata"><code>use talent.dta, clear
+rename I3 Sex
+
+codebook A3
+describe A5
+tab A7
+
+rename A3 otherjob
+rename A5 workschedule
+rename A7 parttime
+
+hist workperweek, normal
+
+label variable overwork &quot;whether someone works more than 40 hours per week&quot;
+label define overworklabel 1 &quot;Yes&quot; 0 &quot;No&quot;
+label values overwork overworklabel
+
+gen work_family = .
+replace work_family = 2 if B3A &gt; B3B
+replace work_family = 1 if B3A &lt; B3B
+replace work_family = 0 if B3A == B3B
+
+drop B3C</code></pre>
 </div>
 </div>
 <div id="wrap-up-7" class="section level2">
