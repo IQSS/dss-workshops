@@ -1,9 +1,7 @@
----
-output:
-  word_document: default
-  html_document: default
----
 
+```{r}
+knitr::opts_chunk$set(eval=TRUE, results=TRUE) 
+```
 
 # R Data Wrangling
 
@@ -64,8 +62,10 @@ The UK [Office for National Statistics](https://www.ons.gov.uk) provides yearly
 **Overall Goal** 
 
 Our mission is to extract and graph the **top 100** boys names in England and Wales for every year since 1996. 
- 
+
+
 ![goal](images/goal.png)
+
 
 **Exercise 0: Problems with the data**
 
@@ -85,9 +85,9 @@ There are several things that make our goal challenging. Let's take a look at th
     In what ways is the format different between the two files?
 
 
-**Steps to accomplish this goal:**
+**Steps to accomplish the goal of extracting and graphing the *top 100* boys names in England and Wales for every year since 1996:**
 
-0.  **Explore example data to highlight problems (see Exercise 0)**
+0.  **Explore example data to highlight problems (already done!)**
 
 1.  **Reading data from multiple Excel worksheets into R data frames**
     + list Excel file names in a character vector
@@ -97,10 +97,10 @@ There are several things that make our goal challenging. Let's take a look at th
 2.  **Clean up data within each R data frame**
     + sort and merge columns within each data frame inside the list
     + drop missing values from each data frame
-    + reshape format from wide to long
+    + reshape data format from wide to long
 
 3.  **Organize the data into one large data frame and store it**
-    + create a year column within each data frame in the list
+    + create a year column within each data frame within the list
     + append all the data frames in the list into one large data frame
 
 NOTE: please make sure you close the Excel files before continuing with the
@@ -109,6 +109,12 @@ the data into R.
 
 
 ## Working with Excel worksheets
+
+**GOAL: To learn how to read data from multiple Excel worksheets into R data frames.** In particular:
+
+1. List Excel file names in a character vector
+2. Read Excel sheetnames into a list of character vectors
+3. Read Excel data for "Table 1" only into a list of data frames
 
 As you can see, the data is in quite a messy state. Note that this is
 not a contrived example; this is exactly the way the data came to us
@@ -151,7 +157,6 @@ each file, e.g.,
 
 ## ...
 
-
 ```
 
 This is not a terrible idea for a small number of files, but it is
@@ -162,7 +167,6 @@ so we'll use that.
 
 ```{r}
 # map(object to iterate over, function that does task within each iteration)
-
 
 ```
 
@@ -204,7 +208,6 @@ identify the correct sheet in a particular Excel file. For example,
 
 # nesting functions
 
-
 # piping functions
 
 ```
@@ -231,7 +234,6 @@ Functions require 3 elements:
 2.  One or more **arguments**
 3.  A **body** containing computations
 
-
 Anatomy of a function:
 
 ```{r, eval=FALSE}
@@ -256,8 +258,6 @@ Examples using the Excel data:
 
 
 # the goal is generalization 
-
-
 
 ```
 
@@ -287,7 +287,6 @@ the `dplyr` package within `tidyverse` to view the output.
 
 
 
-
 ```
 
 Note that R has added a suffix to each column name `...1`, `...2`,
@@ -303,17 +302,11 @@ Note that R has added a suffix to each column name `...1`, `...2`,
      to skip the first 6 rows.
 ```{r}
 
-
-
-
 ```
 
   2. Test your function by using it to read *one* of the boys names
      Excel files.
 ```{r}
-
-
-
 
 ```
 
@@ -321,32 +314,36 @@ Note that R has added a suffix to each column name `...1`, `...2`,
      from all the Excel files, using the function you wrote in step 1.
 ```{r}
 
-
-
-
 ```
 
 
 ## Data cleanup
 
+**GOAL: To learn how to clean up data within each R data frame.** In particular:
+
+1. Sort and merge columns within each data frame inside the list
+2. Drop missing values from each data frame
+3. Reshape data format from wide to long
+
 Now that we've read in the data, we can see that there are some
 problems we need to fix. Specifically, we need to:
 
 1. fix column names
-2. get rid of blank row and the top and the notes at the bottom
+2. get rid of blank row at the top and the notes at the bottom
 3. get rid of extraneous "changes in rank" columns if they exist
-4. transform the side-by-side tables layout to a single table.
+4. transform the side-by-side tables layout to a single table
 
 ```{r}
 # Rank 1:50 --- Names / Counts are in columns 2 and 3 
 # Rank 51:100 --- Names / Counts are in columns 6 and 7
 
+
 # Rank 1:50 --- Names / Counts are in columns 2 and 3 
 # Rank 51:100 --- Names / Counts are in columns 7 and 8
 
+
 # Rank 1:50 --- Names / Counts are in columns 2 and 3 
 # Rank 51:100 --- Names / Counts are in columns 8 and 9
-
 
 ```
 
@@ -357,6 +354,7 @@ In short, we want to go from this:
 to this:
 
 ![tidy](images/clean.png)
+
 
 There are many ways to do this kind of data manipulation in R. We're
 going to use the `dplyr` and `tidyr` packages from within `tidyverse`
@@ -369,7 +367,6 @@ Next we want to retain just the `Name...2`, `Name...6`, `Count...3` and `Count..
 We can do that using the `select()` function:
 
 ```{r}
-
 
 
 
@@ -389,7 +386,9 @@ can hold a *collection* of values. Vectors come in two basic forms:
 
 `NULL` is closely related to vectors and often serves the role of a zero length vector. 
 
+
 ![vector tree](images/summary_tree.png)
+
 
 From these two basic forms, the following six structures are derived:
 
@@ -468,7 +467,6 @@ to remove rows with missing values.
 
 
 
-
 ```
 
 
@@ -478,29 +476,19 @@ to remove rows with missing values.
      argument and returns a modified version, which keeps only columns that
      include the strings `Name` and `Count` in the column names.
      HINT: see the `?matches` function. 
+```{r}
+
+```     
      
+  2. Test your function on the first data frame in the list of boys
+     names data.
 ```{r}
-
-
-
 
 ```
 
-2.  Test your function on the first data frame in the list of boys names data.
-
+  3. Use the `map()` function to each data frame in the list of boys
+     names data and save it to the list called `boysNames`.
 ```{r}
-
-
-
-
-```
-
-3.  Use the `map()` function to each data frame in the list of boys names data.
-
-```{r}
-
-
-
 
 ```
 
@@ -513,16 +501,11 @@ the `gather()` function in the `tidyr` package is useful, but in this
 case we will be better off using a combination of `select()` and
 `bind_rows()`. Here's the logic behind this step:
 
-
 ![](images/wide_vs_long.png)
-
 
 Here’s the code that implements the transformation:
 
 ```{r}
-
-
-
 
 
 
@@ -545,41 +528,18 @@ to match each of these different column names. HINT: see the `?matches`
 function.
 
 1.  Create a new function called `cleanupNamesData` that:
-
 ```{r}
-cleanupNamesData <- function(file){
+# 1) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
 
-  # subset data to include only those columns that include the term `Name` and `Count`
+# 2) subset two separate data frames, with first and second set of `Name` and `Count` columns
 
-  
-  
-  
+# 3) append the two datasets
 
-  # subset two separate data frames, with first and second set of `Name` and `Count` columns 
-
-  
-  
-  
-  
-  
-  # append the two datasets
-
-  
-  
-  
-## test it out on the second data frame in the list
-
-  
-  
-  
 ```
 
 2.  Your task now is to use the `map()` function to apply each of these
 transformations to all the elements in `boysNames`. 
-
 ```{r}
-
-
 
 
 ```
@@ -587,8 +547,12 @@ transformations to all the elements in `boysNames`.
 
 ## Data organization & storage
 
-Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.
+**GOAL: To learn how to organize the data into one large data frame and store it.** In particular:
 
+1. Create a year column within each data frame within the list
+2. Append all the data frames in the list into one large data frame
+
+Now that we have the data cleaned up and augmented, we can turn our attention to organizing and storing the data.
 
 ### A list of data frames
 
@@ -597,21 +561,14 @@ Right now we have a list of data frames; one for each year. This is not a bad wa
 ```{r}
 
 
-
-
 # use regex to extract years from file names
 
 
 
-# returns NULL - no names in the list
-
 # assign years to list names
 
 
-
- 
 ```
-
 
 ### One big data frame
 
@@ -628,8 +585,6 @@ information to each data frame before flattening.
 # apply name of the list element (.y) as a new column in the data.frame (.x)
 
 
-
-
 ```
 
 ### Exercise 4
@@ -639,36 +594,21 @@ information to each data frame before flattening.
 1.  Turn the list of boys names data frames into a single data frame. HINT: see `?bind_rows`.
 ```{r}
 
+```
 
-
+2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file.
+    HINT: see the `?dir.create` and `?write_csv` functions.
+```{r}
 
 ```
 
-2.  Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. HINT: see the `?dir.create` and `?write_csv` functions.
-
+3.  What were the five most popular names in 2013?
 ```{r}
-
-
-
-
-```
-
-3.  What were the five most popular names in 2013?   
-
-```{r}
-
-
-
 
 ```
 
 4.  How has the popularity of the name "ANDREW" changed over time?
-
 ```{r}
-
-
-
-
 
 ```
 

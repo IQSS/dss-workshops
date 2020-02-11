@@ -380,17 +380,16 @@ bysort marital: sum educ // summarize eudcation by marital status
 use gss.dta, clear
 drop inc
 
-clear all
 keep age region happy educ sex
 
 * You can drop cases selectively using the conditional `if`, for example:
 
-drop if sex == 1 /*this will drop observtions (rows) where gender = 1*/
+drop if sex == 2 /*this will drop observtions (rows) where gender = 2*/
 drop if age > 40 /*this will drop observations where age > 40*/
 
 * ### Alternatively, you can keep options you want
 
-keep if sex == 0
+keep if sex == 1
 keep if age < 40
 keep if region == "north" | region == "south"
 
