@@ -159,14 +159,18 @@ export excel gss_new, replace
 * **Importing data**
 *
 * 1. Save any work you've done so far. Close down Stata and open a new session.
-*
+**
+
 * 2. Start Stata and open your `.do` file.
-*
+**
+
 * 3. Change directory (`cd`) to the `dataSets` folder.
-*
+**
+
 * 4. Try opening the following files:
 *     + A comma separated value file: `gss.csv`
 *     + An Excel file: `gss.xlsx`
+**
 
 * ## Statistics & graphs
 *
