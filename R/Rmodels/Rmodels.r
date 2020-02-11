@@ -456,16 +456,16 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # Anatomy of a generalized linear model:
 
   # OLS model using lm()
-  lm(outcome ~ 1 + pred1 + pred1, 
+  lm(outcome ~ 1 + pred1 + pred2, 
      data = mydata)
 
   # OLS model using glm()
-  glm(outcome ~ 1 + pred1 + pred1, 
+  glm(outcome ~ 1 + pred1 + pred2, 
       data = mydata, 
       family = gaussian(link = "identity"))
  
   # logistic model using glm()
-  glm(outcome ~ 1 + pred1 + pred1, 
+  glm(outcome ~ 1 + pred1 + pred2, 
       data = mydata, 
       family = binomial(link = "logit"))
 

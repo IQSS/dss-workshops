@@ -318,9 +318,9 @@ glimpse(temp)
 # problems we need to fix. Specifically, we need to:
 #
 # 1. fix column names
-# 2. get rid of blank row and the top and the notes at the bottom
+# 2. get rid of blank row at the top and the notes at the bottom
 # 3. get rid of extraneous "changes in rank" columns if they exist
-# 4. transform the side-by-side tables layout to a single table.
+# 4. transform the side-by-side tables layout to a single table
 
 # Rank 1:50 --- Names / Counts are in columns 2 and 3 
 # Rank 51:100 --- Names / Counts are in columns 6 and 7
