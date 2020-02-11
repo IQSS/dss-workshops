@@ -159,11 +159,9 @@ export excel gss_new, replace
 * **Importing data**
 *
 * 1. Save any work you've done so far. Close down Stata and open a new session.
-**
-
+*
 * 2. Start Stata and open your `.do` file.
-**
-
+*
 * 3. Change directory (`cd`) to the `dataSets` folder.
 **
 
@@ -241,11 +239,22 @@ bysort marital: sum educ // summarize eudcation by marital status
 * The Generations of Talent Study sought to examine quality of employment as experienced by today's multigenerational workforces. The primary goal was to explore how country-related factors and age-related factors affect employees' perceptions of quality of employment. Demographic variables included gender, birth year, race/ethnicity, education, marital * status, number of children, hourly wage, salary, and household income.
 *
 * 1. Use the dataset, `talent.dta`, open a new do-file and write on the do-file, after the exercise save it to the folder
+**
+
 * 2. Examine a few selected variables using the describe, sum and codebook commands
+**
+
 * 3. Tabulate the variable, marital status (`marital`), with and without labels
+**
+
 * 4. Summarize the total household income last year (`income`) by marital status
+**
+
 * 5. Cross-tabulate marital status with respondents' type of main job (`job`)
+**
+
 * 6. Summarize the total household income last year (`income`) for married individuals only
+**
 
 * ## Basic data management
 *
@@ -283,9 +292,14 @@ bysort marital: sum educ // summarize eudcation by marital status
 * **Variable labels & value labels**
 *
 * 1. Open the data set `gss.csv`
-* 2. Familiarize yourself with the data using describe, sum, etc.
+**
+
+* 2. Familiarize yourself with the data using `describe`, `sum`, etc.
+**
+
 * 3. Rename and label variables using the following codebook:
-*
+**
+
 * | Var     | Rename to     | Label with          |
 * |:--------|:--------------|:--------------------|
 * | v1      | marital       | marital status      |
@@ -297,7 +311,8 @@ bysort marital: sum educ // summarize eudcation by marital status
 * | v7      | region        | region of interview |
 *
 * 4. Add value labels to your `marital` variable using this codebook:
-*
+**
+
 * | Value     | Label           |
 * |:----------|:----------------|
 * | 1         | "married"       |
@@ -349,10 +364,17 @@ bysort marital: sum educ // summarize eudcation by marital status
 * **Manipulating variables with gen and replace**
 *
 * 1. Use the dataset, `talent.dta`, work on the previous do-file. Save any changes to the data to original data
+**
+
 * 2. Generate a new "overwork" dummy variable from the original variable `workperweek` that will take on a value of `1` if a person works more than 40 hours per week, and `0` if a person works equal to or less than 40 hours per week
+**
+
 * 3. Generate a new `marital_dummy` dummy variable from the original variable `marital` that will take on a value of `1` if a person is either married or partnered and `0` otherwise
+**
+
 * 4. Save the changes to the original dataset
-*
+**
+
 * ### Use drop to delete variables and keep to keep them
 
 use gss.dta, clear
@@ -379,13 +401,29 @@ keep if region == "north" | region == "south"
 * Combine all what we have leanred together!
 *
 * 1. Use the dataset, `talent.dta`
+**
+
 * 2. Rename the `Sex` variable and give it a more intuitive name
+**
+
 * 3. Use `codebook`, `describe`, `tab`, and `browse` commands to know more about how the three variables `A3`, `A5`, and `A7` are coded and store, give them new names
+**
+
 * 4. Plot a histogram distribution for `workperweek` and add a normal curve
+**
+
 * 5. Give a variable label and value labels for the variable `overwork`
+**
+
 * 6. Generate a new variable called `work_family` and code it as `2` if a respondent perceived work to be more important than family, `1` if a respondent perceived family to be more important than work, and `0` if the two are of equal importance
+**
+
 * 7. Drop the `B3C` variable that is not used in our exercise
+**
+
 * 8. Save the changes to a new dataset called `talent_new.dta` and save it to our folder
+**
+
 
 * ## Exercise solutions
 *
