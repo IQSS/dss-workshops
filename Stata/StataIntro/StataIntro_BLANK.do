@@ -386,7 +386,7 @@
 
 ##
 
-* For more detials type `help keep` or `help drop`.
+* For more details type `help keep` or `help drop`.
 *
 * ### Exercise 4
 *

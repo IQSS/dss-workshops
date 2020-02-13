@@ -48,6 +48,9 @@ bysort marital: sum income
 tabulate marital job 
 summarize income if marital == 1 
 
+save talent.dta, replace 
+
+
 * ### Exercise 2
 *
 * **Variable labels & value labels**
@@ -138,7 +141,7 @@ replace marital_dummy = 1 if marital == 1 | marital == 2
 replace marital_dummy = 0 if marital != 1 & marital != 2 
 tab marital_dummy
 
-
+save talent.dta, replace 
 
 * ### Exercise 4
 *
@@ -178,6 +181,7 @@ replace work_family = 0 if B3A == B3B
 
 drop B3C 
 
+save talent.dta, replace 
 
 
 
