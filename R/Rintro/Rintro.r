@@ -1,4 +1,3 @@
-
 # knitr::opts_knit$set(base.dir = "/Users/nunnlab/Desktop/GitHub/rgriff23.github.io/")
 
 # # R Introduction
@@ -673,6 +672,8 @@ baby_names <-
                             Count_1k  > 10 & Count_1k <= 40 ~ "medium",
                             Count_1k  > 40                  ~ "high"
                             ))
+
+head(baby_names)                            
 
 # ### Exercise 4
 #
