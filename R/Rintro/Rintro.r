@@ -175,7 +175,9 @@
 #  3. R includes extensive documentation, including a manual named "An
 #     introduction to R". Use the RStudio help pane. to locate this manual.
 #
-# ### Ex 0: prototype<span class="tag" data-tag-name="prototype"></span>
+# <details>
+#   <summary>Click for Solution</summary>
+# ### Ex 0: prototype
 #
 # 1. 2 plus 2
 #
@@ -199,6 +201,7 @@
 #     # Go to the main help page by running 'help.start() or using the GUI
 #     # menu, find and click on the link to "An Introduction to R".
 #     ```
+# </details>
 #
 # ### Syntax rules
 #
