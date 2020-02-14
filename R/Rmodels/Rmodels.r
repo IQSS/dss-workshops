@@ -160,8 +160,6 @@ list.files("dataSets")
   # scatter plot of expense vs csat
   plot(sts_ex_sat)
 
-# ![](R/Rmodels/images/statesCorr1.png)
-#
 # Obviously, in a real project, you would want to spend more time investigating the data,
 # but we'll now move on to modeling.
 
@@ -540,8 +538,6 @@ dat[with(dat, complete.cases(x, y, z)), ]
   eff <- allEffects(hyp_out, xlevels = list(age_p = seq(20, 80, by = 5)))
   eff_df <- as.data.frame(eff) # confidence intervals
   eff_df
-
-# ![](R/Rmodels/images/effects1.png)
 
 # ### Exercise 2 
 #
