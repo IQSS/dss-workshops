@@ -77,6 +77,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 0 Solution</b></em></span></summary>
+#   
 # 1. Multiple Excel sheets in each file, each with a different name, but each file contains a `Table 1`.
 # 2. The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.
 # 3. The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns.
@@ -84,8 +85,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 # 5. The year from which the data comes is only reported in the Excel file name, not within the data itself.
 # 6. There are notes below the data.
 #
-# These differences will make it more difficult to automate
-# re-arranging the data since we have to write code that can handle
+# These differences will make it more difficult to automate re-arranging the data since we have to write code that can handle
 # different input formats.
 # </details>
 #
@@ -317,6 +317,7 @@ glimpse(temp)
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 1 Solution</b></em></span></summary>
+#
 # 1.  Write a function that takes a file name as an argument and reads the worksheet containing "Table 1" from that file.
 
 read_boys_names <- function(file, sheet_name) {
@@ -506,6 +507,7 @@ boysNames[[1]]
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 2 Solution</b></em></span></summary>
+#
 # 1. Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
 
   namecount <- function(data) {
@@ -572,6 +574,7 @@ bind_rows(first_columns, second_columns)
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 3 Solution</b></em></span></summary>
+#
 # 1. Create a new function called `cleanupNamesData` that:
 
 cleanupNamesData <- function(file){
@@ -668,6 +671,7 @@ boysNames[1]
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 4 Solution</b></em></span></summary>
+#
 # 1. Turn the list of boys names data frames into a single data frame.
 
 boysNames <- bind_rows(boysNames)
