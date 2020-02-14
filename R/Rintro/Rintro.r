@@ -174,35 +174,7 @@
 #
 #  3. R includes extensive documentation, including a manual named "An
 #     introduction to R". Use the RStudio help pane. to locate this manual.
-#
-# <details>
-#   <summary>Click for Solution</summary>
-# ### Ex 0: prototype
-#
-# 1. 2 plus 2
-#
-#     ```{r}
-#     2 + 2
-#     # or
-#     sum(2, 2)
-#     ```
-#
-# 2. square root of 10
-#
-#     ```{r}
-#     sqrt(10)
-#     # or
-#     10^(1/2)
-#     ```
-#
-# 3. Find "An Introduction to R".
-#
-#     ```{r}
-#     # Go to the main help page by running 'help.start() or using the GUI
-#     # menu, find and click on the link to "An Introduction to R".
-#     ```
-# </details>
-#
+
 # ### Syntax rules
 #
 # * R is case sensitive

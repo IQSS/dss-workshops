@@ -1,7 +1,7 @@
 
 ```{r, echo=FALSE, results=FALSE, eval=TRUE}
-knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE) # fig.path="R/RDataWrangling/figures/"
-##knitr::opts_knit$set(root.dir="R/RDataWrangling", base.dir="R/RDataWrangling")
+knitr::opts_chunk$set(eval=TRUE, results=TRUE, message=FALSE, warning=FALSE, error=FALSE, fig.path="R/RDataWrangling/figures/")  
+knitr::opts_knit$set(root.dir="R/RDataWrangling") # base.dir="R/RDataWrangling"
 ```
 
 # R Data Wrangling
@@ -85,6 +85,19 @@ There are several things that make our goal challenging. Let's take a look at th
 
     In what ways is the format different between the two files?
 
+<details>
+  <summary>Click for Exercise 0 Solution</summary>
+1.  Multiple Excel sheets in each file, each with a different name, but each file contains a `Table 1`.
+2.  The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.
+3.  The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns.
+4. The second worksheet `2015boysnamesfinal.xlsx` contains extra columns between the data of interest, resulting in the second set of columns (ranks 51-100) being placed in a different position.
+5.  The year from which the data comes is only reported in the Excel file name, not within the data itself.
+6.  There are notes below the data.
+
+These differences will make it more difficult to automate
+re-arranging the data since we have to write code that can handle
+different input formats.
+</details>
 
 <div class="alert alert-info">
 **Steps to accomplish the goal of extracting and graphing the *top 100* boys names in England and Wales for every year since 1996:**
@@ -343,6 +356,33 @@ Note that R has added a suffix to each column name `...1`, `...2`,
 ## 
 ```
 
+<details>
+  <summary>Click for Exercise 1 Solution</summary>
+1.  Write a function that takes a file name as an argument and reads the worksheet containing "Table 1" from that file.
+
+```{r} 
+read_boys_names <- function(file, sheet_name) {
+  read_excel(
+    path = file,
+    sheet = get_data_sheet_name(file, term = sheet_name),
+    skip = 6
+  )
+}
+```
+
+2.  Test your function by using it to read *one* of the boys names Excel files.
+
+```{r}
+read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
+```
+
+3.  Use the `map()` function to read data from all the Excel files, using the function you wrote in step 1.
+
+```{r}
+boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
+```
+</details>
+
 
 ## Data cleanup
 
@@ -531,6 +571,29 @@ boysNames[[1]]
 ## 
 ```
 
+<details>
+  <summary>Click for Exercise 2 Solution</summary>
+1.  Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
+
+```{r}
+  namecount <- function(data) {
+      select(data, matches("Name|Count"))
+  }
+```
+
+2.  Test your function on the first data frame in the list of boys names data.
+
+```{r}
+  namecount(boysNames[[1]])
+```
+
+3.  Use the `map()` function to each data frame in the list of boys names data.
+
+```{r}
+  boysNames <- map(boysNames, namecount)
+```
+</details>
+
 
 ### Reshaping from wide to long
 
@@ -586,6 +649,41 @@ transformations to all the elements in `boysNames`.
 ```{r}
 ## 
 ```
+
+<details>
+  <summary>Click for Exercise 3 Solution</summary>
+1.  Create a new function called `cleanupNamesData` that:
+
+```{r}
+cleanupNamesData <- function(file){
+
+  # subset data to include only those columns that include the term `Name` and `Count`
+  subsetted_file <- file %>%
+    select(matches("Name|Count")) %>%
+    drop_na()
+
+  # subset two separate data frames, with first and second set of `Name` and `Count` columns 
+  first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
+
+  second_columns <- select(subsetted_file, Name = matches("Name...6|Name...7|Name...8"),
+                                           Count = matches("Count...7|Count...8|Count...9"))
+
+  # append the two datasets
+  bind_rows(first_columns, second_columns)
+}
+
+
+## test it out on the second data frame in the list
+boysNames[[2]] %>% glimpse() # before cleanup
+boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
+```
+
+2.  Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
+
+```{r}
+boysNames <- map(boysNames, cleanupNamesData)
+```
+</details>
 
 
 ## Data organization & storage
@@ -665,120 +763,8 @@ boysNames[1]
 ## 
 ```
 
-
-## Exercise solutions
-
-### Ex 0: prototype
-
->     Locate the files named `1996boys_tcm77-254026.xlsx` and 
->     `2015boysnamesfinal.xlsx` and open them separately in a 
->      spreadsheet program. 
->
->     (If you don't have a spreadsheet program installed on
->     your computer you can download one from
->     https://www.libreoffice.org/download/download/). 
->
->     What issues can you identify that might make working
->     with these data difficult?
->
->     In what ways is the format different between the two files?
-
-1.  Multiple Excel sheets in each file, each with a different name, but each file contains a `Table 1`.
-2.  The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.
-3.  The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns.
-4. The second worksheet `2015boysnamesfinal.xlsx` contains extra columns between the data of interest, resulting in the second set of columns (ranks 51-100) being placed in a different position.
-5.  The year from which the data comes is only reported in the Excel file name, not within the data itself.
-6.  There are notes below the data.
-
-These differences will make it more difficult to automate
-re-arranging the data since we have to write code that can handle
-different input formats.
-
-
-### Ex 1: prototype
-
-1.  Write a function that takes a file name as an argument and reads the worksheet containing "Table 1" from that file.
-
-```{r} 
-read_boys_names <- function(file, sheet_name) {
-  read_excel(
-    path = file,
-    sheet = get_data_sheet_name(file, term = sheet_name),
-    skip = 6
-  )
-}
-```
-
-2.  Test your function by using it to read *one* of the boys names Excel files.
-
-```{r}
-read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
-```
-
-3.  Use the `map()` function to read data from all the Excel files, using the function you wrote in step 1.
-
-```{r}
-boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
-```
-
-### Ex 2: prototype
-
-1.  Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
-
-```{r}
-  namecount <- function(data) {
-      select(data, matches("Name|Count"))
-  }
-```
-
-2.  Test your function on the first data frame in the list of boys names data.
-
-```{r}
-  namecount(boysNames[[1]])
-```
-
-3.  Use the `map()` function to each data frame in the list of boys names data.
-
-```{r}
-  boysNames <- map(boysNames, namecount)
-```
-
-### Ex 3: prototype
-
-1.  Create a new function called `cleanupNamesData` that:
-
-```{r}
-cleanupNamesData <- function(file){
-
-  # subset data to include only those columns that include the term `Name` and `Count`
-  subsetted_file <- file %>%
-    select(matches("Name|Count")) %>%
-    drop_na()
-
-  # subset two separate data frames, with first and second set of `Name` and `Count` columns 
-  first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
-
-  second_columns <- select(subsetted_file, Name = matches("Name...6|Name...7|Name...8"),
-                                           Count = matches("Count...7|Count...8|Count...9"))
-
-  # append the two datasets
-  bind_rows(first_columns, second_columns)
-}
-
-
-## test it out on the second data frame in the list
-boysNames[[2]] %>% glimpse() # before cleanup
-boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
-```
-
-2.  Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
-
-```{r}
-boysNames <- map(boysNames, cleanupNamesData)
-```
-
-### Ex 4: prototype
-
+<details>
+  <summary>Click for Exercise 4 Solution</summary>
 1.  Turn the list of boys names data frames into a single data frame.
 
 ```{r}
@@ -812,6 +798,8 @@ ggplot(andrew, aes(x = Year, y = Count)) +
     geom_line() +
     ggtitle("Popularity of Andrew, over time")
 ```
+</details>
+
 
 
 ## Complete code

@@ -357,7 +357,7 @@ len(alice_chapters)
 # We can also count the number of times the "Bunny" and "Duck" characters appear in a given Chapter, say Chapter 2:
 
 bunny_count_ch2 = alice_chapters[2].count("Bunny")
-print(bunny_count_ch1)
+print(bunny_count_ch2)
 
 duck_count_ch2 = alice_chapters[2].count("Duck")
 print(duck_count_ch2)
