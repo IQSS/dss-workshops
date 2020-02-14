@@ -328,22 +328,7 @@ len(set(alice_words)) # counts unique elements in a data structure
 #  | `<`       | less than                 | 
 #  | `<=`      | less than or equal to     |  
 #
-# These relational operators may be combined with logical operators, such as `and` or `or`.
-# For example, we can create a **vector** (a **container for a collection of values**) and demonstrate
-# some ways to combine operators:
-
-x = 1:10 # a vector
-x
-
-x > 7 # a simple condition
-x > 7 or x < 3 # two conditions combined
-
-# Notice that logical and relational operators return **logical vectors** of `true` and `false` values.
-# The logical vectors returned by these operators can themselves be operated on by functions:
-
-x > 7
-sum(x > 7)
-
+# These relational operators may be combined with logical operators, such as `and` or `or`, as we'll see below.
 
 # ### Counting list elements
 #

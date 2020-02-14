@@ -76,7 +76,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #     In what ways is the format different between the two files?
 #
 # <details>
-#   <summary>Click for Exercise 0 Solution</summary>
+#   <summary><span style="color:red"><em>Click for Exercise 0 Solution</em></span></summary>
 # 1.  Multiple Excel sheets in each file, each with a different name, but each file contains a `Table 1`.
 # 2.  The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.
 # 3.  The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns.
