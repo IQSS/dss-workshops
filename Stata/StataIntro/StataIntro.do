@@ -136,15 +136,15 @@ export delimited gss_new.csv, replace
 * Import data from SAS:
 
 * import/export SAS xport files
-clear
-import sasxport5 gss.xpt
-export sasxport5 gss_new, replace
+
+import sasxport gss.xpt, clear 
+export sasxport gss_new, replace
 
 * Import data from Excel:
 
 * import/export Excel files
-clear
-import excel gss.xlsx
+
+import excel gss.xlsx, clear 
 export excel gss_new, replace
 
 * What if my data is from another statistical software program?
@@ -201,21 +201,24 @@ tab sex // numbers of male and female participants
 * If you run these commands without specifying variables, Stata will produce output for every variable
 *
 * ### Basic graphing commands
-*
+
+// open the gss.dta data set
+use gss.dta, clear
+
 * Univariate distribution(s) using **hist:**
 
   /* Histograms */
-  hist educ
+hist educ
 
 
   // histogram with normal curve; see "help hist" for other options
-  hist age, normal  
+hist age, normal  
 
 
 * View bivariate distributions with scatterplots:
 
    /* scatterplots */
-   twoway (scatter educ age)
+twoway (scatter educ age)
 
 
 graph matrix educ age inc
@@ -229,7 +232,7 @@ graph matrix educ age inc
 * By Processing
 bysort sex: tab happy // tabulate happy separately for men and women
 
-bysort marital: sum educ // summarize eudcation by marital status
+bysort marital: sum educ // summarize education by marital status
 
 
 * ### Exercise 1
@@ -266,7 +269,10 @@ bysort marital: sum educ // summarize eudcation by marital status
 * * Variable labels are very easy to use -- value labels are a little more complicated
 *
 * ### Variable & value labels
-*
+
+// open the gss.dta data set again 
+use gss.dta, clear
+
 * Variable labels
 
   /* Labelling and renaming */
@@ -287,6 +293,10 @@ bysort marital: sum educ // summarize eudcation by marital status
   /* assign our label set to the sex variable*/
   label values sex mySexLabel
 
+
+// save the changes  
+save gss.dta, replace 
+
 * ### Exercise 2
 *
 * **Variable labels & value labels**
@@ -294,10 +304,8 @@ bysort marital: sum educ // summarize eudcation by marital status
 * 1. Open the data set `gss.csv`
 **
 
-* 2. Familiarize yourself with the data using `describe`, `sum`, etc.
-**
 
-* 3. Rename and label variables using the following codebook:
+* 2. Rename and label variables using the following codebook:
 **
 
 * | Var     | Rename to     | Label with          |
@@ -310,7 +318,7 @@ bysort marital: sum educ // summarize eudcation by marital status
 * | v6      | happy         | general happiness   |
 * | v7      | region        | region of interview |
 *
-* 4. Add value labels to your `marital` variable using this codebook:
+* 3. Add value labels to your `marital` variable using this codebook:
 **
 
 * | Value     | Label           |
@@ -340,7 +348,10 @@ bysort marital: sum educ // summarize eudcation by marital status
 * Note the double equals sign `==` is for testing equality.
 *
 * ## Generating & replacing variables
-*
+
+// open the gss.dta data set again 
+use gss.dta, clear
+
 * Create new variables using `gen`
 
   // create a new variable named mc_inc
@@ -384,7 +395,7 @@ keep age region happy educ sex
 
 * You can drop cases selectively using the conditional `if`, for example:
 
-drop if sex == 2 /*this will drop observtions (rows) where gender = 2*/
+drop if sex == 2 /*this will drop observations (rows) where gender = 2*/
 drop if age > 40 /*this will drop observations where age > 40*/
 
 * ### Alternatively, you can keep options you want
@@ -393,11 +404,11 @@ keep if sex == 1
 keep if age < 40
 keep if region == "north" | region == "south"
 
-* For more detials type `help keep` or `help drop`.
+* For more details type `help keep` or `help drop`.
 *
 * ### Exercise 4
 *
-* Combine all what we have leanred together!
+* Combine all what we have learned together!
 *
 * 1. Use the dataset, `talent.dta`
 **
@@ -405,7 +416,7 @@ keep if region == "north" | region == "south"
 * 2. Rename the `Sex` variable and give it a more intuitive name
 **
 
-* 3. Use `codebook`, `describe`, `tab`, and `browse` commands to know more about how the three variables `A3`, `A5`, and `A7` are coded and store, give them new names
+* 3. Use `codebook`, `describe`, `tab`, and `browse` commands to know more about how the three variables `A3`, `A5`, and `A7` are coded and stored, give them new names
 **
 
 * 4. Plot a histogram distribution for `workperweek` and add a normal curve
@@ -449,10 +460,6 @@ summarize income if marital == 1
 
 * ### Ex 2: prototype
 import delimited gss.csv, clear
-rename v1 marital
-label var marital "marital status"
-label define marital_label 1 "married" 2 "widowed" 3 " divorced" 4 "seperated" 5 "never married"
-label val marital marital_label
 
 rename v2 age
 rename v3 educ
@@ -461,7 +468,6 @@ rename v5 inc
 rename v6 happy
 rename v7 region
 
-
 label var age "age of respondent"
 label var educ "education"
 label var sex "respondent's sex"
@@ -469,16 +475,23 @@ label var inc "household income"
 label var happy "general happiness"
 label var region "region of interview"
 
+rename v1 marital
+label var marital "marital status"
+label define marital_label 1 "married" 2 "widowed" 3 " divorced" 4 "seperated" 5 "never married"
+label val marital marital_label
+
 * ### Ex 3: prototype
 use talent.dta, clear
 gen overwork = .
 replace overwork = 1 if workperweek > 40
 replace overwork = 0 if workperweek <= 40
+replace overwork = . if workperweek == .
 tab overwork
 
 gen marital_dummy = .
 replace marital_dummy = 1 if marital == 1 | marital == 2
 replace marital_dummy = 0 if marital != 1 & marital != 2
+replace marital_dummy = . if marital == . 
 tab marital_dummy
 
 * ### Ex 4: prototype
@@ -503,8 +516,12 @@ gen work_family = .
 replace work_family = 2 if B3A > B3B
 replace work_family = 1 if B3A < B3B
 replace work_family = 0 if B3A == B3B
+replace work_family = . if B3A == . 
+replace work_family = . if B3B == . 
 
 drop B3C
+
+save talent_new.dta, replace 
 
 * ## Wrap-up
 *

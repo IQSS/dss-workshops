@@ -800,13 +800,13 @@ import delimited gss.csv, clear
 export delimited gss_new.csv, replace</code></pre>
 <p>Import data from SAS:</p>
 <pre class="stata"><code>* import/export SAS xport files
-clear
-import sasxport5 gss.xpt
-export sasxport5 gss_new, replace</code></pre>
+
+import sasxport gss.xpt, clear 
+export sasxport gss_new, replace</code></pre>
 <p>Import data from Excel:</p>
 <pre class="stata"><code>* import/export Excel files
-clear
-import excel gss.xlsx
+
+import excel gss.xlsx, clear 
 export excel gss_new, replace</code></pre>
 <p>What if my data is from another statistical software program?</p>
 <ul>
@@ -863,14 +863,16 @@ sum educ // statistical summary of education</code></pre>
 </div>
 <div id="basic-graphing-commands" class="section level3">
 <h3>Basic graphing commands</h3>
+<pre class="stata"><code>// open the gss.dta data set
+use gss.dta, clear</code></pre>
 <p>Univariate distribution(s) using <strong>hist:</strong></p>
 <pre class="stata"><code>  /* Histograms */
-  hist educ</code></pre>
+hist educ</code></pre>
 <pre class="stata"><code>  // histogram with normal curve; see &quot;help hist&quot; for other options
-  hist age, normal  </code></pre>
+hist age, normal  </code></pre>
 <p>View bivariate distributions with scatterplots:</p>
 <pre class="stata"><code>   /* scatterplots */
-   twoway (scatter educ age)</code></pre>
+twoway (scatter educ age)</code></pre>
 <pre class="stata"><code>graph matrix educ age inc</code></pre>
 </div>
 <div id="the-by-command" class="section level3">
@@ -878,7 +880,7 @@ sum educ // statistical summary of education</code></pre>
 <p>Sometimes, you’d like to generate output based on different categories of a grouping variable The <code>by</code> command does just this:</p>
 <pre class="stata"><code>* By Processing
 bysort sex: tab happy // tabulate happy separately for men and women</code></pre>
-<pre class="stata"><code>bysort marital: sum educ // summarize eudcation by marital status</code></pre>
+<pre class="stata"><code>bysort marital: sum educ // summarize education by marital status</code></pre>
 </div>
 <div id="exercise-1-6" class="section level3">
 <h3>Exercise 1</h3>
@@ -923,6 +925,8 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </div>
 <div id="variable-value-labels" class="section level3">
 <h3>Variable &amp; value labels</h3>
+<pre class="stata"><code>// open the gss.dta data set again 
+use gss.dta, clear</code></pre>
 <p>Variable labels</p>
 <pre class="stata"><code>  /* Labelling and renaming */
   // Label variable inc &quot;household income&quot;
@@ -939,6 +943,8 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 
   /* assign our label set to the sex variable*/
   label values sex mySexLabel</code></pre>
+<pre class="stata"><code>// save the changes  
+save gss.dta, replace </code></pre>
 </div>
 <div id="exercise-2-4" class="section level3">
 <h3>Exercise 2</h3>
@@ -948,10 +954,6 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </ol>
 <pre class="stata"><code>**</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Familiarize yourself with the data using <code>describe</code>, <code>sum</code>, etc.</li>
-</ol>
-<pre class="stata"><code>**</code></pre>
-<ol start="3" style="list-style-type: decimal">
 <li>Rename and label variables using the following codebook:</li>
 </ol>
 <pre class="stata"><code>**</code></pre>
@@ -1001,7 +1003,7 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </tr>
 </tbody>
 </table>
-<ol start="4" style="list-style-type: decimal">
+<ol start="3" style="list-style-type: decimal">
 <li>Add value labels to your <code>marital</code> variable using this codebook:</li>
 </ol>
 <pre class="stata"><code>**</code></pre>
@@ -1086,6 +1088,8 @@ bysort sex: tab happy // tabulate happy separately for men and women</code></pre
 </div>
 <div id="generating-replacing-variables" class="section level2">
 <h2>Generating &amp; replacing variables</h2>
+<pre class="stata"><code>// open the gss.dta data set again 
+use gss.dta, clear</code></pre>
 <p>Create new variables using <code>gen</code></p>
 <pre class="stata"><code>  // create a new variable named mc_inc
   //   equal to inc minus the mean of inc
@@ -1127,7 +1131,7 @@ drop inc
 
 keep age region happy educ sex</code></pre>
 <p>You can drop cases selectively using the conditional <code>if</code>, for example:</p>
-<pre class="stata"><code>drop if sex == 2 /*this will drop observtions (rows) where gender = 2*/
+<pre class="stata"><code>drop if sex == 2 /*this will drop observations (rows) where gender = 2*/
 drop if age &gt; 40 /*this will drop observations where age &gt; 40*/</code></pre>
 </div>
 <div id="alternatively-you-can-keep-options-you-want" class="section level3">
@@ -1135,11 +1139,11 @@ drop if age &gt; 40 /*this will drop observations where age &gt; 40*/</code></pr
 <pre class="stata"><code>keep if sex == 1
 keep if age &lt; 40
 keep if region == &quot;north&quot; | region == &quot;south&quot;</code></pre>
-<p>For more detials type <code>help keep</code> or <code>help drop</code>.</p>
+<p>For more details type <code>help keep</code> or <code>help drop</code>.</p>
 </div>
 <div id="exercise-4-2" class="section level3">
 <h3>Exercise 4</h3>
-<p>Combine all what we have leanred together!</p>
+<p>Combine all what we have learned together!</p>
 <ol style="list-style-type: decimal">
 <li>Use the dataset, <code>talent.dta</code></li>
 </ol>
@@ -1149,7 +1153,7 @@ keep if region == &quot;north&quot; | region == &quot;south&quot;</code></pre>
 </ol>
 <pre class="stata"><code>**</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Use <code>codebook</code>, <code>describe</code>, <code>tab</code>, and <code>browse</code> commands to know more about how the three variables <code>A3</code>, <code>A5</code>, and <code>A7</code> are coded and store, give them new names</li>
+<li>Use <code>codebook</code>, <code>describe</code>, <code>tab</code>, and <code>browse</code> commands to know more about how the three variables <code>A3</code>, <code>A5</code>, and <code>A7</code> are coded and stored, give them new names</li>
 </ol>
 <pre class="stata"><code>**</code></pre>
 <ol start="4" style="list-style-type: decimal">
@@ -1202,10 +1206,6 @@ summarize income if marital == 1</code></pre>
 <div id="ex-2-prototype-3" class="section level3">
 <h3>Ex 2: prototype</h3>
 <pre class="stata"><code>import delimited gss.csv, clear
-rename v1 marital
-label var marital &quot;marital status&quot;
-label define marital_label 1 &quot;married&quot; 2 &quot;widowed&quot; 3 &quot; divorced&quot; 4 &quot;seperated&quot; 5 &quot;never married&quot;
-label val marital marital_label
 
 rename v2 age
 rename v3 educ
@@ -1214,13 +1214,17 @@ rename v5 inc
 rename v6 happy
 rename v7 region
 
-
 label var age &quot;age of respondent&quot;
 label var educ &quot;education&quot;
 label var sex &quot;respondent&#39;s sex&quot;
 label var inc &quot;household income&quot;
 label var happy &quot;general happiness&quot;
-label var region &quot;region of interview&quot;</code></pre>
+label var region &quot;region of interview&quot;
+
+rename v1 marital
+label var marital &quot;marital status&quot;
+label define marital_label 1 &quot;married&quot; 2 &quot;widowed&quot; 3 &quot; divorced&quot; 4 &quot;seperated&quot; 5 &quot;never married&quot;
+label val marital marital_label</code></pre>
 </div>
 <div id="ex-3-prototype-3" class="section level3">
 <h3>Ex 3: prototype</h3>
@@ -1228,11 +1232,13 @@ label var region &quot;region of interview&quot;</code></pre>
 gen overwork = .
 replace overwork = 1 if workperweek &gt; 40
 replace overwork = 0 if workperweek &lt;= 40
+replace overwork = . if workperweek == .
 tab overwork
 
 gen marital_dummy = .
 replace marital_dummy = 1 if marital == 1 | marital == 2
 replace marital_dummy = 0 if marital != 1 &amp; marital != 2
+replace marital_dummy = . if marital == . 
 tab marital_dummy</code></pre>
 </div>
 <div id="ex-4-prototype-1" class="section level3">
@@ -1258,8 +1264,12 @@ gen work_family = .
 replace work_family = 2 if B3A &gt; B3B
 replace work_family = 1 if B3A &lt; B3B
 replace work_family = 0 if B3A == B3B
+replace work_family = . if B3A == . 
+replace work_family = . if B3B == . 
 
-drop B3C</code></pre>
+drop B3C
+
+save talent_new.dta, replace </code></pre>
 </div>
 </div>
 <div id="wrap-up-7" class="section level2">
