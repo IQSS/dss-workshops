@@ -236,7 +236,7 @@ collections1.headers['Content-Type']
 # structures is easy. In fact, there's a method for that!
 
 collections1 = collections1.json()
-print(collections1)
+# print(collections1)
 
 # That's it. Really, we are done here. Everyone go home!
 #

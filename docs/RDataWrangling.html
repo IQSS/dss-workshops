@@ -709,7 +709,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <p>What issues can you identify that might make working with these data difficult?</p>
 <p>In what ways is the format different between the two files?</p></li>
 </ol>
-<p><details> <summary><span style="color:red"><em>Click for Exercise 0 Solution</em></span></summary> 1. Multiple Excel sheets in each file, each with a different name, but each file contains a <code>Table 1</code>. 2. The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data. 3. The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns. 4. The second worksheet <code>2015boysnamesfinal.xlsx</code> contains extra columns between the data of interest, resulting in the second set of columns (ranks 51-100) being placed in a different position. 5. The year from which the data comes is only reported in the Excel file name, not within the data itself. 6. There are notes below the data.</p>
+<p><details> <summary><span style="color:red"><em><b>Click for Exercise 0 Solution</b></em></span></summary> 1. Multiple Excel sheets in each file, each with a different name, but each file contains a <code>Table 1</code>. 2. The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data. 3. The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns. 4. The second worksheet <code>2015boysnamesfinal.xlsx</code> contains extra columns between the data of interest, resulting in the second set of columns (ranks 51-100) being placed in a different position. 5. The year from which the data comes is only reported in the Excel file name, not within the data itself. 6. There are notes below the data.</p>
 <p>These differences will make it more difficult to automate re-arranging the data since we have to write code that can handle different input formats. </details></p>
 <div class="alert alert-info">
 <p><strong>Steps to accomplish the goal of extracting and graphing the <em>top 100</em> boys names in England and Wales for every year since 1996:</strong></p>
@@ -1032,7 +1032,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 from all the Excel files, using the function you wrote in step 1.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
-<p><details> <summary>Click for Exercise 1 Solution</summary> 1. Write a function that takes a file name as an argument and reads the worksheet containing “Table 1” from that file.</p>
+<p><details> <summary><span style="color:red"><em><b>Click for Exercise 1 Solution</b></em></span></summary> 1. Write a function that takes a file name as an argument and reads the worksheet containing “Table 1” from that file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_boys_names &lt;-<span class="st"> </span><span class="cf">function</span>(file, sheet_name) {
   <span class="kw">read_excel</span>(
     <span class="dt">path =</span> file,
@@ -1340,7 +1340,7 @@ boysNames[[<span class="dv">1</span>]]</code></pre></div>
 <li>Use the <code>map()</code> function to each data frame in the list of boys names data and save it to the list called <code>boysNames</code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
-<p><details> <summary>Click for Exercise 2 Solution</summary> 1. Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings <code>Name</code> and <code>Count</code> in the column names. HINT: see the <code>?matches</code> function.</p>
+<p><details> <summary><span style="color:red"><em><b>Click for Exercise 2 Solution</b></em></span></summary> 1. Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings <code>Name</code> and <code>Count</code> in the column names. HINT: see the <code>?matches</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  namecount &lt;-<span class="st"> </span><span class="cf">function</span>(data) {
       <span class="kw">select</span>(data, <span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))
   }</code></pre></div>
@@ -1426,7 +1426,7 @@ second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(boys
 <li>Your task now is to use the <code>map()</code> function to apply each of these transformations to all the elements in <code>boysNames</code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
-<p><details> <summary>Click for Exercise 3 Solution</summary> 1. Create a new function called <code>cleanupNamesData</code> that:</p>
+<p><details> <summary><span style="color:red"><em><b>Click for Exercise 3 Solution</b></em></span></summary> 1. Create a new function called <code>cleanupNamesData</code> that:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){
 
   <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span>
@@ -1575,7 +1575,7 @@ boysNames[<span class="dv">1</span>]</code></pre></div>
 <li>How has the popularity of the name “ANDREW” changed over time?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## </code></pre></div>
-<p><details> <summary>Click for Exercise 4 Solution</summary> 1. Turn the list of boys names data frames into a single data frame.</p>
+<p><details> <summary><span style="color:red"><em><b>Click for Exercise 4 Solution</b></em></span></summary> 1. Turn the list of boys names data frames into a single data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)
 <span class="kw">glimpse</span>(boysNames)</code></pre></div>
 <pre><code>## Observations: 2,000
