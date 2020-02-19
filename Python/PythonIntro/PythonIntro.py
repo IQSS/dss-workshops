@@ -152,11 +152,18 @@
 
 # ### Function calls
 #
-# In Python, functions perform tasks and take the form:
+# **Functions perform actions** --- they take some input, called `arguments` and return some
+# output (i.e., a result). Here's a schematic of how a function works:
+#
+# ![](Python/PythonIntro/images/function.png)
+#
+# The general form for calling Python functions is
 
 # function_name(arg1, arg2, arg3, ... argn)
 
-# where `arg1` etc. are arguments to the function.
+# The arguments in a function can be objects (data, formulae, expressions, etc.), 
+# some of which could be defined by default in the function; these default values may
+# be modified by the user by specifying options.
 
 # ### Assignment
 #
