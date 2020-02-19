@@ -299,18 +299,22 @@ print(records_final)
 #    page at `https://www.harvardartmuseums.org/visit/exhibitions`. Examine
 #    the network traffic as you interact with the page. Try to find
 #    where the data displayed on that page comes from.
+
 ##
 
 # 2. Make a `get` request in Python to retrieve the data from the URL
 #    identified in step1.
+
 ##
 
 # 3. Write a *loop* or *list comprehension* in Python to retrieve data
 #    for the first 5 pages of exhibitions data.
+
 ##
 
 # 4. Bonus (optional): Convert the data you retrieved into a pandas 
 #   `DataFrame` and save it to a `.csv` file.
+
 ##
 
 # <details>
@@ -556,14 +560,17 @@ print(all_event_values)
 #    <https://www.harvardartmuseums.org/visit/floor-plan>. Extract the
 #    content from your request object and parse it using `html.fromstring`
 #    from the `lxml` library.
+
 ##
 
 # 3. Use your web browser to find the `XPath`s to the facilities housed on
 #    level one. Use Python to extract the text from those `Xpath`s.
+
 ##
 
 # 4. Bonus (optional): Write a *for loop* or *list comprehension* in Python
 #    to retrieve data for all the levels.
+
 ##
 
 # <details>

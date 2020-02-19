@@ -273,7 +273,7 @@ dat <- read_csv("dataSets/EconomistData.csv")
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis.
 
@@ -374,7 +374,7 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1.  Re-create a scatter plot with `CPI` on the x axis and `HDI` on the y axis (as you did in the previous exercise).
 
@@ -510,7 +510,7 @@ p4 +
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
 
@@ -698,7 +698,7 @@ head(midwest)
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
 

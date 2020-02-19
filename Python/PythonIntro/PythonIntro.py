@@ -302,22 +302,24 @@ len(set(alice_words)) # counts unique elements in a data structure
 # NOTE: we will not always explicitly demonstrate everything you need to know in order to complete an exercise. Instead we focus on teaching you how to discover available methods and how use the help function to learn how to use them. It is expected that you will spend some time during the exercises looking for appropriate methods and perhaps reading documentation.
 #
 # 1. Open the `Characters.txt` file and read its contents.
+
 ##
 
 # 2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`. HINT: you can split on newlines using the `\n` separator.
+
 ##
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 #   <div class="alert alert-danger">
-
+#
 # 1. Open the Characters.txt file and read its contents.
 
 characters_file = open("Characters.txt")
 characters_txt = characters_file.read()
 
 # 2. Split text on newlines to produce a list with one element per line. 
-# Store the result as "alice_characters".
+#    Store the result as "alice_characters".
 
 alice_characters = characters_txt.split(sep="\n")
 alice_characters
@@ -411,24 +413,28 @@ alice_eaglet_exist
 # So far we've learned that there are 12 chapters, around 830 paragraphs, and about 26 thousand words in *Alice's Adventures in Wonderland*. Along the way we've also learned how to open a file and read its contents, split strings, calculate the length of objects, discover methods for string and list objects, and index/subset lists in Python. Now it is time for you to put these skills to use to learn something about the main characters in the story.
 #
 # 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).
+
 ##
 
 # 2. Extract and print just the first character from the list you created in the previous exercise.
+
 ##
 
 # 3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of
 #    the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test
 #    whether EITHER of the above conditions are true. HINT: use the `len()` function.
+
 ##
 
 # 4. (BONUS, optional): Sort the list you created in step 2 alphabetically,
 #     and then extract the last element.
+
 ##
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 #   <div class="alert alert-danger">
-
+#
 # 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).
 
 len(alice_characters)
@@ -438,14 +444,13 @@ len(alice_characters)
 print(alice_characters[0])
 
 # 3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of
-# the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test
-# whether EITHER of the above conditions are true. HINT: use the `len()` function.
+#    the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test
+#    whether EITHER of the above conditions are true. HINT: use the `len()` function.
 
 len(alice_characters[2]) == len(alice_characters[7]) or len(alice_characters[2]) >= len(alice_characters[5])
 
-
 # 4. (BONUS, optional): Sort the list you created in step 2 alphabetically,
-# and then extract the last element.
+#    and then extract the last element.
 
 alice_characters.sort()
 alice_characters[-1]
@@ -572,38 +577,42 @@ help(zip)
 #
 # Open and read both "Alice_in_wonderland.txt" and
 # "Characters.txt" if you have not already done so.
+
 ##
 
 # 2. Which chapter has the most words?
 #
 # Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
 # For each chapter, split it into words and calculate the length.
+
 ##
 
 # 3. How many times is each character mentioned in the text?
 #
 # Iterate over the list of characters using a for-loop. 
 # For each character, call the count method with that character as the argument.
+
 ##
 
 # 4. (BONUS, optional): Put the character counts computed 
 #    above in a dictionary with character names as the keys and 
 #    counts as the values.
+
 ##
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 #   <div class="alert alert-danger">
-
+#
 # 1. Make sure you have both the text and the list of characters.
-# Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.
+#    Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.
 
 characters_txt = open("Characters.txt").read()
 alice_txt = open("Alice_in_wonderland.txt").read()
 
 # 2. Which chapter has the most words?
-# Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
-# For each chapter, split it into words and calculate the length.
+#    Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
+#    For each chapter, split it into words and calculate the length.
 
 words_per_chapter = []
 for chapter in alice_chapters:
@@ -611,8 +620,8 @@ for chapter in alice_chapters:
 words_per_chapter
 
 # 3. How many times is each character mentioned in the text?
-# Iterate over the list of characters using a for-loop. 
-# For each character, call the count method with that character as the argument.
+#    Iterate over the list of characters using a for-loop. 
+#    For each character, call the count method with that character as the argument.
 
 num_per_character = []
 for character in characters_txt.split(sep="\n"):
@@ -620,7 +629,7 @@ for character in characters_txt.split(sep="\n"):
 num_per_character
 
 # 4. (BONUS, optional): Put the character counts computed above in a 
-# dictionary with character names as the keys and counts as the values.
+#    dictionary with character names as the keys and counts as the values.
 
 characters = characters_txt.split(sep="\n")
 dict(zip(characters, num_per_character))
