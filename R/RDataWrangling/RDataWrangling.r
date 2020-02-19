@@ -76,9 +76,8 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #     In what ways is the format different between the two files?
 #
 # <details>
-# <div class="alert alert-success">
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
-#   
+#   <div class="alert alert-success">
 # 1. Multiple Excel sheets in each file, each with a different name, but each file contains a `Table 1`.
 # 2. The data does not start on row one. Headers are on row 7, followed by a blank line, followed by the actual data.
 # 3. The data is stored in an inconvenient way, with ranks 1-50 in the first set of columns and ranks 51-100 in a second set of columns.
@@ -318,6 +317,7 @@ glimpse(temp)
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 1 Solution</b></em></span></summary>
+#   <div class="alert alert-success">
 #
 # 1.  Write a function that takes a file name as an argument and reads the worksheet containing "Table 1" from that file.
 
@@ -336,6 +336,7 @@ read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
 # 3.  Use the `map()` function to read data from all the Excel files, using the function you wrote in step 1.
 
 boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
+# </div>
 # </details>
 
 # ## Data cleanup
@@ -508,6 +509,7 @@ boysNames[[1]]
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 2 Solution</b></em></span></summary>
+#   <div class="alert alert-success">
 #
 # 1. Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
 
@@ -522,6 +524,7 @@ boysNames[[1]]
 # 3. Use the `map()` function to each data frame in the list of boys names data.
 
   boysNames <- map(boysNames, namecount)
+# </div>
 # </details>
 
 # ### Reshaping from wide to long
@@ -575,6 +578,7 @@ bind_rows(first_columns, second_columns)
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 3 Solution</b></em></span></summary>
+#   <div class="alert alert-success">
 #
 # 1. Create a new function called `cleanupNamesData` that:
 
@@ -603,6 +607,7 @@ boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
 # 2. Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
 
 boysNames <- map(boysNames, cleanupNamesData)
+# </div>
 # </details>
 
 # ## Data organization & storage
@@ -672,6 +677,7 @@ boysNames[1]
 
 # <details>
 #   <summary><span style="color:red"><em><b>Click for Exercise 4 Solution</b></em></span></summary>
+#   <div class="alert alert-success">
 #
 # 1. Turn the list of boys names data frames into a single data frame.
 
@@ -698,6 +704,7 @@ andrew <- filter(boysNames, Name == "ANDREW")
 ggplot(andrew, aes(x = Year, y = Count)) +
     geom_line() +
     ggtitle("Popularity of Andrew, over time")
+# </div>
 # </details>
 #
 
