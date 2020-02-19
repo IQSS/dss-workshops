@@ -34,7 +34,7 @@
 
 # ### Goals
 #
-# <div class="alert alert-danger">
+# <div class="alert alert-success">
 # This workshop is organized into two main parts:
 #
 # 1. Retrive information in JSON format
@@ -315,7 +315,7 @@ print(records_final)
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # Question #1: 
 museum_domain = "https://www.harvardartmuseums.org"
@@ -329,7 +329,7 @@ from pprint import pprint as print
 exhibit1 = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': 1})
 print(exhibit1.headers["Content-Type"])
 exhibit1 = exhibit1.json()
-print(exhibit1)
+# print(exhibit1)
 
 # Questions #3+4 (loop solution):
 firstFivePages = []
@@ -568,7 +568,7 @@ print(all_event_values)
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # Question #2:
 from lxml import html

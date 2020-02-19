@@ -28,7 +28,7 @@
 
 # ### Goals
 #
-# <div class="alert alert-danger">
+# <div class="alert alert-success">
 # We will learn about the Python language by analyzing the text of Lewis Carroll's *Alice's Adventures in Wonderland*. 
 # In particular, our goals are to learn about:
 #
@@ -309,7 +309,7 @@ len(set(alice_words)) # counts unique elements in a data structure
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 
 # 1. Open the Characters.txt file and read its contents.
 
@@ -427,7 +427,7 @@ alice_eaglet_exist
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 
 # 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).
 
@@ -593,7 +593,7 @@ help(zip)
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 
 # 1. Make sure you have both the text and the list of characters.
 # Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.

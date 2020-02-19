@@ -25,7 +25,7 @@
 #
 # ### Goals
 #
-# <div class="alert alert-danger">
+# <div class="alert alert-success">
 # We will learn about the R modeling ecosystem by fitting a variety of statistical models to
 # different datasets. In particular, our goals are to learn about:
 #
@@ -341,7 +341,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # Use the *states.rds* data set.
 
@@ -462,7 +462,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # Use the states data set.
 #
@@ -612,7 +612,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # Use the NH11 data set that we loaded earlier. Note that the data is not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 #
@@ -752,7 +752,7 @@ data(bh1996, package="multilevel")
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # Use the dataset, bh1996:
 

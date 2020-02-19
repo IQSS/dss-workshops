@@ -30,7 +30,7 @@
 #
 # ### Goals
 #
-# <div class="alert alert-danger">
+# <div class="alert alert-success">
 # We will learn about the R language by analyzing a dataset of baby names.
 # In particular, our goals are to learn about:
 #
@@ -179,7 +179,7 @@
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1. 2 plus 2
 #
@@ -387,7 +387,7 @@ library(rmarkdown)
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1. Open the `read_csv()` help page to determine how to use it to read in data.
 #
@@ -546,7 +546,7 @@ sum(x > 7)
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2.1 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1. Use `filter` to extract data for your name (or another name of your choice).
 #
@@ -626,7 +626,7 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2.2 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # Rewrite the solution to Exercise 2.1 using pipes.
 
@@ -698,7 +698,7 @@ qplot(x = Year, y = Count, color = Sex,
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1. Use `filter()` to extract data for your name (same as previous exercise).  
 #
@@ -838,7 +838,7 @@ head(baby_names)
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 4 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1. Use `mutate()` and `group_by()` to create a column named `Proportion` where `Proportion = Count/sum(Count)` for each `Year X Sex` group.
 #
@@ -979,7 +979,7 @@ head(bn_by_year)
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 5 Solution</b></span></summary>
-#   <div class="alert alert-success">
+#   <div class="alert alert-danger">
 #
 # 1. Filter the baby_names data, retaining only the 10 most popular girl and boy names for each year.
 #
