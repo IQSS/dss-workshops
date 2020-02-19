@@ -361,6 +361,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # 3.  `plot()` the model to look for deviations from modeling assumptions.
 
+  par(mfrow = c(2, 2)) # splits the plotting window into 4 panels
   plot(mod_en_met)
 
 # 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
@@ -748,7 +749,7 @@ data(bh1996, package="multilevel")
 ## 
 
 # <details>
-#   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
+#   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 #   <div class="alert alert-success">
 #
 # Use the dataset, bh1996:

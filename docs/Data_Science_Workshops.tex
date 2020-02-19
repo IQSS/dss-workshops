@@ -4479,11 +4479,12 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 
 \begin{Shaded}
 \begin{Highlighting}[]
+  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{# splits the plotting window into 4 panels}
   \KeywordTok{plot}\NormalTok{(mod_en_met)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-102-1.pdf} \includegraphics{R/Rmodels/figures/unnamed-chunk-102-2.pdf} \includegraphics{R/Rmodels/figures/unnamed-chunk-102-3.pdf} \includegraphics{R/Rmodels/figures/unnamed-chunk-102-4.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-102-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5569,7 +5570,7 @@ Variables are Leadership Climate (\texttt{LEAD}), Well-Being (\texttt{WBEING}), 
 \end{Highlighting}
 \end{Shaded}
 
-{Click for Exercise 0 Solution}
+{Click for Exercise 3 Solution}
 
 Use the dataset, bh1996:
 
@@ -6504,14 +6505,10 @@ Sometimes the default statistical transformation is not what you need. This is o
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(housing_sum, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{State, }\DataTypeTok{y=}\NormalTok{Home_Value_Mean)) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_bar}\NormalTok{()}
+
+\CommentTok{## Error: stat_count() must not be used with a y aesthetic.  }
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Error: stat_count() must not be used with a y aesthetic.
-\end{verbatim}
-
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-168-1.pdf}
 
 What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, \texttt{geom\_bar()} defaults to \texttt{stat\ =\ stat\_count}; obviously this will not work. We can fix it by telling \texttt{geom\_bar()} to use a different statistical transformation function:
 
@@ -7376,8 +7373,12 @@ Here's the complete code for the Exercise 3 plot:
 \StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{face =} \StringTok{"bold"}\NormalTok{),}
          \DataTypeTok{strip.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"yellow"}\NormalTok{))}
+
+\NormalTok{p6         }
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-213-1.pdf}
 
 \hypertarget{wrap-up-3}{%
 \section{Wrap-up}\label{wrap-up-3}}
@@ -9950,6 +9951,16 @@ Among the methods we have for doing things with our \texttt{alice\_file} object 
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Help on built-in function read:
+## 
+## read(size=-1, /) method of _io.TextIOWrapper instance
+##     Read at most n characters from stream.
+##     
+##     Read from underlying buffer until we have n characters or we hit EOF.
+##     If n is negative or omitted, read until EOF.
+\end{verbatim}
+
 Since \texttt{alice\_file.read} looks promising, we will invoke this method and see what it does.
 
 \begin{Shaded}
@@ -9958,6 +9969,25 @@ Since \texttt{alice\_file.read} looks promising, we will invoke this method and 
 \BuiltInTok{print}\NormalTok{(alice_txt[:}\DecValTok{500}\NormalTok{]) }\CommentTok{# the [:500] gets the first 500 character -- more on this later.}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## ﻿ALICE'S ADVENTURES IN WONDERLAND
+## 
+## by
+## 
+## Lewis Carroll
+## 
+## CHAPTER I. Down the Rabbit-Hole
+## 
+## Alice was beginning to get very tired of sitting by her sister on the
+## bank, and of having nothing to do: once or twice she had peeped into the
+## book her sister was reading, but it had no pictures or conversations in
+## it, 'and what is the use of a book,' thought Alice 'without pictures or
+## conversations?'
+## 
+## So she was considering in her own mind (as well as she could, for the
+## hot day made her feel very sleepy and s
+\end{verbatim}
 
 That's all there is to it! We've read the contents of \texttt{Alice\_in\_wonderland.txt} and stored this text in a Python object we named \texttt{alice\_txt}. Now let's start to explore this object, and learn some more things about Python along the way.
 
@@ -9990,6 +10020,10 @@ How do we figure out how to split strings in Python? We can ask Python what our 
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## <class 'str'>
+\end{verbatim}
+
 Python tells us that \texttt{alice\_txt} is of type \texttt{str} (i.e., it is a string). We can find out what methods are available for working strings by typing \texttt{alice\_txt.} and pressing \texttt{tab}. We'll see that among the methods is one named \texttt{split}, as shown below.
 
 \includegraphics{Python/PythonIntro/images/notebook_string_completion.png}
@@ -10002,6 +10036,21 @@ To learn how to use this method we can check the documentation.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Help on built-in function split:
+## 
+## split(sep=None, maxsplit=-1) method of builtins.str instance
+##     Return a list of the words in the string, using sep as the delimiter string.
+##     
+##     sep
+##       The delimiter according which to split the string.
+##       None (the default value) means split according to any whitespace,
+##       and discard empty strings from the result.
+##     maxsplit
+##       Maximum number of splits to do.
+##       -1 (the default value) means no limit.
+\end{verbatim}
+
 Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the split method and counting the number of elements in the result.
 
 \begin{Shaded}
@@ -10010,6 +10059,10 @@ Since the default is to split on whitespace (spaces, newlines, tabs) we can get 
 \BuiltInTok{type}\NormalTok{(alice_words)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## <class 'list'>
+\end{verbatim}
 
 \hypertarget{working-with-lists}{%
 \subsection{Working with lists}\label{working-with-lists}}
@@ -10054,20 +10107,82 @@ Then using a real list:
 \NormalTok{y }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{]}
 
 \NormalTok{y[}\DecValTok{0}\NormalTok{] }\CommentTok{# returns first element - the number 1 (yes, the index counts from zero!)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{y[}\DecValTok{1}\NormalTok{] }\CommentTok{# returns second element - the letter "b"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'b'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{y[ :}\DecValTok{3}\NormalTok{] }\CommentTok{# returns a list with only the first 3 elements, but index is of length 4 (0 to 3) because last index is excluded}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1, 'b', 3]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{y[}\DecValTok{2}\NormalTok{:}\DecValTok{5}\NormalTok{] }\CommentTok{# returns a list with elements 3, "D", 5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [3, 'D', 5]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{y[}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\CommentTok{# returns last element - the number 6 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{y[}\OperatorTok{-}\DecValTok{4}\NormalTok{: ] }\CommentTok{# returns a list with last 4 elements}
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## [3, 'D', 5, 6]
+\end{verbatim}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{alice_words[}\DecValTok{11}\NormalTok{:}\DecValTok{20}\NormalTok{] }\CommentTok{# returns a list with words 11 through 19}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ['Rabbit-Hole', 'Alice', 'was', 'beginning', 'to', 'get', 'very', 'tired', 'of']
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{alice_words[}\OperatorTok{-}\DecValTok{10}\NormalTok{: ] }\CommentTok{# returns a list with the last 10 words}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## ['her', 'own', 'child-life,', 'and', 'the', 'happy', 'summer', 'days.', 'THE', 'END']
+\end{verbatim}
 
 \hypertarget{using-sets-to-count-unique-items}{%
 \subsection{Using sets to count unique items}\label{using-sets-to-count-unique-items}}
@@ -10080,6 +10195,10 @@ Now that we have a list containing the individual words from \emph{Alice's Adven
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## 26445
+\end{verbatim}
+
 According to our above computation, there are about 26 thousand total words in the Alice text. But how many \emph{unique} words are there? Python has a special data structure called a \emph{set} that makes it easy to find out. A \emph{set} drops all duplicates, giving a collection of the unique elements. Here's a simple example:
 
 \begin{Shaded}
@@ -10090,6 +10209,10 @@ According to our above computation, there are about 26 thousand total words in t
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## 4
+\end{verbatim}
+
 We can now use the \texttt{set()} function to convert the list of all words (\texttt{alice\_words}) into a set of \emph{unique} words and then count them:
 
 \begin{Shaded}
@@ -10097,6 +10220,10 @@ We can now use the \texttt{set()} function to convert the list of all words (\te
 \BuiltInTok{len}\NormalTok{(}\BuiltInTok{set}\NormalTok{(alice_words)) }\CommentTok{# counts unique elements in a data structure}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 5295
+\end{verbatim}
 
 There are 5295 unique words in the text.
 
@@ -10187,6 +10314,10 @@ Now that we know how to split a string and how to work with the resulting list, 
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## 13
+\end{verbatim}
+
 Since the first element contains the material \emph{before} the first chapter, this tells us there are twelve chapters in the book.
 
 We can also count the number of times the ``Bunny'' and ``Duck'' characters appear in a given Chapter, say Chapter 2:
@@ -10195,11 +10326,23 @@ We can also count the number of times the ``Bunny'' and ``Duck'' characters appe
 \begin{Highlighting}[]
 \NormalTok{bunny_count_ch2 }\OperatorTok{=}\NormalTok{ alice_chapters[}\DecValTok{2}\NormalTok{].count(}\StringTok{"Bunny"}\NormalTok{)}
 \BuiltInTok{print}\NormalTok{(bunny_count_ch2)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{duck_count_ch2 }\OperatorTok{=}\NormalTok{ alice_chapters[}\DecValTok{2}\NormalTok{].count(}\StringTok{"Duck"}\NormalTok{)}
 \BuiltInTok{print}\NormalTok{(duck_count_ch2)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 1
+\end{verbatim}
 
 By combining choice statements with logical and/or relational operators, we can then determine which of these two characters
 appears more often in Chapter 2:
@@ -10215,15 +10358,46 @@ appears more often in Chapter 2:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Bunny count is less than Duck count in Chapter II.
+\end{verbatim}
+
 We can count paragraphs in a similar way to chapters. Paragraphs are indicated by a blank line, i.e., two newlines in a row. When working with strings we can represent newlines with \texttt{\textbackslash{}n}. Paragraphs are indicated by two new lines, and so our basic paragraph separator is \texttt{\textbackslash{}n\textbackslash{}n}. We can see this separator by looking at the content.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(alice_txt[:}\DecValTok{500}\NormalTok{]) }\CommentTok{# explicit printing --- formats text nicely}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## ﻿ALICE'S ADVENTURES IN WONDERLAND
+## 
+## by
+## 
+## Lewis Carroll
+## 
+## CHAPTER I. Down the Rabbit-Hole
+## 
+## Alice was beginning to get very tired of sitting by her sister on the
+## bank, and of having nothing to do: once or twice she had peeped into the
+## book her sister was reading, but it had no pictures or conversations in
+## it, 'and what is the use of a book,' thought Alice 'without pictures or
+## conversations?'
+## 
+## So she was considering in her own mind (as well as she could, for the
+## hot day made her feel very sleepy and s
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{alice_txt[:}\DecValTok{500}\NormalTok{] }\CommentTok{# returns content without printing it}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## "\ufeffALICE'S ADVENTURES IN WONDERLAND\n\nby\n\nLewis Carroll\n\nCHAPTER I. Down the Rabbit-Hole\n\nAlice was beginning to get very tired of sitting by her sister on the\nbank, and of having nothing to do: once or twice she had peeped into the\nbook her sister was reading, but it had no pictures or conversations in\nit, 'and what is the use of a book,' thought Alice 'without pictures or\nconversations?'\n\nSo she was considering in her own mind (as well as she could, for the\nhot day made her feel very sleepy and s"
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10236,10 +10410,35 @@ Before counting the number of paragraphs, I want to inspect the result to see if
 \begin{Shaded}
 \begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{0}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ﻿ALICE'S ADVENTURES IN WONDERLAND 
+## ==========
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{1}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## by 
+## ==========
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(alice_paragraphs[}\DecValTok{2}\NormalTok{], }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{=========="}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Lewis Carroll 
+## ==========
+\end{verbatim}
 
 We're counting the title, author, and chapter lines as paragraphs, but this will do for a rough count.
 
@@ -10249,6 +10448,10 @@ We're counting the title, author, and chapter lines as paragraphs, but this will
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## 830
+\end{verbatim}
+
 Now let's use a logical operator to find out if ``Alice'' or ``Eaglet'' appear in Chapter 10:
 
 \begin{Shaded}
@@ -10257,6 +10460,10 @@ Now let's use a logical operator to find out if ``Alice'' or ``Eaglet'' appear i
 \NormalTok{alice_eaglet_exist}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## True
+\end{verbatim}
 
 \hypertarget{exercise-1-4}{%
 \subsection{Exercise 1}\label{exercise-1-4}}
@@ -10376,9 +10583,31 @@ A simple example:
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{10}\NormalTok{):}
     \BuiltInTok{print}\NormalTok{(i)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 0
+## 1
+## 2
+## 3
+## 4
+## 5
+## 6
+## 7
+## 8
+## 9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(}\StringTok{'DONE.'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## DONE.
+\end{verbatim}
 
 Notice that ``DONE.'' is only printed once, since \texttt{print(\textquotesingle{}DONE.\textquotesingle{})} is not indented and is therefore outside of the body of the loop.
 
@@ -10389,9 +10618,41 @@ As a simple example using the Alice text, we can cycle through the first 6 parag
 \ControlFlowTok{for}\NormalTok{ paragraph }\KeywordTok{in}\NormalTok{ alice_paragraphs[:}\DecValTok{6}\NormalTok{]:}
     \BuiltInTok{print}\NormalTok{(paragraph)}
     \BuiltInTok{print}\NormalTok{(}\StringTok{'=================================='}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ﻿ALICE'S ADVENTURES IN WONDERLAND
+## ==================================
+## by
+## ==================================
+## Lewis Carroll
+## ==================================
+## CHAPTER I. Down the Rabbit-Hole
+## ==================================
+## Alice was beginning to get very tired of sitting by her sister on the
+## bank, and of having nothing to do: once or twice she had peeped into the
+## book her sister was reading, but it had no pictures or conversations in
+## it, 'and what is the use of a book,' thought Alice 'without pictures or
+## conversations?'
+## ==================================
+## So she was considering in her own mind (as well as she could, for the
+## hot day made her feel very sleepy and stupid), whether the pleasure
+## of making a daisy-chain would be worth the trouble of getting up and
+## picking the daisies, when suddenly a White Rabbit with pink eyes ran
+## close by her.
+## ==================================
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(}\StringTok{'DONE.'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## DONE.
+\end{verbatim}
 
 Loops in Python are great because the syntax is relatively simple, and because they are very powerful. Inside of the body of a loop you can use all the tools you use elsewhere in Python.
 
@@ -10404,6 +10665,21 @@ Here is one more example of a loop, this time iterating over all the chapters an
     \BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(paragraphs))}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 33
+## 29
+## 51
+## 45
+## 81
+## 84
+## 108
+## 74
+## 95
+## 88
+## 77
+## 73
+\end{verbatim}
 
 \hypertarget{organizing-results-in-dictionaries}{%
 \subsection{Organizing results in dictionaries}\label{organizing-results-in-dictionaries}}
@@ -10427,6 +10703,10 @@ A simple example:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## {'apple': 5, 'pear': 6, 'grape': 10}
+\end{verbatim}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# compare the above dict to a list}
@@ -10434,6 +10714,10 @@ A simple example:
 \BuiltInTok{print}\NormalTok{(mylist)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## [5, 6, 10]
+\end{verbatim}
 
 To associate chapter titles with ``Alice'' counts, we will first need to learn how to \textbf{append} elements to a list:
 
@@ -10448,6 +10732,10 @@ To associate chapter titles with ``Alice'' counts, we will first need to learn h
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+\end{verbatim}
+
 Now, with the Alice text, first we can iterate over each chapter and grab just the first line (that is, the chapter titles). These will become our \textbf{keys}.
 
 \begin{Shaded}
@@ -10460,6 +10748,10 @@ Now, with the Alice text, first we can iterate over each chapter and grab just t
 \BuiltInTok{print}\NormalTok{(chapter_titles)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## ['I. Down the Rabbit-Hole', 'II. The Pool of Tears', 'III. A Caucus-Race and a Long Tale', 'IV. The Rabbit Sends in a Little Bill', 'V. Advice from a Caterpillar', 'VI. Pig and Pepper', 'VII. A Mad Tea-Party', "VIII. The Queen's Croquet-Ground", "IX. The Mock Turtle's Story", 'X. The Lobster Quadrille', 'XI. Who Stole the Tarts?', "XII. Alice's Evidence"]
+\end{verbatim}
 
 Next, we can iterate over each chapter and count the number of times ``Alice'' was mentioned. These will become our \textbf{values}.
 
@@ -10480,10 +10772,50 @@ Finally we can combine the chapter titles (\textbf{keys}) and ``Alice'' counts (
 \NormalTok{mydict }\OperatorTok{=} \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(chapter_titles, chapter_Alice))}
 
 \BuiltInTok{print}\NormalTok{(mydict)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## {'I. Down the Rabbit-Hole': 28, 'II. The Pool of Tears': 24, 'III. A Caucus-Race and a Long Tale': 23, 'IV. The Rabbit Sends in a Little Bill': 31, 'V. Advice from a Caterpillar': 35, 'VI. Pig and Pepper': 43, 'VII. A Mad Tea-Party': 51, "VIII. The Queen's Croquet-Ground": 39, "IX. The Mock Turtle's Story": 52, 'X. The Lobster Quadrille': 30, 'XI. Who Stole the Tarts?': 16, "XII. Alice's Evidence": 23}
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{help}\NormalTok{(}\BuiltInTok{zip}\NormalTok{)         }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Help on class zip in module builtins:
+## 
+## class zip(object)
+##  |  zip(iter1 [,iter2 [...]]) --> zip object
+##  |  
+##  |  Return a zip object whose .__next__() method returns a tuple where
+##  |  the i-th element comes from the i-th iterable argument.  The .__next__()
+##  |  method continues until the shortest iterable in the argument sequence
+##  |  is exhausted and then it raises StopIteration.
+##  |  
+##  |  Methods defined here:
+##  |  
+##  |  __getattribute__(self, name, /)
+##  |      Return getattr(self, name).
+##  |  
+##  |  __iter__(self, /)
+##  |      Implement iter(self).
+##  |  
+##  |  __next__(self, /)
+##  |      Implement next(self).
+##  |  
+##  |  __reduce__(...)
+##  |      Return state information for pickling.
+##  |  
+##  |  ----------------------------------------------------------------------
+##  |  Static methods defined here:
+##  |  
+##  |  __new__(*args, **kwargs) from builtins.type
+##  |      Create and return a new object.  See help(type) for accurate signature.
+\end{verbatim}
 
 \hypertarget{exercise-2-3}{%
 \subsection{Exercise 2}\label{exercise-2-3}}
@@ -10605,9 +10937,22 @@ The \texttt{numpy} package is very popular and includes a lot of useful function
 \begin{Shaded}
 \begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(numpy.mean(chapter_Alice))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 32.916666666666664
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(numpy.std(chapter_Alice))}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 10.92747556493366
+\end{verbatim}
 
 \hypertarget{exercise-solutions}{%
 \section{Exercise solutions}\label{exercise-solutions}}
@@ -10630,6 +10975,10 @@ The \texttt{numpy} package is very popular and includes a lot of useful function
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## ['Alice', 'White Rabbit', 'Mouse', 'Dodo', 'Lory', 'Eaglet', 'Duck', 'Pat', 'Bill the Lizard', 'Puppy', 'Caterpillar', 'Duchess', 'Cheshire Cat', 'March Hare', 'Hatter', 'Dormouse', 'Queen of Hearts', 'Knave of Hearts', 'King of Hearts', 'Gryphon', 'Mock Turtle', '']
+\end{verbatim}
+
 \hypertarget{ex-1-prototype}{%
 \subsection{Ex 1: prototype}\label{ex-1-prototype}}
 
@@ -10640,23 +10989,51 @@ The \texttt{numpy} package is very popular and includes a lot of useful function
 \BuiltInTok{len}\NormalTok{(alice_characters)}
 
 \CommentTok{# 2. Extract and print just the first character from the list you created in the previous exercise.}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## 22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{print}\NormalTok{(alice_characters[}\DecValTok{0}\NormalTok{])}
 
 \CommentTok{# 3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of}
 \CommentTok{# the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test}
 \CommentTok{# whether EITHER of the above conditions are true. HINT: use the `len()` function.}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Alice
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{2}\NormalTok{]) }\OperatorTok{==} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{7}\NormalTok{]) }\KeywordTok{or} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{2}\NormalTok{]) }\OperatorTok{>=} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{5}\NormalTok{])}
 
 
 \CommentTok{# 4. (BONUS, optional): Sort the list you created in step 2 alphabetically,}
 \CommentTok{# and then extract the last element.}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## False
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{alice_characters.sort()}
 \NormalTok{alice_characters[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 'White Rabbit'
+\end{verbatim}
 
 \hypertarget{ex-2-prototype}{%
 \subsection{Ex 2: prototype}\label{ex-2-prototype}}
@@ -10681,7 +11058,15 @@ The \texttt{numpy} package is very popular and includes a lot of useful function
 \CommentTok{# 3. How many times is each character mentioned in the text?}
 \CommentTok{# Iterate over the list of characters using a for-loop. }
 \CommentTok{# For each character, call the count method with that character as the argument.}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## [7, 2184, 2098, 1701, 2614, 2185, 2592, 2286, 2486, 2271, 2028, 1877, 2104]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{num_per_character }\OperatorTok{=}\NormalTok{ []}
 \ControlFlowTok{for}\NormalTok{ character }\KeywordTok{in}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{):}
 \NormalTok{    num_per_character.append(alice_txt.count(character))}
@@ -10689,11 +11074,23 @@ The \texttt{numpy} package is very popular and includes a lot of useful function
 
 \CommentTok{# 4. (BONUS, optional): Put the character counts computed above in a }
 \CommentTok{# dictionary with character names as the keys and counts as the values.}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## [395, 20, 30, 13, 7, 3, 3, 3, 0, 0, 27, 42, 4, 30, 55, 40, 3, 3, 0, 55, 53, 144403]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{characters }\OperatorTok{=}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(characters, num_per_character))}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## {'Alice': 395, 'White Rabbit': 20, 'Mouse': 30, 'Dodo': 13, 'Lory': 7, 'Eaglet': 3, 'Duck': 3, 'Pat': 3, 'Bill the Lizard': 0, 'Puppy': 0, 'Caterpillar': 27, 'Duchess': 42, 'Cheshire Cat': 4, 'March Hare': 30, 'Hatter': 55, 'Dormouse': 40, 'Queen of Hearts': 3, 'Knave of Hearts': 3, 'King of Hearts': 0, 'Gryphon': 55, 'Mock Turtle': 53, '': 144403}
+\end{verbatim}
 
 \hypertarget{wrap-up-5}{%
 \section{Wrap-up}\label{wrap-up-5}}
@@ -11086,6 +11483,10 @@ as follows:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## 'https://www.harvardartmuseums.org/browse'
+\end{verbatim}
+
 Note that we omit the parameters here because it is usually easier to
 pass them as a \texttt{dict} when using the \texttt{requests} library in Python.
 This will become clearer shortly.
@@ -11121,6 +11522,10 @@ to verify this assumption.
 \NormalTok{collections1.headers[}\StringTok{'Content-Type'}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 'application/json'
+\end{verbatim}
 
 Since JSON is a structured data format, parsing it into Python data
 structures is easy. In fact, there's a method for that!
@@ -11165,6 +11570,22 @@ into a pandas \texttt{DataFrame} to facilitate subsequent analysis.
 \BuiltInTok{print}\NormalTok{(records1)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+##    accessionyear                      technique  ...                         colors                        details
+## 0           2008                           None  ...                            NaN                            NaN
+## 1           1972           Gelatin silver print  ...  [{'percent': 0.46293785310...                            NaN
+## 2           1933         Cast, lost-wax process  ...  [{'percent': 0.81095238095...  {'technical': [{'text': 'X...
+## 3           2011                 Platinum print  ...                            NaN                            NaN
+## 4           2007             Iris digital print  ...                            NaN                            NaN
+## 5           1977                           None  ...                            NaN                            NaN
+## 6           2008             Dye transfer print  ...                            NaN                            NaN
+## 7           1943                           None  ...  [{'percent': 0.85061224489...                            NaN
+## 8           2007                   Screen print  ...  [{'percent': 0.79893333333...                            NaN
+## 9           2006  Drypoint, softground etchi...  ...  [{'percent': 0.66526984126...                            NaN
+## 
+## [10 rows x 62 columns]
+\end{verbatim}
 
 and write the data to a file.
 
@@ -11212,6 +11633,62 @@ Python, we can iterate in the usual way.
 \BuiltInTok{print}\NormalTok{(records_final)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+##     accessionyear                      technique  ...                         colors                        details
+## 0          2008.0                           None  ...                            NaN                            NaN
+## 1          1972.0           Gelatin silver print  ...  [{'percent': 0.46293785310...                            NaN
+## 2          1933.0         Cast, lost-wax process  ...  [{'percent': 0.81095238095...  {'technical': [{'text': 'X...
+## 3          2011.0                 Platinum print  ...                            NaN                            NaN
+## 4          2007.0             Iris digital print  ...                            NaN                            NaN
+## 5          1977.0                           None  ...                            NaN                            NaN
+## 6          2008.0             Dye transfer print  ...                            NaN                            NaN
+## 7          1943.0                           None  ...  [{'percent': 0.85061224489...                            NaN
+## 8          2007.0                   Screen print  ...  [{'percent': 0.79893333333...                            NaN
+## 9          2006.0  Drypoint, softground etchi...  ...  [{'percent': 0.66526984126...                            NaN
+## 10         1954.0           Etching and drypoint  ...  [{'percent': 0.49231231231...                            NaN
+## 11         1943.0                           None  ...                            NaN                            NaN
+## 12         2006.0                           None  ...  [{'percent': 0.24176, 'spe...                            NaN
+## 13         2008.0                        Woodcut  ...  [{'percent': 0.38816537467...                            NaN
+## 14            NaN           Albumen silver print  ...  [{'percent': 0.28016, 'spe...                            NaN
+## 15         1995.0                           None  ...  [{'percent': 0.2426, 'spec...                            NaN
+## 16         1994.0                           None  ...                            NaN                            NaN
+## 17         2004.0                   Photogravure  ...                            NaN                            NaN
+## 18         1991.0                        Celadon  ...                            NaN                            NaN
+## 19         2010.0                   Photogravure  ...                            NaN                            NaN
+## 20         1991.0                           None  ...                            NaN                            NaN
+## 21            NaN                  Daguerreotype  ...  [{'percent': 0.53710144927...                            NaN
+## 22         1997.0                   Photogravure  ...                            NaN                            NaN
+## 23         1951.0                           None  ...                            NaN                            NaN
+## 24         1943.0                           None  ...  [{'percent': 0.62418079096...                            NaN
+## 25         2002.0                     Lusterware  ...  [{'percent': 0.24529761904...                            NaN
+## 26         2012.0         Cast, lost-wax process  ...  [{'percent': 0.306, 'spect...  {'technical': [{'text': 'X...
+## 27         1995.0                           None  ...  [{'percent': 0.38767507002...                            NaN
+## 28         1995.0                           None  ...  [{'percent': 0.23896713615...                            NaN
+## 29         1943.0                           None  ...  [{'percent': 0.51775193798...                            NaN
+## 30         1942.0                            Jun  ...  [{'percent': 0.29066666666...                            NaN
+## 31            NaN          Etching and mezzotint  ...  [{'percent': 0.49918238993...                            NaN
+## 32         2008.0           Gelatin silver print  ...                            NaN                            NaN
+## 33         2004.0                       Repoussé  ...  [{'percent': 0.35547619047...                            NaN
+## 34         2004.0                     Lithograph  ...  [{'percent': 0.46754716981...                            NaN
+## 35         1984.0                           None  ...  [{'percent': 0.67232142857...                            NaN
+## 36         1934.0                           None  ...  [{'percent': 0.24160919540...                            NaN
+## 37         1985.0                           None  ...  [{'percent': 0.86209876543...                            NaN
+## 38         1958.0                           None  ...                            NaN                            NaN
+## 39         1939.0                           None  ...  [{'percent': 0.44615873015...                            NaN
+## 40         1936.0                           None  ...  [{'percent': 0.35041666666...                            NaN
+## 41         1984.0           Gelatin silver print  ...                            NaN                            NaN
+## 42         2006.0                           None  ...  [{'percent': 0.63716417910...                            NaN
+## 43         2000.0                      Engraving  ...  [{'percent': 0.42640522875...                            NaN
+## 44            NaN           Etching and drypoint  ...  [{'percent': 0.42054644808...                            NaN
+## 45         2000.0         Cast, lost-wax process  ...                            NaN  {'technical': [{'text': 'I...
+## 46         1928.0                     Lithograph  ...  [{'percent': 0.42887005649...                            NaN
+## 47         2011.0           Albumen silver print  ...                            NaN                            NaN
+## 48         2009.0                           None  ...                            NaN                            NaN
+## 49         1943.0         Cast, lost-wax process  ...  [{'percent': 0.44841750841...  {'technical': [{'text': 'X...
+## 
+## [50 rows x 62 columns]
+\end{verbatim}
 
 \hypertarget{exercise-0-4}{%
 \subsection{Exercise 0}\label{exercise-0-4}}
@@ -11333,7 +11810,15 @@ The first step is the same as before: we make at \texttt{GET} request.
                   \OperatorTok{+}\NormalTok{ calendar_path)}
 
 \BuiltInTok{print}\NormalTok{(calendar_url)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## 'https://www.harvardartmuseums.org/visit/calendar'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{events0 }\OperatorTok{=}\NormalTok{ requests.get(calendar_url, params }\OperatorTok{=}\NormalTok{ \{}\StringTok{'date'}\NormalTok{: }\StringTok{'2018-11'}\NormalTok{\})}
 \end{Highlighting}
 \end{Shaded}
@@ -11346,6 +11831,10 @@ received in response to our request.
 \NormalTok{events0.headers[}\StringTok{'Content-Type'}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 'text/html; charset=UTF-8'
+\end{verbatim}
 
 \hypertarget{parsing-html-using-the-lxml-library}{%
 \subsection{Parsing HTML using the lxml library}\label{parsing-html-using-the-lxml-library}}
@@ -11452,6 +11941,21 @@ Finally, we can iterate over the elements we want and extract them.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## {'date': 'Wednesday, February 19, 2020',
+##  'figcaption': 'László Moholy-Nagy, Light Prop for an Electric Stage, '
+##                'Light-Space Modulator, 1930. Aluminum, steel, nickel-plated '
+##                'brass, other metals, plastic, wood, and electric motor. '
+##                'Harvard Art Museums/Busch-Reisinger Museum, Gift of Sibyl '
+##                'Moholy-Nagy, BR56.5. © 2015 Artists Rights Society (ARS), New '
+##                'York/VG Bild-Kunst, Bonn.',
+##  'localtion1': '32 Quincy Street',
+##  'location2': 'Cambridge',
+##  'time': '12:30pm - 1:00pm',
+##  'title': 'Gallery Talk: Activation of Moholy-Nagy’s Light Prop for an '
+##           'Electric Stage'}
+\end{verbatim}
+
 \hypertarget{iterating-to-retrieve-content-from-a-list-of-html-elements}{%
 \subsection{Iterating to retrieve content from a list of HTML elements}\label{iterating-to-retrieve-content-from-a-list-of-html-elements}}
 
@@ -11517,6 +12021,23 @@ and save them as .csv files, just as we did with our exhibitions data earlier.
 \BuiltInTok{print}\NormalTok{(all_event_values)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+##                  figcaption                          date  ...        localtion1  location2
+## 0       László Moholy-Nagy,  Wednesday, February 19, 2020  ...  32 Quincy Street  Cambridge
+## 1      Photo: Tim Correira.  Wednesday, February 19, 2020  ...  32 Quincy Street  Cambridge
+## 2     Seydou Keïta, Malian,   Thursday, February 20, 2020  ...  32 Quincy Street  Cambridge
+## 3   Alberto Burri, Italian,     Friday, February 21, 2020  ...  32 Quincy Street  Cambridge
+## 4                             Saturday, February 22, 2020  ...  32 Quincy Street  Cambridge
+## ..                      ...                           ...  ...               ...        ...
+## 77     Photo: Tim Correira.       Wednesday, May 20, 2020  ...  32 Quincy Street  Cambridge
+## 78                                   Monday, May 25, 2020  ...  32 Quincy Street  Cambridge
+## 79           Maruyama Ōkyo,         Tuesday, May 26, 2020  ...  32 Quincy Street  Cambridge
+## 80      László Moholy-Nagy,        Thursday, May 28, 2020  ...  32 Quincy Street  Cambridge
+## 81     Photo: Tim Correira.      Wednesday, June 17, 2020  ...  32 Quincy Street  Cambridge
+## 
+## [82 rows x 6 columns]
+\end{verbatim}
 
 \hypertarget{exercise-1-5}{%
 \subsection{Exercise 1}\label{exercise-1-5}}

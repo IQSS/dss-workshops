@@ -347,6 +347,8 @@ head(housing_sum)
 ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
   geom_bar()
 
+## Error: stat_count() must not be used with a y aesthetic.  
+
 # What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar()` defaults to `stat = stat_count`; obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function:
 
 ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
@@ -735,6 +737,8 @@ p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) +
     theme_bw() +
     theme(axis.title = element_text(color = "blue", face = "bold"),
          strip.background = element_rect(fill = "yellow"))
+
+p6         
 # </div>
 # </details>
 

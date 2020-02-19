@@ -831,26 +831,27 @@ with <code>?</code>. If there are multiple parameters they are separated from
 each other with a <code>&amp;</code>.</p>
 <p>For example, we can define the domain and path of the collections URL
 as follows:</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb526-1" data-line-number="1">museum_domain <span class="op">=</span> <span class="st">&#39;https://www.harvardartmuseums.org&#39;</span></a>
-<a class="sourceLine" id="cb526-2" data-line-number="2">collection_path <span class="op">=</span> <span class="st">&#39;browse&#39;</span></a>
-<a class="sourceLine" id="cb526-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb526-4" data-line-number="4">collection_url <span class="op">=</span> (museum_domain</a>
-<a class="sourceLine" id="cb526-5" data-line-number="5">                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></a>
-<a class="sourceLine" id="cb526-6" data-line-number="6">                  <span class="op">+</span> collection_path)</a>
-<a class="sourceLine" id="cb526-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb526-8" data-line-number="8"><span class="bu">print</span>(collection_url)</a></code></pre></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb592-1" data-line-number="1">museum_domain <span class="op">=</span> <span class="st">&#39;https://www.harvardartmuseums.org&#39;</span></a>
+<a class="sourceLine" id="cb592-2" data-line-number="2">collection_path <span class="op">=</span> <span class="st">&#39;browse&#39;</span></a>
+<a class="sourceLine" id="cb592-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb592-4" data-line-number="4">collection_url <span class="op">=</span> (museum_domain</a>
+<a class="sourceLine" id="cb592-5" data-line-number="5">                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></a>
+<a class="sourceLine" id="cb592-6" data-line-number="6">                  <span class="op">+</span> collection_path)</a>
+<a class="sourceLine" id="cb592-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb592-8" data-line-number="8"><span class="bu">print</span>(collection_url)</a></code></pre></div>
+<pre><code>## &#39;https://www.harvardartmuseums.org/browse&#39;</code></pre>
 <p>Note that we omit the parameters here because it is usually easier to
 pass them as a <code>dict</code> when using the <code>requests</code> library in Python.
 This will become clearer shortly.</p>
 <p>Now that we’ve constructed the URL we wish interact with we’re ready
 to make our first request in Python.</p>
-<div class="sourceCode" id="cb527"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb527-1" data-line-number="1"><span class="im">import</span> requests</a>
-<a class="sourceLine" id="cb527-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb527-3" data-line-number="3">collections1 <span class="op">=</span> requests.get(</a>
-<a class="sourceLine" id="cb527-4" data-line-number="4">    collection_url,</a>
-<a class="sourceLine" id="cb527-5" data-line-number="5">    params <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb527-6" data-line-number="6">                  <span class="st">&#39;offset&#39;</span>: <span class="dv">0</span>}</a>
-<a class="sourceLine" id="cb527-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb594"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb594-1" data-line-number="1"><span class="im">import</span> requests</a>
+<a class="sourceLine" id="cb594-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb594-3" data-line-number="3">collections1 <span class="op">=</span> requests.get(</a>
+<a class="sourceLine" id="cb594-4" data-line-number="4">    collection_url,</a>
+<a class="sourceLine" id="cb594-5" data-line-number="5">    params <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb594-6" data-line-number="6">                  <span class="st">&#39;offset&#39;</span>: <span class="dv">0</span>}</a>
+<a class="sourceLine" id="cb594-7" data-line-number="7">)</a></code></pre></div>
 <p>Note that the parameters <code>load_amount</code> and <code>offset</code> are essentially
 another way of setting page numbers — they refer to the amount of
 information retrieved at one time and the starting position, respectively.</p>
@@ -860,11 +861,12 @@ information retrieved at one time and the starting position, respectively.</p>
 <p>We already know from inspecting network traffic in our web
 browser that this URL returns JSON, but we can use Python
 to verify this assumption.</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb528-1" data-line-number="1">collections1.headers[<span class="st">&#39;Content-Type&#39;</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb595-1" data-line-number="1">collections1.headers[<span class="st">&#39;Content-Type&#39;</span>]</a></code></pre></div>
+<pre><code>## &#39;application/json&#39;</code></pre>
 <p>Since JSON is a structured data format, parsing it into Python data
 structures is easy. In fact, there’s a method for that!</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb529-1" data-line-number="1">collections1 <span class="op">=</span> collections1.json()</a>
-<a class="sourceLine" id="cb529-2" data-line-number="2"><span class="co"># print(collections1)</span></a></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb597-1" data-line-number="1">collections1 <span class="op">=</span> collections1.json()</a>
+<a class="sourceLine" id="cb597-2" data-line-number="2"><span class="co"># print(collections1)</span></a></code></pre></div>
 <p>That’s it. Really, we are done here. Everyone go home!</p>
 <p>OK not really, there is still more we can learn. But you have to admit
 that was pretty easy. If you can identify a service that returns the
@@ -878,11 +880,24 @@ but for some web scraping tasks this is really all you need to know.</p>
 <code>https://www.harvardartmuseums.org/browse</code> are arranged as a list of
 dictionaries. We can easily select the fields of arrange these data
 into a pandas <code>DataFrame</code> to facilitate subsequent analysis.</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb530-1" data-line-number="1"><span class="im">import</span> pandas <span class="im">as</span> pd</a></code></pre></div>
-<div class="sourceCode" id="cb531"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb531-1" data-line-number="1">records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">&#39;records&#39;</span>])</a></code></pre></div>
-<div class="sourceCode" id="cb532"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb532-1" data-line-number="1"><span class="bu">print</span>(records1)</a></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb598-1" data-line-number="1"><span class="im">import</span> pandas <span class="im">as</span> pd</a></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb599-1" data-line-number="1">records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">&#39;records&#39;</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb600-1" data-line-number="1"><span class="bu">print</span>(records1)</a></code></pre></div>
+<pre><code>##    accessionyear                      technique  ...                         colors                        details
+## 0           2008                           None  ...                            NaN                            NaN
+## 1           1972           Gelatin silver print  ...  [{&#39;percent&#39;: 0.46293785310...                            NaN
+## 2           1933         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.81095238095...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+## 3           2011                 Platinum print  ...                            NaN                            NaN
+## 4           2007             Iris digital print  ...                            NaN                            NaN
+## 5           1977                           None  ...                            NaN                            NaN
+## 6           2008             Dye transfer print  ...                            NaN                            NaN
+## 7           1943                           None  ...  [{&#39;percent&#39;: 0.85061224489...                            NaN
+## 8           2007                   Screen print  ...  [{&#39;percent&#39;: 0.79893333333...                            NaN
+## 9           2006  Drypoint, softground etchi...  ...  [{&#39;percent&#39;: 0.66526984126...                            NaN
+## 
+## [10 rows x 62 columns]</code></pre>
 <p>and write the data to a file.</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb533-1" data-line-number="1">records1.to_csv(<span class="st">&quot;records1.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb602"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb602-1" data-line-number="1">records1.to_csv(<span class="st">&quot;records1.csv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="iterating-to-retrieve-all-the-data" class="section level3">
 <h3>Iterating to retrieve all the data</h3>
@@ -890,16 +905,69 @@ into a pandas <code>DataFrame</code> to facilitate subsequent analysis.</p>
 retrieve all of them?</p>
 <p>Now that we know the web service works, and how to make requests in
 Python, we can iterate in the usual way.</p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb534-1" data-line-number="1">records <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb534-2" data-line-number="2"><span class="cf">for</span> offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">10</span>):</a>
-<a class="sourceLine" id="cb534-3" data-line-number="3">    param_values <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>, <span class="st">&#39;offset&#39;</span>: offset}</a>
-<a class="sourceLine" id="cb534-4" data-line-number="4">    current_request <span class="op">=</span> requests.get(collection_url, params <span class="op">=</span> param_values)</a>
-<a class="sourceLine" id="cb534-5" data-line-number="5">    records <span class="op">+=</span> current_request.json()[<span class="st">&#39;records&#39;</span>]</a></code></pre></div>
-<div class="sourceCode" id="cb535"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb535-1" data-line-number="1"><span class="co">## convert list of dicts to a `DataFrame`</span></a>
-<a class="sourceLine" id="cb535-2" data-line-number="2">records_final <span class="op">=</span> pd.DataFrame.from_records(records)</a></code></pre></div>
-<div class="sourceCode" id="cb536"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb536-1" data-line-number="1"><span class="co"># write the data to a file.</span></a>
-<a class="sourceLine" id="cb536-2" data-line-number="2">records_final.to_csv(<span class="st">&quot;records_final.csv&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb537"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb537-1" data-line-number="1"><span class="bu">print</span>(records_final)</a></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb603-1" data-line-number="1">records <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb603-2" data-line-number="2"><span class="cf">for</span> offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">10</span>):</a>
+<a class="sourceLine" id="cb603-3" data-line-number="3">    param_values <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>, <span class="st">&#39;offset&#39;</span>: offset}</a>
+<a class="sourceLine" id="cb603-4" data-line-number="4">    current_request <span class="op">=</span> requests.get(collection_url, params <span class="op">=</span> param_values)</a>
+<a class="sourceLine" id="cb603-5" data-line-number="5">    records <span class="op">+=</span> current_request.json()[<span class="st">&#39;records&#39;</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb604-1" data-line-number="1"><span class="co">## convert list of dicts to a `DataFrame`</span></a>
+<a class="sourceLine" id="cb604-2" data-line-number="2">records_final <span class="op">=</span> pd.DataFrame.from_records(records)</a></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb605-1" data-line-number="1"><span class="co"># write the data to a file.</span></a>
+<a class="sourceLine" id="cb605-2" data-line-number="2">records_final.to_csv(<span class="st">&quot;records_final.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb606-1" data-line-number="1"><span class="bu">print</span>(records_final)</a></code></pre></div>
+<pre><code>##     accessionyear                      technique  ...                         colors                        details
+## 0          2008.0                           None  ...                            NaN                            NaN
+## 1          1972.0           Gelatin silver print  ...  [{&#39;percent&#39;: 0.46293785310...                            NaN
+## 2          1933.0         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.81095238095...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+## 3          2011.0                 Platinum print  ...                            NaN                            NaN
+## 4          2007.0             Iris digital print  ...                            NaN                            NaN
+## 5          1977.0                           None  ...                            NaN                            NaN
+## 6          2008.0             Dye transfer print  ...                            NaN                            NaN
+## 7          1943.0                           None  ...  [{&#39;percent&#39;: 0.85061224489...                            NaN
+## 8          2007.0                   Screen print  ...  [{&#39;percent&#39;: 0.79893333333...                            NaN
+## 9          2006.0  Drypoint, softground etchi...  ...  [{&#39;percent&#39;: 0.66526984126...                            NaN
+## 10         1954.0           Etching and drypoint  ...  [{&#39;percent&#39;: 0.49231231231...                            NaN
+## 11         1943.0                           None  ...                            NaN                            NaN
+## 12         2006.0                           None  ...  [{&#39;percent&#39;: 0.24176, &#39;spe...                            NaN
+## 13         2008.0                        Woodcut  ...  [{&#39;percent&#39;: 0.38816537467...                            NaN
+## 14            NaN           Albumen silver print  ...  [{&#39;percent&#39;: 0.28016, &#39;spe...                            NaN
+## 15         1995.0                           None  ...  [{&#39;percent&#39;: 0.2426, &#39;spec...                            NaN
+## 16         1994.0                           None  ...                            NaN                            NaN
+## 17         2004.0                   Photogravure  ...                            NaN                            NaN
+## 18         1991.0                        Celadon  ...                            NaN                            NaN
+## 19         2010.0                   Photogravure  ...                            NaN                            NaN
+## 20         1991.0                           None  ...                            NaN                            NaN
+## 21            NaN                  Daguerreotype  ...  [{&#39;percent&#39;: 0.53710144927...                            NaN
+## 22         1997.0                   Photogravure  ...                            NaN                            NaN
+## 23         1951.0                           None  ...                            NaN                            NaN
+## 24         1943.0                           None  ...  [{&#39;percent&#39;: 0.62418079096...                            NaN
+## 25         2002.0                     Lusterware  ...  [{&#39;percent&#39;: 0.24529761904...                            NaN
+## 26         2012.0         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.306, &#39;spect...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+## 27         1995.0                           None  ...  [{&#39;percent&#39;: 0.38767507002...                            NaN
+## 28         1995.0                           None  ...  [{&#39;percent&#39;: 0.23896713615...                            NaN
+## 29         1943.0                           None  ...  [{&#39;percent&#39;: 0.51775193798...                            NaN
+## 30         1942.0                            Jun  ...  [{&#39;percent&#39;: 0.29066666666...                            NaN
+## 31            NaN          Etching and mezzotint  ...  [{&#39;percent&#39;: 0.49918238993...                            NaN
+## 32         2008.0           Gelatin silver print  ...                            NaN                            NaN
+## 33         2004.0                       Repoussé  ...  [{&#39;percent&#39;: 0.35547619047...                            NaN
+## 34         2004.0                     Lithograph  ...  [{&#39;percent&#39;: 0.46754716981...                            NaN
+## 35         1984.0                           None  ...  [{&#39;percent&#39;: 0.67232142857...                            NaN
+## 36         1934.0                           None  ...  [{&#39;percent&#39;: 0.24160919540...                            NaN
+## 37         1985.0                           None  ...  [{&#39;percent&#39;: 0.86209876543...                            NaN
+## 38         1958.0                           None  ...                            NaN                            NaN
+## 39         1939.0                           None  ...  [{&#39;percent&#39;: 0.44615873015...                            NaN
+## 40         1936.0                           None  ...  [{&#39;percent&#39;: 0.35041666666...                            NaN
+## 41         1984.0           Gelatin silver print  ...                            NaN                            NaN
+## 42         2006.0                           None  ...  [{&#39;percent&#39;: 0.63716417910...                            NaN
+## 43         2000.0                      Engraving  ...  [{&#39;percent&#39;: 0.42640522875...                            NaN
+## 44            NaN           Etching and drypoint  ...  [{&#39;percent&#39;: 0.42054644808...                            NaN
+## 45         2000.0         Cast, lost-wax process  ...                            NaN  {&#39;technical&#39;: [{&#39;text&#39;: &#39;I...
+## 46         1928.0                     Lithograph  ...  [{&#39;percent&#39;: 0.42887005649...                            NaN
+## 47         2011.0           Albumen silver print  ...                            NaN                            NaN
+## 48         2009.0                           None  ...                            NaN                            NaN
+## 49         1943.0         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.44841750841...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+## 
+## [50 rows x 62 columns]</code></pre>
 </div>
 <div id="exercise-0-4" class="section level3">
 <h3>Exercise 0</h3>
@@ -913,22 +981,22 @@ page at <code>https://www.harvardartmuseums.org/visit/exhibitions</code>. Examin
 the network traffic as you interact with the page. Try to find
 where the data displayed on that page comes from.</li>
 </ol>
-<div class="sourceCode" id="cb538"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb538-1" data-line-number="1"><span class="co">##</span></a>
-<a class="sourceLine" id="cb538-2" data-line-number="2">``</a>
-<a class="sourceLine" id="cb538-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb538-4" data-line-number="4"><span class="fl">2.</span> Make a `get` request <span class="kw">in</span> Python to retrieve the data <span class="im">from</span> the URL</a>
-<a class="sourceLine" id="cb538-5" data-line-number="5">   identified <span class="kw">in</span> step1.</a></code></pre></div>
-<div class="sourceCode" id="cb539"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb539-1" data-line-number="1"><span class="co">##</span></a>
-<a class="sourceLine" id="cb539-2" data-line-number="2">``</a>
-<a class="sourceLine" id="cb539-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb539-4" data-line-number="4"><span class="fl">3.</span> Write a <span class="op">*</span>loop<span class="op">*</span> <span class="kw">or</span> <span class="op">*</span><span class="bu">list</span> comprehension<span class="op">*</span> <span class="kw">in</span> Python to retrieve data</a>
-<a class="sourceLine" id="cb539-5" data-line-number="5">   <span class="cf">for</span> the first <span class="dv">5</span> pages of exhibitions data.</a></code></pre></div>
-<div class="sourceCode" id="cb540"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb540-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb608-1" data-line-number="1"><span class="co">##</span></a>
+<a class="sourceLine" id="cb608-2" data-line-number="2">``</a>
+<a class="sourceLine" id="cb608-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb608-4" data-line-number="4"><span class="fl">2.</span> Make a `get` request <span class="kw">in</span> Python to retrieve the data <span class="im">from</span> the URL</a>
+<a class="sourceLine" id="cb608-5" data-line-number="5">   identified <span class="kw">in</span> step1.</a></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb609-1" data-line-number="1"><span class="co">##</span></a>
+<a class="sourceLine" id="cb609-2" data-line-number="2">``</a>
+<a class="sourceLine" id="cb609-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb609-4" data-line-number="4"><span class="fl">3.</span> Write a <span class="op">*</span>loop<span class="op">*</span> <span class="kw">or</span> <span class="op">*</span><span class="bu">list</span> comprehension<span class="op">*</span> <span class="kw">in</span> Python to retrieve data</a>
+<a class="sourceLine" id="cb609-5" data-line-number="5">   <span class="cf">for</span> the first <span class="dv">5</span> pages of exhibitions data.</a></code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb610-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Bonus (optional): Convert the data you retrieved into a pandas
 <code>DataFrame</code> and save it to a <code>.csv</code> file.</li>
 </ol>
-<div class="sourceCode" id="cb541"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb541-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb611-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 </div>
 </div>
 <div id="parsing-html-if-you-have-to" class="section level2">
@@ -969,18 +1037,19 @@ any requests that returned JSON data. The best we can do appears to be
 <a href="https://www.harvardartmuseums.org/visit/calendar?date=" class="uri">https://www.harvardartmuseums.org/visit/calendar?date=</a>, which
 unfortunately returns HTML.</p>
 <p>The first step is the same as before: we make at <code>GET</code> request.</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb542-1" data-line-number="1">calendar_path <span class="op">=</span> <span class="st">&#39;visit/calendar&#39;</span></a>
-<a class="sourceLine" id="cb542-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb542-3" data-line-number="3">calendar_url <span class="op">=</span> (museum_domain <span class="co"># recall that we defined museum_domain earlier</span></a>
-<a class="sourceLine" id="cb542-4" data-line-number="4">                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></a>
-<a class="sourceLine" id="cb542-5" data-line-number="5">                  <span class="op">+</span> calendar_path)</a>
-<a class="sourceLine" id="cb542-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb542-7" data-line-number="7"><span class="bu">print</span>(calendar_url)</a>
-<a class="sourceLine" id="cb542-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb542-9" data-line-number="9">events0 <span class="op">=</span> requests.get(calendar_url, params <span class="op">=</span> {<span class="st">&#39;date&#39;</span>: <span class="st">&#39;2018-11&#39;</span>})</a></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb612-1" data-line-number="1">calendar_path <span class="op">=</span> <span class="st">&#39;visit/calendar&#39;</span></a>
+<a class="sourceLine" id="cb612-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb612-3" data-line-number="3">calendar_url <span class="op">=</span> (museum_domain <span class="co"># recall that we defined museum_domain earlier</span></a>
+<a class="sourceLine" id="cb612-4" data-line-number="4">                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></a>
+<a class="sourceLine" id="cb612-5" data-line-number="5">                  <span class="op">+</span> calendar_path)</a>
+<a class="sourceLine" id="cb612-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb612-7" data-line-number="7"><span class="bu">print</span>(calendar_url)</a></code></pre></div>
+<pre><code>## &#39;https://www.harvardartmuseums.org/visit/calendar&#39;</code></pre>
+<div class="sourceCode" id="cb614"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb614-1" data-line-number="1">events0 <span class="op">=</span> requests.get(calendar_url, params <span class="op">=</span> {<span class="st">&#39;date&#39;</span>: <span class="st">&#39;2018-11&#39;</span>})</a></code></pre></div>
 <p>As before we can check the headers to see what type of content we
 received in response to our request.</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb543-1" data-line-number="1">events0.headers[<span class="st">&#39;Content-Type&#39;</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb615-1" data-line-number="1">events0.headers[<span class="st">&#39;Content-Type&#39;</span>]</a></code></pre></div>
+<pre><code>## &#39;text/html; charset=UTF-8&#39;</code></pre>
 </div>
 <div id="parsing-html-using-the-lxml-library" class="section level3">
 <h3>Parsing HTML using the lxml library</h3>
@@ -993,9 +1062,9 @@ than parsing JSON.</p>
 HTML requires a separate library. I recommend using the HTML parser
 from the <code>lxml</code> library; others prefer an alternative called
 <code>beautifulsoup4</code>.</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb544-1" data-line-number="1"><span class="im">from</span> lxml <span class="im">import</span> html</a>
-<a class="sourceLine" id="cb544-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb544-3" data-line-number="3">events_html <span class="op">=</span> html.fromstring(events0.text)</a></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb617-1" data-line-number="1"><span class="im">from</span> lxml <span class="im">import</span> html</a>
+<a class="sourceLine" id="cb617-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb617-3" data-line-number="3">events_html <span class="op">=</span> html.fromstring(events0.text)</a></code></pre></div>
 </div>
 <div id="using-xpath-to-extract-content-from-html" class="section level3">
 <h3>Using XPath to extract content from HTML</h3>
@@ -1005,7 +1074,7 @@ easy to generate <code>XPath</code>s that can used to identify the elements of a
 web page that we wish to extract.</p>
 <p>We can open the html document we retrieved and inspect it using
 our web browser.</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb545-1" data-line-number="1">html.open_in_browser(events_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb618"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb618-1" data-line-number="1">html.open_in_browser(events_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</a></code></pre></div>
 <p><img src="Python/PythonWebScrape/images/dev_tools_right_click.png" /></p>
 <p><img src="Python/PythonWebScrape/images/dev_tools_inspect.png" /></p>
 <p>Once we identify the element containing the information of interest we
@@ -1013,12 +1082,12 @@ can use our web browser to copy the <code>XPath</code> that uniquely identifies
 that element.</p>
 <p><img src="Python/PythonWebScrape/images/dev_tools_xpath.png" /></p>
 <p>Next we can use python to extract the element of interest:</p>
-<div class="sourceCode" id="cb546"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb546-1" data-line-number="1">events_list_html <span class="op">=</span> events_html.xpath(<span class="st">&#39;//*[@id=&quot;events_list&quot;]&#39;</span>)[<span class="dv">0</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb619-1" data-line-number="1">events_list_html <span class="op">=</span> events_html.xpath(<span class="st">&#39;//*[@id=&quot;events_list&quot;]&#39;</span>)[<span class="dv">0</span>]</a></code></pre></div>
 <p>Once again we can use a web browser to inspect the HTML we’re
 currently working with, and to figure out what we want to extract from
 it. Let’s look at the first element in our events list.</p>
-<div class="sourceCode" id="cb547"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb547-1" data-line-number="1">first_event_html <span class="op">=</span> events_list_html[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb547-2" data-line-number="2">html.open_in_browser(first_event_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb620-1" data-line-number="1">first_event_html <span class="op">=</span> events_list_html[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb620-2" data-line-number="2">html.open_in_browser(first_event_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</a></code></pre></div>
 <p>As before we can use our browser to find the xpath of the elements we
 want.</p>
 <p><img src="Python/PythonWebScrape/images/dev_tools_figcaption.png" /></p>
@@ -1027,20 +1096,32 @@ and <code>body</code> tags in order to create a complete web page for viewing.
 This requires that we adjust the <code>xpath</code> accordingly.)</p>
 <p>By repeating this process for each element we want, we can build a
 list of the xpaths to those elements.</p>
-<div class="sourceCode" id="cb548"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb548-1" data-line-number="1">elements_we_want <span class="op">=</span> {<span class="st">&#39;figcaption&#39;</span>: <span class="st">&#39;div/figure/div/figcaption&#39;</span>,</a>
-<a class="sourceLine" id="cb548-2" data-line-number="2">                    <span class="st">&#39;date&#39;</span>: <span class="st">&#39;div/div/header/time&#39;</span>,</a>
-<a class="sourceLine" id="cb548-3" data-line-number="3">                    <span class="st">&#39;title&#39;</span>: <span class="st">&#39;div/div/header/h2/a&#39;</span>,</a>
-<a class="sourceLine" id="cb548-4" data-line-number="4">                    <span class="st">&#39;time&#39;</span>: <span class="st">&#39;div/div/div/p[1]/time&#39;</span>,</a>
-<a class="sourceLine" id="cb548-5" data-line-number="5">                    <span class="st">&#39;localtion1&#39;</span>: <span class="st">&#39;div/div/div/p[2]/span/span[1]&#39;</span>,</a>
-<a class="sourceLine" id="cb548-6" data-line-number="6">                    <span class="st">&#39;location2&#39;</span>: <span class="st">&#39;div/div/div/p[2]/span/span[2]&#39;</span></a>
-<a class="sourceLine" id="cb548-7" data-line-number="7">                    }</a></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb621-1" data-line-number="1">elements_we_want <span class="op">=</span> {<span class="st">&#39;figcaption&#39;</span>: <span class="st">&#39;div/figure/div/figcaption&#39;</span>,</a>
+<a class="sourceLine" id="cb621-2" data-line-number="2">                    <span class="st">&#39;date&#39;</span>: <span class="st">&#39;div/div/header/time&#39;</span>,</a>
+<a class="sourceLine" id="cb621-3" data-line-number="3">                    <span class="st">&#39;title&#39;</span>: <span class="st">&#39;div/div/header/h2/a&#39;</span>,</a>
+<a class="sourceLine" id="cb621-4" data-line-number="4">                    <span class="st">&#39;time&#39;</span>: <span class="st">&#39;div/div/div/p[1]/time&#39;</span>,</a>
+<a class="sourceLine" id="cb621-5" data-line-number="5">                    <span class="st">&#39;localtion1&#39;</span>: <span class="st">&#39;div/div/div/p[2]/span/span[1]&#39;</span>,</a>
+<a class="sourceLine" id="cb621-6" data-line-number="6">                    <span class="st">&#39;location2&#39;</span>: <span class="st">&#39;div/div/div/p[2]/span/span[2]&#39;</span></a>
+<a class="sourceLine" id="cb621-7" data-line-number="7">                    }</a></code></pre></div>
 <p>Finally, we can iterate over the elements we want and extract them.</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb549-1" data-line-number="1">first_event_values <span class="op">=</span> {}</a>
-<a class="sourceLine" id="cb549-2" data-line-number="2"><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</a>
-<a class="sourceLine" id="cb549-3" data-line-number="3">    element <span class="op">=</span> first_event_html.xpath(elements_we_want[key])[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb549-4" data-line-number="4">    first_event_values[key] <span class="op">=</span> element.text_content().strip()</a>
-<a class="sourceLine" id="cb549-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb549-6" data-line-number="6"><span class="bu">print</span>(first_event_values)</a></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb622-1" data-line-number="1">first_event_values <span class="op">=</span> {}</a>
+<a class="sourceLine" id="cb622-2" data-line-number="2"><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</a>
+<a class="sourceLine" id="cb622-3" data-line-number="3">    element <span class="op">=</span> first_event_html.xpath(elements_we_want[key])[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb622-4" data-line-number="4">    first_event_values[key] <span class="op">=</span> element.text_content().strip()</a>
+<a class="sourceLine" id="cb622-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb622-6" data-line-number="6"><span class="bu">print</span>(first_event_values)</a></code></pre></div>
+<pre><code>## {&#39;date&#39;: &#39;Wednesday, February 19, 2020&#39;,
+##  &#39;figcaption&#39;: &#39;László Moholy-Nagy, Light Prop for an Electric Stage, &#39;
+##                &#39;Light-Space Modulator, 1930. Aluminum, steel, nickel-plated &#39;
+##                &#39;brass, other metals, plastic, wood, and electric motor. &#39;
+##                &#39;Harvard Art Museums/Busch-Reisinger Museum, Gift of Sibyl &#39;
+##                &#39;Moholy-Nagy, BR56.5. © 2015 Artists Rights Society (ARS), New &#39;
+##                &#39;York/VG Bild-Kunst, Bonn.&#39;,
+##  &#39;localtion1&#39;: &#39;32 Quincy Street&#39;,
+##  &#39;location2&#39;: &#39;Cambridge&#39;,
+##  &#39;time&#39;: &#39;12:30pm - 1:00pm&#39;,
+##  &#39;title&#39;: &#39;Gallery Talk: Activation of Moholy-Nagy’s Light Prop for an &#39;
+##           &#39;Electric Stage&#39;}</code></pre>
 </div>
 <div id="iterating-to-retrieve-content-from-a-list-of-html-elements" class="section level3">
 <h3>Iterating to retrieve content from a list of HTML elements</h3>
@@ -1054,33 +1135,47 @@ we need to take care to handle the case where one or more of these
 elements is not available. We can do that by <strong>defining a function</strong> that
 tries to retrieve a value and returns an empty string if it fails.</p>
 <p>If you’re not familiar with Python functions, here’s the basic syntax:</p>
-<div class="sourceCode" id="cb550"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb550-1" data-line-number="1"><span class="co"># anatomy of a function</span></a>
-<a class="sourceLine" id="cb550-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb550-3" data-line-number="3"><span class="kw">def</span> name_of_function(arg1, arg2, ...argn):  <span class="co"># define the function name and arguments</span></a>
-<a class="sourceLine" id="cb550-4" data-line-number="4">    <span class="op">&lt;</span>body of function<span class="op">&gt;</span>   <span class="co"># specify calculations</span></a>
-<a class="sourceLine" id="cb550-5" data-line-number="5">    <span class="cf">return</span> <span class="op">&lt;</span>result<span class="op">&gt;</span>      <span class="co"># output result of calculations</span></a></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb624-1" data-line-number="1"><span class="co"># anatomy of a function</span></a>
+<a class="sourceLine" id="cb624-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb624-3" data-line-number="3"><span class="kw">def</span> name_of_function(arg1, arg2, ...argn):  <span class="co"># define the function name and arguments</span></a>
+<a class="sourceLine" id="cb624-4" data-line-number="4">    <span class="op">&lt;</span>body of function<span class="op">&gt;</span>   <span class="co"># specify calculations</span></a>
+<a class="sourceLine" id="cb624-5" data-line-number="5">    <span class="cf">return</span> <span class="op">&lt;</span>result<span class="op">&gt;</span>      <span class="co"># output result of calculations</span></a></code></pre></div>
 <p>Here’s a function to perform our task:</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb551-1" data-line-number="1"><span class="kw">def</span> get_event_info(event, path):</a>
-<a class="sourceLine" id="cb551-2" data-line-number="2">    <span class="cf">try</span>:</a>
-<a class="sourceLine" id="cb551-3" data-line-number="3">        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text.strip()</a>
-<a class="sourceLine" id="cb551-4" data-line-number="4">    <span class="cf">except</span>:</a>
-<a class="sourceLine" id="cb551-5" data-line-number="5">        info <span class="op">=</span> <span class="st">&#39;&#39;</span></a>
-<a class="sourceLine" id="cb551-6" data-line-number="6">    <span class="cf">return</span> info</a></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb625-1" data-line-number="1"><span class="kw">def</span> get_event_info(event, path):</a>
+<a class="sourceLine" id="cb625-2" data-line-number="2">    <span class="cf">try</span>:</a>
+<a class="sourceLine" id="cb625-3" data-line-number="3">        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text.strip()</a>
+<a class="sourceLine" id="cb625-4" data-line-number="4">    <span class="cf">except</span>:</a>
+<a class="sourceLine" id="cb625-5" data-line-number="5">        info <span class="op">=</span> <span class="st">&#39;&#39;</span></a>
+<a class="sourceLine" id="cb625-6" data-line-number="6">    <span class="cf">return</span> info</a></code></pre></div>
 <p>Armed with this function we can iterate over the list of events and
 extract the available information for each one.</p>
-<div class="sourceCode" id="cb552"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb552-1" data-line-number="1">all_event_values <span class="op">=</span> {}</a>
-<a class="sourceLine" id="cb552-2" data-line-number="2"><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</a>
-<a class="sourceLine" id="cb552-3" data-line-number="3">    key_values <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb552-4" data-line-number="4">    <span class="cf">for</span> event <span class="kw">in</span> events_list_html: </a>
-<a class="sourceLine" id="cb552-5" data-line-number="5">        key_values.append(get_event_info(event, elements_we_want[key]))</a>
-<a class="sourceLine" id="cb552-6" data-line-number="6">    all_event_values[key] <span class="op">=</span> key_values</a></code></pre></div>
+<div class="sourceCode" id="cb626"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb626-1" data-line-number="1">all_event_values <span class="op">=</span> {}</a>
+<a class="sourceLine" id="cb626-2" data-line-number="2"><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</a>
+<a class="sourceLine" id="cb626-3" data-line-number="3">    key_values <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb626-4" data-line-number="4">    <span class="cf">for</span> event <span class="kw">in</span> events_list_html: </a>
+<a class="sourceLine" id="cb626-5" data-line-number="5">        key_values.append(get_event_info(event, elements_we_want[key]))</a>
+<a class="sourceLine" id="cb626-6" data-line-number="6">    all_event_values[key] <span class="op">=</span> key_values</a></code></pre></div>
 <p>For convenience we can arrange these values in a pandas <code>DataFrame</code>
 and save them as .csv files, just as we did with our exhibitions data earlier.</p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb553-1" data-line-number="1">all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</a>
-<a class="sourceLine" id="cb553-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb553-3" data-line-number="3">all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb553-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb553-5" data-line-number="5"><span class="bu">print</span>(all_event_values)</a></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb627-1" data-line-number="1">all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</a>
+<a class="sourceLine" id="cb627-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb627-3" data-line-number="3">all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb627-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb627-5" data-line-number="5"><span class="bu">print</span>(all_event_values)</a></code></pre></div>
+<pre><code>##                  figcaption                          date  ...        localtion1  location2
+## 0       László Moholy-Nagy,  Wednesday, February 19, 2020  ...  32 Quincy Street  Cambridge
+## 1      Photo: Tim Correira.  Wednesday, February 19, 2020  ...  32 Quincy Street  Cambridge
+## 2     Seydou Keïta, Malian,   Thursday, February 20, 2020  ...  32 Quincy Street  Cambridge
+## 3   Alberto Burri, Italian,     Friday, February 21, 2020  ...  32 Quincy Street  Cambridge
+## 4                             Saturday, February 22, 2020  ...  32 Quincy Street  Cambridge
+## ..                      ...                           ...  ...               ...        ...
+## 77     Photo: Tim Correira.       Wednesday, May 20, 2020  ...  32 Quincy Street  Cambridge
+## 78                                   Monday, May 25, 2020  ...  32 Quincy Street  Cambridge
+## 79           Maruyama Ōkyo,         Tuesday, May 26, 2020  ...  32 Quincy Street  Cambridge
+## 80      László Moholy-Nagy,        Thursday, May 28, 2020  ...  32 Quincy Street  Cambridge
+## 81     Photo: Tim Correira.      Wednesday, June 17, 2020  ...  32 Quincy Street  Cambridge
+## 
+## [82 rows x 6 columns]</code></pre>
 </div>
 <div id="exercise-1-5" class="section level3">
 <h3>Exercise 1</h3>
@@ -1100,17 +1195,17 @@ information. (HINT: the element if interest is a <code>ul</code>, i.e.,
 content from your request object and parse it using <code>html.fromstring</code>
 from the <code>lxml</code> library.</p></li>
 </ol>
-<div class="sourceCode" id="cb554"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb554-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb629-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Use your web browser to find the <code>XPath</code>s to the facilities housed on
 level one. Use Python to extract the text from those <code>Xpath</code>s.</li>
 </ol>
-<div class="sourceCode" id="cb555"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb555-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb630-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Bonus (optional): Write a <em>for loop</em> or <em>list comprehension</em> in Python
 to retrieve data for all the levels.</li>
 </ol>
-<div class="sourceCode" id="cb556"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb556-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb631-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 </div>
 </div>
 <div id="scrapy-for-large-complex-projects" class="section level2">
@@ -1142,56 +1237,56 @@ can be a good option. More information is available at
 <div id="ex-0-prototype-1" class="section level3">
 <h3>Ex 0: prototype</h3>
 <p>Question #1:</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb557-1" data-line-number="1">museum_domain <span class="op">=</span> <span class="st">&quot;https://www.harvardartmuseums.org&quot;</span></a>
-<a class="sourceLine" id="cb557-2" data-line-number="2">exhibit_path <span class="op">=</span> <span class="st">&quot;search/load_next&quot;</span></a>
-<a class="sourceLine" id="cb557-3" data-line-number="3">exhibit_url <span class="op">=</span> museum_domain <span class="op">+</span> <span class="st">&quot;/&quot;</span> <span class="op">+</span> exhibit_path</a>
-<a class="sourceLine" id="cb557-4" data-line-number="4"><span class="bu">print</span>(exhibit_url)</a></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb632-1" data-line-number="1">museum_domain <span class="op">=</span> <span class="st">&quot;https://www.harvardartmuseums.org&quot;</span></a>
+<a class="sourceLine" id="cb632-2" data-line-number="2">exhibit_path <span class="op">=</span> <span class="st">&quot;search/load_next&quot;</span></a>
+<a class="sourceLine" id="cb632-3" data-line-number="3">exhibit_url <span class="op">=</span> museum_domain <span class="op">+</span> <span class="st">&quot;/&quot;</span> <span class="op">+</span> exhibit_path</a>
+<a class="sourceLine" id="cb632-4" data-line-number="4"><span class="bu">print</span>(exhibit_url)</a></code></pre></div>
 <p>Question #2:</p>
-<div class="sourceCode" id="cb558"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb558-1" data-line-number="1"><span class="im">import</span> requests</a>
-<a class="sourceLine" id="cb558-2" data-line-number="2"><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> <span class="bu">print</span> </a>
-<a class="sourceLine" id="cb558-3" data-line-number="3">exhibit1 <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: <span class="dv">1</span>})</a>
-<a class="sourceLine" id="cb558-4" data-line-number="4"><span class="bu">print</span>(exhibit1.headers[<span class="st">&quot;Content-Type&quot;</span>])</a>
-<a class="sourceLine" id="cb558-5" data-line-number="5">exhibit1 <span class="op">=</span> exhibit1.json()</a>
-<a class="sourceLine" id="cb558-6" data-line-number="6"><span class="bu">print</span>(exhibit1)</a></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb633-1" data-line-number="1"><span class="im">import</span> requests</a>
+<a class="sourceLine" id="cb633-2" data-line-number="2"><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> <span class="bu">print</span> </a>
+<a class="sourceLine" id="cb633-3" data-line-number="3">exhibit1 <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: <span class="dv">1</span>})</a>
+<a class="sourceLine" id="cb633-4" data-line-number="4"><span class="bu">print</span>(exhibit1.headers[<span class="st">&quot;Content-Type&quot;</span>])</a>
+<a class="sourceLine" id="cb633-5" data-line-number="5">exhibit1 <span class="op">=</span> exhibit1.json()</a>
+<a class="sourceLine" id="cb633-6" data-line-number="6"><span class="bu">print</span>(exhibit1)</a></code></pre></div>
 <p>Questions #3+4 (loop solution):</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb559-1" data-line-number="1">firstFivePages <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb559-2" data-line-number="2"><span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</a>
-<a class="sourceLine" id="cb559-3" data-line-number="3">    records_per_page <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>]</a>
-<a class="sourceLine" id="cb559-4" data-line-number="4">    firstFivePages.extend(records_per_page)</a>
-<a class="sourceLine" id="cb559-5" data-line-number="5">firstFivePages_records <span class="op">=</span> pd.DataFrame.from_records(firstFivePages)</a>
-<a class="sourceLine" id="cb559-6" data-line-number="6"><span class="bu">print</span>(firstFivePages_records)</a></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb634-1" data-line-number="1">firstFivePages <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb634-2" data-line-number="2"><span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</a>
+<a class="sourceLine" id="cb634-3" data-line-number="3">    records_per_page <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>]</a>
+<a class="sourceLine" id="cb634-4" data-line-number="4">    firstFivePages.extend(records_per_page)</a>
+<a class="sourceLine" id="cb634-5" data-line-number="5">firstFivePages_records <span class="op">=</span> pd.DataFrame.from_records(firstFivePages)</a>
+<a class="sourceLine" id="cb634-6" data-line-number="6"><span class="bu">print</span>(firstFivePages_records)</a></code></pre></div>
 <p>Questions #3+4 (list comprehension solution):</p>
-<div class="sourceCode" id="cb560"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb560-1" data-line-number="1">first5Pages <span class="op">=</span> [requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>] <span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)]</a>
-<a class="sourceLine" id="cb560-2" data-line-number="2"><span class="im">from</span> itertools <span class="im">import</span> chain</a>
-<a class="sourceLine" id="cb560-3" data-line-number="3">first5Pages <span class="op">=</span> <span class="bu">list</span>(chain.from_iterable(first5Pages))</a>
-<a class="sourceLine" id="cb560-4" data-line-number="4"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
-<a class="sourceLine" id="cb560-5" data-line-number="5">first5Pages_records <span class="op">=</span> pd.DataFrame.from_records(first5Pages)</a>
-<a class="sourceLine" id="cb560-6" data-line-number="6"><span class="bu">print</span>(first5Pages_records)</a></code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb635-1" data-line-number="1">first5Pages <span class="op">=</span> [requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>] <span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)]</a>
+<a class="sourceLine" id="cb635-2" data-line-number="2"><span class="im">from</span> itertools <span class="im">import</span> chain</a>
+<a class="sourceLine" id="cb635-3" data-line-number="3">first5Pages <span class="op">=</span> <span class="bu">list</span>(chain.from_iterable(first5Pages))</a>
+<a class="sourceLine" id="cb635-4" data-line-number="4"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
+<a class="sourceLine" id="cb635-5" data-line-number="5">first5Pages_records <span class="op">=</span> pd.DataFrame.from_records(first5Pages)</a>
+<a class="sourceLine" id="cb635-6" data-line-number="6"><span class="bu">print</span>(first5Pages_records)</a></code></pre></div>
 </div>
 <div id="ex-1-prototype-1" class="section level3">
 <h3>Ex 1: prototype</h3>
 <p>Question #2:</p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb561-1" data-line-number="1"><span class="im">from</span> lxml <span class="im">import</span> html</a>
-<a class="sourceLine" id="cb561-2" data-line-number="2">floor_plan <span class="op">=</span> requests.get(<span class="st">&#39;https://www.harvardartmuseums.org/visit/floor-plan&#39;</span>)</a>
-<a class="sourceLine" id="cb561-3" data-line-number="3">floor_plan_html <span class="op">=</span> html.fromstring(floor_plan.text)</a></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb636-1" data-line-number="1"><span class="im">from</span> lxml <span class="im">import</span> html</a>
+<a class="sourceLine" id="cb636-2" data-line-number="2">floor_plan <span class="op">=</span> requests.get(<span class="st">&#39;https://www.harvardartmuseums.org/visit/floor-plan&#39;</span>)</a>
+<a class="sourceLine" id="cb636-3" data-line-number="3">floor_plan_html <span class="op">=</span> html.fromstring(floor_plan.text)</a></code></pre></div>
 <p>Question #3:</p>
-<div class="sourceCode" id="cb562"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb562-1" data-line-number="1">level_one <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul&#39;</span>)[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb562-2" data-line-number="2"><span class="bu">print</span>(<span class="bu">type</span>(level_one))</a>
-<a class="sourceLine" id="cb562-3" data-line-number="3"><span class="bu">print</span>(<span class="bu">len</span>(level_one))</a></code></pre></div>
-<div class="sourceCode" id="cb563"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb563-1" data-line-number="1">level_one_facilities <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul/li&#39;</span>)</a>
-<a class="sourceLine" id="cb563-2" data-line-number="2"><span class="bu">print</span>(<span class="bu">len</span>(level_one_facilities))</a></code></pre></div>
-<div class="sourceCode" id="cb564"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb564-1" data-line-number="1"><span class="bu">print</span>([facility.text_content() <span class="cf">for</span> facility <span class="kw">in</span> level_one_facilities])</a></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb637-1" data-line-number="1">level_one <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul&#39;</span>)[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb637-2" data-line-number="2"><span class="bu">print</span>(<span class="bu">type</span>(level_one))</a>
+<a class="sourceLine" id="cb637-3" data-line-number="3"><span class="bu">print</span>(<span class="bu">len</span>(level_one))</a></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb638-1" data-line-number="1">level_one_facilities <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul/li&#39;</span>)</a>
+<a class="sourceLine" id="cb638-2" data-line-number="2"><span class="bu">print</span>(<span class="bu">len</span>(level_one_facilities))</a></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb639-1" data-line-number="1"><span class="bu">print</span>([facility.text_content() <span class="cf">for</span> facility <span class="kw">in</span> level_one_facilities])</a></code></pre></div>
 <p>Question #4:</p>
-<div class="sourceCode" id="cb565"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb565-1" data-line-number="1">all_levels <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li&#39;</span>)</a>
-<a class="sourceLine" id="cb565-2" data-line-number="2"><span class="bu">print</span>(<span class="bu">len</span>(all_levels))</a></code></pre></div>
-<div class="sourceCode" id="cb566"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb566-1" data-line-number="1">all_levels_facilities <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb566-2" data-line-number="2"><span class="cf">for</span> level <span class="kw">in</span> all_levels:</a>
-<a class="sourceLine" id="cb566-3" data-line-number="3">    level_facilities <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb566-4" data-line-number="4">    level_facilities_collection <span class="op">=</span> level.xpath(<span class="st">&#39;div[2]/ul/li&#39;</span>)</a>
-<a class="sourceLine" id="cb566-5" data-line-number="5">    <span class="cf">for</span> level_facility <span class="kw">in</span> level_facilities_collection:</a>
-<a class="sourceLine" id="cb566-6" data-line-number="6">        level_facilities.append(level_facility.text_content())</a>
-<a class="sourceLine" id="cb566-7" data-line-number="7">    all_levels_facilities.append(level_facilities)</a>
-<a class="sourceLine" id="cb566-8" data-line-number="8"><span class="bu">print</span>(all_levels_facilities)</a></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb640-1" data-line-number="1">all_levels <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li&#39;</span>)</a>
+<a class="sourceLine" id="cb640-2" data-line-number="2"><span class="bu">print</span>(<span class="bu">len</span>(all_levels))</a></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb641-1" data-line-number="1">all_levels_facilities <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb641-2" data-line-number="2"><span class="cf">for</span> level <span class="kw">in</span> all_levels:</a>
+<a class="sourceLine" id="cb641-3" data-line-number="3">    level_facilities <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb641-4" data-line-number="4">    level_facilities_collection <span class="op">=</span> level.xpath(<span class="st">&#39;div[2]/ul/li&#39;</span>)</a>
+<a class="sourceLine" id="cb641-5" data-line-number="5">    <span class="cf">for</span> level_facility <span class="kw">in</span> level_facilities_collection:</a>
+<a class="sourceLine" id="cb641-6" data-line-number="6">        level_facilities.append(level_facility.text_content())</a>
+<a class="sourceLine" id="cb641-7" data-line-number="7">    all_levels_facilities.append(level_facilities)</a>
+<a class="sourceLine" id="cb641-8" data-line-number="8"><span class="bu">print</span>(all_levels_facilities)</a></code></pre></div>
 </div>
 </div>
 <div id="wrap-up-6" class="section level2">
