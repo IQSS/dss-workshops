@@ -883,19 +883,19 @@ into a pandas <code>DataFrame</code> to facilitate subsequent analysis.</p>
 <div class="sourceCode" id="cb598"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb598-1" data-line-number="1"><span class="im">import</span> pandas <span class="im">as</span> pd</a></code></pre></div>
 <div class="sourceCode" id="cb599"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb599-1" data-line-number="1">records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">&#39;records&#39;</span>])</a></code></pre></div>
 <div class="sourceCode" id="cb600"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb600-1" data-line-number="1"><span class="bu">print</span>(records1)</a></code></pre></div>
-<pre><code>##    accessionyear                      technique  ...                         colors                        details
-## 0           2008                           None  ...                            NaN                            NaN
-## 1           1972           Gelatin silver print  ...  [{&#39;percent&#39;: 0.46293785310...                            NaN
-## 2           1933         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.81095238095...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
-## 3           2011                 Platinum print  ...                            NaN                            NaN
-## 4           2007             Iris digital print  ...                            NaN                            NaN
-## 5           1977                           None  ...                            NaN                            NaN
-## 6           2008             Dye transfer print  ...                            NaN                            NaN
-## 7           1943                           None  ...  [{&#39;percent&#39;: 0.85061224489...                            NaN
-## 8           2007                   Screen print  ...  [{&#39;percent&#39;: 0.79893333333...                            NaN
-## 9           2006  Drypoint, softground etchi...  ...  [{&#39;percent&#39;: 0.66526984126...                            NaN
+<pre><code>##    accessionyear             technique  ...                        seeAlso                         people
+## 0         1995.0                  None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 1         2004.0          Photogravure  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Steichen, ...
+## 2         1991.0               Celadon  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 3         2010.0          Photogravure  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Stieglitz,...
+## 4         1991.0                  None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 5            NaN         Daguerreotype  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Southworth...
+## 6         2002.0            Lusterware  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 7         2008.0  Gelatin silver print  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Renger-Pat...
+## 8         2004.0              Repoussé  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Maker&#39;s Ma...
+## 9         2004.0            Lithograph  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Courbet, G...
 ## 
-## [10 rows x 62 columns]</code></pre>
+## [10 rows x 61 columns]</code></pre>
 <p>and write the data to a file.</p>
 <div class="sourceCode" id="cb602"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb602-1" data-line-number="1">records1.to_csv(<span class="st">&quot;records1.csv&quot;</span>)</a></code></pre></div>
 </div>
@@ -915,57 +915,57 @@ Python, we can iterate in the usual way.</p>
 <div class="sourceCode" id="cb605"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb605-1" data-line-number="1"><span class="co"># write the data to a file.</span></a>
 <a class="sourceLine" id="cb605-2" data-line-number="2">records_final.to_csv(<span class="st">&quot;records_final.csv&quot;</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb606"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb606-1" data-line-number="1"><span class="bu">print</span>(records_final)</a></code></pre></div>
-<pre><code>##     accessionyear                      technique  ...                         colors                        details
-## 0          2008.0                           None  ...                            NaN                            NaN
-## 1          1972.0           Gelatin silver print  ...  [{&#39;percent&#39;: 0.46293785310...                            NaN
-## 2          1933.0         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.81095238095...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
-## 3          2011.0                 Platinum print  ...                            NaN                            NaN
-## 4          2007.0             Iris digital print  ...                            NaN                            NaN
-## 5          1977.0                           None  ...                            NaN                            NaN
-## 6          2008.0             Dye transfer print  ...                            NaN                            NaN
-## 7          1943.0                           None  ...  [{&#39;percent&#39;: 0.85061224489...                            NaN
-## 8          2007.0                   Screen print  ...  [{&#39;percent&#39;: 0.79893333333...                            NaN
-## 9          2006.0  Drypoint, softground etchi...  ...  [{&#39;percent&#39;: 0.66526984126...                            NaN
-## 10         1954.0           Etching and drypoint  ...  [{&#39;percent&#39;: 0.49231231231...                            NaN
-## 11         1943.0                           None  ...                            NaN                            NaN
-## 12         2006.0                           None  ...  [{&#39;percent&#39;: 0.24176, &#39;spe...                            NaN
-## 13         2008.0                        Woodcut  ...  [{&#39;percent&#39;: 0.38816537467...                            NaN
-## 14            NaN           Albumen silver print  ...  [{&#39;percent&#39;: 0.28016, &#39;spe...                            NaN
-## 15         1995.0                           None  ...  [{&#39;percent&#39;: 0.2426, &#39;spec...                            NaN
-## 16         1994.0                           None  ...                            NaN                            NaN
-## 17         2004.0                   Photogravure  ...                            NaN                            NaN
-## 18         1991.0                        Celadon  ...                            NaN                            NaN
-## 19         2010.0                   Photogravure  ...                            NaN                            NaN
-## 20         1991.0                           None  ...                            NaN                            NaN
-## 21            NaN                  Daguerreotype  ...  [{&#39;percent&#39;: 0.53710144927...                            NaN
-## 22         1997.0                   Photogravure  ...                            NaN                            NaN
-## 23         1951.0                           None  ...                            NaN                            NaN
-## 24         1943.0                           None  ...  [{&#39;percent&#39;: 0.62418079096...                            NaN
-## 25         2002.0                     Lusterware  ...  [{&#39;percent&#39;: 0.24529761904...                            NaN
-## 26         2012.0         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.306, &#39;spect...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
-## 27         1995.0                           None  ...  [{&#39;percent&#39;: 0.38767507002...                            NaN
-## 28         1995.0                           None  ...  [{&#39;percent&#39;: 0.23896713615...                            NaN
-## 29         1943.0                           None  ...  [{&#39;percent&#39;: 0.51775193798...                            NaN
-## 30         1942.0                            Jun  ...  [{&#39;percent&#39;: 0.29066666666...                            NaN
-## 31            NaN          Etching and mezzotint  ...  [{&#39;percent&#39;: 0.49918238993...                            NaN
-## 32         2008.0           Gelatin silver print  ...                            NaN                            NaN
-## 33         2004.0                       Repoussé  ...  [{&#39;percent&#39;: 0.35547619047...                            NaN
-## 34         2004.0                     Lithograph  ...  [{&#39;percent&#39;: 0.46754716981...                            NaN
-## 35         1984.0                           None  ...  [{&#39;percent&#39;: 0.67232142857...                            NaN
-## 36         1934.0                           None  ...  [{&#39;percent&#39;: 0.24160919540...                            NaN
-## 37         1985.0                           None  ...  [{&#39;percent&#39;: 0.86209876543...                            NaN
-## 38         1958.0                           None  ...                            NaN                            NaN
-## 39         1939.0                           None  ...  [{&#39;percent&#39;: 0.44615873015...                            NaN
-## 40         1936.0                           None  ...  [{&#39;percent&#39;: 0.35041666666...                            NaN
-## 41         1984.0           Gelatin silver print  ...                            NaN                            NaN
-## 42         2006.0                           None  ...  [{&#39;percent&#39;: 0.63716417910...                            NaN
-## 43         2000.0                      Engraving  ...  [{&#39;percent&#39;: 0.42640522875...                            NaN
-## 44            NaN           Etching and drypoint  ...  [{&#39;percent&#39;: 0.42054644808...                            NaN
-## 45         2000.0         Cast, lost-wax process  ...                            NaN  {&#39;technical&#39;: [{&#39;text&#39;: &#39;I...
-## 46         1928.0                     Lithograph  ...  [{&#39;percent&#39;: 0.42887005649...                            NaN
-## 47         2011.0           Albumen silver print  ...                            NaN                            NaN
-## 48         2009.0                           None  ...                            NaN                            NaN
-## 49         1943.0         Cast, lost-wax process  ...  [{&#39;percent&#39;: 0.44841750841...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+<pre><code>##     accessionyear               technique  ...                         people                        details
+## 0          1995.0                    None  ...                            NaN                            NaN
+## 1          2004.0            Photogravure  ...  [{&#39;alphasort&#39;: &#39;Steichen, ...                            NaN
+## 2          1991.0                 Celadon  ...                            NaN                            NaN
+## 3          2010.0            Photogravure  ...  [{&#39;alphasort&#39;: &#39;Stieglitz,...                            NaN
+## 4          1991.0                    None  ...                            NaN                            NaN
+## 5             NaN           Daguerreotype  ...  [{&#39;alphasort&#39;: &#39;Southworth...                            NaN
+## 6          2002.0              Lusterware  ...                            NaN                            NaN
+## 7          2008.0    Gelatin silver print  ...  [{&#39;alphasort&#39;: &#39;Renger-Pat...                            NaN
+## 8          2004.0                Repoussé  ...  [{&#39;alphasort&#39;: &#39;Maker&#39;s Ma...                            NaN
+## 9          2004.0              Lithograph  ...  [{&#39;alphasort&#39;: &#39;Courbet, G...                            NaN
+## 10         1934.0                    None  ...  [{&#39;alphasort&#39;: &#39;Weissenbru...                            NaN
+## 11         1985.0                    None  ...  [{&#39;alphasort&#39;: &#39;Tosa, Mits...                            NaN
+## 12         1939.0                    None  ...  [{&#39;alphasort&#39;: &#39;Homer, Win...                            NaN
+## 13         1984.0    Gelatin silver print  ...  [{&#39;alphasort&#39;: &#39;Sears, Sar...                            NaN
+## 14         2006.0                    None  ...  [{&#39;alphasort&#39;: &#39;Peale, Rap...                            NaN
+## 15         2000.0               Engraving  ...  [{&#39;alphasort&#39;: &#39;Doetecum, ...                            NaN
+## 16            NaN    Etching and drypoint  ...  [{&#39;alphasort&#39;: &#39;Rembrandt ...                            NaN
+## 17         2011.0    Albumen silver print  ...  [{&#39;alphasort&#39;: &#39;Hillers, J...                            NaN
+## 18         2009.0                    None  ...  [{&#39;alphasort&#39;: &#39;Feininger,...                            NaN
+## 19         1984.0                    None  ...                            NaN                            NaN
+## 20         1990.0                    None  ...  [{&#39;alphasort&#39;: &#39;Mortimer, ...                            NaN
+## 21         2001.0                    None  ...  [{&#39;alphasort&#39;: &#39;Yi, Ha-ŭng...                            NaN
+## 22         2009.0                 Etching  ...  [{&#39;alphasort&#39;: &#39;Cruikshank...                            NaN
+## 23         2010.0            Photogravure  ...  [{&#39;alphasort&#39;: &#39;Stieglitz,...                            NaN
+## 24         2004.0                    None  ...  [{&#39;alphasort&#39;: &#39;Cats, Jaco...                            NaN
+## 25         1943.0                    None  ...  [{&#39;alphasort&#39;: &#39;Unidentifi...                            NaN
+## 26         2009.0                    None  ...  [{&#39;alphasort&#39;: &#39;Sillman, A...                            NaN
+## 27         2008.0           Daguerreotype  ...  [{&#39;alphasort&#39;: &#39;Unidentifi...                            NaN
+## 28         2009.0            Offset print  ...  [{&#39;alphasort&#39;: &#39;Duchamp, M...                            NaN
+## 29         1919.0                 Celadon  ...                            NaN                            NaN
+## 30         2000.0               Engraving  ...  [{&#39;alphasort&#39;: &#39;Dürer, Alb...                            NaN
+## 31         1939.0                    None  ...                            NaN                            NaN
+## 32         2009.0                    None  ...  [{&#39;alphasort&#39;: &#39;Feininger,...                            NaN
+## 33         2005.0                 Etching  ...  [{&#39;alphasort&#39;: &#39;Whistler, ...                            NaN
+## 34            NaN               Engraving  ...  [{&#39;alphasort&#39;: &#39;Dürer, Alb...                            NaN
+## 35         2006.0                    None  ...  [{&#39;alphasort&#39;: &#39;Colman, Sa...                            NaN
+## 36         2011.0       Chromogenic print  ...  [{&#39;alphasort&#39;: &#39;Misrach, R...                            NaN
+## 37         1999.0                    None  ...  [{&#39;alphasort&#39;: &#39;Withoos, P...                            NaN
+## 38         1997.0    Gelatin silver print  ...  [{&#39;alphasort&#39;: &#39;Degas, Hil...                            NaN
+## 39         1999.0                    None  ...  [{&#39;alphasort&#39;: &#39;Saftleven,...                            NaN
+## 40         2002.0                    None  ...  [{&#39;alphasort&#39;: &#39;Haydar &#39;Al...                            NaN
+## 41            NaN                    None  ...                            NaN                            NaN
+## 42         1908.0                  Carved  ...                            NaN                            NaN
+## 43         2004.0                    None  ...                            NaN                            NaN
+## 44         2000.0                 Etching  ...  [{&#39;alphasort&#39;: &#39;Velde, Jan...                            NaN
+## 45         2005.0     Chiaroscuro woodcut  ...  [{&#39;alphasort&#39;: &#39;Goltzius, ...                            NaN
+## 46         2010.0           Pigment print  ...  [{&#39;alphasort&#39;: &#39;Gupta, Sun...                            NaN
+## 47         1998.0  Cast, lost-wax process  ...                            NaN  {&#39;technical&#39;: [{&#39;text&#39;: &#39;I...
+## 48         1982.0                    None  ...                            NaN                            NaN
+## 49         2007.0                    None  ...  [{&#39;alphasort&#39;: &#39;Plimack-Ma...                            NaN
 ## 
 ## [50 rows x 62 columns]</code></pre>
 </div>
@@ -1169,13 +1169,13 @@ and save them as .csv files, just as we did with our exhibitions data earlier.</
 ## 3   Alberto Burri, Italian,     Friday, February 21, 2020  ...  32 Quincy Street  Cambridge
 ## 4                             Saturday, February 22, 2020  ...  32 Quincy Street  Cambridge
 ## ..                      ...                           ...  ...               ...        ...
-## 77     Photo: Tim Correira.       Wednesday, May 20, 2020  ...  32 Quincy Street  Cambridge
-## 78                                   Monday, May 25, 2020  ...  32 Quincy Street  Cambridge
-## 79           Maruyama Ōkyo,         Tuesday, May 26, 2020  ...  32 Quincy Street  Cambridge
-## 80      László Moholy-Nagy,        Thursday, May 28, 2020  ...  32 Quincy Street  Cambridge
-## 81     Photo: Tim Correira.      Wednesday, June 17, 2020  ...  32 Quincy Street  Cambridge
+## 78     Photo: Tim Correira.       Wednesday, May 20, 2020  ...  32 Quincy Street  Cambridge
+## 79                                   Monday, May 25, 2020  ...  32 Quincy Street  Cambridge
+## 80           Maruyama Ōkyo,         Tuesday, May 26, 2020  ...  32 Quincy Street  Cambridge
+## 81      László Moholy-Nagy,        Thursday, May 28, 2020  ...  32 Quincy Street  Cambridge
+## 82     Photo: Tim Correira.      Wednesday, June 17, 2020  ...  32 Quincy Street  Cambridge
 ## 
-## [82 rows x 6 columns]</code></pre>
+## [83 rows x 6 columns]</code></pre>
 </div>
 <div id="exercise-1-5" class="section level3">
 <h3>Exercise 1</h3>
