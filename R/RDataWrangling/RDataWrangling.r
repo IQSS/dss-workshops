@@ -89,7 +89,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 # </div>
 # </details>
 #
-# <div class="alert alert-info">
+# <div class="alert alert-danger">
 # **Steps to accomplish the goal of extracting and graphing the *top 100* boys names in England and Wales for every year since 1996:**
 #
 # 0.  **Explore example data to highlight problems (already done!)**

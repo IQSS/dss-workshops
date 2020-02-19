@@ -54,7 +54,7 @@ library(ggrepel)
 
 # ### Goals
 #
-# <div class="alert alert-info">
+# <div class="alert alert-danger">
 # We will learn about the `grammar of graphics` --- a system for understanding
 # the building blocks of a graph --- using the `ggplot2` package. In particular,
 # we'll learn about:  

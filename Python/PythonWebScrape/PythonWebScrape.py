@@ -34,6 +34,7 @@
 
 # ### Goals
 #
+# <div class="alert alert-danger">
 # This workshop is organized into two main parts:
 #
 # 1. Retrive information in JSON format
@@ -41,6 +42,7 @@
 #
 # Note that this workshop will not teach you everything you need to know in
 # order to retrieve data from any web service you might wish to scrape.
+# </div>
 
 # ## Webscraping background
 #
@@ -298,23 +300,54 @@ print(records_final)
 #    the network traffic as you interact with the page. Try to find
 #    where the data displayed on that page comes from.
 ##
-``
 
-2. Make a `get` request in Python to retrieve the data from the URL
-   identified in step1.
-```{Python}
+# 2. Make a `get` request in Python to retrieve the data from the URL
+#    identified in step1.
 ##
-``
 
-3. Write a *loop* or *list comprehension* in Python to retrieve data
-   for the first 5 pages of exhibitions data.
-```{Python}
+# 3. Write a *loop* or *list comprehension* in Python to retrieve data
+#    for the first 5 pages of exhibitions data.
 ##
 
 # 4. Bonus (optional): Convert the data you retrieved into a pandas 
 #   `DataFrame` and save it to a `.csv` file.
 ##
 
+# <details>
+#   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
+#   <div class="alert alert-success">
+#
+# Question #1: 
+museum_domain = "https://www.harvardartmuseums.org"
+exhibit_path = "search/load_next"
+exhibit_url = museum_domain + "/" + exhibit_path
+print(exhibit_url)
+
+# Question #2:
+import requests
+from pprint import pprint as print 
+exhibit1 = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': 1})
+print(exhibit1.headers["Content-Type"])
+exhibit1 = exhibit1.json()
+print(exhibit1)
+
+# Questions #3+4 (loop solution):
+firstFivePages = []
+for page in range(1, 6):
+    records_per_page = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records']
+    firstFivePages.extend(records_per_page)
+firstFivePages_records = pd.DataFrame.from_records(firstFivePages)
+print(firstFivePages_records)
+
+# Questions #3+4 (list comprehension solution):
+first5Pages = [requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
+from itertools import chain
+first5Pages = list(chain.from_iterable(first5Pages))
+import pandas as pd
+first5Pages_records = pd.DataFrame.from_records(first5Pages)
+print(first5Pages_records)
+# </div>
+# </details>
 
 # ## Parsing HTML if you have to
 #
@@ -533,65 +566,9 @@ print(all_event_values)
 #    to retrieve data for all the levels.
 ##
 
-# ## `Scrapy`: for large / complex projects
-#
-# Scraping websites using the `requests` library to make GET and POST
-# requests, and the `lxml` library to process HTML is a good way to
-# learn basic web scraping techniques. It is a good choice for small to
-# medium size projects. For very large or complicated scraping tasks the
-# `scrapy` library offers a number of conveniences, including
-# asynchronous retrieval, session management, convenient methods for
-# extracting and storing values, and more. More information about
-# `scrapy` can be found at <https://doc.scrapy.org>.
-#
-# ## Browser drivers: a last resort
-#
-# It is sometimes necessary (or sometimes just easier) to use a web
-# browser as an intermediary rather than communicate directly with a
-# web service. This method of using a "browser driver" has the advantage 
-# of being able to use the javascript engine and session management features 
-# of a web browser; the main disadvantage is that it is slower and tends to 
-# be more fragile than using `requests` or `scrapy` to make requests directly
-# from Python. For small scraping projects involving complicated sites
-# with CAPTHAs or lots of complicated javascript using a browser driver
-# can be a good option. More information is available at 
-# <https://www.seleniumhq.org/docs/03_webdriver.jsp>.
-
-# ## Exercise solutions
-#
-# ### Ex 0: prototype
-#
-# Question #1: 
-museum_domain = "https://www.harvardartmuseums.org"
-exhibit_path = "search/load_next"
-exhibit_url = museum_domain + "/" + exhibit_path
-print(exhibit_url)
-
-# Question #2:
-import requests
-from pprint import pprint as print 
-exhibit1 = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': 1})
-print(exhibit1.headers["Content-Type"])
-exhibit1 = exhibit1.json()
-print(exhibit1)
-
-# Questions #3+4 (loop solution):
-firstFivePages = []
-for page in range(1, 6):
-    records_per_page = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records']
-    firstFivePages.extend(records_per_page)
-firstFivePages_records = pd.DataFrame.from_records(firstFivePages)
-print(firstFivePages_records)
-
-# Questions #3+4 (list comprehension solution):
-first5Pages = [requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
-from itertools import chain
-first5Pages = list(chain.from_iterable(first5Pages))
-import pandas as pd
-first5Pages_records = pd.DataFrame.from_records(first5Pages)
-print(first5Pages_records)
-
-# ### Ex 1: prototype
+# <details>
+#   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
+#   <div class="alert alert-success">
 #
 # Question #2:
 from lxml import html
@@ -620,7 +597,32 @@ for level in all_levels:
         level_facilities.append(level_facility.text_content())
     all_levels_facilities.append(level_facilities)
 print(all_levels_facilities)
+# </div>
+# </details>
+
+# ## `Scrapy`: for large / complex projects
 #
+# Scraping websites using the `requests` library to make GET and POST
+# requests, and the `lxml` library to process HTML is a good way to
+# learn basic web scraping techniques. It is a good choice for small to
+# medium size projects. For very large or complicated scraping tasks the
+# `scrapy` library offers a number of conveniences, including
+# asynchronous retrieval, session management, convenient methods for
+# extracting and storing values, and more. More information about
+# `scrapy` can be found at <https://doc.scrapy.org>.
+#
+# ## Browser drivers: a last resort
+#
+# It is sometimes necessary (or sometimes just easier) to use a web
+# browser as an intermediary rather than communicate directly with a
+# web service. This method of using a "browser driver" has the advantage 
+# of being able to use the javascript engine and session management features 
+# of a web browser; the main disadvantage is that it is slower and tends to 
+# be more fragile than using `requests` or `scrapy` to make requests directly
+# from Python. For small scraping projects involving complicated sites
+# with CAPTHAs or lots of complicated javascript using a browser driver
+# can be a good option. More information is available at 
+# <https://www.seleniumhq.org/docs/03_webdriver.jsp>.
 
 # ## Wrap-up
 #

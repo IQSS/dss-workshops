@@ -10263,6 +10263,27 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
 \end{Highlighting}
 \end{Shaded}
 
+{Click for Exercise 0 Solution}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1. Open the Characters.txt file and read its contents.}
+
+\NormalTok{characters_file }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Characters.txt"}\NormalTok{)}
+\NormalTok{characters_txt }\OperatorTok{=}\NormalTok{ characters_file.read()}
+
+\CommentTok{# 2. Split text on newlines to produce a list with one element per line. }
+\CommentTok{# Store the result as "alice_characters".}
+
+\NormalTok{alice_characters }\OperatorTok{=}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{alice_characters}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ['Alice', 'White Rabbit', 'Mouse', 'Dodo', 'Lory', 'Eaglet', 'Duck', 'Pat', 'Bill the Lizard', 'Puppy', 'Caterpillar', 'Duchess', 'Cheshire Cat', 'March Hare', 'Hatter', 'Dormouse', 'Queen of Hearts', 'Knave of Hearts', 'King of Hearts', 'Gryphon', 'Mock Turtle', '']
+\end{verbatim}
+
 \hypertarget{control-flow}{%
 \subsection{Control flow}\label{control-flow}}
 
@@ -10529,6 +10550,61 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 \CommentTok{##}
 \end{Highlighting}
 \end{Shaded}
+
+{Click for Exercise 1 Solution}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).}
+
+\BuiltInTok{len}\NormalTok{(alice_characters)}
+
+\CommentTok{# 2. Extract and print just the first character from the list you created in the previous exercise.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(alice_characters[}\DecValTok{0}\NormalTok{])}
+
+\CommentTok{# 3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of}
+\CommentTok{# the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test}
+\CommentTok{# whether EITHER of the above conditions are true. HINT: use the `len()` function.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Alice
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{2}\NormalTok{]) }\OperatorTok{==} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{7}\NormalTok{]) }\KeywordTok{or} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{2}\NormalTok{]) }\OperatorTok{>=} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{5}\NormalTok{])}
+
+
+\CommentTok{# 4. (BONUS, optional): Sort the list you created in step 2 alphabetically,}
+\CommentTok{# and then extract the last element.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## False
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alice_characters.sort()}
+\NormalTok{alice_characters[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'White Rabbit'
+\end{verbatim}
 
 \hypertarget{iterating-over-collections-of-data}{%
 \section{Iterating over collections of data}\label{iterating-over-collections-of-data}}
@@ -10890,6 +10966,62 @@ For each character, call the count method with that character as the argument.
 \end{Highlighting}
 \end{Shaded}
 
+{Click for Exercise 2 Solution}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1. Make sure you have both the text and the list of characters.}
+\CommentTok{# Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.}
+
+\NormalTok{characters_txt }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Characters.txt"}\NormalTok{).read()}
+\NormalTok{alice_txt }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Alice_in_wonderland.txt"}\NormalTok{).read()}
+
+\CommentTok{# 2. Which chapter has the most words?}
+\CommentTok{# Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.}
+\CommentTok{# For each chapter, split it into words and calculate the length.}
+
+\NormalTok{words_per_chapter }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters:}
+\NormalTok{    words_per_chapter.append(}\BuiltInTok{len}\NormalTok{(chapter.split()))}
+\NormalTok{words_per_chapter}
+
+\CommentTok{# 3. How many times is each character mentioned in the text?}
+\CommentTok{# Iterate over the list of characters using a for-loop. }
+\CommentTok{# For each character, call the count method with that character as the argument.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [7, 2184, 2098, 1701, 2614, 2185, 2592, 2286, 2486, 2271, 2028, 1877, 2104]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{num_per_character }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ character }\KeywordTok{in}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{):}
+\NormalTok{    num_per_character.append(alice_txt.count(character))}
+\NormalTok{num_per_character}
+
+\CommentTok{# 4. (BONUS, optional): Put the character counts computed above in a }
+\CommentTok{# dictionary with character names as the keys and counts as the values.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [395, 20, 30, 13, 7, 3, 3, 3, 0, 0, 27, 42, 4, 30, 55, 40, 3, 3, 0, 55, 53, 144403]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{characters }\OperatorTok{=}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(characters, num_per_character))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {'Alice': 395, 'White Rabbit': 20, 'Mouse': 30, 'Dodo': 13, 'Lory': 7, 'Eaglet': 3, 'Duck': 3, 'Pat': 3, 'Bill the Lizard': 0, 'Puppy': 0, 'Caterpillar': 27, 'Duchess': 42, 'Cheshire Cat': 4, 'March Hare': 30, 'Hatter': 55, 'Dormouse': 40, 'Queen of Hearts': 3, 'Knave of Hearts': 3, 'King of Hearts': 0, 'Gryphon': 55, 'Mock Turtle': 53, '': 144403}
+\end{verbatim}
+
 \hypertarget{importing-packages}{%
 \section{Importing packages}\label{importing-packages}}
 
@@ -10952,144 +11084,6 @@ The \texttt{numpy} package is very popular and includes a lot of useful function
 
 \begin{verbatim}
 ## 10.92747556493366
-\end{verbatim}
-
-\hypertarget{exercise-solutions}{%
-\section{Exercise solutions}\label{exercise-solutions}}
-
-\hypertarget{ex-0-prototype}{%
-\subsection{Ex 0: prototype}\label{ex-0-prototype}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 1. Open the Characters.txt file and read its contents.}
-
-\NormalTok{characters_file }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Characters.txt"}\NormalTok{)}
-\NormalTok{characters_txt }\OperatorTok{=}\NormalTok{ characters_file.read()}
-
-\CommentTok{# 2. Split text on newlines to produce a list with one element per line. }
-\CommentTok{# Store the result as "alice_characters".}
-
-\NormalTok{alice_characters }\OperatorTok{=}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\NormalTok{alice_characters}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## ['Alice', 'White Rabbit', 'Mouse', 'Dodo', 'Lory', 'Eaglet', 'Duck', 'Pat', 'Bill the Lizard', 'Puppy', 'Caterpillar', 'Duchess', 'Cheshire Cat', 'March Hare', 'Hatter', 'Dormouse', 'Queen of Hearts', 'Knave of Hearts', 'King of Hearts', 'Gryphon', 'Mock Turtle', '']
-\end{verbatim}
-
-\hypertarget{ex-1-prototype}{%
-\subsection{Ex 1: prototype}\label{ex-1-prototype}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 1. Count the number of main characters in the story (i.e., get the length of the list you created in previous exercise).}
-
-\BuiltInTok{len}\NormalTok{(alice_characters)}
-
-\CommentTok{# 2. Extract and print just the first character from the list you created in the previous exercise.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 22
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\BuiltInTok{print}\NormalTok{(alice_characters[}\DecValTok{0}\NormalTok{])}
-
-\CommentTok{# 3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of}
-\CommentTok{# the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test}
-\CommentTok{# whether EITHER of the above conditions are true. HINT: use the `len()` function.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Alice
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{2}\NormalTok{]) }\OperatorTok{==} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{7}\NormalTok{]) }\KeywordTok{or} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{2}\NormalTok{]) }\OperatorTok{>=} \BuiltInTok{len}\NormalTok{(alice_characters[}\DecValTok{5}\NormalTok{])}
-
-
-\CommentTok{# 4. (BONUS, optional): Sort the list you created in step 2 alphabetically,}
-\CommentTok{# and then extract the last element.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## False
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alice_characters.sort()}
-\NormalTok{alice_characters[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 'White Rabbit'
-\end{verbatim}
-
-\hypertarget{ex-2-prototype}{%
-\subsection{Ex 2: prototype}\label{ex-2-prototype}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# 1. Make sure you have both the text and the list of characters.}
-\CommentTok{# Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.}
-
-\NormalTok{characters_txt }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Characters.txt"}\NormalTok{).read()}
-\NormalTok{alice_txt }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"Alice_in_wonderland.txt"}\NormalTok{).read()}
-
-\CommentTok{# 2. Which chapter has the most words?}
-\CommentTok{# Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.}
-\CommentTok{# For each chapter, split it into words and calculate the length.}
-
-\NormalTok{words_per_chapter }\OperatorTok{=}\NormalTok{ []}
-\ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters:}
-\NormalTok{    words_per_chapter.append(}\BuiltInTok{len}\NormalTok{(chapter.split()))}
-\NormalTok{words_per_chapter}
-
-\CommentTok{# 3. How many times is each character mentioned in the text?}
-\CommentTok{# Iterate over the list of characters using a for-loop. }
-\CommentTok{# For each character, call the count method with that character as the argument.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [7, 2184, 2098, 1701, 2614, 2185, 2592, 2286, 2486, 2271, 2028, 1877, 2104]
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{num_per_character }\OperatorTok{=}\NormalTok{ []}
-\ControlFlowTok{for}\NormalTok{ character }\KeywordTok{in}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{):}
-\NormalTok{    num_per_character.append(alice_txt.count(character))}
-\NormalTok{num_per_character}
-
-\CommentTok{# 4. (BONUS, optional): Put the character counts computed above in a }
-\CommentTok{# dictionary with character names as the keys and counts as the values.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [395, 20, 30, 13, 7, 3, 3, 3, 0, 0, 27, 42, 4, 30, 55, 40, 3, 3, 0, 55, 53, 144403]
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{characters }\OperatorTok{=}\NormalTok{ characters_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(characters, num_per_character))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## {'Alice': 395, 'White Rabbit': 20, 'Mouse': 30, 'Dodo': 13, 'Lory': 7, 'Eaglet': 3, 'Duck': 3, 'Pat': 3, 'Bill the Lizard': 0, 'Puppy': 0, 'Caterpillar': 27, 'Duchess': 42, 'Cheshire Cat': 4, 'March Hare': 30, 'Hatter': 55, 'Dormouse': 40, 'Queen of Hearts': 3, 'Knave of Hearts': 3, 'King of Hearts': 0, 'Gryphon': 55, 'Mock Turtle': 53, '': 144403}
 \end{verbatim}
 
 \hypertarget{wrap-up-5}{%
@@ -11712,22 +11706,32 @@ exhibitions at Harvard Art Museums from
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{##}
-\NormalTok{``}
-
-\FloatTok{2.}\NormalTok{ Make a `get` request }\KeywordTok{in}\NormalTok{ Python to retrieve the data }\ImportTok{from}\NormalTok{ the URL}
-\NormalTok{   identified }\KeywordTok{in}\NormalTok{ step1.}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Make a \texttt{get} request in Python to retrieve the data from the URL
+  identified in step1.
+\end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{##}
-\NormalTok{``}
-
-\FloatTok{3.}\NormalTok{ Write a }\OperatorTok{*}\NormalTok{loop}\OperatorTok{*} \KeywordTok{or} \OperatorTok{*}\BuiltInTok{list}\NormalTok{ comprehension}\OperatorTok{*} \KeywordTok{in}\NormalTok{ Python to retrieve data}
-   \ControlFlowTok{for}\NormalTok{ the first }\DecValTok{5}\NormalTok{ pages of exhibitions data.}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Write a \emph{loop} or \emph{list comprehension} in Python to retrieve data
+  for the first 5 pages of exhibitions data.
+\end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11749,6 +11753,1825 @@ exhibitions at Harvard Art Museums from
 \CommentTok{##}
 \end{Highlighting}
 \end{Shaded}
+
+{Click for Exercise 0 Solution}
+
+Question \#1:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{museum_domain }\OperatorTok{=} \StringTok{"https://www.harvardartmuseums.org"}
+\NormalTok{exhibit_path }\OperatorTok{=} \StringTok{"search/load_next"}
+\NormalTok{exhibit_url }\OperatorTok{=}\NormalTok{ museum_domain }\OperatorTok{+} \StringTok{"/"} \OperatorTok{+}\NormalTok{ exhibit_path}
+\BuiltInTok{print}\NormalTok{(exhibit_url)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'https://www.harvardartmuseums.org/search/load_next'
+\end{verbatim}
+
+Question \#2:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ requests}
+\ImportTok{from}\NormalTok{ pprint }\ImportTok{import}\NormalTok{ pprint }\ImportTok{as} \BuiltInTok{print} 
+\NormalTok{exhibit1 }\OperatorTok{=}\NormalTok{ requests.get(exhibit_url, params }\OperatorTok{=}\NormalTok{ \{}\StringTok{'type'}\NormalTok{: }\StringTok{'past-exhibition'}\NormalTok{, }\StringTok{'page'}\NormalTok{: }\DecValTok{1}\NormalTok{\})}
+\BuiltInTok{print}\NormalTok{(exhibit1.headers[}\StringTok{"Content-Type"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'application/json'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{exhibit1 }\OperatorTok{=}\NormalTok{ exhibit1.json()}
+\BuiltInTok{print}\NormalTok{(exhibit1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {'info': {'next': None,
+##           'page': 2,
+##           'pages': 56,
+##           'prev': None,
+##           'totalrecords': 552,
+##           'totalrecordsperquery': 10},
+##  'records': [{'begindate': '2018-10-30',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2019-02-04',
+##               'exhibitionid': 5790,
+##               'id': 5790,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG269109',
+##                           'caption': None,
+##                           'copyright': 'President and Fellows of Harvard '
+##                                        'College',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 1700,
+##                           'idsid': 459802696,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/459802696',
+##                           'imageid': 493133,
+##                           'renditionnumber': 'LEG269109',
+##                           'width': 2550}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'poster': {'caption': None,
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG269109'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG269109',
+##               'shortdescription': None,
+##               'temporalorder': 4580,
+##               'textiledescription': 'In 1638, a work of silver known as "_The '
+##                                     'Great '
+##                                     'Salt_":https://www.harvardartmuseums.org/collections/object/232296  '
+##                                     'arrived in the Massachusetts Bay Colony. '
+##                                     'Owned by John Glover, who died during his '
+##                                     'passage across the Atlantic, the object '
+##                                     'transferred to Glover’s widow Elizabeth, '
+##                                     'who later married Henry Dunster, the '
+##                                     'first president of Harvard. _The Great '
+##                                     'Salt_ (on display in the silver cabinet '
+##                                     'on Level 2, "Gallery '
+##                                     '2340":https://www.harvardartmuseums.org/visit/floor-plan/2/2340?gallery=2340) '
+##                                     'is one of seven pieces of historic '
+##                                     'Harvard silver. This shape-shifting '
+##                                     'container, designed to hold salt for the '
+##                                     'dining table at a time when the mineral '
+##                                     'was a rare and valuable commodity, is '
+##                                     'invested with centuries of prestige. '
+##                                     'Originally the charge of the most '
+##                                     'important person sitting at the table, '
+##                                     '_The Great Salt_ continued to be used '
+##                                     'throughout the 20th century as part of '
+##                                     'the regalia for inauguration ceremonies '
+##                                     'of new Harvard presidents.\r\n'
+##                                     '\r\n'
+##                                     'This object was selected by Jace Clayton, '
+##                                     'a visiting artist at the Harvard Art '
+##                                     'Museums, as the subject for a digital '
+##                                     'response—a sonic extension and '
+##                                     'intervention into _The Great Salt_’s '
+##                                     'narrative. A display vitrine, much like '
+##                                     'those that protect precious objects '
+##                                     'elsewhere in the museums, here holds '
+##                                     'approximately 40 electronic synthesizer '
+##                                     'modules, connected with multicolored '
+##                                     'cables. Programmed using granular '
+##                                     'synthesis, a technique that breaks a '
+##                                     'sound into tiny “grains,” this collection '
+##                                     'of electronic components performs a new '
+##                                     'work—a composition designed by Clayton to '
+##                                     'self-modulate, actively generating new '
+##                                     'sounds and changing as it repeats. Three '
+##                                     'marímbulas—Afro-Cuban thumb '
+##                                     'pianos—surround the vitrine and can be '
+##                                     'played by visitors, affecting the '
+##                                     'presentation of the electronic sound.\r\n'
+##                                     '\r\n'
+##                                     'The year 1638, just as _The Great Salt_ '
+##                                     'made its way to Massachusetts, was also '
+##                                     'when the first enslaved Africans arrived '
+##                                     'in the colony. This installation includes '
+##                                     'references to both 17th-century European '
+##                                     'and African musical forms, playing with '
+##                                     'associations between _The Great Salt_, '
+##                                     'the sea, and the Middle Passage. Through '
+##                                     'sound, the installation responds to _The '
+##                                     'Great Salt_ with acts of performance, '
+##                                     'translation, and participation.\r\n'
+##                                     '\r\n'
+##                                     'Jace Clayton, Harvard College class of '
+##                                     '’97, is an artist and writer based in New '
+##                                     'York City. Also known for his '
+##                                     'performances as DJ /rupture, Clayton '
+##                                     'creates interdisciplinary works that '
+##                                     'explore interactions among sound, memory, '
+##                                     'and public space. His sonic experiments '
+##                                     'have been exhibited at the Andy Warhol '
+##                                     'Museum and Barnes Foundation, and his '
+##                                     'works travel internationally in the form '
+##                                     'of music, writing, and frequent live '
+##                                     'performances. Clayton joined the faculty '
+##                                     'of Bard College in 2013 and recently '
+##                                     'served as the Nannerl Keohane '
+##                                     'Distinguished Visiting Professor at the '
+##                                     'University of North Carolina at Chapel '
+##                                     'Hill and Duke University. He has been an '
+##                                     'artist-in-residence with the Lower '
+##                                     'Manhattan Cultural Council and the '
+##                                     'Eyebeam Art + Technology Atelier, as well '
+##                                     'as a USC Annenberg/Getty Arts Journalism '
+##                                     'Fellow. He is the author of _Uproot: '
+##                                     'Travels in 21st-Century Music and Digital '
+##                                     'Culture_ (Farrar, Straus and Giroux, '
+##                                     '2016).\r\n'
+##                                     '\r\n'
+##                                     '*Online Resources*\r\n'
+##                                     '"Watch a '
+##                                     'performance":https://vimeo.com/album/5633618 '
+##                                     'of _Salt Wood Salt Wire Salt Salt_, a new '
+##                                     'composition by Jace Clayton. This '
+##                                     'companion piece to the installation _Jace '
+##                                     'Clayton, The Great Salt_ was written '
+##                                     'expressly for—and performed with—the new '
+##                                     'music ensemble Bent Duo (David Friend, '
+##                                     'piano; Bill Solomon, percussion) and '
+##                                     'features Clayton’s live electronics. The '
+##                                     'performance was recorded on Thursday, '
+##                                     'December 6, 2018 in Adolphus Busch Hall '
+##                                     'at the Harvard Art Museums.',
+##               'title': 'Jace Clayton, The Great Salt',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5790/jace-clayton-the-great-salt',
+##               'venues': [{'address1': '32 Quincy St.',
+##                           'address2': None,
+##                           'begindate': '2018-10-30',
+##                           'city': 'Cambridge',
+##                           'country': None,
+##                           'enddate': '2019-02-04',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 5,
+##                                          'galleryid': 5000,
+##                                          'gallerynumber': '5000',
+##                                          'name': 'Lightbox Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': 'MA',
+##                           'venueid': 55780,
+##                           'zipcode': '02138'}]},
+##              {'begindate': '2018-09-07',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2019-01-06',
+##               'exhibitionid': 5295,
+##               'id': 5295,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG261100',
+##                           'caption': 'Rhyton with the forepart of a griffin, '
+##                                      'Achaemenid, 5th–4th century BCE. Silver, '
+##                                      'partially gilded. The British Museum, '
+##                                      'London, Bequeathed by Sir Augustus '
+##                                      'Wollaston Franks, 1897,1231.178 '
+##                                      '(124081). Photo: © The Trustees of the '
+##                                      'British Museum. All rights reserved.',
+##                           'copyright': 'British Museum',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 2550,
+##                           'idsid': 444992764,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/444992764',
+##                           'imageid': 487764,
+##                           'renditionnumber': 'LEG261100',
+##                           'width': 1914}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'people': [{'displayname': 'Curated by Susanne Ebbinghaus',
+##                           'displayorder': 1,
+##                           'name': 'Susanne Ebbinghaus',
+##                           'personid': 142,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'}],
+##               'poster': {'caption': 'Rhyton with the forepart of a griffin, '
+##                                     'Achaemenid, 5th–4th century BCE. Silver, '
+##                                     'partially gilded. The British Museum, '
+##                                     'London, Bequeathed by Sir Augustus '
+##                                     'Wollaston Franks, 1897,1231.178 (124081). '
+##                                     'Photo: © The Trustees of the British '
+##                                     'Museum. All rights reserved.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG261100'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG261100',
+##               'publications': [{'description': None,
+##                                 'format': 'Exhibition Catalogue',
+##                                 'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG268617',
+##                                 'publicationdate': '2018',
+##                                 'publicationid': 23608,
+##                                 'publicationplace': 'Cambridge, MA',
+##                                 'publicationyear': 2018,
+##                                 'shortdescription': None,
+##                                 'title': 'Animal-Shaped Vessels from the '
+##                                          'Ancient World: Feasting with Gods, '
+##                                          'Heroes, and Kings'}],
+##               'shortdescription': None,
+##               'temporalorder': 4566,
+##               'textiledescription': '_Animal-Shaped Vessels from the Ancient '
+##                                     'World: Feasting with Gods, Heroes, and '
+##                                     'Kings_ brings together nearly 60 '
+##                                     'elaborate vessels of animal shape from '
+##                                     'collections in the United States and '
+##                                     'Europe. While the songs, speeches, and '
+##                                     'prayers that enlivened ancient feasts are '
+##                                     'now largely lost to us, these vessels '
+##                                     'have survived, offering a glimpse into '
+##                                     'the rich symbolism and communal practices '
+##                                     'that found expression at these '
+##                                     'gatherings. Taking animal-shaped vessels '
+##                                     'as performative props in the multifaceted '
+##                                     'world of feasting, the exhibition not '
+##                                     'only introduces the social and ceremonial '
+##                                     'functions of these ritual occasions, but '
+##                                     'also highlights the essential and '
+##                                     'universal role played by food and '
+##                                     'drink—and by the highly imaginative '
+##                                     'containers used to enjoy these '
+##                                     'refreshments.\r\n'
+##                                     '\r\n'
+##                                     'The exhibition includes vessels in the '
+##                                     'shape of standing or reclining animals, '
+##                                     'animal-headed cups and beakers, drinking '
+##                                     'horns, and animated pitchers. Various '
+##                                     'creatures, real and imagined, give these '
+##                                     'objects their shapes: powerful bulls and '
+##                                     'rams, majestic lions and mythical '
+##                                     'griffins, wild boars and goats, deer and '
+##                                     'gazelles, graceful birds, and braying '
+##                                     'donkeys, among others. Assembling such a '
+##                                     'range of vessels for the first time, the '
+##                                     'exhibition presents a cross-cultural and '
+##                                     'cross-disciplinary examination of how '
+##                                     'they spanned geography and time, across '
+##                                     'three continents and over three '
+##                                     'millennia. The international menagerie of '
+##                                     'drinking and pouring vessels vividly '
+##                                     'illustrates not just how shapes and '
+##                                     'artistic forms crossed borders, but how '
+##                                     'ideas as well were exchanged among '
+##                                     'cultures—tangible evidence of close '
+##                                     'contact and the intermingling of '
+##                                     'traditions.\r\n'
+##                                     '\r\n'
+##                                     'Beyond their role in ritual and '
+##                                     'ceremonial drinking, animal-shaped '
+##                                     'vessels functioned variously as '
+##                                     'diplomatic gifts and tribute, the spoils '
+##                                     'of war, offerings to deities and the '
+##                                     'dead, and exotic objects of trade; they '
+##                                     'also were prized and emulated as symbols '
+##                                     'of status and prestige. Each object in '
+##                                     'the exhibition is a compelling animal '
+##                                     'study in itself, with a wealth of '
+##                                     'information embedded in its material, '
+##                                     'shape, and decoration. Many were made of '
+##                                     'rare or innovative materials—including '
+##                                     'gold, silver, bronze, glass, faience, and '
+##                                     'horn—and at the hands of skilled artists. '
+##                                     'They conveyed important information about '
+##                                     'their liquid contents and the nature of a '
+##                                     'gathering, but were also markers of '
+##                                     'social stature, identity, etiquette, and '
+##                                     'shared values.\r\n'
+##                                     '\r\n'
+##                                     'Most of the objects in the exhibition '
+##                                     'belong to a tradition of animal-shaped '
+##                                     'drinking and pouring vessels that '
+##                                     'persisted in the Near East and the '
+##                                     'Mediterranean from the Bronze Age in the '
+##                                     'third and second millennia BCE to the '
+##                                     'advent of Islam in the seventh century; '
+##                                     'this tradition eventually extended all '
+##                                     'the way to China, via the Silk Road. '
+##                                     'Select animal-shaped vessels from other '
+##                                     'cultures and periods—including East Asia, '
+##                                     'Africa, Europe, and South America—provide '
+##                                     'further points of comparison. In addition '
+##                                     'to the vessels, the exhibition features '
+##                                     'several related objects (paintings and '
+##                                     'sculpture) with ancient and modern '
+##                                     'representations of feasts. More than 20 '
+##                                     'domestic and international institutions '
+##                                     'have generously lent objects to the '
+##                                     'exhibition, including the Ashmolean '
+##                                     'Museum (Oxford University), the British '
+##                                     'Museum (London), the Louvre (Paris), the '
+##                                     'Metropolitan Museum of Art (New York), '
+##                                     'and the Museum of Fine Arts (Boston).\r\n'
+##                                     '\r\n'
+##                                     'The exhibition, curated by Susanne '
+##                                     'Ebbinghaus, the George M.A. Hanfmann '
+##                                     'Curator of Ancient Art and head of the '
+##                                     'Division of Asian and Mediterranean Art '
+##                                     'at the Harvard Art Museums, is '
+##                                     'accompanied by a full '
+##                                     '"catalogue":https://shop.harvardartmuseums.org/collections/frontpage/products/animal-shaped-vessels-from-the-ancient-world-feasting-with-gods-heroes-and-kings '
+##                                     'edited by Ebbinghaus.\r\n'
+##                                     '\r\n'
+##                                     'Crucial support for the _Animal-Shaped '
+##                                     'Vessels_ project has been made possible '
+##                                     'in part by a major grant from the '
+##                                     '"National Endowment for the Humanities: '
+##                                     'Exploring the Human '
+##                                     'Endeavor":https://www.neh.gov/. In '
+##                                     'addition, the Harvard Art Museums are '
+##                                     'deeply grateful to the anonymous donor of '
+##                                     'a gift in memory of Melvin R. Seiden and '
+##                                     'to Malcolm H. Wiener (Harvard A.B. ’57, '
+##                                     'J.D. ’63) and Michael and Helen Lehmann '
+##                                     'for enabling us to mount this exhibition '
+##                                     'and to pursue the related research. This '
+##                                     'work was also made possible in part by '
+##                                     'the following endowed funds: the David M. '
+##                                     'Robinson Fund; the Andrew W. Mellon '
+##                                     'Publication Funds, including the Henry P. '
+##                                     'McIlhenny Fund; and the M. Victor '
+##                                     'Leventritt Fund, which brings outstanding '
+##                                     'scholars of the history and theory of art '
+##                                     'to the Harvard and Greater Boston '
+##                                     'communities through the generosity of the '
+##                                     'wife, children, and friends of the late '
+##                                     'M. Victor Leventritt, Harvard Class of '
+##                                     '1935.\r\n'
+##                                     '\r\n'
+##                                     'Share your experience on social media: '
+##                                     '#partyanimals #HarvardArtMuseums\r\n'
+##                                     '\r\n'
+##                                     '*Related Programming*\r\n'
+##                                     'Thanks to a generous grant from the '
+##                                     'National Endowment from the Humanities, '
+##                                     'the museums are offering free admission '
+##                                     'to all visitors on Wednesday afternoons, '
+##                                     '1–5pm, and on the first Saturday of each '
+##                                     'month, 10am–5pm, throughout the run of '
+##                                     'the Animal-Shaped Vessels exhibition. '
+##                                     'Information about these and other events, '
+##                                     'including the opening celebration on '
+##                                     'September 6, hands-on workshops, a '
+##                                     'symposium, gallery tours, and more, can '
+##                                     'be found on the museums’ '
+##                                     '"calendar":https://www.harvardartmuseums.org/calendar.\r\n'
+##                                     '\r\n'
+##                                     '*Online Resources*\r\n'
+##                                     'An online digital feature hosted on the '
+##                                     'museums’ website at '
+##                                     '"hvrd.art/animals":http://www.hvrd.art/animals '
+##                                     'provides visitors with expanded '
+##                                     'multimedia content on the history of '
+##                                     'feasting and drinking practices in the '
+##                                     'ancient world, as well as further details '
+##                                     'on the material history of these '
+##                                     'one-of-a-kind vessels.\r\n'
+##                                     '\r\n'
+##                                     'The Exhibition Mapped: Explore the '
+##                                     'objects in the exhibition by their place '
+##                                     'of origin on this digital world '
+##                                     '"map":http://maps.cga.harvard.edu/feasting/ '
+##                                     'made by Harvard’s Center for Geographic '
+##                                     'Analysis.\r\n'
+##                                     '\r\n'
+##                                     'Learn more about the exhibition in our '
+##                                     'series of short videos and filmed '
+##                                     'lectures available on '
+##                                     '"Vimeo":https://vimeo.com/channels/1403121.\r\n'
+##                                     '\r\n'
+##                                     '*Survey*\r\n'
+##                                     'We invite visitors to the exhibition to '
+##                                     'share their thoughts through a few '
+##                                     'questions in this "online '
+##                                     'survey":https://harvard.az1.qualtrics.com/jfe/form/SV_43cLSiqODlQecYd\r\n'
+##                                     '\r\n'
+##                                     'Any views, findings, conclusions, or '
+##                                     'recommendations expressed in this '
+##                                     'exhibition and its related book and '
+##                                     'programming do not necessarily represent '
+##                                     'those of the National Endowment for the '
+##                                     'Humanities.',
+##               'title': 'Animal-Shaped Vessels from the Ancient World: Feasting '
+##                        'with Gods, Heroes, and Kings',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5295/animal-shaped-vessels-from-the-ancient-world-feasting-with-gods-heroes-and-kings',
+##               'venues': [{'address1': '32 Quincy St.',
+##                           'address2': None,
+##                           'begindate': '2018-09-07',
+##                           'city': 'Cambridge',
+##                           'country': None,
+##                           'enddate': '2019-01-06',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 3,
+##                                          'galleryid': 3500,
+##                                          'gallerynumber': '3500',
+##                                          'name': 'Special Exhibitions '
+##                                                  'Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': 'MA',
+##                           'venueid': 55780,
+##                           'zipcode': '02138'}]},
+##              {'begindate': '2018-09-01',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2019-01-06',
+##               'exhibitionid': 5700,
+##               'id': 5700,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:51249_dynmc',
+##                           'caption': 'Théodore Géricault, Cattle Market, 1817. '
+##                                      'Oil on paper mounted on canvas. Harvard '
+##                                      'Art Museums/Fogg Museum, Bequest of '
+##                                      'Grenville L. Winthrop, 1943.242.',
+##                           'copyright': 'President and Fellows of Harvard '
+##                                        'College',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 2550,
+##                           'idsid': 17386548,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/17386548',
+##                           'imageid': 16790,
+##                           'renditionnumber': '51249',
+##                           'width': 2158}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'people': [{'displayname': 'Curated by A. Cassandra Albinson',
+##                           'displayorder': 1,
+##                           'name': 'A. Cassandra Albinson',
+##                           'personid': 56131,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'}],
+##               'poster': {'caption': 'Théodore Géricault, Cattle Market, 1817. '
+##                                     'Oil on paper mounted on canvas. Harvard '
+##                                     'Art Museums/Fogg Museum, Bequest of '
+##                                     'Grenville L. Winthrop, 1943.242.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:51249_dynmc'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:51249_dynmc',
+##               'shortdescription': None,
+##               'temporalorder': 4565,
+##               'textiledescription': '_Mutiny: Works by Géricault_ explores '
+##                                     'compelling images by the Romantic '
+##                                     'period’s most influential artist, '
+##                                     'Théodore Géricault (1791–1824), whose '
+##                                     'powerful legacy endured long past his '
+##                                     'untimely death in his early thirties. '
+##                                     'Approximately 40 drawings, watercolors, '
+##                                     'lithographs, and paintings from the '
+##                                     'Harvard Art Museums collections, '
+##                                     'augmented by loans from three Boston-area '
+##                                     'collectors, tell a new story of this '
+##                                     'socially and politically engaged artist '
+##                                     'across a range of media.\r\n'
+##                                     '\r\n'
+##                                     'Géricault’s work both reflected and '
+##                                     'inflected the changes that took place '
+##                                     'during the Restoration period in Europe. '
+##                                     'Lasting from roughly 1815 to 1830, this '
+##                                     'was an ostensibly peaceful time in the '
+##                                     'aftermath of the French revolution and '
+##                                     'the Napoleonic wars; yet the continent '
+##                                     'was still recovering from the earlier '
+##                                     'violence, and the Industrial Revolution '
+##                                     'was making its presence felt through '
+##                                     'increased urbanization and the '
+##                                     'introduction of new technologies. '
+##                                     'Recognizing this turmoil, Géricault '
+##                                     'strove to represent the casual brutality '
+##                                     'at the center of modern life, forgoing '
+##                                     'mythological or religious subjects to '
+##                                     'focus squarely on the present. This '
+##                                     'interest appears not only in images of '
+##                                     'wounded soldiers and the urban poor, but '
+##                                     'also in works depicting men as they '
+##                                     'interacted with horses as well as in '
+##                                     'portrayals of animals in distress or at '
+##                                     'battle. _Mutiny_ considers Géricault as '
+##                                     'the prototype of the modern artist: '
+##                                     'rejecting the norms of society in order '
+##                                     'to expose its tensions and conflicts '
+##                                     'through depictions of competing '
+##                                     'extremes—physical strength and '
+##                                     'weakness.\r\n'
+##                                     '\r\n'
+##                                     'Géricault is today famed for his '
+##                                     'paintings, most notably _The Raft of the '
+##                                     'Medusa_ (now in the Louvre), but during '
+##                                     'his lifetime he was more widely known for '
+##                                     'his prints. In this exhibition, three of '
+##                                     'Géricault’s paintings will be presented '
+##                                     'alongside the lithographic prints that '
+##                                     'assured the artist’s posthumous fame. '
+##                                     'Capturing the world around him with a '
+##                                     'sense of vivid immediacy, Géricault’s '
+##                                     'drawings and watercolors are critical to '
+##                                     'understanding his goals as an artist, and '
+##                                     'the exhibition will feature 12 of these '
+##                                     'creations. \r\n'
+##                                     '\r\n'
+##                                     'Curated by A. Cassandra Albinson, '
+##                                     'Margaret S. Winthrop Curator of European '
+##                                     'Art; with contributions by Jessie Park, '
+##                                     'Rousseau Curatorial Fellow in European '
+##                                     'Art, and Ashley Hannebrink, Curatorial '
+##                                     'Graduate Student Intern in the Division '
+##                                     'of European and American Art, Harvard Art '
+##                                     'Museums.\r\n'
+##                                     '\r\n'
+##                                     'This exhibition is made possible by '
+##                                     'funding from the Gurel Student Exhibition '
+##                                     'Fund. We also thank the three anonymous '
+##                                     'lenders, each of whom is dedicated to the '
+##                                     "study and appreciation of Géricault's "
+##                                     'work. ',
+##               'title': 'Mutiny: Works by Géricault',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5700/mutiny-works-by-gericault',
+##               'venues': [{'address1': '32 Quincy St.',
+##                           'address2': None,
+##                           'begindate': '2018-09-01',
+##                           'city': 'Cambridge',
+##                           'country': None,
+##                           'enddate': '2019-01-06',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 3,
+##                                          'galleryid': 3600,
+##                                          'gallerynumber': '3600',
+##                                          'name': 'University Research '
+##                                                  'Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': 'MA',
+##                           'venueid': 55780,
+##                           'zipcode': '02138'}]},
+##              {'begindate': '2018-09-01',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2019-01-06',
+##               'exhibitionid': 5699,
+##               'id': 5699,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:78013_dynmc',
+##                           'caption': 'Albrecht Dürer, Adam and Eve, 1504. '
+##                                      'Engraving on off-white antique laid '
+##                                      'paper, iii/iii. Harvard Art Museums/Fogg '
+##                                      'Museum, Gift of William Gray from the '
+##                                      'collection of Francis Calley Gray, '
+##                                      'G1055.',
+##                           'copyright': 'President and Fellows of Harvard '
+##                                        'College',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 1024,
+##                           'idsid': 18204248,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/18204248',
+##                           'imageid': 134754,
+##                           'renditionnumber': '78013',
+##                           'width': 788}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'people': [{'displayname': 'Curated by Laura Muir',
+##                           'displayorder': 1,
+##                           'name': 'Laura Muir',
+##                           'personid': 1274,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Joseph Koerner',
+##                           'displayorder': 2,
+##                           'name': 'Joseph Koerner',
+##                           'personid': 17589,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Stephen Greenblatt',
+##                           'displayorder': 3,
+##                           'name': 'Stephen Greenblatt',
+##                           'personid': 7443,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Miriam Stewart',
+##                           'displayorder': 4,
+##                           'name': 'Miriam Stewart',
+##                           'personid': 7955,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Sarah Kianovsky',
+##                           'displayorder': 5,
+##                           'name': 'Sarah Kianovsky',
+##                           'personid': 10665,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'}],
+##               'poster': {'caption': 'Albrecht Dürer, Adam and Eve, 1504. '
+##                                     'Engraving on off-white antique laid '
+##                                     'paper, iii/iii. Harvard Art Museums/Fogg '
+##                                     'Museum, Gift of William Gray from the '
+##                                     'collection of Francis Calley Gray, G1055.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:78013_dynmc'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:78013_dynmc',
+##               'shortdescription': None,
+##               'temporalorder': 4564,
+##               'textiledescription': 'For most of history, humans expressed '
+##                                     'ethical ideas through stories, and of all '
+##                                     'these the story of Adam and Eve has been '
+##                                     'perhaps the most powerful and enduring. '
+##                                     'For three millennia, in Jewish, '
+##                                     'Christian, and Muslim worlds, people '
+##                                     'reasoned ethically through the seedpod of '
+##                                     'this—even to early audiences—unreasonable '
+##                                     'tale: the first man and woman, formed by '
+##                                     'God at the apex of the world’s creation, '
+##                                     'disobey their creator by eating a '
+##                                     'forbidden fruit, are punished by '
+##                                     'sickness, hardship, and death, and pass '
+##                                     'their curse to the future human '
+##                                     'species.\r\n'
+##                                     '\r\n'
+##                                     'From the early Christian period onward, '
+##                                     'in countless thought-provoking forms, '
+##                                     'visual artists endeavored to picture this '
+##                                     'story. In doing so, they had to make '
+##                                     'certain practical decisions, each '
+##                                     'requiring reasoning about the '
+##                                     'unreasonable: for example, which moment '
+##                                     'in the story to show as the decisive one, '
+##                                     'and how to display innocent, paradisiacal '
+##                                     'nudity to a fallen audience stained by '
+##                                     'shame and lust. Designed for a course in '
+##                                     '“Ethical Reasoning” offered by Harvard '
+##                                     'College’s Program in General Education, '
+##                                     'this installation features works from the '
+##                                     'Harvard Art Museums and Houghton Library. '
+##                                     'It explores how artists from the '
+##                                     'Renaissance to the modern era met the '
+##                                     'challenges of a foundational story.\r\n'
+##                                     '\r\n'
+##                                     'These challenges were partly aesthetic, '
+##                                     'as artists labored to create ever '
+##                                     'livelier and better proportioned nudes. '
+##                                     'But there were ethical challenges as '
+##                                     'well. Picturing what happened in Eden, '
+##                                     'artists hinted at why. And they pondered '
+##                                     'imponderables that resulted from the '
+##                                     'crime, such as disease, toil, gender '
+##                                     'inequality, and death. European '
+##                                     'encounters with New World inhabitants '
+##                                     'raised new questions about nudity, human '
+##                                     'diversity, and the universality of the '
+##                                     'biblical story itself. Including works by '
+##                                     'Dürer, Rembrandt, Blake, Munch, and '
+##                                     'Beckmann, this installation is both the '
+##                                     'history of an image and a miniature '
+##                                     'history of Western art.\r\n'
+##                                     '\r\n'
+##                                     'This installation’s related course is '
+##                                     'taught by Joseph Koerner, Victor S. '
+##                                     'Thomas Professor of the History of Art '
+##                                     'and Architecture; and Stephen Greenblatt, '
+##                                     'John Cogan University Professor of the '
+##                                     'Humanities, Harvard University.\r\n'
+##                                     '\r\n'
+##                                     'The University Teaching Gallery serves '
+##                                     'faculty and students affiliated with '
+##                                     'Harvard’s Department of History of Art '
+##                                     'and Architecture. Semester-long '
+##                                     'installations are mounted in conjunction '
+##                                     'with undergraduate and graduate courses, '
+##                                     'supporting instruction in the critical '
+##                                     'analysis of art and making unique '
+##                                     'selections from the museums’ collections '
+##                                     'available to all visitors.\r\n'
+##                                     '\r\n'
+##                                     'This installation is made possible in '
+##                                     'part by funding from the Gurel Student '
+##                                     'Exhibition Fund and the José Soriano '
+##                                     'Fund. Modern and contemporary art '
+##                                     'programs at the Harvard Art Museums are '
+##                                     'made possible in part by generous support '
+##                                     'from the Emily Rauh Pulitzer and Joseph '
+##                                     'Pulitzer, Jr., Fund for Modern and '
+##                                     'Contemporary Art.',
+##               'title': 'Adam and Eve',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5699/adam-and-eve',
+##               'venues': [{'address1': '32 Quincy St.',
+##                           'address2': None,
+##                           'begindate': '2018-09-01',
+##                           'city': 'Cambridge',
+##                           'country': None,
+##                           'enddate': '2019-01-06',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 3,
+##                                          'galleryid': 3610,
+##                                          'gallerynumber': '3610',
+##                                          'name': 'University Teaching '
+##                                                  'Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': 'MA',
+##                           'venueid': 55780,
+##                           'zipcode': '02138'}]},
+##              {'begindate': '2018-06-30',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2018-08-05',
+##               'exhibitionid': 5668,
+##               'id': 5668,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:GS010411',
+##                           'caption': 'Nam June Paik, Untitled, 1993–95. Laser '
+##                                      'print on canvas with Sony Watchman TV, '
+##                                      'tin robot, acrylic paint, and oil '
+##                                      'pastel. Source photograph by Peter '
+##                                      'Moore. Harvard Art Museums/Fogg Museum, '
+##                                      'Gift of the Hakuta Family, 2017.154. © '
+##                                      'Nam June Paik Estate.',
+##                           'copyright': 'President and Fellows of Harvard '
+##                                        'College',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 2550,
+##                           'idsid': 450161016,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/450161016',
+##                           'imageid': 489624,
+##                           'renditionnumber': 'GS010411',
+##                           'width': 1390}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'people': [{'displayname': 'Curated by Mary Schneider Enriquez',
+##                           'displayorder': 1,
+##                           'name': 'Mary Schneider Enriquez',
+##                           'personid': 55547,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'}],
+##               'poster': {'caption': 'Nam June Paik, Untitled, 1993–95. Laser '
+##                                     'print on canvas with Sony Watchman TV, '
+##                                     'tin robot, acrylic paint, and oil pastel. '
+##                                     'Source photograph by Peter Moore. Harvard '
+##                                     'Art Museums/Fogg Museum, Gift of the '
+##                                     'Hakuta Family, 2017.154. © Nam June Paik '
+##                                     'Estate.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:GS010411'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:GS010411',
+##               'shortdescription': None,
+##               'temporalorder': 4557,
+##               'textiledescription': '_Nam June Paik: Screen Play_ presents a '
+##                                     'group of works by groundbreaking global '
+##                                     'artist Nam June Paik (1932–2006). Paik '
+##                                     'was born in Korea but spent much of his '
+##                                     'life in the United States; his practice '
+##                                     'combined music, performance, sculpture, '
+##                                     'painting and drawing, video, and '
+##                                     'broadcast television, among other '
+##                                     'media.\r\n'
+##                                     '\r\n'
+##                                     'Drawn almost entirely from the Harvard '
+##                                     'Art Museums collections, the exhibition '
+##                                     'reveals the striking breadth of Paik’s '
+##                                     'oeuvre from the 1960s through early '
+##                                     '2000s. Eight of the works featured are '
+##                                     'recent gifts from Ken Hakuta (M.B.A. '
+##                                     '’77), the artist’s nephew; he has '
+##                                     'generously established the Nam June Paik '
+##                                     'Fellowship to expand knowledge about the '
+##                                     'artist, his work, and his influences. The '
+##                                     'objects on view—many of which are being '
+##                                     'exhibited at the museums for the first '
+##                                     'time—include "_TV '
+##                                     'Crown_":https://www.harvardartmuseums.org/collections/object/358178  '
+##                                     '(1965/99), a television modified to '
+##                                     'visualize sound waves on its screen, and '
+##                                     'an iconic "_TV '
+##                                     'Buddha_":https://www.harvardartmuseums.org/collections/object/358175 '
+##                                     '(2004), part of the artist’s exploration '
+##                                     'of closed-circuit television. Together, '
+##                                     'they represent themes central to Paik’s '
+##                                     'work, including the subversion of '
+##                                     'conventional technologies and media, the '
+##                                     'potential of moving images to explore '
+##                                     'alternative temporalities, and '
+##                                     'technology’s concern with aging and '
+##                                     'obsolescence. The works also demonstrate '
+##                                     'Paik’s playful, often ironic approach.\r\n'
+##                                     '\r\n'
+##                                     'In addition, the exhibition draws '
+##                                     'attention to Paik’s enduring interest in '
+##                                     'artistic collaboration, from his early '
+##                                     'association with John Cage and others '
+##                                     'active in the postwar avant-garde music '
+##                                     'scene to his lifelong friendships with '
+##                                     'Charlotte Moorman and Joseph Beuys. '
+##                                     'Several works on view relate directly to '
+##                                     'the artist’s involvement with the Fluxus '
+##                                     'group, whose interest in revolutionizing '
+##                                     'artistic distribution had a lasting '
+##                                     'influence on Paik’s thinking. The '
+##                                     'exhibition also features two videos that '
+##                                     'the artist made in conjunction with WGBH, '
+##                                     'Boston’s public television station, where '
+##                                     'he developed some of his most important '
+##                                     'projects in the late 1960s and early '
+##                                     '’70s.\r\n'
+##                                     '\r\n'
+##                                     'Curated by Mary Schneider Enriquez, '
+##                                     'Houghton Associate Curator of Modern and '
+##                                     'Contemporary Art, and Marina Isgro, Nam '
+##                                     'June Paik Research Fellow, Harvard Art '
+##                                     'Museums.\r\n'
+##                                     '\r\n'
+##                                     'Support for this project was provided by '
+##                                     'the Rosenblatt Fund for Post-War American '
+##                                     'Art, the José Soriano Fund, the Agnes '
+##                                     'Gund Fund for Modern and Contemporary '
+##                                     'Art, and the M. Victor Leventritt Fund. '
+##                                     'In addition, modern and contemporary art '
+##                                     'programs at the Harvard Art Museums are '
+##                                     'made possible in part by generous support '
+##                                     'from the Emily Rauh Pulitzer and Joseph '
+##                                     'Pulitzer, Jr., Fund for Modern and '
+##                                     'Contemporary Art.\r\n'
+##                                     '\r\n'
+##                                     'Share your experience on social media: '
+##                                     '#NamJunePaik #HarvardArtMuseums\r\n'
+##                                     '\r\n'
+##                                     '*Online Resources*\r\n'
+##                                     'Learn more about the exhibition through '
+##                                     'an introductory video and a filmed '
+##                                     'lecture by Kate Lewis, the Agnes Gund '
+##                                     'Chief Conservator at the Museum of Modern '
+##                                     'Art in New York, discussing the '
+##                                     'challenges of caring for time-based media '
+##                                     'art—both available on '
+##                                     '"Vimeo":https://vimeo.com/channels/1413817. ',
+##               'title': 'Nam June Paik: Screen Play',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5668/nam-june-paik-screen-play',
+##               'venues': [{'address1': '32 Quincy St.',
+##                           'address2': None,
+##                           'begindate': '2018-06-30',
+##                           'city': 'Cambridge',
+##                           'country': None,
+##                           'enddate': '2018-08-05',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 3,
+##                                          'galleryid': 3500,
+##                                          'gallerynumber': '3500',
+##                                          'name': 'Special Exhibitions '
+##                                                  'Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': 'MA',
+##                           'venueid': 55780,
+##                           'zipcode': '02138'}],
+##               'videos': [{'description': 'Marina Isgro, the Nam June Paik '
+##                                          'Research Fellow at the Harvard Art '
+##                                          'Museums, introduces the museums’ new '
+##                                          'exhibition, “Nam June Paik: Screen '
+##                                          'Play,” on view from June 30 to '
+##                                          'August 5, 2018. Drawn almost '
+##                                          'entirely from our collections, the '
+##                                          'exhibition reveals the breadth of '
+##                                          'this groundbreaking global artist’s '
+##                                          'oeuvre from the 1960s through early '
+##                                          '2000s.\r\n'
+##                                          '\r\n'
+##                                          'Music by Chris Zabriskie (CC BY 4.0 '
+##                                          'creativecommons.org/licenses/by/4.0/legalcode)',
+##                           'primaryurl': 'https://vimeo.com/277511290',
+##                           'videoid': 489238}]},
+##              {'begindate': '2018-05-19',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2018-08-14',
+##               'exhibitionid': 5694,
+##               'id': 5694,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG267358',
+##                           'caption': 'A.K. Burns, still from Survivor’s '
+##                                      'Remorse, 2018. Image courtesy of the '
+##                                      'artist. © A.K. Burns, 2018.',
+##                           'copyright': 'Image premission supplied courtesty of '
+##                                        'the artist © A.K. Burns, 2018. ',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 575,
+##                           'idsid': 437585464,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/437585464',
+##                           'imageid': 484842,
+##                           'renditionnumber': 'LEG267358',
+##                           'width': 1024}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'poster': {'caption': 'A.K. Burns, still from Survivor’s '
+##                                     'Remorse, 2018. Image courtesy of the '
+##                                     'artist. © A.K. Burns, 2018.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG267358'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG267358',
+##               'shortdescription': None,
+##               'temporalorder': 4549,
+##               'textiledescription': 'This newly commissioned installation by '
+##                                     'American artist A.K. Burns (b. 1975) for '
+##                                     'the Harvard Art Museums takes the life '
+##                                     'and art of David Wojnarowicz as a point '
+##                                     'of departure. Wojnarowicz’s work is part '
+##                                     'of the exhibition <em>"Analog Culture: '
+##                                     'Printer’s Proofs from the '
+##                                     'Schneider/Erdman Photography Lab, '
+##                                     '1981–2001":https://www.harvardartmuseums.org/visit/exhibitions/5630/analog-culture-printers-proofs-from-the-schneidererdman-photography-lab-19812001</em>, '
+##                                     'also on display at the museums May '
+##                                     '19–August 12, 2018. Burns provided this '
+##                                     'description of the installation:\r\n'
+##                                     '\r\n'
+##                                     'p(((. The human body requires a '
+##                                     'tremendous amount of maintenance: fuel, '
+##                                     'protection from the elements, psychic '
+##                                     'safety, buffers from violence and '
+##                                     'illness. Yet the bodies that persist do '
+##                                     'so in a state of uncertainty between '
+##                                     'lethal events and the inevitable '
+##                                     'degradation caused by time. '
+##                                     '<em>Survivor’s Remorse</em> looks at the '
+##                                     'valuation of various forms of '
+##                                     'vitality—not only lives but the material '
+##                                     'residue of lives—particularly through the '
+##                                     'economy of art. This work was spurred by '
+##                                     'a painful realization I had while looking '
+##                                     'through David Wojnarowicz’s photo prints '
+##                                     'in the Harvard Art Museums study rooms: '
+##                                     'art institutions take painstaking care of '
+##                                     'bodies of work (the art object), yet '
+##                                     'medical, political, and social '
+##                                     'institutions would not properly care for '
+##                                     'David’s body throughout his '
+##                                     'lifetime—because he was queer, had AIDS, '
+##                                     'and at times was homeless.\r\n'
+##                                     '\r\n'
+##                                     'p(((. The Lightbox Gallery looks onto the '
+##                                     'Straus Center for Conservation and '
+##                                     'Technical Studies. Here, in the sterile, '
+##                                     'evenly lit environment dedicated to the '
+##                                     'restoration of artwork, one may observe '
+##                                     'conservators at work both in real life '
+##                                     'and amplified in detail within the video '
+##                                     'work itself. <em>Survivor’s Remorse</em> '
+##                                     'includes a shipping crate that holds one '
+##                                     'monitor. Removed from the other eight '
+##                                     'screens on the wall, and contained within '
+##                                     'a protective tomb, the lone screen '
+##                                     'appears to be in sync while at other '
+##                                     'times it falters.\r\n'
+##                                     '\r\n'
+##                                     'p(((. <em>Survivor’s Remorse</em> queries '
+##                                     'how various institutions value different '
+##                                     'types of bodies and in what ways creative '
+##                                     'labor can be particularly toxic. Why does '
+##                                     'the value of an artist’s work often '
+##                                     'increase after death? In what ways does '
+##                                     'the fluctuating and irregular valuation '
+##                                     'of an artist’s cultural capital affect '
+##                                     'his or her ability to live? As the old '
+##                                     'narrative goes, the artist, or visionary, '
+##                                     'or genius lives on “the fringes of '
+##                                     'society” or is seen as “ahead of her '
+##                                     'time”—in other words, is perceived as '
+##                                     'being “out of sync.” Marginalized bodies '
+##                                     'exist on “the margins” because '
+##                                     'institutions either ignore or do not '
+##                                     'adapt to the experiences of the '
+##                                     'non-normative, non-citizen, poor, ill, or '
+##                                     'racialized subject. Yet the marginalized '
+##                                     '“genius” or others deemed exceptional '
+##                                     '(sometimes by the extreme scale of their '
+##                                     'loss, as in the case of genocide) may be '
+##                                     'recuperated and highly valued through '
+##                                     'historicizing institutions—but often only '
+##                                     'after they are gone. <em>Survivor’s '
+##                                     'Remorse</em> examines this paradox and '
+##                                     'the sociopolitical influences that create '
+##                                     'the chasm between these value systems.\r\n'
+##                                     '\r\n'
+##                                     'Organized by Jennifer Quick, John R. and '
+##                                     'Barbara Robinson Family Associate '
+##                                     'Research Curator in Photography, and '
+##                                     'Chris Molinski, Associate Research '
+##                                     'Curator for Digital Initiatives, with '
+##                                     'Jessica Bardsley, Agnes Mongan Curatorial '
+##                                     'Intern, Harvard Art Museums.\r\n'
+##                                     '\r\n'
+##                                     '<em>A. K. Burns: Survivor’s Remorse</em> '
+##                                     'is built for the Lightbox Gallery, an '
+##                                     'experimental space for the research and '
+##                                     'development of digital tools for the '
+##                                     'Harvard Art Museums. Developed in '
+##                                     'collaboration with faculty, staff, '
+##                                     'students, and visiting artists, projects '
+##                                     'in the Lightbox Gallery challenge how we '
+##                                     'document, share, and examine collections '
+##                                     'and collections data. Some of these '
+##                                     'projects are responsive, allowing users '
+##                                     'to navigate and manipulate the '
+##                                     'collections; others are cinematic, '
+##                                     'transforming the museums into a landscape '
+##                                     'of digital performance.\r\n'
+##                                     '\r\n'
+##                                     'Modern and contemporary art programs at '
+##                                     'the Harvard Art Museums are made possible '
+##                                     'in part by generous support from the '
+##                                     'Emily Rauh Pulitzer and Joseph Pulitzer, '
+##                                     'Jr., Fund for Modern and Contemporary '
+##                                     'Art.',
+##               'title': 'A.K. Burns: Survivor’s Remorse',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5694/ak-burns-survivors-remorse',
+##               'venues': [{'address1': None,
+##                           'address2': None,
+##                           'begindate': '2018-05-19',
+##                           'city': None,
+##                           'country': None,
+##                           'enddate': '2018-08-12',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 5,
+##                                          'galleryid': 5000,
+##                                          'gallerynumber': '5000',
+##                                          'name': 'Lightbox Gallery'},
+##                                         {'floor': 5,
+##                                          'galleryid': 5000,
+##                                          'gallerynumber': '5000',
+##                                          'name': 'Lightbox Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': None,
+##                           'venueid': 55780,
+##                           'zipcode': None}]},
+##              {'begindate': '2018-05-19',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2018-08-12',
+##               'exhibitionid': 5630,
+##               'id': 5630,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:761711',
+##                           'caption': 'John Schabel, Night Shot 6, 2001. '
+##                                      'Gelatin silver print. Harvard Art '
+##                                      'Museums/Fogg Museum, Schneider/Erdman '
+##                                      "Printer's Proof Collection, partial "
+##                                      'gift, and partial purchase through the '
+##                                      'Margaret Fisher Fund, 2016.182. © John '
+##                                      'Schabel.',
+##                           'copyright': 'President and Fellows of Harvard '
+##                                        'College',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 1698,
+##                           'idsid': 425453348,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/425453348',
+##                           'imageid': 468329,
+##                           'renditionnumber': '761711',
+##                           'width': 2550}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'people': [{'displayname': 'Curated by Jennifer Quick',
+##                           'displayorder': 1,
+##                           'name': 'Jennifer Quick',
+##                           'personid': 56528,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'}],
+##               'poster': {'caption': 'John Schabel, Night Shot 6, 2001. Gelatin '
+##                                     'silver print. Harvard Art Museums/Fogg '
+##                                     "Museum, Schneider/Erdman Printer's Proof "
+##                                     'Collection, partial gift, and partial '
+##                                     'purchase through the Margaret Fisher '
+##                                     'Fund, 2016.182. © John Schabel.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:761711'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:761711',
+##               'publications': [{'description': None,
+##                                 'format': 'Exhibition Catalogue',
+##                                 'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG267414',
+##                                 'publicationdate': '2018',
+##                                 'publicationid': 23416,
+##                                 'publicationplace': 'Cambridge, MA',
+##                                 'publicationyear': 2018,
+##                                 'shortdescription': None,
+##                                 'title': 'Analog Culture: Printer’s Proofs '
+##                                          'from the Schneider/Erdman '
+##                                          'Photography Lab, 1981–2001'}],
+##               'shortdescription': None,
+##               'temporalorder': 4548,
+##               'textiledescription': 'This exhibition takes an unprecedented '
+##                                     'look at the productive and dynamic '
+##                                     'collaboration between photographer and '
+##                                     'printer, through the lens of the Harvard '
+##                                     'Art Museums’ Schneider/Erdman Printer’s '
+##                                     'Proof Collection, a remarkable group of '
+##                                     'nearly 450 photographs printed over three '
+##                                     'decades by Gary Schneider of the '
+##                                     'Manhattan-based studio Schneider/Erdman, '
+##                                     'Inc. The collection includes works by '
+##                                     'Richard Avedon, James Casebere, Robert '
+##                                     'Gober, Nan Goldin, Peter Hujar, Gilles '
+##                                     'Peress, and David Wojnarowicz, among many '
+##                                     'other artists, photojournalists, and '
+##                                     'fashion photographers who made up New '
+##                                     'York’s cultural milieu in the 1980s and '
+##                                     '’90s. As Schneider and Erdman began to '
+##                                     'build a collection of photographs, '
+##                                     'through their practice of retaining a '
+##                                     'print from each artist with whom they '
+##                                     'collaborated, they came to realize the '
+##                                     'educational value of this unique body of '
+##                                     'work. Comprising approximately 90 '
+##                                     'printer’s proofs as well as related '
+##                                     'archival material and artist’s tools, the '
+##                                     'exhibition highlights the collection’s '
+##                                     'teaching potential by looking closely at '
+##                                     'the techniques and methods of darkroom '
+##                                     'photography. It ties the material history '
+##                                     'of darkroom photography to the historical '
+##                                     'narratives that Schneider and Erdman '
+##                                     'experienced, such as the transformation '
+##                                     'of New York’s urban landscape, the AIDS '
+##                                     'crisis and its repercussions in American '
+##                                     'culture, and September 11, 2001.\r\n'
+##                                     '\r\n'
+##                                     'The Schneider/Erdman Printer’s Proof '
+##                                     'Collection was acquired by the Harvard '
+##                                     'Art Museums in two parts, in 2011 and '
+##                                     '2016, as a combined gift and purchase '
+##                                     'through the support of the Margaret '
+##                                     'Fisher Fund. In addition, Schneider and '
+##                                     'Erdman gifted a collection of archival '
+##                                     'material, including photographs, test '
+##                                     'prints, glass plate negatives, vintage '
+##                                     'material, and studio records, in 2017. '
+##                                     'Altogether, these acquisitions have '
+##                                     'reinforced the museums’ place as a '
+##                                     'primary site for the study, research, '
+##                                     'exhibition, and interpretation of '
+##                                     'contemporary photography.\r\n'
+##                                     '\r\n'
+##                                     'A '
+##                                     '"publication":https://shop.harvardartmuseums.org/collections/frontpage/products/analog-culture-printer-s-proofs-from-the-schneider-erdman-photography-lab-1981-2001 '
+##                                     'accompanying the exhibition looks '
+##                                     'in-depth at the photography lab’s '
+##                                     'technical, material, and interpersonal '
+##                                     'intricacies. Part oral history, the book '
+##                                     'unites original essays with excerpts of '
+##                                     'interviews and conversations with '
+##                                     'Schneider as well as with Deborah Bell, '
+##                                     'James Casebere, Robert Gober, John '
+##                                     'Schabel, and Lorna Simpson. In addition, '
+##                                     'through two personal reflections, '
+##                                     'Schneider recalls what it was like to '
+##                                     'print works for Peter Hujar and David '
+##                                     'Wojnarowicz. Including an engaging '
+##                                     'glossary specific to the practice of '
+##                                     'Schneider/Erdman, Inc., this volume will '
+##                                     'capture the attention of students, '
+##                                     'scholars, and general analog enthusiasts. '
+##                                     'A complementary online "Special '
+##                                     'Collection":https://www.harvardartmuseums.org/collections/special-collections/the-schneider-erdman-printer-s-proof-collection?group=Analog+Culture '
+##                                     'features case studies by Harvard graduate '
+##                                     'students, and functions as the primary '
+##                                     'digital repository for the printer’s '
+##                                     'proof collection and its related '
+##                                     'materials.\r\n'
+##                                     '\r\n'
+##                                     'Curated by Jennifer Quick, John R. and '
+##                                     'Barbara Robinson Family Associate '
+##                                     'Research Curator in Photography, Division '
+##                                     'of Modern and Contemporary Art, Harvard '
+##                                     'Art Museums.\r\n'
+##                                     '\r\n'
+##                                     'The printer’s proofs came to the Harvard '
+##                                     'Art Museums through the generosity of '
+##                                     'Gary Schneider and John Erdman, who have '
+##                                     'long understood the value of the '
+##                                     'photographs as a teaching collection. The '
+##                                     'acquisition was also made possible in '
+##                                     'part by the Margaret Fisher Fund. Further '
+##                                     'support for this project was provided by '
+##                                     'the Widgeon Point Charitable Foundation; '
+##                                     'the Harvard Art Museums Mellon '
+##                                     'Publication Funds, including the Carola '
+##                                     'B. Terwilliger Fund; the John R. and '
+##                                     'Barbara Robinson Family Fund for '
+##                                     'Photography; the Agnes Gund Fund for '
+##                                     'Modern and Contemporary Art; the M. '
+##                                     'Victor Leventritt Fund; and the Richard '
+##                                     'L. Menschel Endowment Fund. Modern and '
+##                                     'contemporary art programs at the Harvard '
+##                                     'Art Museums are made possible in part by '
+##                                     'generous support from the Emily Rauh '
+##                                     'Pulitzer and Joseph Pulitzer, Jr., Fund '
+##                                     'for Modern and Contemporary Art.\r\n'
+##                                     '\r\n'
+##                                     'Share your experience on social media: '
+##                                     '<strong>#AnalogCulture</strong>\r\n'
+##                                     '\r\n'
+##                                     '<strong>Online Resource</strong>\r\n'
+##                                     'Visit the complementary "Special '
+##                                     'Collection":https://www.harvardartmuseums.org/collections/special-collections/the-schneider-erdman-printer-s-proof-collection?group=Analog+Culture '
+##                                     'on our website, The Schneider/Erdman '
+##                                     "Printer's Proof Collection, to read case "
+##                                     'studies of select prints, find '
+##                                     'definitions of technical terms used in '
+##                                     'the galleries, and browse the full scope '
+##                                     'of the collection as well as the archival '
+##                                     'and technical materials gifted to the '
+##                                     'museums by Schneider and Erdman.\r\n'
+##                                     '\r\n'
+##                                     '<strong>Related Installation</strong>\r\n'
+##                                     '"_A.K. Burns: Survivor’s '
+##                                     'Remorse_":https://www.harvardartmuseums.org/visit/exhibitions/5694/ak-burns-survivors-remorse '
+##                                     '(May 19–August 12, 2018) is a newly '
+##                                     'commissioned installation by American '
+##                                     'artist A.K. Burns for the museums’ '
+##                                     'Lightbox Gallery on Level 5; it is in '
+##                                     'part a response to the life and art of '
+##                                     'David Wojnarowicz, one of the artists '
+##                                     'featured in the _Analog Culture_ '
+##                                     'exhibition.\r\n'
+##                                     '\r\n'
+##                                     '<strong>Related Programming</strong>\r\n'
+##                                     'Information about events related to '
+##                                     '_Analog Culture_ and _A.K. Burns: '
+##                                     'Survivor’s Remorse_, including a '
+##                                     'conversation with John Schabel and Gary '
+##                                     'Schneider, a film series, an Art Study '
+##                                     'Center Seminar, and gallery talks, can be '
+##                                     'found on our '
+##                                     '"calendar":https://www.harvardartmuseums.org/visit/calendar.\r\n'
+##                                     '\r\n'
+##                                     'Watch a recording of the May 21 opening '
+##                                     'lecture, "Photography as Performance: A '
+##                                     'Conversation with John Schabel and Gary '
+##                                     'Schneider":https://vimeo.com/272963196, '
+##                                     'moderated by curator Jennifer Quick.',
+##               'title': 'Analog Culture: Printer’s Proofs from the '
+##                        'Schneider/Erdman Photography Lab, 1981–2001',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5630/analog-culture-printers-proofs-from-the-schneidererdman-photography-lab-19812001',
+##               'venues': [{'address1': None,
+##                           'address2': None,
+##                           'begindate': '2018-05-19',
+##                           'city': None,
+##                           'country': None,
+##                           'enddate': '2018-08-12',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 3,
+##                                          'galleryid': 3600,
+##                                          'gallerynumber': '3600',
+##                                          'name': 'University Research Gallery'},
+##                                         {'floor': 3,
+##                                          'galleryid': 3620,
+##                                          'gallerynumber': '3620',
+##                                          'name': 'University Study Gallery'},
+##                                         {'floor': 3,
+##                                          'galleryid': 3610,
+##                                          'gallerynumber': '3610',
+##                                          'name': 'University Teaching '
+##                                                  'Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': None,
+##                           'venueid': 55780,
+##                           'zipcode': None}]},
+##              {'begindate': '2018-02-09',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2018-06-03',
+##               'exhibitionid': 5388,
+##               'id': 5388,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG266130',
+##                           'caption': '© 2017 Artists Rights Society (ARS), New '
+##                                      'York/VG Bild-Kunst, Bonn. Photo: Jürgen '
+##                                      'Diemer.',
+##                           'copyright': 'Jürgen Diemer / Lehmbruck Museum, '
+##                                        'Duisburg',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 2550,
+##                           'idsid': 436063797,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/436063797',
+##                           'imageid': 478848,
+##                           'renditionnumber': 'LEG266130',
+##                           'width': 1860}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'people': [{'displayname': 'Curated by Lynette Roth',
+##                           'displayorder': 1,
+##                           'name': 'Lynette Roth',
+##                           'personid': 56190,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'}],
+##               'poster': {'caption': '© 2017 Artists Rights Society (ARS), New '
+##                                     'York/VG Bild-Kunst, Bonn. Photo: Jürgen '
+##                                     'Diemer.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG266130'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG266130',
+##               'publications': [{'description': None,
+##                                 'format': 'Exhibition Catalogue',
+##                                 'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG266930',
+##                                 'publicationdate': '2018',
+##                                 'publicationid': 23115,
+##                                 'publicationplace': 'Cambridge, MA',
+##                                 'publicationyear': 2018,
+##                                 'shortdescription': None,
+##                                 'title': 'Inventur—Art in Germany, 1943–55'}],
+##               'shortdescription': None,
+##               'temporalorder': 4532,
+##               'textiledescription': 'The first exhibition of its kind, '
+##                                     '<i>Inventur</i> examines the highly '
+##                                     'charged artistic landscape in Germany '
+##                                     'from the mid-1940s to mid-1950s. Taking '
+##                                     'its name from a 1945 poem by Günter Eich, '
+##                                     'the exhibition focuses on modern art '
+##                                     'created at a time when Germans were '
+##                                     'forced to acknowledge and reckon with the '
+##                                     'atrocities of World War II and the '
+##                                     'Holocaust, the country’s defeat and '
+##                                     'occupation by the Allies, and the '
+##                                     'ideological ramifications of the '
+##                                     'fledgling Cold War. Chosen for the way it '
+##                                     'helps characterize the art of this '
+##                                     'period, the word <i>Inventur</i> '
+##                                     '(inventory) implies not just an artistic '
+##                                     'stocktaking, but a physical and moral one '
+##                                     'as well—the reassurance of one’s own '
+##                                     'existence as reflected in the stuff of '
+##                                     'everyday life. The exhibition, too, '
+##                                     '“takes stock,” introducing the richness '
+##                                     'and variety of the modern art of this '
+##                                     'period to new audiences, while prompting '
+##                                     'broader questions on the role of the '
+##                                     'creative individual living under '
+##                                     'totalitarianism and in its wake. \r\n'
+##                                     '\r\n'
+##                                     '<i>Inventur</i> includes more than 160 '
+##                                     'works, encompassing nearly 50 artists; '
+##                                     'many of the works have never been on view '
+##                                     'outside Germany. The exhibition draws '
+##                                     'from the Harvard Art Museums’ '
+##                                     'Busch-Reisinger and Fogg collections and '
+##                                     'is complemented by works from more than '
+##                                     '50 public and private collections in the '
+##                                     'United States and in Germany. It includes '
+##                                     'key artists from across Germany who '
+##                                     'worked in an array of media: photography, '
+##                                     'collage, photomontage, drawing, painting, '
+##                                     'sculpture, and commercial design.\r\n'
+##                                     '\r\n'
+##                                     'The exhibition is accompanied by a fully '
+##                                     'illustrated <a '
+##                                     'href="https://shop.harvardartmuseums.org/products/inventur-art-in-germany-1943-55" '
+##                                     'target="_blank">catalogue</a> with two '
+##                                     'essays and sixty in-depth object entries '
+##                                     'written by the curator and emerging '
+##                                     'scholars in the field. This publication, '
+##                                     'the first of its kind in English, will '
+##                                     'contribute a wealth of new knowledge to '
+##                                     'scholarly understanding of 20th-century '
+##                                     'German art.\r\n'
+##                                     '\r\n'
+##                                     'Organized by the Harvard Art Museums. '
+##                                     'Curated by Lynette Roth, the Daimler '
+##                                     'Curator of the Busch-Reisinger Museum and '
+##                                     'Head of the Division of Modern and '
+##                                     'Contemporary Art at the Harvard Art '
+##                                     'Museums.\r\n'
+##                                     '\r\n'
+##                                     'Support for this project was provided by '
+##                                     'the German Friends of the Busch-Reisinger '
+##                                     'Museum (Verein der Freunde des '
+##                                     'Busch-Reisinger Museums) and by endowed '
+##                                     'funds, including the Daimler Curatorship '
+##                                     'of the Busch-Reisinger Museum Fund, the '
+##                                     'M. Victor Leventritt Fund, and the '
+##                                     'Richard L. Menschel Endowment Fund. In '
+##                                     'addition, modern and contemporary art '
+##                                     'programs at the Harvard Art Museums are '
+##                                     'made possible in part by generous support '
+##                                     'from the Emily Rauh Pulitzer and Joseph '
+##                                     'Pulitzer, Jr., Fund for Modern and '
+##                                     'Contemporary Art.\r\n'
+##                                     '\r\n'
+##                                     'Share your experience on social media: '
+##                                     '<b>#Inventur</b>\r\n'
+##                                     '\r\n'
+##                                     '<b>Online Resources</b>\r\n'
+##                                     'Watch Konrad Klapheck, a renowned German '
+##                                     'artist whose work is featured in the '
+##                                     '<i>Inventur</i> exhibition, deliver the '
+##                                     'February 8 opening night lecture '
+##                                     '"&#8220;War and Peace in German Art after '
+##                                     'World War '
+##                                     'II&#8221;":https://vimeo.com/255454644.',
+##               'title': 'Inventur—Art in Germany, 1943–55',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5388/inventurart-in-germany-194355',
+##               'venues': [{'address1': '32 Quincy St.',
+##                           'address2': None,
+##                           'begindate': '2018-02-09',
+##                           'city': 'Cambridge',
+##                           'country': None,
+##                           'enddate': '2018-06-03',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 3,
+##                                          'galleryid': 3500,
+##                                          'gallerynumber': '3500',
+##                                          'name': 'Special Exhibitions '
+##                                                  'Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': 'MA',
+##                           'venueid': 55780,
+##                           'zipcode': '02138'}]},
+##              {'begindate': '2018-02-07',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2018-04-23',
+##               'exhibitionid': 5664,
+##               'id': 5664,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG267160',
+##                           'caption': 'Computer simulation of Alexander S. '
+##                                      'Douglas, OXO (or Noughts and Crosses), '
+##                                      '1952.',
+##                           'copyright': 'Courtesy of Joan Heemskerk and Kirk '
+##                                        'Paesmans',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 640,
+##                           'idsid': 437010373,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/437010373',
+##                           'imageid': 483178,
+##                           'renditionnumber': 'LEG267160',
+##                           'width': 1024}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'poster': {'caption': 'Computer simulation of Alexander S. '
+##                                     'Douglas, OXO (or Noughts and Crosses), '
+##                                     '1952.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG267160'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:LEG267160',
+##               'shortdescription': None,
+##               'temporalorder': 4531,
+##               'textiledescription': 'The Harvard Art Museums present a new '
+##                                     'installation by JODI, the pioneering '
+##                                     'artist collective formed in 1994 by Joan '
+##                                     'Heemskerk and Dirk Paesmans. One of the '
+##                                     'most influential artist duos working in '
+##                                     'the age of the Internet, JODI has '
+##                                     'produced a new project, <i>OXO</i> '
+##                                     '(2018), for the Lightbox Gallery, a '
+##                                     'collaborative space for digital projects '
+##                                     'on the museums’ uppermost level.\r\n'
+##                                     '\r\n'
+##                                     'Based on the game tic-tac-toe, <i>OXO</i> '
+##                                     'is an interactive multichannel '
+##                                     'installation influenced by early computer '
+##                                     'games, including <i>Noughts and '
+##                                     'Crosses</i> or <i>OXO</i>, a game built '
+##                                     'in 1952 by Alexander S. Douglas. JODI’s '
+##                                     'installation responds to this early '
+##                                     'history of computing, war games, and '
+##                                     'artificial intelligence, thinking through '
+##                                     'the game tic-tac-toe as an important '
+##                                     'cultural artifact. Visit the Lightbox '
+##                                     'Gallery to play <i>OXO</i> throughout the '
+##                                     'installation.\r\n'
+##                                     '\r\n'
+##                                     'The installation is organized by Mary '
+##                                     'Schneider Enriquez, Houghton Associate '
+##                                     'Curator of Modern and Contemporary Art, '
+##                                     'and Chris Molinski, Associate Research '
+##                                     'Curator for Digital Initiatives, at the '
+##                                     'Harvard Art Museums.\r\n'
+##                                     '\r\n'
+##                                     'Presented in collaboration with the '
+##                                     'Institute of Contemporary Art/Boston '
+##                                     '(ICA) exhibition <i>Art in the Age of the '
+##                                     'Internet, 1989 to Today</i> (February '
+##                                     '7–May 20, 2018), which explores the '
+##                                     'extensive effects of the Internet on '
+##                                     'artistic practice and contemporary '
+##                                     'culture. <i>Art in the Age of the '
+##                                     'Internet</i> is organized by Eva Respini, '
+##                                     'Barbara Lee Chief Curator, and Jeffrey De '
+##                                     'Blois, Curatorial Associate, at the ICA. '
+##                                     'Learn more at <a '
+##                                     'href="https://aiai.icaboston.org/" '
+##                                     'target="_blank">aiai.icaboston.org</a>.\r\n'
+##                                     '\r\n'
+##                                     '<i>JODI: OXO</i> at the Harvard Art '
+##                                     'Museums is supported in part by a grant '
+##                                     'from The Creative Industries Fund NL.\r\n'
+##                                     '\r\n'
+##                                     'Modern and contemporary art programs at '
+##                                     'the Harvard Art Museums are made possible '
+##                                     'in part by generous support from the '
+##                                     'Emily Rauh Pulitzer and Joseph Pulitzer, '
+##                                     'Jr., Fund for Modern and Contemporary '
+##                                     'Art.',
+##               'title': 'JODI: OXO',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5664/jodi-oxo',
+##               'venues': [{'address1': None,
+##                           'address2': None,
+##                           'begindate': '2018-02-07',
+##                           'city': None,
+##                           'country': None,
+##                           'enddate': '2018-04-23',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 5,
+##                                          'galleryid': 5000,
+##                                          'gallerynumber': '5000',
+##                                          'name': 'Lightbox Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': None,
+##                           'venueid': 55780,
+##                           'zipcode': None}]},
+##              {'begindate': '2018-01-20',
+##               'color': None,
+##               'description': None,
+##               'enddate': '2018-05-06',
+##               'exhibitionid': 5653,
+##               'id': 5653,
+##               'images': [{'baseimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:51492_dynmc',
+##                           'caption': 'William Blake, Christ Blessing, c. 1810. '
+##                                      'Tempera on canvas. Harvard Art '
+##                                      'Museums/Fogg Museum, Bequest of '
+##                                      'Grenville L. Winthrop, 1943.180.',
+##                           'copyright': 'President and Fellows of Harvard '
+##                                        'College',
+##                           'displayorder': 1,
+##                           'format': 'image/jpeg',
+##                           'height': 1024,
+##                           'idsid': 17386756,
+##                           'iiifbaseuri': 'https://ids.lib.harvard.edu/ids/iiif/17386756',
+##                           'imageid': 52888,
+##                           'renditionnumber': '51492',
+##                           'width': 850}],
+##               'lastupdate': '2020-02-18T05:06:12-0500',
+##               'people': [{'displayname': 'Curated by Laura Muir',
+##                           'displayorder': 1,
+##                           'name': 'Laura Muir',
+##                           'personid': 1274,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Jeffrey Hamburger',
+##                           'displayorder': 2,
+##                           'name': 'Jeffrey Hamburger',
+##                           'personid': 7670,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Joseph Koerner',
+##                           'displayorder': 3,
+##                           'name': 'Joseph Koerner',
+##                           'personid': 17589,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Sarah Kianovsky',
+##                           'displayorder': 4,
+##                           'name': 'Sarah Kianovsky',
+##                           'personid': 10665,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'},
+##                          {'displayname': 'Curated by Miriam Stewart',
+##                           'displayorder': 5,
+##                           'name': 'Miriam Stewart',
+##                           'personid': 7955,
+##                           'prefix': 'Curated by',
+##                           'role': 'Curator'}],
+##               'poster': {'caption': 'William Blake, Christ Blessing, c. 1810. '
+##                                     'Tempera on canvas. Harvard Art '
+##                                     'Museums/Fogg Museum, Bequest of Grenville '
+##                                     'L. Winthrop, 1943.180.',
+##                          'imageurl': 'https://nrs.harvard.edu/urn-3:HUAM:51492_dynmc'},
+##               'primaryimageurl': 'https://nrs.harvard.edu/urn-3:HUAM:51492_dynmc',
+##               'shortdescription': None,
+##               'temporalorder': 4529,
+##               'textiledescription': 'The history of art is usually presented '
+##                                     'as a forward march, with individual works '
+##                                     'studied as points along a path of '
+##                                     'progress to the present. This '
+##                                     'installation—matching the Harvard survey '
+##                                     'course it accompanies—reverses that '
+##                                     'familiar direction. The sequence proceeds '
+##                                     'from recent art back to the Renaissance. '
+##                                     'This retrospective history of art is '
+##                                     'meant to capture the point of view of '
+##                                     'artists themselves, who have, for '
+##                                     'generations, tried—variously—to preserve, '
+##                                     'transform, surpass, or overturn what came '
+##                                     'before them. A reverse perspective also '
+##                                     'accords with how humans are situated in '
+##                                     'history, looking back inescapably from a '
+##                                     'position in the present moment, but also '
+##                                     'powerfully shaped by the past. And it '
+##                                     'echoes the time sequence of geological '
+##                                     'sediment through which one has to dig '
+##                                     'from new layers to older ones.\r\n'
+##                                     '\r\n'
+##                                     'Looking back on selected artworks from '
+##                                     'the Western tradition allows us to '
+##                                     'observe that even the most radical '
+##                                     'contemporary departures depend heavily on '
+##                                     'the art of the past and therefore that '
+##                                     'the Old Masters are relevant still. '
+##                                     'Visitors are invited to travel the '
+##                                     'sequence in both directions, from present '
+##                                     'to past and from past to present, '
+##                                     'experiencing the different connections, '
+##                                     'stories, and dislocations that '
+##                                     'arise.  \r\n'
+##                                     '\r\n'
+##                                     'The installation’s related course is '
+##                                     'taught by Jeffrey F. Hamburger, the Kuno '
+##                                     'Francke Professor of German Art and '
+##                                     'Culture; and Joseph Koerner, the Victor '
+##                                     'S. Thomas Professor of the History of Art '
+##                                     'and Architecture at Harvard '
+##                                     'University.\r\n'
+##                                     '\r\n'
+##                                     'The University Teaching Gallery serves '
+##                                     'faculty and students affiliated with '
+##                                     'Harvard’s Department of History of Art '
+##                                     'and Architecture. Semester-long '
+##                                     'installations are mounted in conjunction '
+##                                     'with undergraduate and graduate courses, '
+##                                     'supporting instruction in the critical '
+##                                     'analysis of art and making unique '
+##                                     'selections from the museums’ collections '
+##                                     'available to all visitors.\r\n'
+##                                     '\r\n'
+##                                     'This installation is made possible in '
+##                                     'part by funding from the Gurel Student '
+##                                     'Exhibition Fund and the José Soriano '
+##                                     'Fund. Modern and contemporary art '
+##                                     'programs at the Harvard Art Museums are '
+##                                     'made possible in part by generous support '
+##                                     'from the Emily Rauh Pulitzer and Joseph '
+##                                     'Pulitzer, Jr., Fund for Modern and '
+##                                     'Contemporary Art.',
+##               'title': 'Looking Back: The Western Tradition in Retrospect',
+##               'url': 'https://www.harvardartmuseums.org/exhibitions/5653/looking-back-the-western-tradition-in-retrospect',
+##               'venues': [{'address1': '32 Quincy St.',
+##                           'address2': None,
+##                           'begindate': '2018-01-20',
+##                           'city': 'Cambridge',
+##                           'country': None,
+##                           'enddate': '2018-05-06',
+##                           'fullname': 'Harvard Art Museums',
+##                           'galleries': [{'floor': 3,
+##                                          'galleryid': 3610,
+##                                          'gallerynumber': '3610',
+##                                          'name': 'University Teaching '
+##                                                  'Gallery'}],
+##                           'ishamvenue': 1,
+##                           'name': 'Harvard Art Museums',
+##                           'state': 'MA',
+##                           'venueid': 55780,
+##                           'zipcode': '02138'}]}]}
+\end{verbatim}
+
+Questions \#3+4 (loop solution):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{firstFivePages }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ page }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{):}
+\NormalTok{    records_per_page }\OperatorTok{=}\NormalTok{ requests.get(exhibit_url, params }\OperatorTok{=}\NormalTok{ \{}\StringTok{'type'}\NormalTok{: }\StringTok{'past-exhibition'}\NormalTok{, }\StringTok{'page'}\NormalTok{: page\}).json()[}\StringTok{'records'}\NormalTok{]}
+\NormalTok{    firstFivePages.extend(records_per_page)}
+\NormalTok{firstFivePages_records }\OperatorTok{=}\NormalTok{ pd.DataFrame.from_records(firstFivePages)}
+\BuiltInTok{print}\NormalTok{(firstFivePages_records)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   primaryimageurl             textiledescription  ...                   publications                         videos
+## 0   https://nrs.harvard.edu/ur...  In 1638, a work of silver ...  ...                            NaN                            NaN
+## 1   https://nrs.harvard.edu/ur...  _Animal-Shaped Vessels fro...  ...  [{'title': 'Animal-Shaped ...                            NaN
+## 2   https://nrs.harvard.edu/ur...  _Mutiny: Works by Géricaul...  ...                            NaN                            NaN
+## 3   https://nrs.harvard.edu/ur...  For most of history, human...  ...                            NaN                            NaN
+## 4   https://nrs.harvard.edu/ur...  _Nam June Paik: Screen Pla...  ...                            NaN  [{'primaryurl': 'https://v...
+## 5   https://nrs.harvard.edu/ur...  This newly commissioned in...  ...                            NaN                            NaN
+## 6   https://nrs.harvard.edu/ur...  This exhibition takes an u...  ...  [{'title': 'Analog Culture...                            NaN
+## 7   https://nrs.harvard.edu/ur...  The first exhibition of it...  ...  [{'title': 'Inventur—Art i...                            NaN
+## 8   https://nrs.harvard.edu/ur...  The Harvard Art Museums pr...  ...                            NaN                            NaN
+## 9   https://nrs.harvard.edu/ur...  The history of art is usua...  ...                            NaN                            NaN
+## 10  https://nrs.harvard.edu/ur...  The Harvard Art Museums pr...  ...                            NaN  [{'primaryurl': 'https://v...
+## 11  https://nrs.harvard.edu/ur...  Rome, known as the “common...  ...                            NaN                            NaN
+## 12  https://nrs.harvard.edu/ur...  On Wednesday, July 21, 177...  ...                            NaN                            NaN
+## 13  https://nrs.harvard.edu/ur...  After declaring its de fac...  ...                            NaN                            NaN
+## 14  https://nrs.harvard.edu/ur...  Complementing undergraduat...  ...                            NaN                            NaN
+## 15  https://nrs.harvard.edu/ur...  Drawn from the Harvard Art...  ...                            NaN                            NaN
+## 16  https://nrs.harvard.edu/ur...  The 19th century was an er...  ...  [{'title': 'A Collector’s ...                            NaN
+## 17  https://nrs.harvard.edu/ur...  In 1978, sculptor Christop...  ...                            NaN  [{'primaryurl': 'https://v...
+## 18  https://nrs.harvard.edu/ur...  The Harvard Art Museums ho...  ...                            NaN                            NaN
+## 19  https://nrs.harvard.edu/ur...  This focused exhibition fe...  ...                            NaN                            NaN
+## 20  https://nrs.harvard.edu/ur...  Between 1766 and 1820, Har...  ...  [{'title': 'The Philosophy...  [{'primaryurl': 'https://v...
+## 21  https://nrs.harvard.edu/ur...  How do we visualize a coll...  ...                            NaN                            NaN
+## 22  https://nrs.harvard.edu/ur...  Drawing became modern in t...  ...  [{'title': 'Drawing: The I...                            NaN
+## 23  https://nrs.harvard.edu/ur...  _Doris Salcedo: The Materi...  ...  [{'title': 'Doris Salcedo:...                            NaN
+## 24  https://nrs.harvard.edu/ur...  Throughout the 2016–17 aca...  ...                            NaN                            NaN
+## 25  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 26  https://nrs.harvard.edu/ur...  This University Teaching G...  ...                            NaN                            NaN
+## 27  https://nrs.harvard.edu/ur...                           None  ...                            NaN  [{'primaryurl': 'https://v...
+## 28  https://nrs.harvard.edu/ur...  Until recently, many of th...  ...                            NaN                            NaN
+## 29  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 30  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 31  https://nrs.harvard.edu/ur...  The Harvard Art Museums ho...  ...  [{'title': 'Drawings from ...                            NaN
+## 32  https://nrs.harvard.edu/ur...  _Everywhen: The Eternal Pr...  ...  [{'title': 'Everywhen: The...                            NaN
+## 33  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 34  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 35  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 36  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 37  https://nrs.harvard.edu/ur...  Berlin-based artist Shahry...  ...                            NaN                            NaN
+## 38  https://nrs.harvard.edu/ur...  American artist Corita Ken...  ...  [{'title': 'Corita Kent an...  [{'primaryurl': 'https://v...
+## 39  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 40  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 41  https://nrs.harvard.edu/ur...  Jesse Aron Green’s celebra...  ...                            NaN                            NaN
+## 42  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 43  https://nrs.harvard.edu/ur...  This new presentation of M...  ...                            NaN  [{'primaryurl': 'https://v...
+## 44  https://nrs.harvard.edu/ur...  Rebecca Horn (German, b. 1...  ...                            NaN                            NaN
+## 45  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 46  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 47  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 48  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 49  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 
+## [50 rows x 19 columns]
+\end{verbatim}
+
+Questions \#3+4 (list comprehension solution):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{first5Pages }\OperatorTok{=}\NormalTok{ [requests.get(exhibit_url, params }\OperatorTok{=}\NormalTok{ \{}\StringTok{'type'}\NormalTok{: }\StringTok{'past-exhibition'}\NormalTok{, }\StringTok{'page'}\NormalTok{: page\}).json()[}\StringTok{'records'}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ page }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{)]}
+\ImportTok{from}\NormalTok{ itertools }\ImportTok{import}\NormalTok{ chain}
+\NormalTok{first5Pages }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(chain.from_iterable(first5Pages))}
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{first5Pages_records }\OperatorTok{=}\NormalTok{ pd.DataFrame.from_records(first5Pages)}
+\BuiltInTok{print}\NormalTok{(first5Pages_records)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   primaryimageurl             textiledescription  ...                   publications                         videos
+## 0   https://nrs.harvard.edu/ur...  In 1638, a work of silver ...  ...                            NaN                            NaN
+## 1   https://nrs.harvard.edu/ur...  _Animal-Shaped Vessels fro...  ...  [{'title': 'Animal-Shaped ...                            NaN
+## 2   https://nrs.harvard.edu/ur...  _Mutiny: Works by Géricaul...  ...                            NaN                            NaN
+## 3   https://nrs.harvard.edu/ur...  For most of history, human...  ...                            NaN                            NaN
+## 4   https://nrs.harvard.edu/ur...  _Nam June Paik: Screen Pla...  ...                            NaN  [{'primaryurl': 'https://v...
+## 5   https://nrs.harvard.edu/ur...  This newly commissioned in...  ...                            NaN                            NaN
+## 6   https://nrs.harvard.edu/ur...  This exhibition takes an u...  ...  [{'title': 'Analog Culture...                            NaN
+## 7   https://nrs.harvard.edu/ur...  The first exhibition of it...  ...  [{'title': 'Inventur—Art i...                            NaN
+## 8   https://nrs.harvard.edu/ur...  The Harvard Art Museums pr...  ...                            NaN                            NaN
+## 9   https://nrs.harvard.edu/ur...  The history of art is usua...  ...                            NaN                            NaN
+## 10  https://nrs.harvard.edu/ur...  The Harvard Art Museums pr...  ...                            NaN  [{'primaryurl': 'https://v...
+## 11  https://nrs.harvard.edu/ur...  Rome, known as the “common...  ...                            NaN                            NaN
+## 12  https://nrs.harvard.edu/ur...  On Wednesday, July 21, 177...  ...                            NaN                            NaN
+## 13  https://nrs.harvard.edu/ur...  After declaring its de fac...  ...                            NaN                            NaN
+## 14  https://nrs.harvard.edu/ur...  Complementing undergraduat...  ...                            NaN                            NaN
+## 15  https://nrs.harvard.edu/ur...  Drawn from the Harvard Art...  ...                            NaN                            NaN
+## 16  https://nrs.harvard.edu/ur...  The 19th century was an er...  ...  [{'title': 'A Collector’s ...                            NaN
+## 17  https://nrs.harvard.edu/ur...  In 1978, sculptor Christop...  ...                            NaN  [{'primaryurl': 'https://v...
+## 18  https://nrs.harvard.edu/ur...  The Harvard Art Museums ho...  ...                            NaN                            NaN
+## 19  https://nrs.harvard.edu/ur...  This focused exhibition fe...  ...                            NaN                            NaN
+## 20  https://nrs.harvard.edu/ur...  Between 1766 and 1820, Har...  ...  [{'title': 'The Philosophy...  [{'primaryurl': 'https://v...
+## 21  https://nrs.harvard.edu/ur...  How do we visualize a coll...  ...                            NaN                            NaN
+## 22  https://nrs.harvard.edu/ur...  Drawing became modern in t...  ...  [{'title': 'Drawing: The I...                            NaN
+## 23  https://nrs.harvard.edu/ur...  _Doris Salcedo: The Materi...  ...  [{'title': 'Doris Salcedo:...                            NaN
+## 24  https://nrs.harvard.edu/ur...  Throughout the 2016–17 aca...  ...                            NaN                            NaN
+## 25  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 26  https://nrs.harvard.edu/ur...  This University Teaching G...  ...                            NaN                            NaN
+## 27  https://nrs.harvard.edu/ur...                           None  ...                            NaN  [{'primaryurl': 'https://v...
+## 28  https://nrs.harvard.edu/ur...  Until recently, many of th...  ...                            NaN                            NaN
+## 29  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 30  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 31  https://nrs.harvard.edu/ur...  The Harvard Art Museums ho...  ...  [{'title': 'Drawings from ...                            NaN
+## 32  https://nrs.harvard.edu/ur...  _Everywhen: The Eternal Pr...  ...  [{'title': 'Everywhen: The...                            NaN
+## 33  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 34  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 35  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 36  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 37  https://nrs.harvard.edu/ur...  Berlin-based artist Shahry...  ...                            NaN                            NaN
+## 38  https://nrs.harvard.edu/ur...  American artist Corita Ken...  ...  [{'title': 'Corita Kent an...  [{'primaryurl': 'https://v...
+## 39  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 40  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 41  https://nrs.harvard.edu/ur...  Jesse Aron Green’s celebra...  ...                            NaN                            NaN
+## 42  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 43  https://nrs.harvard.edu/ur...  This new presentation of M...  ...                            NaN  [{'primaryurl': 'https://v...
+## 44  https://nrs.harvard.edu/ur...  Rebecca Horn (German, b. 1...  ...                            NaN                            NaN
+## 45  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 46  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 47  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 48  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 49  https://nrs.harvard.edu/ur...                           None  ...                            NaN                            NaN
+## 
+## [50 rows x 19 columns]
+\end{verbatim}
 
 \hypertarget{parsing-html-if-you-have-to}{%
 \section{Parsing HTML if you have to}\label{parsing-html-if-you-have-to}}
@@ -12100,6 +13923,109 @@ information in HTML from.
 \end{Highlighting}
 \end{Shaded}
 
+{Click for Exercise 1 Solution}
+
+Question \#2:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ lxml }\ImportTok{import}\NormalTok{ html}
+\NormalTok{floor_plan }\OperatorTok{=}\NormalTok{ requests.get(}\StringTok{'https://www.harvardartmuseums.org/visit/floor-plan'}\NormalTok{)}
+\NormalTok{floor_plan_html }\OperatorTok{=}\NormalTok{ html.fromstring(floor_plan.text)}
+\end{Highlighting}
+\end{Shaded}
+
+Question \#3:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{level_one }\OperatorTok{=}\NormalTok{ floor_plan_html.xpath(}\StringTok{'/html/body/main/section/ul/li[5]/div[2]/ul'}\NormalTok{)[}\DecValTok{0}\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(level_one))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <class 'lxml.html.HtmlElement'>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(level_one))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{level_one_facilities }\OperatorTok{=}\NormalTok{ floor_plan_html.xpath(}\StringTok{'/html/body/main/section/ul/li[5]/div[2]/ul/li'}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(level_one_facilities))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{([facility.text_content() }\ControlFlowTok{for}\NormalTok{ facility }\KeywordTok{in}\NormalTok{ level_one_facilities])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ['Admissions', 'Collection Galleries', 'Courtyard', 'Shop', 'Café', 'Coatroom']
+\end{verbatim}
+
+Question \#4:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all_levels }\OperatorTok{=}\NormalTok{ floor_plan_html.xpath(}\StringTok{'/html/body/main/section/ul/li'}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(all_levels))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all_levels_facilities }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ level }\KeywordTok{in}\NormalTok{ all_levels:}
+\NormalTok{    level_facilities }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{    level_facilities_collection }\OperatorTok{=}\NormalTok{ level.xpath(}\StringTok{'div[2]/ul/li'}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ level_facility }\KeywordTok{in}\NormalTok{ level_facilities_collection:}
+\NormalTok{        level_facilities.append(level_facility.text_content())}
+\NormalTok{    all_levels_facilities.append(level_facilities)}
+\BuiltInTok{print}\NormalTok{(all_levels_facilities)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [['Conservation Center / Lightbox Gallery'],
+##  ['Art Study Center'],
+##  ['Collection Galleries',
+##   'Special Exhibitions Gallery',
+##   'University Galleries'],
+##  ['Collections Galleries'],
+##  ['Admissions',
+##   'Collection Galleries',
+##   'Courtyard',
+##   'Shop',
+##   'Café',
+##   'Coatroom'],
+##  ['Lower Lobby',
+##   'Lecture Halls',
+##   'Seminar Room',
+##   'Materials Lab',
+##   'Coatroom',
+##   'Offices']]
+\end{verbatim}
+
 \hypertarget{scrapy-for-large-complex-projects}{%
 \section{\texorpdfstring{\texttt{Scrapy}: for large / complex projects}{Scrapy: for large / complex projects}}\label{scrapy-for-large-complex-projects}}
 
@@ -12125,120 +14051,6 @@ from Python. For small scraping projects involving complicated sites
 with CAPTHAs or lots of complicated javascript using a browser driver
 can be a good option. More information is available at
 \url{https://www.seleniumhq.org/docs/03_webdriver.jsp}.
-
-\hypertarget{exercise-solutions-1}{%
-\section{Exercise solutions}\label{exercise-solutions-1}}
-
-\hypertarget{ex-0-prototype-1}{%
-\subsection{Ex 0: prototype}\label{ex-0-prototype-1}}
-
-Question \#1:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{museum_domain }\OperatorTok{=} \StringTok{"https://www.harvardartmuseums.org"}
-\NormalTok{exhibit_path }\OperatorTok{=} \StringTok{"search/load_next"}
-\NormalTok{exhibit_url }\OperatorTok{=}\NormalTok{ museum_domain }\OperatorTok{+} \StringTok{"/"} \OperatorTok{+}\NormalTok{ exhibit_path}
-\BuiltInTok{print}\NormalTok{(exhibit_url)}
-\end{Highlighting}
-\end{Shaded}
-
-Question \#2:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ requests}
-\ImportTok{from}\NormalTok{ pprint }\ImportTok{import}\NormalTok{ pprint }\ImportTok{as} \BuiltInTok{print} 
-\NormalTok{exhibit1 }\OperatorTok{=}\NormalTok{ requests.get(exhibit_url, params }\OperatorTok{=}\NormalTok{ \{}\StringTok{'type'}\NormalTok{: }\StringTok{'past-exhibition'}\NormalTok{, }\StringTok{'page'}\NormalTok{: }\DecValTok{1}\NormalTok{\})}
-\BuiltInTok{print}\NormalTok{(exhibit1.headers[}\StringTok{"Content-Type"}\NormalTok{])}
-\NormalTok{exhibit1 }\OperatorTok{=}\NormalTok{ exhibit1.json()}
-\BuiltInTok{print}\NormalTok{(exhibit1)}
-\end{Highlighting}
-\end{Shaded}
-
-Questions \#3+4 (loop solution):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{firstFivePages }\OperatorTok{=}\NormalTok{ []}
-\ControlFlowTok{for}\NormalTok{ page }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{):}
-\NormalTok{    records_per_page }\OperatorTok{=}\NormalTok{ requests.get(exhibit_url, params }\OperatorTok{=}\NormalTok{ \{}\StringTok{'type'}\NormalTok{: }\StringTok{'past-exhibition'}\NormalTok{, }\StringTok{'page'}\NormalTok{: page\}).json()[}\StringTok{'records'}\NormalTok{]}
-\NormalTok{    firstFivePages.extend(records_per_page)}
-\NormalTok{firstFivePages_records }\OperatorTok{=}\NormalTok{ pd.DataFrame.from_records(firstFivePages)}
-\BuiltInTok{print}\NormalTok{(firstFivePages_records)}
-\end{Highlighting}
-\end{Shaded}
-
-Questions \#3+4 (list comprehension solution):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{first5Pages }\OperatorTok{=}\NormalTok{ [requests.get(exhibit_url, params }\OperatorTok{=}\NormalTok{ \{}\StringTok{'type'}\NormalTok{: }\StringTok{'past-exhibition'}\NormalTok{, }\StringTok{'page'}\NormalTok{: page\}).json()[}\StringTok{'records'}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ page }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{)]}
-\ImportTok{from}\NormalTok{ itertools }\ImportTok{import}\NormalTok{ chain}
-\NormalTok{first5Pages }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(chain.from_iterable(first5Pages))}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{first5Pages_records }\OperatorTok{=}\NormalTok{ pd.DataFrame.from_records(first5Pages)}
-\BuiltInTok{print}\NormalTok{(first5Pages_records)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{ex-1-prototype-1}{%
-\subsection{Ex 1: prototype}\label{ex-1-prototype-1}}
-
-Question \#2:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ lxml }\ImportTok{import}\NormalTok{ html}
-\NormalTok{floor_plan }\OperatorTok{=}\NormalTok{ requests.get(}\StringTok{'https://www.harvardartmuseums.org/visit/floor-plan'}\NormalTok{)}
-\NormalTok{floor_plan_html }\OperatorTok{=}\NormalTok{ html.fromstring(floor_plan.text)}
-\end{Highlighting}
-\end{Shaded}
-
-Question \#3:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{level_one }\OperatorTok{=}\NormalTok{ floor_plan_html.xpath(}\StringTok{'/html/body/main/section/ul/li[5]/div[2]/ul'}\NormalTok{)[}\DecValTok{0}\NormalTok{]}
-\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(level_one))}
-\BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(level_one))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{level_one_facilities }\OperatorTok{=}\NormalTok{ floor_plan_html.xpath(}\StringTok{'/html/body/main/section/ul/li[5]/div[2]/ul/li'}\NormalTok{)}
-\BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(level_one_facilities))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\BuiltInTok{print}\NormalTok{([facility.text_content() }\ControlFlowTok{for}\NormalTok{ facility }\KeywordTok{in}\NormalTok{ level_one_facilities])}
-\end{Highlighting}
-\end{Shaded}
-
-Question \#4:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{all_levels }\OperatorTok{=}\NormalTok{ floor_plan_html.xpath(}\StringTok{'/html/body/main/section/ul/li'}\NormalTok{)}
-\BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(all_levels))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{all_levels_facilities }\OperatorTok{=}\NormalTok{ []}
-\ControlFlowTok{for}\NormalTok{ level }\KeywordTok{in}\NormalTok{ all_levels:}
-\NormalTok{    level_facilities }\OperatorTok{=}\NormalTok{ []}
-\NormalTok{    level_facilities_collection }\OperatorTok{=}\NormalTok{ level.xpath(}\StringTok{'div[2]/ul/li'}\NormalTok{)}
-    \ControlFlowTok{for}\NormalTok{ level_facility }\KeywordTok{in}\NormalTok{ level_facilities_collection:}
-\NormalTok{        level_facilities.append(level_facility.text_content())}
-\NormalTok{    all_levels_facilities.append(level_facilities)}
-\BuiltInTok{print}\NormalTok{(all_levels_facilities)}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{wrap-up-6}{%
 \section{Wrap-up}\label{wrap-up-6}}
@@ -13137,11 +14949,11 @@ Combine all what we have learned together!
 **
 \end{verbatim}
 
-\hypertarget{exercise-solutions-2}{%
-\section{Exercise solutions}\label{exercise-solutions-2}}
+\hypertarget{exercise-solutions}{%
+\section{Exercise solutions}\label{exercise-solutions}}
 
-\hypertarget{ex-0-prototype-2}{%
-\subsection{Ex 0: prototype}\label{ex-0-prototype-2}}
+\hypertarget{ex-0-prototype}{%
+\subsection{Ex 0: prototype}\label{ex-0-prototype}}
 
 \begin{verbatim}
 clear
@@ -13151,8 +14963,8 @@ import delimited gss.csv, clear
 import excel gss.xlsx, clear
 \end{verbatim}
 
-\hypertarget{ex-1-prototype-2}{%
-\subsection{Ex 1: prototype}\label{ex-1-prototype-2}}
+\hypertarget{ex-1-prototype}{%
+\subsection{Ex 1: prototype}\label{ex-1-prototype}}
 
 \begin{verbatim}
 use talent.dta, clear
@@ -13169,8 +14981,8 @@ tabulate marital job
 summarize income if marital == 1
 \end{verbatim}
 
-\hypertarget{ex-2-prototype-1}{%
-\subsection{Ex 2: prototype}\label{ex-2-prototype-1}}
+\hypertarget{ex-2-prototype}{%
+\subsection{Ex 2: prototype}\label{ex-2-prototype}}
 
 \begin{verbatim}
 import delimited gss.csv, clear
@@ -14419,11 +16231,11 @@ Open the gss2.dta dataset. This dataset contains only half of the variables that
   Open the gss.dta dataset. Create a new dataset that summarizes mean and standard deviation of income based on individuals' degree status (``degree''). In the process of creating this new dataset, rename your three new variables.
 \end{enumerate}
 
-\hypertarget{exercise-solutions-3}{%
-\section{Exercise Solutions}\label{exercise-solutions-3}}
+\hypertarget{exercise-solutions-1}{%
+\section{Exercise Solutions}\label{exercise-solutions-1}}
 
-\hypertarget{ex-0-prototype-3}{%
-\subsection{Ex 0: prototype}\label{ex-0-prototype-3}}
+\hypertarget{ex-0-prototype-1}{%
+\subsection{Ex 0: prototype}\label{ex-0-prototype-1}}
 
 Open the gss.dta data.
 
@@ -14469,8 +16281,8 @@ Open the gss.dta data.
   sum nmissing
 \end{verbatim}
 
-\hypertarget{ex-1-prototype-3}{%
-\subsection{Ex 1: prototype}\label{ex-1-prototype-3}}
+\hypertarget{ex-1-prototype-1}{%
+\subsection{Ex 1: prototype}\label{ex-1-prototype-1}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -14519,8 +16331,8 @@ Open the gss.dta data.
   tab hrsdegree degree 
 \end{verbatim}
 
-\hypertarget{ex-2-prototype-2}{%
-\subsection{Ex 2: prototype}\label{ex-2-prototype-2}}
+\hypertarget{ex-2-prototype-1}{%
+\subsection{Ex 2: prototype}\label{ex-2-prototype-1}}
 
 Open the gss2.dta dataset. This dataset contains only half of the variables that are in the complete gss dataset.
 
@@ -16057,25 +17869,25 @@ Open the datafile, NatNeighCrimeStudy.dta.
   \end{itemize}
 \end{itemize}
 
-\hypertarget{exercise-solutions-4}{%
-\section{Exercise Solutions}\label{exercise-solutions-4}}
+\hypertarget{exercise-solutions-2}{%
+\section{Exercise Solutions}\label{exercise-solutions-2}}
 
-\hypertarget{ex-0-prototype-4}{%
-\subsection{Ex 0: prototype}\label{ex-0-prototype-4}}
-
-\begin{verbatim}
-**
-\end{verbatim}
-
-\hypertarget{ex-1-prototype-4}{%
-\subsection{Ex 1: prototype}\label{ex-1-prototype-4}}
+\hypertarget{ex-0-prototype-2}{%
+\subsection{Ex 0: prototype}\label{ex-0-prototype-2}}
 
 \begin{verbatim}
 **
 \end{verbatim}
 
-\hypertarget{ex-2-prototype-3}{%
-\subsection{Ex 2: prototype}\label{ex-2-prototype-3}}
+\hypertarget{ex-1-prototype-2}{%
+\subsection{Ex 1: prototype}\label{ex-1-prototype-2}}
+
+\begin{verbatim}
+**
+\end{verbatim}
+
+\hypertarget{ex-2-prototype-2}{%
+\subsection{Ex 2: prototype}\label{ex-2-prototype-2}}
 
 \begin{verbatim}
 **

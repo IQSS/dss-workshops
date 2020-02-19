@@ -30,6 +30,7 @@
 #
 # ### Goals
 #
+# <div class="alert alert-danger">
 # We will learn about the R language by analyzing a dataset of baby names.
 # In particular, our goals are to learn about:
 #
@@ -46,6 +47,7 @@
 # your own functions, produce publication quality graphics, or fit models to data.
 # These topics are covered in our [R Data Wrangling](./RDataWrangling.html),
 # [R Graphics](./Rgraphics.html), and [R Regression Models](./Rmodels.html) workshops.
+# </div>
 
 # ## R basics
 #

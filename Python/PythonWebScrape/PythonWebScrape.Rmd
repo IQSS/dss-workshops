@@ -43,6 +43,7 @@ If you need an introduction to Python or a refresher, we recommend our
 
 ### Goals
 
+<div class="alert alert-danger">
 This workshop is organized into two main parts:
 
 1. Retrive information in JSON format
@@ -50,6 +51,7 @@ This workshop is organized into two main parts:
 
 Note that this workshop will not teach you everything you need to know in
 order to retrieve data from any web service you might wish to scrape.
+</div>
 
 
 ## Webscraping background
@@ -335,27 +337,71 @@ exhibitions at Harvard Art Museums from
    page at `https://www.harvardartmuseums.org/visit/exhibitions`. Examine
    the network traffic as you interact with the page. Try to find
    where the data displayed on that page comes from.
-```{Python}
+```{python}
 ##
-``
+```
 
 2. Make a `get` request in Python to retrieve the data from the URL
    identified in step1.
-```{Python}
+```{python}
 ##
-``
+```
 
 3. Write a *loop* or *list comprehension* in Python to retrieve data
    for the first 5 pages of exhibitions data.
-```{Python}
+```{python}
 ##
 ```
 
 4. Bonus (optional): Convert the data you retrieved into a pandas 
   `DataFrame` and save it to a `.csv` file.
-```{Python}
+```{python}
 ##
 ```
+
+<details>
+  <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
+  <div class="alert alert-success">
+
+Question #1: 
+```{python}
+museum_domain = "https://www.harvardartmuseums.org"
+exhibit_path = "search/load_next"
+exhibit_url = museum_domain + "/" + exhibit_path
+print(exhibit_url)
+```
+
+Question #2:
+```{python}
+import requests
+from pprint import pprint as print 
+exhibit1 = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': 1})
+print(exhibit1.headers["Content-Type"])
+exhibit1 = exhibit1.json()
+print(exhibit1)
+```
+
+Questions #3+4 (loop solution):
+```{python}
+firstFivePages = []
+for page in range(1, 6):
+    records_per_page = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records']
+    firstFivePages.extend(records_per_page)
+firstFivePages_records = pd.DataFrame.from_records(firstFivePages)
+print(firstFivePages_records)
+```
+
+Questions #3+4 (list comprehension solution):
+```{python}
+first5Pages = [requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
+from itertools import chain
+first5Pages = list(chain.from_iterable(first5Pages))
+import pandas as pd
+first5Pages_records = pd.DataFrame.from_records(first5Pages)
+print(first5Pages_records)
+```
+</div>
+</details>
 
 
 ## Parsing HTML if you have to
@@ -587,21 +633,68 @@ information in HTML from.
    <https://www.harvardartmuseums.org/visit/floor-plan>. Extract the
    content from your request object and parse it using `html.fromstring`
    from the `lxml` library.
-```{Python}
+```{python}
 ##
 ```
 
 3. Use your web browser to find the `XPath`s to the facilities housed on
    level one. Use Python to extract the text from those `Xpath`s.
-```{Python}
+```{python}
 ##
 ```
 
 4. Bonus (optional): Write a *for loop* or *list comprehension* in Python
    to retrieve data for all the levels.
-```{Python}
+```{python}
 ##
 ```
+
+<details>
+  <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
+  <div class="alert alert-success">
+
+Question #2:
+```{python}
+from lxml import html
+floor_plan = requests.get('https://www.harvardartmuseums.org/visit/floor-plan')
+floor_plan_html = html.fromstring(floor_plan.text)
+```
+
+Question #3:
+```{python}
+level_one = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul')[0]
+print(type(level_one))
+print(len(level_one))
+```
+
+```{python}
+level_one_facilities = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul/li')
+print(len(level_one_facilities))
+```
+
+```{python}
+print([facility.text_content() for facility in level_one_facilities])
+```
+
+Question #4:
+```{python}
+all_levels = floor_plan_html.xpath('/html/body/main/section/ul/li')
+print(len(all_levels))
+```
+
+```{python}
+all_levels_facilities = []
+for level in all_levels:
+    level_facilities = []
+    level_facilities_collection = level.xpath('div[2]/ul/li')
+    for level_facility in level_facilities_collection:
+        level_facilities.append(level_facility.text_content())
+    all_levels_facilities.append(level_facilities)
+print(all_levels_facilities)
+```
+</div>
+</details>
+
 
 ## `Scrapy`: for large / complex projects
 
@@ -626,92 +719,6 @@ from Python. For small scraping projects involving complicated sites
 with CAPTHAs or lots of complicated javascript using a browser driver
 can be a good option. More information is available at 
 <https://www.seleniumhq.org/docs/03_webdriver.jsp>.
-
-
-## Exercise solutions
-
-### Ex 0: prototype
-
-Question #1: 
-```{Python}
-museum_domain = "https://www.harvardartmuseums.org"
-exhibit_path = "search/load_next"
-exhibit_url = museum_domain + "/" + exhibit_path
-print(exhibit_url)
-```
-
-Question #2:
-```{Python}
-import requests
-from pprint import pprint as print 
-exhibit1 = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': 1})
-print(exhibit1.headers["Content-Type"])
-exhibit1 = exhibit1.json()
-print(exhibit1)
-```
-
-Questions #3+4 (loop solution):
-```{Python}
-firstFivePages = []
-for page in range(1, 6):
-    records_per_page = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records']
-    firstFivePages.extend(records_per_page)
-firstFivePages_records = pd.DataFrame.from_records(firstFivePages)
-print(firstFivePages_records)
-```
-
-Questions #3+4 (list comprehension solution):
-```{Python}
-first5Pages = [requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
-from itertools import chain
-first5Pages = list(chain.from_iterable(first5Pages))
-import pandas as pd
-first5Pages_records = pd.DataFrame.from_records(first5Pages)
-print(first5Pages_records)
-```
-
-### Ex 1: prototype
-
-Question #2:
-```{Python}
-from lxml import html
-floor_plan = requests.get('https://www.harvardartmuseums.org/visit/floor-plan')
-floor_plan_html = html.fromstring(floor_plan.text)
-```
-
-Question #3:
-```{Python}
-level_one = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul')[0]
-print(type(level_one))
-print(len(level_one))
-```
-
-```{Python}
-level_one_facilities = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul/li')
-print(len(level_one_facilities))
-```
-
-```{Python}
-print([facility.text_content() for facility in level_one_facilities])
-```
-
-Question #4:
-```{Python}
-all_levels = floor_plan_html.xpath('/html/body/main/section/ul/li')
-print(len(all_levels))
-```
-
-```{Python}
-all_levels_facilities = []
-for level in all_levels:
-    level_facilities = []
-    level_facilities_collection = level.xpath('div[2]/ul/li')
-    for level_facility in level_facilities_collection:
-        level_facilities.append(level_facility.text_content())
-    all_levels_facilities.append(level_facilities)
-print(all_levels_facilities)
-```
-
 
 
 ## Wrap-up

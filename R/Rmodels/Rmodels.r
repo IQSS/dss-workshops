@@ -25,6 +25,7 @@
 #
 # ### Goals
 #
+# <div class="alert alert-danger">
 # We will learn about the R modeling ecosystem by fitting a variety of statistical models to
 # different datasets. In particular, our goals are to learn about:
 #
@@ -37,6 +38,7 @@
 # We will not spend much time *interpreting* the models we fit, since this is not a statistics workshop.
 # But, we will walk you through how model results are organized and orientate you to where you can find
 # typical quantities of interest.
+# </div>
 #
 # ### Launch an R session
 #
