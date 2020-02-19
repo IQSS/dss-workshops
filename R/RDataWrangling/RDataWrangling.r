@@ -316,7 +316,7 @@ glimpse(temp)
 ## 
 
 # <details>
-#   <summary><span style="color:red"><em><b>Click for Exercise 1 Solution</b></em></span></summary>
+#   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 #   <div class="alert alert-success">
 #
 # 1.  Write a function that takes a file name as an argument and reads the worksheet containing "Table 1" from that file.
@@ -508,7 +508,7 @@ boysNames[[1]]
 ## 
 
 # <details>
-#   <summary><span style="color:red"><em><b>Click for Exercise 2 Solution</b></em></span></summary>
+#   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 #   <div class="alert alert-success">
 #
 # 1. Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
@@ -577,7 +577,7 @@ bind_rows(first_columns, second_columns)
 ## 
 
 # <details>
-#   <summary><span style="color:red"><em><b>Click for Exercise 3 Solution</b></em></span></summary>
+#   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 #   <div class="alert alert-success">
 #
 # 1. Create a new function called `cleanupNamesData` that:
@@ -676,7 +676,7 @@ boysNames[1]
 ## 
 
 # <details>
-#   <summary><span style="color:red"><em><b>Click for Exercise 4 Solution</b></em></span></summary>
+#   <summary><span style="color:red"><b>Click for Exercise 4 Solution</b></span></summary>
 #   <div class="alert alert-success">
 #
 # 1. Turn the list of boys names data frames into a single data frame.

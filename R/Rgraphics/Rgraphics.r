@@ -271,6 +271,36 @@ dat <- read_csv("dataSets/EconomistData.csv")
 # 5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`
 ## 
 
+# <details>
+#   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
+#   <div class="alert alert-success">
+#
+# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point()
+
+# 2.  Color the points in the previous plot blue.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point(color = "blue")
+
+# 3.  Map the color of the the points to `Region`.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point(aes(color = Region))
+
+# 4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point(aes(color = Region), size = 2)
+
+# 5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+geom_point(aes(color = Region, size =  HDI_Rank))
+# </div>
+# </details>
 
 # ## Statistical transformations
 #
@@ -340,6 +370,40 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 # 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
 ## 
 
+# <details>
+#   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
+#   <div class="alert alert-success">
+#
+# 1.  Re-create a scatter plot with `CPI` on the x axis and `HDI` on the y axis (as you did in the previous exercise).
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point()
+
+# 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point() +
+  geom_smooth()
+
+# 3.  Make the smoothing line in `geom_smooth()` less smooth. Hint: see `?loess`.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point() +
+  geom_smooth(span = .4)
+
+# 4.  Change the smoothing line in `geom_smooth()` to use a linear model for the predictions. Hint: see `?stat_smooth`.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+# 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+
+ggplot(dat, aes(x = CPI, y = HDI)) +
+  geom_point() +
+  geom_line(stat = "smooth", method = "loess")
+# </div>
+# </details>
 
 # ## Scales
 #
@@ -442,6 +506,33 @@ p4 +
 # 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
 ## 
 
+# <details>
+#   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
+#   <div class="alert alert-success">
+#
+# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
+
+ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
+  geom_point()
+
+# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`).
+
+ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
+geom_point() +
+scale_x_continuous(name = "Corruption Perception Index") +
+scale_y_continuous(name = "Human Development Index") +
+scale_color_discrete(name = "Region of the world")
+
+# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
+
+ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
+geom_point() +
+scale_x_continuous(name = "Corruption Perception Index") +
+scale_y_continuous(name = "Human Development Index") +
+  scale_color_manual(name = "Region of the world",
+                     values = c("red", "green", "blue", "orange", "grey", "brown"))
+# </div>
+# </details>
 
 # ## Faceting
 #
@@ -602,96 +693,10 @@ head(midwest)
 
 # 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: see `?theme` and especially `axis.text` and `strip.background`.
 ## 
-#
 
-# ## Exercise solutions
-#
-# ### Ex 0: prototype
-#
-# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point()
-
-# 2.  Color the points in the previous plot blue.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point(color = "blue")
-
-# 3.  Map the color of the the points to `Region`.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point(aes(color = Region))
-
-# 4.  Keeping color mapped to `Region`, make the points bigger by setting size to 2.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point(aes(color = Region), size = 2)
-
-# 5.  Keeping color mapped to `Region`, map the size of the points to `HDI_Rank`.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-geom_point(aes(color = Region, size =  HDI_Rank))
-
-
-# ### Ex 1: prototype
-#
-# 1.  Re-create a scatter plot with `CPI` on the x axis and `HDI` on the y axis (as you did in the previous exercise).
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point()
-
-# 2.  Overlay a smoothing line on top of the scatter plot using `geom_smooth()`.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point() +
-  geom_smooth()
-
-# 3.  Make the smoothing line in `geom_smooth()` less smooth. Hint: see `?loess`.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point() +
-  geom_smooth(span = .4)
-
-# 4.  Change the smoothing line in `geom_smooth()` to use a linear model for the predictions. Hint: see `?stat_smooth`.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-
-# 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
-
-ggplot(dat, aes(x = CPI, y = HDI)) +
-  geom_point() +
-  geom_line(stat = "smooth", method = "loess")
-#
-
-# ### Ex 2: prototype
-#
-# 1.  Create a scatter plot with `CPI` on the x axis and `HDI` on the y axis. Color the points to indicate `Region`.
-
-ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
-  geom_point()
-
-# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`).
-
-ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
-geom_point() +
-scale_x_continuous(name = "Corruption Perception Index") +
-scale_y_continuous(name = "Human Development Index") +
-scale_color_discrete(name = "Region of the world")
-
-# 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
-
-ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
-geom_point() +
-scale_x_continuous(name = "Corruption Perception Index") +
-scale_y_continuous(name = "Human Development Index") +
-  scale_color_manual(name = "Region of the world",
-                     values = c("red", "green", "blue", "orange", "grey", "brown"))
-
-
-# ### Ex 3: prototype
+# <details>
+#   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
+#   <div class="alert alert-success">
 #
 # 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
 
@@ -730,7 +735,8 @@ p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) +
     theme_bw() +
     theme(axis.title = element_text(color = "blue", face = "bold"),
          strip.background = element_rect(fill = "yellow"))
-
+# </div>
+# </details>
 
 # ## Wrap-up
 #
