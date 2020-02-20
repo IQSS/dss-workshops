@@ -876,17 +876,17 @@ into a pandas <code>DataFrame</code> to facilitate subsequent analysis.</p>
 <div class="sourceCode" id="cb600"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb600-1" data-line-number="1"><span class="im">import</span> pandas <span class="im">as</span> pd</a></code></pre></div>
 <div class="sourceCode" id="cb601"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb601-1" data-line-number="1">records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">&#39;records&#39;</span>])</a></code></pre></div>
 <div class="sourceCode" id="cb602"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb602-1" data-line-number="1"><span class="bu">print</span>(records1)</a></code></pre></div>
-<pre><code>##    accessionyear             technique  ...                        seeAlso                         people
-## 0         1995.0                  None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
-## 1         2004.0          Photogravure  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Steichen, ...
-## 2         1991.0               Celadon  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
-## 3         2010.0          Photogravure  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Stieglitz,...
-## 4         1991.0                  None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
-## 5            NaN         Daguerreotype  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Southworth...
-## 6         2002.0            Lusterware  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
-## 7         2008.0  Gelatin silver print  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Renger-Pat...
-## 8         2004.0              Repoussé  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Maker&#39;s Ma...
-## 9         2004.0            Lithograph  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  [{&#39;alphasort&#39;: &#39;Courbet, G...
+<pre><code>##    accessionyear             technique  ...  classification                        seeAlso
+## 0            NaN         Daguerreotype  ...     Photographs  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 1         2002.0            Lusterware  ...         Vessels  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 2         1939.0                  None  ...        Drawings  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 3         2006.0                  None  ...       Paintings  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 4            NaN  Etching and drypoint  ...          Prints  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 5         1984.0                  None  ...     Manuscripts  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 6         2001.0                  None  ...       Paintings  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 7         2010.0          Photogravure  ...     Photographs  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 8         2004.0                  None  ...        Drawings  [{&#39;id&#39;: &#39;https://iiif.harv...
+## 9         1943.0                  None  ...       Sculpture  [{&#39;id&#39;: &#39;https://iiif.harv...
 ## 
 ## [10 rows x 61 columns]</code></pre>
 <p>and write the data to a file.</p>
@@ -908,57 +908,57 @@ Python, we can iterate in the usual way.</p>
 <div class="sourceCode" id="cb607"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb607-1" data-line-number="1"><span class="co"># write the data to a file.</span></a>
 <a class="sourceLine" id="cb607-2" data-line-number="2">records_final.to_csv(<span class="st">&quot;records_final.csv&quot;</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb608"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb608-1" data-line-number="1"><span class="bu">print</span>(records_final)</a></code></pre></div>
-<pre><code>##     accessionyear               technique  ...                         people                        details
-## 0          1995.0                    None  ...                            NaN                            NaN
-## 1          2004.0            Photogravure  ...  [{&#39;alphasort&#39;: &#39;Steichen, ...                            NaN
-## 2          1991.0                 Celadon  ...                            NaN                            NaN
-## 3          2010.0            Photogravure  ...  [{&#39;alphasort&#39;: &#39;Stieglitz,...                            NaN
-## 4          1991.0                    None  ...                            NaN                            NaN
-## 5             NaN           Daguerreotype  ...  [{&#39;alphasort&#39;: &#39;Southworth...                            NaN
-## 6          2002.0              Lusterware  ...                            NaN                            NaN
-## 7          2008.0    Gelatin silver print  ...  [{&#39;alphasort&#39;: &#39;Renger-Pat...                            NaN
-## 8          2004.0                Repoussé  ...  [{&#39;alphasort&#39;: &#39;Maker&#39;s Ma...                            NaN
-## 9          2004.0              Lithograph  ...  [{&#39;alphasort&#39;: &#39;Courbet, G...                            NaN
-## 10         1934.0                    None  ...  [{&#39;alphasort&#39;: &#39;Weissenbru...                            NaN
-## 11         1985.0                    None  ...  [{&#39;alphasort&#39;: &#39;Tosa, Mits...                            NaN
-## 12         1939.0                    None  ...  [{&#39;alphasort&#39;: &#39;Homer, Win...                            NaN
-## 13         1984.0    Gelatin silver print  ...  [{&#39;alphasort&#39;: &#39;Sears, Sar...                            NaN
-## 14         2006.0                    None  ...  [{&#39;alphasort&#39;: &#39;Peale, Rap...                            NaN
-## 15         2000.0               Engraving  ...  [{&#39;alphasort&#39;: &#39;Doetecum, ...                            NaN
-## 16            NaN    Etching and drypoint  ...  [{&#39;alphasort&#39;: &#39;Rembrandt ...                            NaN
-## 17         2011.0    Albumen silver print  ...  [{&#39;alphasort&#39;: &#39;Hillers, J...                            NaN
-## 18         2009.0                    None  ...  [{&#39;alphasort&#39;: &#39;Feininger,...                            NaN
-## 19         1984.0                    None  ...                            NaN                            NaN
-## 20         1990.0                    None  ...  [{&#39;alphasort&#39;: &#39;Mortimer, ...                            NaN
-## 21         2001.0                    None  ...  [{&#39;alphasort&#39;: &#39;Yi, Ha-ŭng...                            NaN
-## 22         2009.0                 Etching  ...  [{&#39;alphasort&#39;: &#39;Cruikshank...                            NaN
-## 23         2010.0            Photogravure  ...  [{&#39;alphasort&#39;: &#39;Stieglitz,...                            NaN
-## 24         2004.0                    None  ...  [{&#39;alphasort&#39;: &#39;Cats, Jaco...                            NaN
-## 25         1943.0                    None  ...  [{&#39;alphasort&#39;: &#39;Unidentifi...                            NaN
-## 26         2009.0                    None  ...  [{&#39;alphasort&#39;: &#39;Sillman, A...                            NaN
-## 27         2008.0           Daguerreotype  ...  [{&#39;alphasort&#39;: &#39;Unidentifi...                            NaN
-## 28         2009.0            Offset print  ...  [{&#39;alphasort&#39;: &#39;Duchamp, M...                            NaN
-## 29         1919.0                 Celadon  ...                            NaN                            NaN
-## 30         2000.0               Engraving  ...  [{&#39;alphasort&#39;: &#39;Dürer, Alb...                            NaN
-## 31         1939.0                    None  ...                            NaN                            NaN
-## 32         2009.0                    None  ...  [{&#39;alphasort&#39;: &#39;Feininger,...                            NaN
-## 33         2005.0                 Etching  ...  [{&#39;alphasort&#39;: &#39;Whistler, ...                            NaN
-## 34            NaN               Engraving  ...  [{&#39;alphasort&#39;: &#39;Dürer, Alb...                            NaN
-## 35         2006.0                    None  ...  [{&#39;alphasort&#39;: &#39;Colman, Sa...                            NaN
-## 36         2011.0       Chromogenic print  ...  [{&#39;alphasort&#39;: &#39;Misrach, R...                            NaN
-## 37         1999.0                    None  ...  [{&#39;alphasort&#39;: &#39;Withoos, P...                            NaN
-## 38         1997.0    Gelatin silver print  ...  [{&#39;alphasort&#39;: &#39;Degas, Hil...                            NaN
-## 39         1999.0                    None  ...  [{&#39;alphasort&#39;: &#39;Saftleven,...                            NaN
-## 40         2002.0                    None  ...  [{&#39;alphasort&#39;: &#39;Haydar &#39;Al...                            NaN
-## 41            NaN                    None  ...                            NaN                            NaN
-## 42         1908.0                  Carved  ...                            NaN                            NaN
-## 43         2004.0                    None  ...                            NaN                            NaN
-## 44         2000.0                 Etching  ...  [{&#39;alphasort&#39;: &#39;Velde, Jan...                            NaN
-## 45         2005.0     Chiaroscuro woodcut  ...  [{&#39;alphasort&#39;: &#39;Goltzius, ...                            NaN
-## 46         2010.0           Pigment print  ...  [{&#39;alphasort&#39;: &#39;Gupta, Sun...                            NaN
-## 47         1998.0  Cast, lost-wax process  ...                            NaN  {&#39;technical&#39;: [{&#39;text&#39;: &#39;I...
-## 48         1982.0                    None  ...                            NaN                            NaN
-## 49         2007.0                    None  ...  [{&#39;alphasort&#39;: &#39;Plimack-Ma...                            NaN
+<pre><code>##     accessionyear               technique  ...                        seeAlso                        details
+## 0             NaN           Daguerreotype  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 1          2002.0              Lusterware  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 2          1939.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 3          2006.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 4             NaN    Etching and drypoint  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 5          1984.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 6          2001.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 7          2010.0            Photogravure  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 8          2004.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 9          1943.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 10         2008.0           Daguerreotype  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 11         2009.0            Offset print  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 12         2000.0               Engraving  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 13            NaN               Engraving  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 14         1997.0    Gelatin silver print  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 15         1999.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 16         2002.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 17            NaN                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 18         2000.0                 Etching  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 19         2005.0     Chiaroscuro woodcut  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 20         2010.0           Pigment print  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 21         1982.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 22         2007.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 23         1986.0  Cast, lost-wax process  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;I...
+## 24         2008.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 25         2007.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 26         1943.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 27         1973.0        Photoscreenprint  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 28         2008.0       Chromogenic print  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 29         1917.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 30         1965.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 31         1984.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 32         1940.0                  Relief  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 33         2005.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 34         2002.0                  Struck  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;coins&#39;: {&#39;dateonobject&#39;:...
+## 35         1996.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 36         1956.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 37         1929.0    Etching and aquatint  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 38         1968.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 39         1951.0                  Struck  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;coins&#39;: {&#39;dateonobject&#39;:...
+## 40         2003.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 41         2011.0    Gelatin silver print  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 42         2007.0       Cast and hammered  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;2...
+## 43         2002.0               Mold-made  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 44         1978.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 45         2009.0            Photogravure  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 46         1985.0                    None  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 47         1940.0     Chiaroscuro woodcut  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 48         2008.0              Lithograph  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 49         1991.0                 Celadon  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
 ## 
 ## [50 rows x 62 columns]</code></pre>
 </div>
@@ -1242,18 +1242,15 @@ list of the xpaths to those elements.</p>
 <a class="sourceLine" id="cb633-4" data-line-number="4">    first_event_values[key] <span class="op">=</span> element.text_content().strip()</a>
 <a class="sourceLine" id="cb633-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb633-6" data-line-number="6"><span class="bu">print</span>(first_event_values)</a></code></pre></div>
-<pre><code>## {&#39;date&#39;: &#39;Wednesday, February 19, 2020&#39;,
-##  &#39;figcaption&#39;: &#39;László Moholy-Nagy, Light Prop for an Electric Stage, &#39;
-##                &#39;Light-Space Modulator, 1930. Aluminum, steel, nickel-plated &#39;
-##                &#39;brass, other metals, plastic, wood, and electric motor. &#39;
-##                &#39;Harvard Art Museums/Busch-Reisinger Museum, Gift of Sibyl &#39;
-##                &#39;Moholy-Nagy, BR56.5. © 2015 Artists Rights Society (ARS), New &#39;
-##                &#39;York/VG Bild-Kunst, Bonn.&#39;,
+<pre><code>## {&#39;date&#39;: &#39;Thursday, February 20, 2020&#39;,
+##  &#39;figcaption&#39;: &#39;Seydou Keïta, Malian, Untitled, portrait of man and daughter, &#39;
+##                &#39;1956–57, printed later. Gelatin silver print. Harvard Art &#39;
+##                &#39;Museums/Fogg Museum, Gift of Peter Soriano, P1997.7.&#39;,
 ##  &#39;localtion1&#39;: &#39;32 Quincy Street&#39;,
 ##  &#39;location2&#39;: &#39;Cambridge&#39;,
 ##  &#39;time&#39;: &#39;12:30pm - 1:00pm&#39;,
-##  &#39;title&#39;: &#39;Gallery Talk: Activation of Moholy-Nagy’s Light Prop for an &#39;
-##           &#39;Electric Stage&#39;}</code></pre>
+##  &#39;title&#39;: &#39;Gallery Talk: Seydou Keïta and Malick Sidibé: Studio Photography in &#39;
+##           &#39;Mali&#39;}</code></pre>
 </div>
 <div id="iterating-to-retrieve-content-from-a-list-of-html-elements" class="section level3">
 <h3>Iterating to retrieve content from a list of HTML elements</h3>
@@ -1294,20 +1291,20 @@ and save them as .csv files, just as we did with our exhibitions data earlier.</
 <a class="sourceLine" id="cb638-3" data-line-number="3">all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</a>
 <a class="sourceLine" id="cb638-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb638-5" data-line-number="5"><span class="bu">print</span>(all_event_values)</a></code></pre></div>
-<pre><code>##                  figcaption                          date  ...        localtion1  location2
-## 0       László Moholy-Nagy,  Wednesday, February 19, 2020  ...  32 Quincy Street  Cambridge
-## 1      Photo: Tim Correira.  Wednesday, February 19, 2020  ...  32 Quincy Street  Cambridge
-## 2     Seydou Keïta, Malian,   Thursday, February 20, 2020  ...  32 Quincy Street  Cambridge
-## 3   Alberto Burri, Italian,     Friday, February 21, 2020  ...  32 Quincy Street  Cambridge
-## 4                             Saturday, February 22, 2020  ...  32 Quincy Street  Cambridge
-## ..                      ...                           ...  ...               ...        ...
-## 78     Photo: Tim Correira.       Wednesday, May 20, 2020  ...  32 Quincy Street  Cambridge
-## 79                                   Monday, May 25, 2020  ...  32 Quincy Street  Cambridge
-## 80           Maruyama Ōkyo,         Tuesday, May 26, 2020  ...  32 Quincy Street  Cambridge
-## 81      László Moholy-Nagy,        Thursday, May 28, 2020  ...  32 Quincy Street  Cambridge
-## 82     Photo: Tim Correira.      Wednesday, June 17, 2020  ...  32 Quincy Street  Cambridge
+<pre><code>##                  figcaption                         date  ...        localtion1  location2
+## 0     Seydou Keïta, Malian,  Thursday, February 20, 2020  ...  32 Quincy Street  Cambridge
+## 1   Alberto Burri, Italian,    Friday, February 21, 2020  ...  32 Quincy Street  Cambridge
+## 2                            Saturday, February 22, 2020  ...  32 Quincy Street  Cambridge
+## 3                            Saturday, February 22, 2020  ...  32 Quincy Street  Cambridge
+## 4                              Sunday, February 23, 2020  ...  32 Quincy Street  Cambridge
+## ..                      ...                          ...  ...               ...        ...
+## 76     Photo: Tim Correira.      Wednesday, May 20, 2020  ...  32 Quincy Street  Cambridge
+## 77                                  Monday, May 25, 2020  ...  32 Quincy Street  Cambridge
+## 78           Maruyama Ōkyo,        Tuesday, May 26, 2020  ...  32 Quincy Street  Cambridge
+## 79      László Moholy-Nagy,       Thursday, May 28, 2020  ...  32 Quincy Street  Cambridge
+## 80     Photo: Tim Correira.     Wednesday, June 17, 2020  ...  32 Quincy Street  Cambridge
 ## 
-## [83 rows x 6 columns]</code></pre>
+## [81 rows x 6 columns]</code></pre>
 </div>
 <div id="exercise-1-5" class="section level3">
 <h3>Exercise 1</h3>

@@ -169,7 +169,7 @@
 
 # ### Assignment
 #
-# In Python we can assign a result to an name using the `=` operator.
+# In Python we can assign an object (data structure) to an name using the `=` operator.
 
 # name = thing_to_assign
 x = 10
