@@ -193,7 +193,7 @@ outcome ~ pred1 + pred2 + pred3
 #
 # <div class="alert alert-secondary">
 # $$
-# csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
+# csat_i = \beta_{0}1 + \beta_1expense_i + \epsilon_i
 # $$
 # </div>
 #
@@ -533,7 +533,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+# logit(hypev_i) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
 # $$
 # </div>
 #
@@ -591,9 +591,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
   # generate a sequence at which to get predictions of the outcome
   seq(20, 80, by = 5)
 
-  # override defaults
-  eff <- allEffects(hyp_out, xlevels = list(age_p = seq(20, 80, by = 5)))
-  eff_df <- as.data.frame(eff) # confidence intervals
+  eff_df <- 
+      hyp_out %>% 
+      allEffects(xlevels = list(age_p = seq(20, 80, by = 5))) %>% # override defaults
+      as.data.frame() # confidence intervals
+  
   eff_df
 
 # ### Exercise 2 
@@ -695,7 +697,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <div class="alert alert-secondary">
 # $$
-# normexam_{ij} = \mu + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
+# normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 # $$
 # </div>
 #
