@@ -5555,8 +5555,9 @@ least some of the variables before fitting the model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  eff <-}\StringTok{ }\KeywordTok{allEffects}\NormalTok{(mod_wk_age_mar)}
-  \KeywordTok{as.data.frame}\NormalTok{(eff)}
+\NormalTok{  mod_wk_age_mar }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{allEffects}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{as.data.frame}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5714,8 +5715,8 @@ tests scores:
 normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 \]
 
-where \(U_{0j}\) is the random intercept for \texttt{school}. Let's
-implement this in R using \texttt{lmer()}:
+where \(U_{0j}\) is the random intercept for the \(j\)th
+\texttt{school}. Let's implement this in R using \texttt{lmer()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13052,15 +13053,16 @@ Finally, we can iterate over the elements we want and extract them.
 \end{Shaded}
 
 \begin{verbatim}
-## {'date': 'Wednesday, February 26, 2020',
-##  'figcaption': 'Matteo di Giovanni, Italian, Saint Jerome in His Study, 1482. '
-##                'Tempera and oil on panel. Harvard Art Museums/Fogg Museum, '
-##                'Gift of Edward W. Forbes in memory of his father, William '
-##                'Hathaway Forbes, 1966.3.',
+## {'date': 'Friday, February 28, 2020',
+##  'figcaption': 'Willem van Haecht I, Netherlandish, after Frans Floris, '
+##                'Netherlandish, Allegory on the Pacification of Ghent, 1577. '
+##                'Engraving. Harvard Art Museums/Fogg Museum, Gift of Robert '
+##                'Bradford Wheaton and Barbara Ketcham Wheaton, 2006.166.',
 ##  'localtion1': '32 Quincy Street',
 ##  'location2': 'Cambridge',
-##  'time': '12:30pm - 1:00pm',
-##  'title': 'Gallery Talk: Fantastic Beasts and Where to Find Them'}
+##  'time': '11:00am - 12:00pm',
+##  'title': 'Art Study Center Seminar: Publishing Prints in the Netherlands in '
+##           'the 16th and 17th Centuries [AT CAPACITY]'}
 \end{verbatim}
 
 \subsection{Iterating to retrieve content from a list of HTML
@@ -13132,70 +13134,70 @@ exhibitions data earlier.
 \end{Shaded}
 
 \begin{verbatim}
-##                        figcaption                          date    ...              localtion1  location2
-## 0    Matteo di Giovanni, Italian,  Wednesday, February 26, 2020    ...        32 Quincy Street  Cambridge
-## 1   Willem van Haecht I, Nethe...     Friday, February 28, 2020    ...        32 Quincy Street  Cambridge
-## 2           © Peter Vanderwarker.     Friday, February 28, 2020    ...        32 Quincy Street  Cambridge
-## 3                  Maruyama Ōkyo,   Saturday, February 29, 2020    ...        32 Quincy Street  Cambridge
-## 4                                   Saturday, February 29, 2020    ...        32 Quincy Street  Cambridge
-## 5                                   Saturday, February 29, 2020    ...        32 Quincy Street  Cambridge
-## 6                                         Sunday, March 1, 2020    ...        32 Quincy Street  Cambridge
-## 7                                         Sunday, March 1, 2020    ...        32 Quincy Street  Cambridge
-## 8                  Maruyama Ōkyo,        Tuesday, March 3, 2020    ...        32 Quincy Street  Cambridge
-## 9   1958 D. A. Flentrop organ,...       Thursday, March 5, 2020    ...      29 Kirkland Street  Cambridge
-## 10     Robert Smithson, American,       Thursday, March 5, 2020    ...        32 Quincy Street  Cambridge
-## 11                                      Saturday, March 7, 2020    ...        32 Quincy Street  Cambridge
-## 12                                      Saturday, March 7, 2020    ...        32 Quincy Street  Cambridge
-## 13                                        Sunday, March 8, 2020    ...        32 Quincy Street  Cambridge
-## 14                                        Sunday, March 8, 2020    ...        32 Quincy Street  Cambridge
-## 15                                      Tuesday, March 10, 2020    ...        32 Quincy Street  Cambridge
-## 16                                    Wednesday, March 11, 2020    ...        32 Quincy Street  Cambridge
-## 17       Photo by Stefan Ruiz for     Wednesday, March 11, 2020    ...        32 Quincy Street  Cambridge
-## 18  1958 D. A. Flentrop organ,...      Thursday, March 12, 2020    ...      29 Kirkland Street  Cambridge
-## 19           Photo: Tim Correira.     Wednesday, March 18, 2020    ...        32 Quincy Street  Cambridge
-## 20           Group of Polygnotos,      Thursday, March 19, 2020    ...        32 Quincy Street  Cambridge
-## 21                 Tawaraya Sōri,      Thursday, March 19, 2020    ...        32 Quincy Street  Cambridge
-## 22                 Maruyama Ōkyo,       Tuesday, March 24, 2020    ...        32 Quincy Street  Cambridge
-## 23            László Moholy-Nagy,     Wednesday, March 25, 2020    ...        32 Quincy Street  Cambridge
-## 24  1958 D. A. Flentrop organ,...      Thursday, March 26, 2020    ...      29 Kirkland Street  Cambridge
-## 25  Manufactured by Wedgwood, ...        Friday, March 27, 2020    ...        32 Quincy Street  Cambridge
-## 26                                     Saturday, March 28, 2020    ...        32 Quincy Street  Cambridge
-## 27  Close-up of a glass muller...      Saturday, March 28, 2020    ...        32 Quincy Street  Cambridge
-## 28                                     Saturday, March 28, 2020    ...        32 Quincy Street  Cambridge
-## 29                                       Sunday, March 29, 2020    ...        32 Quincy Street  Cambridge
-## ..                            ...                           ...    ...                     ...        ...
-## 45                                       Sunday, April 12, 2020    ...        32 Quincy Street  Cambridge
-## 46           Photo: Tim Correira.     Wednesday, April 15, 2020    ...        32 Quincy Street  Cambridge
-## 47                 Maruyama Ōkyo,     Wednesday, April 15, 2020    ...        32 Quincy Street  Cambridge
-## 48  1958 D. A. Flentrop organ,...      Thursday, April 16, 2020    ...      29 Kirkland Street  Cambridge
-## 49          Claude Monet, French,        Friday, April 17, 2020    ...        32 Quincy Street  Cambridge
-## 50                                     Saturday, April 18, 2020    ...        32 Quincy Street  Cambridge
-## 51                                     Saturday, April 18, 2020    ...        32 Quincy Street  Cambridge
-## 52                                       Sunday, April 19, 2020    ...        32 Quincy Street  Cambridge
-## 53                                       Sunday, April 19, 2020    ...        32 Quincy Street  Cambridge
-## 54                 Maruyama Ōkyo,       Tuesday, April 21, 2020    ...        32 Quincy Street  Cambridge
-## 55  Close-up of a glass muller...       Tuesday, April 21, 2020    ...        32 Quincy Street  Cambridge
-## 56  1958 D. A. Flentrop organ,...      Thursday, April 23, 2020    ...      29 Kirkland Street  Cambridge
-## 57            László Moholy-Nagy,      Thursday, April 23, 2020    ...        32 Quincy Street  Cambridge
-## 58                                     Saturday, April 25, 2020    ...        32 Quincy Street  Cambridge
-## 59                                     Saturday, April 25, 2020    ...        32 Quincy Street  Cambridge
-## 60                                       Sunday, April 26, 2020    ...        32 Quincy Street  Cambridge
-## 61                                       Sunday, April 26, 2020    ...        32 Quincy Street  Cambridge
-## 62                 Maruyama Ōkyo,       Tuesday, April 28, 2020    ...        32 Quincy Street  Cambridge
-## 63                                          Friday, May 1, 2020    ...        32 Quincy Street  Cambridge
-## 64                 Maruyama Ōkyo,        Wednesday, May 6, 2020    ...        32 Quincy Street  Cambridge
-## 65                 Maruyama Ōkyo,         Saturday, May 9, 2020    ...        32 Quincy Street  Cambridge
-## 66      Dorothea Lange, American,         Tuesday, May 19, 2020    ...        32 Quincy Street  Cambridge
-## 67  Close-up of a glass muller...         Tuesday, May 19, 2020    ...        32 Quincy Street  Cambridge
-## 68           Photo: Tim Correira.       Wednesday, May 20, 2020    ...        32 Quincy Street  Cambridge
-## 69                                         Monday, May 25, 2020    ...        32 Quincy Street  Cambridge
-## 70                 Maruyama Ōkyo,         Tuesday, May 26, 2020    ...        32 Quincy Street  Cambridge
-## 71                  © Susan Young       Wednesday, May 27, 2020    ...        32 Quincy Street  Cambridge
-## 72                                       Thursday, May 28, 2020    ...        32 Quincy Street  Cambridge
-## 73            László Moholy-Nagy,        Thursday, May 28, 2020    ...        32 Quincy Street  Cambridge
-## 74           Photo: Tim Correira.      Wednesday, June 17, 2020    ...        32 Quincy Street  Cambridge
+##                        figcaption                         date    ...              localtion1  location2
+## 0   Willem van Haecht I, Nethe...    Friday, February 28, 2020    ...        32 Quincy Street  Cambridge
+## 1           © Peter Vanderwarker.    Friday, February 28, 2020    ...        32 Quincy Street  Cambridge
+## 2                  Maruyama Ōkyo,  Saturday, February 29, 2020    ...        32 Quincy Street  Cambridge
+## 3                                  Saturday, February 29, 2020    ...        32 Quincy Street  Cambridge
+## 4                                  Saturday, February 29, 2020    ...        32 Quincy Street  Cambridge
+## 5                                        Sunday, March 1, 2020    ...        32 Quincy Street  Cambridge
+## 6                                        Sunday, March 1, 2020    ...        32 Quincy Street  Cambridge
+## 7                  Maruyama Ōkyo,       Tuesday, March 3, 2020    ...        32 Quincy Street  Cambridge
+## 8   1958 D. A. Flentrop organ,...      Thursday, March 5, 2020    ...      29 Kirkland Street  Cambridge
+## 9      Robert Smithson, American,      Thursday, March 5, 2020    ...        32 Quincy Street  Cambridge
+## 10                                     Saturday, March 7, 2020    ...        32 Quincy Street  Cambridge
+## 11                                     Saturday, March 7, 2020    ...        32 Quincy Street  Cambridge
+## 12                                       Sunday, March 8, 2020    ...        32 Quincy Street  Cambridge
+## 13                                       Sunday, March 8, 2020    ...        32 Quincy Street  Cambridge
+## 14                                     Tuesday, March 10, 2020    ...        32 Quincy Street  Cambridge
+## 15                                   Wednesday, March 11, 2020    ...        32 Quincy Street  Cambridge
+## 16       Photo by Stefan Ruiz for    Wednesday, March 11, 2020    ...        32 Quincy Street  Cambridge
+## 17  1958 D. A. Flentrop organ,...     Thursday, March 12, 2020    ...      29 Kirkland Street  Cambridge
+## 18           Photo: Tim Correira.    Wednesday, March 18, 2020    ...        32 Quincy Street  Cambridge
+## 19           Group of Polygnotos,     Thursday, March 19, 2020    ...        32 Quincy Street  Cambridge
+## 20                 Tawaraya Sōri,     Thursday, March 19, 2020    ...        32 Quincy Street  Cambridge
+## 21                 Maruyama Ōkyo,      Tuesday, March 24, 2020    ...        32 Quincy Street  Cambridge
+## 22            László Moholy-Nagy,    Wednesday, March 25, 2020    ...        32 Quincy Street  Cambridge
+## 23  1958 D. A. Flentrop organ,...     Thursday, March 26, 2020    ...      29 Kirkland Street  Cambridge
+## 24  Manufactured by Wedgwood, ...       Friday, March 27, 2020    ...        32 Quincy Street  Cambridge
+## 25                                    Saturday, March 28, 2020    ...        32 Quincy Street  Cambridge
+## 26  Close-up of a glass muller...     Saturday, March 28, 2020    ...        32 Quincy Street  Cambridge
+## 27                                    Saturday, March 28, 2020    ...        32 Quincy Street  Cambridge
+## 28                                      Sunday, March 29, 2020    ...        32 Quincy Street  Cambridge
+## 29                                      Sunday, March 29, 2020    ...        32 Quincy Street  Cambridge
+## ..                            ...                          ...    ...                     ...        ...
+## 44                                      Sunday, April 12, 2020    ...        32 Quincy Street  Cambridge
+## 45           Photo: Tim Correira.    Wednesday, April 15, 2020    ...        32 Quincy Street  Cambridge
+## 46                 Maruyama Ōkyo,    Wednesday, April 15, 2020    ...        32 Quincy Street  Cambridge
+## 47  1958 D. A. Flentrop organ,...     Thursday, April 16, 2020    ...      29 Kirkland Street  Cambridge
+## 48          Claude Monet, French,       Friday, April 17, 2020    ...        32 Quincy Street  Cambridge
+## 49                                    Saturday, April 18, 2020    ...        32 Quincy Street  Cambridge
+## 50                                    Saturday, April 18, 2020    ...        32 Quincy Street  Cambridge
+## 51                                      Sunday, April 19, 2020    ...        32 Quincy Street  Cambridge
+## 52                                      Sunday, April 19, 2020    ...        32 Quincy Street  Cambridge
+## 53                 Maruyama Ōkyo,      Tuesday, April 21, 2020    ...        32 Quincy Street  Cambridge
+## 54  Close-up of a glass muller...      Tuesday, April 21, 2020    ...        32 Quincy Street  Cambridge
+## 55  1958 D. A. Flentrop organ,...     Thursday, April 23, 2020    ...      29 Kirkland Street  Cambridge
+## 56            László Moholy-Nagy,     Thursday, April 23, 2020    ...        32 Quincy Street  Cambridge
+## 57                                    Saturday, April 25, 2020    ...        32 Quincy Street  Cambridge
+## 58                                    Saturday, April 25, 2020    ...        32 Quincy Street  Cambridge
+## 59                                      Sunday, April 26, 2020    ...        32 Quincy Street  Cambridge
+## 60                                      Sunday, April 26, 2020    ...        32 Quincy Street  Cambridge
+## 61                 Maruyama Ōkyo,      Tuesday, April 28, 2020    ...        32 Quincy Street  Cambridge
+## 62                                         Friday, May 1, 2020    ...        32 Quincy Street  Cambridge
+## 63                 Maruyama Ōkyo,       Wednesday, May 6, 2020    ...        32 Quincy Street  Cambridge
+## 64                 Maruyama Ōkyo,        Saturday, May 9, 2020    ...        32 Quincy Street  Cambridge
+## 65      Dorothea Lange, American,        Tuesday, May 19, 2020    ...        32 Quincy Street  Cambridge
+## 66  Close-up of a glass muller...        Tuesday, May 19, 2020    ...        32 Quincy Street  Cambridge
+## 67           Photo: Tim Correira.      Wednesday, May 20, 2020    ...        32 Quincy Street  Cambridge
+## 68                                        Monday, May 25, 2020    ...        32 Quincy Street  Cambridge
+## 69                 Maruyama Ōkyo,        Tuesday, May 26, 2020    ...        32 Quincy Street  Cambridge
+## 70                  © Susan Young      Wednesday, May 27, 2020    ...        32 Quincy Street  Cambridge
+## 71                                      Thursday, May 28, 2020    ...        32 Quincy Street  Cambridge
+## 72            László Moholy-Nagy,       Thursday, May 28, 2020    ...        32 Quincy Street  Cambridge
+## 73           Photo: Tim Correira.     Wednesday, June 17, 2020    ...        32 Quincy Street  Cambridge
 ## 
-## [75 rows x 6 columns]
+## [74 rows x 6 columns]
 \end{verbatim}
 
 \subsection{Exercise 1}\label{exercise-1-5}

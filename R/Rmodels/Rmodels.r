@@ -632,8 +632,9 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`.
 
-  eff <- allEffects(mod_wk_age_mar)
-  as.data.frame(eff)
+  mod_wk_age_mar %>% 
+      allEffects() %>%
+      as.data.frame()
 # </div>
 # </details>
 
@@ -701,7 +702,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # $$
 # </div>
 #
-# where $U_{0j}$ is the random intercept for `school`. Let's implement this in R using `lmer()`:
+# where $U_{0j}$ is the random intercept for the $j$<sup>th</sup> `school`. Let's implement this in R using `lmer()`:
 
   Norm2 <-lmer(normexam ~ 1 + standLRT + (1 | school),
                data = na.omit(Exam), REML = FALSE) 

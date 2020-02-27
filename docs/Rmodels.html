@@ -1647,8 +1647,9 @@ logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
 <ol start="2" style="list-style-type: decimal">
 <li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code>.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  eff &lt;-<span class="st"> </span><span class="kw">allEffects</span>(mod_wk_age_mar)
-  <span class="kw">as.data.frame</span>(eff)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mod_wk_age_mar <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">as.data.frame</span>()</code></pre></div>
 <pre><code>## $age_p
 ##   age_p       fit         se     lower     upper
 ## 1    20 0.2758744 0.01144854 0.2540091 0.2988678
@@ -1766,7 +1767,7 @@ logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
 normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 \]</span></p>
 </div>
-<p>where <span class="math inline">\(U_{0j}\)</span> is the random intercept for <code>school</code>. Let’s implement this in R using <code>lmer()</code>:</p>
+<p>where <span class="math inline">\(U_{0j}\)</span> is the random intercept for the <span class="math inline">\(j\)</span><sup>th</sup> <code>school</code>. Let’s implement this in R using <code>lmer()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  Norm2 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school),
                <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam), <span class="dt">REML =</span> <span class="ot">FALSE</span>) 
   <span class="kw">summary</span>(Norm2) </code></pre></div>
