@@ -4106,9 +4106,8 @@ How does R know which method to call for a given object? R uses \texttt{generic\
 
 \includegraphics{R/Rmodels/images/methods.png}
 
-It's always worth examining what function methods are available for the class of model you're fitting.
-Here's a summary table of some of the most often used methods. These are post-estimation tools you
-will want in your toolbox:
+It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
+Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -4770,6 +4769,21 @@ The default contrasts in R are ``treatment'' contrasts (aka ``dummy coding''), w
   \CommentTok{# change the reference group}
 \NormalTok{  states_data}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{relevel}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region, }\DataTypeTok{ref =} \StringTok{"Midwest"}\NormalTok{)}
 
+  \CommentTok{# check the reference group has changed}
+  \KeywordTok{contrasts}\NormalTok{(states_data}\OperatorTok{$}\NormalTok{region)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         West N. East South
+## Midwest    0       0     0
+## West       1       0     0
+## N. East    0       1     0
+## South      0       0     1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
   \CommentTok{# refit the model}
 \NormalTok{  mod_region <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states_data)}
   \KeywordTok{summary}\NormalTok{(mod_region) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
@@ -5648,7 +5662,7 @@ Variables are Leadership Climate (\texttt{LEAD}), Well-Being (\texttt{WBEING}), 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod_grp0 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+\NormalTok{  mod_grp0 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(bh1996))}
   \KeywordTok{summary}\NormalTok{(mod_grp0)}
 \end{Highlighting}
 \end{Shaded}
@@ -5656,7 +5670,7 @@ Variables are Leadership Climate (\texttt{LEAD}), Well-Being (\texttt{WBEING}), 
 \begin{verbatim}
 ## Linear mixed model fit by REML ['lmerMod']
 ## Formula: WBEING ~ 1 + (1 | GRP)
-##    Data: bh1996
+##    Data: na.omit(bh1996)
 ## 
 ## REML criterion at convergence: 19347.3
 ## 
@@ -5685,7 +5699,7 @@ Variables are Leadership Climate (\texttt{LEAD}), Well-Being (\texttt{WBEING}), 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod_grp1 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+\NormalTok{  mod_grp1 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(bh1996))}
   \KeywordTok{summary}\NormalTok{(mod_grp1)}
 \end{Highlighting}
 \end{Shaded}
@@ -5693,7 +5707,7 @@ Variables are Leadership Climate (\texttt{LEAD}), Well-Being (\texttt{WBEING}), 
 \begin{verbatim}
 ## Linear mixed model fit by REML ['lmerMod']
 ## Formula: WBEING ~ 1 + HRS + LEAD + (1 | GRP)
-##    Data: bh1996
+##    Data: na.omit(bh1996)
 ## 
 ## REML criterion at convergence: 17860
 ## 
@@ -5729,13 +5743,13 @@ Variables are Leadership Climate (\texttt{LEAD}), Well-Being (\texttt{WBEING}), 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod_grp2 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =}\NormalTok{ bh1996)}
+\NormalTok{  mod_grp2 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(WBEING }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{+}\StringTok{ }\NormalTok{LEAD }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{HRS }\OperatorTok{|}\StringTok{ }\NormalTok{GRP), }\DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(bh1996))}
   \KeywordTok{anova}\NormalTok{(mod_grp1, mod_grp2)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Data: bh1996
+## Data: na.omit(bh1996)
 ## Models:
 ## mod_grp1: WBEING ~ 1 + HRS + LEAD + (1 | GRP)
 ## mod_grp2: WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP)

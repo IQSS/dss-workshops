@@ -1154,9 +1154,8 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 36 entries ]
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p><img src="R/Rmodels/images/methods.png" /></p>
-<p>It’s always worth examining what function methods are available for the class of model you’re fitting.
-Here’s a summary table of some of the most often used methods. These are post-estimation tools you
-will want in your toolbox:</p>
+<p>It’s always worth examining whether the class of model you’re fitting has a method for a particular extractor function.
+Here’s a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:</p>
 <table>
 <colgroup>
 <col width="17%" />
@@ -1531,17 +1530,24 @@ Note that you must make sure R does not think your categorical variable is numer
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1">  <span class="co"># change the reference group</span></a>
 <a class="sourceLine" id="cb228-2" data-line-number="2">  states_data<span class="op">$</span>region &lt;-<span class="st"> </span><span class="kw">relevel</span>(states_data<span class="op">$</span>region, <span class="dt">ref =</span> <span class="st">&quot;Midwest&quot;</span>)</a>
 <a class="sourceLine" id="cb228-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb228-4" data-line-number="4">  <span class="co"># refit the model</span></a>
-<a class="sourceLine" id="cb228-5" data-line-number="5">  mod_region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states_data)</a>
-<a class="sourceLine" id="cb228-6" data-line-number="6">  <span class="kw">summary</span>(mod_region) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb228-4" data-line-number="4">  <span class="co"># check the reference group has changed</span></a>
+<a class="sourceLine" id="cb228-5" data-line-number="5">  <span class="kw">contrasts</span>(states_data<span class="op">$</span>region)</a></code></pre></div>
+<pre><code>##         West N. East South
+## Midwest    0       0     0
+## West       1       0     0
+## N. East    0       1     0
+## South      0       0     1</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">  <span class="co"># refit the model</span></a>
+<a class="sourceLine" id="cb230-2" data-line-number="2">  mod_region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states_data)</a>
+<a class="sourceLine" id="cb230-3" data-line-number="3">  <span class="kw">summary</span>(mod_region) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</a></code></pre></div>
 <pre><code>##                 Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept)   1010.08333   15.39998 65.589930 4.296307e-47
 ## regionWest     -63.77564   21.35592 -2.986321 4.514152e-03
 ## regionN. East -120.52778   23.52385 -5.123641 5.798399e-06
 ## regionSouth    -80.08333   20.37225 -3.931000 2.826007e-04</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">  <span class="co"># get all pairwise contrasts between means</span></a>
-<a class="sourceLine" id="cb230-2" data-line-number="2">  mod_region <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb230-3" data-line-number="3"><span class="st">      </span><span class="kw">emmeans</span>(<span class="dt">specs =</span> pairwise <span class="op">~</span><span class="st"> </span>region)</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">  <span class="co"># get all pairwise contrasts between means</span></a>
+<a class="sourceLine" id="cb232-2" data-line-number="2">  mod_region <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb232-3" data-line-number="3"><span class="st">      </span><span class="kw">emmeans</span>(<span class="dt">specs =</span> pairwise <span class="op">~</span><span class="st"> </span>region)</a></code></pre></div>
 <pre><code>## $emmeans
 ##  region  emmean   SE df lower.CL upper.CL
 ##  Midwest   1010 15.4 46      979     1041
@@ -1569,11 +1575,11 @@ Note that you must make sure R does not think your categorical variable is numer
 <ol style="list-style-type: decimal">
 <li>Add on to the regression equation that you created in Exercise 1 by generating an interaction term and testing the interaction.</li>
 </ol>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Try adding region to the model. Are there significant differences across the four regions?</li>
 </ol>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 <div class="alert alert-danger">
@@ -1581,12 +1587,12 @@ Note that you must make sure R does not think your categorical variable is numer
 <ol style="list-style-type: decimal">
 <li>Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.</li>
 </ol>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">  mod_en_metro_by_waste &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste, <span class="dt">data =</span> states)</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">  mod_en_metro_by_waste &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste, <span class="dt">data =</span> states)</a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Try adding a region to the model. Are there significant differences across the four regions?</li>
 </ol>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1">  mod_en_region &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states)</a>
-<a class="sourceLine" id="cb235-2" data-line-number="2">  <span class="kw">anova</span>(mod_en_metro_by_waste, mod_en_region)</a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">  mod_en_region &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states)</a>
+<a class="sourceLine" id="cb237-2" data-line-number="2">  <span class="kw">anova</span>(mod_en_metro_by_waste, mod_en_region)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: energy ~ 1 + metro * waste
@@ -1616,7 +1622,7 @@ Note that you must make sure R does not think your categorical variable is numer
 <p>The National Health Interview Survey (NHIS) has monitored the health of the nation since 1957. NHIS data on a broad range of health topics are collected through personal household interviews. For over 50 years, the U.S. Census Bureau has been the data collection agent for the National Health Interview Survey. Survey results have been instrumental in providing data to track health status, health care access, and progress toward achieving national health objectives.</p>
 </blockquote>
 <p>Load the National Health Interview Survey data:</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">  NH11 &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/NatHealth2011.rds&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">  NH11 &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/NatHealth2011.rds&quot;</span>)</a></code></pre></div>
 </div>
 <div id="logistic-regression-example" class="section level3">
 <h3>Logistic regression example</h3>
@@ -1628,19 +1634,19 @@ Note that you must make sure R does not think your categorical variable is numer
 </ol>
 <p><img src="R/Rmodels/images/logistic.png" /></p>
 <p>Anatomy of a generalized linear model:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">  <span class="co"># OLS model using lm()</span></a>
-<a class="sourceLine" id="cb238-2" data-line-number="2">  <span class="kw">lm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </a>
-<a class="sourceLine" id="cb238-3" data-line-number="3">     <span class="dt">data =</span> mydata)</a>
-<a class="sourceLine" id="cb238-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb238-5" data-line-number="5">  <span class="co"># OLS model using glm()</span></a>
-<a class="sourceLine" id="cb238-6" data-line-number="6">  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </a>
-<a class="sourceLine" id="cb238-7" data-line-number="7">      <span class="dt">data =</span> mydata, </a>
-<a class="sourceLine" id="cb238-8" data-line-number="8">      <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</a>
-<a class="sourceLine" id="cb238-9" data-line-number="9"> </a>
-<a class="sourceLine" id="cb238-10" data-line-number="10">  <span class="co"># logistic model using glm()</span></a>
-<a class="sourceLine" id="cb238-11" data-line-number="11">  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </a>
-<a class="sourceLine" id="cb238-12" data-line-number="12">      <span class="dt">data =</span> mydata, </a>
-<a class="sourceLine" id="cb238-13" data-line-number="13">      <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">  <span class="co"># OLS model using lm()</span></a>
+<a class="sourceLine" id="cb240-2" data-line-number="2">  <span class="kw">lm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </a>
+<a class="sourceLine" id="cb240-3" data-line-number="3">     <span class="dt">data =</span> mydata)</a>
+<a class="sourceLine" id="cb240-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb240-5" data-line-number="5">  <span class="co"># OLS model using glm()</span></a>
+<a class="sourceLine" id="cb240-6" data-line-number="6">  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </a>
+<a class="sourceLine" id="cb240-7" data-line-number="7">      <span class="dt">data =</span> mydata, </a>
+<a class="sourceLine" id="cb240-8" data-line-number="8">      <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</a>
+<a class="sourceLine" id="cb240-9" data-line-number="9"> </a>
+<a class="sourceLine" id="cb240-10" data-line-number="10">  <span class="co"># logistic model using glm()</span></a>
+<a class="sourceLine" id="cb240-11" data-line-number="11">  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </a>
+<a class="sourceLine" id="cb240-12" data-line-number="12">      <span class="dt">data =</span> mydata, </a>
+<a class="sourceLine" id="cb240-13" data-line-number="13">      <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a></code></pre></div>
 <p>The <code>family</code> argument sets the error distribution for the model, while the <code>link</code> function
 argument relates the predictors to the expected value of the outcome.</p>
 <p>Let’s predict the probability of being diagnosed with hypertension based on <code>age</code>, <code>sex</code>, <code>sleep</code>, and <code>bmi</code>.
@@ -1657,20 +1663,20 @@ logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
 \]</span></p>
 </div>
 <p>And here’s how we fit this in R. First, let’s clean up the hypertension outcome by making it binary:</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">  <span class="kw">str</span>(NH11<span class="op">$</span>hypev) <span class="co"># check stucture of hypev</span></a></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">  <span class="kw">str</span>(NH11<span class="op">$</span>hypev) <span class="co"># check stucture of hypev</span></a></code></pre></div>
 <pre><code>##  Factor w/ 5 levels &quot;1 Yes&quot;,&quot;2 No&quot;,..: 2 2 1 2 2 1 2 2 1 2 ...</code></pre>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">  <span class="kw">levels</span>(NH11<span class="op">$</span>hypev) <span class="co"># check levels of hypev</span></a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1">  <span class="kw">levels</span>(NH11<span class="op">$</span>hypev) <span class="co"># check levels of hypev</span></a></code></pre></div>
 <pre><code>## [1] &quot;1 Yes&quot;             &quot;2 No&quot;              &quot;7 Refused&quot;        
 ## [4] &quot;8 Not ascertained&quot; &quot;9 Don&#39;t know&quot;</code></pre>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1">  <span class="co"># collapse all missing values to NA</span></a>
-<a class="sourceLine" id="cb243-2" data-line-number="2">  NH11<span class="op">$</span>hypev &lt;-<span class="st"> </span><span class="kw">factor</span>(NH11<span class="op">$</span>hypev, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;2 No&quot;</span>, <span class="st">&quot;1 Yes&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">  <span class="co"># collapse all missing values to NA</span></a>
+<a class="sourceLine" id="cb245-2" data-line-number="2">  NH11<span class="op">$</span>hypev &lt;-<span class="st"> </span><span class="kw">factor</span>(NH11<span class="op">$</span>hypev, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;2 No&quot;</span>, <span class="st">&quot;1 Yes&quot;</span>))</a></code></pre></div>
 <p>Now let’s use <code>glm()</code> to estimate the model:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1">  <span class="co"># run our regression model</span></a>
-<a class="sourceLine" id="cb244-2" data-line-number="2">  hyp_out &lt;-<span class="st"> </span><span class="kw">glm</span>(hypev <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sleep <span class="op">+</span><span class="st"> </span>bmi,</a>
-<a class="sourceLine" id="cb244-3" data-line-number="3">                 <span class="dt">data =</span> NH11, </a>
-<a class="sourceLine" id="cb244-4" data-line-number="4">                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb244-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb244-6" data-line-number="6">  <span class="kw">summary</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1">  <span class="co"># run our regression model</span></a>
+<a class="sourceLine" id="cb246-2" data-line-number="2">  hyp_out &lt;-<span class="st"> </span><span class="kw">glm</span>(hypev <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sleep <span class="op">+</span><span class="st"> </span>bmi,</a>
+<a class="sourceLine" id="cb246-3" data-line-number="3">                 <span class="dt">data =</span> NH11, </a>
+<a class="sourceLine" id="cb246-4" data-line-number="4">                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb246-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb246-6" data-line-number="6">  <span class="kw">summary</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</a></code></pre></div>
 <pre><code>##                 Estimate   Std. Error    z value     Pr(&gt;|z|)
 ## (Intercept) -4.269466028 0.0564947294 -75.572820 0.000000e+00
 ## age_p        0.060699303 0.0008227207  73.778743 0.000000e+00
@@ -1686,12 +1692,12 @@ model tells us that for every one unit increase in <code>age</code>, the log odd
 by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!</p>
 <p>One solution is to transform the coefficients to make them easier to interpret.
 Here we transform them into odds ratios by exponentiating:</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1">  <span class="co"># point estimates</span></a>
-<a class="sourceLine" id="cb246-2" data-line-number="2">  <span class="kw">coef</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1">  <span class="co"># point estimates</span></a>
+<a class="sourceLine" id="cb248-2" data-line-number="2">  <span class="kw">coef</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
 <pre><code>## (Intercept)       age_p sex2 Female       sleep         bmi 
 ##  0.01398925  1.06257935  0.86586602  0.99298892  1.01874523</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1">  <span class="co"># confidence intervals</span></a>
-<a class="sourceLine" id="cb248-2" data-line-number="2">  <span class="kw">confint</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">  <span class="co"># confidence intervals</span></a>
+<a class="sourceLine" id="cb250-2" data-line-number="2">  <span class="kw">confint</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
 <pre><code>##                  2.5 %     97.5 %
 ## (Intercept) 0.01251677 0.01561971
 ## age_p       1.06087385 1.06430082
@@ -1702,20 +1708,20 @@ Here we transform them into odds ratios by exponentiating:</p>
 <div id="predicted-marginal-means" class="section level3">
 <h3>Predicted marginal means</h3>
 <p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called “least squares means”). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">  hyp_out <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb250-2" data-line-number="2"><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb250-3" data-line-number="3"><span class="st">      </span><span class="kw">plot</span>(<span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># &quot;response&quot; refers to the probability scale</span></a></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1">  hyp_out <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb252-2" data-line-number="2"><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb252-3" data-line-number="3"><span class="st">      </span><span class="kw">plot</span>(<span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># &quot;response&quot; refers to the probability scale</span></a></code></pre></div>
 <p><img src="R/Rmodels/figures/unnamed-chunk-119-1.png" width="672" /></p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">  <span class="co"># generate a sequence of ages at which to get predictions of the outcome</span></a>
-<a class="sourceLine" id="cb251-2" data-line-number="2">  age_years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb251-3" data-line-number="3">  age_years</a></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1">  <span class="co"># generate a sequence of ages at which to get predictions of the outcome</span></a>
+<a class="sourceLine" id="cb253-2" data-line-number="2">  age_years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb253-3" data-line-number="3">  age_years</a></code></pre></div>
 <pre><code>##  [1] 20 25 30 35 40 45 50 55 60 65 70 75 80</code></pre>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1">  eff_df &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb253-2" data-line-number="2"><span class="st">      </span>hyp_out <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb253-3" data-line-number="3"><span class="st">      </span><span class="kw">allEffects</span>(<span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">age_p =</span> age_years)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># override defaults for age</span></a>
-<a class="sourceLine" id="cb253-4" data-line-number="4"><span class="st">      </span><span class="kw">as.data.frame</span>() <span class="co"># get confidence intervals</span></a>
-<a class="sourceLine" id="cb253-5" data-line-number="5">  </a>
-<a class="sourceLine" id="cb253-6" data-line-number="6">  eff_df</a></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1">  eff_df &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb255-2" data-line-number="2"><span class="st">      </span>hyp_out <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb255-3" data-line-number="3"><span class="st">      </span><span class="kw">allEffects</span>(<span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">age_p =</span> age_years)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># override defaults for age</span></a>
+<a class="sourceLine" id="cb255-4" data-line-number="4"><span class="st">      </span><span class="kw">as.data.frame</span>() <span class="co"># get confidence intervals</span></a>
+<a class="sourceLine" id="cb255-5" data-line-number="5">  </a>
+<a class="sourceLine" id="cb255-6" data-line-number="6">  eff_df</a></code></pre></div>
 <pre><code>## $age_p
 ##    age_p        fit          se      lower      upper
 ## 1     20 0.06690384 0.001915704 0.06324553 0.07075778
@@ -1760,11 +1766,11 @@ Here we transform them into odds ratios by exponentiating:</p>
 <ol style="list-style-type: decimal">
 <li>Use <code>glm()</code> to conduct a logistic regression to predict ever worked (<code>everwrk</code>) using age (<code>age_p</code>) and marital status (<code>r_maritl</code>). Make sure you only keep the following two levels for <code>everwrk</code> (<code>1 Yes</code> and <code>2 No</code>). Hint: use the <code>factor()</code> function. Also, make sure to drop any <code>r_maritl</code> levels that do not contain observations. Hint: see <code>?droplevels</code>.</li>
 </ol>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code></li>
 </ol>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <p>Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.</p>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
@@ -1773,17 +1779,17 @@ Here we transform them into odds ratios by exponentiating:</p>
 <ol style="list-style-type: decimal">
 <li>Use <code>glm()</code> to conduct a logistic regression to predict ever worked (<code>everwrk</code>) using age (<code>age_p</code>) and marital status (<code>r_maritl</code>). Make sure you only keep the following two levels for <code>everwrk</code> (<code>1 Yes</code> and <code>2 No</code>). Hint: use the <code>factor()</code> function. Also, make sure to drop any <code>r_maritl</code> levels that do not contain observations. Hint: see <code>?droplevels</code>.</li>
 </ol>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1">  NH11 &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb257-2" data-line-number="2"><span class="st">      </span>NH11 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb257-3" data-line-number="3"><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">everwrk =</span> <span class="kw">factor</span>(everwrk, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;1 Yes&quot;</span>, <span class="st">&quot;2 No&quot;</span>)),</a>
-<a class="sourceLine" id="cb257-4" data-line-number="4">             <span class="dt">r_maritl =</span> <span class="kw">droplevels</span>(r_maritl)</a>
-<a class="sourceLine" id="cb257-5" data-line-number="5">             )</a>
-<a class="sourceLine" id="cb257-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb257-7" data-line-number="7">  mod_wk_age_mar &lt;-<span class="st"> </span><span class="kw">glm</span>(everwrk <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>r_maritl, </a>
-<a class="sourceLine" id="cb257-8" data-line-number="8">                        <span class="dt">data =</span> NH11,</a>
-<a class="sourceLine" id="cb257-9" data-line-number="9">                        <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb257-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb257-11" data-line-number="11">  <span class="kw">summary</span>(mod_wk_age_mar)</a></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1">  NH11 &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb259-2" data-line-number="2"><span class="st">      </span>NH11 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-3" data-line-number="3"><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">everwrk =</span> <span class="kw">factor</span>(everwrk, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;1 Yes&quot;</span>, <span class="st">&quot;2 No&quot;</span>)),</a>
+<a class="sourceLine" id="cb259-4" data-line-number="4">             <span class="dt">r_maritl =</span> <span class="kw">droplevels</span>(r_maritl)</a>
+<a class="sourceLine" id="cb259-5" data-line-number="5">             )</a>
+<a class="sourceLine" id="cb259-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb259-7" data-line-number="7">  mod_wk_age_mar &lt;-<span class="st"> </span><span class="kw">glm</span>(everwrk <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>r_maritl, </a>
+<a class="sourceLine" id="cb259-8" data-line-number="8">                        <span class="dt">data =</span> NH11,</a>
+<a class="sourceLine" id="cb259-9" data-line-number="9">                        <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb259-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb259-11" data-line-number="11">  <span class="kw">summary</span>(mod_wk_age_mar)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = everwrk ~ 1 + age_p + r_maritl, family = binomial(link = &quot;logit&quot;), 
@@ -1828,9 +1834,9 @@ Here we transform them into odds ratios by exponentiating:</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1">  mod_wk_age_mar <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb259-2" data-line-number="2"><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb259-3" data-line-number="3"><span class="st">      </span><span class="kw">as.data.frame</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1">  mod_wk_age_mar <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb261-2" data-line-number="2"><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb261-3" data-line-number="3"><span class="st">      </span><span class="kw">as.data.frame</span>()</a></code></pre></div>
 <pre><code>## $age_p
 ##   age_p        fit          se      lower      upper
 ## 1    20 0.27587439 0.011448539 0.25400910 0.29886780
@@ -1915,18 +1921,18 @@ Here we transform them into odds ratios by exponentiating:</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1">  Exam &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/Exam.rds&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1">  Exam &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/Exam.rds&quot;</span>)</a></code></pre></div>
 </div>
 <div id="the-null-model-icc" class="section level3">
 <h3>The null model &amp; ICC</h3>
 <p>As a preliminary step it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors).</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1">  <span class="co"># anatomy of lmer() function</span></a>
-<a class="sourceLine" id="cb262-2" data-line-number="2">  <span class="kw">lmer</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>grouping_variable), </a>
-<a class="sourceLine" id="cb262-3" data-line-number="3">       <span class="dt">data =</span> mydata)</a></code></pre></div>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1">  <span class="co"># null model, grouping by school but not fixed effects.</span></a>
-<a class="sourceLine" id="cb263-2" data-line-number="2">  Norm1 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school), </a>
-<a class="sourceLine" id="cb263-3" data-line-number="3">              <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam))</a>
-<a class="sourceLine" id="cb263-4" data-line-number="4">  <span class="kw">summary</span>(Norm1)</a></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">  <span class="co"># anatomy of lmer() function</span></a>
+<a class="sourceLine" id="cb264-2" data-line-number="2">  <span class="kw">lmer</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>grouping_variable), </a>
+<a class="sourceLine" id="cb264-3" data-line-number="3">       <span class="dt">data =</span> mydata)</a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" data-line-number="1">  <span class="co"># null model, grouping by school but not fixed effects.</span></a>
+<a class="sourceLine" id="cb265-2" data-line-number="2">  Norm1 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school), </a>
+<a class="sourceLine" id="cb265-3" data-line-number="3">              <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam))</a>
+<a class="sourceLine" id="cb265-4" data-line-number="4">  <span class="kw">summary</span>(Norm1)</a></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: normexam ~ 1 + (1 | school)
 ##    Data: na.omit(Exam)
@@ -1960,9 +1966,9 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 \]</span></p>
 </div>
 <p>where <span class="math inline">\(U_{0j}\)</span> is the random intercept for the <span class="math inline">\(j\)</span><sup>th</sup> <code>school</code>. Let’s implement this in R using <code>lmer()</code>:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" data-line-number="1">  Norm2 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school),</a>
-<a class="sourceLine" id="cb265-2" data-line-number="2">               <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam)) </a>
-<a class="sourceLine" id="cb265-3" data-line-number="3">  <span class="kw">summary</span>(Norm2) </a></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" data-line-number="1">  Norm2 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school),</a>
+<a class="sourceLine" id="cb267-2" data-line-number="2">               <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam)) </a>
+<a class="sourceLine" id="cb267-3" data-line-number="3">  <span class="kw">summary</span>(Norm2) </a></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: normexam ~ 1 + standLRT + (1 | school)
 ##    Data: na.omit(Exam)
@@ -1991,7 +1997,7 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <div id="multiple-degree-of-freedom-comparisons" class="section level3">
 <h3>Multiple degree of freedom comparisons</h3>
 <p>As with <code>lm()</code> and <code>glm()</code> models, you can compare the two <code>lmer()</code> models using the <code>anova()</code> function. With mixed effects models, this will produce a likelihood ratio test.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" data-line-number="1">  <span class="kw">anova</span>(Norm1, Norm2)</a></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1">  <span class="kw">anova</span>(Norm1, Norm2)</a></code></pre></div>
 <pre><code>## Data: na.omit(Exam)
 ## Models:
 ## Norm1: normexam ~ 1 + (1 | school)
@@ -2005,9 +2011,9 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <div id="random-slopes" class="section level3">
 <h3>Random slopes</h3>
 <p>Add a random effect of students’ standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1">  Norm3 &lt;-<span class="st"> </span><span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">|</span><span class="st"> </span>school), </a>
-<a class="sourceLine" id="cb269-2" data-line-number="2">                <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam)) </a>
-<a class="sourceLine" id="cb269-3" data-line-number="3">  <span class="kw">summary</span>(Norm3) </a></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">  Norm3 &lt;-<span class="st"> </span><span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">|</span><span class="st"> </span>school), </a>
+<a class="sourceLine" id="cb271-2" data-line-number="2">                <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam)) </a>
+<a class="sourceLine" id="cb271-3" data-line-number="3">  <span class="kw">summary</span>(Norm3) </a></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: normexam ~ 1 + standLRT + (1 + standLRT | school)
 ##    Data: na.omit(Exam)
@@ -2037,7 +2043,7 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <div id="test-the-significance-of-the-random-slope" class="section level3">
 <h3>Test the significance of the random slope</h3>
 <p>To test the significance of a random slope just compare models with and without the random slope term using a likelihood ratio test:</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">  <span class="kw">anova</span>(Norm2, Norm3) </a></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1">  <span class="kw">anova</span>(Norm2, Norm3) </a></code></pre></div>
 <pre><code>## Data: na.omit(Exam)
 ## Models:
 ## Norm2: normexam ~ 1 + standLRT + (1 | school)
@@ -2052,8 +2058,8 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <h3>Exercise 3</h3>
 <p><strong>Multilevel modeling</strong></p>
 <p>Use the <code>bh1996</code> dataset:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1"><span class="co">## install.packages(&quot;multilevel&quot;)</span></a>
-<a class="sourceLine" id="cb273-2" data-line-number="2"><span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1"><span class="co">## install.packages(&quot;multilevel&quot;)</span></a>
+<a class="sourceLine" id="cb275-2" data-line-number="2"><span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</a></code></pre></div>
 <p>From the data documentation:</p>
 <blockquote>
 <p>Variables are Leadership Climate (<code>LEAD</code>), Well-Being (<code>WBEING</code>), and Work Hours (<code>HRS</code>). The group identifier is named <code>GRP</code>.</p>
@@ -2061,25 +2067,25 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <ol style="list-style-type: decimal">
 <li>Create a null model predicting wellbeing (<code>WBEING</code>)</li>
 </ol>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Calculate the ICC for your null model</li>
 </ol>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Run a second multi-level model that adds two individual-level predictors, average number of hours worked (<code>HRS</code>) and leadership skills (<code>LEAD</code>) to the model and interpret your output.</li>
 </ol>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Now, add a random effect of average number of hours worked (<code>HRS</code>) to the model and interpret your output. Test the significance of this random term.</li>
 </ol>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 <div class="alert alert-danger">
 <p>Use the dataset, bh1996:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1">  <span class="co"># install.packages(&quot;multilevel&quot;)</span></a>
-<a class="sourceLine" id="cb278-2" data-line-number="2">  <span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1">  <span class="co"># install.packages(&quot;multilevel&quot;)</span></a>
+<a class="sourceLine" id="cb280-2" data-line-number="2">  <span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</a></code></pre></div>
 <p>From the data documentation:</p>
 <blockquote>
 <p>Variables are Leadership Climate (<code>LEAD</code>), Well-Being (<code>WBEING</code>), and Work Hours (<code>HRS</code>). The group identifier is named <code>GRP</code>.</p>
@@ -2087,11 +2093,11 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <ol style="list-style-type: decimal">
 <li>Create a null model predicting wellbeing (<code>WBEING</code>).</li>
 </ol>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1">  mod_grp0 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> bh1996)</a>
-<a class="sourceLine" id="cb279-2" data-line-number="2">  <span class="kw">summary</span>(mod_grp0)</a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1">  mod_grp0 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</a>
+<a class="sourceLine" id="cb281-2" data-line-number="2">  <span class="kw">summary</span>(mod_grp0)</a></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: WBEING ~ 1 + (1 | GRP)
-##    Data: bh1996
+##    Data: na.omit(bh1996)
 ## 
 ## REML criterion at convergence: 19347.3
 ## 
@@ -2111,11 +2117,11 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <ol start="3" style="list-style-type: decimal">
 <li>Run a second multi-level model that adds two individual-level predictors, average number of hours worked (<code>HRS</code>) and leadership skills (<code>LEAD</code>) to the model and interpret your output.</li>
 </ol>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1">  mod_grp1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> bh1996)</a>
-<a class="sourceLine" id="cb281-2" data-line-number="2">  <span class="kw">summary</span>(mod_grp1)</a></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">  mod_grp1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</a>
+<a class="sourceLine" id="cb283-2" data-line-number="2">  <span class="kw">summary</span>(mod_grp1)</a></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: WBEING ~ 1 + HRS + LEAD + (1 | GRP)
-##    Data: bh1996
+##    Data: na.omit(bh1996)
 ## 
 ## REML criterion at convergence: 17860
 ## 
@@ -2142,9 +2148,9 @@ normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 <ol start="3" style="list-style-type: decimal">
 <li>Now, add a random effect of average number of hours worked (<code>HRS</code>) to the model and interpret your output. Test the significance of this random term.</li>
 </ol>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">  mod_grp2 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> bh1996)</a>
-<a class="sourceLine" id="cb283-2" data-line-number="2">  <span class="kw">anova</span>(mod_grp1, mod_grp2)</a></code></pre></div>
-<pre><code>## Data: bh1996
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" data-line-number="1">  mod_grp2 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</a>
+<a class="sourceLine" id="cb285-2" data-line-number="2">  <span class="kw">anova</span>(mod_grp1, mod_grp2)</a></code></pre></div>
+<pre><code>## Data: na.omit(bh1996)
 ## Models:
 ## mod_grp1: WBEING ~ 1 + HRS + LEAD + (1 | GRP)
 ## mod_grp2: WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP)

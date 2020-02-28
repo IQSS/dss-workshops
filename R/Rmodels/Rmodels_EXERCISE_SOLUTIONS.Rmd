@@ -114,21 +114,21 @@ From the data documentation:
 1.  Create a null model predicting wellbeing (`WBEING`).
 
 ```{r}
-  mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
+  mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp0)
 ```
 
 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
 ```{r}
-  mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = bh1996)
+  mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp1)
 ```
 
 3.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
 ```{r}
-  mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = bh1996)
+  mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = na.omit(bh1996))
   anova(mod_grp1, mod_grp2)
 ```
 

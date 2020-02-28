@@ -292,9 +292,8 @@ methods("summary")
 
 ![](R/Rmodels/images/methods.png)
 
-It's always worth examining what function methods are available for the class of model you're fitting.
-Here's a summary table of some of the most often used methods. These are post-estimation tools you
-will want in your toolbox:
+It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
+Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 
 | Function      | Package        | Output                                                  |
 |:--------------|:---------------|:--------------------------------------------------------|
@@ -523,6 +522,9 @@ The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where
 
   # change the reference group
   states_data$region <- relevel(states_data$region, ref = "Midwest")
+
+  # check the reference group has changed
+  contrasts(states_data$region)
 
   # refit the model
   mod_region <- lm(csat ~ 1 + region, data = states_data)
@@ -914,21 +916,21 @@ From the data documentation:
 1.  Create a null model predicting wellbeing (`WBEING`).
 
 ```{r}
-  mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
+  mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp0)
 ```
 
 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
 ```{r}
-  mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = bh1996)
+  mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp1)
 ```
 
 3.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
 ```{r}
-  mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = bh1996)
+  mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = na.omit(bh1996))
   anova(mod_grp1, mod_grp2)
 ```
 </div>
