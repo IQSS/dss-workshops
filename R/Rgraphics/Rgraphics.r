@@ -124,8 +124,7 @@ library(ggrepel)
 # * linetype
 # * size
 #
-# Each type of geom accepts only a subset of all aesthetics; refer to the geom help pages to see what mappings each geom accepts.
-# Aesthetic mappings are set with the `aes()` function.
+# Each type of geom accepts only a subset of all aesthetics; refer to the geom help pages to see what mappings each geom accepts. Aesthetic mappings are set with the `aes()` function.
 #
 # ### Geometric objects (`geom`)
 #
@@ -150,7 +149,7 @@ library(ggrepel)
 # | `geom_smooth()`  | Conditional means |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
 # | `geom_label()`   | Text              |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
 #
-# You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>. Or, simply type `geom_<tab>` in any good R IDE (such as Rstudio or ESS) to see a list of functions starting with `geom_`.
+# You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>. Or, simply type `geom_<tab>` in any good R IDE (such as Rstudio) to see a list of functions starting with `geom_`.
 
 # #### Points (scatterplot)
 #
@@ -161,10 +160,10 @@ library(ggrepel)
 # Let's look at housing prices.
 
 housing <- read_csv("dataSets/landdata-states.csv")
-head(housing[1:5])
+head(housing[1:5]) # view first 5 columns
 
 # create a subset for 1st quarter 2001
-hp2001Q1 <- filter(housing, Date == 2001.25)
+hp2001Q1 <- housing %>% filter(Date == 2001.25)
 
 # **Step 1:** create a blank canvas by specifying data:
 
@@ -211,22 +210,23 @@ p1 +
 # Each geom accepts a particular set of mappings; for example `geom_text()` accepts a `label` mapping.
 
 p1 + 
-  geom_text(aes(label=State), size = 3)
+  geom_text(aes(label = State), size = 3)
 
+# But what if we want to include points and labels? We can use `geom_text_repel()` to keep labels from overlapping the points and each other.
 
 p1 + 
   geom_point() + 
-  geom_text_repel(aes(label=State), size = 3)
+  geom_text_repel(aes(label = State), size = 3)
 
 
 # ### Aesthetic mapping VS assignment
 #
-# 1.  Variables are **mapped** to aesthetics within the `aes()` function
+# 1.  Variables are **mapped** to aesthetics inside the `aes()` function.
 
 p1 +
   geom_point(aes(size = Home_Value))
 
-# 2.  Constants are **fixed** to aesthetics outside the `aes()` call
+# 2.  Constants are **assigned** to aesthetics outside the `aes()` call
 
 p1 +
   geom_point(size = 2)
@@ -320,16 +320,16 @@ args(stat_bin)
 
 # ### Setting arguments
 #
-# Arguments to `stat_` functions can be passed through `geom_` functions. This can be slightly annoying because in order to change it you have to first determine which stat the geom uses, then determine the arguments to that stat.
+# Arguments to `stat_` functions can be passed through `geom_` functions. This can be slightly annoying because in order to change them you have to first determine which stat the geom uses, then determine the arguments to that stat.
 #
 # For example, here is the default histogram of `Home_Value`:
 
 p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
 
-# can change it by passing the `binwidth` argument to the `stat_bin()` function:
+# We can change the binning scheme by passing the `binwidth` argument to the `stat_bin()` function:
 
-p2 + geom_histogram(stat = "bin", binwidth=4000)
+p2 + geom_histogram(stat = "bin", binwidth = 4000)
 
 
 # ### Changing the transformation
@@ -344,15 +344,15 @@ housing_sum <-
 
 head(housing_sum)
 
-ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
+ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
   geom_bar()
 
 ## Error: stat_count() must not be used with a y aesthetic.  
 
-# What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar()` defaults to `stat = stat_count`; obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function:
+# What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar()` defaults to `stat = stat_count`; obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function. The `identity` function returns the same output as the input.
 
-ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) + 
-  geom_bar(stat="identity")
+ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
+  geom_bar(stat = "identity")
 
 
 # ### Exercise 1
@@ -369,7 +369,10 @@ ggplot(housing_sum, aes(x=State, y=Home_Value_Mean)) +
 # 4.  Change the smoothing line in `geom_smooth()` to use a linear model for the predictions. Hint: see `?stat_smooth`.
 ## 
 
-# 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+# 5.  BONUS 1: Allow the smoothing line created in the last plot to vary across the levels of `Region`. Hint: map `Region` to the color and fill aesthetics.
+## 
+
+# 6.  BONUS 2: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
 ## 
 
 # <details>
@@ -399,7 +402,13 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
   geom_smooth(method = "lm")
 
-# 5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+# 5.  BONUS 1: Allow the smoothing line created in the last plot to vary across the levels of `Region`. Hint: map `Region` to the color and fill aesthetics.
+
+ggplot(dat, aes(x = CPI, y = HDI, color = Region, fill = Region)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+# 6.  BONUS 2: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point() +
@@ -494,8 +503,7 @@ p4 +
 # |                   | `date`       | `scale_x_date()`            |
 # |                   | `datetime`   | `scale_y_datetime()`        |
 #
-# Note that in RStudio you can type `scale_` followed by `tab` to get the whole list of available scales. 
-# For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>
+# Note that in RStudio you can type `scale_` followed by `tab` to get the whole list of available scales. For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>
 
 # ### Exercise 2
 #
@@ -520,17 +528,17 @@ ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
 # 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`).
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
-geom_point() +
-scale_x_continuous(name = "Corruption Perception Index") +
-scale_y_continuous(name = "Human Development Index") +
-scale_color_discrete(name = "Region of the world")
+  geom_point() +
+  scale_x_continuous(name = "Corruption Perception Index") +
+  scale_y_continuous(name = "Human Development Index") +
+  scale_color_discrete(name = "Region of the world")
 
 # 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
-geom_point() +
-scale_x_continuous(name = "Corruption Perception Index") +
-scale_y_continuous(name = "Human Development Index") +
+  geom_point() +
+  scale_x_continuous(name = "Corruption Perception Index") +
+  scale_y_continuous(name = "Human Development Index") +
   scale_color_manual(name = "Region of the world",
                      values = c("red", "green", "blue", "orange", "grey", "brown"))
 # </div>
@@ -549,7 +557,7 @@ scale_y_continuous(name = "Human Development Index") +
 #
 # ### What is the trend in housing prices in each state?
 #
-# * Start by using a technique we already know; map `State` to color:
+# Start by using a technique we already know; map `State` to color:
 
 p5 <- ggplot(housing, aes(x = Date, y = Home_Value))
 p5 + geom_line(aes(color = State))  
@@ -594,7 +602,7 @@ p5 + theme_light()
 # theme(thing_to_modify = modifying_function(arg1, arg2))
 
 p5 + theme_minimal() +
-  theme(text = element_text(color = "turquoise"))  
+  theme(text = element_text(color = "red"))  
 
 # All theme options are documented in `?theme`. We can also see the
 # existing default values using:
@@ -662,12 +670,13 @@ ggplot(housing_byyear, aes(x=Date)) +
 #
 # Here's the code that implements this transformation:
 
-home_land_byyear <- gather(housing_byyear,
-                           value = "value",
-                           key = "type",
-                           Home_Value_Mean, Land_Value_Mean)
-
-ggplot(home_land_byyear, aes(x=Date, y=value, color=type)) +
+home_land_byyear <- 
+    housing_byyear %>%
+    pivot_longer(cols = c(Home_Value_Mean, Land_Value_Mean),
+                 names_to = "type",
+                 values_to = "value")
+                          
+ggplot(home_land_byyear, aes(x = Date, y = value, color = type)) +
   geom_line()
 
 
@@ -702,16 +711,16 @@ head(midwest)
 #
 # 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
 
-p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) 
+p6 <- ggplot(midwest, aes(x = area, y = log(poptotal))) 
 p6 + geom_point() 
 
 # 2.  Within the `geom_point()` call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
 
-p6 <- p6 + geom_point(aes(color=state, size=log(popdensity)), alpha = 0.3) 
+p6 <- p6 + geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) 
 
 # 3.  Add a smoother and turn off plotting the confidence interval. Hint: see the `se` argument to `geom_smooth()`.
 
-p6 <- p6 + geom_smooth(method="loess", se=FALSE) 
+p6 <- p6 + geom_smooth(method = "loess", se = FALSE) 
 
 # 4.  Facet the plot by `state`. Set the `scales` argument to `facet_wrap()` to allow separate ranges for the x-axis.
 
@@ -729,9 +738,9 @@ p6 <- p6 + theme_bw() +
 
 # Here's the complete code for the Exercise 3 plot:
 
-p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) +
-    geom_point(aes(color=state, size=log(popdensity)), alpha = 0.3) +
-    geom_smooth(method="loess", se=FALSE) +
+p6 <- ggplot(midwest, aes(x = area, y = log(poptotal))) +
+    geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) +
+    geom_smooth(method = "loess", se = FALSE) +
     facet_wrap(~ state, scales = "free_x") +
     scale_color_brewer(palette = "Set1") +
     theme_bw() +
