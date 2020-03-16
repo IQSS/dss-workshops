@@ -71,7 +71,7 @@
 # 3. Automate a browser to retrieve information from HTML
 #
 # Bear in mind that even once you've decided upon the best approach for a particular site,
-# it will be necessary to modified that approach to suit your particular use-case.
+# it will be necessary to modify that approach to suit your particular use-case.
 #
 # ### How does the web work?
 #
@@ -146,9 +146,8 @@
 # If we look at that second request, the one to a script named
 # `browse`, we'll see that it returns all the information we need, in
 # a convenient format called `JSON`. All we need to retrieve collection
-# data is call make `GET` requests to
-# <https://www.harvardartmuseums.org/browse> with the correct
-# parameters.
+# data is to make `GET` requests to <https://www.harvardartmuseums.org/browse> 
+# with the correct parameters.
 #
 # ### Launch JupyterLab
 #
@@ -211,7 +210,7 @@ print(collection_url)
 # pass them as a `dict` when using the `requests` library in Python.
 # This will become clearer shortly.
 #
-# Now that we've constructed the URL we wish interact with we're ready
+# Now that we've constructed the URL we wish to interact with, we're ready
 # to make our first request in Python.
 
 import requests
@@ -393,7 +392,7 @@ print(first5Pages_records)
 # <https://www.harvardartmuseums.org/visit/calendar?date=>, which
 # unfortunately returns HTML. 
 #
-# The first step is the same as before: we make at `GET` request.
+# The first step is the same as before: we make a `GET` request.
 
 calendar_path = 'visit/calendar'
 
@@ -425,13 +424,15 @@ events0.headers['Content-Type']
 
 from lxml import html
 
+# convert a html text representation (`events0.text`) into 
+# a tree-structure (DOM) html representation (`events_html`)
 events_html = html.fromstring(events0.text)
 
 # ### Using XPath to extract content from HTML
 #
-# `XPath` is a tool for identifying particular elements withing a HTML
+# `XPath` is a tool for identifying particular elements within a HTML
 # document. The developer tools built into modern web browsers make it
-# easy to generate `XPath`s that can used to identify the elements of a
+# easy to generate `XPath`s that can be used to identify the elements of a
 # web page that we wish to extract.
 #
 # We can open the html document we retrieved and inspect it using
@@ -451,7 +452,7 @@ html.open_in_browser(events_html, encoding = 'UTF-8')
 #
 # Next we can use python to extract the element of interest:
 
-events_list_html = events_html.xpath('//*[@id="events_list"]')[0]
+events_list_html = events_html.xpath('//*[@id="events_list"]/article')
 
 # Once again we can use a web browser to inspect the HTML we're
 # currently working with, and to figure out what we want to extract from
