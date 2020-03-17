@@ -104,19 +104,19 @@
 #
 # There are different ways of interacting with Python. The two main ways are through:
 #
-# 1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. Here are a few popular editors/IDEs that can be used with Python:
+# 1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. The following table lists a few popular editors/IDEs that can be used with Python. In this workshop, we will use [JupyterLab](https://jupyter.org/), a modern "extensible environment for interactive and reproducible computing" that runs in your web browser.
 #
 # | Editor / IDE | Features  | Ease of use | Language support |
 # |:------------ |:--------- |:----------- |:---------------- |
 # | Spyder       | Excellent | Easy        | Python only      |
 # | PyCharm      | Excellent | Moderate    | Python only      |
-# | Jupyter Lab  | Good      | Easy        | Excellent        |
+# | JupyterLab   | Good      | Easy        | Excellent        |
 # | VS code      | Excellent | Easy        | Very good        |
 # | Atom         | Good      | Moderate    | Good             |
 # | Vim          | Excellent | Hard        | Good             |
 # | Emacs        | Excellent | Hard        | Excellent        |
 #
-# 2. **Notebooks:** Web-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. For these workshops, we will use a [Jupyter Notebook](https://jupyter.org/); an open source notebook that has support for 40+ languages. 
+# 2. **Notebooks:** Browser-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. One popular choice is [Jupyter Notebook](https://jupyter.org/); an open source notebook that has support for 40+ languages, but has limited features compared with the JupyterLab IDE. 
 
 # #### Source code & literate programming
 #
@@ -136,7 +136,7 @@
 # ### Launch JupyterLab
 #
 # 1. Start the `Anaconda Navigator` program
-# 2. Click the `Launch` button under `Jupyter Lab`
+# 2. Click the `Launch` button under `JupyterLab`
 # 3. A browser window will open with your computer's files listed on the left hand side of the page. Navigate to the folder called `PythonIntro` that you downloaded to your desktop and double-click on the folder
 # 4. Within the `PythonIntro` folder, double-click on the file with the word "BLANK" in the name (`PythonIntro_BLANK.ipynb`). A pop-up window will ask you to `Select Kernal` --- you should select the Python 3 kernal. The Jupyter Notebook should now open on the right hand side of the page
 #

@@ -450,7 +450,7 @@ html.open_in_browser(events_html, encoding = 'UTF-8')
 #
 # ![](Python/PythonWebScrape/images/dev_tools_xpath.png)
 #
-# Next we can use python to extract the element of interest:
+# Next we can use Python to extract the element of interest:
 
 events_list_html = events_html.xpath('//*[@id="events_list"]/article')
 
