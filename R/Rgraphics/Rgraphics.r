@@ -10,10 +10,15 @@
 
 # ## Setup
 #
+# ### Software and Materials
+#
+# Follow the [R Installation](./Rinstall.html) instructions and ensure that you can successfully start RStudio.
+#
 # ### Class Structure
 #
-# * Informal --- Ask questions at any time. Really!
-# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# Informal - Ask questions at any time. Really!
+#
+# Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 #
 # ### Prerequisites
 #

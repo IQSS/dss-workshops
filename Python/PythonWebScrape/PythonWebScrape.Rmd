@@ -19,10 +19,16 @@ knitr::opts_knit$set(root.dir="Python/PythonWebScrape") # base.url = "/" # base.
 
 ## Setup
 
+### Software and Materials
+
+Follow the [Python Installation](./PythonInstall.html) instructions and ensure that you can successfully start JupyterLab.
+
+
 ### Class Structure
 
-* Informal --- Ask questions at any time. Really!
-* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+Informal - Ask questions at any time. Really!
+
+Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 
 
 ### Prerequisites
@@ -37,8 +43,7 @@ This is an intermediate / advanced Python course:
 * Assumes basic knowledge of web page structure
 * Relatively fast-paced
 
-If you need an introduction to Python or a refresher, we recommend our
-[Python Introduction](https://iqss.github.io/dss-workshops/PythonIntro.html).
+If you need an introduction to Python or a refresher, we recommend our [Python Introduction](https://iqss.github.io/dss-workshops/PythonIntro.html).
 
 
 ### Goals
@@ -49,8 +54,7 @@ This workshop is organized into two main parts:
 1. Retrive information in JSON format
 2. Parse HTML files
 
-Note that this workshop will not teach you everything you need to know in
-order to retrieve data from any web service you might wish to scrape.
+Note that this workshop will not teach you everything you need to know in order to retrieve data from any web service you might wish to scrape.
 </div>
 
 
@@ -58,30 +62,21 @@ order to retrieve data from any web service you might wish to scrape.
 
 ### What is web scraping?
 
-Web scraping is the activity of automating retrieval of information
-from a web service designed for human interaction.
+Web scraping is the activity of automating retrieval of information from a web service designed for human interaction.
 
 ### Is web scraping legal? Is it ethical?
 
-It depends. If you have legal questions seek legal counsel. You can
-mitigate some ethical issues by building delays and restrictions into
-your web scraping program so as to avoid impacting the availability of
-the web service for other users or the cost of hosting the service for
-the service provider.
+It depends. If you have legal questions seek legal counsel. You can mitigate some ethical issues by building delays and restrictions into your web scraping program so as to avoid impacting the availability of the web service for other users or the cost of hosting the service for the service provider.
 
 ### Web scraping approaches
 
-No two websites are identical --- websites are built for different purposes by different people
-and so have different underlying structures. Because they are heterogeneous, there is no single way to
-scrape a website. **The scraping approach therefore has to be tailored to each individual site.**
-Here are some commonly used approaches:
+No two websites are identical --- websites are built for different purposes by different people and so have different underlying structures. Because they are heterogeneous, there is no single way to scrape a website. **The scraping approach therefore has to be tailored to each individual site.** Here are some commonly used approaches:
 
 1. Use requests to extract information from structured JSON / XML files
 2. Use requests to extract information from HTML
 3. Automate a browser to retrieve information from HTML
 
-Bear in mind that even once you've decided upon the best approach for a particular site,
-it will be necessary to modify that approach to suit your particular use-case.
+Bear in mind that even once you've decided upon the best approach for a particular site, it will be necessary to modify that approach to suit your particular use-case.
 
 ### How does the web work?
 
@@ -115,51 +110,30 @@ When you type a web address into your browser:
 4. Extract the data from the dictionary and store in a .csv file
 </div>
 
-We wish to extract information from
-<https://www.harvardartmuseums.org/collections>. Like most
-modern web pages, a lot goes on behind the scenes to produce the page
-we see in our browser. Our goal is to pull back the curtain to see
-what the website does when we interact with it. Once we see how the
-website works we can start retrieving data from it. 
+We wish to extract information from <https://www.harvardartmuseums.org/collections>. Like most modern web pages, a lot goes on behind the scenes to produce the page we see in our browser. Our goal is to pull back the curtain to see what the website does when we interact with it. Once we see how the website works we can start retrieving data from it. 
 
-If we are lucky we'll find a resource that returns the data we're 
-looking for in a structured format like [JSON](https://json.org/) or
-[XML](https://en.wikipedia.org/wiki/XML).
+If we are lucky we'll find a resource that returns the data we're looking for in a structured format like [JSON](https://json.org/) or [XML](https://en.wikipedia.org/wiki/XML).
 
 ![](Python/PythonWebScrape/images/json-format.png)
 
-This is useful because it is very easy to convert data from JSON or XML
-into a spreadsheet type format --- like a csv or Excel file.
+This is useful because it is very easy to convert data from JSON or XML into a spreadsheet type format --- like a csv or Excel file.
 
 ### Examine the website's structure
 
-The basic strategy is pretty much the same for most scraping projects.
-We will use our web browser (Chrome or Firefox recommended) to examine
-the page you wish to retrieve data from, and copy/paste information
-from your web browser into your scraping program.
+The basic strategy is pretty much the same for most scraping projects. We will use our web browser (Chrome or Firefox recommended) to examine the page you wish to retrieve data from, and copy/paste information from your web browser into your scraping program.
 
-We start by opening the collections web page in a web browser and
-inspecting it.
+We start by opening the collections web page in a web browser and inspecting it.
 
 ![](Python/PythonWebScrape/images/dev_tools.png)
 
 ![](Python/PythonWebScrape/images/dev_tools_pane.png)
 
-If we scroll down to the bottom of the Collections page, we'll see a
-button that says "Load More". Let's see what happens when we click on
-that button. To do so, click on "Network" in the developer tools
-window, then click the "Load More Collections" button. You should see
-a list of requests that were made as a result of clicking that button,
-as shown below.
+If we scroll down to the bottom of the Collections page, we'll see a button that says "Load More". Let's see what happens when we click on that button. To do so, click on "Network" in the developer tools window, then click the "Load More Collections" button. You should see a list of requests that were made as a result of clicking that button, as shown below.
 
 ![](Python/PythonWebScrape/images/dev_tools_network.png)
 
 
-If we look at that second request, the one to a script named
-`browse`, we'll see that it returns all the information we need, in
-a convenient format called `JSON`. All we need to retrieve collection
-data is to make `GET` requests to <https://www.harvardartmuseums.org/browse> 
-with the correct parameters.
+If we look at that second request, the one to a script named `browse`, we'll see that it returns all the information we need, in a convenient format called `JSON`. All we need to retrieve collection data is to make `GET` requests to <https://www.harvardartmuseums.org/browse> with the correct parameters.
 
 ### Launch JupyterLab
 
@@ -184,32 +158,22 @@ pd.set_option('display.max_columns', 5)
 
 ### Making requests
 
-To retrieve information from the website (i.e., make a request),
-we need to know the location of the information we want to collect.
-The Uniform Resource Locator (URL) --- commonly know as a "web address",
-specifies the location of a resource (such as a web page) on the internet.
+To retrieve information from the website (i.e., make a request), we need to know the location of the information we want to collect. The Uniform Resource Locator (URL) --- commonly know as a "web address", specifies the location of a resource (such as a web page) on the internet.
 
 A URL is usually composed of 5 parts:
 
 ![](Python/PythonWebScrape/images/URL.png)
 
-The 4th part, the "query string", contains one or more **parameters**.
-The 5th part, the "fragment", is an internal page reference and may not be present.
+The 4th part, the "query string", contains one or more **parameters**. The 5th part, the "fragment", is an internal page reference and may not be present.
 
 For example, the URL we want to retrieve data from has the following structure:
 
     protocol                    domain    path  parameters
        https www.harvardartmuseums.org  browse  load_amount=10&offset=0
 
-It is often convenient to create variables containing the domain(s)
-and path(s) you'll be working with, as this allows you to swap out
-paths and parameters as needed. Note that the path is separated from
-the domain with `/` and the parameters are separated from the path
-with `?`. If there are multiple parameters they are separated from
-each other with a `&`.
+It is often convenient to create variables containing the domain(s) and path(s) you'll be working with, as this allows you to swap out paths and parameters as needed. Note that the path is separated from the domain with `/` and the parameters are separated from the path with `?`. If there are multiple parameters they are separated from each other with a `&`.
 
-For example, we can define the domain and path of the collections URL
-as follows:
+For example, we can define the domain and path of the collections URL as follows:
 
 ```{python}
 museum_domain = 'https://www.harvardartmuseums.org'
@@ -222,12 +186,9 @@ collection_url = (museum_domain
 print(collection_url)
 ```
 
-Note that we omit the parameters here because it is usually easier to
-pass them as a `dict` when using the `requests` library in Python.
-This will become clearer shortly.
+Note that we omit the parameters here because it is usually easier to pass them as a `dict` when using the `requests` library in Python. This will become clearer shortly.
 
-Now that we've constructed the URL we wish to interact with, we're ready
-to make our first request in Python.
+Now that we've constructed the URL we wish to interact with, we're ready to make our first request in Python.
 
 ```{python}
 import requests
@@ -239,22 +200,17 @@ collections1 = requests.get(
 )
 ```
 
-Note that the parameters `load_amount` and `offset` are essentially
-another way of setting page numbers --- they refer to the amount of
-information retrieved at one time and the starting position, respectively.
+Note that the parameters `load_amount` and `offset` are essentially another way of setting page numbers --- they refer to the amount of information retrieved at one time and the starting position, respectively.
 
 ### Parsing JSON data
 
-We already know from inspecting network traffic in our web
-browser that this URL returns JSON, but we can use Python 
-to verify this assumption.
+We already know from inspecting network traffic in our web browser that this URL returns JSON, but we can use Python to verify this assumption.
 
 ```{python}
 collections1.headers['Content-Type']
 ```
 
-Since JSON is a structured data format, parsing it into Python data
-structures is easy. In fact, there's a method for that!
+Since JSON is a structured data format, parsing it into Python data structures is easy. In fact, there's a method for that!
 
 ```{python}
 collections1 = collections1.json()
@@ -263,18 +219,11 @@ collections1 = collections1.json()
 
 That's it. Really, we are done here. Everyone go home!
 
-OK not really, there is still more we can learn. But you have to admit
-that was pretty easy. If you can identify a service that returns the
-data you want in structured from, web scraping becomes a pretty
-trivial enterprise. We'll discuss several other scenarios and topics,
-but for some web scraping tasks this is really all you need to know.
+OK not really, there is still more we can learn. But you have to admit that was pretty easy. If you can identify a service that returns the data you want in structured from, web scraping becomes a pretty trivial enterprise. We'll discuss several other scenarios and topics, but for some web scraping tasks this is really all you need to know.
 
 ### Organizing & saving the data
 
-The records we retrieved from
-`https://www.harvardartmuseums.org/browse` are arranged as a list of
-dictionaries. We can easily select the fields of arrange these data 
-into a pandas `DataFrame` to facilitate subsequent analysis.
+The records we retrieved from <https://www.harvardartmuseums.org/browse> are arranged as a list of dictionaries. We can easily select the fields of arrange these data into a pandas `DataFrame` to facilitate subsequent analysis.
 
 ```{python}
 import pandas as pd
@@ -290,24 +239,22 @@ print(records1)
 
 and write the data to a file.
 
-```{python}
+```{python, eval=FALSE}
 records1.to_csv("records1.csv")
 ```
 
 ### Iterating to retrieve all the data
 
-Of course we don't want just the first page of collections. How can we
-retrieve all of them?
+Of course we don't want just the first page of collections. How can we retrieve all of them?
 
-Now that we know the web service works, and how to make requests in
-Python, we can iterate in the usual way.
+Now that we know the web service works, and how to make requests in Python, we can iterate in the usual way.
 
 ```{python}
 records = []
 for offset in range(0, 50, 10):
     param_values = {'load_amount': 10, 'offset': offset}
     current_request = requests.get(collection_url, params = param_values)
-    records += current_request.json()['records']
+    records.extend(current_request.json()['records'])
 ```
 
 ```{python}
@@ -315,7 +262,7 @@ for offset in range(0, 50, 10):
 records_final = pd.DataFrame.from_records(records)
 ```
 
-```{python}
+```{python, eval=FALSE}
 # write the data to a file.
 records_final.to_csv("records_final.csv")
 ```
@@ -328,12 +275,10 @@ print(records_final)
 
 **Retrieve exhibits data**
 
-In this exercise you will retrieve information about the art
-exhibitions at Harvard Art Museums from
-`https://www.harvardartmuseums.org/visit/exhibitions`
+In this exercise you will retrieve information about the art exhibitions at Harvard Art Museums from <https://www.harvardartmuseums.org/exhibitions>
 
 1. Using a web browser (Firefox or Chrome recommended) inspect the
-   page at `https://www.harvardartmuseums.org/visit/exhibitions`. Examine
+   page at <https://www.harvardartmuseums.org/exhibitions>. Examine
    the network traffic as you interact with the page. Try to find
    where the data displayed on that page comes from.
 
@@ -418,40 +363,23 @@ print(first5Pages_records)
 4. Convert from a dictionary to a .csv file
 </div>
 
-As we've seen, you can often inspect network traffic or other sources
-to locate the source of the data you are interested in and the API
-used to retrieve it. You should always start by looking for these
-shortcuts and using them where possible. If you are really lucky,
-you'll find a shortcut that returns the data as JSON or XML. If you
-are not quite so lucky, you will have to parse HTML to retrieve the
-information you need.
+As we've seen, you can often inspect network traffic or other sources to locate the source of the data you are interested in and the API used to retrieve it. You should always start by looking for these shortcuts and using them where possible. If you are really lucky, you'll find a shortcut that returns the data as JSON or XML. If you are not quite so lucky, you will have to parse HTML to retrieve the information you need.
 
 ### Document Object Model (DOM)
 
-To parse HTML, we need to have a nice tree structure that contains the whole HTML 
-file through which we can locate the information. This tree-like structure is the 
-**Document Object Model (DOM)**. DOM is a cross-platform and language-independent 
-interface that treats an XML or HTML document as a tree structure wherein each node 
-is an object representing a part of the document. The DOM represents a document with 
-a logical tree. *Each branch of the tree ends in a node, and each node contains objects*. 
-DOM methods allow programmatic access to the tree; with them one can change the structure, 
-style or content of a document. The following is an example of DOM hierarchy in an HTML document:
+To parse HTML, we need to have a nice tree structure that contains the whole HTML file through which we can locate the information. This tree-like structure is the **Document Object Model (DOM)**. DOM is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree. *Each branch of the tree ends in a node, and each node contains objects*. DOM methods allow programmatic access to the tree; with them one can change the structure, style or content of a document. The following is an example of DOM hierarchy in an HTML document:
 
 ![](Python/PythonWebScrape/images/DOM.png)
 
 
 ### Retrieving HTML
 
-When I inspected the network traffic while interacting
-with <https://www.harvardartmuseums.org/visit/calendar> I didn't see
-any requests that returned JSON data. The best we can do appears to be
-<https://www.harvardartmuseums.org/visit/calendar?date=>, which
-unfortunately returns HTML. 
+When I inspect the network traffic while interacting with <https://www.harvardartmuseums.org/calendar> I don't see any requests that return JSON data. The best we can do appears to be to return HTML. 
 
-The first step is the same as before: we make a `GET` request.
+To retrieve data on the events listed in the calender, the first step is the same as before: we make a `get` request.
 
 ```{python}
-calendar_path = 'visit/calendar'
+calendar_path = 'calendar'
 
 calendar_url = (museum_domain # recall that we defined museum_domain earlier
                   + "/"
@@ -459,48 +387,36 @@ calendar_url = (museum_domain # recall that we defined museum_domain earlier
 
 print(calendar_url)
 
-events0 = requests.get(calendar_url, params = {'date': '2018-11'})
+events = requests.get(calendar_url)
 ```
 
-As before we can check the headers to see what type of content we
-received in response to our request.
+As before, we can check the headers to see what type of content we received in response to our request.
 
 ```{python}
-events0.headers['Content-Type']
+events.headers['Content-Type']
 ```
 
 ### Parsing HTML using the lxml library
 
-Like JSON, HTML is structured; unlike JSON it is designed to be
-rendered into a human-readable page rather than simply to store and
-exchange data in a computer-readable format. Consequently, parsing
-HTML and extracting information from it is somewhat more difficult
-than parsing JSON.
+Like JSON, HTML is structured; unlike JSON, it is designed to be rendered into a human-readable page rather than simply to store and exchange data in a computer-readable format. Consequently, parsing HTML and extracting information from it is somewhat more difficult than parsing JSON.
 
-While JSON parsing is built into the Python `requests` library, parsing
-HTML requires a separate library. I recommend using the HTML parser
-from the `lxml` library; others prefer an alternative called
-`beautifulsoup4`.
+While JSON parsing is built into the Python `requests` library, parsing HTML requires a separate library. I recommend using the HTML parser from the `lxml` library; others prefer an alternative called `beautifulsoup4`.
 
 ```{python}
 from lxml import html
 
-# convert a html text representation (`events0.text`) into 
+# convert a html text representation (`events.text`) into 
 # a tree-structure (DOM) html representation (`events_html`)
-events_html = html.fromstring(events0.text)
+events_html = html.fromstring(events.text)
 ```
 
 ### Using XPath to extract content from HTML
 
-`XPath` is a tool for identifying particular elements within a HTML
-document. The developer tools built into modern web browsers make it
-easy to generate `XPath`s that can be used to identify the elements of a
-web page that we wish to extract.
+`XPath` is a tool for identifying particular elements within a HTML document. The developer tools built into modern web browsers make it easy to generate `XPath`s that can be used to identify the elements of a web page that we wish to extract.
 
-We can open the html document we retrieved and inspect it using
-our web browser.
+We can open the html document we retrieved and inspect it using our web browser.
 
-```{python results='hide'}
+```{python, eval=FALSE, results="hide"}
 html.open_in_browser(events_html, encoding = 'UTF-8')
 ```
 
@@ -508,9 +424,7 @@ html.open_in_browser(events_html, encoding = 'UTF-8')
 
 ![](Python/PythonWebScrape/images/dev_tools_inspect.png)
 
-Once we identify the element containing the information of interest we
-can use our web browser to copy the `XPath` that uniquely identifies
-that element.
+Once we identify the element containing the information of interest we can use our web browser to copy the `XPath` that uniquely identifies that element.
 
 ![](Python/PythonWebScrape/images/dev_tools_xpath.png)
 
@@ -520,33 +434,33 @@ Next we can use Python to extract the element of interest:
 events_list_html = events_html.xpath('//*[@id="events_list"]/article')
 ```
 
-Once again we can use a web browser to inspect the HTML we're
-currently working with, and to figure out what we want to extract from
-it. Let's look at the first element in our events list.
+Let's just extract the first element in our events list.
 
-```{python results='hide'}
+```{python}
 first_event_html = events_list_html[0]
-html.open_in_browser(first_event_html, encoding = 'UTF-8')
 ```
 
-As before we can use our browser to find the xpath of the elements we
-want.
+Once again, we can use a web browser to inspect the HTML we're currently working with - from the first event - and to figure out what we want to extract from it. 
+
+```{python, eval=FALSE, results="hide"}
+html.open_in_browser(first_event_html, encoding = 'UTF-8')
+```
+```
+
+As before we can use our browser to find the xpath of the elements we want.
 
 ![](Python/PythonWebScrape/images/dev_tools_figcaption.png)
 
-(Note that the `html.open_in_browser` function adds enclosing `html`
-and `body` tags in order to create a complete web page for viewing.
-This requires that we adjust the `xpath` accordingly.)
+(Note that the `html.open_in_browser` function adds enclosing `html` and `body` tags in order to create a complete web page for viewing. This requires that we adjust the `xpath` accordingly.)
 
-By repeating this process for each element we want, we can build a
-list of the xpaths to those elements.
+By repeating this process for each element we want, we can build a list of the xpaths to those elements.
 
 ```{python}
 elements_we_want = {'figcaption': 'div/figure/div/figcaption',
                     'date': 'div/div/header/time',
                     'title': 'div/div/header/h2/a',
                     'time': 'div/div/div/p[1]/time',
-                    'localtion1': 'div/div/div/p[2]/span/span[1]',
+                    'location1': 'div/div/div/p[2]/span/span[1]',
                     'location2': 'div/div/div/p[2]/span/span[2]'
                     }
 ```
@@ -557,7 +471,7 @@ Finally, we can iterate over the elements we want and extract them.
 first_event_values = {}
 for key in elements_we_want.keys():
     element = first_event_html.xpath(elements_we_want[key])[0]
-    first_event_values[key] = element.text_content().strip()
+    first_event_values[key] = element.text.strip()
 
 print(first_event_values)
 ```
@@ -585,7 +499,17 @@ def name_of_function(arg1, arg2, ...argn):  # define the function name and argum
     return <result>      # output result of calculations
 ```
 
-Here's a function to perform our task:
+Here's an example of a simple function:
+
+```{python}
+def square_fun(x):
+    y = x^2
+    return y
+
+square_fun(4)    
+```
+
+Here's a function to perform our actual task:
 
 ```{python}
 def get_event_info(event, path):
@@ -596,8 +520,7 @@ def get_event_info(event, path):
     return info
 ```
 
-Armed with this function we can iterate over the list of events and
-extract the available information for each one.
+Armed with this function we can iterate over the list of events and extract the available information for each one.
 
 ```{python}
 all_event_values = {}
@@ -608,10 +531,9 @@ for key in elements_we_want.keys():
     all_event_values[key] = key_values
 ```
 
-For convenience we can arrange these values in a pandas `DataFrame`
-and save them as .csv files, just as we did with our exhibitions data earlier.
+For convenience we can arrange these values in a pandas `DataFrame` and save them as .csv files, just as we did with our exhibitions data earlier.
 
-```{python}
+```{python, eval=FALSE}
 all_event_values = pd.DataFrame.from_dict(all_event_values)
 
 all_event_values.to_csv("all_event_values.csv")
@@ -623,13 +545,11 @@ print(all_event_values)
 
 **parsing HTML**
 
-In this exercise you will retrieve information about the physical
-layout of the Harvard Art Museums. The web page at
-<https://www.harvardartmuseums.org/visit/floor-plan> contains this
-information in HTML from.
+In this exercise you will retrieve information about the physical layout of the Harvard Art Museums. The web page at
+<https://www.harvardartmuseums.org/visit/floor-plan> contains this information in HTML from.
 
 1. Using a web browser (Firefox or Chrome recommended) inspect the
-   page at `https://www.harvardartmuseums.org/visit/floor-plan`. Copy
+   page at <https://www.harvardartmuseums.org/visit/floor-plan>. Copy
    the `XPath` to the element containing the list of level
    information. (HINT: the element if interest is a `ul`, i.e.,
    `unordered list`.)
@@ -706,27 +626,11 @@ print(all_levels_facilities)
 
 ## `Scrapy`: for large / complex projects
 
-Scraping websites using the `requests` library to make GET and POST
-requests, and the `lxml` library to process HTML is a good way to
-learn basic web scraping techniques. It is a good choice for small to
-medium size projects. For very large or complicated scraping tasks the
-`scrapy` library offers a number of conveniences, including
-asynchronous retrieval, session management, convenient methods for
-extracting and storing values, and more. More information about
-`scrapy` can be found at <https://doc.scrapy.org>.
+Scraping websites using the `requests` library to make GET and POST requests, and the `lxml` library to process HTML is a good way to learn basic web scraping techniques. It is a good choice for small to medium size projects. For very large or complicated scraping tasks the `scrapy` library offers a number of conveniences, including asynchronous retrieval, session management, convenient methods for extracting and storing values, and more. More information about `scrapy` can be found at <https://doc.scrapy.org>.
 
 ## Browser drivers: a last resort
 
-It is sometimes necessary (or sometimes just easier) to use a web
-browser as an intermediary rather than communicate directly with a
-web service. This method of using a "browser driver" has the advantage 
-of being able to use the javascript engine and session management features 
-of a web browser; the main disadvantage is that it is slower and tends to 
-be more fragile than using `requests` or `scrapy` to make requests directly
-from Python. For small scraping projects involving complicated sites
-with CAPTHAs or lots of complicated javascript using a browser driver
-can be a good option. More information is available at 
-<https://www.seleniumhq.org/docs/03_webdriver.jsp>.
+It is sometimes necessary (or sometimes just easier) to use a web browser as an intermediary rather than communicate directly with a web service. This method of using a "browser driver" has the advantage of being able to use the javascript engine and session management features  of a web browser; the main disadvantage is that it is slower and tends to be more fragile than using `requests` or `scrapy` to make requests directly from Python. For small scraping projects involving complicated sites with CAPTHAs or lots of complicated javascript using a browser driver can be a good option. More information is available at <https://www.seleniumhq.org/docs/03_webdriver.jsp>.
 
 
 ## Wrap-up

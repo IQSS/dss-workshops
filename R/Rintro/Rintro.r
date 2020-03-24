@@ -15,11 +15,19 @@
 
 # ## Setup
 #
+# ### Software and Materials
+#
+# Follow the [R Installation](./Rinstall.html) instructions and ensure that you can successfully start RStudio.
+#
+# A handy [base R cheat-sheet](R/Rintro/base-r-cheat-sheet.pdf) is available to help you look up and remember basic syntax. 
+# In addition, a [data transformation cheat-sheet](R/Rintro/data-transformation-cheat-sheet.pdf) provides a convenient summary of data manipulation syntax.
+
 # ### Class Structure
 #
-# * Informal --- Ask questions at any time. Really!
-# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# Informal - Ask questions at any time. Really!
 #
+# Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
 # ### Prerequisites
 #
 # This is an introductory R course:
