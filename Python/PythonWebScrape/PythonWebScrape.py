@@ -429,7 +429,7 @@ def name_of_function(arg1, arg2, ...argn):  # define the function name and argum
 # Here's an example of a simple function:
 
 def square_fun(x):
-    y = x^2
+    y = x**2 # exponentiation
     return y
 
 square_fun(4)    
