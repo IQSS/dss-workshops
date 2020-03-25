@@ -5,7 +5,7 @@
 # * Web basics
 # * Making web requests
 # * Inspecting web sites
-# * Retrieving web data
+# * Retrieving JSON data
 # * Using Xpaths to retrieve `html` content
 # * Parsing `html` content
 # * Cleaning and storing text from `html`
@@ -47,7 +47,7 @@
 # Note that this workshop will not teach you everything you need to know in order to retrieve data from any web service you might wish to scrape.
 # </div>
 
-# ## Webscraping background
+# ## Web scraping background
 #
 # ### What is web scraping?
 #
@@ -79,13 +79,13 @@
 # * **Servers** are computers that store webpages, sites, or apps. When a client device wants to access a webpage, a copy of the webpage is downloaded from the server onto the client machine to be displayed in the user's web browser.
 # * **HTTP** is a language for clients and servers to speak to each other.
 #
-# #### So What Happens?
+# #### So what happens?
 #
 # When you type a web address into your browser:
 #
 # 1. The browser finds the address of the server that the website lives on.
 # 2. The browser sends an **HTTP request message** to the server, asking it to send a copy of the website to the client. 
-# 3. If the server approves the client's request, the server sends the client a "200 OK" message, and then starts displaying the website in the browser.
+# 3. If the server approves the client's request, the server sends the client a `200 OK` message, and then starts displaying the website in the browser.
 
 # ## Retrieve data in JSON format if you can
 #
