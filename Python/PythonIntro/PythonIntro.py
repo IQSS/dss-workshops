@@ -291,8 +291,12 @@ len(alice_words) # counts elements in a data structure
 # According to our above computation, there are about 26 thousand total words in the Alice text. But how many *unique* words are there? Python has a special data structure called a *set* that makes it easy to find out. A *set* drops all duplicates, giving a collection of the unique elements. Here's a simple example:
 
 # set example
-mySet = {1, 5, 9, 9, 4, 5}
-len(mySet)
+mylist = {1, 5, 9, 9, 4, 5}
+set(mylist)
+
+# Now we can count the number of unique elements in the list by getting the length `len()` of the set `set()`:
+
+len(set(mylist))
 
 # We can now use the `set()` function to convert the list of all words (`alice_words`) into a set of *unique* words and then count them:
 
