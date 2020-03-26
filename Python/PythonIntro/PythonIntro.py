@@ -408,7 +408,7 @@ print(alice_paragraphs[2], "\n==========")
 
 len(alice_paragraphs)
 
-# Now let's use a logical operator to find out if "Alice" or "Eaglet" appear in Chapter 10:
+# Now let's use a logical operator to find out if "Alice" or "Eaglet" appear in paragraph 11:
 
 alice_eaglet_exist = "Alice" in alice_paragraphs[10] or "Eaglet" in alice_paragraphs[10]
 alice_eaglet_exist
