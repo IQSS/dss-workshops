@@ -229,7 +229,7 @@ print(alice_txt[:500]) # the [:500] gets the first 500 character -- more on this
 
 type(alice_txt)
 
-# Python tells us that `alice_txt` is of type `str` (i.e., it is a string). We can find out what methods are available for working strings by typing `alice_txt.` and pressing `tab`. We'll see that among the methods is one named `split`, as shown below.
+# Python tells us that `alice_txt` is of type `str` (i.e., it is a string). We can find out what methods are available for working with strings by typing `alice_txt.` and pressing `tab`. We'll see that among the methods is one named `split`, as shown below.
 #
 # ![](Python/PythonIntro/images/notebook_string_completion.png) 
 #
@@ -237,14 +237,14 @@ type(alice_txt)
 
 help(alice_txt.split)
 
-# Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the split method and counting the number of elements in the result.
+# Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the `split` method and counting the number of elements in the result. But, before we do that, we should learn more about the type of object the `split` method has returned.
 
 alice_words = alice_txt.split() # returns a list
 type(alice_words)
 
 # ### Working with lists
 #
-# The `split` methods we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.
+# The `split` method we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.
 #
 # Note that the displayed representation of lists and other data structures in Python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list.
 #
@@ -559,7 +559,7 @@ chapter_titles = []
 for chapter in alice_chapters[1:]:
     chapter_titles.append(chapter.split(sep="\n")[0])
 
-print(chapter_titles)
+chapter_titles
 
 # Next, we can iterate over each chapter and count the number of times "Alice" was mentioned. These will become our **values**.
 
@@ -568,14 +568,16 @@ chapter_Alice = []
 for chapter in alice_chapters[1:]:
     chapter_Alice.append(chapter.count("Alice"))
 
+chapter_Alice   
+
 # Finally we can combine the chapter titles (**keys**) and "Alice" counts (**values**) and convert them to a dictionary.
 
 # combine titles and counts
 mydict = dict(zip(chapter_titles, chapter_Alice))
 
-print(mydict)
+mydict
 
-help(zip)         
+# help(zip)         
 
 
 # ### Exercise 2

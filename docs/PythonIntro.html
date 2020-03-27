@@ -939,7 +939,7 @@ be modified by the user by specifying options.</p>
 <p>How do we figure out how to split strings in Python? We can ask Python what our <code>alice_txt</code> object is and what methods it provides. We can ask Python what things are using the <code>type()</code> function, like this:</p>
 <div class="sourceCode" id="cb487"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb487-1" data-line-number="1"><span class="bu">type</span>(alice_txt)</a></code></pre></div>
 <pre><code>## &lt;class &#39;str&#39;&gt;</code></pre>
-<p>Python tells us that <code>alice_txt</code> is of type <code>str</code> (i.e., it is a string). We can find out what methods are available for working strings by typing <code>alice_txt.</code> and pressing <code>tab</code>. We’ll see that among the methods is one named <code>split</code>, as shown below.</p>
+<p>Python tells us that <code>alice_txt</code> is of type <code>str</code> (i.e., it is a string). We can find out what methods are available for working with strings by typing <code>alice_txt.</code> and pressing <code>tab</code>. We’ll see that among the methods is one named <code>split</code>, as shown below.</p>
 <p><img src="Python/PythonIntro/images/notebook_string_completion.png" /></p>
 <p>To learn how to use this method we can check the documentation.</p>
 <div class="sourceCode" id="cb489"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb489-1" data-line-number="1"><span class="bu">help</span>(alice_txt.split)</a></code></pre></div>
@@ -955,14 +955,14 @@ be modified by the user by specifying options.</p>
 ##     maxsplit
 ##       Maximum number of splits to do.
 ##       -1 (the default value) means no limit.</code></pre>
-<p>Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the split method and counting the number of elements in the result.</p>
+<p>Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the <code>split</code> method and counting the number of elements in the result. But, before we do that, we should learn more about the type of object the <code>split</code> method has returned.</p>
 <div class="sourceCode" id="cb491"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb491-1" data-line-number="1">alice_words <span class="op">=</span> alice_txt.split() <span class="co"># returns a list</span></a>
 <a class="sourceLine" id="cb491-2" data-line-number="2"><span class="bu">type</span>(alice_words)</a></code></pre></div>
 <pre><code>## &lt;class &#39;list&#39;&gt;</code></pre>
 </div>
 <div id="working-with-lists" class="section level3">
 <h3>Working with lists</h3>
-<p>The <code>split</code> methods we used to break up the text of <em>Alice in Wonderland</em> into words produced a <em>list</em>. A lot of the techniques we’ll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.</p>
+<p>The <code>split</code> method we used to break up the text of <em>Alice in Wonderland</em> into words produced a <em>list</em>. A lot of the techniques we’ll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.</p>
 <p>Note that the displayed representation of lists and other data structures in Python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list.</p>
 <p>A <em>list</em> in Python is used to store a collection of items:</p>
 <div class="sourceCode" id="cb493"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb493-1" data-line-number="1"><span class="co"># create a list</span></a>
@@ -1331,49 +1331,24 @@ and then extract the last element.</li>
 <a class="sourceLine" id="cb578-3" data-line-number="3"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters[<span class="dv">1</span>:]:</a>
 <a class="sourceLine" id="cb578-4" data-line-number="4">    chapter_titles.append(chapter.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>])</a>
 <a class="sourceLine" id="cb578-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb578-6" data-line-number="6"><span class="bu">print</span>(chapter_titles)</a></code></pre></div>
+<a class="sourceLine" id="cb578-6" data-line-number="6">chapter_titles</a></code></pre></div>
 <pre><code>## [&#39;I. Down the Rabbit-Hole&#39;, &#39;II. The Pool of Tears&#39;, &#39;III. A Caucus-Race and a Long Tale&#39;, &#39;IV. The Rabbit Sends in a Little Bill&#39;, &#39;V. Advice from a Caterpillar&#39;, &#39;VI. Pig and Pepper&#39;, &#39;VII. A Mad Tea-Party&#39;, &quot;VIII. The Queen&#39;s Croquet-Ground&quot;, &quot;IX. The Mock Turtle&#39;s Story&quot;, &#39;X. The Lobster Quadrille&#39;, &#39;XI. Who Stole the Tarts?&#39;, &quot;XII. Alice&#39;s Evidence&quot;]</code></pre>
 <p>Next, we can iterate over each chapter and count the number of times “Alice” was mentioned. These will become our <strong>values</strong>.</p>
 <div class="sourceCode" id="cb580"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb580-1" data-line-number="1">chapter_Alice <span class="op">=</span> []</a>
 <a class="sourceLine" id="cb580-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb580-3" data-line-number="3"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters[<span class="dv">1</span>:]:</a>
-<a class="sourceLine" id="cb580-4" data-line-number="4">    chapter_Alice.append(chapter.count(<span class="st">&quot;Alice&quot;</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb580-4" data-line-number="4">    chapter_Alice.append(chapter.count(<span class="st">&quot;Alice&quot;</span>))</a>
+<a class="sourceLine" id="cb580-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb580-6" data-line-number="6">chapter_Alice   </a></code></pre></div>
+<pre><code>## [28, 24, 23, 31, 35, 43, 51, 39, 52, 30, 16, 23]</code></pre>
 <p>Finally we can combine the chapter titles (<strong>keys</strong>) and “Alice” counts (<strong>values</strong>) and convert them to a dictionary.</p>
-<div class="sourceCode" id="cb581"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb581-1" data-line-number="1"><span class="co"># combine titles and counts</span></a>
-<a class="sourceLine" id="cb581-2" data-line-number="2">mydict <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(chapter_titles, chapter_Alice))</a>
-<a class="sourceLine" id="cb581-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb581-4" data-line-number="4"><span class="bu">print</span>(mydict)</a></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb582-1" data-line-number="1"><span class="co"># combine titles and counts</span></a>
+<a class="sourceLine" id="cb582-2" data-line-number="2">mydict <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(chapter_titles, chapter_Alice))</a>
+<a class="sourceLine" id="cb582-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb582-4" data-line-number="4">mydict</a>
+<a class="sourceLine" id="cb582-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb582-6" data-line-number="6"><span class="co"># help(zip)         </span></a></code></pre></div>
 <pre><code>## {&#39;I. Down the Rabbit-Hole&#39;: 28, &#39;II. The Pool of Tears&#39;: 24, &#39;III. A Caucus-Race and a Long Tale&#39;: 23, &#39;IV. The Rabbit Sends in a Little Bill&#39;: 31, &#39;V. Advice from a Caterpillar&#39;: 35, &#39;VI. Pig and Pepper&#39;: 43, &#39;VII. A Mad Tea-Party&#39;: 51, &quot;VIII. The Queen&#39;s Croquet-Ground&quot;: 39, &quot;IX. The Mock Turtle&#39;s Story&quot;: 52, &#39;X. The Lobster Quadrille&#39;: 30, &#39;XI. Who Stole the Tarts?&#39;: 16, &quot;XII. Alice&#39;s Evidence&quot;: 23}</code></pre>
-<div class="sourceCode" id="cb583"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb583-1" data-line-number="1"><span class="bu">help</span>(<span class="bu">zip</span>)         </a></code></pre></div>
-<pre><code>## Help on class zip in module builtins:
-## 
-## class zip(object)
-##  |  zip(*iterables) --&gt; zip object
-##  |  
-##  |  Return a zip object whose .__next__() method returns a tuple where
-##  |  the i-th element comes from the i-th iterable argument.  The .__next__()
-##  |  method continues until the shortest iterable in the argument sequence
-##  |  is exhausted and then it raises StopIteration.
-##  |  
-##  |  Methods defined here:
-##  |  
-##  |  __getattribute__(self, name, /)
-##  |      Return getattr(self, name).
-##  |  
-##  |  __iter__(self, /)
-##  |      Implement iter(self).
-##  |  
-##  |  __next__(self, /)
-##  |      Implement next(self).
-##  |  
-##  |  __reduce__(...)
-##  |      Return state information for pickling.
-##  |  
-##  |  ----------------------------------------------------------------------
-##  |  Static methods defined here:
-##  |  
-##  |  __new__(*args, **kwargs) from builtins.type
-##  |      Create and return a new object.  See help(type) for accurate signature.</code></pre>
 </div>
 <div id="exercise-2-3" class="section level3">
 <h3>Exercise 2</h3>
@@ -1384,25 +1359,25 @@ and then extract the last element.</li>
 </ol>
 <p>Open and read both “Alice_in_wonderland.txt” and
 “Characters.txt” if you have not already done so.</p>
-<div class="sourceCode" id="cb585"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb585-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb584-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Which chapter has the most words?</li>
 </ol>
 <p>Split the text into chapters (i.e., split on “CHAPTER”) and use a for-loop to iterate over the chapters.
 For each chapter, split it into words and calculate the length.</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb586-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb585-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>How many times is each character mentioned in the text?</li>
 </ol>
 <p>Iterate over the list of characters using a for-loop.
 For each character, call the count method with that character as the argument.</p>
-<div class="sourceCode" id="cb587"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb587-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb586-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>(BONUS, optional): Put the character counts computed
 above in a dictionary with character names as the keys and
 counts as the values.</li>
 </ol>
-<div class="sourceCode" id="cb588"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb588-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb587-1" data-line-number="1"><span class="co">##</span></a></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 <div class="alert alert-danger">
@@ -1410,34 +1385,34 @@ counts as the values.</li>
 <li>Make sure you have both the text and the list of characters.
 Open and read both “Alice_in_wonderland.txt” and “Characters.txt” if you have not already done so.</li>
 </ol>
-<div class="sourceCode" id="cb589"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb589-1" data-line-number="1">characters_txt <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;Characters.txt&quot;</span>).read()</a>
-<a class="sourceLine" id="cb589-2" data-line-number="2">alice_txt <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;Alice_in_wonderland.txt&quot;</span>).read()</a></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb588-1" data-line-number="1">characters_txt <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;Characters.txt&quot;</span>).read()</a>
+<a class="sourceLine" id="cb588-2" data-line-number="2">alice_txt <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;Alice_in_wonderland.txt&quot;</span>).read()</a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Which chapter has the most words?
 Split the text into chapters (i.e., split on “CHAPTER”) and use a for-loop to iterate over the chapters.
 For each chapter, split it into words and calculate the length.</li>
 </ol>
-<div class="sourceCode" id="cb590"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb590-1" data-line-number="1">words_per_chapter <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb590-2" data-line-number="2"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters:</a>
-<a class="sourceLine" id="cb590-3" data-line-number="3">    words_per_chapter.append(<span class="bu">len</span>(chapter.split()))</a>
-<a class="sourceLine" id="cb590-4" data-line-number="4">words_per_chapter</a></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb589-1" data-line-number="1">words_per_chapter <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb589-2" data-line-number="2"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters:</a>
+<a class="sourceLine" id="cb589-3" data-line-number="3">    words_per_chapter.append(<span class="bu">len</span>(chapter.split()))</a>
+<a class="sourceLine" id="cb589-4" data-line-number="4">words_per_chapter</a></code></pre></div>
 <pre><code>## [7, 2184, 2098, 1701, 2614, 2185, 2592, 2286, 2486, 2271, 2028, 1877, 2104]</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>How many times is each character mentioned in the text?
 Iterate over the list of characters using a for-loop.
 For each character, call the count method with that character as the argument.</li>
 </ol>
-<div class="sourceCode" id="cb592"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb592-1" data-line-number="1">num_per_character <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb592-2" data-line-number="2"><span class="cf">for</span> character <span class="kw">in</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>):</a>
-<a class="sourceLine" id="cb592-3" data-line-number="3">    num_per_character.append(alice_txt.count(character))</a>
-<a class="sourceLine" id="cb592-4" data-line-number="4">num_per_character</a></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb591-1" data-line-number="1">num_per_character <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb591-2" data-line-number="2"><span class="cf">for</span> character <span class="kw">in</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>):</a>
+<a class="sourceLine" id="cb591-3" data-line-number="3">    num_per_character.append(alice_txt.count(character))</a>
+<a class="sourceLine" id="cb591-4" data-line-number="4">num_per_character</a></code></pre></div>
 <pre><code>## [395, 20, 30, 13, 7, 3, 3, 3, 0, 0, 27, 42, 4, 30, 55, 40, 3, 3, 0, 55, 53, 144403]</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>(BONUS, optional): Put the character counts computed above in a
 dictionary with character names as the keys and counts as the values.</li>
 </ol>
-<div class="sourceCode" id="cb594"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb594-1" data-line-number="1">characters <span class="op">=</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb594-2" data-line-number="2"><span class="bu">dict</span>(<span class="bu">zip</span>(characters, num_per_character))</a></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb593-1" data-line-number="1">characters <span class="op">=</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb593-2" data-line-number="2"><span class="bu">dict</span>(<span class="bu">zip</span>(characters, num_per_character))</a></code></pre></div>
 <pre><code>## {&#39;Alice&#39;: 395, &#39;White Rabbit&#39;: 20, &#39;Mouse&#39;: 30, &#39;Dodo&#39;: 13, &#39;Lory&#39;: 7, &#39;Eaglet&#39;: 3, &#39;Duck&#39;: 3, &#39;Pat&#39;: 3, &#39;Bill the Lizard&#39;: 0, &#39;Puppy&#39;: 0, &#39;Caterpillar&#39;: 27, &#39;Duchess&#39;: 42, &#39;Cheshire Cat&#39;: 4, &#39;March Hare&#39;: 30, &#39;Hatter&#39;: 55, &#39;Dormouse&#39;: 40, &#39;Queen of Hearts&#39;: 3, &#39;Knave of Hearts&#39;: 3, &#39;King of Hearts&#39;: 0, &#39;Gryphon&#39;: 55, &#39;Mock Turtle&#39;: 53, &#39;&#39;: 144403}</code></pre>
 </div>
 </details>
@@ -1455,15 +1430,15 @@ dictionary with character names as the keys and counts as the values.</li>
 <p>Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., <code>min()</code> and <code>max()</code>) but built-in math support is pretty limited.</p>
 <p>When you find that something isn’t available in Python itself, its time to look for a package that does it. Although it is somewhat overkill for simply calculating a mean we’re going to use a popular package called <code>numpy</code> for this. The <code>numpy</code> package is included in the Anaconda Python distribution we are using, so we don’t need to install it separately.</p>
 <p>To use <code>numpy</code> or other packages, you must first import them.</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb596-1" data-line-number="1"><span class="co"># import &lt;package-name&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb595-1" data-line-number="1"><span class="co"># import &lt;package-name&gt;</span></a></code></pre></div>
 <p>We can import <code>numpy</code> as follows:</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb597-1" data-line-number="1"><span class="im">import</span> numpy</a></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb596-1" data-line-number="1"><span class="im">import</span> numpy</a></code></pre></div>
 <p>To use functions from a package, we can prefix the function with the package name, separated by a period:</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb598-1" data-line-number="1"><span class="co"># &lt;package-name&gt;.&lt;function_name&gt;()</span></a></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb597-1" data-line-number="1"><span class="co"># &lt;package-name&gt;.&lt;function_name&gt;()</span></a></code></pre></div>
 <p>The <code>numpy</code> package is very popular and includes a lot of useful functions. For example, we can use it to calculate means and standard deviations:</p>
-<div class="sourceCode" id="cb599"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb599-1" data-line-number="1"><span class="bu">print</span>(numpy.mean(chapter_Alice))</a></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb598-1" data-line-number="1"><span class="bu">print</span>(numpy.mean(chapter_Alice))</a></code></pre></div>
 <pre><code>## 32.916666666666664</code></pre>
-<div class="sourceCode" id="cb601"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb601-1" data-line-number="1"><span class="bu">print</span>(numpy.std(chapter_Alice))</a></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb600-1" data-line-number="1"><span class="bu">print</span>(numpy.std(chapter_Alice))</a></code></pre></div>
 <pre><code>## 10.92747556493366</code></pre>
 </div>
 <div id="wrap-up-5" class="section level2">

@@ -10094,7 +10094,7 @@ How do we figure out how to split strings in Python? We can ask Python what our 
 ## <class 'str'>
 \end{verbatim}
 
-Python tells us that \texttt{alice\_txt} is of type \texttt{str} (i.e., it is a string). We can find out what methods are available for working strings by typing \texttt{alice\_txt.} and pressing \texttt{tab}. We'll see that among the methods is one named \texttt{split}, as shown below.
+Python tells us that \texttt{alice\_txt} is of type \texttt{str} (i.e., it is a string). We can find out what methods are available for working with strings by typing \texttt{alice\_txt.} and pressing \texttt{tab}. We'll see that among the methods is one named \texttt{split}, as shown below.
 
 \includegraphics{Python/PythonIntro/images/notebook_string_completion.png}
 
@@ -10121,7 +10121,7 @@ To learn how to use this method we can check the documentation.
 ##       -1 (the default value) means no limit.
 \end{verbatim}
 
-Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the split method and counting the number of elements in the result.
+Since the default is to split on whitespace (spaces, newlines, tabs) we can get a reasonable word count simply by calling the \texttt{split} method and counting the number of elements in the result. But, before we do that, we should learn more about the type of object the \texttt{split} method has returned.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10137,7 +10137,7 @@ Since the default is to split on whitespace (spaces, newlines, tabs) we can get 
 \hypertarget{working-with-lists}{%
 \subsection{Working with lists}\label{working-with-lists}}
 
-The \texttt{split} methods we used to break up the text of \emph{Alice in Wonderland} into words produced a \emph{list}. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.
+The \texttt{split} method we used to break up the text of \emph{Alice in Wonderland} into words produced a \emph{list}. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.
 
 Note that the displayed representation of lists and other data structures in Python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list.
 
@@ -10940,7 +10940,7 @@ Now, with the Alice text, first we can iterate over each chapter and grab just t
 \ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
 \NormalTok{    chapter_titles.append(chapter.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)[}\DecValTok{0}\NormalTok{])}
 
-\BuiltInTok{print}\NormalTok{(chapter_titles)}
+\NormalTok{chapter_titles}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10956,8 +10956,14 @@ Next, we can iterate over each chapter and count the number of times ``Alice'' w
 
 \ControlFlowTok{for}\NormalTok{ chapter }\KeywordTok{in}\NormalTok{ alice_chapters[}\DecValTok{1}\NormalTok{:]:}
 \NormalTok{    chapter_Alice.append(chapter.count(}\StringTok{"Alice"}\NormalTok{))}
+
+\NormalTok{chapter_Alice   }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## [28, 24, 23, 31, 35, 43, 51, 39, 52, 30, 16, 23]
+\end{verbatim}
 
 Finally we can combine the chapter titles (\textbf{keys}) and ``Alice'' counts (\textbf{values}) and convert them to a dictionary.
 
@@ -10966,50 +10972,14 @@ Finally we can combine the chapter titles (\textbf{keys}) and ``Alice'' counts (
 \CommentTok{# combine titles and counts}
 \NormalTok{mydict }\OperatorTok{=} \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(chapter_titles, chapter_Alice))}
 
-\BuiltInTok{print}\NormalTok{(mydict)}
+\NormalTok{mydict}
+
+\CommentTok{# help(zip)         }
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## {'I. Down the Rabbit-Hole': 28, 'II. The Pool of Tears': 24, 'III. A Caucus-Race and a Long Tale': 23, 'IV. The Rabbit Sends in a Little Bill': 31, 'V. Advice from a Caterpillar': 35, 'VI. Pig and Pepper': 43, 'VII. A Mad Tea-Party': 51, "VIII. The Queen's Croquet-Ground": 39, "IX. The Mock Turtle's Story": 52, 'X. The Lobster Quadrille': 30, 'XI. Who Stole the Tarts?': 16, "XII. Alice's Evidence": 23}
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\BuiltInTok{help}\NormalTok{(}\BuiltInTok{zip}\NormalTok{)         }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Help on class zip in module builtins:
-## 
-## class zip(object)
-##  |  zip(*iterables) --> zip object
-##  |  
-##  |  Return a zip object whose .__next__() method returns a tuple where
-##  |  the i-th element comes from the i-th iterable argument.  The .__next__()
-##  |  method continues until the shortest iterable in the argument sequence
-##  |  is exhausted and then it raises StopIteration.
-##  |  
-##  |  Methods defined here:
-##  |  
-##  |  __getattribute__(self, name, /)
-##  |      Return getattr(self, name).
-##  |  
-##  |  __iter__(self, /)
-##  |      Implement iter(self).
-##  |  
-##  |  __next__(self, /)
-##  |      Implement next(self).
-##  |  
-##  |  __reduce__(...)
-##  |      Return state information for pickling.
-##  |  
-##  |  ----------------------------------------------------------------------
-##  |  Static methods defined here:
-##  |  
-##  |  __new__(*args, **kwargs) from builtins.type
-##  |      Create and return a new object.  See help(type) for accurate signature.
 \end{verbatim}
 
 \hypertarget{exercise-2-3}{%
