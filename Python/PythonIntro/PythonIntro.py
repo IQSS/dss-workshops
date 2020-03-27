@@ -559,7 +559,7 @@ chapter_titles = []
 for chapter in alice_chapters[1:]:
     chapter_titles.append(chapter.split(sep="\n")[0])
 
-chapter_titles
+print(chapter_titles)
 
 # Next, we can iterate over each chapter and count the number of times "Alice" was mentioned. These will become our **values**.
 
@@ -568,14 +568,14 @@ chapter_Alice = []
 for chapter in alice_chapters[1:]:
     chapter_Alice.append(chapter.count("Alice"))
 
-chapter_Alice   
+print(chapter_Alice)  
 
 # Finally we can combine the chapter titles (**keys**) and "Alice" counts (**values**) and convert them to a dictionary.
 
 # combine titles and counts
 mydict = dict(zip(chapter_titles, chapter_Alice))
 
-mydict
+print(mydict)
 
 # help(zip)         
 
@@ -628,18 +628,22 @@ alice_txt = open("Alice_in_wonderland.txt").read()
 #    For each chapter, split it into words and calculate the length.
 
 words_per_chapter = []
+
 for chapter in alice_chapters:
     words_per_chapter.append(len(chapter.split()))
-words_per_chapter
+
+print(words_per_chapter)
 
 # 3. How many times is each character mentioned in the text?
 #    Iterate over the list of characters using a for-loop. 
 #    For each character, call the count method with that character as the argument.
 
 num_per_character = []
+
 for character in characters_txt.split(sep="\n"):
     num_per_character.append(alice_txt.count(character))
-num_per_character
+
+print(num_per_character)
 
 # 4. (BONUS, optional): Put the character counts computed above in a 
 #    dictionary with character names as the keys and counts as the values.

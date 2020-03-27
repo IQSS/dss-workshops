@@ -1331,7 +1331,7 @@ and then extract the last element.</li>
 <a class="sourceLine" id="cb578-3" data-line-number="3"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters[<span class="dv">1</span>:]:</a>
 <a class="sourceLine" id="cb578-4" data-line-number="4">    chapter_titles.append(chapter.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>])</a>
 <a class="sourceLine" id="cb578-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb578-6" data-line-number="6">chapter_titles</a></code></pre></div>
+<a class="sourceLine" id="cb578-6" data-line-number="6"><span class="bu">print</span>(chapter_titles)</a></code></pre></div>
 <pre><code>## [&#39;I. Down the Rabbit-Hole&#39;, &#39;II. The Pool of Tears&#39;, &#39;III. A Caucus-Race and a Long Tale&#39;, &#39;IV. The Rabbit Sends in a Little Bill&#39;, &#39;V. Advice from a Caterpillar&#39;, &#39;VI. Pig and Pepper&#39;, &#39;VII. A Mad Tea-Party&#39;, &quot;VIII. The Queen&#39;s Croquet-Ground&quot;, &quot;IX. The Mock Turtle&#39;s Story&quot;, &#39;X. The Lobster Quadrille&#39;, &#39;XI. Who Stole the Tarts?&#39;, &quot;XII. Alice&#39;s Evidence&quot;]</code></pre>
 <p>Next, we can iterate over each chapter and count the number of times “Alice” was mentioned. These will become our <strong>values</strong>.</p>
 <div class="sourceCode" id="cb580"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb580-1" data-line-number="1">chapter_Alice <span class="op">=</span> []</a>
@@ -1339,13 +1339,13 @@ and then extract the last element.</li>
 <a class="sourceLine" id="cb580-3" data-line-number="3"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters[<span class="dv">1</span>:]:</a>
 <a class="sourceLine" id="cb580-4" data-line-number="4">    chapter_Alice.append(chapter.count(<span class="st">&quot;Alice&quot;</span>))</a>
 <a class="sourceLine" id="cb580-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb580-6" data-line-number="6">chapter_Alice   </a></code></pre></div>
+<a class="sourceLine" id="cb580-6" data-line-number="6"><span class="bu">print</span>(chapter_Alice)  </a></code></pre></div>
 <pre><code>## [28, 24, 23, 31, 35, 43, 51, 39, 52, 30, 16, 23]</code></pre>
 <p>Finally we can combine the chapter titles (<strong>keys</strong>) and “Alice” counts (<strong>values</strong>) and convert them to a dictionary.</p>
 <div class="sourceCode" id="cb582"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb582-1" data-line-number="1"><span class="co"># combine titles and counts</span></a>
 <a class="sourceLine" id="cb582-2" data-line-number="2">mydict <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(chapter_titles, chapter_Alice))</a>
 <a class="sourceLine" id="cb582-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb582-4" data-line-number="4">mydict</a>
+<a class="sourceLine" id="cb582-4" data-line-number="4"><span class="bu">print</span>(mydict)</a>
 <a class="sourceLine" id="cb582-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb582-6" data-line-number="6"><span class="co"># help(zip)         </span></a></code></pre></div>
 <pre><code>## {&#39;I. Down the Rabbit-Hole&#39;: 28, &#39;II. The Pool of Tears&#39;: 24, &#39;III. A Caucus-Race and a Long Tale&#39;: 23, &#39;IV. The Rabbit Sends in a Little Bill&#39;: 31, &#39;V. Advice from a Caterpillar&#39;: 35, &#39;VI. Pig and Pepper&#39;: 43, &#39;VII. A Mad Tea-Party&#39;: 51, &quot;VIII. The Queen&#39;s Croquet-Ground&quot;: 39, &quot;IX. The Mock Turtle&#39;s Story&quot;: 52, &#39;X. The Lobster Quadrille&#39;: 30, &#39;XI. Who Stole the Tarts?&#39;: 16, &quot;XII. Alice&#39;s Evidence&quot;: 23}</code></pre>
@@ -1393,9 +1393,11 @@ Split the text into chapters (i.e., split on “CHAPTER”) and use a for-loop t
 For each chapter, split it into words and calculate the length.</li>
 </ol>
 <div class="sourceCode" id="cb589"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb589-1" data-line-number="1">words_per_chapter <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb589-2" data-line-number="2"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters:</a>
-<a class="sourceLine" id="cb589-3" data-line-number="3">    words_per_chapter.append(<span class="bu">len</span>(chapter.split()))</a>
-<a class="sourceLine" id="cb589-4" data-line-number="4">words_per_chapter</a></code></pre></div>
+<a class="sourceLine" id="cb589-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb589-3" data-line-number="3"><span class="cf">for</span> chapter <span class="kw">in</span> alice_chapters:</a>
+<a class="sourceLine" id="cb589-4" data-line-number="4">    words_per_chapter.append(<span class="bu">len</span>(chapter.split()))</a>
+<a class="sourceLine" id="cb589-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb589-6" data-line-number="6"><span class="bu">print</span>(words_per_chapter)</a></code></pre></div>
 <pre><code>## [7, 2184, 2098, 1701, 2614, 2185, 2592, 2286, 2486, 2271, 2028, 1877, 2104]</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>How many times is each character mentioned in the text?
@@ -1403,9 +1405,11 @@ Iterate over the list of characters using a for-loop.
 For each character, call the count method with that character as the argument.</li>
 </ol>
 <div class="sourceCode" id="cb591"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb591-1" data-line-number="1">num_per_character <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb591-2" data-line-number="2"><span class="cf">for</span> character <span class="kw">in</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>):</a>
-<a class="sourceLine" id="cb591-3" data-line-number="3">    num_per_character.append(alice_txt.count(character))</a>
-<a class="sourceLine" id="cb591-4" data-line-number="4">num_per_character</a></code></pre></div>
+<a class="sourceLine" id="cb591-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb591-3" data-line-number="3"><span class="cf">for</span> character <span class="kw">in</span> characters_txt.split(sep<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>):</a>
+<a class="sourceLine" id="cb591-4" data-line-number="4">    num_per_character.append(alice_txt.count(character))</a>
+<a class="sourceLine" id="cb591-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb591-6" data-line-number="6"><span class="bu">print</span>(num_per_character)</a></code></pre></div>
 <pre><code>## [395, 20, 30, 13, 7, 3, 3, 3, 0, 0, 27, 42, 4, 30, 55, 40, 3, 3, 0, 55, 53, 144403]</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>(BONUS, optional): Put the character counts computed above in a
