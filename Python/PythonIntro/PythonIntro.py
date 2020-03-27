@@ -13,10 +13,17 @@
 
 # ## Setup
 #
+# ### Software and Materials
+#
+# Follow the [Python Installation](./PythonInstall.html) instructions and ensure that you can successfully start JupyterLab.
+#
+# A handy [cheat-sheet](Python/PythonIntro/python-cheat-sheet-basic.pdf) is available to help you look up and remember basic syntax.
+
 # ### Class Structure
 #
-# * Informal --- Ask questions at any time. Really!
-# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# Informal - Ask questions at any time. Really!
+#
+# Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 
 # ### Prerequisites
 #
@@ -104,19 +111,19 @@
 #
 # There are different ways of interacting with Python. The two main ways are through:
 #
-# 1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. Here are a few popular editors/IDEs that can be used with Python:
+# 1.  **text editors** or **Integrated Development Environments (IDEs):** Text editors and IDEs are not really separate categories; as you add features to a text editor it becomes more like an IDE. Some editors/IDEs are language-specific while others are general purpose --- typically providing language support via plugins. The following table lists a few popular editors/IDEs that can be used with Python. In this workshop, we will use [JupyterLab](https://jupyter.org/), a modern "extensible environment for interactive and reproducible computing" that runs in your web browser.
 #
 # | Editor / IDE | Features  | Ease of use | Language support |
 # |:------------ |:--------- |:----------- |:---------------- |
 # | Spyder       | Excellent | Easy        | Python only      |
 # | PyCharm      | Excellent | Moderate    | Python only      |
-# | Jupyter Lab  | Good      | Easy        | Excellent        |
+# | JupyterLab   | Good      | Easy        | Excellent        |
 # | VS code      | Excellent | Easy        | Very good        |
 # | Atom         | Good      | Moderate    | Good             |
 # | Vim          | Excellent | Hard        | Good             |
 # | Emacs        | Excellent | Hard        | Excellent        |
 #
-# 2. **Notebooks:** Web-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. For these workshops, we will use a [Jupyter Notebook](https://jupyter.org/); an open source notebook that has support for 40+ languages. 
+# 2. **Notebooks:** Browser-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. One popular choice is [Jupyter Notebook](https://jupyter.org/); an open source notebook that has support for 40+ languages, but has limited features compared with the JupyterLab IDE. 
 
 # #### Source code & literate programming
 #
@@ -136,7 +143,7 @@
 # ### Launch JupyterLab
 #
 # 1. Start the `Anaconda Navigator` program
-# 2. Click the `Launch` button under `Jupyter Lab`
+# 2. Click the `Launch` button under `JupyterLab`
 # 3. A browser window will open with your computer's files listed on the left hand side of the page. Navigate to the folder called `PythonIntro` that you downloaded to your desktop and double-click on the folder
 # 4. Within the `PythonIntro` folder, double-click on the file with the word "BLANK" in the name (`PythonIntro_BLANK.ipynb`). A pop-up window will ask you to `Select Kernal` --- you should select the Python 3 kernal. The Jupyter Notebook should now open on the right hand side of the page
 #
@@ -169,7 +176,7 @@
 
 # ### Assignment
 #
-# In Python we can assign a result to an name using the `=` operator.
+# In Python we can assign an object (data structure) to an name using the `=` operator.
 
 # name = thing_to_assign
 x = 10
@@ -284,8 +291,12 @@ len(alice_words) # counts elements in a data structure
 # According to our above computation, there are about 26 thousand total words in the Alice text. But how many *unique* words are there? Python has a special data structure called a *set* that makes it easy to find out. A *set* drops all duplicates, giving a collection of the unique elements. Here's a simple example:
 
 # set example
-mySet = {1, 5, 9, 9, 4, 5}
-len(mySet)
+mylist = {1, 5, 9, 9, 4, 5}
+set(mylist)
+
+# Now we can count the number of unique elements in the list by getting the length `len()` of the set `set()`:
+
+len(set(mylist))
 
 # We can now use the `set()` function to convert the list of all words (`alice_words`) into a set of *unique* words and then count them:
 
@@ -401,7 +412,7 @@ print(alice_paragraphs[2], "\n==========")
 
 len(alice_paragraphs)
 
-# Now let's use a logical operator to find out if "Alice" or "Eaglet" appear in Chapter 10:
+# Now let's use a logical operator to find out if "Alice" or "Eaglet" appear in paragraph 11:
 
 alice_eaglet_exist = "Alice" in alice_paragraphs[10] or "Eaglet" in alice_paragraphs[10]
 alice_eaglet_exist

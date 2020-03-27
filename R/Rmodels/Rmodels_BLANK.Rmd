@@ -16,10 +16,15 @@ knitr::opts_chunk$set(eval=TRUE, results=TRUE)
 
 ## Setup
 
+### Software and Materials
+
+Follow the [R Installation](./Rinstall.html) instructions and ensure that you can successfully start RStudio.
+
 ### Class Structure
 
-* Informal --- Ask questions at any time. Really!
-* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+Informal - Ask questions at any time. Really!
+
+Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 
 ### Prerequisites
 
@@ -208,18 +213,23 @@ outcome ~ pred1 + pred2 + pred3
 For example, the following model predicts SAT scores based on per-pupil expenditures:
 
 $$
-csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
+csat_i = \beta_{0}1 + \beta_1expense_i + \epsilon_i
 $$
 
 We can use `lm()` to fit this model:
 
 ```{r}
-  # Fit our regression model
+  # fit our regression model
   # regression formula
   # data 
                 
-  # Summarize and print the results
-  # show regression coefficients table
+  # look at the basic printed output
+
+  # get more informative summary information 
+  # about coefficients and goodness-of-fit
+
+  # show only the regression coefficients table 
+  
 ```
 
 ### Why is the association between expense & SAT scores *negative*?
@@ -248,25 +258,30 @@ Let's start by examining the model object:
   
 ```
 
-We can use `function methods` to get more information about the fit:
+We can list all the functions that extract particular quantities of interest (called `extractor functions`) by using the `methods()` function with the `class` argument set to the class of the model object:
 
 ```{r}
-  
+
 ```
 
-How does R know which method to call for a given object? 
-R uses `generic functions`, which provide access to `methods`. 
-Method dispatch takes place based on the `class` of the
-first argument to the generic function. For example, for the generic 
-function `summary()` and an object of class `lm`, the method 
-dispatched will be `summary.lm()`. Function methods always take 
-the form `generic.method()`:
+We can also use `function methods` to get more information about the fit:
+
+```{r}
+   # summary table
+   # confidence intervals
+   # ANOVA table  
+```
+
+How does R know which method to call for a given object? R uses `generic functions`, which provide access to `methods`. Method dispatch takes place based on the `class` of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Function methods always take the form `generic.method()`:
+
+```{r}
+
+```
 
 ![](images/methods.png)
 
-It's always worth examining what function methods are available for the class of model you're fitting.
-Here's a summary table of some of the most often used methods. These are post-estimation tools you
-will want in your toolbox:
+It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
+Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 
 | Function      | Package        | Output                                                  |
 |:--------------|:---------------|:--------------------------------------------------------|
@@ -422,19 +437,18 @@ So, make sure to tell R which variables are categorical by converting them to fa
 
 ### Setting factor reference groups & contrasts
 
-**Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models.
-All statistical sofware use contrasts, but each sofware has different defaults and their own way of overriding these.
+**Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.
 
-The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor
-is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category.
-They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group)
-and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something
-other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in
-treatment contrasts or get all sets of pairwise contrasts between factor levels.
+The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category.They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
 
 ```{r}
+  # default treatment (dummy) contrasts
+
   # change the reference group
+
+  # check the reference group has changed
   
+  # refit the model
 
   # get all pairwise contrasts between means
  
@@ -495,13 +509,18 @@ Anatomy of a generalized linear model:
 
 ```{r, eval=FALSE}
   # OLS model using lm()
- 
+  lm(outcome ~ 1 + pred1 + pred2, 
+     data = mydata)
 
   # OLS model using glm()
-
+  glm(outcome ~ 1 + pred1 + pred2, 
+      data = mydata, 
+      family = gaussian(link = "identity"))
  
   # logistic model using glm()
-
+  glm(outcome ~ 1 + pred1 + pred2, 
+      data = mydata, 
+      family = binomial(link = "logit"))
 ```
 
 The `family` argument sets the error distribution for the model, while the `link` function
@@ -511,7 +530,7 @@ Let's predict the probability of being diagnosed with hypertension based on `age
 Here's the model:
 
 $$
-logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+logit(hypev_i) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
 $$
 
 where $logit(\cdot)$ is the link function, which is equivalent to the log odds of `hypev`:
@@ -559,10 +578,7 @@ Here we transform them into odds ratios by exponentiating:
 
 ### Predicted marginal means
 
-Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least squares means").
-These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these
-marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute
-these quantities of interest for us (by default, the numerical output will be on the response scale).
+Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least squares means"). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
 
 ```{r}
   
@@ -662,10 +678,10 @@ approximation).
 Here's a model that predicts exam scores from student's standardized tests scores:
 
 $$
-normexam_{ij} = \mu + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
+normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 $$
 
-where $U_{0j}$ is the random intercept for `school`. Let's implement this in R using `lmer()`:
+where $U_{0j}$ is the random intercept for the $j$<sup>th</sup> `school`. Let's implement this in R using `lmer()`:
 
 ```{r}
   
@@ -673,7 +689,7 @@ where $U_{0j}$ is the random intercept for `school`. Let's implement this in R u
 
 ### Multiple degree of freedom comparisons
 
-As with `lm()` and `glm()` models, you can compare the two `lmer()` models using a likelihood ratio test with the `anova()` function.
+As with `lm()` and `glm()` models, you can compare the two `lmer()` models using the `anova()` function. With mixed effects models, this will produce a likelihood ratio test.
 
 ```{r}
   

@@ -15,11 +15,19 @@
 
 # ## Setup
 #
+# ### Software and Materials
+#
+# Follow the [R Installation](./Rinstall.html) instructions and ensure that you can successfully start RStudio.
+#
+# A handy [base R cheat-sheet](R/Rintro/base-r-cheat-sheet.pdf) is available to help you look up and remember basic syntax. 
+# In addition, a [data transformation cheat-sheet](R/Rintro/data-transformation-cheat-sheet.pdf) provides a convenient summary of data manipulation syntax.
+
 # ### Class Structure
 #
-# * Informal --- Ask questions at any time. Really!
-# * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# Informal - Ask questions at any time. Really!
 #
+# Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+
 # ### Prerequisites
 #
 # This is an introductory R course:
@@ -175,7 +183,7 @@
 #     ```
 #
 #  3. R includes extensive documentation, including a manual named "An
-#     introduction to R". Use the RStudio help pane. to locate this manual.
+#     introduction to R". Use the RStudio help pane to locate this manual.
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
@@ -233,18 +241,17 @@
 #
 # Arguments can be **matched by name**; unnamed arguments will be **matched by position**.
 
-values <- c(1.45, 2.34, 5.68)
-round(x = values, digits = 1) # match by name
-round(values, 1) # match by position
-round(1, values) # be careful when matching by position!
-round(digits = 1, x = values) # matching by name is safer!
+round(x = 2.34, digits = 1) # match by name
+round(2.34, 1) # match by position
+round(1, 2.34) # be careful when matching by position!
+round(digits = 1, x = 2.34) # matching by name is safer!
 
 # ### Assignment
 #
-# Values can be assigned names and used in subsequent operations
+# Objects (data structures) can be assigned names and used in subsequent operations:
 #
-# * The **gets** `<-` operator (less than followed by a dash) is used to save values
-# * The name on the left **gets** the value on the right.
+# * The **gets** `<-` operator (less than followed by a dash) is used to save objects
+# * The name on the left **gets** the object on the right 
 
 sqrt(10) ## calculate square root of 10; result is not stored anywhere
 x <- sqrt(10) # assign result to a variable named x
@@ -667,9 +674,6 @@ qplot(x = Year, y = Count, color = Sex,
 # ### Exercise 3 
 #
 # **Plot peak popularity of your name**
-#
-# Make sure the `tidyverse` suite of packages is installed, and that you 
-# have attached them using `library(tidyverse)`.
 #
 #  1. Use `filter` to extract data for your name (same as previous exercise)
 #

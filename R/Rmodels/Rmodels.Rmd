@@ -18,10 +18,15 @@ knitr::opts_knit$set(root.dir="R/Rmodels") # base.dir="R/Rmodels"
 
 ## Setup
 
+### Software and Materials
+
+Follow the [R Installation](./Rinstall.html) instructions and ensure that you can successfully start RStudio.
+
 ### Class Structure
 
-* Informal --- Ask questions at any time. Really!
-* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+Informal - Ask questions at any time. Really!
+
+Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 
 ### Prerequisites
 
@@ -219,19 +224,26 @@ For example, the following model predicts SAT scores based on per-pupil expendit
 
 <div class="alert alert-secondary">
 $$
-csat_i = \beta_01 + \beta_1expense_i + \epsilon_i
+csat_i = \beta_{0}1 + \beta_1expense_i + \epsilon_i
 $$
 </div>
 
 We can use `lm()` to fit this model:
 
 ```{r}
-  # Fit our regression model
+  # fit our regression model
   sat_mod <- lm(csat ~ 1 + expense, # regression formula
                 data = states_data) # data 
-                
-  # Summarize and print the results
-  summary(sat_mod) %>% coef() # show regression coefficients table
+
+  # look at the basic printed output
+  sat_mod
+
+  # get more informative summary information 
+  # about coefficients and goodness-of-fit
+  summary(sat_mod)
+
+  # show only the regression coefficients table 
+  summary(sat_mod) %>% coef() 
 ```
 
 ### Why is the association between expense & SAT scores *negative*?
@@ -261,31 +273,32 @@ Let's start by examining the model object:
   class(sat_mod)
   str(sat_mod)
   names(sat_mod)
-  methods(class = class(sat_mod))
 ```
 
-We can use `function methods` to get more information about the fit:
+We can list all the functions that extract particular quantities of interest (called `extractor functions`) by using the `methods()` function with the `class` argument set to the class of the model object:
 
 ```{r}
-  summary(sat_mod)
-  summary(sat_mod) %>% coef()
-  methods("summary")
-  confint(sat_mod)
+methods(class = class(sat_mod))
 ```
 
-How does R know which method to call for a given object? 
-R uses `generic functions`, which provide access to `methods`. 
-Method dispatch takes place based on the `class` of the
-first argument to the generic function. For example, for the generic 
-function `summary()` and an object of class `lm`, the method 
-dispatched will be `summary.lm()`. Function methods always take 
-the form `generic.method()`:
+We can also use `function methods` to get more information about the fit:
+
+```{r}
+  summary(sat_mod) # summary table
+  confint(sat_mod) # confidence intervals
+  anova(sat_mod) # ANOVA table  
+```
+
+How does R know which method to call for a given object? R uses `generic functions`, which provide access to `methods`. Method dispatch takes place based on the `class` of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Function methods always take the form `generic.method()`:
+
+```{r}
+methods("summary")
+```
 
 ![](R/Rmodels/images/methods.png)
 
-It's always worth examining what function methods are available for the class of model you're fitting.
-Here's a summary table of some of the most often used methods. These are post-estimation tools you
-will want in your toolbox:
+It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
+Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 
 | Function      | Package        | Output                                                  |
 |:--------------|:---------------|:--------------------------------------------------------|
@@ -358,7 +371,9 @@ To compare models, we must fit them to the same data. This is why we need `na.om
 Now let's update our first model using `na.omit()`:
 
 ```{r}
-  sat_mod <- update(sat_mod, data = na.omit(states_data))
+  sat_mod <- 
+      sat_mod %>%
+      update(data = na.omit(states_data))
 
   # compare using an F-test with the anova() function
   anova(sat_mod, sat_voting_mod)
@@ -405,7 +420,10 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 1.  Examine/plot the data before fitting the model.
 
 ```{r}
-  states_en_met <- subset(states, select = c("metro", "energy"))
+  states_en_met <- 
+      states %>% 
+      select(metro, energy)
+
   summary(states_en_met)
   plot(states_en_met)
   cor(states_en_met, use = "pairwise")
@@ -428,7 +446,10 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
 
 ```{r}
-  states_en_met_pop_wst <- subset(states, select = c("energy", "metro", "pop", "waste"))
+  states_en_met_pop_wst <- 
+      states %>%
+      select(energy, metro, pop, waste)
+
   summary(states_en_met_pop_wst)
   plot(states_en_met_pop_wst)
   cor(states_en_met_pop_wst, use = "pairwise")
@@ -496,26 +517,27 @@ So, make sure to tell R which variables are categorical by converting them to fa
 
 ### Setting factor reference groups & contrasts
 
-**Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models.
-All statistical sofware use contrasts, but each sofware has different defaults and their own way of overriding these.
+**Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.
 
-The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor
-is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category.
-They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group)
-and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something
-other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in
-treatment contrasts or get all sets of pairwise contrasts between factor levels.
+The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category.They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
 
 ```{r}
+  # default treatment (dummy) contrasts
+  contrasts(states_data$region)
+
   # change the reference group
   states_data$region <- relevel(states_data$region, ref = "Midwest")
-  m1 <- lm(csat ~ 1 + region, data = states_data)
-  summary(m1) %>% coef()
+
+  # check the reference group has changed
+  contrasts(states_data$region)
+
+  # refit the model
+  mod_region <- lm(csat ~ 1 + region, data = states_data)
+  summary(mod_region) %>% coef()
 
   # get all pairwise contrasts between means
-  means <- emmeans(m1, specs = ~ region)
-  means
-  contrast(means, method = "pairwise")
+  mod_region %>%
+      emmeans(specs = pairwise ~ region)
 ```
 
 
@@ -551,7 +573,7 @@ Use the states data set.
 
 ```{r}
   mod_en_region <- lm(energy ~ 1 + metro * waste + region, data = states)
-  anova(mod_en_region)
+  anova(mod_en_metro_by_waste, mod_en_region)
 ```
 </div>
 </details>
@@ -618,7 +640,7 @@ Here's the model:
 
 <div class="alert alert-secondary">
 $$
-logit(hypev_i) = \beta_01 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+logit(hypev_i) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
 $$
 </div>
 
@@ -671,21 +693,22 @@ Here we transform them into odds ratios by exponentiating:
 
 ### Predicted marginal means
 
-Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least squares means").
-These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these
-marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute
-these quantities of interest for us (by default, the numerical output will be on the response scale).
+Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least squares means"). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
 
 ```{r}
-  eff <- allEffects(hyp_out)
-  plot(eff, type = "response") # "response" refers to the probability scale
+  hyp_out %>% 
+      allEffects() %>%
+      plot(type = "response") # "response" refers to the probability scale
 
-  # generate a sequence at which to get predictions of the outcome
-  seq(20, 80, by = 5)
+  # generate a sequence of ages at which to get predictions of the outcome
+  age_years <- seq(20, 80, by = 5)
+  age_years
 
-  # override defaults
-  eff <- allEffects(hyp_out, xlevels = list(age_p = seq(20, 80, by = 5)))
-  eff_df <- as.data.frame(eff) # confidence intervals
+  eff_df <- 
+      hyp_out %>% 
+      allEffects(xlevels = list(age_p = age_years)) %>% # override defaults for age
+      as.data.frame() # get confidence intervals
+  
   eff_df
 ```
 
@@ -716,9 +739,11 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
 ```{r}
-  NH11 <- mutate(NH11,
-                     everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
-                     r_maritl = droplevels(r_maritl))
+  NH11 <- 
+      NH11 %>%
+      mutate(everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
+             r_maritl = droplevels(r_maritl)
+             )
 
   mod_wk_age_mar <- glm(everwrk ~ 1 + age_p + r_maritl, 
                         data = NH11,
@@ -730,8 +755,9 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`.
 
 ```{r}
-  eff <- allEffects(mod_wk_age_mar)
-  as.data.frame(eff)
+  mod_wk_age_mar %>% 
+      allEffects() %>%
+      as.data.frame()
 ```
 </div>
 </details>
@@ -781,14 +807,13 @@ As a preliminary step it is often useful to partition the variance in the depend
 ```{r, eval=FALSE}
   # anatomy of lmer() function
   lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), 
-       data = mydata, 
-       REML = FALSE)
+       data = mydata)
 ```
 
 ```{r}
   # null model, grouping by school but not fixed effects.
   Norm1 <-lmer(normexam ~ 1 + (1 | school), 
-              data = na.omit(Exam), REML = FALSE)
+              data = na.omit(Exam))
   summary(Norm1)
 ```
 
@@ -805,21 +830,21 @@ Here's a model that predicts exam scores from student's standardized tests score
 
 <div class="alert alert-secondary">
 $$
-normexam_{ij} = \mu + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
+normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
 $$
 </div>
 
-where $U_{0j}$ is the random intercept for `school`. Let's implement this in R using `lmer()`:
+where $U_{0j}$ is the random intercept for the $j$<sup>th</sup> `school`. Let's implement this in R using `lmer()`:
 
 ```{r}
   Norm2 <-lmer(normexam ~ 1 + standLRT + (1 | school),
-               data = na.omit(Exam), REML = FALSE) 
+               data = na.omit(Exam)) 
   summary(Norm2) 
 ```
 
 ### Multiple degree of freedom comparisons
 
-As with `lm()` and `glm()` models, you can compare the two `lmer()` models using a likelihood ratio test with the `anova()` function.
+As with `lm()` and `glm()` models, you can compare the two `lmer()` models using the `anova()` function. With mixed effects models, this will produce a likelihood ratio test.
 
 ```{r}
   anova(Norm1, Norm2)
@@ -831,7 +856,7 @@ Add a random effect of students' standardized test scores as well. Now in additi
 
 ```{r}
   Norm3 <- lmer(normexam ~ 1 + standLRT + (1 + standLRT | school), 
-                data = na.omit(Exam), REML = FALSE) 
+                data = na.omit(Exam)) 
   summary(Norm3) 
 ```
 
@@ -885,6 +910,7 @@ From the data documentation:
 Use the dataset, bh1996:
 
 ```{r}
+  # install.packages("multilevel")
   data(bh1996, package="multilevel")
 ```
 
@@ -895,21 +921,21 @@ From the data documentation:
 1.  Create a null model predicting wellbeing (`WBEING`).
 
 ```{r}
-  mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = bh1996)
+  mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp0)
 ```
 
 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
 ```{r}
-  mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = bh1996)
+  mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp1)
 ```
 
 3.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
 ```{r}
-  mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = bh1996)
+  mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = na.omit(bh1996))
   anova(mod_grp1, mod_grp2)
 ```
 </div>
