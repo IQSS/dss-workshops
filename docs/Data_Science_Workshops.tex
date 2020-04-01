@@ -130,7 +130,7 @@
 
 \title{Data Science Workshops}
 \author{}
-\date{\vspace{-2.5em}March 2020}
+\date{\vspace{-2.5em}April 2020}
 
 \begin{document}
 \maketitle
@@ -1679,12 +1679,12 @@ These basically boil down to a choice between:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{Source code:} the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a \texttt{.R} or \texttt{.r} extension. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
+  \textbf{Source code:} the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a \texttt{.R} or \texttt{.r} extension. Writing source code has the great advantage of being simple. Source code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
 \item
-  \textbf{Literate programming:} the practice of embedding computer code in a natural language document. In R this is often done using \href{https://rmarkdown.rstudio.com/}{\textbf{Rmarkdown}}, which involves embeddeding R code in a document that is authored using \emph{Markdown} and which has a \texttt{.Rmd} extension. \emph{Markdown} is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX).
+  \textbf{Literate programming:} the practice of embedding computer code in a natural language document. In R this is often done using \href{https://rmarkdown.rstudio.com/}{\textbf{Rmarkdown}}, which involves embedding R code in a document that is authored using \emph{Markdown} and which has a \texttt{.Rmd} extension. \emph{Markdown} is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX).
 \end{enumerate}
 
-Here are some resources for learning more about Rmarkdown and RStudio:
+Here are some resources for learning more about RMarkdown and RStudio:
 
 \begin{itemize}
 \tightlist
@@ -1707,7 +1707,7 @@ Start RStudio and create a new project:
   On Windows click the start button and search for RStudio. On Mac
   RStudio will be in your applications folder.
 \item
-  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
+  In RStudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
 \item
   Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
 \item
@@ -1906,7 +1906,7 @@ Objects (data structures) can be assigned names and used in subsequent operation
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{sqrt}\NormalTok{(}\DecValTok{10}\NormalTok{) }\CommentTok{## calculate square root of 10; result is not stored anywhere}
+\KeywordTok{sqrt}\NormalTok{(}\DecValTok{10}\NormalTok{) }\CommentTok{# calculate square root of 10; result is not stored anywhere}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1920,7 +1920,7 @@ Objects (data structures) can be assigned names and used in subsequent operation
 \end{Highlighting}
 \end{Shaded}
 
-Names should start with a letter, and contain only letters, numbers, underscores, and periods.
+As mentioned in \textbf{Syntax rules} above, names should start with a letter, and contain only letters, numbers, underscores, and periods.
 
 \hypertarget{asking-for-help}{%
 \subsection{Asking for help}\label{asking-for-help}}
@@ -2008,7 +2008,7 @@ particular, a collection of R packages called
 \href{https://www.tidyverse.org/}{\texttt{tidyverse}} have been
 designed specifically for data science. All packages included in
 \texttt{tidyverse} share an underlying design philosophy, grammar, and
-data structures. This philosopy is rooted in the idea of ``tidy data'':
+data structures. This philosophy is rooted in the idea of ``tidy data'':
 
 \includegraphics{R/Rintro/images/tidy_data.png}
 
@@ -2023,6 +2023,7 @@ Now let's load these packages into the search path of our R session.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Load packages tidyverse and rmarkdown using library() function}
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \KeywordTok{library}\NormalTok{(rmarkdown)}
 \end{Highlighting}
@@ -2047,12 +2048,13 @@ fixed width & \texttt{read\_fwf()}\tabularnewline
 \bottomrule
 \end{longtable}
 
-\textbf{Note} You may be confused by the existence of similar functions,
+\textbf{Note} You may notice that there exist similar functions
+in one of the built-in packages in R called \texttt{utils},
 e.g., \texttt{read.csv} and \texttt{read.delim}. These are legacy functions that
 tend to be slower and less robust than the \texttt{readr} functions. One way
 to tell them apart is that the faster more robust versions use
 underscores in their names (e.g., \texttt{read\_csv}) while the older
-functions use dots (e.g., \texttt{read.csv}). My advice is to use the more
+functions use dots (e.g., \texttt{read.csv}). Our advice is to use the more
 robust newer versions, i.e., the ones with underscores.
 
 \hypertarget{baby-names-data}{%
@@ -2183,7 +2185,7 @@ to filter, select, and arrange data, as well as create new variables.
 
 One way to find the year in which your name was the most popular
 is to filter out just the rows corresponding to your name, and
-then arrange (sort) by Count.
+then arrange (sort) by \texttt{Count}.
 
 To demonstrate these techniques we'll try to determine whether
 ``Alex''" or ``Mark'' was more popular in 1992. We start by filtering the
@@ -2199,6 +2201,8 @@ either ``Alex'' or ``Mark''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Filter data, keeping "Alex" and "Mark" in year 1992, record in baby_names_alexmark}
+\CommentTok{## Use logical operators to specify the filtering condition}
 \NormalTok{baby_names_alexmark <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, }
 \NormalTok{             Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
 
@@ -2241,6 +2245,7 @@ most popular name is listed first.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Arrange the data by Count to see the most popular name first}
 \KeywordTok{arrange}\NormalTok{(baby_names_alexmark, Count)}
 \end{Highlighting}
 \end{Shaded}
@@ -2257,6 +2262,7 @@ most popular name is listed first.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Arrange the data in descending order instead}
 \KeywordTok{arrange}\NormalTok{(baby_names_alexmark, }\KeywordTok{desc}\NormalTok{(Count))}
 \end{Highlighting}
 \end{Shaded}
@@ -2278,8 +2284,10 @@ would just like to glance at the first few lines we can use the
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Select columns Name and Count and assign to a new object "baby_names_subset"}
 \NormalTok{baby_names_subset <-}\StringTok{ }\KeywordTok{select}\NormalTok{(baby_names, Name, Count)}
 
+\CommentTok{## Use head() to glance at the first few lines}
 \KeywordTok{head}\NormalTok{(baby_names_subset)}
 \end{Highlighting}
 \end{Shaded}
@@ -2341,6 +2349,7 @@ some ways to combine operators:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Create a vector of consecutive values between 1 and 10}
 \NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10} \CommentTok{# a vector}
 \NormalTok{x}
 \end{Highlighting}
@@ -2352,6 +2361,7 @@ some ways to combine operators:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Which elements of x are above 7}
 \NormalTok{x }\OperatorTok{>}\StringTok{ }\DecValTok{7} \CommentTok{# a simple condition}
 \end{Highlighting}
 \end{Shaded}
@@ -2362,6 +2372,7 @@ some ways to combine operators:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Which elements of x are above 7 or below 3}
 \NormalTok{x }\OperatorTok{>}\StringTok{ }\DecValTok{7} \OperatorTok{|}\StringTok{ }\NormalTok{x }\OperatorTok{<}\StringTok{ }\DecValTok{3} \CommentTok{# two conditions combined}
 \end{Highlighting}
 \end{Shaded}
@@ -2375,7 +2386,7 @@ If we want to match multiple elements from two vectors we can use the \texttt{\%
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# x %in% vector}
-\CommentTok{# elements of x matched in vector}
+\CommentTok{# elements of x matching numbers 1, 5, or 10 }
 \NormalTok{x }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
@@ -2389,6 +2400,7 @@ The logical vectors returned by these operators can themselves be operated on by
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Count the number of elements of x above 7}
 \NormalTok{x }\OperatorTok{>}\StringTok{ }\DecValTok{7}
 \end{Highlighting}
 \end{Shaded}
@@ -2528,6 +2540,8 @@ rewrite the sequence of commands to output ordered counts for names
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Filter data keeping rows for "Alex" and "Mark" during year 1992, record in baby_names_alexmark}
+\CommentTok{## Arrange the result in a descending order by Count}
 \CommentTok{# unpiped version}
 \NormalTok{baby_names_alexmark <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
 \KeywordTok{arrange}\NormalTok{(baby_names_alexmark, }\KeywordTok{desc}\NormalTok{(Count))}
@@ -2601,7 +2615,8 @@ the data and then arranged by \texttt{Count}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{##}
+\CommentTok{## Use filter to extract data for your name (or another name of your choice)}
+\CommentTok{## Arrange the data by Count}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2651,12 +2666,14 @@ we can plot the number of babies given the name ``Diana'' over time like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Filter data keeping rows for name "Diana" and assign to a new object called baby_names_diana}
 \NormalTok{baby_names_diana <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby_names, Name }\OperatorTok{==}\StringTok{ "Diana"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Use qplot() function to plot Counts (y) by Year (x)}
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count,}
      \DataTypeTok{data =}\NormalTok{ baby_names_diana)}
 \end{Highlighting}
@@ -2669,6 +2686,7 @@ gendered names like ``Diana''. Splitting these trends out by \texttt{Sex} is ver
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.}
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex,}
       \DataTypeTok{data =}\NormalTok{ baby_names_diana)}
 \end{Highlighting}
@@ -2793,6 +2811,7 @@ of each name in each year:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Use piping to add a new column to the data, called Count_1k, that rescales counts to thousands}
 \NormalTok{baby_names <-}\StringTok{ }\NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Count_1k =}\NormalTok{ Count}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(baby_names) }
 \end{Highlighting}
@@ -2830,6 +2849,8 @@ Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Group baby_names by Year and Sex and rank Count_1k within each group (calling the resulting new column "Rank"). }
+\CommentTok{## Remember to ungroup in the end!}
 \NormalTok{baby_names <-}
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year, Sex) }\OperatorTok{%>%}
@@ -2862,6 +2883,8 @@ function within the \texttt{mutate()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Use case_when to recode the newly created Rank column into low (<=10), high (>40), and medium (all others).}
+\CommentTok{## Call the resulting column "Count_levels".}
 \NormalTok{baby_names <-}
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Count_levels =} \KeywordTok{case_when}\NormalTok{(}
@@ -3096,6 +3119,7 @@ code outputs the total number of girls and boys in the data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Use summarize() to output the total number of boys and girls in the sample}
 \NormalTok{baby_names }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Girls_n =} \KeywordTok{sum}\NormalTok{(Sex}\OperatorTok{==}\StringTok{"Girls"}\NormalTok{),}
             \DataTypeTok{Boys_n =} \KeywordTok{sum}\NormalTok{(Sex}\OperatorTok{==}\StringTok{"Boys"}\NormalTok{))}
@@ -3121,6 +3145,8 @@ Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## Group baby_names by Year and calculate the sum of Count (record in a column Total). }
+\CommentTok{## Assign the result to bn_by_year and remember to ungroup!}
 \NormalTok{bn_by_year <-}
 \StringTok{  }\NormalTok{baby_names }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(Year) }\OperatorTok{%>%}
@@ -3229,7 +3255,8 @@ given one of the 10 most popular names each year.
 \end{Highlighting}
 \end{Shaded}
 \item
-  Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by \texttt{Sex}.
+  Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by \texttt{Sex} and notice
+  the trend.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3260,14 +3287,14 @@ You might find functions \texttt{write\_csv()} and \texttt{write\_rds()} from pa
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# write data to a .csv file}
+\CommentTok{# write baby_names to a .csv file}
 \KeywordTok{write_csv}\NormalTok{(baby_names, }\StringTok{"babyNames.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# write data to an R file}
+\CommentTok{# write baby_names to an R file}
 \KeywordTok{write_rds}\NormalTok{(baby_names, }\StringTok{"babyNames.rds"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3278,6 +3305,7 @@ You might find functions \texttt{write\_csv()} and \texttt{write\_rds()} from pa
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects in our workspace}
+\CommentTok{## Use save() function from the base R package to record some objects into a file named myDataFiles.RData}
 \KeywordTok{save}\NormalTok{(baby_names_diana, bn_by_year, baby_names_subset, }\DataTypeTok{file=}\StringTok{"myDataFiles.RData"}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
@@ -3286,32 +3314,6 @@ You might find functions \texttt{write\_csv()} and \texttt{write\_rds()} from pa
 \begin{Highlighting}[]
 \CommentTok{## Load the "myDataFiles.RData"}
 \CommentTok{## load("myDataFiles.RData") }
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{saving-loading-workspaces}{%
-\subsection{Saving \& loading workspaces}\label{saving-loading-workspaces}}
-
-In addition to importing individual datasets, R can save and load entire
-``workspaces''. The workspace is your current R working environment and includes
-any user-defined objects. At the end of a session, you can save an ``image''
-of the current workspace, which allows you to automatically reload the objects
-you previously created.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects in our workspace}
-\KeywordTok{save.image}\NormalTok{(}\DataTypeTok{file=}\StringTok{"myWorkspace.RData"}\NormalTok{) }\CommentTok{# save workspace }
-\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# remove all objects from our workspace }
-\KeywordTok{ls}\NormalTok{() }\CommentTok{# list stored objects to make sure they are deleted}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{## Load the "myWorkspace.RData" file and check that it is restored}
-\KeywordTok{load}\NormalTok{(}\StringTok{"myWorkspace.RData"}\NormalTok{) }\CommentTok{# load myWorkspace.RData}
-\KeywordTok{ls}\NormalTok{() }\CommentTok{# list objects}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3360,9 +3362,9 @@ These workshops are a work-in-progress, please provide any feedback to: \href{ma
   \item
     R and R package download: \url{http://cran.r-project.org}
   \item
-    Rstudio download: \url{http://rstudio.org}
+    RStudio download: \url{http://rstudio.org}
   \item
-    ESS (emacs R package): \url{http://ess.r-project.org/}
+    ESS (Emacs R package): \url{http://ess.r-project.org/}
   \end{itemize}
 \item
   Cheatsheets
@@ -3712,7 +3714,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-85-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-83-1.pdf}
 
 Obviously, in a real project, you would want to spend more time investigating the data,
 but we'll now move on to modeling.
@@ -4261,7 +4263,7 @@ Investigate assumptions \#7 and \#8 visually by plotting your model:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-93-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-91-1.pdf}
 
 \hypertarget{comparing-models}{%
 \subsection{Comparing models}\label{comparing-models}}
@@ -4470,7 +4472,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-102-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-100-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4536,7 +4538,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-104-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-102-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4573,7 +4575,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-105-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-103-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5102,7 +5104,7 @@ Instead of reporting odds ratios, we may want to calculate predicted marginal me
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-119-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-117-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6154,7 +6156,7 @@ Let's look at housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-144-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-142-1.pdf}
 
 \textbf{Step 2:} specify aesthetic mappings (how you want to map variables to visual aspects):
 
@@ -6165,7 +6167,7 @@ Let's look at housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-145-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-143-1.pdf}
 
 \textbf{Step 3:} add new layers of geometric objects that will show up on the plot:
 
@@ -6178,7 +6180,7 @@ Let's look at housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-146-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-144-1.pdf}
 
 \hypertarget{lines-prediction-line}{%
 \subsubsection{Lines (prediction line)}\label{lines-prediction-line}}
@@ -6198,7 +6200,7 @@ A plot constructed with \texttt{ggplot()} can have more than one geom. In that c
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-147-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-145-1.pdf}
 
 \hypertarget{smoothers}{%
 \subsubsection{Smoothers}\label{smoothers}}
@@ -6213,7 +6215,7 @@ Not all geometric objects are simple shapes; the smooth geom includes a line and
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-148-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-146-1.pdf}
 
 \hypertarget{text-label-points}{%
 \subsubsection{Text (label points)}\label{text-label-points}}
@@ -6227,7 +6229,7 @@ Each geom accepts a particular set of mappings; for example \texttt{geom\_text()
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-149-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-147-1.pdf}
 
 But what if we want to include points and labels? We can use \texttt{geom\_text\_repel()} to keep labels from overlapping the points and each other.
 
@@ -6239,7 +6241,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-150-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-148-1.pdf}
 
 \hypertarget{aesthetic-mapping-vs-assignment}{%
 \subsection{Aesthetic mapping VS assignment}\label{aesthetic-mapping-vs-assignment}}
@@ -6258,7 +6260,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-151-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-149-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6275,7 +6277,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-152-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-150-1.pdf}
 
 This sometimes leads to confusion, as in this example:
 
@@ -6287,7 +6289,7 @@ This sometimes leads to confusion, as in this example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-153-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-151-1.pdf}
 
 \hypertarget{mapping-variables-to-other-aesthetics}{%
 \subsection{Mapping variables to other aesthetics}\label{mapping-variables-to-other-aesthetics}}
@@ -6301,7 +6303,7 @@ Other aesthetics are mapped in the same way as x and y in the previous example.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-154-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-152-1.pdf}
 
 \hypertarget{exercise-0-2}{%
 \subsection{Exercise 0}\label{exercise-0-2}}
@@ -6403,7 +6405,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-161-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-159-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6420,7 +6422,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-162-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-160-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6437,7 +6439,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-163-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-161-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6454,7 +6456,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-164-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-162-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6471,7 +6473,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-165-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-163-1.pdf}
 
 \hypertarget{statistical-transformations}{%
 \section{Statistical transformations}\label{statistical-transformations}}
@@ -6534,7 +6536,7 @@ For example, here is the default histogram of \texttt{Home\_Value}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-167-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-165-1.pdf}
 
 We can change the binning scheme by passing the \texttt{binwidth} argument to the \texttt{stat\_bin()} function:
 
@@ -6544,7 +6546,7 @@ We can change the binning scheme by passing the \texttt{binwidth} argument to th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-168-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-166-1.pdf}
 
 \hypertarget{changing-the-transformation}{%
 \subsection{Changing the transformation}\label{changing-the-transformation}}
@@ -6593,7 +6595,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-171-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-169-1.pdf}
 
 \hypertarget{exercise-1-2}{%
 \subsection{Exercise 1}\label{exercise-1-2}}
@@ -6697,7 +6699,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-178-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-176-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6715,7 +6717,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-179-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-177-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6733,7 +6735,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-180-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-178-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6751,7 +6753,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-181-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-179-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6769,7 +6771,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-182-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-180-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6787,7 +6789,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-183-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-181-1.pdf}
 
 \hypertarget{scales}{%
 \section{Scales}\label{scales}}
@@ -6856,7 +6858,7 @@ Now modify the breaks for the color scales
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-185-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-183-1.pdf}
 
 Next change the low and high values to blue and red:
 
@@ -6870,7 +6872,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-186-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-184-1.pdf}
 
 \hypertarget{using-different-color-scales}{%
 \subsection{Using different color scales}\label{using-different-color-scales}}
@@ -6890,7 +6892,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-187-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-185-1.pdf}
 
 \hypertarget{available-scales}{%
 \subsection{Available scales}\label{available-scales}}
@@ -6986,7 +6988,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-191-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-189-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7006,7 +7008,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-190-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7027,7 +7029,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-191-1.pdf}
 
 \hypertarget{faceting}{%
 \section{Faceting}\label{faceting}}
@@ -7068,7 +7070,7 @@ Start by using a technique we already know; map \texttt{State} to color:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-194-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
 
 There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.
 
@@ -7085,7 +7087,7 @@ We can remedy the deficiencies of the previous plot by faceting by \texttt{State
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-195-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
 
 \hypertarget{themes}{%
 \section{Themes}\label{themes}}
@@ -7125,7 +7127,7 @@ Built-in themes include:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-194-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7133,7 +7135,7 @@ Built-in themes include:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-197-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-195-1.pdf}
 You can see a list of available built-in themes here \url{https://ggplot2.tidyverse.org/reference/}
 
 \hypertarget{overriding-theme-defaults}{%
@@ -7150,7 +7152,7 @@ Specific theme elements can be overridden using \texttt{theme()}. For example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-198-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
 
 All theme options are documented in \texttt{?theme}. We can also see the
 existing default values using:
@@ -7180,7 +7182,7 @@ You can create new themes, as in the following example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-200-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-198-1.pdf}
 
 \hypertarget{saving-plots}{%
 \section{Saving plots}\label{saving-plots}}
@@ -7233,7 +7235,7 @@ Fixing, rather than mapping, the color aesthetic:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-202-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-200-1.pdf}
 
 \textbf{Right}
 
@@ -7258,7 +7260,7 @@ Here's the code that implements this transformation:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-203-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-201-1.pdf}
 
 \hypertarget{exercise-3-2}{%
 \subsection{Exercise 3}\label{exercise-3-2}}
@@ -7389,7 +7391,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-211-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-209-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7480,7 +7482,7 @@ Here's the complete code for the Exercise 3 plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-217-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-215-1.pdf}
 
 \hypertarget{wrap-up-3}{%
 \section{Wrap-up}\label{wrap-up-3}}
@@ -9389,7 +9391,7 @@ information to each data frame before flattening.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/RDataWrangling/figures/unnamed-chunk-262-1.pdf}
+\includegraphics{R/RDataWrangling/figures/unnamed-chunk-260-1.pdf}
 
 \hypertarget{complete-code}{%
 \section{Complete code}\label{complete-code}}
@@ -12156,13 +12158,14 @@ Finally, we can iterate over the elements we want and extract them.
 \end{Shaded}
 
 \begin{verbatim}
-## {'date': 'Thursday, March 26, 2020',
-##  'figcaption': '1958 D. A. Flentrop organ, Adolphus Busch Hall, Harvard '
-##                'University.',
-##  'location1': '29 Kirkland Street',
+## {'date': 'Wednesday, April 1, 2020',
+##  'figcaption': 'Professor Kurt Wehlte in 1962. By permission of the Staatliche '
+##                'Akademie der Bildenden Künste, Stuttgart.',
+##  'location1': '32 Quincy Street',
 ##  'location2': 'Cambridge',
-##  'time': '12:15pm - 12:45pm',
-##  'title': 'Midday Organ Recital: Michał Szostak [CANCELED]'}
+##  'time': '6:00pm - 7:30pm',
+##  'title': 'Pursuing Knowledge of Artists’ Materials Production and '
+##           'Conservation Expertise as War Booty [CANCELED]'}
 \end{verbatim}
 
 \hypertarget{iterating-to-retrieve-content-from-a-list-of-html-elements}{%

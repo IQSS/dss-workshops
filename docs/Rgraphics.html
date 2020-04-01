@@ -234,7 +234,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#saving-work"><i class="fa fa-check"></i>Saving work</a><ul>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#saving-individual-datasets"><i class="fa fa-check"></i>Saving individual datasets</a></li>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#saving-multiple-datasets"><i class="fa fa-check"></i>Saving multiple datasets</a></li>
-<li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#saving-loading-workspaces"><i class="fa fa-check"></i>Saving &amp; loading workspaces</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#wrap-up-1"><i class="fa fa-check"></i>Wrap-up</a><ul>
 <li class="chapter" data-level="" data-path="Rintro.html"><a href="Rintro.html#feedback-1"><i class="fa fa-check"></i>Feedback</a></li>
@@ -695,16 +694,16 @@ RStudio will be in your applications folder.</li>
 packages onto your computer before the workshop
 — see <a href="./Rinstall.html">R Installation</a>.
 Now let’s load these packages into the search path of our R session.</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb287-2" data-line-number="2"><span class="kw">library</span>(rmarkdown)</a></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb285-2" data-line-number="2"><span class="kw">library</span>(rmarkdown)</a></code></pre></div>
 <p>The <code>ggplot2</code> package is contained within <code>tidyverse</code>, but we also want to
 install two additional packages, <code>scales</code> and <code>ggrepel</code>, which provide
 additional functionality.</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" data-line-number="1"><span class="co"># install.packages(&quot;scales&quot;)</span></a>
-<a class="sourceLine" id="cb288-2" data-line-number="2"><span class="kw">library</span>(scales)</a>
-<a class="sourceLine" id="cb288-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb288-4" data-line-number="4"><span class="co"># install.packages(&quot;ggrepel&quot;) </span></a>
-<a class="sourceLine" id="cb288-5" data-line-number="5"><span class="kw">library</span>(ggrepel)</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1"><span class="co"># install.packages(&quot;scales&quot;)</span></a>
+<a class="sourceLine" id="cb286-2" data-line-number="2"><span class="kw">library</span>(scales)</a>
+<a class="sourceLine" id="cb286-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb286-4" data-line-number="4"><span class="co"># install.packages(&quot;ggrepel&quot;) </span></a>
+<a class="sourceLine" id="cb286-5" data-line-number="5"><span class="kw">library</span>(ggrepel)</a></code></pre></div>
 </div>
 <div id="goals-2" class="section level3">
 <h3>Goals</h3>
@@ -851,8 +850,8 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <p>Now that we know about geometric objects and aesthetic mapping, we can make a <code>ggplot()</code>. <code>geom_point()</code> requires mappings for x and y, all others are optional.</p>
 <p><strong>Example data: housing prices</strong></p>
 <p>Let’s look at housing prices.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1">housing &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/landdata-states.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb289-2" data-line-number="2"><span class="kw">head</span>(housing[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]) <span class="co"># view first 5 columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1">housing &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/landdata-states.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb287-2" data-line-number="2"><span class="kw">head</span>(housing[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]) <span class="co"># view first 5 columns</span></a></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
 ##   State region  Date Home_Value Structure_Cost
 ##   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;
@@ -862,54 +861,54 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 ## 4 AK    West   2010      224994         161787
 ## 5 AK    West   2008      234590         155400
 ## 6 AK    West   2008.     233714         157458</code></pre>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1"><span class="co"># create a subset for 1st quarter 2001</span></a>
-<a class="sourceLine" id="cb291-2" data-line-number="2">hp2001Q1 &lt;-<span class="st"> </span>housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Date <span class="op">==</span><span class="st"> </span><span class="fl">2001.25</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1"><span class="co"># create a subset for 1st quarter 2001</span></a>
+<a class="sourceLine" id="cb289-2" data-line-number="2">hp2001Q1 &lt;-<span class="st"> </span>housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Date <span class="op">==</span><span class="st"> </span><span class="fl">2001.25</span>)</a></code></pre></div>
 <p><strong>Step 1:</strong> create a blank canvas by specifying data:</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-144-1.png" width="672" /></p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-142-1.png" width="672" /></p>
 <p><strong>Step 2:</strong> specify aesthetic mappings (how you want to map variables to visual aspects):</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1"><span class="co"># here we map &quot;Land_Value&quot; and &quot;Structure_Cost&quot; to the x- and y-axes.</span></a>
-<a class="sourceLine" id="cb293-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost))</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-145-1.png" width="672" /></p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1"><span class="co"># here we map &quot;Land_Value&quot; and &quot;Structure_Cost&quot; to the x- and y-axes.</span></a>
+<a class="sourceLine" id="cb291-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost))</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-143-1.png" width="672" /></p>
 <p><strong>Step 3:</strong> add new layers of geometric objects that will show up on the plot:</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1"><span class="co"># here we use geom_point() to add a layer with point (dot) elements </span></a>
-<a class="sourceLine" id="cb294-2" data-line-number="2"><span class="co"># as the geometric shapes to represent the data.</span></a>
-<a class="sourceLine" id="cb294-3" data-line-number="3"><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb294-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-146-1.png" width="672" /></p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1"><span class="co"># here we use geom_point() to add a layer with point (dot) elements </span></a>
+<a class="sourceLine" id="cb292-2" data-line-number="2"><span class="co"># as the geometric shapes to represent the data.</span></a>
+<a class="sourceLine" id="cb292-3" data-line-number="3"><span class="kw">ggplot</span>(<span class="dt">data =</span> hp2001Q1, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Land_Value, <span class="dt">y =</span> Structure_Cost)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb292-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-144-1.png" width="672" /></p>
 </div>
 <div id="lines-prediction-line" class="section level4">
 <h4>Lines (prediction line)</h4>
 <p>A plot constructed with <code>ggplot()</code> can have more than one geom. In that case the mappings established in the <code>ggplot()</code> call are plot defaults that can be added to or overridden — this is referred to as <strong>aesthetic inheritance</strong>. Our plot could use a regression line:</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" data-line-number="1"><span class="co"># get predicted values from a linear regression</span></a>
-<a class="sourceLine" id="cb295-2" data-line-number="2">hp2001Q1<span class="op">$</span>pred_SC &lt;-<span class="st"> </span><span class="kw">lm</span>(Structure_Cost <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(Land_Value), <span class="dt">data =</span> hp2001Q1) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb295-3" data-line-number="3"><span class="st">  </span><span class="kw">predict</span>()</a>
-<a class="sourceLine" id="cb295-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb295-5" data-line-number="5">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hp2001Q1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(Land_Value), <span class="dt">y =</span> Structure_Cost))</a>
-<a class="sourceLine" id="cb295-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb295-7" data-line-number="7">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span><span class="st"> </span><span class="co"># values for x and y are inherited from the ggplot() call above</span></a>
-<a class="sourceLine" id="cb295-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred_SC)) <span class="co"># add predicted values to the plot overriding the y values from the ggplot() call above</span></a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-147-1.png" width="672" /></p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1"><span class="co"># get predicted values from a linear regression</span></a>
+<a class="sourceLine" id="cb293-2" data-line-number="2">hp2001Q1<span class="op">$</span>pred_SC &lt;-<span class="st"> </span><span class="kw">lm</span>(Structure_Cost <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(Land_Value), <span class="dt">data =</span> hp2001Q1) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb293-3" data-line-number="3"><span class="st">  </span><span class="kw">predict</span>()</a>
+<a class="sourceLine" id="cb293-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb293-5" data-line-number="5">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hp2001Q1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(Land_Value), <span class="dt">y =</span> Structure_Cost))</a>
+<a class="sourceLine" id="cb293-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb293-7" data-line-number="7">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span><span class="st"> </span><span class="co"># values for x and y are inherited from the ggplot() call above</span></a>
+<a class="sourceLine" id="cb293-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred_SC)) <span class="co"># add predicted values to the plot overriding the y values from the ggplot() call above</span></a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-145-1.png" width="672" /></p>
 </div>
 <div id="smoothers" class="section level4">
 <h4>Smoothers</h4>
 <p>Not all geometric objects are simple shapes; the smooth geom includes a line and a ribbon.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">p1 <span class="op">+</span></a>
-<a class="sourceLine" id="cb296-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb296-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-148-1.png" width="672" /></p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1">p1 <span class="op">+</span></a>
+<a class="sourceLine" id="cb294-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb294-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-146-1.png" width="672" /></p>
 </div>
 <div id="text-label-points" class="section level4">
 <h4>Text (label points)</h4>
 <p>Each geom accepts a particular set of mappings; for example <code>geom_text()</code> accepts a <code>label</code> mapping.</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb297-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> State), <span class="dt">size =</span> <span class="dv">3</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-149-1.png" width="672" /></p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb295-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> State), <span class="dt">size =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-147-1.png" width="672" /></p>
 <p>But what if we want to include points and labels? We can use <code>geom_text_repel()</code> to keep labels from overlapping the points and each other.</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb298-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb298-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> State), <span class="dt">size =</span> <span class="dv">3</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-150-1.png" width="672" /></p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb296-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb296-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> State), <span class="dt">size =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-148-1.png" width="672" /></p>
 </div>
 </div>
 <div id="aesthetic-mapping-vs-assignment" class="section level3">
@@ -917,87 +916,87 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <ol style="list-style-type: decimal">
 <li>Variables are <strong>mapped</strong> to aesthetics inside the <code>aes()</code> function.</li>
 </ol>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1">p1 <span class="op">+</span></a>
-<a class="sourceLine" id="cb299-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Home_Value))</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-151-1.png" width="672" /></p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1">p1 <span class="op">+</span></a>
+<a class="sourceLine" id="cb297-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Home_Value))</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-149-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Constants are <strong>assigned</strong> to aesthetics outside the <code>aes()</code> call</li>
 </ol>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1">p1 <span class="op">+</span></a>
-<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-152-1.png" width="672" /></p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">p1 <span class="op">+</span></a>
+<a class="sourceLine" id="cb298-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-150-1.png" width="672" /></p>
 <p>This sometimes leads to confusion, as in this example:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1">p1 <span class="op">+</span></a>
-<a class="sourceLine" id="cb301-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="dv">2</span>),<span class="co"># incorrect! 2 is not a variable</span></a>
-<a class="sourceLine" id="cb301-3" data-line-number="3">             <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="co"># this is fine -- all points red</span></a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-153-1.png" width="672" /></p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1">p1 <span class="op">+</span></a>
+<a class="sourceLine" id="cb299-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="dv">2</span>),<span class="co"># incorrect! 2 is not a variable</span></a>
+<a class="sourceLine" id="cb299-3" data-line-number="3">             <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="co"># this is fine -- all points red</span></a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-151-1.png" width="672" /></p>
 </div>
 <div id="mapping-variables-to-other-aesthetics" class="section level3">
 <h3>Mapping variables to other aesthetics</h3>
 <p>Other aesthetics are mapped in the same way as x and y in the previous example.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1">p1 <span class="op">+</span></a>
-<a class="sourceLine" id="cb302-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value, <span class="dt">shape =</span> region))</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-154-1.png" width="672" /></p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1">p1 <span class="op">+</span></a>
+<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Home_Value, <span class="dt">shape =</span> region))</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-152-1.png" width="672" /></p>
 </div>
 <div id="exercise-0-2" class="section level3">
 <h3>Exercise 0</h3>
 <p>The data for the exercises is available in the <code>dataSets/EconomistData.csv</code> file. Read it in with</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/EconomistData.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataSets/EconomistData.csv&quot;</span>)</a></code></pre></div>
 <p>Original sources for these data are <a href="http://www.transparency.org/content/download/64476/1031428" class="uri">http://www.transparency.org/content/download/64476/1031428</a> <a href="http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&amp;lang=en" class="uri">http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&amp;lang=en</a></p>
 <p>These data consist of <em>Human Development Index</em> and <em>Corruption Perception Index</em> scores for several countries.</p>
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Color the points in the previous plot blue.</li>
 </ol>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Map the color of the the points to <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, make the points bigger by setting size to 2</li>
 </ol>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, map the size of the points to <code>HDI_Rank</code></li>
 </ol>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb309-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-161-1.png" width="672" /></p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb307-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-159-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Color the points in the previous plot blue.</li>
 </ol>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb310-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-162-1.png" width="672" /></p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb308-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-160-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Map the color of the the points to <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb311-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region))</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-163-1.png" width="672" /></p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb309-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region))</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-161-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, make the points bigger by setting size to 2.</li>
 </ol>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb312-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region), <span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-164-1.png" width="672" /></p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb310-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region), <span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-162-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Keeping color mapped to <code>Region</code>, map the size of the points to <code>HDI_Rank</code>.</li>
 </ol>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb313-2" data-line-number="2"><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region, <span class="dt">size =</span>  HDI_Rank))</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-165-1.png" width="672" /></p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb311-2" data-line-number="2"><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Region, <span class="dt">size =</span>  HDI_Rank))</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-163-1.png" width="672" /></p>
 </div>
 </details>
 </div>
@@ -1012,12 +1011,12 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <li>for a smoother the y values must be transformed into predicted values</li>
 </ul>
 <p>Each geom has a default statistic, but these can be changed. For example, the default statistic for <code>geom_histogram()</code> is <code>stat_bin()</code>:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1"><span class="kw">args</span>(geom_histogram)</a></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1"><span class="kw">args</span>(geom_histogram)</a></code></pre></div>
 <pre><code>## function (mapping = NULL, data = NULL, stat = &quot;bin&quot;, position = &quot;stack&quot;, 
 ##     ..., binwidth = NULL, bins = NULL, na.rm = FALSE, show.legend = NA, 
 ##     inherit.aes = TRUE) 
 ## NULL</code></pre>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1"><span class="kw">args</span>(stat_bin)</a></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1"><span class="kw">args</span>(stat_bin)</a></code></pre></div>
 <pre><code>## function (mapping = NULL, data = NULL, geom = &quot;bar&quot;, position = &quot;stack&quot;, 
 ##     ..., binwidth = NULL, bins = NULL, center = NULL, boundary = NULL, 
 ##     breaks = NULL, closed = c(&quot;right&quot;, &quot;left&quot;), pad = FALSE, 
@@ -1029,23 +1028,23 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <h3>Setting arguments</h3>
 <p>Arguments to <code>stat_</code> functions can be passed through <code>geom_</code> functions. This can be slightly annoying because in order to change them you have to first determine which stat the geom uses, then determine the arguments to that stat.</p>
 <p>For example, here is the default histogram of <code>Home_Value</code>:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value))</a>
-<a class="sourceLine" id="cb318-2" data-line-number="2">p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-167-1.png" width="672" /></p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value))</a>
+<a class="sourceLine" id="cb316-2" data-line-number="2">p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-165-1.png" width="672" /></p>
 <p>We can change the binning scheme by passing the <code>binwidth</code> argument to the <code>stat_bin()</code> function:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1">p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">stat =</span> <span class="st">&quot;bin&quot;</span>, <span class="dt">binwidth =</span> <span class="dv">4000</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-168-1.png" width="672" /></p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1">p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">stat =</span> <span class="st">&quot;bin&quot;</span>, <span class="dt">binwidth =</span> <span class="dv">4000</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-166-1.png" width="672" /></p>
 </div>
 <div id="changing-the-transformation" class="section level3">
 <h3>Changing the transformation</h3>
 <p>Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1">housing_sum &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb320-2" data-line-number="2"><span class="st">  </span>housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(State) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-4" data-line-number="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-5" data-line-number="5"><span class="st">  </span><span class="kw">ungroup</span>()</a>
-<a class="sourceLine" id="cb320-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb320-7" data-line-number="7"><span class="kw">head</span>(housing_sum)</a></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1">housing_sum &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb318-2" data-line-number="2"><span class="st">  </span>housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb318-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(State) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb318-4" data-line-number="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb318-5" data-line-number="5"><span class="st">  </span><span class="kw">ungroup</span>()</a>
+<a class="sourceLine" id="cb318-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb318-7" data-line-number="7"><span class="kw">head</span>(housing_sum)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   State Home_Value_Mean
 ##   &lt;chr&gt;           &lt;dbl&gt;
@@ -1055,85 +1054,85 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 ## 4 AZ            140756.
 ## 5 CA            282808.
 ## 6 CO            158176.</code></pre>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1"><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb322-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>()</a>
-<a class="sourceLine" id="cb322-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb322-4" data-line-number="4"><span class="co">## Error: stat_count() must not be used with a y aesthetic.  </span></a></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1"><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb320-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>()</a>
+<a class="sourceLine" id="cb320-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb320-4" data-line-number="4"><span class="co">## Error: stat_count() must not be used with a y aesthetic.  </span></a></code></pre></div>
 <p>What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, <code>geom_bar()</code> defaults to <code>stat = stat_count</code>; obviously this will not work. We can fix it by telling <code>geom_bar()</code> to use a different statistical transformation function. The <code>identity</code> function returns the same output as the input.</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb323-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-171-1.png" width="672" /></p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1"><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb321-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-169-1.png" width="672" /></p>
 </div>
 <div id="exercise-1-2" class="section level3">
 <h3>Exercise 1</h3>
 <ol style="list-style-type: decimal">
 <li>Re-create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis (as you did in the previous exercise).</li>
 </ol>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Make the smoothing line in <code>geom_smooth()</code> less smooth. Hint: see <code>?loess</code>.</li>
 </ol>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Change the smoothing line in <code>geom_smooth()</code> to use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
 </ol>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>BONUS 1: Allow the smoothing line created in the last plot to vary across the levels of <code>Region</code>. Hint: map <code>Region</code> to the color and fill aesthetics.</li>
 </ol>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>BONUS 2: Overlay a loess <code>(method = &quot;loess&quot;)</code> smoothing line on top of the scatter plot using <code>geom_line()</code>. Hint: change the statistical transformation.</li>
 </ol>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Re-create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis (as you did in the previous exercise).</li>
 </ol>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb330-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-178-1.png" width="672" /></p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb328-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-176-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Overlay a smoothing line on top of the scatter plot using <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb331-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb331-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-179-1.png" width="672" /></p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb329-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb329-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-177-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Make the smoothing line in <code>geom_smooth()</code> less smooth. Hint: see <code>?loess</code>.</li>
 </ol>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb332-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">.4</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-180-1.png" width="672" /></p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb330-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb330-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">.4</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-178-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Change the smoothing line in <code>geom_smooth()</code> to use a linear model for the predictions. Hint: see <code>?stat_smooth</code>.</li>
 </ol>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb333-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb333-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-181-1.png" width="672" /></p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb331-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb331-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-179-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>BONUS 1: Allow the smoothing line created in the last plot to vary across the levels of <code>Region</code>. Hint: map <code>Region</code> to the color and fill aesthetics.</li>
 </ol>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region, <span class="dt">fill =</span> Region)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb334-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb334-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-182-1.png" width="672" /></p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region, <span class="dt">fill =</span> Region)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb332-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-180-1.png" width="672" /></p>
 <ol start="6" style="list-style-type: decimal">
 <li>BONUS 2: Overlay a loess <code>(method = &quot;loess&quot;)</code> smoothing line on top of the scatter plot using <code>geom_line()</code>. Hint: change the statistical transformation.</li>
 </ol>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb335-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb335-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">stat =</span> <span class="st">&quot;smooth&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-183-1.png" width="672" /></p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb333-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb333-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">stat =</span> <span class="st">&quot;smooth&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-181-1.png" width="672" /></p>
 </div>
 </details>
 </div>
@@ -1166,35 +1165,35 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <div id="scale-modification-examples" class="section level3">
 <h3>Scale modification examples</h3>
 <p>Start by constructing a dotplot showing the distribution of home values by <code>Date</code> and <code>State</code>.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb336-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,</a>
-<a class="sourceLine" id="cb336-3" data-line-number="3">               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb334-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,</a>
+<a class="sourceLine" id="cb334-3" data-line-number="3">               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))</a></code></pre></div>
 <p>Now modify the breaks for the color scales</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">p4 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb337-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb337-3" data-line-number="3">                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</a>
-<a class="sourceLine" id="cb337-4" data-line-number="4">                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>))</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-185-1.png" width="672" /></p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1">p4 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb335-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb335-3" data-line-number="3">                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</a>
+<a class="sourceLine" id="cb335-4" data-line-number="4">                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>))</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-183-1.png" width="672" /></p>
 <p>Next change the low and high values to blue and red:</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">p4 <span class="op">+</span></a>
-<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb338-3" data-line-number="3">                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</a>
-<a class="sourceLine" id="cb338-4" data-line-number="4">                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</a>
-<a class="sourceLine" id="cb338-5" data-line-number="5">                         <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-186-1.png" width="672" /></p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">p4 <span class="op">+</span></a>
+<a class="sourceLine" id="cb336-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb336-3" data-line-number="3">                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</a>
+<a class="sourceLine" id="cb336-4" data-line-number="4">                         <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</a>
+<a class="sourceLine" id="cb336-5" data-line-number="5">                         <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-184-1.png" width="672" /></p>
 </div>
 <div id="using-different-color-scales" class="section level3">
 <h3>Using different color scales</h3>
 <p><code>ggplot2</code> has a wide variety of color scales; here is an example using <code>scale_color_gradient2()</code> to interpolate between three different colors.</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" data-line-number="1">p4 <span class="op">+</span></a>
-<a class="sourceLine" id="cb339-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb339-3" data-line-number="3">                        <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</a>
-<a class="sourceLine" id="cb339-4" data-line-number="4">                        <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</a>
-<a class="sourceLine" id="cb339-5" data-line-number="5">                        <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb339-6" data-line-number="6">                        <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>,</a>
-<a class="sourceLine" id="cb339-7" data-line-number="7">                        <span class="dt">mid =</span> <span class="st">&quot;gray60&quot;</span>,</a>
-<a class="sourceLine" id="cb339-8" data-line-number="8">                        <span class="dt">midpoint =</span> <span class="dv">1994</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-187-1.png" width="672" /></p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">p4 <span class="op">+</span></a>
+<a class="sourceLine" id="cb337-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb337-3" data-line-number="3">                        <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</a>
+<a class="sourceLine" id="cb337-4" data-line-number="4">                        <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&#39;76&quot;</span>, <span class="st">&quot;&#39;94&quot;</span>, <span class="st">&quot;&#39;13&quot;</span>),</a>
+<a class="sourceLine" id="cb337-5" data-line-number="5">                        <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb337-6" data-line-number="6">                        <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>,</a>
+<a class="sourceLine" id="cb337-7" data-line-number="7">                        <span class="dt">mid =</span> <span class="st">&quot;gray60&quot;</span>,</a>
+<a class="sourceLine" id="cb337-8" data-line-number="8">                        <span class="dt">midpoint =</span> <span class="dv">1994</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-185-1.png" width="672" /></p>
 </div>
 <div id="available-scales" class="section level3">
 <h3>Available scales</h3>
@@ -1294,43 +1293,43 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis. Color the points to indicate <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out “Human development Index” instead of <code>HDI</code>). Hint: see <code>?scale_x_continous</code>, <code>?scale_y_continuous</code>, and <code>?scale_color_discrete</code>.</li>
 </ol>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code>. NOTE: you can specify color by name (e.g., “blue”) or by “Hex value” — see <a href="https://www.color-hex.com/" class="uri">https://www.color-hex.com/</a>.</li>
 </ol>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis. Color the points to indicate <code>Region</code>.</li>
 </ol>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-191-1.png" width="672" /></p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb341-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-189-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out “Human development Index” instead of <code>HDI</code>).</li>
 </ol>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb344-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb344-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb344-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb344-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-192-1.png" width="672" /></p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb342-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb342-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb342-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb342-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-190-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Modify the color scale to use specific values of your choosing. Hint: see <code>?scale_color_manual</code>. NOTE: you can specify color by name (e.g., “blue”) or by “Hex value” — see <a href="https://www.color-hex.com/" class="uri">https://www.color-hex.com/</a>.</li>
 </ol>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb345-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb345-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb345-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb345-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>,</a>
-<a class="sourceLine" id="cb345-6" data-line-number="6">                     <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;grey&quot;</span>, <span class="st">&quot;brown&quot;</span>))</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-193-1.png" width="672" /></p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1"><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x =</span> CPI, <span class="dt">y =</span> HDI, <span class="dt">color =</span> Region)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb343-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Corruption Perception Index&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb343-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Human Development Index&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb343-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">name =</span> <span class="st">&quot;Region of the world&quot;</span>,</a>
+<a class="sourceLine" id="cb343-6" data-line-number="6">                     <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;grey&quot;</span>, <span class="st">&quot;brown&quot;</span>))</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-191-1.png" width="672" /></p>
 </div>
 </details>
 </div>
@@ -1353,18 +1352,18 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <div id="what-is-the-trend-in-housing-prices-in-each-state" class="section level3">
 <h3>What is the trend in housing prices in each state?</h3>
 <p>Start by using a technique we already know; map <code>State</code> to color:</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> Home_Value))</a>
-<a class="sourceLine" id="cb346-2" data-line-number="2">p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> State))  </a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-194-1.png" width="672" /></p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> Home_Value))</a>
+<a class="sourceLine" id="cb344-2" data-line-number="2">p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> State))  </a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-192-1.png" width="672" /></p>
 <p>There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.</p>
 </div>
 <div id="faceting-to-the-rescue" class="section level3">
 <h3>Faceting to the rescue</h3>
 <p>We can remedy the deficiencies of the previous plot by faceting by <code>State</code> rather than mapping <code>State</code> to color.</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb347-2" data-line-number="2"><span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>State, <span class="dt">ncol =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb347-3" data-line-number="3">p5</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-195-1.png" width="672" /></p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb345-2" data-line-number="2"><span class="st">   </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>State, <span class="dt">ncol =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb345-3" data-line-number="3">p5</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-193-1.png" width="672" /></p>
 </div>
 </div>
 <div id="themes" class="section level2">
@@ -1384,37 +1383,37 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <li><code>theme_bw()</code></li>
 <li><code>theme_classic()</code></li>
 </ul>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_linedraw</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-196-1.png" width="672" /></p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1">p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-197-1.png" width="672" />
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_linedraw</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-194-1.png" width="672" /></p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-195-1.png" width="672" />
 You can see a list of available built-in themes here <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a></p>
 </div>
 <div id="overriding-theme-defaults" class="section level3">
 <h3>Overriding theme defaults</h3>
 <p>Specific theme elements can be overridden using <code>theme()</code>. For example:</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1"><span class="co"># theme(thing_to_modify = modifying_function(arg1, arg2))</span></a>
-<a class="sourceLine" id="cb350-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb350-3" data-line-number="3">p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-4" data-line-number="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>))  </a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-198-1.png" width="672" /></p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1"><span class="co"># theme(thing_to_modify = modifying_function(arg1, arg2))</span></a>
+<a class="sourceLine" id="cb348-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb348-3" data-line-number="3">p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-4" data-line-number="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>))  </a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-196-1.png" width="672" /></p>
 <p>All theme options are documented in <code>?theme</code>. We can also see the
 existing default values using:</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1"><span class="kw">theme_get</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">theme_get</span>()</a></code></pre></div>
 </div>
 <div id="creating-saving-new-themes" class="section level3">
 <h3>Creating &amp; saving new themes</h3>
 <p>You can create new themes, as in the following example:</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1">theme_new &lt;-<span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>),</a>
-<a class="sourceLine" id="cb352-3" data-line-number="3">        <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">color =</span> <span class="st">&quot;ivory&quot;</span>),</a>
-<a class="sourceLine" id="cb352-4" data-line-number="4">        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>),</a>
-<a class="sourceLine" id="cb352-5" data-line-number="5">        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>),</a>
-<a class="sourceLine" id="cb352-6" data-line-number="6">        <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;pink&quot;</span>),</a>
-<a class="sourceLine" id="cb352-7" data-line-number="7">        <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="kw">muted</span>(<span class="st">&quot;orange&quot;</span>)))</a>
-<a class="sourceLine" id="cb352-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb352-9" data-line-number="9">p5 <span class="op">+</span><span class="st"> </span>theme_new</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-200-1.png" width="672" /></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">theme_new &lt;-<span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb350-3" data-line-number="3">        <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">color =</span> <span class="st">&quot;ivory&quot;</span>),</a>
+<a class="sourceLine" id="cb350-4" data-line-number="4">        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>),</a>
+<a class="sourceLine" id="cb350-5" data-line-number="5">        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>),</a>
+<a class="sourceLine" id="cb350-6" data-line-number="6">        <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;pink&quot;</span>),</a>
+<a class="sourceLine" id="cb350-7" data-line-number="7">        <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="kw">muted</span>(<span class="st">&quot;orange&quot;</span>)))</a>
+<a class="sourceLine" id="cb350-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb350-9" data-line-number="9">p5 <span class="op">+</span><span class="st"> </span>theme_new</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-198-1.png" width="672" /></p>
 </div>
 </div>
 <div id="saving-plots" class="section level2">
@@ -1422,7 +1421,7 @@ existing default values using:</p>
 <p>We can save a plot to either a vector (e.g., pdf, eps, ps, svg)
 or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using
 the <code>ggsave()</code> function:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1"><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;myplot.pdf&quot;</span>, <span class="dt">plot =</span> p5, <span class="dt">device =</span> <span class="st">&quot;pdf&quot;</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1"><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;myplot.pdf&quot;</span>, <span class="dt">plot =</span> p5, <span class="dt">device =</span> <span class="st">&quot;pdf&quot;</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>)</a></code></pre></div>
 </div>
 <div id="the-1-faq" class="section level2">
 <h2>The #1 FAQ</h2>
@@ -1436,17 +1435,17 @@ the <code>ggsave()</code> function:</p>
 <li>Results in no legend being produced</li>
 <li>Means you cannot change color scales</li>
 </ol>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1">housing_byyear &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="st">  </span>housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb354-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(Date) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb354-4" data-line-number="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value),</a>
-<a class="sourceLine" id="cb354-5" data-line-number="5">            <span class="dt">Land_Value_Mean =</span> <span class="kw">mean</span>(Land_Value)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb354-6" data-line-number="6"><span class="st">  </span><span class="kw">ungroup</span>()</a>
-<a class="sourceLine" id="cb354-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb354-8" data-line-number="8"><span class="kw">ggplot</span>(housing_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb354-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Home_Value_Mean), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb354-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Land_Value_Mean), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-202-1.png" width="672" /></p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1">housing_byyear &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="st">  </span>housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb352-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(Date) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb352-4" data-line-number="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Home_Value_Mean =</span> <span class="kw">mean</span>(Home_Value),</a>
+<a class="sourceLine" id="cb352-5" data-line-number="5">            <span class="dt">Land_Value_Mean =</span> <span class="kw">mean</span>(Land_Value)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb352-6" data-line-number="6"><span class="st">  </span><span class="kw">ungroup</span>()</a>
+<a class="sourceLine" id="cb352-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb352-8" data-line-number="8"><span class="kw">ggplot</span>(housing_byyear, <span class="kw">aes</span>(<span class="dt">x=</span>Date)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb352-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Home_Value_Mean), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb352-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>Land_Value_Mean), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-200-1.png" width="672" /></p>
 <p><strong>Right</strong></p>
 <p>To avoid these pitfalls, we need to <strong>map</strong> our data to the color aesthetic.
 We can do this by <strong>reshaping</strong> our data from <strong>wide format</strong> to <strong>long format</strong>.
@@ -1455,21 +1454,21 @@ Here is the logic behind this process:</p>
 <img src="R/Rgraphics/images/wide_vs_long.png" />
 </center>
 <p>Here’s the code that implements this transformation:</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1">home_land_byyear &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb355-2" data-line-number="2"><span class="st">    </span>housing_byyear <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-3" data-line-number="3"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">c</span>(Home_Value_Mean, Land_Value_Mean),</a>
-<a class="sourceLine" id="cb355-4" data-line-number="4">                 <span class="dt">names_to =</span> <span class="st">&quot;type&quot;</span>,</a>
-<a class="sourceLine" id="cb355-5" data-line-number="5">                 <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span>)</a>
-<a class="sourceLine" id="cb355-6" data-line-number="6">                          </a>
-<a class="sourceLine" id="cb355-7" data-line-number="7"><span class="kw">ggplot</span>(home_land_byyear, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb355-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-203-1.png" width="672" /></p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1">home_land_byyear &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb353-2" data-line-number="2"><span class="st">    </span>housing_byyear <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb353-3" data-line-number="3"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">c</span>(Home_Value_Mean, Land_Value_Mean),</a>
+<a class="sourceLine" id="cb353-4" data-line-number="4">                 <span class="dt">names_to =</span> <span class="st">&quot;type&quot;</span>,</a>
+<a class="sourceLine" id="cb353-5" data-line-number="5">                 <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span>)</a>
+<a class="sourceLine" id="cb353-6" data-line-number="6">                          </a>
+<a class="sourceLine" id="cb353-7" data-line-number="7"><span class="kw">ggplot</span>(home_land_byyear, <span class="kw">aes</span>(<span class="dt">x =</span> Date, <span class="dt">y =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb353-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-201-1.png" width="672" /></p>
 </div>
 <div id="exercise-3-2" class="section level3">
 <h3>Exercise 3</h3>
 <p>For this exercise, we’re going to use the built-in <code>midwest</code> dataset:</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;midwest&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</a>
-<a class="sourceLine" id="cb356-2" data-line-number="2"><span class="kw">head</span>(midwest)</a></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;midwest&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</a>
+<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="kw">head</span>(midwest)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 28
 ##     PID county state  area poptotal popdensity popwhite popblack popamerindian
 ##   &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;    &lt;int&gt;      &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;         &lt;int&gt;
@@ -1488,70 +1487,70 @@ Here is the logic behind this process:</p>
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>area</code> on the x axis and the log of <code>poptotal</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Within the <code>geom_point()</code> call, map color to <code>state</code>, map size to the log of <code>popdensity</code>, and fix transparency (<code>alpha</code>) to 0.3.</li>
 </ol>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Add a smoother and turn off plotting the confidence interval. Hint: see the <code>se</code> argument to <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Facet the plot by <code>state</code>. Set the <code>scales</code> argument to <code>facet_wrap()</code> to allow separate ranges for the x-axis.</li>
 </ol>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Change the default color scale to use the discrete <code>RColorBrewer</code> palette called <code>Set1</code>. Hint: see <code>?scale_color_brewer</code>.</li>
 </ol>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>BONUS: Change the default theme to <code>theme_bw()</code> and modify it so that the axis text and facet label background are blue. Hint: see <code>?theme</code> and especially <code>axis.text</code> and <code>strip.background</code>.</li>
 </ol>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1"><span class="co">## </span></a></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot with <code>area</code> on the x axis and the log of <code>poptotal</code> on the y axis.</li>
 </ol>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1">p6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x =</span> area, <span class="dt">y =</span> <span class="kw">log</span>(poptotal))) </a>
-<a class="sourceLine" id="cb364-2" data-line-number="2">p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-211-1.png" width="672" /></p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1">p6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x =</span> area, <span class="dt">y =</span> <span class="kw">log</span>(poptotal))) </a>
+<a class="sourceLine" id="cb362-2" data-line-number="2">p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-209-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Within the <code>geom_point()</code> call, map color to <code>state</code>, map size to the log of <code>popdensity</code>, and fix transparency (<code>alpha</code>) to 0.3.</li>
 </ol>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) </a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Add a smoother and turn off plotting the confidence interval. Hint: see the <code>se</code> argument to <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Facet the plot by <code>state</code>. Set the <code>scales</code> argument to <code>facet_wrap()</code> to allow separate ranges for the x-axis.</li>
 </ol>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Change the default color scale to use the discrete <code>RColorBrewer</code> palette called <code>Set1</code>. Hint: see <code>?scale_color_brewer</code>.</li>
 </ol>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)</a></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>BONUS: Change the default theme to <code>theme_bw()</code> and modify it so that the axis text and facet label background are blue. Hint: see <code>?theme</code> and especially <code>axis.text</code> and <code>strip.background</code>.</li>
 </ol>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb369-2" data-line-number="2"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</a>
-<a class="sourceLine" id="cb369-3" data-line-number="3">          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1">p6 &lt;-<span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb367-2" data-line-number="2"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</a>
+<a class="sourceLine" id="cb367-3" data-line-number="3">          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))</a></code></pre></div>
 <p>Here’s the complete code for the Exercise 3 plot:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1">p6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x =</span> area, <span class="dt">y =</span> <span class="kw">log</span>(poptotal))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb370-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb370-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb370-4" data-line-number="4"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb370-5" data-line-number="5"><span class="st">    </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb370-6" data-line-number="6"><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb370-7" data-line-number="7"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</a>
-<a class="sourceLine" id="cb370-8" data-line-number="8">         <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))</a>
-<a class="sourceLine" id="cb370-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb370-10" data-line-number="10">p6         </a></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-217-1.png" width="672" /></p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" data-line-number="1">p6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x =</span> area, <span class="dt">y =</span> <span class="kw">log</span>(poptotal))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb368-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb368-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb368-4" data-line-number="4"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb368-5" data-line-number="5"><span class="st">    </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb368-6" data-line-number="6"><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb368-7" data-line-number="7"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</a>
+<a class="sourceLine" id="cb368-8" data-line-number="8">         <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))</a>
+<a class="sourceLine" id="cb368-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb368-10" data-line-number="10">p6         </a></code></pre></div>
+<p><img src="R/Rgraphics/figures/unnamed-chunk-215-1.png" width="672" /></p>
 </div>
 </details>
 </div>

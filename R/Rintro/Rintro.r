@@ -139,11 +139,11 @@
 # There are also several different **formats** available for writing code in R. 
 # These basically boil down to a choice between:
 #
-# 1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a `.R` or `.r` extension. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
+# 1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a `.R` or `.r` extension. Writing source code has the great advantage of being simple. Source code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
 #
-# 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embeddeding R code in a document that is authored using *Markdown* and which has a `.Rmd` extension. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
+# 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embedding R code in a document that is authored using *Markdown* and which has a `.Rmd` extension. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
 #
-# Here are some resources for learning more about Rmarkdown and RStudio: 
+# Here are some resources for learning more about RMarkdown and RStudio: 
 #
 # * <https://rmarkdown.rstudio.com/authoring_quick_tour.html>
 # * <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
@@ -155,7 +155,7 @@
 #
 # * On Windows click the start button and search for RStudio. On Mac
 #   RStudio will be in your applications folder.
-# * In Rstudio go to `File -> New Project`.
+# * In RStudio go to `File -> New Project`.
 # * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
 # * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 
@@ -253,10 +253,10 @@ round(digits = 1, x = 2.34) # matching by name is safer!
 # * The **gets** `<-` operator (less than followed by a dash) is used to save objects
 # * The name on the left **gets** the object on the right 
 
-sqrt(10) ## calculate square root of 10; result is not stored anywhere
+sqrt(10) # calculate square root of 10; result is not stored anywhere
 x <- sqrt(10) # assign result to a variable named x
 
-# Names should start with a letter, and contain only letters, numbers, underscores, and periods.
+# As mentioned in **Syntax rules** above, names should start with a letter, and contain only letters, numbers, underscores, and periods.
 
 # ### Asking for help
 #
@@ -321,7 +321,7 @@ x <- sqrt(10) # assign result to a variable named x
 # [`tidyverse`](https://www.tidyverse.org/) have been 
 # designed specifically for data science. All packages included in 
 # `tidyverse` share an underlying design philosophy, grammar, and 
-# data structures. This philosopy is rooted in the idea of "tidy data":
+# data structures. This philosophy is rooted in the idea of "tidy data":
 #
 # ![](R/Rintro/images/tidy_data.png)
 #
@@ -334,6 +334,7 @@ x <- sqrt(10) # assign result to a variable named x
 # --- see [R Installation](./Rinstall.html). 
 # Now let's load these packages into the search path of our R session.
 
+## Load packages tidyverse and rmarkdown using library() function
 library(tidyverse)
 library(rmarkdown)
 
@@ -350,12 +351,13 @@ library(rmarkdown)
 # | other delimited formats   | `read_table()`  |
 # | fixed width               | `read_fwf()`    |
 #
-# **Note** You may be confused by the existence of similar functions,
+# **Note** You may notice that there exist similar functions
+# in one of the built-in packages in R called `utils`,
 # e.g., `read.csv` and `read.delim`. These are legacy functions that
 # tend to be slower and less robust than the `readr` functions. One way
 # to tell them apart is that the faster more robust versions use
 # underscores in their names (e.g., `read_csv`) while the older
-# functions use dots (e.g., `read.csv`). My advice is to use the more
+# functions use dots (e.g., `read.csv`). Our advice is to use the more
 # robust newer versions, i.e., the ones with underscores.
 #
 # ### Baby names data
@@ -450,7 +452,7 @@ library(rmarkdown)
 #
 # One way to find the year in which your name was the most popular
 # is to filter out just the rows corresponding to your name, and 
-# then arrange (sort) by Count. 
+# then arrange (sort) by `Count`. 
 #
 # To demonstrate these techniques we'll try to determine whether 
 # "Alex"" or "Mark" was more popular in 1992. We start by filtering the
@@ -460,6 +462,8 @@ library(rmarkdown)
 ## Read in the baby names data if you haven't already
 baby_names <- read_csv("babyNames.csv")
 
+## Filter data, keeping "Alex" and "Mark" in year 1992, record in baby_names_alexmark
+## Use logical operators to specify the filtering condition
 baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
 
@@ -473,8 +477,10 @@ baby_names_alexmark # implicit printing
 # but to make it even easier we can arrange the data so that the 
 # most popular name is listed first.
 
+## Arrange the data by Count to see the most popular name first
 arrange(baby_names_alexmark, Count)
 
+## Arrange the data in descending order instead
 arrange(baby_names_alexmark, desc(Count))
 
 # We can also use the `select()` function to subset the `data.frame`
@@ -482,8 +488,10 @@ arrange(baby_names_alexmark, desc(Count))
 # would just like to glance at the first few lines we can use the
 #  `head()` function:
 
+## Select columns Name and Count and assign to a new object "baby_names_subset"
 baby_names_subset <- select(baby_names, Name, Count)
 
+## Use head() to glance at the first few lines
 head(baby_names_subset)
 head(baby_names_subset, n = 6) # default is n = 6
 
@@ -506,21 +514,26 @@ head(baby_names_subset, n = 6) # default is n = 6
 # For example, we can create a **vector** (a **container for a collection of values**) and demonstrate
 # some ways to combine operators:
 
+## Create a vector of consecutive values between 1 and 10
 x <- 1:10 # a vector
 x
 
+## Which elements of x are above 7
 x > 7 # a simple condition
+
+## Which elements of x are above 7 or below 3
 x > 7 | x < 3 # two conditions combined
 
 # If we want to match multiple elements from two vectors we can use the `%in%` operator:
 
 # x %in% vector
-# elements of x matched in vector
+# elements of x matching numbers 1, 5, or 10 
 x %in% c(1, 5, 10) 
 
 # Notice that logical and relational operators return **logical vectors** of `TRUE` and `FALSE` values.
 # The logical vectors returned by these operators can themselves be operated on by functions:
 
+## Count the number of elements of x above 7
 x > 7
 sum(x > 7)
 
@@ -596,6 +609,8 @@ sum(x > 7)
 # rewrite the sequence of commands to output ordered counts for names 
 # "Alex" or "Mark".
 
+## Filter data keeping rows for "Alex" and "Mark" during year 1992, record in baby_names_alexmark
+## Arrange the result in a descending order by Count
 # unpiped version
 baby_names_alexmark <- filter(baby_names, Year == 1992 & (Name == "Alex" | Name == "Mark"))
 arrange(baby_names_alexmark, desc(Count))
@@ -629,7 +644,8 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 # for the year your name reached its maximum popularity. For that, we filtered 
 # the data and then arranged by `Count`.
 
-##
+## Use filter to extract data for your name (or another name of your choice)
+## Arrange the data by Count
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2.2 Solution</b></span></summary>
@@ -659,14 +675,17 @@ baby_names %>%
 # For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example,
 # we can plot the number of babies given the name "Diana" over time like this:
 
+## Filter data keeping rows for name "Diana" and assign to a new object called baby_names_diana
 baby_names_diana <- filter(baby_names, Name == "Diana")
 
+## Use qplot() function to plot Counts (y) by Year (x)
 qplot(x = Year, y = Count,
      data = baby_names_diana)
 
 # Interestingly, there are usually some gender-atypical names, even for very strongly 
 # gendered names like "Diana". Splitting these trends out by `Sex` is very easy:
 
+## Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.
 qplot(x = Year, y = Count, color = Sex,
       data = baby_names_diana)
 
@@ -752,6 +771,7 @@ qplot(x = Year, y = Count, color = Sex,
 # of a `data.frame`. For example, we can use it to rescale the count
 # of each name in each year:
 
+## Use piping to add a new column to the data, called Count_1k, that rescales counts to thousands
 baby_names <- baby_names %>% mutate(Count_1k = Count/1000)
 head(baby_names) 
 
@@ -772,6 +792,8 @@ head(baby_names)
 #
 # Here's the code that implements the calculation:
 
+## Group baby_names by Year and Sex and rank Count_1k within each group (calling the resulting new column "Rank"). 
+## Remember to ungroup in the end!
 baby_names <-
   baby_names %>%
   group_by(Year, Sex) %>%
@@ -787,6 +809,8 @@ head(baby_names)
 # it into `low`, `medium`, and `high` categories. To do this, we can use the `case_when()`
 # function within the `mutate()` function:
 
+## Use case_when to recode the newly created Rank column into low (<=10), high (>40), and medium (all others).
+## Call the resulting column "Count_levels".
 baby_names <-
   baby_names %>%
   mutate(Count_levels = case_when(
@@ -928,6 +952,7 @@ head(baby_names)
 # First, let's see how this function works without grouping. The following 
 # code outputs the total number of girls and boys in the data:
 
+## Use summarize() to output the total number of boys and girls in the sample
 baby_names %>% 
   summarize(Girls_n = sum(Sex=="Girls"),
             Boys_n = sum(Sex=="Boys"))
@@ -942,6 +967,8 @@ baby_names %>%
 #
 # Here's the code that implements the calculation:
 
+## Group baby_names by Year and calculate the sum of Count (record in a column Total). 
+## Assign the result to bn_by_year and remember to ungroup!
 bn_by_year <-
   baby_names %>%
   group_by(Year) %>%
@@ -1004,7 +1031,8 @@ head(bn_by_year)
 #       summarize(TotalProportion = sum(Proportion))
 #     ```
 #
-# 3. Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by `Sex`.
+# 3. Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by `Sex` and notice
+#     the trend.
 #
 #     ```{r}
 #     qplot(x = Year, 
@@ -1030,37 +1058,20 @@ head(bn_by_year)
 # You might find functions `write_csv()` and `write_rds()` from package 
 # `readr` handy!
 
-# write data to a .csv file
+# write baby_names to a .csv file
 write_csv(baby_names, "babyNames.csv")
 
-# write data to an R file
+# write baby_names to an R file
 write_rds(baby_names, "babyNames.rds")
 
 # ### Saving multiple datasets
 
 ls() # list objects in our workspace
+## Use save() function from the base R package to record some objects into a file named myDataFiles.RData
 save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")  
 
 ## Load the "myDataFiles.RData"
 ## load("myDataFiles.RData") 
-
-# ### Saving & loading workspaces
-#
-# In addition to importing individual datasets, R can save and load entire
-# "workspaces". The workspace is your current R working environment and includes
-# any user-defined objects. At the end of a session, you can save an "image"
-# of the current workspace, which allows you to automatically reload the objects
-# you previously created.
-
-ls() # list objects in our workspace
-save.image(file="myWorkspace.RData") # save workspace 
-rm(list=ls()) # remove all objects from our workspace 
-ls() # list stored objects to make sure they are deleted
-
-## Load the "myWorkspace.RData" file and check that it is restored
-load("myWorkspace.RData") # load myWorkspace.RData
-ls() # list objects
-
 
 # ## Wrap-up
 #
@@ -1082,8 +1093,8 @@ ls() # list objects
 #
 # * Software (all free!):
 #     + R and R package download: <http://cran.r-project.org>
-#     + Rstudio download: <http://rstudio.org>
-#     + ESS (emacs R package): <http://ess.r-project.org/>
+#     + RStudio download: <http://rstudio.org>
+#     + ESS (Emacs R package): <http://ess.r-project.org/>
 #
 # * Cheatsheets
 #     + <https://rstudio.com/wp-content/uploads/2019/01/Cheatsheets_2019.pdf>
