@@ -233,7 +233,7 @@
 #
 # The general form for calling R functions is
 
-## FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n = value.n)
+# FunctionName(arg.1 = value.1, arg.2 = value.2, ..., arg.n = value.n)
 
 # The arguments in a function can be objects (data, formulae, expressions, etc.), 
 # some of which could be defined by default in the function; these default values may
@@ -334,7 +334,7 @@ x <- sqrt(10) # assign result to a variable named x
 # --- see [R Installation](./Rinstall.html). 
 # Now let's load these packages into the search path of our R session.
 
-## Load packages tidyverse and rmarkdown using library() function
+# Load packages tidyverse and rmarkdown using library() function
 library(tidyverse)
 library(rmarkdown)
 
@@ -459,11 +459,11 @@ library(rmarkdown)
 # data so that we keep only rows where Year is equal to `1992` and Name is
 # either "Alex" or "Mark".
 
-## Read in the baby names data if you haven't already
+# Read in the baby names data if you haven't already
 baby_names <- read_csv("babyNames.csv")
 
-## Filter data, keeping "Alex" and "Mark" in year 1992, record in baby_names_alexmark
-## Use logical operators to specify the filtering condition
+# Filter data, keeping "Alex" and "Mark" in year 1992, record in baby_names_alexmark
+# Use logical operators to specify the filtering condition
 baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
 
@@ -477,10 +477,10 @@ baby_names_alexmark # implicit printing
 # but to make it even easier we can arrange the data so that the 
 # most popular name is listed first.
 
-## Arrange the data by Count to see the most popular name first
+# Arrange the data by Count to see the most popular name first
 arrange(baby_names_alexmark, Count)
 
-## Arrange the data in descending order instead
+# Arrange the data in descending order instead
 arrange(baby_names_alexmark, desc(Count))
 
 # We can also use the `select()` function to subset the `data.frame`
@@ -488,10 +488,10 @@ arrange(baby_names_alexmark, desc(Count))
 # would just like to glance at the first few lines we can use the
 #  `head()` function:
 
-## Select columns Name and Count and assign to a new object "baby_names_subset"
+# Select columns Name and Count and assign to a new object "baby_names_subset"
 baby_names_subset <- select(baby_names, Name, Count)
 
-## Use head() to glance at the first few lines
+# Use head() to glance at the first few lines
 head(baby_names_subset)
 head(baby_names_subset, n = 6) # default is n = 6
 
@@ -514,14 +514,14 @@ head(baby_names_subset, n = 6) # default is n = 6
 # For example, we can create a **vector** (a **container for a collection of values**) and demonstrate
 # some ways to combine operators:
 
-## Create a vector of consecutive values between 1 and 10
+# Create a vector of consecutive values between 1 and 10
 x <- 1:10 # a vector
 x
 
-## Which elements of x are above 7
+# Which elements of x are above 7
 x > 7 # a simple condition
 
-## Which elements of x are above 7 or below 3
+# Which elements of x are above 7 or below 3
 x > 7 | x < 3 # two conditions combined
 
 # If we want to match multiple elements from two vectors we can use the `%in%` operator:
@@ -533,7 +533,7 @@ x %in% c(1, 5, 10)
 # Notice that logical and relational operators return **logical vectors** of `TRUE` and `FALSE` values.
 # The logical vectors returned by these operators can themselves be operated on by functions:
 
-## Count the number of elements of x above 7
+# Count the number of elements of x above 7
 x > 7
 sum(x > 7)
 
@@ -609,8 +609,8 @@ sum(x > 7)
 # rewrite the sequence of commands to output ordered counts for names 
 # "Alex" or "Mark".
 
-## Filter data keeping rows for "Alex" and "Mark" during year 1992, record in baby_names_alexmark
-## Arrange the result in a descending order by Count
+# Filter data keeping rows for "Alex" and "Mark" during year 1992, record in baby_names_alexmark
+# Arrange the result in a descending order by Count
 # unpiped version
 baby_names_alexmark <- filter(baby_names, Year == 1992 & (Name == "Alex" | Name == "Mark"))
 arrange(baby_names_alexmark, desc(Count))
@@ -644,8 +644,9 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 # for the year your name reached its maximum popularity. For that, we filtered 
 # the data and then arranged by `Count`.
 
-## Use filter to extract data for your name (or another name of your choice)
-## Arrange the data by Count
+# Use filter to extract data for your name (or another name of your choice)
+# Arrange the data by Count
+
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2.2 Solution</b></span></summary>
@@ -653,6 +654,8 @@ output_of_thing_on_left %>% becomes_input_of_thing_on_right
 #
 # Rewrite the solution to Exercise 2.1 using pipes.
 
+# Use filter to extract data for your name (or another name of your choice)
+# Arrange the data by Count
 baby_names %>% 
     filter(Name == "George") %>%
     arrange(desc(Count))
@@ -675,17 +678,17 @@ baby_names %>%
 # For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example,
 # we can plot the number of babies given the name "Diana" over time like this:
 
-## Filter data keeping rows for name "Diana" and assign to a new object called baby_names_diana
+# Filter data keeping rows for name "Diana" and assign to a new object called baby_names_diana
 baby_names_diana <- filter(baby_names, Name == "Diana")
 
-## Use qplot() function to plot Counts (y) by Year (x)
+# Use qplot() function to plot Counts (y) by Year (x)
 qplot(x = Year, y = Count,
      data = baby_names_diana)
 
 # Interestingly, there are usually some gender-atypical names, even for very strongly 
 # gendered names like "Diana". Splitting these trends out by `Sex` is very easy:
 
-## Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.
+# Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.
 qplot(x = Year, y = Count, color = Sex,
       data = baby_names_diana)
 
@@ -771,7 +774,7 @@ qplot(x = Year, y = Count, color = Sex,
 # of a `data.frame`. For example, we can use it to rescale the count
 # of each name in each year:
 
-## Use piping to add a new column to the data, called Count_1k, that rescales counts to thousands
+# Use piping to add a new column to the data, called Count_1k, that rescales counts to thousands
 baby_names <- baby_names %>% mutate(Count_1k = Count/1000)
 head(baby_names) 
 
@@ -792,8 +795,8 @@ head(baby_names)
 #
 # Here's the code that implements the calculation:
 
-## Group baby_names by Year and Sex and rank Count_1k within each group (calling the resulting new column "Rank"). 
-## Remember to ungroup in the end!
+# Group baby_names by Year and Sex and rank Count_1k within each group (calling the resulting new column "Rank"). 
+# Remember to ungroup at the end!
 baby_names <-
   baby_names %>%
   group_by(Year, Sex) %>%
@@ -809,8 +812,8 @@ head(baby_names)
 # it into `low`, `medium`, and `high` categories. To do this, we can use the `case_when()`
 # function within the `mutate()` function:
 
-## Use case_when to recode the newly created Rank column into low (<=10), high (>40), and medium (all others).
-## Call the resulting column "Count_levels".
+# Use case_when() to recode the newly created Rank column into low (<=10), high (>40), and medium (all others).
+# Call the resulting column "Count_levels".
 baby_names <-
   baby_names %>%
   mutate(Count_levels = case_when(
@@ -952,7 +955,7 @@ head(baby_names)
 # First, let's see how this function works without grouping. The following 
 # code outputs the total number of girls and boys in the data:
 
-## Use summarize() to output the total number of boys and girls in the sample
+# Use summarize() to output the total number of boys and girls in the sample
 baby_names %>% 
   summarize(Girls_n = sum(Sex=="Girls"),
             Boys_n = sum(Sex=="Boys"))
@@ -967,8 +970,8 @@ baby_names %>%
 #
 # Here's the code that implements the calculation:
 
-## Group baby_names by Year and calculate the sum of Count (record in a column Total). 
-## Assign the result to bn_by_year and remember to ungroup!
+# Group baby_names by Year and calculate the sum of Count (record in a column called Total). 
+# Assign the result to bn_by_year and remember to ungroup!
 bn_by_year <-
   baby_names %>%
   group_by(Year) %>%
@@ -1067,11 +1070,11 @@ write_rds(baby_names, "babyNames.rds")
 # ### Saving multiple datasets
 
 ls() # list objects in our workspace
-## Use save() function from the base R package to record some objects into a file named myDataFiles.RData
+# Use save() function from the base R package to record some objects into a file named "myDataFiles.RData"
 save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")  
 
-## Load the "myDataFiles.RData"
-## load("myDataFiles.RData") 
+# Load the "myDataFiles.RData"
+# load("myDataFiles.RData") 
 
 # ## Wrap-up
 #
