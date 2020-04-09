@@ -551,19 +551,19 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(p(hypev_i=1)) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
+# logit(p(hypev_i = 1)) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
 # $$
 # </div>
 #
-# where $logit(\cdot)$ is the link function, which is equivalent to the log odds of the probability of the response being a "success" (i.e., 1):
+# where $logit(\cdot)$ is the non-linear link function that relates a linear expression of the predictors to the expectation of the binary response:
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(p(hypev_i=1)) = ln \left( \frac{p(hypev_i = 1)}{p(hypev_i = 0)} \right)
+# logit(p(hypev_i = 1)) = ln \left( \frac{p(hypev_i = 1)}{1-p(hypev_i = 1)} \right) = ln \left( \frac{p(hypev_i = 1)}{p(hypev_i = 0)} \right)
 # $$
 # </div>
 #
-# And here's how we fit this in R. First, let's clean up the hypertension outcome by making it binary:
+# And here's how we fit this model in R. First, let's clean up the hypertension outcome by making it binary:
 
   str(NH11$hypev) # check stucture of hypev
   levels(NH11$hypev) # check levels of hypev
