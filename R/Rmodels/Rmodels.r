@@ -194,7 +194,7 @@ outcome ~ pred1 + pred2 + pred3
 
 # NOTE the ~ is a tilde
 
-# For example, the following model predicts SAT scores based on per-pupil expenditures:
+# For example, the following theoretical model predicts SAT scores based on per-pupil expenditures:
 #
 # <div class="alert alert-secondary">
 # $$
@@ -547,19 +547,19 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # argument relates the predictors to the expected value of the outcome.
 #
 # Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`.
-# Here's the model:
+# Here's the theoretical model:
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(hypev_i) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+# logit(p(hypev_i=1)) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
 # $$
 # </div>
 #
-# where $logit(\cdot)$ is the link function, which is equivalent to the log odds of `hypev`:
+# where $logit(\cdot)$ is the link function, which is equivalent to the log odds of the probability of the response being a "success" (i.e., 1):
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
+# logit(p(hypev_i=1)) = ln \left( \frac{p(hypev_i = 1)}{p(hypev_i = 0)} \right)
 # $$
 # </div>
 #
@@ -598,7 +598,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### Predicted marginal means
 #
-# Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least squares means"). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
+# Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least-squares means" or "estimated marginal means"). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
 
   hyp_out %>% 
       allEffects() %>%
@@ -671,7 +671,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # * Multi-level (AKA hierarchical) models are a type of **mixed-effects** model
 # * They are used to model data that are clustered (i.e., non-independent)
-# * Mixed-effecs models include two types of predictors: **fixed-effects** and **random effects**
+# * Mixed-effects models include two types of predictors: **fixed-effects** and **random effects**
 #   + **Fixed-effects** -- observed levels are of direct interest (.e.g, sex, political party...)
 #   + **Random-effects** -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
 #   + In R, the `lme4` package is the most popular for mixed effects models
@@ -679,13 +679,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### The Exam data
 #
-# The Exam data set contans exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
+# The Exam data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
 #
 # | Variable | Description                             |
 # |:---------|:----------------------------------------|
 # | school   | School ID - a factor.                   |
 # | normexam | Normalized exam score.                  |
-# | standLRT | Standardised LR test score.             |
+# | standLRT | Standardized LR test score.             |
 # | student  | Student id (within school) - a factor   |
 
   Exam <- read_rds("dataSets/Exam.rds")
@@ -712,7 +712,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### Adding fixed-effects predictors
 #
-# Here's a model that predicts exam scores from student's standardized tests scores:
+# Here's a theoretical model that predicts exam scores from student's standardized tests scores:
 #
 # <div class="alert alert-secondary">
 # $$

@@ -3756,7 +3756,7 @@ a \texttt{formula} --- a symbolic representation of the model in R syntax:
 \end{Highlighting}
 \end{Shaded}
 
-For example, the following model predicts SAT scores based on per-pupil expenditures:
+For example, the following theoretical model predicts SAT scores based on per-pupil expenditures:
 
 \[
 csat_i = \beta_{0}1 + \beta_1expense_i + \epsilon_i
@@ -4990,16 +4990,16 @@ The \texttt{family} argument sets the error distribution for the model, while th
 argument relates the predictors to the expected value of the outcome.
 
 Let's predict the probability of being diagnosed with hypertension based on \texttt{age}, \texttt{sex}, \texttt{sleep}, and \texttt{bmi}.
-Here's the model:
+Here's the theoretical model:
 
 \[
-logit(hypev_i) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+logit(p(hypev_i=1)) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
 \]
 
-where \(logit(\cdot)\) is the link function, which is equivalent to the log odds of \texttt{hypev}:
+where \(logit(\cdot)\) is the link function, which is equivalent to the log odds of the probability of the response being a ``success'' (i.e., 1):
 
 \[
-logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
+logit(p(hypev_i=1)) = ln \left( \frac{p(hypev_i = 1)}{p(hypev_i = 0)} \right)
 \]
 
 And here's how we fit this in R. First, let's clean up the hypertension outcome by making it binary:
@@ -5096,7 +5096,7 @@ Here we transform them into odds ratios by exponentiating:
 \hypertarget{predicted-marginal-means}{%
 \subsection{Predicted marginal means}\label{predicted-marginal-means}}
 
-Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called ``least squares means''). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the \texttt{effects} package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
+Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called ``least-squares means'' or ``estimated marginal means''). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the \texttt{effects} package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5349,7 +5349,7 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 \item
   They are used to model data that are clustered (i.e., non-independent)
 \item
-  Mixed-effecs models include two types of predictors: \textbf{fixed-effects} and \textbf{random effects}
+  Mixed-effects models include two types of predictors: \textbf{fixed-effects} and \textbf{random effects}
 
   \begin{itemize}
   \tightlist
@@ -5367,7 +5367,7 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 \hypertarget{the-exam-data}{%
 \subsection{The Exam data}\label{the-exam-data}}
 
-The Exam data set contans exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
+The Exam data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -5376,7 +5376,7 @@ Variable & Description\tabularnewline
 \endhead
 school & School ID - a factor.\tabularnewline
 normexam & Normalized exam score.\tabularnewline
-standLRT & Standardised LR test score.\tabularnewline
+standLRT & Standardized LR test score.\tabularnewline
 student & Student id (within school) - a factor\tabularnewline
 \bottomrule
 \end{longtable}
@@ -5440,7 +5440,7 @@ approximation).
 \hypertarget{adding-fixed-effects-predictors}{%
 \subsection{Adding fixed-effects predictors}\label{adding-fixed-effects-predictors}}
 
-Here's a model that predicts exam scores from student's standardized tests scores:
+Here's a theoretical model that predicts exam scores from student's standardized tests scores:
 
 \[
 normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
@@ -11633,19 +11633,19 @@ The records we retrieved from \url{https://www.harvardartmuseums.org/browse} are
 \end{Shaded}
 
 \begin{verbatim}
-##    accessionyear              technique  ...                         colors                        details
-## 0         1991.0                   None  ...                            NaN                            NaN
-## 1            NaN  Etching and mezzotint  ...  [{'percent': 0.49918238993...                            NaN
-## 2         2008.0                   None  ...  [{'percent': 0.39489096573...                            NaN
-## 3         1977.0                   None  ...  [{'percent': 0.42390572390...                            NaN
-## 4         2002.0                 Struck  ...                            NaN  {'coins': {'dateonobject':...
-## 5         1943.0                   None  ...  [{'percent': 0.30251572327...                            NaN
-## 6         1997.0           Photogravure  ...                            NaN                            NaN
-## 7         1972.0                 Struck  ...                            NaN  {'coins': {'dateonobject':...
-## 8         1986.0                 Carved  ...                            NaN                            NaN
-## 9         2009.0                   None  ...                            NaN                            NaN
+##    accessionyear  technique  ...  classification                        seeAlso
+## 0           2004   Repoussé  ...         Vessels  [{'id': 'https://iiif.harv...
+## 1           1963       None  ...       Sculpture  [{'id': 'https://iiif.harv...
+## 2           2000    Etching  ...          Prints  [{'id': 'https://iiif.harv...
+## 3           1991    Celadon  ...         Vessels  [{'id': 'https://iiif.harv...
+## 4           2007       None  ...        Drawings  [{'id': 'https://iiif.harv...
+## 5           1996       None  ...           Boxes  [{'id': 'https://iiif.harv...
+## 6           1991    Celadon  ...         Vessels  [{'id': 'https://iiif.harv...
+## 7           1973       None  ...       Paintings  [{'id': 'https://iiif.harv...
+## 8           2009  Engraving  ...          Prints  [{'id': 'https://iiif.harv...
+## 9           1928     Carved  ...       Sculpture  [{'id': 'https://iiif.harv...
 ## 
-## [10 rows x 62 columns]
+## [10 rows x 61 columns]
 \end{verbatim}
 
 and write the data to a file.
@@ -11694,57 +11694,57 @@ Now that we know the web service works, and how to make requests in Python, we c
 \end{Shaded}
 
 \begin{verbatim}
-##     accessionyear               technique  ...                         colors                        details
-## 0          1991.0                    None  ...                            NaN                            NaN
-## 1             NaN   Etching and mezzotint  ...  [{'percent': 0.49918238993...                            NaN
-## 2          2008.0                    None  ...  [{'percent': 0.39489096573...                            NaN
-## 3          1977.0                    None  ...  [{'percent': 0.42390572390...                            NaN
-## 4          2002.0                  Struck  ...                            NaN  {'coins': {'dateonobject':...
-## 5          1943.0                    None  ...  [{'percent': 0.30251572327...                            NaN
-## 6          1997.0            Photogravure  ...                            NaN                            NaN
-## 7          1972.0                  Struck  ...                            NaN  {'coins': {'dateonobject':...
-## 8          1986.0                  Carved  ...                            NaN                            NaN
-## 9          2009.0                    None  ...                            NaN                            NaN
-## 10         1950.0        Overglaze enamel  ...  [{'percent': 0.34828282828...                            NaN
-## 11         1942.0                 Etching  ...  [{'percent': 0.32058997050...                            NaN
-## 12         1933.0                    None  ...  [{'percent': 0.31122448979...                            NaN
-## 13         1996.0                    None  ...                            NaN                            NaN
-## 14         1941.0                    None  ...  [{'percent': 0.43264957264...                            NaN
-## 15         1943.0                    None  ...  [{'percent': 0.58908424908...                            NaN
-## 16         1992.0                    None  ...                            NaN                            NaN
-## 17         1964.0                    None  ...  [{'percent': 0.46392156862...                            NaN
-## 18         1991.0                 Celadon  ...  [{'percent': 0.60644444444...                            NaN
-## 19         2009.0                 Etching  ...  [{'percent': 0.34770226537...                            NaN
-## 20         2009.0               Engraving  ...  [{'percent': 0.31194202898...                            NaN
-## 21         1984.0                    None  ...  [{'percent': 0.27148148148...                            NaN
-## 22            NaN               Engraving  ...  [{'percent': 0.27759562841...                            NaN
-## 23         1977.0                    None  ...                            NaN                            NaN
-## 24         2008.0                    None  ...  [{'percent': 0.51993769470...                            NaN
-## 25            NaN    Etching and aquatint  ...  [{'percent': 0.47449541284...                            NaN
-## 26         2008.0      Dye transfer print  ...                            NaN                            NaN
-## 27         2001.0                    None  ...  [{'percent': 0.48197101449...                            NaN
-## 28         2003.0                    None  ...  [{'percent': 0.29954802259...                            NaN
-## 29         1998.0                    None  ...                            NaN                            NaN
-## 30         1984.0                    None  ...                            NaN                            NaN
-## 31         2004.0                    None  ...  [{'percent': 0.57493333333...                            NaN
-## 32         1969.0                    None  ...  [{'percent': 0.59434666666...                            NaN
-## 33         2000.0               Engraving  ...  [{'percent': 0.42640522875...                            NaN
-## 34         2009.0                    None  ...  [{'percent': 0.67143678160...                            NaN
-## 35         1985.0                    None  ...  [{'percent': 0.28490358126...                            NaN
-## 36         1991.0                 Celadon  ...                            NaN                            NaN
-## 37         2009.0                    None  ...                            NaN                            NaN
-## 38            NaN              Lithograph  ...  [{'percent': 0.70210526315...                            NaN
-## 39         1975.0   Woven, tapestry weave  ...  [{'percent': 0.19209876543...                            NaN
-## 40         1954.0    Etching and drypoint  ...  [{'percent': 0.49231231231...                            NaN
-## 41         1990.0                    None  ...                            NaN                            NaN
-## 42         2006.0                    None  ...  [{'percent': 0.19627777777...                            NaN
-## 43         1968.0  Cast, lost-wax process  ...  [{'percent': 0.44719764011...  {'technical': [{'text': 'I...
-## 44         1943.0                    None  ...                            NaN                            NaN
-## 45         1997.0    Gelatin silver print  ...                            NaN                            NaN
-## 46         1978.0                    None  ...  [{'percent': 0.31258426966...                            NaN
-## 47         1956.0                    None  ...  [{'percent': 0.71912772585...                            NaN
-## 48         2009.0                    None  ...  [{'percent': 0.14666666666...                            NaN
-## 49         1933.0                    None  ...  [{'percent': 0.46435643564...                            NaN
+##     accessionyear               technique  ...                        seeAlso                        details
+## 0          2004.0                Repoussé  ...  [{'id': 'https://iiif.harv...                            NaN
+## 1          1963.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 2          2000.0                 Etching  ...  [{'id': 'https://iiif.harv...                            NaN
+## 3          1991.0                 Celadon  ...  [{'id': 'https://iiif.harv...                            NaN
+## 4          2007.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 5          1996.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 6          1991.0                 Celadon  ...  [{'id': 'https://iiif.harv...                            NaN
+## 7          1973.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 8          2009.0               Engraving  ...  [{'id': 'https://iiif.harv...                            NaN
+## 9          1928.0                  Carved  ...  [{'id': 'https://iiif.harv...                            NaN
+## 10         1997.0    Gelatin silver print  ...  [{'id': 'https://iiif.harv...                            NaN
+## 11         1951.0                  Struck  ...  [{'id': 'https://iiif.harv...  {'coins': {'dateonobject':...
+## 12            NaN                  Struck  ...  [{'id': 'https://iiif.harv...  {'coins': {'dateonobject':...
+## 13         1908.0                  Carved  ...  [{'id': 'https://iiif.harv...                            NaN
+## 14            NaN              Lithograph  ...  [{'id': 'https://iiif.harv...                            NaN
+## 15         1995.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 16         2007.0      Salted paper print  ...  [{'id': 'https://iiif.harv...                            NaN
+## 17         2000.0               Engraving  ...  [{'id': 'https://iiif.harv...                            NaN
+## 18         2000.0                Monotype  ...  [{'id': 'https://iiif.harv...                            NaN
+## 19         1985.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 20         1943.0  Cast, lost-wax process  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
+## 21         1951.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 22         1933.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 23         1991.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 24         2003.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 25         2007.0       Cast and hammered  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': '2...
+## 26         1993.0         Photolithograph  ...  [{'id': 'https://iiif.harv...                            NaN
+## 27         1943.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 28         1924.0  Cast, lost-wax process  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'I...
+## 29         2009.0            Photogravure  ...  [{'id': 'https://iiif.harv...                            NaN
+## 30         2008.0    Gelatin silver print  ...  [{'id': 'https://iiif.harv...                            NaN
+## 31         2010.0  20 x 24 Polaroid print  ...  [{'id': 'https://iiif.harv...                            NaN
+## 32         2009.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 33         1986.0  Cast, lost-wax process  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'I...
+## 34         1942.0                     Jun  ...  [{'id': 'https://iiif.harv...                            NaN
+## 35         1943.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 36         1997.0    Gelatin silver print  ...  [{'id': 'https://iiif.harv...                            NaN
+## 37         1997.0    Gelatin silver print  ...  [{'id': 'https://iiif.harv...                            NaN
+## 38         2008.0      Dye transfer print  ...  [{'id': 'https://iiif.harv...                            NaN
+## 39         2002.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 40         1994.0            Black-figure  ...  [{'id': 'https://iiif.harv...                            NaN
+## 41         1927.0              Red-figure  ...  [{'id': 'https://iiif.harv...                            NaN
+## 42         1945.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 43         2009.0            Photogravure  ...  [{'id': 'https://iiif.harv...                            NaN
+## 44         1995.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 45         1942.0                 Etching  ...  [{'id': 'https://iiif.harv...                            NaN
+## 46         2006.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
+## 47            NaN   Etching and mezzotint  ...  [{'id': 'https://iiif.harv...                            NaN
+## 48         1998.0  Cast, lost-wax process  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'I...
+## 49         1991.0                    None  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 
 ## [50 rows x 62 columns]
 \end{verbatim}
@@ -12160,14 +12160,14 @@ Finally, we can iterate over the elements we want and extract them.
 \end{Shaded}
 
 \begin{verbatim}
-## {'date': 'Wednesday, April 1, 2020',
-##  'figcaption': 'Professor Kurt Wehlte in 1962. By permission of the Staatliche '
-##                'Akademie der Bildenden Künste, Stuttgart.',
-##  'location1': '32 Quincy Street',
+## {'date': 'Thursday, April 9, 2020',
+##  'figcaption': '1958 D. A. Flentrop organ, Adolphus Busch Hall, Harvard '
+##                'University.',
+##  'location1': '29 Kirkland Street',
 ##  'location2': 'Cambridge',
-##  'time': '6:00pm - 7:30pm',
-##  'title': 'Pursuing Knowledge of Artists’ Materials Production and '
-##           'Conservation Expertise as War Booty [CANCELED]'}
+##  'time': '12:15pm - 12:45pm',
+##  'title': 'Midday Organ Recital: Members of the Harvard Organ Society '
+##           '[CANCELED]'}
 \end{verbatim}
 
 \hypertarget{iterating-to-retrieve-content-from-a-list-of-html-elements}{%

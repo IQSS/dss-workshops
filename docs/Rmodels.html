@@ -913,7 +913,7 @@ a <code>formula</code> — a symbolic representation of the model in R syntax:</
 <a class="sourceLine" id="cb156-2" data-line-number="2">outcome <span class="op">~</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2 <span class="op">+</span><span class="st"> </span>pred3</a>
 <a class="sourceLine" id="cb156-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb156-4" data-line-number="4"><span class="co"># </span><span class="al">NOTE</span><span class="co"> the ~ is a tilde</span></a></code></pre></div>
-<p>For example, the following model predicts SAT scores based on per-pupil expenditures:</p>
+<p>For example, the following theoretical model predicts SAT scores based on per-pupil expenditures:</p>
 <div class="alert alert-secondary">
 <p><span class="math display">\[
 csat_i = \beta_{0}1 + \beta_1expense_i + \epsilon_i
@@ -1656,16 +1656,16 @@ Note that you must make sure R does not think your categorical variable is numer
 <p>The <code>family</code> argument sets the error distribution for the model, while the <code>link</code> function
 argument relates the predictors to the expected value of the outcome.</p>
 <p>Let’s predict the probability of being diagnosed with hypertension based on <code>age</code>, <code>sex</code>, <code>sleep</code>, and <code>bmi</code>.
-Here’s the model:</p>
+Here’s the theoretical model:</p>
 <div class="alert alert-secondary">
 <p><span class="math display">\[
-logit(hypev_i) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i + \epsilon_i 
+logit(p(hypev_i=1)) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
 \]</span></p>
 </div>
-<p>where <span class="math inline">\(logit(\cdot)\)</span> is the link function, which is equivalent to the log odds of <code>hypev</code>:</p>
+<p>where <span class="math inline">\(logit(\cdot)\)</span> is the link function, which is equivalent to the log odds of the probability of the response being a “success” (i.e., 1):</p>
 <div class="alert alert-secondary">
 <p><span class="math display">\[
-logit(hypev_i) = ln \frac{p(hypev_i = 1)}{p(hypev_i = 0)}
+logit(p(hypev_i=1)) = ln \left( \frac{p(hypev_i = 1)}{p(hypev_i = 0)} \right)
 \]</span></p>
 </div>
 <p>And here’s how we fit this in R. First, let’s clean up the hypertension outcome by making it binary:</p>
@@ -1713,7 +1713,7 @@ Here we transform them into odds ratios by exponentiating:</p>
 </div>
 <div id="predicted-marginal-means" class="section level3">
 <h3>Predicted marginal means</h3>
-<p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called “least squares means”). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).</p>
+<p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called “least-squares means” or “estimated marginal means”). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">  hyp_out <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb250-2" data-line-number="2"><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb250-3" data-line-number="3"><span class="st">      </span><span class="kw">plot</span>(<span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># &quot;response&quot; refers to the probability scale</span></a></code></pre></div>
@@ -1889,7 +1889,7 @@ Here we transform them into odds ratios by exponentiating:</p>
 <ul>
 <li>Multi-level (AKA hierarchical) models are a type of <strong>mixed-effects</strong> model</li>
 <li>They are used to model data that are clustered (i.e., non-independent)</li>
-<li>Mixed-effecs models include two types of predictors: <strong>fixed-effects</strong> and <strong>random effects</strong>
+<li>Mixed-effects models include two types of predictors: <strong>fixed-effects</strong> and <strong>random effects</strong>
 <ul>
 <li><strong>Fixed-effects</strong> – observed levels are of direct interest (.e.g, sex, political party…)</li>
 <li><strong>Random-effects</strong> – observed levels not of direct interest: goal is to make inferences to a population represented by observed levels</li>
@@ -1900,7 +1900,7 @@ Here we transform them into odds ratios by exponentiating:</p>
 </div>
 <div id="the-exam-data" class="section level3">
 <h3>The Exam data</h3>
-<p>The Exam data set contans exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:</p>
+<p>The Exam data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:</p>
 <table>
 <thead>
 <tr class="header">
@@ -1919,7 +1919,7 @@ Here we transform them into odds ratios by exponentiating:</p>
 </tr>
 <tr class="odd">
 <td align="left">standLRT</td>
-<td align="left">Standardised LR test score.</td>
+<td align="left">Standardized LR test score.</td>
 </tr>
 <tr class="even">
 <td align="left">student</td>
@@ -1965,7 +1965,7 @@ approximation).</p>
 </div>
 <div id="adding-fixed-effects-predictors" class="section level3">
 <h3>Adding fixed-effects predictors</h3>
-<p>Here’s a model that predicts exam scores from student’s standardized tests scores:</p>
+<p>Here’s a theoretical model that predicts exam scores from student’s standardized tests scores:</p>
 <div class="alert alert-secondary">
 <p><span class="math display">\[
 normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
