@@ -1,3 +1,6 @@
+knitr::opts_knit$set(root.dir="R/RDataWrangling") # base.dir="R/RDataWrangling"
+
+# # R Data Wrangling
 #
 # **Topics**
 #

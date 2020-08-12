@@ -1,4 +1,4 @@
-# knitr::opts_knit$set(base.dir = "/Users/nunnlab/Desktop/GitHub/rgriff23.github.io/")
+knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 
 # # R Introduction
 #

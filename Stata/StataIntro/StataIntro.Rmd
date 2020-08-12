@@ -1,172 +1,236 @@
 
-```{r, echo=FALSE, results=FALSE, eval=TRUE}
+```{r, include=FALSE, echo=FALSE}
 require(knitr)
-knitr::opts_chunk$set(eval=FALSE, results=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 statapath <- "/Applications/Stata/StataMP.app/Contents/MacOS/stata-mp"
-opts_chunk$set(engine="stata", engine.path=statapath, comment="")
+knitr::opts_chunk$set(eval=FALSE, engine="stata", engine.path=list(stata=statapath), comment="", 
+                      collectcode=TRUE, cleanlog=FALSE, message=FALSE, warning=FALSE, error=FALSE,
+                      fig.path="Stata/StataIntro/figures/")
+knitr::opts_knit$set(root.dir="Stata/StataIntro") # base.dir="Stata/StataIntro"
 ```
-
-# (PART) Stata {-}
-
+  
 # Stata Introduction
 
 **Topics**
 
 * Stata interface and Do-files
-* Finding help
 * Reading and writing data
 * Basic summary statistics
 * Basic graphs
 * Basic data management
+* Bivariate analyses 
+
 
 ## Setup
 
-### Software & Materials
+### Class Structure and organization 
 
-Laptop users: you will need a copy of Stata installed on your machine.
-Harvard FAS affiliates can install a licensed version from <http://downloads.fas.harvard.edu/download>
-
-* Download class materials at <https://github.com/IQSS/dss-workshops/raw/master/Stata/StataIntro.zip>
-* Extract materials from the zipped directory `StataIntro.zip` (Right-click => Extract All on Windows, double-click on Mac) and move them to your desktop!
-
-### Organization
-
-* Please feel free to ask questions at any point if they are relevant to the current topic (or if you are lost!)
-* Collaboration is encouraged - please introduce yourself to your neighbors!
+* Informal --- Ask questions at any time. Really!
+* Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
 * If you are using a laptop, you will need to adjust file paths accordingly
 * Make comments in your Do-file - save on flash drive or email to yourself
 
+
+### Prerequisites
+
+This is an introductory Stata course: 
+
+* Assumes no prior knowledge of **how to use** Stata
+* We do assume you know **why** you want to learn Stata. If you don't, and want a comparison of Stata to other statistical software, see our [Data Science Tools](./DataScienceTools.html) workshop
+* Relatively slow-paced
+
+
 ### Goals
 
-* This is an **introduction** to Stata
-* Assumes no/very little knowledge of Stata
-* Not appropriate for people already familiar with Stata
-* Learning Objectives:
-    + Familiarize yourself with the Stata interface
-    + Get data in and out of Stata
-    + Compute statistics and construct graphical displays
-    + Compute new variables and transformations
+<div class="alert alert-success">
+We will learn about the Stata language by analyzing data from the general social survey (gss).
+In particular, our goals are to:
 
-## Why stata?
+1. Familiarize yourself with the Stata interface
+2. Get data in and out of Stata
+3. Compute statistics and construct graphical displays
+4. Compute new variables and transformations
+5. Perform univariate and bivariate data analyses 
+</div>
 
-* Used in a variety of disciplines
-* User-friendly
-* Great guides available on web
-* Excellent modeling capabilities
-* Student and other discount packages available at reasonable cost
 
-### Stata interface
+## Stata basics 
 
-![](Stata/StataIntro/images/StataInterface.png)
+<div class="alert alert-info">
+**GOAL: To learn the basics about Stata, how to interact with Stata, and how to read in and save data.** In particular:
+
+1. What is Stata, why use Stata, and advantages of using Stata 
+2. Three ways of interacing with Stata 
+3. Set the working directory
+4. Read, save, and write data 
+</div>
+
+
+### What is Stata? 
+
+* Stata is a statistical software package that you can use to perform data analysis and management, as well as create graphics
+* Stata is commonly used among health, sociology, and economics researchers, particularly those working with large data sets 
+
+
+### Why use Stata? 
+
+* It is easy to learn and is supported by a wide range of introductory textbooks
+* It offers a wide range of statistical models in a consistent interface
+* It presents results in a clear format
+* It has very good built-in help documentation and a broad user community where you can seek help
+* Student and other discount packages are available at reasonable cost
+
+
+### How does Stata work?
+
+When Stata is running, variables, data, etc., are **stored in memory**.
+The user can use `clear` command to clear up memory before running further commands, 
+unless they want to `save` their changes in the original dataset or a new dataset. 
+
+
+### Interfaces
+
+![](Stata\StataIntro\images\StataInterface.png)
 
 * Review and Variable windows can be closed (user preference)
 * Command window can be shortened (recommended)
 
-### Do-files
 
-* You can type all the same commands into the Do-file that you would type into the command window
-* BUT...the Do-file allows you to **save** your commands
-* Your Do-file should contain ALL commands you executed -- at least all the "correct" commands!
-* I recommend never using the command window or menus to make CHANGES to data
-* Saving commands in Do-file allows you to keep a written record of everything you have done to your data
-    + Allows easy replication
-    + Allows you to go back and re-run commands, analyses and make modifications
+#### GUI and command window
+
+There are two ways of interacting with Stata that will not result in a saveable record of what you have done: 
+
+1. **GUI**. The Graphical User Interface (GUI) allows you to perform analyses using drop-down menus, rather than writing code. This can be easier for first time users and Stata will helpfully display the command and proper syntax for the operation that you have selected. However, we strongly recommend not using the GUI, since it does not produce a script --- a record of what you have done --- and thus leads to analyses that are unreproducible.
+
+2. **Command window**. From the command window you can type commands to manage and analyze your data. 
+    + The advantage is that you can quickly produce output of a single command. 
+    + The disadvantage is that you cannot store your syntax in a script to reproduce in the future. 
+
+
+#### Do-file
+
+The third way of interacting with Stata does provide you with a saveable record of your work:
+
+3. **Do-file**. A do-file is a plain text file within which you can write and save commands for later use. There are several advantages to using a do-file and we strongly recommend that you always interact with Stata in this way: 
+    + Allows you to submit more than one command to Stata at once. 
+    + Has specialized features for programmers such as syntax highlighting, code folding, autocompletion, and bookmarks to important lines in your code, brace matching, and more. 
+    + With a do-file, it is easy to **save, review, change, and share** your code with others --- including your future self! 
+
+Here are some resources for learning more about Stata and do-files: 
+
+* <https://www.stata.com/>
+* <https://www.stata.com/manuals13/gsw13.pdf>
+* <https://sociology.fas.harvard.edu/files/sociology/files/creating_a_do_file.pdf>
+
+
 
 ### Stata help
 
 To get help in Stata type `help` followed by topic or command, e.g., `help codebook`.
 
+
 ### Syntax rules
 
-Most Stata commands follow the same basic syntax: `Command varlist, options`.
+* Most Stata commands follow the same basic syntax: `Command varlist, options`.
 
-Use comments liberally --- start with a comment describing your Do-file and use comments throughout
+* Use comments liberally --- start with a comment describing your do-file and use comments throughout
+   + Use `*` to comment a line and `//` for in-line comments
+   + Use `///` to break varlists over multiple lines
+
+
+### Exercise 0
+
+Launch the Stata program (MP or SE, does not matter unless doing computationally intensive work)
+ * Open up a new do-file
+ * Run our first Stata code!
+
+1. Try to get Stata to say "Hello World!". Search `help display`
 
 ```{stata}
-* Use '*' to comment a line and '//' for in-line comments
-
-* Make Stata say hello:
-disp "Hello " "World!" // 'disp' is short for 'display'
+##
 ```
 
-Use `///` to break varlists over multiple lines:
+2. Try to get Stata to break "Hello World!" over two lines:
 
 ```{stata}
+##
+```
+
+<details>
+  <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
+  <div class="alert alert-danger">
+```{stata}
+disp "Hello " "World!" // 'disp' is short for 'display'
+
 disp "Hello" ///
      " World!"
 ```
+</div>
+</details>
 
+ 
+### Working directory
 
-### Let's get started
-
-* Launch the Stata program (MP or SE, does not matter unless doing computationally intensive work)
-    + Open up a new Do-file
-    + Run our first Stata code!
-
+1. print current working directory 
 
 ```{stata}
-* change directory
-cd "C:/Users/yiw640/Desktop/StataIntro/"
+pwd 
 ```
 
-## Reading data
-
-### Data file commands
-
-Next, we want to open our data file
-Open/save data sets with "use" and "save":
+2. change working directory 
 
 ```{stata}
-cd dataSets
+cd C:\Users\yiw640\Desktop\StataIntro\
+```
 
-// open the gss.dta data set
+#### A note about file path names
+
+* If your file path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the file path as it is
+* If there are spaces, you need to put your file path name in quotes
+* Best to get in the habit of quoting file paths
+
+
+### Reading data
+
+#### Data file commands
+
+* Next, we want to open our data file
+* Open / save data sets with `use` and `save`:
+
+```{stata, collectcode = TRUE}
+// open the gss.dta data set 
 use gss.dta, clear
 
-// save data file:
-save newgss.dta, replace // "replace" option means OK to overwrite existing file
+// save data file
+save newgss.dta, replace // `replace` option means OK to overwrite existing file
 ```
 
-### A note about path names
-
-* If your path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the path as it is
-* If there are spaces, you need to put your pathname in quotes
-* Best to get in the habit of quoting paths
-
-### Where's my data?
+#### Where's my data?
 
 * Data editor (**browse**)
 * Data editor (**edit**)
     + Using the data editor is discouraged (why?)
-* Always keep any changes to your data in your Do-file
+* Always keep any changes to your data in your do-file
 * Avoid temptation of making manual changes by viewing data via the browser rather than editor
 
-### Reading non-Stata data
 
-Import delimited text files:
+#### Reading non-Stata data
 
-```{stata}
-* import data from a .csv file
+* Import / export delimited text files
+
+```{stata, collectcode = TRUE}
+// import data from a .csv file
 import delimited gss.csv, clear
 
-* save data to a .csv file
+// save data to a .csv file
 export delimited gss_new.csv, replace
 ```
 
-Import data from SAS:
+* Import / export Excel files
 
-```{stata}
-* import/export SAS xport files
-
-import sasxport gss.xpt, clear 
-export sasxport gss_new, replace
-```
-
-Import data from Excel:
-
-```{stata}
-* import/export Excel files
-
-import excel gss.xlsx, clear 
+```{stata, collectcode = TRUE}
+// import/export Excel files
+clear
+import excel gss.xlsx
 export excel gss_new, replace
 ```
 
@@ -175,40 +239,30 @@ What if my data is from another statistical software program?
 * SPSS/PASW will allow you to save your data as a Stata file
     + Go to: file -> save as -> Stata (use most recent version available)
     + Then you can just go into Stata and open it
-* Another option is **StatTransfer**, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more
+* Another option is `StatTransfer`, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more.
 
-
-### Exercise 0
-
-**Importing data**
-
-1. Save any work you've done so far. Close down Stata and open a new session.
-
-2. Start Stata and open your `.do` file.
-
-3. Change directory (`cd`) to the `dataSets` folder.
-```{stata}
-**
-```
-
-4. Try opening the following files:
-    + A comma separated value file: `gss.csv`
-    + An Excel file: `gss.xlsx`
-```{stata}
-**
-```
 
 ## Statistics & graphs
 
-### Frequently used commands
+<div class="alert alert-info">
+**GOAL: To learn the basic commands to review, inspect, and plot data in Stata.** In particular:
 
-* Commands for reviewing and inspecting data:
-    + describe // labels, storage type etc.
-    + sum // statistical summary (mean, sd, min/max etc.)
-    + codebook // storage type, unique values, labels
-    + list // print actuall values
-    + tab // (cross) tabulate variables
-    + browse // view the data in a spreadsheet-like window
+1. Learn more about the variables in our dataset --- using the `describe`, `codebook`, and `browse` commands 
+2. Produce univariate distributions using `histogram`, and bivariate distribution using `scatterplot` 
+3. Tabulate or summarize your data within certain groups using `bysort` 
+</div>
+
+The most frequently used commands for reviewing and inspecting data are summarized below: 
+
+| Command    | Description                                  |
+|:---------- |:-------------------------------------------- |
+| `describe` | labels, storage type etc.                    |
+| `sum`      | statistical summary (mean, sd, min/max etc.) |
+| `codebook` | storage type, unique values, labels          |
+| `list`     | print actual values                         |
+| `tab`      | (cross) tabulate variables                   |
+| `browse`   | view the data in a spreadsheet-like window   | 
+
 
 First, let's ask Stata for help about these commands:
 
@@ -216,54 +270,43 @@ First, let's ask Stata for help about these commands:
 help sum
 ```
 
-
 ```{stata}
 use gss.dta, clear
 
 sum educ // statistical summary of education
 ```
 
-
 ```{stata}
 codebook region // information about how region is coded
 ```
-
 
 ```{stata}
 tab sex // numbers of male and female participants
 ```
 
+Note --- if you run these commands without specifying variables, Stata will produce output for every variable
 
-If you run these commands without specifying variables, Stata will produce output for every variable
 
 ### Basic graphing commands
 
-```{stata}
-// open the gss.dta data set
-use gss.dta, clear
-```
-
-Univariate distribution(s) using **hist:**
+Univariate distribution(s) using `hist`:
 
 ```{stata}
-  /* Histograms */
+// Histograms 
 hist educ
 ```
 
-
 ```{stata}
-  // histogram with normal curve; see "help hist" for other options
+// histogram with normal curve; see `help hist` for other options
 hist age, normal  
 ```
-
 
 View bivariate distributions with scatterplots:
 
 ```{stata}
-   /* scatterplots */
+// scatterplots 
 twoway (scatter educ age)
 ```
-
 
 ```{stata}
 graph matrix educ age inc
@@ -272,143 +315,140 @@ graph matrix educ age inc
 
 ### The `by` command
 
-Sometimes, you'd like to generate output based on different categories of a grouping variable
-The `by` command does just this:
+Sometimes, you'd like to generate output based on different categories of a grouping variable, for example: 
+
+1. you want to know the distribution of happiness seperately for men and women: tabulate `happy` by `sex`: 
 
 ```{stata}
-* By Processing
-bysort sex: tab happy // tabulate happy separately for men and women
+bysort sex: tab happy
 ```
 
+2. you want to know the mean level of education for different marital status:  summarize `education` by marital status (`marital`): 
+
 ```{stata}
-bysort marital: sum educ // summarize education by marital status
+bysort marital: sum educ 
 ```
+
+Save your changes to the original `gss.dta` dataset. 
 
 
 ### Exercise 1
 
-**Descriptive statistics**
+We are using The Generations of Talent Study (`talent.dta`) to practice reading in data, plotting data, and calculating descriptive statistics. The dataset includes information on quality of employment as experienced by today's multigenerational workforces. Here is a codebook of a subset of variables:
 
-The Generations of Talent Study sought to examine quality of employment as experienced by today's multigenerational workforces. The primary goal was to explore how country-related factors and age-related factors affect employees' perceptions of quality of employment. Demographic variables included gender, birth year, race/ethnicity, education, marital * status, number of children, hourly wage, salary, and household income.
+| Variable name | Label                                                                |
+|:--------------|:---------------------------------------------------------------------|
+| job           | type of main job                                                     |
+| workload      | how long hours do you work per week                                  |
+| otherjob      | do you have other paid jobs beside main job                          |
+| schedule      | which best describes your work schedule                              |
+| fulltime      | Does your employer consider you a full-time or part-time employee    |
+| B3A           | How important are the following to you? Your work                    |
+| B3B           | How important are the following to you? Your family                  |
+| B3C           | How important are the following to you? Your friends                 |
+| marital       | Which of the following best describes your current marital status    |
+| I3            | Sex/gender                                                           |
+| income        | What was your total household income during last year                |
 
-1. Use the dataset, `talent.dta`, open a new do-file and write on the do-file, after the exercise save it to the folder
+
+Create a new do-file for the following exercise prompts. After the exercise save the do-file to your working directory.
+
+1. Read in the dataset `talent.dta`: 
+
 ```{stata}
-**
+##
 ```
 
-2. Examine a few selected variables using the describe, sum and codebook commands
+2. Examine a few selected variables using the `describe`, `sum` and `codebook` commands:
+
 ```{stata}
-**
+##
 ```
 
-3. Tabulate the variable, marital status (`marital`), with and without labels
+3. Produce a histogram of hours worked (`workload`) and add a normal curve: 
+
 ```{stata}
-**
+##
 ```
 
-4. Summarize the total household income last year (`income`) by marital status
+4. Summarize the total household income last year (`income`) by marital status (`marital`):
+
 ```{stata}
-**
+##
 ```
 
-5. Cross-tabulate marital status with respondents' type of main job (`job`)
+5. Cross-tabulate marital status (`marital`) with respondents' type of main job (`job`):
+
 ```{stata}
-**
+##
 ```
 
-6. Summarize the total household income last year (`income`) for married individuals only
+<details>
+  <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
+  <div class="alert alert-danger">
 ```{stata}
-**
+use talent.dta, clear
+describe workperweek
+tab I3
+sum income
+codebook job
+
+hist workload, normal 
+
+bysort marital: sum income
+bysort job: tab marital 
+summarize income if marital == 1
+
+save talent.dta, replace 
 ```
+</div>
+</details>
+
 
 ## Basic data management
 
-### Labels
+<div class="alert alert-info">
+**GOAL: To learn how to add *variable labels* and *value labels*, as well as create *new variables* in Stata.** In particular:
 
-* You never know why and when your data may be reviewed
-* ALWAYS label every variable no matter how insignificant it may seem
-* Stata uses two sets of labels: **variable labels** and **value labels**
-* Variable labels are very easy to use -- value labels are a little more complicated
+1. Use `label` and `rename` to set / modify variable and value labels
+2. Use `generate` and `replace` to create a new variables based on values of existing variables/recode a variable
+</div>
+
 
 ### Variable & value labels
 
+#### Variable labels
+
+It's good practice to ALWAYS label every variable, no matter how insignificant it may seem.
+
 ```{stata}
-// open the gss.dta data set again 
-use gss.dta, clear
+// Labelling and renaming 
+// Label variable inc "household income"
+label var inc "household income"
+
+// change the name "educ" to "education"
+rename educ education
+
+// you can search names and labels with `lookfor`
+lookfor household
 ```
 
-Variable labels
+#### Value labels 
+
+Value labels are a little more complicated, with a two step process: define a value label, then assign defined label to variable(s)
 
 ```{stata}
-  /* Labelling and renaming */
-  // Label variable inc "household income"
-  label var inc "household income"
+// define a value label for sex 
+label define mySexLabel 1 "Male" 2 "Female"
 
-  // change the name 'educ' to 'education'
-  rename educ education
-
-  // you can search names and labels with 'lookfor'
-  lookfor household
-```
-
-Value labels are a two step process: define a value label, then assign defined label to variable(s)
-
-```{stata}
-  /*define a value label for sex */
-  label define mySexLabel 1 "Male" 2 "Female"
-
-  /* assign our label set to the sex variable*/
-  label values sex mySexLabel
-```
-
-
-```{stata}
-// save the changes  
-save gss.dta, replace 
-```
-
-### Exercise 2
-
-**Variable labels & value labels**
-
-1. Open the data set `gss.csv`
-```{stata}
-**
+// assign our label set to the sex variable
+label values sex mySexLabel
 ```
 
 
-2. Rename and label variables using the following codebook:
-```{stata}
-**
-```
+### Working on subsets
 
-| Var     | Rename to     | Label with          |
-|:--------|:--------------|:--------------------|
-| v1      | marital       | marital status      |
-| v2      | age           | age of respondent   |
-| v3      | educ          | education           |
-| v4      | sex           | respondent's sex    |
-| v5      | inc           | household income    |
-| v6      | happy         | general happiness   |
-| v7      | region        | region of interview |
-
-3. Add value labels to your `marital` variable using this codebook:
-```{stata}
-**
-```
-
-| Value     | Label           |
-|:----------|:----------------|
-| 1         | "married"       |
-| 2         | "widowed"       |
-| 3         | "divorced"      |
-| 4         | "separated"     |
-| 5         | "never married" |
-
-## Working on subsets
-
-It is often useful to select just those rows of your data where some condition holds--for example select only rows where sex is 1 (male).
-The following operators allow you to do this:
+It is often useful to select just those rows of your data where some condition holds --- for example select only rows where sex is 1 (male). The following operators allow you to do this:
 
 | Operator | Meaning                  |
 |:---------|:-------------------------|
@@ -421,213 +461,92 @@ The following operators allow you to do this:
 | &        | and                      |
 | \|       | or                       |
 
-Note the double equals sign `==` is for testing equality.
+Note the double equals signs for testing equality.
 
-## Generating & replacing variables
 
-```{stata}
-// open the gss.dta data set again 
-use gss.dta, clear
-```
+### Generating & replacing variables
 
-Create new variables using `gen`
+Often, it can be useful to start with a new variable composed of blank values and fill values in based on the values of existing variables:
 
 ```{stata}
-  // create a new variable named mc_inc
-  //   equal to inc minus the mean of inc
-  gen mc_inc = inc - 15.37  
+// generate a column of missings
+gen age_wealth = .
+
+// Next, start adding your qualifications
+replace age_wealth=1 if age < 30 & inc < 10
+replace age_wealth=2 if age < 30 & inc > 10
+replace age_wealth=3 if age > 30 & inc < 10
+replace age_wealth=4 if age > 30 & inc > 10
 ```
 
-Sometimes useful to start with blank values and fill them in based on values of existing variables
+### Exercise 2
+
+Open the `talent.dta` data, use the basic data management tools we have learned to add labels and generate new variables:
+
+1. Tabulate the variable, marital status (`marital`), with and without labels:
 
 ```{stata}
-  /* the 'generate and replace' strategy */
-  // generate a column of missings
-  gen age_wealth = .
-
-  // Next, start adding your qualifications
-  replace age_wealth=1 if age < 30 & inc < 10
-  replace age_wealth=2 if age < 30 & inc > 10
-  replace age_wealth=3 if age > 30 & inc < 10
-  replace age_wealth=4 if age > 30 & inc > 10
+##
 ```
 
-### Exercise 3
-
-**Manipulating variables with gen and replace**
-
-1. Use the dataset, `talent.dta`, work on the previous do-file. Save any changes to the data to original data
-```{stata}
-**
-```
-
-2. Generate a new "overwork" dummy variable from the original variable `workperweek` that will take on a value of `1` if a person works more than 40 hours per week, and `0` if a person works equal to or less than 40 hours per week
-```{stata}
-**
-```
-
-3. Generate a new `marital_dummy` dummy variable from the original variable `marital` that will take on a value of `1` if a person is either married or partnered and `0` otherwise
-```{stata}
-**
-```
-
-4. Save the changes to the original dataset
-```{stata}
-**
-```
-
-### Use drop to delete variables and keep to keep them
+2. Summarize the total household income last year (`income`) for married individuals only:
 
 ```{stata}
-use gss.dta, clear
-drop inc
-
-keep age region happy educ sex
+##
 ```
 
-You can drop cases selectively using the conditional `if`, for example:
+3. Generate a new `overwork` dummy variable from the original variable `workperweek` that will take on a value of 1 if a person works more than 40 hours per week, and 0 if a person works equal to or less than 40 hours per week:
 
 ```{stata}
-drop if sex == 2 /*this will drop observations (rows) where gender = 2*/
-drop if age > 40 /*this will drop observations where age > 40*/
+##
 ```
 
-### Alternatively, you can keep options you want
+4. Generate a new `marital_dummy` dummy variable from the original variable `marital` that will take on a value of 1 if a person is either married or partnered and 0 otherwise:
 
 ```{stata}
-keep if sex == 1
-keep if age < 40
-keep if region == "north" | region == "south"
+##
 ```
 
-For more details type `help keep` or `help drop`.
+5. Rename the `Sex` variable and give it a more intuitive name:
 
-### Exercise 4
-
-Combine all what we have learned together!
-
-1. Use the dataset, `talent.dta`
 ```{stata}
-**
+##
 ```
 
-2. Rename the `Sex` variable and give it a more intuitive name
+6. Give a variable label and value labels for the variable `overwork`:
+
 ```{stata}
-**
+##
 ```
 
-3. Use `codebook`, `describe`, `tab`, and `browse` commands to know more about how the three variables `A3`, `A5`, and `A7` are coded and stored, give them new names
+7. Generate a new variable called `work_family` and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance:
+
 ```{stata}
-**
+##
 ```
 
-4. Plot a histogram distribution for `workperweek` and add a normal curve
-```{stata}
-**
-```
+8. Save the changes to `newtalent.dta`
 
-5. Give a variable label and value labels for the variable `overwork`
-```{stata}
-**
-```
-
-6. Generate a new variable called `work_family` and code it as `2` if a respondent perceived work to be more important than family, `1` if a respondent perceived family to be more important than work, and `0` if the two are of equal importance
-```{stata}
-**
-```
-
-7. Drop the `B3C` variable that is not used in our exercise
-```{stata}
-**
-```
-
-8. Save the changes to a new dataset called `talent_new.dta` and save it to our folder
-```{stata}
-**
-```
-
-
-## Exercise solutions
-
-### Ex 0: prototype
-```{stata}
-clear
-cd "C:\Users\yiw640\Desktop\StataIntro\dataSets"
-
-import delimited gss.csv, clear
-import excel gss.xlsx, clear
-```
-
-### Ex 1: prototype
+<details>
+  <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
+  <div class="alert alert-danger">
 ```{stata}
 use talent.dta, clear
-describe workperweek
-tab I3
-sum income
-codebook job
 
 tab marital
-tab marital, nol
+tab marital, nol 
 
-bysort marital: sum income
-tabulate marital job
-summarize income if marital == 1
-```
-
-### Ex 2: prototype
-```{stata}
-import delimited gss.csv, clear
-
-rename v2 age
-rename v3 educ
-rename v4 sex
-rename v5 inc
-rename v6 happy
-rename v7 region
-
-label var age "age of respondent"
-label var educ "education"
-label var sex "respondent's sex"
-label var inc "household income"
-label var happy "general happiness"
-label var region "region of interview"
-
-rename v1 marital
-label var marital "marital status"
-label define marital_label 1 "married" 2 "widowed" 3 " divorced" 4 "seperated" 5 "never married"
-label val marital marital_label
-```
-
-### Ex 3: prototype
-```{stata}
-use talent.dta, clear
 gen overwork = .
 replace overwork = 1 if workperweek > 40
 replace overwork = 0 if workperweek <= 40
-replace overwork = . if workperweek == .
 tab overwork
 
 gen marital_dummy = .
 replace marital_dummy = 1 if marital == 1 | marital == 2
 replace marital_dummy = 0 if marital != 1 & marital != 2
-replace marital_dummy = . if marital == . 
 tab marital_dummy
-```
 
-### Ex 4: prototype
-```{stata}
-use talent.dta, clear
 rename I3 Sex
-
-codebook A3
-describe A5
-tab A7
-
-rename A3 otherjob
-rename A5 workschedule
-rename A7 parttime
-
-hist workperweek, normal
 
 label variable overwork "whether someone works more than 40 hours per week"
 label define overworklabel 1 "Yes" 0 "No"
@@ -637,13 +556,118 @@ gen work_family = .
 replace work_family = 2 if B3A > B3B
 replace work_family = 1 if B3A < B3B
 replace work_family = 0 if B3A == B3B
-replace work_family = . if B3A == . 
-replace work_family = . if B3B == . 
 
-drop B3C
-
-save talent_new.dta, replace 
+save newtalent.dta, replace 
 ```
+</div>
+</details>
+
+
+## Bivariate analyses
+
+<div class="alert alert-info">
+**GOAL: To learn the basic commands for performing the following bivariate analyses.**
+
+1. Chi-squared test
+2. Independent group t-test
+3. One-way ANOVA 
+</div>
+
+
+### Chi-squared test 
+
+The Chi-squared statistic is commonly used for testing relationships between categorical variables.
+
+In Stata, both the `tabulate` and `tabi` commands conduct the Pearson's Chi-square test.
+
+* The `tabulate` (may be abbreviated as `tab`) command produces one- or two-way frequency tables given one or two raw variables
+* The `tabi` command is used to re-analyze a published table without access to the raw data
+* These commands also can run a Chi-square test using the `chi2` option:
+
+```{stata}
+tab sex happy, chi2 
+```
+
+The first command below conducts a Chi-square test for a 2x2 table, while the second and third commands run the test for 3x2 and 2x3 tables, respectively.
+
+```{stata}
+tabi 33 48 \ 37 52, chi2
+tabi 33 48 \ 37 52 \ 36 42, chi2
+tabi 33 48 26 \ 37 52 38, chi2
+```
+
+
+### t-test 
+
+The t-test is a type of inferential statistic that can be used to determine if a sample mean differs from a postulated population mean, or if two sample means came from the same population. 
+
+Types of t-test: 
+
+* Independent group t-test: designed to compare means of same variable between two groups. For example, test GRE scores between students from two countries
+* Other t-tests: single sample t-test; paired t-test. More details see: https://www.stata.com/manuals13/rttest.pdf
+
+In our example, we conduct an independent group t-test to compare mean income (`inc`) between males and females (`sex`):
+
+```{stata}
+ttest inc, by(sex)
+```
+
+
+### One-way ANOVA
+
+One-way ANOVA allows us to test the equality of more than two sample means (i.e., whether they could plausibly have come from the same population). For example, our dataset contains income (`inc`) and four regions of the country (`region`). Using one-way ANOVA, we can simultaneously test the equality of the income means across all regions.
+
+```{stata}
+oneway inc region 
+```
+
+Now we find evidence that the means are different, but perhaps we are interested only in testing whether the means for the North (region==1) and South (region==4) are different. We also use one-way ANOVA, which in this case would be equivelant to the independent group t-test:
+
+```{stata}
+oneway inc region if region==1 | region==4
+```
+
+
+### Exercise 3
+
+Open the `newtalent.dta` data, use the basic data management tools we have learned to conduct bivariate analysis. 
+
+
+1.  Test the relationship between two variables `sex` and type of main job (`job`):
+
+```{stata}
+##
+```
+
+2.  Test if there is a significant difference in hours worked per week (`workload`) and `sex`: 
+
+```{stata}
+##
+```
+
+3.  Test if there is a significant difference in hours worked per week (`workload`) and marital status (`marital`): 
+
+```{stata}
+##
+```
+
+<details>
+  <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
+  <div class="alert alert-danger">
+```{stata}
+use newtalent.dta, clear 
+
+tab Sex job, chi2 
+
+ttest workload, by(Sex)
+oneway workload marital 
+
+save newtalent.dta, replace 
+```
+</div>
+</details>
+
+
 
 ## Wrap-up
 

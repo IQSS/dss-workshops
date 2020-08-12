@@ -1,3 +1,7 @@
+# knitr::opts_knit$set(root.dir="Python/PythonWebScrape") # base.url = "/" # base.dir="Python/PythonWebScrape"
+# require(reticulate)
+# use_condaenv(condaenv="r-reticulate", required=TRUE)
+
 # # Python Web-Scraping
 #
 # **Topics**

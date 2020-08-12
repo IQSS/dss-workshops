@@ -1,3 +1,4 @@
+knitr::opts_knit$set(root.dir="other_workshops/DataScienceTools") # base.url = "/" # base.dir="other_workshops/DataScienceTools"
 
 # # (PART) General {-}
 #

@@ -91,14 +91,24 @@ sed -i "" '1,7d' StataDatMan.do # delete lines 1-7
 cd ..
 zip -r StataDatMan.zip StataDatMan -x "*.DS_Store"
 
-# StataModGraph
-StataModGraph_path="Stata/StataModGraph"
-cd $base_path/$StataModGraph_path
-jupytext --to R:bare StataModGraph.Rmd  # convert to R 'bare' format option
-mv StataModGraph.R StataModGraph.do  # change file suffix to .do
-sed -i "" 's/#/*/' StataModGraph.do # convert # to *
-sed -i "" '1,7d' StataModGraph.do # delete lines 1-7
-# then change hash comments to astericks
+# StataMod
+StataMod_path="Stata/StataMod"
+cd $base_path/$StataMod_path
+jupytext --to R:bare StataMod.Rmd  # convert to R 'bare' format option
+mv StataMod.R StataMod.do  # change file suffix to .do
+sed -i "" 's/#/*/' StataMod.do # convert # to *
+sed -i "" '1,7d' StataMod.do # delete lines 1-7
 cd ..
-zip -r StataModGraph.zip StataModGraph -x "*.DS_Store"
+zip -r StataMod.zip StataMod -x "*.DS_Store"
+cd ..
+
+# StataGraph
+StataGraph_path="Stata/StataGraph"
+cd $base_path/$StataGraph_path
+jupytext --to R:bare StataGraph.Rmd  # convert to R 'bare' format option
+mv StataGraph.R StataGraph.do  # change file suffix to .do
+sed -i "" 's/#/*/' StataGraph.do # convert # to *
+sed -i "" '1,7d' StataGraph.do # delete lines 1-7
+cd ..
+zip -r StataGraph.zip StataGraph -x "*.DS_Store"
 cd ..

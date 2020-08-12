@@ -1,3 +1,7 @@
+# knitr::opts_knit$set(root.dir="Python/PythonIntro") # base.url = "/" # base.dir="Python/PythonIntro"
+# require(reticulate)
+# use_condaenv(condaenv="r-reticulate", required=TRUE)
+
 # # Python Introduction
 #
 # **Topics**

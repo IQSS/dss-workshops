@@ -1,3 +1,5 @@
+
+# # R Regression Models
 #
 # **Topics**
 #
@@ -198,7 +200,7 @@ outcome ~ pred1 + pred2 + pred3
 #
 # <div class="alert alert-secondary">
 # $$
-# csat_i = \beta_{0}1 + \beta_1expense_i + \epsilon_i
+# SATscores_i = \beta_{0}1 + \beta_1expenditures_i + \epsilon_i
 # $$
 # </div>
 #
@@ -546,12 +548,12 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # The `family` argument sets the error distribution for the model, while the `link` function
 # argument relates the predictors to the expected value of the outcome.
 #
-# Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`.
+# Let's predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi.
 # Here's the theoretical model:
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(p(hypev_i = 1)) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
+# logit(p(hypertension_i = 1)) = \beta_{0}1 + \beta_1age_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
 # $$
 # </div>
 #
@@ -559,7 +561,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <div class="alert alert-secondary">
 # $$
-# logit(p(hypev_i = 1)) = ln \left( \frac{p(hypev_i = 1)}{1-p(hypev_i = 1)} \right) = ln \left( \frac{p(hypev_i = 1)}{p(hypev_i = 0)} \right)
+# logit(p(hypertension_i = 1)) = ln \left( \frac{p(hypertension_i = 1)}{1-p(hypertension_i = 1)} \right) = ln \left( \frac{p(hypertension_i = 1)}{p(hypertension_i = 0)} \right)
 # $$
 # </div>
 #
@@ -716,7 +718,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # <div class="alert alert-secondary">
 # $$
-# normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
+# examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 # $$
 # </div>
 #
