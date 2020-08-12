@@ -1065,24 +1065,17 @@ for the first 5 pages of exhibitions data.</li>
 <div class="sourceCode" id="cb626"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb626-1"><a href="PythonWebScrape.html#cb626-1"></a>first_event_html <span class="op">=</span> events_list_html[<span class="dv">0</span>]</span></code></pre></div>
 <p>Once again, we can use a web browser to inspect the HTML we’re currently working with - from the first event - and to figure out what we want to extract from it.</p>
 <div class="sourceCode" id="cb627"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb627-1"><a href="PythonWebScrape.html#cb627-1"></a>html.open_in_browser(first_event_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</span></code></pre></div>
-<pre><code>
-As before we can use our browser to find the xpath of the elements we want.
-
-![](Python/PythonWebScrape/images/dev_tools_figcaption.png)
-
-(Note that the `html.open_in_browser` function adds enclosing `html` and `body` tags in order to create a complete web page for viewing. This requires that we adjust the `xpath` accordingly.)
-
-By repeating this process for each element we want, we can build a list of the xpaths to those elements.
-
-
-```python
-elements_we_want = {&#39;figcaption&#39;: &#39;div/figure/div/figcaption&#39;,
-                    &#39;date&#39;: &#39;div/div/header/time&#39;,
-                    &#39;title&#39;: &#39;div/div/header/h2/a&#39;,
-                    &#39;time&#39;: &#39;div/div/div/p[1]/time&#39;,
-                    &#39;location1&#39;: &#39;div/div/div/p[2]/span/span[1]&#39;,
-                    &#39;location2&#39;: &#39;div/div/div/p[2]/span/span[2]&#39;
-                    }</code></pre>
+<p>As before we can use our browser to find the xpath of the elements we want.</p>
+<p><img src="Python/PythonWebScrape/images/dev_tools_figcaption.png" /></p>
+<p>(Note that the <code>html.open_in_browser</code> function adds enclosing <code>html</code> and <code>body</code> tags in order to create a complete web page for viewing. This requires that we adjust the <code>xpath</code> accordingly.)</p>
+<p>By repeating this process for each element we want, we can build a list of the xpaths to those elements.</p>
+<div class="sourceCode" id="cb628"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb628-1"><a href="PythonWebScrape.html#cb628-1"></a>elements_we_want <span class="op">=</span> {<span class="st">&#39;figcaption&#39;</span>: <span class="st">&#39;div/figure/div/figcaption&#39;</span>,</span>
+<span id="cb628-2"><a href="PythonWebScrape.html#cb628-2"></a>                    <span class="st">&#39;date&#39;</span>: <span class="st">&#39;div/div/header/time&#39;</span>,</span>
+<span id="cb628-3"><a href="PythonWebScrape.html#cb628-3"></a>                    <span class="st">&#39;title&#39;</span>: <span class="st">&#39;div/div/header/h2/a&#39;</span>,</span>
+<span id="cb628-4"><a href="PythonWebScrape.html#cb628-4"></a>                    <span class="st">&#39;time&#39;</span>: <span class="st">&#39;div/div/div/p[1]/time&#39;</span>,</span>
+<span id="cb628-5"><a href="PythonWebScrape.html#cb628-5"></a>                    <span class="st">&#39;location1&#39;</span>: <span class="st">&#39;div/div/div/p[2]/span/span[1]&#39;</span>,</span>
+<span id="cb628-6"><a href="PythonWebScrape.html#cb628-6"></a>                    <span class="st">&#39;location2&#39;</span>: <span class="st">&#39;div/div/div/p[2]/span/span[2]&#39;</span></span>
+<span id="cb628-7"><a href="PythonWebScrape.html#cb628-7"></a>                    }</span></code></pre></div>
 <p>Finally, we can iterate over the elements we want and extract them.</p>
 <div class="sourceCode" id="cb629"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb629-1"><a href="PythonWebScrape.html#cb629-1"></a>first_event_values <span class="op">=</span> {}</span>
 <span id="cb629-2"><a href="PythonWebScrape.html#cb629-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>

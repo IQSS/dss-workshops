@@ -378,8 +378,7 @@ first_event_html = events_list_html[0]
 # Once again, we can use a web browser to inspect the HTML we're currently working with - from the first event - and to figure out what we want to extract from it. 
 
 html.open_in_browser(first_event_html, encoding = 'UTF-8')
-# ```
-#
+
 # As before we can use our browser to find the xpath of the elements we want.
 #
 # ![](Python/PythonWebScrape/images/dev_tools_figcaption.png)
@@ -387,17 +386,15 @@ html.open_in_browser(first_event_html, encoding = 'UTF-8')
 # (Note that the `html.open_in_browser` function adds enclosing `html` and `body` tags in order to create a complete web page for viewing. This requires that we adjust the `xpath` accordingly.)
 #
 # By repeating this process for each element we want, we can build a list of the xpaths to those elements.
-#
-# ```{python}
-# elements_we_want = {'figcaption': 'div/figure/div/figcaption',
-#                     'date': 'div/div/header/time',
-#                     'title': 'div/div/header/h2/a',
-#                     'time': 'div/div/div/p[1]/time',
-#                     'location1': 'div/div/div/p[2]/span/span[1]',
-#                     'location2': 'div/div/div/p[2]/span/span[2]'
-#                     }
-# ```
-#
+
+elements_we_want = {'figcaption': 'div/figure/div/figcaption',
+                    'date': 'div/div/header/time',
+                    'title': 'div/div/header/h2/a',
+                    'time': 'div/div/div/p[1]/time',
+                    'location1': 'div/div/div/p[2]/span/span[1]',
+                    'location2': 'div/div/div/p[2]/span/span[2]'
+                    }
+
 # Finally, we can iterate over the elements we want and extract them.
 
 first_event_values = {}

@@ -72,7 +72,7 @@
 
 * ### Interfaces
 *
-* ![](Stata\StataIntro\images\StataInterface.png)
+* ![](Stata/StataIntro/images/StataInterface.png)
 *
 * * Review and Variable windows can be closed (user preference)
 * * Command window can be shortened (recommended)

@@ -138,7 +138,7 @@ scatter expense percent
 *
 * <div class="alert alert-secondary">
 * $$
-* csat_i = \beta_01 + \beta_1expense_i + \beta_2income_i +\beta_3percent_i + \epsilon_i
+* SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATpercent_i + \epsilon_i
 * $$
 * </div>
 *
@@ -296,7 +296,7 @@ sum density percent expense
 *
 * <div class="alert alert-secondary">
 * $$
-* logit(p(sat_i = 1)) = \beta_{0}1 + \beta_1density_i + \beta_2percent_i + \beta_3expense_i 
+* logit(p(SAT1000_i = 1)) = \beta_{0}1 + \beta_1density_i + \beta_2SATpercent_i + \beta_3expenditures_i 
 * $$ 
 * </div>
 *
@@ -304,7 +304,7 @@ sum density percent expense
 *
 * <div class="alert alert-secondary">
 * $$
-* logit(p(sat_i = 1)) = ln \left( \frac{p(sat_i = 1)}{1-p(sat_i = 1)} \right) = ln \left( \frac{p(sat_i = 1)}{p(sat_i = 0)} \right)
+* logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} \right) = ln \left( \frac{p(SAT1000_i = 1)}{p(SAT1000_i = 0)} \right)
 * $$
 * </div>
 *
@@ -681,20 +681,20 @@ marginsplot
 * ### Resources
 *
 * * IQSS 
-*   + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
-*   + Data Science Services: <https://dss.iq.harvard.edu/>
-*   + Research Computing Environment: <https://iqss.github.io/dss-rce/>
-*   
-*   * HBS
-* + Research Computing Services workshops: <https://training.rcs.hbs.org/workshops>
-*   + Other HBS RCS resources: <https://training.rcs.hbs.org/workshop-materials>
-*   + RCS consulting email: <mailto:research@hbs.edu>
-*   
-*   * Stata
-* + UCLA website: <http://www.ats.ucla.edu/stat/Stata/>
-*   + Stata website: <http://www.stata.com/help.cgi?contents>
-*   + Email list: <http://www.stata.com/statalist/>
-*   
+*     + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
+*     + Data Science Services: <https://dss.iq.harvard.edu/>
+*     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
+*
+* * HBS
+*     + Research Computing Services workshops: <https://training.rcs.hbs.org/workshops>
+*     + Other HBS RCS resources: <https://training.rcs.hbs.org/workshop-materials>
+*     + RCS consulting email: <mailto:research@hbs.edu>
+*
+* * Stata
+*     + UCLA website: <http://www.ats.ucla.edu/stat/Stata/>
+*     + Stata website: <http://www.stata.com/help.cgi?contents>
+*     + Email list: <http://www.stata.com/statalist/>
+*
 *   
 *   
 *   
