@@ -371,13 +371,13 @@ html.open_in_browser(events_html, encoding = 'UTF-8')
 
 events_list_html = events_html.xpath('//*[@id="events_list"]/article')
 
-# Let's just extract the first element in our events list.
+# Let's just extract the second element in our events list.
 
-first_event_html = events_list_html[0]
+second_event_html = events_list_html[1]
 
-# Once again, we can use a web browser to inspect the HTML we're currently working with - from the first event - and to figure out what we want to extract from it. 
+# Once again, we can use a web browser to inspect the HTML we're currently working with - from the second event - and to figure out what we want to extract from it. 
 
-html.open_in_browser(first_event_html, encoding = 'UTF-8')
+html.open_in_browser(second_event_html, encoding = 'UTF-8')
 
 # As before we can use our browser to find the xpath of the elements we want.
 #
@@ -391,23 +391,22 @@ elements_we_want = {'figcaption': 'div/figure/div/figcaption',
                     'date': 'div/div/header/time',
                     'title': 'div/div/header/h2/a',
                     'time': 'div/div/div/p[1]/time',
-                    'location1': 'div/div/div/p[2]/span/span[1]',
-                    'location2': 'div/div/div/p[2]/span/span[2]'
+                    'description': 'div/div/div/p[3]'
                     }
 
 # Finally, we can iterate over the elements we want and extract them.
 
-first_event_values = {}
+second_event_values = {}
 for key in elements_we_want.keys():
-    element = first_event_html.xpath(elements_we_want[key])[0]
-    first_event_values[key] = element.text.strip()
+    element = second_event_html.xpath(elements_we_want[key])[0]
+    second_event_values[key] = element.text_content().strip()
 
-print(first_event_values)
+print(second_event_values)
 
 
 # ### Iterating to retrieve content from a list of HTML elements
 #
-# So far we've retrieved information only for the first event. To
+# So far we've retrieved information only for the second event. To
 # retrieve data for all the events listed on the page we need to iterate
 # over the events. If we are very lucky, each event will have exactly
 # the same information structured in exactly the same way and we can
@@ -440,7 +439,7 @@ square_fun(4)
 
 def get_event_info(event, path):
     try:
-        info = event.xpath(path)[0].text.strip()
+        info = event.xpath(path)[0].text_content().strip()
     except:
         info = ''
     return info
