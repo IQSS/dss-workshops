@@ -1,6 +1,6 @@
 * knitr::opts_knit$set(root.dir="Stata/StataMod") # base.dir="Stata/StataMod"
 
-* # Stata Modeling 
+* # Stata Regression Models 
 *
 * **Topics**
 *

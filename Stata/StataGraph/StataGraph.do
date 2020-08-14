@@ -1,5 +1,5 @@
 
-* # Stata Graphing
+* # Stata Graphics
 *
 * **Topics**
 *
