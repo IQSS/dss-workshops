@@ -80,35 +80,35 @@ sed -i "" '1,7d' StataIntro.do # delete lines 1-7
 cd ..
 zip -r StataIntro.zip StataIntro -x "*.DS_Store"
 
-# StataDatMan
-StataDatMan_path="Stata/StataDatMan"
-cd $base_path/$StataDatMan_path
-jupytext --to R:bare StataDatMan.Rmd  # convert to R 'bare' format option
-mv StataDatMan.R StataDatMan.do  # change file suffix to .do
-sed -i "" 's/#/*/' StataDatMan.do # convert # to *
-sed -i "" '1,7d' StataDatMan.do # delete lines 1-7
+# StataDataManage
+StataDataManage_path="Stata/StataDataManage"
+cd $base_path/$StataDataManage_path
+jupytext --to R:bare StataDataManage.Rmd  # convert to R 'bare' format option
+mv StataDataManage.R StataDataManage.do  # change file suffix to .do
+sed -i "" 's/#/*/' StataDataManage.do # convert # to *
+sed -i "" '1,7d' StataDataManage.do # delete lines 1-7
 # then change hash comments to astericks
 cd ..
-zip -r StataDatMan.zip StataDatMan -x "*.DS_Store"
+zip -r StataDataManage.zip StataDataManage -x "*.DS_Store"
 
-# StataMod
-StataMod_path="Stata/StataMod"
-cd $base_path/$StataMod_path
-jupytext --to R:bare StataMod.Rmd  # convert to R 'bare' format option
-mv StataMod.R StataMod.do  # change file suffix to .do
-sed -i "" 's/#/*/' StataMod.do # convert # to *
-sed -i "" '1,7d' StataMod.do # delete lines 1-7
+# StataModels
+StataModels_path="Stata/StataModels"
+cd $base_path/$StataModels_path
+jupytext --to R:bare StataModels.Rmd  # convert to R 'bare' format option
+mv StataModels.R StataModels.do  # change file suffix to .do
+sed -i "" 's/#/*/' StataModels.do # convert # to *
+sed -i "" '1,7d' StataModels.do # delete lines 1-7
 cd ..
-zip -r StataMod.zip StataMod -x "*.DS_Store"
+zip -r StataModels.zip StataModels -x "*.DS_Store"
 cd ..
 
-# StataGraph
-StataGraph_path="Stata/StataGraph"
-cd $base_path/$StataGraph_path
-jupytext --to R:bare StataGraph.Rmd  # convert to R 'bare' format option
-mv StataGraph.R StataGraph.do  # change file suffix to .do
-sed -i "" 's/#/*/' StataGraph.do # convert # to *
-sed -i "" '1,7d' StataGraph.do # delete lines 1-7
+# StataGraphics
+StataGraphics_path="Stata/StataGraphics"
+cd $base_path/$StataGraphics_path
+jupytext --to R:bare StataGraphics.Rmd  # convert to R 'bare' format option
+mv StataGraphics.R StataGraphics.do  # change file suffix to .do
+sed -i "" 's/#/*/' StataGraphics.do # convert # to *
+sed -i "" '1,7d' StataGraphics.do # delete lines 1-7
 cd ..
-zip -r StataGraph.zip StataGraph -x "*.DS_Store"
+zip -r StataGraphics.zip StataGraphics -x "*.DS_Store"
 cd ..
