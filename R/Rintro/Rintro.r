@@ -4,9 +4,9 @@ knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 #
 # **Topics**
 #
-# * Functions
 # * Objects
 # * Assignment
+# * Functions
 # * Finding help
 # * Importing packages
 # * Basic data manipulation
@@ -44,7 +44,7 @@ knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 #
 # 1. What R is and how it works
 # 2. How we can interact with R
-# 3. Foundations of the language (functions, objects, assignment)
+# 3. Foundations of the language (objects, assignment, functions)
 # 4. The `tidyverse` package ecosystem for data science
 # 5. Basic data manipulation useful for cleaning datasets
 # 7. Working with grouped data
@@ -64,9 +64,9 @@ knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 #
 # 1. What R is and how it works
 # 2. R interfaces
-# 3. Functions
-# 4. Objects
-# 5. Assignment
+# 3. Objects
+# 4. Assignment
+# 5. Functions
 # 6. Getting help
 # 7. `tidyverse` package ecosystem for data science
 # </div>
@@ -88,7 +88,7 @@ knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 #   any kind of data
 # * Cutting edge statistical tools
 # * Publication quality graphics
-# * 15,000+ add on packages covering all aspects of statistics and machine learning
+# * 16,000+ add on packages covering all aspects of statistics and machine learning
 # * Active community of users
 
 # ### How does R work?
@@ -143,7 +143,7 @@ knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 #
 # 2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embedding R code in a document that is authored using *Markdown* and which has a `.Rmd` extension. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
 #
-# Here are some resources for learning more about RMarkdown and RStudio: 
+# Here are some resources for learning more about RStudio and RMarkdown: 
 #
 # * <https://rmarkdown.rstudio.com/authoring_quick_tour.html>
 # * <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
@@ -301,7 +301,7 @@ x <- sqrt(10) # assign result to a variable named x
 # R is a modular environment that is extended by the use of **packages**.
 # Packages are collections of functions or commands that are designed to
 # perform specific tasks (e.g., fit a type of regression model). A large 
-# number of contributed packages are available (> 15,000). 
+# number of contributed packages are available (> 16,000). 
 #
 # Using an R package is a **two step process**:
 #
@@ -1085,8 +1085,8 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 # ### Resources
 #
 # * IQSS 
-#     + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
-#     + Data Science Services: <https://dss.iq.harvard.edu/>
+#     + Workshops: <https://www.iq.harvard.edu/data-science-services/workshop-materials>
+#     + Data Science Services: <https://www.iq.harvard.edu/data-science-services>
 #     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 #
 # * HBS

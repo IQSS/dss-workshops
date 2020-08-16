@@ -264,22 +264,22 @@ methods("summary")
 # It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
 # Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 #
-# | Function      | Package        | Output                                                  |
-# |:--------------|:---------------|:--------------------------------------------------------|
-# | `summary()`   | `stats` base R | standard errors, test statistics, p-values, GOF stats   |
-# | `confint()`   | `stats` base R | confidence intervals                                    |
-# | `anova()`     | `stats` base R | anova table (one model), model comparison (> one model) |
-# | `coef()`      | `stats` base R | point estimates                                         |
-# | `drop1()`     | `stats` base R | model comparison                                        |
-# | `predict()`   | `stats` base R | predicted response values                               |
-# | `fitted()`    | `stats` base R | predicted response values (for observed data)           |
-# | `residuals()` | `stats` base R | residuals                                               |
-# | `fixef()`     | `lme4`         | fixed effect point estimates (mixed models only)        |
-# | `ranef()`     | `lme4`         | random effect point estimates (mixed models only)       |
-# | `coef()`      | `lme4`         | empirical Bayes estimates (mixed models only)           |
-# | `allEffects()`| `effects`      | predicted marginal means                                |
-# | `emmeans()`   | `emmeans`      | predicted marginal means & marginal effects             |
-# | `margins()`   | `margins`      | predicted marginal means & marginal effects             |
+# | Function      | Package   | Output                                                  |
+# |:--------------|:----------|:--------------------------------------------------------|
+# | `summary()`   | `stats`   | standard errors, test statistics, p-values, GOF stats   |
+# | `confint()`   | `stats`   | confidence intervals                                    |
+# | `anova()`     | `stats`   | anova table (one model), model comparison (> one model) |
+# | `coef()`      | `stats`   | point estimates                                         |
+# | `drop1()`     | `stats`   | model comparison                                        |
+# | `predict()`   | `stats`   | predicted response values                               |
+# | `fitted()`    | `stats`   | predicted response values (for observed data)           |
+# | `residuals()` | `stats`   | residuals                                               |
+# | `fixef()`     | `lme4`    | fixed effect point estimates (mixed models only)        |
+# | `ranef()`     | `lme4`    | random effect point estimates (mixed models only)       |
+# | `coef()`      | `lme4`    | empirical Bayes estimates (mixed models only)           |
+# | `allEffects()`| `effects` | predicted marginal means                                |
+# | `emmeans()`   | `emmeans` | predicted marginal means & marginal effects             |
+# | `margins()`   | `margins` | predicted marginal means & marginal effects             |
 
 # ### OLS regression assumptions
 #
@@ -418,27 +418,31 @@ dat[with(dat, complete.cases(x, y, z)), ]
   # same as above, but shorter syntax
   sat_expense_by_percent <- lm(csat ~ 1 + expense * income, data = states_data) 
 
-  # Show the regression coefficients table
+  # show the regression coefficients table
   summary(sat_expense_by_percent) %>% coef() 
 
 # ### Regression with categorical predictors
 #
-# Let's try to predict SAT scores from region, a categorical variable. 
+# Let's try to predict SAT scores from `region`, a categorical variable. 
 # Note that you must make sure R does not think your categorical variable is numeric.
 
   # make sure R knows region is categorical
   str(states_data$region)
-  states_data$region <- factor(states_data$region)
+
+# Here, R is already treating `region` as categorical --- that is, in R parlance, a "factor" variable. If `region` were not already a factor, we could make it so like this:
+
+  states_data <- states_data %>%
+      mutate(region = factor(region))
 
   # arguments to the factor() function
   # factor(x, levels, labels)
 
   levels(states_data$region)
 
-  # Add region to the model
+  # add region to the model
   sat_region <- lm(csat ~ 1 + region, data = states_data) 
 
-  # Show the results
+  # show the results
   summary(sat_region) %>% coef() # show the regression coefficients table
   anova(sat_region) # show ANOVA table
 
@@ -448,13 +452,14 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # **Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.
 #
-# The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category.They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
+# The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category. They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
 
   # default treatment (dummy) contrasts
   contrasts(states_data$region)
 
   # change the reference group
-  states_data$region <- relevel(states_data$region, ref = "Midwest")
+  states_data <- states_data %>%
+      mutate(region = relevel(region, ref = "Midwest"))
 
   # check the reference group has changed
   contrasts(states_data$region)
@@ -571,7 +576,8 @@ dat[with(dat, complete.cases(x, y, z)), ]
   levels(NH11$hypev) # check levels of hypev
 
   # collapse all missing values to NA
-  NH11$hypev <- factor(NH11$hypev, levels=c("2 No", "1 Yes"))
+  NH11 <- NH11 %>%
+      mutate(hypev = factor(hypev, levels=c("2 No", "1 Yes")))
 
 # Now let's use `glm()` to estimate the model:
 
@@ -695,22 +701,24 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### The null model & ICC
 #
-# As a preliminary step it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors).
+# Before we fit our first model, let's take a look at the R syntax for multilevel models:
 
   # anatomy of lmer() function
   lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), 
        data = mydata)
+
+# Notice the formula section within the brackets: `(1 | grouping_variable)`. This part of the formula tells R about the hierarchical structure of the model. In this case, it says we have a model with random intercepts (`1`) grouped by (`|`) a `grouping_variable`.
+#
+# As a preliminary modeling step, it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors) and then calculating the intra-class correlation (ICC).
 
   # null model, grouping by school but not fixed effects.
   Norm1 <-lmer(normexam ~ 1 + (1 | school), 
               data = na.omit(Exam))
   summary(Norm1)
 
-# The is .161/(.161 + .852) = .159 = 16% of the variance is at the school level. 
+# The ICC is calculated as .161/(.161 + .852) = .159, which means that ~16% of the variance is at the school level. 
 #
-# There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. 
-# But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite 
-# approximation).
+# There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite approximation).
 
 # ### Adding fixed-effects predictors
 #
@@ -812,8 +820,8 @@ data(bh1996, package="multilevel")
 # ### Resources
 #
 # * IQSS 
-#     + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
-#     + Data Science Services: <https://dss.iq.harvard.edu/>
+#     + Workshops: <https://www.iq.harvard.edu/data-science-services/workshop-materials>
+#     + Data Science Services: <https://www.iq.harvard.edu/data-science-services>
 #     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 #
 # * HBS

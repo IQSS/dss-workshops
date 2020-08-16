@@ -53,7 +53,7 @@ knitr::opts_knit$set(root.dir="other_workshops/DataScienceTools") # base.url = "
 #
 # | example    | data storage    | editor | program | report tool | glue                      |
 # |:---------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
-# | old school | ASCII text file | vi     | fortran | TeX         | Bourne (compatable) shell |
+# | old school | ASCII text file | vi     | fortran | TeX         | Bourne (compatible) shell |
 
 # ### Something old & something new
 #
@@ -63,7 +63,7 @@ knitr::opts_knit$set(root.dir="other_workshops/DataScienceTools") # base.url = "
 #
 # | example     | data storage    | editor | program | report tool | glue                      |
 # |:----------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
-# | old school  | ASCII text file | vi     | fortran | TeX         | Bourne (compatable) shell |
+# | old school  | ASCII text file | vi     | fortran | TeX         | Bourne (compatible) shell |
 # | old and new | ASCII text file | Atom   | python  | LaTeX       | Bash shell                |
 
 # ### A modern version
@@ -121,7 +121,7 @@ knitr::opts_knit$set(root.dir="other_workshops/DataScienceTools") # base.url = "
 #
 # | Program | Statistics | Visualization | Machine learning | Ease of use | Power/flexibility | Fun  |
 # |:------- |:---------- |:------------- |:---------------- |:----------- |:----------------- |:---- |
-# | Stata   | Good       | Servicable    | Limited          | Very easy   | Low               | Some |
+# | Stata   | Excellent  | Servicable    | Limited          | Very easy   | Low               | Some |
 # | SPSS    | OK         | Servicable    | Limited          | Easy        | Low               | None |
 # | SAS     | Good       | Not great     | Good             | Moderate    | Moderate          | None |
 # | Matlab  | Good       | Good          | Good             | Moderate    | Good              | Some |

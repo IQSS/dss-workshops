@@ -767,8 +767,8 @@ p6
 # ### Resources
 #
 # * IQSS 
-#     + Workshops: <https://dss.iq.harvard.edu/workshop-materials>
-#     + Data Science Services: <https://dss.iq.harvard.edu/>
+#     + Workshops: <https://www.iq.harvard.edu/data-science-services/workshop-materials>
+#     + Data Science Services: <https://www.iq.harvard.edu/data-science-services>
 #     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 #
 # * HBS
