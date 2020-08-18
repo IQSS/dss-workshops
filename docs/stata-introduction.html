@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Stata Introduction | Data Science Workshops</title>
+  <meta name="description" content="Stata Introduction | Data Science Workshops" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Stata Introduction | Data Science Workshops" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Stata Introduction | Data Science Workshops" />
+  <meta name="github-repo" content="IQSS/dss-workshops" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Stata Introduction | Data Science Workshops" />
+  
+  <meta name="twitter:description" content="Stata Introduction | Data Science Workshops" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="stata-installation.html"/>
+<link rel="next" href="stata-data-management.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science Workshop Materials</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Table of Contents</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i>Contributors</a></li>
+</ul></li>
+<li class="part"><span><b>I General</b></span></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html"><i class="fa fa-check"></i>Data Science Tools</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#tools-for-working-with-data"><i class="fa fa-check"></i>Tools for working with data</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#the-puzzle-pieces"><i class="fa fa-check"></i>The puzzle pieces</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#data-analysis-building-blocks"><i class="fa fa-check"></i>Data analysis building blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples"><i class="fa fa-check"></i>Examples</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#old-school-example"><i class="fa fa-check"></i>Old-school example</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#something-old-something-new"><i class="fa fa-check"></i>Something old &amp; something new</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#a-modern-version"><i class="fa fa-check"></i>A modern version</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#data-storage-retrieval"><i class="fa fa-check"></i>Data storage &amp; retrieval</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#text-files"><i class="fa fa-check"></i>Text files</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#binary-files"><i class="fa fa-check"></i>Binary files</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#databases"><i class="fa fa-check"></i>Databases</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#distributed-file-storage"><i class="fa fa-check"></i>Distributed file storage</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#programming-languages-statistics-packages"><i class="fa fa-check"></i>Programming languages &amp; statistics packages</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#programming-language-features"><i class="fa fa-check"></i>Programming language features</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#program-comparison"><i class="fa fa-check"></i>Program comparison</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples-read-data-from-a-file-summarize"><i class="fa fa-check"></i>Examples: Read data from a file &amp; summarize</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples-fit-a-linear-regression"><i class="fa fa-check"></i>Examples: Fit a linear regression</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples-extract-links-for-.html-file"><i class="fa fa-check"></i>Examples: Extract links for .html file</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#creating-reports"><i class="fa fa-check"></i>Creating reports</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#markup-languages"><i class="fa fa-check"></i>Markup languages</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#word-processors"><i class="fa fa-check"></i>Word processors</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#text-editors-integrated-development-environments"><i class="fa fa-check"></i>Text editors &amp; Integrated Development Environments</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#language-specific-editors-ides"><i class="fa fa-check"></i>Language specific editors &amp; IDEs</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#general-purpose-editors-ides"><i class="fa fa-check"></i>General purpose editors &amp; IDEs</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#literate-programming-notebooks"><i class="fa fa-check"></i>Literate programming &amp; notebooks</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#literate-programming"><i class="fa fa-check"></i>Literate programming</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#notebooks"><i class="fa fa-check"></i>Notebooks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#big-data-annoying-data-computationally-intensive-methods"><i class="fa fa-check"></i>Big data, annoying data, &amp; computationally intensive methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#computing-clusters-at-harvard"><i class="fa fa-check"></i>Computing clusters at Harvard</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#wrap-up"><i class="fa fa-check"></i>Wrap up</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#feedback"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II R</b></span></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html"><i class="fa fa-check"></i>R Installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#troubleshooting-session"><i class="fa fa-check"></i>Troubleshooting session</a></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#materials"><i class="fa fa-check"></i>Materials</a></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#software"><i class="fa fa-check"></i>Software</a></li>
+<li><a href="r-installation.html#installing-the-tidyverse">Installing the <code>tidyverse</code></a>
+<ul>
+<li><a href="r-installation.html#troubleshooting-tidyverse-installation">Troubleshooting <code>tidyverse</code> installation</a></li>
+</ul></li>
+<li><a href="r-installation.html#installing-rmarkdown-optional">Installing <code>rmarkdown</code> (optional)</a></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html"><i class="fa fa-check"></i>R Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#setup"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#software-and-materials"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#class-structure"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#goals"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#r-basics"><i class="fa fa-check"></i>R basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#why-use-r"><i class="fa fa-check"></i>Why use R?</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#how-does-r-work"><i class="fa fa-check"></i>How does R work?</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#interfaces"><i class="fa fa-check"></i>Interfaces</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#launch-a-session"><i class="fa fa-check"></i>Launch a session</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-0"><i class="fa fa-check"></i>Exercise 0</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#syntax-rules"><i class="fa fa-check"></i>Syntax rules</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#function-calls"><i class="fa fa-check"></i>Function calls</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#assignment"><i class="fa fa-check"></i>Assignment</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#asking-for-help"><i class="fa fa-check"></i>Asking for help</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#reading-data"><i class="fa fa-check"></i>Reading data</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#installing-using-packages"><i class="fa fa-check"></i>Installing &amp; using packages</a></li>
+<li><a href="r-introduction.html#the-tidyverse">The <code>tidyverse</code></a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#readers-for-common-file-types"><i class="fa fa-check"></i>Readers for common file types</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#baby-names-data"><i class="fa fa-check"></i>Baby names data</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-1"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#manipulating-data"><i class="fa fa-check"></i>Manipulating data</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#filter-select-arrange"><i class="fa fa-check"></i>Filter, select, &amp; arrange</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#logical-relational-operators"><i class="fa fa-check"></i>Logical &amp; relational operators</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-2.1"><i class="fa fa-check"></i>Exercise 2.1</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#pipe-operator"><i class="fa fa-check"></i>Pipe operator</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-2.2"><i class="fa fa-check"></i>Exercise 2.2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#plotting-data"><i class="fa fa-check"></i>Plotting data</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#creating-variables"><i class="fa fa-check"></i>Creating variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#create-or-modify-columns"><i class="fa fa-check"></i>Create or modify columns</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#operating-by-group"><i class="fa fa-check"></i>Operating by group</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#recoding-variables"><i class="fa fa-check"></i>Recoding variables</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-4"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#aggregating-variables"><i class="fa fa-check"></i>Aggregating variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-5"><i class="fa fa-check"></i>Exercise 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#saving-work"><i class="fa fa-check"></i>Saving work</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#saving-individual-datasets"><i class="fa fa-check"></i>Saving individual datasets</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#saving-multiple-datasets"><i class="fa fa-check"></i>Saving multiple datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#wrap-up-1"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#feedback-1"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html"><i class="fa fa-check"></i>R Regression Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#setup-1"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#software-and-materials-1"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#class-structure-1"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#goals-1"><i class="fa fa-check"></i>Goals</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#launch-an-r-session"><i class="fa fa-check"></i>Launch an R session</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#modeling-workflow"><i class="fa fa-check"></i>Modeling workflow</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#r-modeling-ecosystem"><i class="fa fa-check"></i>R modeling ecosystem</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#before-fitting-a-model"><i class="fa fa-check"></i>Before fitting a model</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#load-the-data"><i class="fa fa-check"></i>Load the data</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#examine-the-data"><i class="fa fa-check"></i>Examine the data</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#plot-the-data"><i class="fa fa-check"></i>Plot the data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#models-with-continuous-outcomes"><i class="fa fa-check"></i>Models with continuous outcomes</a>
+<ul>
+<li><a href="r-regression-models.html#why-is-the-association-between-expense-sat-scores-negative">Why is the association between expense &amp; SAT scores <em>negative</em>?</a></li>
+<li><a href="r-regression-models.html#the-lm-class-methods">The <code>lm</code> class &amp; methods</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#ols-regression-assumptions"><i class="fa fa-check"></i>OLS regression assumptions</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#comparing-models"><i class="fa fa-check"></i>Comparing models</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-0-1"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#interactions-factors"><i class="fa fa-check"></i>Interactions &amp; factors</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#modeling-interactions"><i class="fa fa-check"></i>Modeling interactions</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#regression-with-categorical-predictors"><i class="fa fa-check"></i>Regression with categorical predictors</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#setting-factor-reference-groups-contrasts"><i class="fa fa-check"></i>Setting factor reference groups &amp; contrasts</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#models-with-binary-outcomes"><i class="fa fa-check"></i>Models with binary outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#logistic-regression"><i class="fa fa-check"></i>Logistic regression</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#logistic-regression-example"><i class="fa fa-check"></i>Logistic regression example</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#odds-ratios"><i class="fa fa-check"></i>Odds ratios</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#predicted-marginal-means"><i class="fa fa-check"></i>Predicted marginal means</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#multilevel-modeling"><i class="fa fa-check"></i>Multilevel modeling</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#multilevel-modeling-overview"><i class="fa fa-check"></i>Multilevel modeling overview</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#the-exam-data"><i class="fa fa-check"></i>The Exam data</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#the-null-model-icc"><i class="fa fa-check"></i>The null model &amp; ICC</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#adding-fixed-effects-predictors"><i class="fa fa-check"></i>Adding fixed-effects predictors</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#multiple-degree-of-freedom-comparisons"><i class="fa fa-check"></i>Multiple degree of freedom comparisons</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#random-slopes"><i class="fa fa-check"></i>Random slopes</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#test-the-significance-of-the-random-slope"><i class="fa fa-check"></i>Test the significance of the random slope</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#wrap-up-2"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#feedback-2"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html"><i class="fa fa-check"></i>R Graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#setup-2"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#software-and-materials-2"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#class-structure-2"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#launch-an-r-session-1"><i class="fa fa-check"></i>Launch an R session</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#packages-1"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#goals-2"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li><a href="r-graphics.html#why-ggplot2">Why <code>ggplot2</code>?</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-is-the-grammar-of-graphics"><i class="fa fa-check"></i>What is the Grammar Of Graphics?</a></li>
+<li><a href="r-graphics.html#ggplot2-vs-base-graphics"><code>ggplot2</code> VS base graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#geometric-objects-aesthetics"><i class="fa fa-check"></i>Geometric objects &amp; aesthetics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#aesthetic-mapping"><i class="fa fa-check"></i>Aesthetic mapping</a></li>
+<li><a href="r-graphics.html#geometric-objects-geom">Geometric objects (<code>geom</code>)</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#aesthetic-mapping-vs-assignment"><i class="fa fa-check"></i>Aesthetic mapping VS assignment</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#mapping-variables-to-other-aesthetics"><i class="fa fa-check"></i>Mapping variables to other aesthetics</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-0-2"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#statistical-transformations"><i class="fa fa-check"></i>Statistical transformations</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#why-transform-data"><i class="fa fa-check"></i>Why transform data?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#setting-arguments"><i class="fa fa-check"></i>Setting arguments</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#changing-the-transformation"><i class="fa fa-check"></i>Changing the transformation</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#scales"><i class="fa fa-check"></i>Scales</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#controlling-aesthetic-mapping"><i class="fa fa-check"></i>Controlling aesthetic mapping</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#common-scale-arguments"><i class="fa fa-check"></i>Common scale arguments</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#scale-modification-examples"><i class="fa fa-check"></i>Scale modification examples</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#using-different-color-scales"><i class="fa fa-check"></i>Using different color scales</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#available-scales"><i class="fa fa-check"></i>Available scales</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#faceting"><i class="fa fa-check"></i>Faceting</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-is-faceting"><i class="fa fa-check"></i>What is faceting?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-is-the-trend-in-housing-prices-in-each-state"><i class="fa fa-check"></i>What is the trend in housing prices in each state?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#faceting-to-the-rescue"><i class="fa fa-check"></i>Faceting to the rescue</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#themes"><i class="fa fa-check"></i>Themes</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-are-themes"><i class="fa fa-check"></i>What are themes?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#overriding-theme-defaults"><i class="fa fa-check"></i>Overriding theme defaults</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#creating-saving-new-themes"><i class="fa fa-check"></i>Creating &amp; saving new themes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#saving-plots"><i class="fa fa-check"></i>Saving plots</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#the-1-faq"><i class="fa fa-check"></i>The #1 FAQ</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#map-aesthetic-to-different-columns"><i class="fa fa-check"></i>Map aesthetic to different columns</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#wrap-up-3"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#feedback-3"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html"><i class="fa fa-check"></i>R Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#setup-3"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#software-and-materials-3"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#class-structure-3"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#launch-an-r-session-2"><i class="fa fa-check"></i>Launch an R session</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#packages-2"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#workshop-outline"><i class="fa fa-check"></i>Workshop Outline</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#working-with-excel-worksheets"><i class="fa fa-check"></i>Working with Excel worksheets</a>
+<ul>
+<li><a href="r-data-wrangling.html#iterating-with-map">Iterating with <code>map()</code></a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#filtering-strings-using-regex"><i class="fa fa-check"></i>Filtering strings using regex</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#writing-your-own-functions"><i class="fa fa-check"></i>Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#reading-excel-data-files"><i class="fa fa-check"></i>Reading Excel data files</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#data-cleanup"><i class="fa fa-check"></i>Data cleanup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#data-types-and-structures"><i class="fa fa-check"></i>Data types and structures</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#list-indexing"><i class="fa fa-check"></i>List indexing</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#dropping-missing-values"><i class="fa fa-check"></i>Dropping missing values</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#reshaping-from-wide-to-long"><i class="fa fa-check"></i>Reshaping from wide to long</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#data-organization-storage"><i class="fa fa-check"></i>Data organization &amp; storage</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#a-list-of-data-frames"><i class="fa fa-check"></i>A list of data frames</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#one-big-data-frame"><i class="fa fa-check"></i>One big data frame</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#complete-code"><i class="fa fa-check"></i>Complete code</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#wrap-up-4"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#feedback-4"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Python</b></span></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html"><i class="fa fa-check"></i>Python Installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#troubleshooting-session-1"><i class="fa fa-check"></i>Troubleshooting session</a></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#materials-1"><i class="fa fa-check"></i>Materials</a></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#software-1"><i class="fa fa-check"></i>Software</a></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#jupyter-notebook-interfaces"><i class="fa fa-check"></i>Jupyter notebook interfaces</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#launch-jupyterlab"><i class="fa fa-check"></i>Launch JupyterLab</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html"><i class="fa fa-check"></i>Python Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#setup-4"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#software-and-materials-4"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#class-structure-4"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#prerequisites-4"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#goals-3"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#python-basics"><i class="fa fa-check"></i>Python basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#what-is-python"><i class="fa fa-check"></i>What is Python?</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#why-use-python"><i class="fa fa-check"></i>Why use Python?</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#how-does-python-work"><i class="fa fa-check"></i>How does Python work?</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#interfaces-1"><i class="fa fa-check"></i>Interfaces</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#launch-jupyterlab-1"><i class="fa fa-check"></i>Launch JupyterLab</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#syntax-rules-1"><i class="fa fa-check"></i>Syntax rules</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#function-calls-1"><i class="fa fa-check"></i>Function calls</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#assignment-1"><i class="fa fa-check"></i>Assignment</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#reading-data-1"><i class="fa fa-check"></i>Reading data</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#object-methods"><i class="fa fa-check"></i>Object methods</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#using-object-methods-lists"><i class="fa fa-check"></i>Using object methods &amp; lists</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#splitting-a-string-into-a-list-of-words"><i class="fa fa-check"></i>Splitting a string into a list of words</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#working-with-lists"><i class="fa fa-check"></i>Working with lists</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#extracting-subsets-from-lists"><i class="fa fa-check"></i>Extracting subsets from lists</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#using-sets-to-count-unique-items"><i class="fa fa-check"></i>Using sets to count unique items</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#exercise-0-3"><i class="fa fa-check"></i>Exercise 0</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#control-flow"><i class="fa fa-check"></i>Control flow</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#logical-relational-operators-1"><i class="fa fa-check"></i>Logical &amp; relational operators</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#counting-list-elements"><i class="fa fa-check"></i>Counting list elements</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#iterating-over-collections-of-data"><i class="fa fa-check"></i>Iterating over collections of data</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#iterating-over-lists-using-for-loops"><i class="fa fa-check"></i>Iterating over lists using for-loops</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#organizing-results-in-dictionaries"><i class="fa fa-check"></i>Organizing results in dictionaries</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#importing-packages"><i class="fa fa-check"></i>Importing packages</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#wrap-up-5"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#feedback-5"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html"><i class="fa fa-check"></i>Python Web-Scraping</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#setup-5"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#software-and-materials-5"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#class-structure-5"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#prerequisites-5"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#goals-4"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#web-scraping-background"><i class="fa fa-check"></i>Web scraping background</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#what-is-web-scraping"><i class="fa fa-check"></i>What is web scraping?</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#is-web-scraping-legal-is-it-ethical"><i class="fa fa-check"></i>Is web scraping legal? Is it ethical?</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#web-scraping-approaches"><i class="fa fa-check"></i>Web scraping approaches</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#how-does-the-web-work"><i class="fa fa-check"></i>How does the web work?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#retrieve-data-in-json-format-if-you-can"><i class="fa fa-check"></i>Retrieve data in JSON format if you can</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#examine-the-websites-structure"><i class="fa fa-check"></i>Examine the website’s structure</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#launch-jupyterlab-2"><i class="fa fa-check"></i>Launch JupyterLab</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#making-requests"><i class="fa fa-check"></i>Making requests</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#parsing-json-data"><i class="fa fa-check"></i>Parsing JSON data</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#organizing-saving-the-data"><i class="fa fa-check"></i>Organizing &amp; saving the data</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#iterating-to-retrieve-all-the-data"><i class="fa fa-check"></i>Iterating to retrieve all the data</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#exercise-0-4"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#parsing-html-if-you-have-to"><i class="fa fa-check"></i>Parsing HTML if you have to</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#document-object-model-dom"><i class="fa fa-check"></i>Document Object Model (DOM)</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#retrieving-html"><i class="fa fa-check"></i>Retrieving HTML</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#parsing-html-using-the-lxml-library"><i class="fa fa-check"></i>Parsing HTML using the lxml library</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#using-xpath-to-extract-content-from-html"><i class="fa fa-check"></i>Using XPath to extract content from HTML</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#iterating-to-retrieve-content-from-a-list-of-html-elements"><i class="fa fa-check"></i>Iterating to retrieve content from a list of HTML elements</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li><a href="python-web-scraping.html#scrapy-for-large-complex-projects"><code>Scrapy</code>: for large / complex projects</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#browser-drivers-a-last-resort"><i class="fa fa-check"></i>Browser drivers: a last resort</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#wrap-up-6"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#feedback-6"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Stata</b></span></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html"><i class="fa fa-check"></i>Stata Installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#troubleshooting"><i class="fa fa-check"></i>Troubleshooting</a></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#materials-2"><i class="fa fa-check"></i>Materials</a></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#software-2"><i class="fa fa-check"></i>Software</a></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html"><i class="fa fa-check"></i>Stata Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#setup-6"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#class-structure-and-organization"><i class="fa fa-check"></i>Class Structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#prerequisites-6"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#goals-5"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#stata-basics"><i class="fa fa-check"></i>Stata basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#what-is-stata"><i class="fa fa-check"></i>What is Stata?</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#why-use-stata"><i class="fa fa-check"></i>Why use Stata?</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#how-does-stata-work"><i class="fa fa-check"></i>How does Stata work?</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#interfaces-2"><i class="fa fa-check"></i>Interfaces</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#stata-help"><i class="fa fa-check"></i>Stata help</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#syntax-rules-2"><i class="fa fa-check"></i>Syntax rules</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-0-5"><i class="fa fa-check"></i>Exercise 0</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#working-directory"><i class="fa fa-check"></i>Working directory</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#reading-data-2"><i class="fa fa-check"></i>Reading data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#statistics-graphs"><i class="fa fa-check"></i>Statistics &amp; graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#basic-graphing-commands"><i class="fa fa-check"></i>Basic graphing commands</a></li>
+<li><a href="stata-introduction.html#the-by-command">The <code>by</code> command</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#basic-data-management"><i class="fa fa-check"></i>Basic data management</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#variable-value-labels"><i class="fa fa-check"></i>Variable &amp; value labels</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#working-on-subsets"><i class="fa fa-check"></i>Working on subsets</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#generating-replacing-variables"><i class="fa fa-check"></i>Generating &amp; replacing variables</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#bivariate-analyses"><i class="fa fa-check"></i>Bivariate analyses</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#chi-squared-test"><i class="fa fa-check"></i>Chi-squared test</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#t-test"><i class="fa fa-check"></i>t-test</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#one-way-anova"><i class="fa fa-check"></i>One-way ANOVA</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-3-4"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#wrap-up-7"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#feedback-7"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html"><i class="fa fa-check"></i>Stata Data Management</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#setup-7"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#class-structure-and-organization-1"><i class="fa fa-check"></i>Class structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#prerequisites-7"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#goals-6"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#opening-files"><i class="fa fa-check"></i>Opening Files</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#generating-replacing-variables-1"><i class="fa fa-check"></i>Generating &amp; replacing variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#generate-replace"><i class="fa fa-check"></i>Generate &amp; Replace</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#recode"><i class="fa fa-check"></i>Recode</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#egen"><i class="fa fa-check"></i>egen</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#exercise-0-6"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#missing-values"><i class="fa fa-check"></i>Missing values</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#making-sure-missingness-is-preserved"><i class="fa fa-check"></i>Making sure missingness is preserved</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#bulk-conversion-to-missing-values"><i class="fa fa-check"></i>Bulk Conversion to missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#variable-types"><i class="fa fa-check"></i>Variable types</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#converting-to-from-strings"><i class="fa fa-check"></i>Converting to &amp; from Strings</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#converting-strings-to-date-time"><i class="fa fa-check"></i>Converting strings to date / time</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#formatting-numbers-as-dates"><i class="fa fa-check"></i>Formatting numbers as dates</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#exercise-1-7"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#merging-appending-collapsing"><i class="fa fa-check"></i>Merging, appending, &amp; collapsing</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#appending-datasets"><i class="fa fa-check"></i>Appending datasets</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#merging-datasets"><i class="fa fa-check"></i>Merging datasets</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#merge-options"><i class="fa fa-check"></i>Merge Options</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#many-to-many-merges---joinby-command"><i class="fa fa-check"></i>Many-to-many merges - joinby command</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#collapse"><i class="fa fa-check"></i>Collapse</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#exercise-2-5"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#wrap-up-8"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#feedback-8"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html"><i class="fa fa-check"></i>Stata Regression Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#setup-8"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#class-structure-and-organization-2"><i class="fa fa-check"></i>Class structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#prerequisites-8"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#goals-7"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#modeling-workflow-1"><i class="fa fa-check"></i>Modeling workflow</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#before-fitting-a-model-1"><i class="fa fa-check"></i>Before fitting a model</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset"><i class="fa fa-check"></i>The dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#set-working-directory"><i class="fa fa-check"></i>Set working directory</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#load-the-data-1"><i class="fa fa-check"></i>Load the data</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#examine-descriptive-statistics"><i class="fa fa-check"></i>Examine descriptive statistics</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#visualize-the-data"><i class="fa fa-check"></i>Visualize the data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#models-with-continuous-outcomes-1"><i class="fa fa-check"></i>Models with continuous outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#fit-the-model"><i class="fa fa-check"></i>Fit the model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#ols-assumptions"><i class="fa fa-check"></i>OLS assumptions</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#interactions"><i class="fa fa-check"></i>Interactions</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#categorical-predictors"><i class="fa fa-check"></i>Categorical predictors</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-0-7"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#models-with-binary-outcomes-1"><i class="fa fa-check"></i>Models with binary outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset-1"><i class="fa fa-check"></i>The Dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#load-the-dataset"><i class="fa fa-check"></i>Load the dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#recode-the-outcome-variable"><i class="fa fa-check"></i>Recode the outcome variable</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#run-summary-statistics"><i class="fa fa-check"></i>Run summary statistics</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#run-the-logistic-model"><i class="fa fa-check"></i>Run the logistic model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-1-8"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exporting-saving-results"><i class="fa fa-check"></i>Exporting &amp; saving results</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#storing-results"><i class="fa fa-check"></i>Storing results</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#comparing-models-1"><i class="fa fa-check"></i>Comparing models</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exporting-to-excel"><i class="fa fa-check"></i>Exporting to Excel</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-2-6"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#obtaining-quantities-of-interest"><i class="fa fa-check"></i>Obtaining quantities of interest</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#margins-of-responses"><i class="fa fa-check"></i>Margins of responses</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset-2"><i class="fa fa-check"></i>The dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#fit-a-model"><i class="fa fa-check"></i>Fit a model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#apm-average-predictive-margins"><i class="fa fa-check"></i>APM: Average Predictive Margins</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#pmm-predictive-margins-at-the-means"><i class="fa fa-check"></i>PMM: Predictive Margins at the Means</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#pmr-predictive-margins-at-representative-values"><i class="fa fa-check"></i>PMR: Predictive Margins at Representative values</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#graph-margins-of-responses"><i class="fa fa-check"></i>Graph margins of responses</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-3-5"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#margins-of-changes-in-responses"><i class="fa fa-check"></i>Margins of changes in responses</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset-3"><i class="fa fa-check"></i>The dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#fit-a-model-1"><i class="fa fa-check"></i>Fit a model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#ame-average-marginal-effects"><i class="fa fa-check"></i>AME: Average Marginal Effects</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#mem-marginal-effects-at-the-mean"><i class="fa fa-check"></i>MEM: Marginal Effects at the Mean</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#mer-marginal-effects-at-representative-values"><i class="fa fa-check"></i>MER: Marginal Effects at Representative values</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#graph-margins-of-changes-in-responses"><i class="fa fa-check"></i>Graph margins of changes in responses</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-4-2"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#wrap-up-9"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#feedback-9"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#resources-12"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html"><i class="fa fa-check"></i>Stata Graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#setup-9"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#class-structure-and-organization-3"><i class="fa fa-check"></i>Class structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#prerequisites-9"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#goals-8"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#graphing-in-stata"><i class="fa fa-check"></i>Graphing in Stata</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#graphing-strategies"><i class="fa fa-check"></i>Graphing strategies</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#terrible-graph"><i class="fa fa-check"></i>Terrible graph</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#much-better-graph"><i class="fa fa-check"></i>Much better graph</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#univariate-graphics"><i class="fa fa-check"></i>Univariate graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#our-first-dataset"><i class="fa fa-check"></i>Our first dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#single-continuous-variable"><i class="fa fa-check"></i>Single continuous variable</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#single-categorical-variable"><i class="fa fa-check"></i>Single categorical variable</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#exercise-0-8"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#bivariate-graphics"><i class="fa fa-check"></i>Bivariate graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#next-dataset"><i class="fa fa-check"></i>Next dataset</a></li>
+<li><a href="stata-graphics.html#the-twoway-family">The <code>twoway</code> family</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#overlaying-twoway-graphs"><i class="fa fa-check"></i>Overlaying twoway graphs</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#twoway-line-graphs"><i class="fa fa-check"></i>Twoway line graphs</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#stata-graphing-lines"><i class="fa fa-check"></i>Stata graphing lines</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#exercise-1-9"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#exporting-graphs"><i class="fa fa-check"></i>Exporting graphs</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#wrap-up-10"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#feedback-10"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#resources-13"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science Workshops</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="stata-introduction" class="section level1">
+<h1>Stata Introduction</h1>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Stata interface and Do-files</li>
+<li>Reading and writing data</li>
+<li>Basic summary statistics</li>
+<li>Basic graphs</li>
+<li>Basic data management</li>
+<li>Bivariate analyses</li>
+</ul>
+<div id="setup-6" class="section level2">
+<h2>Setup</h2>
+<div id="class-structure-and-organization" class="section level3">
+<h3>Class Structure and organization</h3>
+<ul>
+<li>Informal — Ask questions at any time. Really!</li>
+<li>Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!</li>
+<li>If you are using a laptop, you will need to adjust file paths accordingly</li>
+<li>Make comments in your Do-file - save on flash drive or email to yourself</li>
+</ul>
+</div>
+<div id="prerequisites-6" class="section level3">
+<h3>Prerequisites</h3>
+<p>This is an introductory Stata course:</p>
+<ul>
+<li>Assumes no prior knowledge of <strong>how to use</strong> Stata</li>
+<li>We do assume you know <strong>why</strong> you want to learn Stata. If you don’t, and want a comparison of Stata to other statistical software, see our <a href="./DataScienceTools.html">Data Science Tools</a> workshop</li>
+<li>Relatively slow-paced</li>
+</ul>
+</div>
+<div id="goals-5" class="section level3">
+<h3>Goals</h3>
+<div class="alert alert-success">
+<p>We will learn about the Stata language by analyzing data from the general social survey (gss).
+In particular, our goals are to:</p>
+<ol style="list-style-type: decimal">
+<li>Familiarize yourself with the Stata interface</li>
+<li>Get data in and out of Stata</li>
+<li>Compute statistics and construct graphical displays</li>
+<li>Compute new variables and transformations</li>
+<li>Perform univariate and bivariate data analyses</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="stata-basics" class="section level2">
+<h2>Stata basics</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To learn the basics about Stata, how to interact with Stata, and how to read in and save data.</strong> In particular:</p>
+<ol style="list-style-type: decimal">
+<li>What is Stata, why use Stata, and advantages of using Stata</li>
+<li>Three ways of interacing with Stata</li>
+<li>Set the working directory</li>
+<li>Read, save, and write data</li>
+</ol>
+</div>
+<div id="what-is-stata" class="section level3">
+<h3>What is Stata?</h3>
+<ul>
+<li>Stata is a statistical software package that you can use to perform data analysis and management, as well as create graphics</li>
+<li>Stata is commonly used among health, sociology, and economics researchers, particularly those working with large data sets</li>
+</ul>
+</div>
+<div id="why-use-stata" class="section level3">
+<h3>Why use Stata?</h3>
+<ul>
+<li>It is easy to learn and is supported by a wide range of introductory textbooks</li>
+<li>It offers a wide range of statistical models in a consistent interface</li>
+<li>It presents results in a clear format</li>
+<li>It has very good built-in help documentation and a broad user community where you can seek help</li>
+<li>Student and other discount packages are available at reasonable cost</li>
+</ul>
+</div>
+<div id="how-does-stata-work" class="section level3">
+<h3>How does Stata work?</h3>
+<p>When Stata is running, variables, data, etc., are <strong>stored in memory</strong>.
+The user can use <code>clear</code> command to clear up memory before running further commands,
+unless they want to <code>save</code> their changes in the original dataset or a new dataset.</p>
+</div>
+<div id="interfaces-2" class="section level3">
+<h3>Interfaces</h3>
+<p><img src="Stata/StataIntro/images/StataInterface.png" /></p>
+<ul>
+<li>Review and Variable windows can be closed (user preference)</li>
+<li>Command window can be shortened (recommended)</li>
+</ul>
+<div id="gui-and-command-window" class="section level4">
+<h4>GUI and command window</h4>
+<p>There are two ways of interacting with Stata that will not result in a saveable record of what you have done:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>GUI</strong>. The Graphical User Interface (GUI) allows you to perform analyses using drop-down menus, rather than writing code. This can be easier for first time users and Stata will helpfully display the command and proper syntax for the operation that you have selected. However, we strongly recommend not using the GUI, since it does not produce a script — a record of what you have done — and thus leads to analyses that are unreproducible.</p></li>
+<li><p><strong>Command window</strong>. From the command window you can type commands to manage and analyze your data.</p>
+<ul>
+<li>The advantage is that you can quickly produce output of a single command.</li>
+<li>The disadvantage is that you cannot store your syntax in a script to reproduce in the future.</li>
+</ul></li>
+</ol>
+</div>
+<div id="do-file" class="section level4">
+<h4>Do-file</h4>
+<p>The third way of interacting with Stata does provide you with a saveable record of your work:</p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Do-file</strong>. A do-file is a plain text file within which you can write and save commands for later use. There are several advantages to using a do-file and we strongly recommend that you always interact with Stata in this way:
+<ul>
+<li>Allows you to submit more than one command to Stata at once.</li>
+<li>Has specialized features for programmers such as syntax highlighting, code folding, autocompletion, and bookmarks to important lines in your code, brace matching, and more.</li>
+<li>With a do-file, it is easy to <strong>save, review, change, and share</strong> your code with others — including your future self!</li>
+</ul></li>
+</ol>
+<p>Here are some resources for learning more about Stata and do-files:</p>
+<ul>
+<li><a href="https://www.stata.com/" class="uri">https://www.stata.com/</a></li>
+<li><a href="https://www.stata.com/manuals13/gsw13.pdf" class="uri">https://www.stata.com/manuals13/gsw13.pdf</a></li>
+<li><a href="https://sociology.fas.harvard.edu/files/sociology/files/creating_a_do_file.pdf" class="uri">https://sociology.fas.harvard.edu/files/sociology/files/creating_a_do_file.pdf</a></li>
+</ul>
+</div>
+</div>
+<div id="stata-help" class="section level3">
+<h3>Stata help</h3>
+<p>To get help in Stata type <code>help</code> followed by topic or command, e.g., <code>help codebook</code>.</p>
+</div>
+<div id="syntax-rules-2" class="section level3">
+<h3>Syntax rules</h3>
+<ul>
+<li><p>Most Stata commands follow the same basic syntax: <code>Command varlist, options</code>.</p></li>
+<li><p>Use comments liberally — start with a comment describing your do-file and use comments throughout</p>
+<ul>
+<li>Use <code>*</code> to comment a line and <code>//</code> for in-line comments</li>
+<li>Use <code>///</code> to break varlists over multiple lines</li>
+</ul></li>
+</ul>
+</div>
+<div id="exercise-0-5" class="section level3">
+<h3>Exercise 0</h3>
+<p>Launch the Stata program (MP or SE, does not matter unless doing computationally intensive work)
+* Open up a new do-file
+* Run our first Stata code!</p>
+<ol style="list-style-type: decimal">
+<li>Try to get Stata to say “Hello World!”. Search <code>help display</code></li>
+</ol>
+<div class="sourceCode" id="cb665"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb665-1"><a href="stata-introduction.html#cb665-1"></a>##</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Try to get Stata to break “Hello World!” over two lines:</li>
+</ol>
+<div class="sourceCode" id="cb666"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb666-1"><a href="stata-introduction.html#cb666-1"></a>##</span></code></pre></div>
+<details>
+<summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
+<div class="alert alert-danger">
+<div class="sourceCode" id="cb667"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb667-1"><a href="stata-introduction.html#cb667-1"></a>disp <span class="st">&quot;Hello &quot;</span> <span class="st">&quot;World!&quot;</span> <span class="co">// &#39;disp&#39; is short for &#39;display&#39;</span></span>
+<span id="cb667-2"><a href="stata-introduction.html#cb667-2"></a></span>
+<span id="cb667-3"><a href="stata-introduction.html#cb667-3"></a>disp <span class="st">&quot;Hello&quot;</span> <span class="co">///</span></span>
+<span id="cb667-4"><a href="stata-introduction.html#cb667-4"></a>     <span class="st">&quot; World!&quot;</span></span></code></pre></div>
+</div>
+</details>
+</div>
+<div id="working-directory" class="section level3">
+<h3>Working directory</h3>
+<ol style="list-style-type: decimal">
+<li>print current working directory</li>
+</ol>
+<div class="sourceCode" id="cb668"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb668-1"><a href="stata-introduction.html#cb668-1"></a>pwd </span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>change working directory</li>
+</ol>
+<div class="sourceCode" id="cb669"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb669-1"><a href="stata-introduction.html#cb669-1"></a>cd C:\Users\yiw640\Desktop\StataIntro\</span></code></pre></div>
+<div id="a-note-about-file-path-names" class="section level4">
+<h4>A note about file path names</h4>
+<ul>
+<li>If your file path has no spaces in the name (that means all directories, folders, file names, etc. can have no spaces), you can write the file path as it is</li>
+<li>If there are spaces, you need to put your file path name in quotes</li>
+<li>Best to get in the habit of quoting file paths</li>
+</ul>
+</div>
+</div>
+<div id="reading-data-2" class="section level3">
+<h3>Reading data</h3>
+<div id="data-file-commands" class="section level4">
+<h4>Data file commands</h4>
+<ul>
+<li>Next, we want to open our data file</li>
+<li>Open / save data sets with <code>use</code> and <code>save</code>:</li>
+</ul>
+<div class="sourceCode" id="cb670"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb670-1"><a href="stata-introduction.html#cb670-1"></a><span class="co">// open the gss.dta data set </span></span>
+<span id="cb670-2"><a href="stata-introduction.html#cb670-2"></a><span class="kw">use</span> gss.dta, <span class="kw">clear</span></span>
+<span id="cb670-3"><a href="stata-introduction.html#cb670-3"></a></span>
+<span id="cb670-4"><a href="stata-introduction.html#cb670-4"></a><span class="co">// save data file</span></span>
+<span id="cb670-5"><a href="stata-introduction.html#cb670-5"></a><span class="kw">save</span> newgss.dta, <span class="kw">replace</span> <span class="co">// `replace` option means OK to overwrite existing file</span></span></code></pre></div>
+</div>
+<div id="wheres-my-data" class="section level4">
+<h4>Where’s my data?</h4>
+<ul>
+<li>Data editor (<strong>browse</strong>)</li>
+<li>Data editor (<strong>edit</strong>)
+<ul>
+<li>Using the data editor is discouraged (why?)</li>
+</ul></li>
+<li>Always keep any changes to your data in your do-file</li>
+<li>Avoid temptation of making manual changes by viewing data via the browser rather than editor</li>
+</ul>
+</div>
+<div id="reading-non-stata-data" class="section level4">
+<h4>Reading non-Stata data</h4>
+<ul>
+<li>Import / export delimited text files</li>
+</ul>
+<div class="sourceCode" id="cb671"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb671-1"><a href="stata-introduction.html#cb671-1"></a><span class="co">// import data from a .csv file</span></span>
+<span id="cb671-2"><a href="stata-introduction.html#cb671-2"></a>import delimited gss.csv, <span class="kw">clear</span></span>
+<span id="cb671-3"><a href="stata-introduction.html#cb671-3"></a></span>
+<span id="cb671-4"><a href="stata-introduction.html#cb671-4"></a><span class="co">// save data to a .csv file</span></span>
+<span id="cb671-5"><a href="stata-introduction.html#cb671-5"></a><span class="kw">export</span> delimited gss_new.csv, <span class="kw">replace</span></span></code></pre></div>
+<ul>
+<li>Import / export Excel files</li>
+</ul>
+<div class="sourceCode" id="cb672"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb672-1"><a href="stata-introduction.html#cb672-1"></a><span class="co">// import/export Excel files</span></span>
+<span id="cb672-2"><a href="stata-introduction.html#cb672-2"></a><span class="kw">clear</span></span>
+<span id="cb672-3"><a href="stata-introduction.html#cb672-3"></a>import excel gss.xlsx</span>
+<span id="cb672-4"><a href="stata-introduction.html#cb672-4"></a><span class="kw">export</span> excel gss_new, <span class="kw">replace</span></span></code></pre></div>
+<p>What if my data is from another statistical software program?</p>
+<ul>
+<li>SPSS/PASW will allow you to save your data as a Stata file
+<ul>
+<li>Go to: file -&gt; save as -&gt; Stata (use most recent version available)</li>
+<li>Then you can just go into Stata and open it</li>
+</ul></li>
+<li>Another option is <code>StatTransfer</code>, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="statistics-graphs" class="section level2">
+<h2>Statistics &amp; graphs</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To learn the basic commands to review, inspect, and plot data in Stata.</strong> In particular:</p>
+<ol style="list-style-type: decimal">
+<li>Learn more about the variables in our dataset — using the <code>describe</code>, <code>codebook</code>, and <code>browse</code> commands</li>
+<li>Produce univariate distributions using <code>histogram</code>, and bivariate distribution using <code>scatterplot</code></li>
+<li>Tabulate or summarize your data within certain groups using <code>bysort</code></li>
+</ol>
+</div>
+<p>The most frequently used commands for reviewing and inspecting data are summarized below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Command</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>describe</code></td>
+<td align="left">labels, storage type etc.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>sum</code></td>
+<td align="left">statistical summary (mean, sd, min/max etc.)</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>codebook</code></td>
+<td align="left">storage type, unique values, labels</td>
+</tr>
+<tr class="even">
+<td align="left"><code>list</code></td>
+<td align="left">print actual values</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tab</code></td>
+<td align="left">(cross) tabulate variables</td>
+</tr>
+<tr class="even">
+<td align="left"><code>browse</code></td>
+<td align="left">view the data in a spreadsheet-like window</td>
+</tr>
+</tbody>
+</table>
+<p>First, let’s ask Stata for help about these commands:</p>
+<div class="sourceCode" id="cb673"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb673-1"><a href="stata-introduction.html#cb673-1"></a><span class="kw">help</span> <span class="kw">sum</span></span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb674-1"><a href="stata-introduction.html#cb674-1"></a><span class="kw">use</span> gss.dta, <span class="kw">clear</span></span>
+<span id="cb674-2"><a href="stata-introduction.html#cb674-2"></a></span>
+<span id="cb674-3"><a href="stata-introduction.html#cb674-3"></a><span class="kw">sum</span> educ <span class="co">// statistical summary of education</span></span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb675-1"><a href="stata-introduction.html#cb675-1"></a><span class="kw">codebook</span> region <span class="co">// information about how region is coded</span></span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb676-1"><a href="stata-introduction.html#cb676-1"></a><span class="kw">tab</span> sex <span class="co">// numbers of male and female participants</span></span></code></pre></div>
+<p>Note — if you run these commands without specifying variables, Stata will produce output for every variable</p>
+<div id="basic-graphing-commands" class="section level3">
+<h3>Basic graphing commands</h3>
+<p>Univariate distribution(s) using <code>hist</code>:</p>
+<div class="sourceCode" id="cb677"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb677-1"><a href="stata-introduction.html#cb677-1"></a><span class="co">// Histograms </span></span>
+<span id="cb677-2"><a href="stata-introduction.html#cb677-2"></a><span class="kw">hist</span> educ</span></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb678-1"><a href="stata-introduction.html#cb678-1"></a><span class="co">// histogram with normal curve; see `help hist` for other options</span></span>
+<span id="cb678-2"><a href="stata-introduction.html#cb678-2"></a><span class="kw">hist</span> age, <span class="fu">normal</span>  </span></code></pre></div>
+<p>View bivariate distributions with scatterplots:</p>
+<div class="sourceCode" id="cb679"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb679-1"><a href="stata-introduction.html#cb679-1"></a><span class="co">// scatterplots </span></span>
+<span id="cb679-2"><a href="stata-introduction.html#cb679-2"></a><span class="kw">twoway</span> (<span class="kw">scatter</span> educ age)</span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb680-1"><a href="stata-introduction.html#cb680-1"></a><span class="kw">graph</span> <span class="fu">matrix</span> educ age inc</span></code></pre></div>
+</div>
+<div id="the-by-command" class="section level3">
+<h3>The <code>by</code> command</h3>
+<p>Sometimes, you’d like to generate output based on different categories of a grouping variable, for example:</p>
+<ol style="list-style-type: decimal">
+<li>you want to know the distribution of happiness seperately for men and women: tabulate <code>happy</code> by <code>sex</code>:</li>
+</ol>
+<div class="sourceCode" id="cb681"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb681-1"><a href="stata-introduction.html#cb681-1"></a><span class="kw">bysort</span> sex: <span class="kw">tab</span> happy</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>you want to know the mean level of education for different marital status: summarize <code>education</code> by marital status (<code>marital</code>):</li>
+</ol>
+<div class="sourceCode" id="cb682"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb682-1"><a href="stata-introduction.html#cb682-1"></a><span class="kw">bysort</span> marital: <span class="kw">sum</span> educ </span></code></pre></div>
+<p>Save your changes to the original <code>gss.dta</code> dataset.</p>
+</div>
+<div id="exercise-1-6" class="section level3">
+<h3>Exercise 1</h3>
+<p>We are using The Generations of Talent Study (<code>talent.dta</code>) to practice reading in data, plotting data, and calculating descriptive statistics. The dataset includes information on quality of employment as experienced by today’s multigenerational workforces. Here is a codebook of a subset of variables:</p>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="82%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable name</th>
+<th align="left">Label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">job</td>
+<td align="left">type of main job</td>
+</tr>
+<tr class="even">
+<td align="left">workload</td>
+<td align="left">how long hours do you work per week</td>
+</tr>
+<tr class="odd">
+<td align="left">otherjob</td>
+<td align="left">do you have other paid jobs beside main job</td>
+</tr>
+<tr class="even">
+<td align="left">schedule</td>
+<td align="left">which best describes your work schedule</td>
+</tr>
+<tr class="odd">
+<td align="left">fulltime</td>
+<td align="left">Does your employer consider you a full-time or part-time employee</td>
+</tr>
+<tr class="even">
+<td align="left">B3A</td>
+<td align="left">How important are the following to you? Your work</td>
+</tr>
+<tr class="odd">
+<td align="left">B3B</td>
+<td align="left">How important are the following to you? Your family</td>
+</tr>
+<tr class="even">
+<td align="left">B3C</td>
+<td align="left">How important are the following to you? Your friends</td>
+</tr>
+<tr class="odd">
+<td align="left">marital</td>
+<td align="left">Which of the following best describes your current marital status</td>
+</tr>
+<tr class="even">
+<td align="left">I3</td>
+<td align="left">Sex/gender</td>
+</tr>
+<tr class="odd">
+<td align="left">income</td>
+<td align="left">What was your total household income during last year</td>
+</tr>
+</tbody>
+</table>
+<p>Create a new do-file for the following exercise prompts. After the exercise save the do-file to your working directory.</p>
+<ol style="list-style-type: decimal">
+<li>Read in the dataset <code>talent.dta</code>:</li>
+</ol>
+<div class="sourceCode" id="cb683"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb683-1"><a href="stata-introduction.html#cb683-1"></a>##</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Examine a few selected variables using the <code>describe</code>, <code>sum</code> and <code>codebook</code> commands:</li>
+</ol>
+<div class="sourceCode" id="cb684"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb684-1"><a href="stata-introduction.html#cb684-1"></a>##</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Produce a histogram of hours worked (<code>workload</code>) and add a normal curve:</li>
+</ol>
+<div class="sourceCode" id="cb685"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb685-1"><a href="stata-introduction.html#cb685-1"></a>##</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Summarize the total household income last year (<code>income</code>) by marital status (<code>marital</code>):</li>
+</ol>
+<div class="sourceCode" id="cb686"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb686-1"><a href="stata-introduction.html#cb686-1"></a>##</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Cross-tabulate marital status (<code>marital</code>) with respondents’ type of main job (<code>job</code>):</li>
+</ol>
+<div class="sourceCode" id="cb687"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb687-1"><a href="stata-introduction.html#cb687-1"></a>##</span></code></pre></div>
+<details>
+<summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
+<div class="alert alert-danger">
+<div class="sourceCode" id="cb688"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb688-1"><a href="stata-introduction.html#cb688-1"></a><span class="kw">use</span> talent.dta, <span class="kw">clear</span></span>
+<span id="cb688-2"><a href="stata-introduction.html#cb688-2"></a><span class="kw">describe</span> workperweek</span>
+<span id="cb688-3"><a href="stata-introduction.html#cb688-3"></a><span class="kw">tab</span> I3</span>
+<span id="cb688-4"><a href="stata-introduction.html#cb688-4"></a><span class="kw">sum</span> income</span>
+<span id="cb688-5"><a href="stata-introduction.html#cb688-5"></a><span class="kw">codebook</span> job</span>
+<span id="cb688-6"><a href="stata-introduction.html#cb688-6"></a></span>
+<span id="cb688-7"><a href="stata-introduction.html#cb688-7"></a><span class="kw">hist</span> workload, <span class="fu">normal</span> </span>
+<span id="cb688-8"><a href="stata-introduction.html#cb688-8"></a></span>
+<span id="cb688-9"><a href="stata-introduction.html#cb688-9"></a><span class="kw">bysort</span> marital: <span class="kw">sum</span> income</span>
+<span id="cb688-10"><a href="stata-introduction.html#cb688-10"></a><span class="kw">bysort</span> job: <span class="kw">tab</span> marital </span>
+<span id="cb688-11"><a href="stata-introduction.html#cb688-11"></a><span class="kw">summarize</span> income <span class="kw">if</span> marital == 1</span>
+<span id="cb688-12"><a href="stata-introduction.html#cb688-12"></a></span>
+<span id="cb688-13"><a href="stata-introduction.html#cb688-13"></a><span class="kw">save</span> talent.dta, <span class="kw">replace</span> </span></code></pre></div>
+</div>
+</details>
+</div>
+</div>
+<div id="basic-data-management" class="section level2">
+<h2>Basic data management</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To learn how to add <em>variable labels</em> and <em>value labels</em>, as well as create <em>new variables</em> in Stata.</strong> In particular:</p>
+<ol style="list-style-type: decimal">
+<li>Use <code>label</code> and <code>rename</code> to set / modify variable and value labels</li>
+<li>Use <code>generate</code> and <code>replace</code> to create a new variables based on values of existing variables/recode a variable</li>
+</ol>
+</div>
+<div id="variable-value-labels" class="section level3">
+<h3>Variable &amp; value labels</h3>
+<div id="variable-labels" class="section level4">
+<h4>Variable labels</h4>
+<p>It’s good practice to ALWAYS label every variable, no matter how insignificant it may seem.</p>
+<div class="sourceCode" id="cb689"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb689-1"><a href="stata-introduction.html#cb689-1"></a><span class="co">// Labelling and renaming </span></span>
+<span id="cb689-2"><a href="stata-introduction.html#cb689-2"></a><span class="co">// Label variable inc &quot;household income&quot;</span></span>
+<span id="cb689-3"><a href="stata-introduction.html#cb689-3"></a><span class="kw">label</span> <span class="kw">var</span> inc <span class="st">&quot;household income&quot;</span></span>
+<span id="cb689-4"><a href="stata-introduction.html#cb689-4"></a></span>
+<span id="cb689-5"><a href="stata-introduction.html#cb689-5"></a><span class="co">// change the name &quot;educ&quot; to &quot;education&quot;</span></span>
+<span id="cb689-6"><a href="stata-introduction.html#cb689-6"></a><span class="kw">rename</span> educ education</span>
+<span id="cb689-7"><a href="stata-introduction.html#cb689-7"></a></span>
+<span id="cb689-8"><a href="stata-introduction.html#cb689-8"></a><span class="co">// you can search names and labels with `lookfor`</span></span>
+<span id="cb689-9"><a href="stata-introduction.html#cb689-9"></a><span class="kw">lookfor</span> household</span></code></pre></div>
+</div>
+<div id="value-labels" class="section level4">
+<h4>Value labels</h4>
+<p>Value labels are a little more complicated, with a two step process: define a value label, then assign defined label to variable(s)</p>
+<div class="sourceCode" id="cb690"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb690-1"><a href="stata-introduction.html#cb690-1"></a><span class="co">// define a value label for sex </span></span>
+<span id="cb690-2"><a href="stata-introduction.html#cb690-2"></a><span class="kw">label</span> <span class="kw">define</span> mySexLabel 1 <span class="st">&quot;Male&quot;</span> 2 <span class="st">&quot;Female&quot;</span></span>
+<span id="cb690-3"><a href="stata-introduction.html#cb690-3"></a></span>
+<span id="cb690-4"><a href="stata-introduction.html#cb690-4"></a><span class="co">// assign our label set to the sex variable</span></span>
+<span id="cb690-5"><a href="stata-introduction.html#cb690-5"></a><span class="kw">label</span> <span class="kw">values</span> sex mySexLabel</span></code></pre></div>
+</div>
+</div>
+<div id="working-on-subsets" class="section level3">
+<h3>Working on subsets</h3>
+<p>It is often useful to select just those rows of your data where some condition holds — for example select only rows where sex is 1 (male). The following operators allow you to do this:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Operator</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">==</td>
+<td align="left">equal to</td>
+</tr>
+<tr class="even">
+<td align="left">!=</td>
+<td align="left">not equal to</td>
+</tr>
+<tr class="odd">
+<td align="left">&gt;</td>
+<td align="left">greater than</td>
+</tr>
+<tr class="even">
+<td align="left">&gt;=</td>
+<td align="left">greater than or equal to</td>
+</tr>
+<tr class="odd">
+<td align="left">&lt;</td>
+<td align="left">less than</td>
+</tr>
+<tr class="even">
+<td align="left">&lt;=</td>
+<td align="left">less than or equal to</td>
+</tr>
+<tr class="odd">
+<td align="left">&amp;</td>
+<td align="left">and</td>
+</tr>
+<tr class="even">
+<td align="left">|</td>
+<td align="left">or</td>
+</tr>
+</tbody>
+</table>
+<p>Note the double equals signs for testing equality.</p>
+</div>
+<div id="generating-replacing-variables" class="section level3">
+<h3>Generating &amp; replacing variables</h3>
+<p>Often, it can be useful to start with a new variable composed of blank values and fill values in based on the values of existing variables:</p>
+<div class="sourceCode" id="cb691"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb691-1"><a href="stata-introduction.html#cb691-1"></a><span class="co">// generate a column of missings</span></span>
+<span id="cb691-2"><a href="stata-introduction.html#cb691-2"></a><span class="kw">gen</span> age_wealth = .</span>
+<span id="cb691-3"><a href="stata-introduction.html#cb691-3"></a></span>
+<span id="cb691-4"><a href="stata-introduction.html#cb691-4"></a><span class="co">// Next, start adding your qualifications</span></span>
+<span id="cb691-5"><a href="stata-introduction.html#cb691-5"></a><span class="kw">replace</span> age_wealth=1 <span class="kw">if</span> age &lt; 30 &amp; inc &lt; 10</span>
+<span id="cb691-6"><a href="stata-introduction.html#cb691-6"></a><span class="kw">replace</span> age_wealth=2 <span class="kw">if</span> age &lt; 30 &amp; inc &gt; 10</span>
+<span id="cb691-7"><a href="stata-introduction.html#cb691-7"></a><span class="kw">replace</span> age_wealth=3 <span class="kw">if</span> age &gt; 30 &amp; inc &lt; 10</span>
+<span id="cb691-8"><a href="stata-introduction.html#cb691-8"></a><span class="kw">replace</span> age_wealth=4 <span class="kw">if</span> age &gt; 30 &amp; inc &gt; 10</span></code></pre></div>
+</div>
+<div id="exercise-2-4" class="section level3">
+<h3>Exercise 2</h3>
+<p>Open the <code>talent.dta</code> data, use the basic data management tools we have learned to add labels and generate new variables:</p>
+<ol style="list-style-type: decimal">
+<li>Tabulate the variable, marital status (<code>marital</code>), with and without labels:</li>
+</ol>
+<div class="sourceCode" id="cb692"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb692-1"><a href="stata-introduction.html#cb692-1"></a>##</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Summarize the total household income last year (<code>income</code>) for married individuals only:</li>
+</ol>
+<div class="sourceCode" id="cb693"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb693-1"><a href="stata-introduction.html#cb693-1"></a>##</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Generate a new <code>overwork</code> dummy variable from the original variable <code>workperweek</code> that will take on a value of 1 if a person works more than 40 hours per week, and 0 if a person works equal to or less than 40 hours per week:</li>
+</ol>
+<div class="sourceCode" id="cb694"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb694-1"><a href="stata-introduction.html#cb694-1"></a>##</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Generate a new <code>marital_dummy</code> dummy variable from the original variable <code>marital</code> that will take on a value of 1 if a person is either married or partnered and 0 otherwise:</li>
+</ol>
+<div class="sourceCode" id="cb695"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb695-1"><a href="stata-introduction.html#cb695-1"></a>##</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Rename the <code>Sex</code> variable and give it a more intuitive name:</li>
+</ol>
+<div class="sourceCode" id="cb696"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb696-1"><a href="stata-introduction.html#cb696-1"></a>##</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Give a variable label and value labels for the variable <code>overwork</code>:</li>
+</ol>
+<div class="sourceCode" id="cb697"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb697-1"><a href="stata-introduction.html#cb697-1"></a>##</span></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>Generate a new variable called <code>work_family</code> and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance:</li>
+</ol>
+<div class="sourceCode" id="cb698"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb698-1"><a href="stata-introduction.html#cb698-1"></a>##</span></code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>Save the changes to <code>newtalent.dta</code></li>
+</ol>
+<details>
+<summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
+<div class="alert alert-danger">
+<div class="sourceCode" id="cb699"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb699-1"><a href="stata-introduction.html#cb699-1"></a><span class="kw">use</span> talent.dta, <span class="kw">clear</span></span>
+<span id="cb699-2"><a href="stata-introduction.html#cb699-2"></a></span>
+<span id="cb699-3"><a href="stata-introduction.html#cb699-3"></a><span class="kw">tab</span> marital</span>
+<span id="cb699-4"><a href="stata-introduction.html#cb699-4"></a><span class="kw">tab</span> marital, nol </span>
+<span id="cb699-5"><a href="stata-introduction.html#cb699-5"></a></span>
+<span id="cb699-6"><a href="stata-introduction.html#cb699-6"></a><span class="kw">gen</span> overwork = .</span>
+<span id="cb699-7"><a href="stata-introduction.html#cb699-7"></a><span class="kw">replace</span> overwork = 1 <span class="kw">if</span> workperweek &gt; 40</span>
+<span id="cb699-8"><a href="stata-introduction.html#cb699-8"></a><span class="kw">replace</span> overwork = 0 <span class="kw">if</span> workperweek &lt;= 40</span>
+<span id="cb699-9"><a href="stata-introduction.html#cb699-9"></a><span class="kw">tab</span> overwork</span>
+<span id="cb699-10"><a href="stata-introduction.html#cb699-10"></a></span>
+<span id="cb699-11"><a href="stata-introduction.html#cb699-11"></a><span class="kw">gen</span> marital_dummy = .</span>
+<span id="cb699-12"><a href="stata-introduction.html#cb699-12"></a><span class="kw">replace</span> marital_dummy = 1 <span class="kw">if</span> marital == 1 | marital == 2</span>
+<span id="cb699-13"><a href="stata-introduction.html#cb699-13"></a><span class="kw">replace</span> marital_dummy = 0 <span class="kw">if</span> marital != 1 &amp; marital != 2</span>
+<span id="cb699-14"><a href="stata-introduction.html#cb699-14"></a><span class="kw">tab</span> marital_dummy</span>
+<span id="cb699-15"><a href="stata-introduction.html#cb699-15"></a></span>
+<span id="cb699-16"><a href="stata-introduction.html#cb699-16"></a><span class="kw">rename</span> I3 Sex</span>
+<span id="cb699-17"><a href="stata-introduction.html#cb699-17"></a></span>
+<span id="cb699-18"><a href="stata-introduction.html#cb699-18"></a><span class="kw">label</span> <span class="kw">variable</span> overwork <span class="st">&quot;whether someone works more than 40 hours per week&quot;</span></span>
+<span id="cb699-19"><a href="stata-introduction.html#cb699-19"></a><span class="kw">label</span> <span class="kw">define</span> overworklabel 1 <span class="st">&quot;Yes&quot;</span> 0 <span class="st">&quot;No&quot;</span></span>
+<span id="cb699-20"><a href="stata-introduction.html#cb699-20"></a><span class="kw">label</span> <span class="kw">values</span> overwork overworklabel</span>
+<span id="cb699-21"><a href="stata-introduction.html#cb699-21"></a></span>
+<span id="cb699-22"><a href="stata-introduction.html#cb699-22"></a><span class="kw">gen</span> work_family = .</span>
+<span id="cb699-23"><a href="stata-introduction.html#cb699-23"></a><span class="kw">replace</span> work_family = 2 <span class="kw">if</span> B3A &gt; B3B</span>
+<span id="cb699-24"><a href="stata-introduction.html#cb699-24"></a><span class="kw">replace</span> work_family = 1 <span class="kw">if</span> B3A &lt; B3B</span>
+<span id="cb699-25"><a href="stata-introduction.html#cb699-25"></a><span class="kw">replace</span> work_family = 0 <span class="kw">if</span> B3A == B3B</span>
+<span id="cb699-26"><a href="stata-introduction.html#cb699-26"></a></span>
+<span id="cb699-27"><a href="stata-introduction.html#cb699-27"></a><span class="kw">save</span> newtalent.dta, <span class="kw">replace</span> </span></code></pre></div>
+</div>
+</details>
+</div>
+</div>
+<div id="bivariate-analyses" class="section level2">
+<h2>Bivariate analyses</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To learn the basic commands for performing the following bivariate analyses.</strong></p>
+<ol style="list-style-type: decimal">
+<li>Chi-squared test</li>
+<li>Independent group t-test</li>
+<li>One-way ANOVA</li>
+</ol>
+</div>
+<div id="chi-squared-test" class="section level3">
+<h3>Chi-squared test</h3>
+<p>The Chi-squared statistic is commonly used for testing relationships between categorical variables.</p>
+<p>In Stata, both the <code>tabulate</code> and <code>tabi</code> commands conduct the Pearson’s Chi-square test.</p>
+<ul>
+<li>The <code>tabulate</code> (may be abbreviated as <code>tab</code>) command produces one- or two-way frequency tables given one or two raw variables</li>
+<li>The <code>tabi</code> command is used to re-analyze a published table without access to the raw data</li>
+<li>These commands also can run a Chi-square test using the <code>chi2</code> option:</li>
+</ul>
+<div class="sourceCode" id="cb700"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb700-1"><a href="stata-introduction.html#cb700-1"></a><span class="kw">tab</span> sex happy, <span class="fu">chi2</span> </span></code></pre></div>
+<p>The first command below conducts a Chi-square test for a 2x2 table, while the second and third commands run the test for 3x2 and 2x3 tables, respectively.</p>
+<div class="sourceCode" id="cb701"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb701-1"><a href="stata-introduction.html#cb701-1"></a><span class="kw">tabi</span> 33 48 \ 37 52, <span class="fu">chi2</span></span>
+<span id="cb701-2"><a href="stata-introduction.html#cb701-2"></a><span class="kw">tabi</span> 33 48 \ 37 52 \ 36 42, <span class="fu">chi2</span></span>
+<span id="cb701-3"><a href="stata-introduction.html#cb701-3"></a><span class="kw">tabi</span> 33 48 26 \ 37 52 38, <span class="fu">chi2</span></span></code></pre></div>
+</div>
+<div id="t-test" class="section level3">
+<h3>t-test</h3>
+<p>The t-test is a type of inferential statistic that can be used to determine if a sample mean differs from a postulated population mean, or if two sample means came from the same population.</p>
+<p>Types of t-test:</p>
+<ul>
+<li>Independent group t-test: designed to compare means of same variable between two groups. For example, test GRE scores between students from two countries</li>
+<li>Other t-tests: single sample t-test; paired t-test. More details see: <a href="https://www.stata.com/manuals13/rttest.pdf" class="uri">https://www.stata.com/manuals13/rttest.pdf</a></li>
+</ul>
+<p>In our example, we conduct an independent group t-test to compare mean income (<code>inc</code>) between males and females (<code>sex</code>):</p>
+<div class="sourceCode" id="cb702"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb702-1"><a href="stata-introduction.html#cb702-1"></a><span class="kw">ttest</span> inc, <span class="kw">by</span>(sex)</span></code></pre></div>
+</div>
+<div id="one-way-anova" class="section level3">
+<h3>One-way ANOVA</h3>
+<p>One-way ANOVA allows us to test the equality of more than two sample means (i.e., whether they could plausibly have come from the same population). For example, our dataset contains income (<code>inc</code>) and four regions of the country (<code>region</code>). Using one-way ANOVA, we can simultaneously test the equality of the income means across all regions.</p>
+<div class="sourceCode" id="cb703"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb703-1"><a href="stata-introduction.html#cb703-1"></a><span class="kw">oneway</span> inc region </span></code></pre></div>
+<p>Now we find evidence that the means are different, but perhaps we are interested only in testing whether the means for the North (region==1) and South (region==4) are different. We also use one-way ANOVA, which in this case would be equivelant to the independent group t-test:</p>
+<div class="sourceCode" id="cb704"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb704-1"><a href="stata-introduction.html#cb704-1"></a><span class="kw">oneway</span> inc region <span class="kw">if</span> region==1 | region==4</span></code></pre></div>
+</div>
+<div id="exercise-3-4" class="section level3">
+<h3>Exercise 3</h3>
+<p>Open the <code>newtalent.dta</code> data, use the basic data management tools we have learned to conduct bivariate analysis.</p>
+<ol style="list-style-type: decimal">
+<li>Test the relationship between two variables <code>sex</code> and type of main job (<code>job</code>):</li>
+</ol>
+<div class="sourceCode" id="cb705"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb705-1"><a href="stata-introduction.html#cb705-1"></a>##</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Test if there is a significant difference in hours worked per week (<code>workload</code>) and <code>sex</code>:</li>
+</ol>
+<div class="sourceCode" id="cb706"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb706-1"><a href="stata-introduction.html#cb706-1"></a>##</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Test if there is a significant difference in hours worked per week (<code>workload</code>) and marital status (<code>marital</code>):</li>
+</ol>
+<div class="sourceCode" id="cb707"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb707-1"><a href="stata-introduction.html#cb707-1"></a>##</span></code></pre></div>
+<details>
+<summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
+<div class="alert alert-danger">
+<div class="sourceCode" id="cb708"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb708-1"><a href="stata-introduction.html#cb708-1"></a><span class="kw">use</span> newtalent.dta, <span class="kw">clear</span> </span>
+<span id="cb708-2"><a href="stata-introduction.html#cb708-2"></a></span>
+<span id="cb708-3"><a href="stata-introduction.html#cb708-3"></a><span class="kw">tab</span> Sex job, <span class="fu">chi2</span> </span>
+<span id="cb708-4"><a href="stata-introduction.html#cb708-4"></a></span>
+<span id="cb708-5"><a href="stata-introduction.html#cb708-5"></a><span class="kw">ttest</span> workload, <span class="kw">by</span>(Sex)</span>
+<span id="cb708-6"><a href="stata-introduction.html#cb708-6"></a><span class="kw">oneway</span> workload marital </span>
+<span id="cb708-7"><a href="stata-introduction.html#cb708-7"></a></span>
+<span id="cb708-8"><a href="stata-introduction.html#cb708-8"></a><span class="kw">save</span> newtalent.dta, <span class="kw">replace</span> </span></code></pre></div>
+</div>
+</details>
+</div>
+</div>
+<div id="wrap-up-7" class="section level2">
+<h2>Wrap-up</h2>
+<div id="feedback-7" class="section level3">
+<h3>Feedback</h3>
+<p>These workshops are a work in progress, please provide any feedback to: <a href="mailto:help@iq.harvard.edu" class="email">help@iq.harvard.edu</a></p>
+</div>
+<div id="resources-10" class="section level3">
+<h3>Resources</h3>
+<ul>
+<li>IQSS
+<ul>
+<li>Workshops: <a href="https://www.iq.harvard.edu/data-science-services/workshop-materials" class="uri">https://www.iq.harvard.edu/data-science-services/workshop-materials</a></li>
+<li>Data Science Services: <a href="https://www.iq.harvard.edu/data-science-services" class="uri">https://www.iq.harvard.edu/data-science-services</a></li>
+<li>Research Computing Environment: <a href="https://iqss.github.io/dss-rce/" class="uri">https://iqss.github.io/dss-rce/</a></li>
+</ul></li>
+<li>HBS
+<ul>
+<li>Research Computing Services workshops: <a href="https://training.rcs.hbs.org/workshops" class="uri">https://training.rcs.hbs.org/workshops</a></li>
+<li>Other HBS RCS resources: <a href="https://training.rcs.hbs.org/workshop-materials" class="uri">https://training.rcs.hbs.org/workshop-materials</a></li>
+<li>RCS consulting email: <a href="mailto:research@hbs.edu" class="uri">mailto:research@hbs.edu</a></li>
+</ul></li>
+<li>Stata
+<ul>
+<li>UCLA website: <a href="http://www.ats.ucla.edu/stat/Stata/" class="uri">http://www.ats.ucla.edu/stat/Stata/</a></li>
+<li>Stata website: <a href="http://www.stata.com/help.cgi?contents" class="uri">http://www.stata.com/help.cgi?contents</a></li>
+<li>Email list: <a href="http://www.stata.com/statalist/" class="uri">http://www.stata.com/statalist/</a></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="stata-installation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stata-data-management.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/IQSS/dss-workshops/edit/master/Stata/StataIntro/StataIntro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Data_Science_Workshops.pdf", "Data_Science_Workshops.epub"],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

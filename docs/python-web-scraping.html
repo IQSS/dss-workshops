@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Python Web-Scraping | Data Science Workshops</title>
+  <meta name="description" content="Python Web-Scraping | Data Science Workshops" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Python Web-Scraping | Data Science Workshops" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Python Web-Scraping | Data Science Workshops" />
+  <meta name="github-repo" content="IQSS/dss-workshops" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Python Web-Scraping | Data Science Workshops" />
+  
+  <meta name="twitter:description" content="Python Web-Scraping | Data Science Workshops" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="python-introduction.html"/>
+<link rel="next" href="stata-installation.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science Workshop Materials</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Table of Contents</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i>Contributors</a></li>
+</ul></li>
+<li class="part"><span><b>I General</b></span></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html"><i class="fa fa-check"></i>Data Science Tools</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#tools-for-working-with-data"><i class="fa fa-check"></i>Tools for working with data</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#the-puzzle-pieces"><i class="fa fa-check"></i>The puzzle pieces</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#data-analysis-building-blocks"><i class="fa fa-check"></i>Data analysis building blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples"><i class="fa fa-check"></i>Examples</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#old-school-example"><i class="fa fa-check"></i>Old-school example</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#something-old-something-new"><i class="fa fa-check"></i>Something old &amp; something new</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#a-modern-version"><i class="fa fa-check"></i>A modern version</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#data-storage-retrieval"><i class="fa fa-check"></i>Data storage &amp; retrieval</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#text-files"><i class="fa fa-check"></i>Text files</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#binary-files"><i class="fa fa-check"></i>Binary files</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#databases"><i class="fa fa-check"></i>Databases</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#distributed-file-storage"><i class="fa fa-check"></i>Distributed file storage</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#programming-languages-statistics-packages"><i class="fa fa-check"></i>Programming languages &amp; statistics packages</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#programming-language-features"><i class="fa fa-check"></i>Programming language features</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#program-comparison"><i class="fa fa-check"></i>Program comparison</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples-read-data-from-a-file-summarize"><i class="fa fa-check"></i>Examples: Read data from a file &amp; summarize</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples-fit-a-linear-regression"><i class="fa fa-check"></i>Examples: Fit a linear regression</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#examples-extract-links-for-.html-file"><i class="fa fa-check"></i>Examples: Extract links for .html file</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#creating-reports"><i class="fa fa-check"></i>Creating reports</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#markup-languages"><i class="fa fa-check"></i>Markup languages</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#word-processors"><i class="fa fa-check"></i>Word processors</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#text-editors-integrated-development-environments"><i class="fa fa-check"></i>Text editors &amp; Integrated Development Environments</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#language-specific-editors-ides"><i class="fa fa-check"></i>Language specific editors &amp; IDEs</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#general-purpose-editors-ides"><i class="fa fa-check"></i>General purpose editors &amp; IDEs</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#literate-programming-notebooks"><i class="fa fa-check"></i>Literate programming &amp; notebooks</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#literate-programming"><i class="fa fa-check"></i>Literate programming</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#notebooks"><i class="fa fa-check"></i>Notebooks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#big-data-annoying-data-computationally-intensive-methods"><i class="fa fa-check"></i>Big data, annoying data, &amp; computationally intensive methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#computing-clusters-at-harvard"><i class="fa fa-check"></i>Computing clusters at Harvard</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#wrap-up"><i class="fa fa-check"></i>Wrap up</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#feedback"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="data-science-tools.html"><a href="data-science-tools.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II R</b></span></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html"><i class="fa fa-check"></i>R Installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#troubleshooting-session"><i class="fa fa-check"></i>Troubleshooting session</a></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#materials"><i class="fa fa-check"></i>Materials</a></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#software"><i class="fa fa-check"></i>Software</a></li>
+<li><a href="r-installation.html#installing-the-tidyverse">Installing the <code>tidyverse</code></a>
+<ul>
+<li><a href="r-installation.html#troubleshooting-tidyverse-installation">Troubleshooting <code>tidyverse</code> installation</a></li>
+</ul></li>
+<li><a href="r-installation.html#installing-rmarkdown-optional">Installing <code>rmarkdown</code> (optional)</a></li>
+<li class="chapter" data-level="" data-path="r-installation.html"><a href="r-installation.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html"><i class="fa fa-check"></i>R Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#setup"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#software-and-materials"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#class-structure"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#goals"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#r-basics"><i class="fa fa-check"></i>R basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#why-use-r"><i class="fa fa-check"></i>Why use R?</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#how-does-r-work"><i class="fa fa-check"></i>How does R work?</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#interfaces"><i class="fa fa-check"></i>Interfaces</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#launch-a-session"><i class="fa fa-check"></i>Launch a session</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-0"><i class="fa fa-check"></i>Exercise 0</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#syntax-rules"><i class="fa fa-check"></i>Syntax rules</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#function-calls"><i class="fa fa-check"></i>Function calls</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#assignment"><i class="fa fa-check"></i>Assignment</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#asking-for-help"><i class="fa fa-check"></i>Asking for help</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#reading-data"><i class="fa fa-check"></i>Reading data</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#installing-using-packages"><i class="fa fa-check"></i>Installing &amp; using packages</a></li>
+<li><a href="r-introduction.html#the-tidyverse">The <code>tidyverse</code></a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#readers-for-common-file-types"><i class="fa fa-check"></i>Readers for common file types</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#baby-names-data"><i class="fa fa-check"></i>Baby names data</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-1"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#manipulating-data"><i class="fa fa-check"></i>Manipulating data</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#filter-select-arrange"><i class="fa fa-check"></i>Filter, select, &amp; arrange</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#logical-relational-operators"><i class="fa fa-check"></i>Logical &amp; relational operators</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-2.1"><i class="fa fa-check"></i>Exercise 2.1</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#pipe-operator"><i class="fa fa-check"></i>Pipe operator</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-2.2"><i class="fa fa-check"></i>Exercise 2.2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#plotting-data"><i class="fa fa-check"></i>Plotting data</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#creating-variables"><i class="fa fa-check"></i>Creating variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#create-or-modify-columns"><i class="fa fa-check"></i>Create or modify columns</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#operating-by-group"><i class="fa fa-check"></i>Operating by group</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#recoding-variables"><i class="fa fa-check"></i>Recoding variables</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-4"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#aggregating-variables"><i class="fa fa-check"></i>Aggregating variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#exercise-5"><i class="fa fa-check"></i>Exercise 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#saving-work"><i class="fa fa-check"></i>Saving work</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#saving-individual-datasets"><i class="fa fa-check"></i>Saving individual datasets</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#saving-multiple-datasets"><i class="fa fa-check"></i>Saving multiple datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#wrap-up-1"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#feedback-1"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-introduction.html"><a href="r-introduction.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html"><i class="fa fa-check"></i>R Regression Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#setup-1"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#software-and-materials-1"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#class-structure-1"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#goals-1"><i class="fa fa-check"></i>Goals</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#launch-an-r-session"><i class="fa fa-check"></i>Launch an R session</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#modeling-workflow"><i class="fa fa-check"></i>Modeling workflow</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#r-modeling-ecosystem"><i class="fa fa-check"></i>R modeling ecosystem</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#before-fitting-a-model"><i class="fa fa-check"></i>Before fitting a model</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#load-the-data"><i class="fa fa-check"></i>Load the data</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#examine-the-data"><i class="fa fa-check"></i>Examine the data</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#plot-the-data"><i class="fa fa-check"></i>Plot the data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#models-with-continuous-outcomes"><i class="fa fa-check"></i>Models with continuous outcomes</a>
+<ul>
+<li><a href="r-regression-models.html#why-is-the-association-between-expense-sat-scores-negative">Why is the association between expense &amp; SAT scores <em>negative</em>?</a></li>
+<li><a href="r-regression-models.html#the-lm-class-methods">The <code>lm</code> class &amp; methods</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#ols-regression-assumptions"><i class="fa fa-check"></i>OLS regression assumptions</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#comparing-models"><i class="fa fa-check"></i>Comparing models</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-0-1"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#interactions-factors"><i class="fa fa-check"></i>Interactions &amp; factors</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#modeling-interactions"><i class="fa fa-check"></i>Modeling interactions</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#regression-with-categorical-predictors"><i class="fa fa-check"></i>Regression with categorical predictors</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#setting-factor-reference-groups-contrasts"><i class="fa fa-check"></i>Setting factor reference groups &amp; contrasts</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#models-with-binary-outcomes"><i class="fa fa-check"></i>Models with binary outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#logistic-regression"><i class="fa fa-check"></i>Logistic regression</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#logistic-regression-example"><i class="fa fa-check"></i>Logistic regression example</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#odds-ratios"><i class="fa fa-check"></i>Odds ratios</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#predicted-marginal-means"><i class="fa fa-check"></i>Predicted marginal means</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#multilevel-modeling"><i class="fa fa-check"></i>Multilevel modeling</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#multilevel-modeling-overview"><i class="fa fa-check"></i>Multilevel modeling overview</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#the-exam-data"><i class="fa fa-check"></i>The Exam data</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#the-null-model-icc"><i class="fa fa-check"></i>The null model &amp; ICC</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#adding-fixed-effects-predictors"><i class="fa fa-check"></i>Adding fixed-effects predictors</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#multiple-degree-of-freedom-comparisons"><i class="fa fa-check"></i>Multiple degree of freedom comparisons</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#random-slopes"><i class="fa fa-check"></i>Random slopes</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#test-the-significance-of-the-random-slope"><i class="fa fa-check"></i>Test the significance of the random slope</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#wrap-up-2"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#feedback-2"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-regression-models.html"><a href="r-regression-models.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html"><i class="fa fa-check"></i>R Graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#setup-2"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#software-and-materials-2"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#class-structure-2"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#launch-an-r-session-1"><i class="fa fa-check"></i>Launch an R session</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#packages-1"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#goals-2"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li><a href="r-graphics.html#why-ggplot2">Why <code>ggplot2</code>?</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-is-the-grammar-of-graphics"><i class="fa fa-check"></i>What is the Grammar Of Graphics?</a></li>
+<li><a href="r-graphics.html#ggplot2-vs-base-graphics"><code>ggplot2</code> VS base graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#geometric-objects-aesthetics"><i class="fa fa-check"></i>Geometric objects &amp; aesthetics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#aesthetic-mapping"><i class="fa fa-check"></i>Aesthetic mapping</a></li>
+<li><a href="r-graphics.html#geometric-objects-geom">Geometric objects (<code>geom</code>)</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#aesthetic-mapping-vs-assignment"><i class="fa fa-check"></i>Aesthetic mapping VS assignment</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#mapping-variables-to-other-aesthetics"><i class="fa fa-check"></i>Mapping variables to other aesthetics</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-0-2"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#statistical-transformations"><i class="fa fa-check"></i>Statistical transformations</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#why-transform-data"><i class="fa fa-check"></i>Why transform data?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#setting-arguments"><i class="fa fa-check"></i>Setting arguments</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#changing-the-transformation"><i class="fa fa-check"></i>Changing the transformation</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#scales"><i class="fa fa-check"></i>Scales</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#controlling-aesthetic-mapping"><i class="fa fa-check"></i>Controlling aesthetic mapping</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#common-scale-arguments"><i class="fa fa-check"></i>Common scale arguments</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#scale-modification-examples"><i class="fa fa-check"></i>Scale modification examples</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#using-different-color-scales"><i class="fa fa-check"></i>Using different color scales</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#available-scales"><i class="fa fa-check"></i>Available scales</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#faceting"><i class="fa fa-check"></i>Faceting</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-is-faceting"><i class="fa fa-check"></i>What is faceting?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-is-the-trend-in-housing-prices-in-each-state"><i class="fa fa-check"></i>What is the trend in housing prices in each state?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#faceting-to-the-rescue"><i class="fa fa-check"></i>Faceting to the rescue</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#themes"><i class="fa fa-check"></i>Themes</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#what-are-themes"><i class="fa fa-check"></i>What are themes?</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#overriding-theme-defaults"><i class="fa fa-check"></i>Overriding theme defaults</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#creating-saving-new-themes"><i class="fa fa-check"></i>Creating &amp; saving new themes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#saving-plots"><i class="fa fa-check"></i>Saving plots</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#the-1-faq"><i class="fa fa-check"></i>The #1 FAQ</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#map-aesthetic-to-different-columns"><i class="fa fa-check"></i>Map aesthetic to different columns</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#wrap-up-3"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#feedback-3"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-graphics.html"><a href="r-graphics.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html"><i class="fa fa-check"></i>R Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#setup-3"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#software-and-materials-3"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#class-structure-3"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#launch-an-r-session-2"><i class="fa fa-check"></i>Launch an R session</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#packages-2"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#workshop-outline"><i class="fa fa-check"></i>Workshop Outline</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#working-with-excel-worksheets"><i class="fa fa-check"></i>Working with Excel worksheets</a>
+<ul>
+<li><a href="r-data-wrangling.html#iterating-with-map">Iterating with <code>map()</code></a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#filtering-strings-using-regex"><i class="fa fa-check"></i>Filtering strings using regex</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#writing-your-own-functions"><i class="fa fa-check"></i>Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#reading-excel-data-files"><i class="fa fa-check"></i>Reading Excel data files</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#data-cleanup"><i class="fa fa-check"></i>Data cleanup</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#data-types-and-structures"><i class="fa fa-check"></i>Data types and structures</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#list-indexing"><i class="fa fa-check"></i>List indexing</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#dropping-missing-values"><i class="fa fa-check"></i>Dropping missing values</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#reshaping-from-wide-to-long"><i class="fa fa-check"></i>Reshaping from wide to long</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#data-organization-storage"><i class="fa fa-check"></i>Data organization &amp; storage</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#a-list-of-data-frames"><i class="fa fa-check"></i>A list of data frames</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#one-big-data-frame"><i class="fa fa-check"></i>One big data frame</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#complete-code"><i class="fa fa-check"></i>Complete code</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#wrap-up-4"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#feedback-4"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="r-data-wrangling.html"><a href="r-data-wrangling.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Python</b></span></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html"><i class="fa fa-check"></i>Python Installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#troubleshooting-session-1"><i class="fa fa-check"></i>Troubleshooting session</a></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#materials-1"><i class="fa fa-check"></i>Materials</a></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#software-1"><i class="fa fa-check"></i>Software</a></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#jupyter-notebook-interfaces"><i class="fa fa-check"></i>Jupyter notebook interfaces</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#launch-jupyterlab"><i class="fa fa-check"></i>Launch JupyterLab</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-installation.html"><a href="python-installation.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html"><i class="fa fa-check"></i>Python Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#setup-4"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#software-and-materials-4"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#class-structure-4"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#prerequisites-4"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#goals-3"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#python-basics"><i class="fa fa-check"></i>Python basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#what-is-python"><i class="fa fa-check"></i>What is Python?</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#why-use-python"><i class="fa fa-check"></i>Why use Python?</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#how-does-python-work"><i class="fa fa-check"></i>How does Python work?</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#interfaces-1"><i class="fa fa-check"></i>Interfaces</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#launch-jupyterlab-1"><i class="fa fa-check"></i>Launch JupyterLab</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#syntax-rules-1"><i class="fa fa-check"></i>Syntax rules</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#function-calls-1"><i class="fa fa-check"></i>Function calls</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#assignment-1"><i class="fa fa-check"></i>Assignment</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#reading-data-1"><i class="fa fa-check"></i>Reading data</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#object-methods"><i class="fa fa-check"></i>Object methods</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#using-object-methods-lists"><i class="fa fa-check"></i>Using object methods &amp; lists</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#splitting-a-string-into-a-list-of-words"><i class="fa fa-check"></i>Splitting a string into a list of words</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#working-with-lists"><i class="fa fa-check"></i>Working with lists</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#extracting-subsets-from-lists"><i class="fa fa-check"></i>Extracting subsets from lists</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#using-sets-to-count-unique-items"><i class="fa fa-check"></i>Using sets to count unique items</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#exercise-0-3"><i class="fa fa-check"></i>Exercise 0</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#control-flow"><i class="fa fa-check"></i>Control flow</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#logical-relational-operators-1"><i class="fa fa-check"></i>Logical &amp; relational operators</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#counting-list-elements"><i class="fa fa-check"></i>Counting list elements</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#iterating-over-collections-of-data"><i class="fa fa-check"></i>Iterating over collections of data</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#iterating-over-lists-using-for-loops"><i class="fa fa-check"></i>Iterating over lists using for-loops</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#organizing-results-in-dictionaries"><i class="fa fa-check"></i>Organizing results in dictionaries</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#importing-packages"><i class="fa fa-check"></i>Importing packages</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#wrap-up-5"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#feedback-5"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="python-introduction.html"><a href="python-introduction.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html"><i class="fa fa-check"></i>Python Web-Scraping</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#setup-5"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#software-and-materials-5"><i class="fa fa-check"></i>Software and Materials</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#class-structure-5"><i class="fa fa-check"></i>Class Structure</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#prerequisites-5"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#goals-4"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#web-scraping-background"><i class="fa fa-check"></i>Web scraping background</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#what-is-web-scraping"><i class="fa fa-check"></i>What is web scraping?</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#is-web-scraping-legal-is-it-ethical"><i class="fa fa-check"></i>Is web scraping legal? Is it ethical?</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#web-scraping-approaches"><i class="fa fa-check"></i>Web scraping approaches</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#how-does-the-web-work"><i class="fa fa-check"></i>How does the web work?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#retrieve-data-in-json-format-if-you-can"><i class="fa fa-check"></i>Retrieve data in JSON format if you can</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#examine-the-websites-structure"><i class="fa fa-check"></i>Examine the website’s structure</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#launch-jupyterlab-2"><i class="fa fa-check"></i>Launch JupyterLab</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#making-requests"><i class="fa fa-check"></i>Making requests</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#parsing-json-data"><i class="fa fa-check"></i>Parsing JSON data</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#organizing-saving-the-data"><i class="fa fa-check"></i>Organizing &amp; saving the data</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#iterating-to-retrieve-all-the-data"><i class="fa fa-check"></i>Iterating to retrieve all the data</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#exercise-0-4"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#parsing-html-if-you-have-to"><i class="fa fa-check"></i>Parsing HTML if you have to</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#document-object-model-dom"><i class="fa fa-check"></i>Document Object Model (DOM)</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#retrieving-html"><i class="fa fa-check"></i>Retrieving HTML</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#parsing-html-using-the-lxml-library"><i class="fa fa-check"></i>Parsing HTML using the lxml library</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#using-xpath-to-extract-content-from-html"><i class="fa fa-check"></i>Using XPath to extract content from HTML</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#iterating-to-retrieve-content-from-a-list-of-html-elements"><i class="fa fa-check"></i>Iterating to retrieve content from a list of HTML elements</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li><a href="python-web-scraping.html#scrapy-for-large-complex-projects"><code>Scrapy</code>: for large / complex projects</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#browser-drivers-a-last-resort"><i class="fa fa-check"></i>Browser drivers: a last resort</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#wrap-up-6"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#feedback-6"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="python-web-scraping.html"><a href="python-web-scraping.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Stata</b></span></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html"><i class="fa fa-check"></i>Stata Installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#troubleshooting"><i class="fa fa-check"></i>Troubleshooting</a></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#materials-2"><i class="fa fa-check"></i>Materials</a></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#software-2"><i class="fa fa-check"></i>Software</a></li>
+<li class="chapter" data-level="" data-path="stata-installation.html"><a href="stata-installation.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html"><i class="fa fa-check"></i>Stata Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#setup-6"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#class-structure-and-organization"><i class="fa fa-check"></i>Class Structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#prerequisites-6"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#goals-5"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#stata-basics"><i class="fa fa-check"></i>Stata basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#what-is-stata"><i class="fa fa-check"></i>What is Stata?</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#why-use-stata"><i class="fa fa-check"></i>Why use Stata?</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#how-does-stata-work"><i class="fa fa-check"></i>How does Stata work?</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#interfaces-2"><i class="fa fa-check"></i>Interfaces</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#stata-help"><i class="fa fa-check"></i>Stata help</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#syntax-rules-2"><i class="fa fa-check"></i>Syntax rules</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-0-5"><i class="fa fa-check"></i>Exercise 0</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#working-directory"><i class="fa fa-check"></i>Working directory</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#reading-data-2"><i class="fa fa-check"></i>Reading data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#statistics-graphs"><i class="fa fa-check"></i>Statistics &amp; graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#basic-graphing-commands"><i class="fa fa-check"></i>Basic graphing commands</a></li>
+<li><a href="stata-introduction.html#the-by-command">The <code>by</code> command</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#basic-data-management"><i class="fa fa-check"></i>Basic data management</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#variable-value-labels"><i class="fa fa-check"></i>Variable &amp; value labels</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#working-on-subsets"><i class="fa fa-check"></i>Working on subsets</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#generating-replacing-variables"><i class="fa fa-check"></i>Generating &amp; replacing variables</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#bivariate-analyses"><i class="fa fa-check"></i>Bivariate analyses</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#chi-squared-test"><i class="fa fa-check"></i>Chi-squared test</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#t-test"><i class="fa fa-check"></i>t-test</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#one-way-anova"><i class="fa fa-check"></i>One-way ANOVA</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#exercise-3-4"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#wrap-up-7"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#feedback-7"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-introduction.html"><a href="stata-introduction.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html"><i class="fa fa-check"></i>Stata Data Management</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#setup-7"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#class-structure-and-organization-1"><i class="fa fa-check"></i>Class structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#prerequisites-7"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#goals-6"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#opening-files"><i class="fa fa-check"></i>Opening Files</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#generating-replacing-variables-1"><i class="fa fa-check"></i>Generating &amp; replacing variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#generate-replace"><i class="fa fa-check"></i>Generate &amp; Replace</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#recode"><i class="fa fa-check"></i>Recode</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#egen"><i class="fa fa-check"></i>egen</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#exercise-0-6"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#missing-values"><i class="fa fa-check"></i>Missing values</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#making-sure-missingness-is-preserved"><i class="fa fa-check"></i>Making sure missingness is preserved</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#bulk-conversion-to-missing-values"><i class="fa fa-check"></i>Bulk Conversion to missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#variable-types"><i class="fa fa-check"></i>Variable types</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#converting-to-from-strings"><i class="fa fa-check"></i>Converting to &amp; from Strings</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#converting-strings-to-date-time"><i class="fa fa-check"></i>Converting strings to date / time</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#formatting-numbers-as-dates"><i class="fa fa-check"></i>Formatting numbers as dates</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#exercise-1-7"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#merging-appending-collapsing"><i class="fa fa-check"></i>Merging, appending, &amp; collapsing</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#appending-datasets"><i class="fa fa-check"></i>Appending datasets</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#merging-datasets"><i class="fa fa-check"></i>Merging datasets</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#merge-options"><i class="fa fa-check"></i>Merge Options</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#many-to-many-merges---joinby-command"><i class="fa fa-check"></i>Many-to-many merges - joinby command</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#collapse"><i class="fa fa-check"></i>Collapse</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#exercise-2-5"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#wrap-up-8"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#feedback-8"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-data-management.html"><a href="stata-data-management.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html"><i class="fa fa-check"></i>Stata Regression Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#setup-8"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#class-structure-and-organization-2"><i class="fa fa-check"></i>Class structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#prerequisites-8"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#goals-7"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#modeling-workflow-1"><i class="fa fa-check"></i>Modeling workflow</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#before-fitting-a-model-1"><i class="fa fa-check"></i>Before fitting a model</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset"><i class="fa fa-check"></i>The dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#set-working-directory"><i class="fa fa-check"></i>Set working directory</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#load-the-data-1"><i class="fa fa-check"></i>Load the data</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#examine-descriptive-statistics"><i class="fa fa-check"></i>Examine descriptive statistics</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#visualize-the-data"><i class="fa fa-check"></i>Visualize the data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#models-with-continuous-outcomes-1"><i class="fa fa-check"></i>Models with continuous outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#fit-the-model"><i class="fa fa-check"></i>Fit the model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#ols-assumptions"><i class="fa fa-check"></i>OLS assumptions</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#interactions"><i class="fa fa-check"></i>Interactions</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#categorical-predictors"><i class="fa fa-check"></i>Categorical predictors</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-0-7"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#models-with-binary-outcomes-1"><i class="fa fa-check"></i>Models with binary outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset-1"><i class="fa fa-check"></i>The Dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#load-the-dataset"><i class="fa fa-check"></i>Load the dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#recode-the-outcome-variable"><i class="fa fa-check"></i>Recode the outcome variable</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#run-summary-statistics"><i class="fa fa-check"></i>Run summary statistics</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#run-the-logistic-model"><i class="fa fa-check"></i>Run the logistic model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-1-8"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exporting-saving-results"><i class="fa fa-check"></i>Exporting &amp; saving results</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#storing-results"><i class="fa fa-check"></i>Storing results</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#comparing-models-1"><i class="fa fa-check"></i>Comparing models</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exporting-to-excel"><i class="fa fa-check"></i>Exporting to Excel</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-2-6"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#obtaining-quantities-of-interest"><i class="fa fa-check"></i>Obtaining quantities of interest</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#margins-of-responses"><i class="fa fa-check"></i>Margins of responses</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset-2"><i class="fa fa-check"></i>The dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#fit-a-model"><i class="fa fa-check"></i>Fit a model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#apm-average-predictive-margins"><i class="fa fa-check"></i>APM: Average Predictive Margins</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#pmm-predictive-margins-at-the-means"><i class="fa fa-check"></i>PMM: Predictive Margins at the Means</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#pmr-predictive-margins-at-representative-values"><i class="fa fa-check"></i>PMR: Predictive Margins at Representative values</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#graph-margins-of-responses"><i class="fa fa-check"></i>Graph margins of responses</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-3-5"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#margins-of-changes-in-responses"><i class="fa fa-check"></i>Margins of changes in responses</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#the-dataset-3"><i class="fa fa-check"></i>The dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#fit-a-model-1"><i class="fa fa-check"></i>Fit a model</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#ame-average-marginal-effects"><i class="fa fa-check"></i>AME: Average Marginal Effects</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#mem-marginal-effects-at-the-mean"><i class="fa fa-check"></i>MEM: Marginal Effects at the Mean</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#mer-marginal-effects-at-representative-values"><i class="fa fa-check"></i>MER: Marginal Effects at Representative values</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#graph-margins-of-changes-in-responses"><i class="fa fa-check"></i>Graph margins of changes in responses</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#exercise-4-2"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#wrap-up-9"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#feedback-9"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-regression-models.html"><a href="stata-regression-models.html#resources-12"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html"><i class="fa fa-check"></i>Stata Graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#setup-9"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#class-structure-and-organization-3"><i class="fa fa-check"></i>Class structure and organization</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#prerequisites-9"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#goals-8"><i class="fa fa-check"></i>Goals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#graphing-in-stata"><i class="fa fa-check"></i>Graphing in Stata</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#graphing-strategies"><i class="fa fa-check"></i>Graphing strategies</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#terrible-graph"><i class="fa fa-check"></i>Terrible graph</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#much-better-graph"><i class="fa fa-check"></i>Much better graph</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#univariate-graphics"><i class="fa fa-check"></i>Univariate graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#our-first-dataset"><i class="fa fa-check"></i>Our first dataset</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#single-continuous-variable"><i class="fa fa-check"></i>Single continuous variable</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#single-categorical-variable"><i class="fa fa-check"></i>Single categorical variable</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#exercise-0-8"><i class="fa fa-check"></i>Exercise 0</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#bivariate-graphics"><i class="fa fa-check"></i>Bivariate graphics</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#next-dataset"><i class="fa fa-check"></i>Next dataset</a></li>
+<li><a href="stata-graphics.html#the-twoway-family">The <code>twoway</code> family</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#overlaying-twoway-graphs"><i class="fa fa-check"></i>Overlaying twoway graphs</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#twoway-line-graphs"><i class="fa fa-check"></i>Twoway line graphs</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#stata-graphing-lines"><i class="fa fa-check"></i>Stata graphing lines</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#exercise-1-9"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#exporting-graphs"><i class="fa fa-check"></i>Exporting graphs</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#wrap-up-10"><i class="fa fa-check"></i>Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#feedback-10"><i class="fa fa-check"></i>Feedback</a></li>
+<li class="chapter" data-level="" data-path="stata-graphics.html"><a href="stata-graphics.html#resources-13"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science Workshops</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="python-web-scraping" class="section level1">
+<h1>Python Web-Scraping</h1>
+<p><strong>Topics</strong></p>
+<ul>
+<li>Web basics</li>
+<li>Making web requests</li>
+<li>Inspecting web sites</li>
+<li>Retrieving JSON data</li>
+<li>Using Xpaths to retrieve <code>html</code> content</li>
+<li>Parsing <code>html</code> content</li>
+<li>Cleaning and storing text from <code>html</code></li>
+</ul>
+<div id="setup-5" class="section level2">
+<h2>Setup</h2>
+<div id="software-and-materials-5" class="section level3">
+<h3>Software and Materials</h3>
+<p>Follow the <a href="./PythonInstall.html">Python Installation</a> instructions and ensure that you can successfully start JupyterLab.</p>
+</div>
+<div id="class-structure-5" class="section level3">
+<h3>Class Structure</h3>
+<p>Informal - Ask questions at any time. Really!</p>
+<p>Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!</p>
+</div>
+<div id="prerequisites-5" class="section level3">
+<h3>Prerequisites</h3>
+<p>This is an intermediate / advanced Python course:</p>
+<ul>
+<li>Assumes knowledge of Python, including:
+<ul>
+<li>lists</li>
+<li>dictionaries</li>
+<li>logical indexing</li>
+<li>iteration with for-loops</li>
+</ul></li>
+<li>Assumes basic knowledge of web page structure</li>
+<li>Relatively fast-paced</li>
+</ul>
+<p>If you need an introduction to Python or a refresher, we recommend our <a href="https://iqss.github.io/dss-workshops/PythonIntro.html">Python Introduction</a>.</p>
+</div>
+<div id="goals-4" class="section level3">
+<h3>Goals</h3>
+<div class="alert alert-success">
+<p>This workshop is organized into two main parts:</p>
+<ol style="list-style-type: decimal">
+<li>Retrive information in JSON format</li>
+<li>Parse HTML files</li>
+</ol>
+<p>Note that this workshop will not teach you everything you need to know in order to retrieve data from any web service you might wish to scrape.</p>
+</div>
+</div>
+</div>
+<div id="web-scraping-background" class="section level2">
+<h2>Web scraping background</h2>
+<div id="what-is-web-scraping" class="section level3">
+<h3>What is web scraping?</h3>
+<p>Web scraping is the activity of automating retrieval of information from a web service designed for human interaction.</p>
+</div>
+<div id="is-web-scraping-legal-is-it-ethical" class="section level3">
+<h3>Is web scraping legal? Is it ethical?</h3>
+<p>It depends. If you have legal questions seek legal counsel. You can mitigate some ethical issues by building delays and restrictions into your web scraping program so as to avoid impacting the availability of the web service for other users or the cost of hosting the service for the service provider.</p>
+</div>
+<div id="web-scraping-approaches" class="section level3">
+<h3>Web scraping approaches</h3>
+<p>No two websites are identical — websites are built for different purposes by different people and so have different underlying structures. Because they are heterogeneous, there is no single way to scrape a website. <strong>The scraping approach therefore has to be tailored to each individual site.</strong> Here are some commonly used approaches:</p>
+<ol style="list-style-type: decimal">
+<li>Use requests to extract information from structured JSON / XML files</li>
+<li>Use requests to extract information from HTML</li>
+<li>Automate a browser to retrieve information from HTML</li>
+</ol>
+<p>Bear in mind that even once you’ve decided upon the best approach for a particular site, it will be necessary to modify that approach to suit your particular use-case.</p>
+</div>
+<div id="how-does-the-web-work" class="section level3">
+<h3>How does the web work?</h3>
+<div id="components" class="section level4">
+<h4>Components</h4>
+<p>Computers connected to the web are called <strong>clients</strong> and <strong>servers</strong>. A simplified diagram of how they interact might look like this:</p>
+<p><img src="Python/PythonWebScrape/images/client_server.png" /></p>
+<ul>
+<li><strong>Clients</strong> are the typical web user’s internet-connected devices (for example, your computer connected to your Wi-Fi) and web-accessing software available on those devices (usually a web browser like Firefox or Chrome).</li>
+<li><strong>Servers</strong> are computers that store webpages, sites, or apps. When a client device wants to access a webpage, a copy of the webpage is downloaded from the server onto the client machine to be displayed in the user’s web browser.</li>
+<li><strong>HTTP</strong> is a language for clients and servers to speak to each other.</li>
+</ul>
+</div>
+<div id="so-what-happens" class="section level4">
+<h4>So what happens?</h4>
+<p>When you type a web address into your browser:</p>
+<ol style="list-style-type: decimal">
+<li>The browser finds the address of the server that the website lives on.</li>
+<li>The browser sends an <strong>HTTP request message</strong> to the server, asking it to send a copy of the website to the client.</li>
+<li>If the server approves the client’s request, the server sends the client a <code>200 OK</code> message, and then starts displaying the website in the browser.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="retrieve-data-in-json-format-if-you-can" class="section level2">
+<h2>Retrieve data in JSON format if you can</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To retrieve information in JSON format and organize it into a spreadsheet.</strong></p>
+<ol style="list-style-type: decimal">
+<li>Inspect the website to check if the content is stored in JSON format</li>
+<li>Make a request to the website server to retrieve the JSON file</li>
+<li>Convert from JSON format into a Python dictionary</li>
+<li>Extract the data from the dictionary and store in a .csv file</li>
+</ol>
+</div>
+<p>We wish to extract information from <a href="https://www.harvardartmuseums.org/collections" class="uri">https://www.harvardartmuseums.org/collections</a>. Like most modern web pages, a lot goes on behind the scenes to produce the page we see in our browser. Our goal is to pull back the curtain to see what the website does when we interact with it. Once we see how the website works we can start retrieving data from it.</p>
+<p>If we are lucky we’ll find a resource that returns the data we’re looking for in a structured format like <a href="https://json.org/">JSON</a> or <a href="https://en.wikipedia.org/wiki/XML">XML</a>.</p>
+<p><img src="Python/PythonWebScrape/images/json-format.png" /></p>
+<p>This is useful because it is very easy to convert data from JSON or XML into a spreadsheet type format — like a csv or Excel file.</p>
+<div id="examine-the-websites-structure" class="section level3">
+<h3>Examine the website’s structure</h3>
+<p>The basic strategy is pretty much the same for most scraping projects. We will use our web browser (Chrome or Firefox recommended) to examine the page you wish to retrieve data from, and copy/paste information from your web browser into your scraping program.</p>
+<p>We start by opening the collections web page in a web browser and inspecting it.</p>
+<p><img src="Python/PythonWebScrape/images/dev_tools.png" /></p>
+<p><img src="Python/PythonWebScrape/images/dev_tools_pane.png" /></p>
+<p>If we scroll down to the bottom of the Collections page, we’ll see a button that says “Load More”. Let’s see what happens when we click on that button. To do so, click on “Network” in the developer tools window, then click the “Load More Collections” button. You should see a list of requests that were made as a result of clicking that button, as shown below.</p>
+<p><img src="Python/PythonWebScrape/images/dev_tools_network.png" /></p>
+<p>If we look at that second request, the one to a script named <code>browse</code>, we’ll see that it returns all the information we need, in a convenient format called <code>JSON</code>. All we need to retrieve collection data is to make <code>GET</code> requests to <a href="https://www.harvardartmuseums.org/browse" class="uri">https://www.harvardartmuseums.org/browse</a> with the correct parameters.</p>
+</div>
+<div id="launch-jupyterlab-2" class="section level3">
+<h3>Launch JupyterLab</h3>
+<ol style="list-style-type: decimal">
+<li>Start the <code>Anaconda Navigator</code> program</li>
+<li>Click the <code>Launch</code> button under <code>Jupyter Lab</code></li>
+<li>A browser window will open with your computer’s files listed on the left hand side of the page. Navigate to the folder called <code>PythonWebScrape</code> that you downloaded to your desktop and double-click on the folder</li>
+<li>Within the <code>PythonWebScrape</code> folder, double-click on the file with the word “BLANK” in the name (<code>PythonWebScrape_BLANK.ipynb</code>). A pop-up window will ask you to <code>Select Kernal</code> — you should select the Python 3 kernal. The Jupyter Notebook should now open on the right hand side of the page</li>
+</ol>
+<p>A Jupyter Notebook contains one or more <em>cells</em> containing notes or code. To insert a new cell click the <code>+</code> button in the upper left. To execute a cell, select it and press <code>Control+Enter</code> or click the <code>Run</code> button at the top.</p>
+</div>
+<div id="making-requests" class="section level3">
+<h3>Making requests</h3>
+<p>To retrieve information from the website (i.e., make a request), we need to know the location of the information we want to collect. The Uniform Resource Locator (URL) — commonly know as a “web address”, specifies the location of a resource (such as a web page) on the internet.</p>
+<p>A URL is usually composed of 5 parts:</p>
+<p><img src="Python/PythonWebScrape/images/URL.png" /></p>
+<p>The 4th part, the “query string”, contains one or more <strong>parameters</strong>. The 5th part, the “fragment”, is an internal page reference and may not be present.</p>
+<p>For example, the URL we want to retrieve data from has the following structure:</p>
+<pre><code>protocol                    domain    path  parameters
+   https www.harvardartmuseums.org  browse  load_amount=10&amp;offset=0</code></pre>
+<p>It is often convenient to create variables containing the domain(s) and path(s) you’ll be working with, as this allows you to swap out paths and parameters as needed. Note that the path is separated from the domain with <code>/</code> and the parameters are separated from the path with <code>?</code>. If there are multiple parameters they are separated from each other with a <code>&amp;</code>.</p>
+<p>For example, we can define the domain and path of the collections URL as follows:</p>
+<div class="sourceCode" id="cb601"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb601-1"><a href="python-web-scraping.html#cb601-1"></a>museum_domain <span class="op">=</span> <span class="st">&#39;https://www.harvardartmuseums.org&#39;</span></span>
+<span id="cb601-2"><a href="python-web-scraping.html#cb601-2"></a>collection_path <span class="op">=</span> <span class="st">&#39;browse&#39;</span></span>
+<span id="cb601-3"><a href="python-web-scraping.html#cb601-3"></a></span>
+<span id="cb601-4"><a href="python-web-scraping.html#cb601-4"></a>collection_url <span class="op">=</span> (museum_domain</span>
+<span id="cb601-5"><a href="python-web-scraping.html#cb601-5"></a>                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb601-6"><a href="python-web-scraping.html#cb601-6"></a>                  <span class="op">+</span> collection_path)</span>
+<span id="cb601-7"><a href="python-web-scraping.html#cb601-7"></a></span>
+<span id="cb601-8"><a href="python-web-scraping.html#cb601-8"></a><span class="bu">print</span>(collection_url)</span></code></pre></div>
+<pre><code>## &#39;https://www.harvardartmuseums.org/browse&#39;</code></pre>
+<p>Note that we omit the parameters here because it is usually easier to pass them as a <code>dict</code> when using the <code>requests</code> library in Python. This will become clearer shortly.</p>
+<p>Now that we’ve constructed the URL we wish to interact with, we’re ready to make our first request in Python.</p>
+<div class="sourceCode" id="cb603"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb603-1"><a href="python-web-scraping.html#cb603-1"></a><span class="im">import</span> requests</span>
+<span id="cb603-2"><a href="python-web-scraping.html#cb603-2"></a></span>
+<span id="cb603-3"><a href="python-web-scraping.html#cb603-3"></a>collections1 <span class="op">=</span> requests.get(</span>
+<span id="cb603-4"><a href="python-web-scraping.html#cb603-4"></a>    collection_url,</span>
+<span id="cb603-5"><a href="python-web-scraping.html#cb603-5"></a>    params <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>,</span>
+<span id="cb603-6"><a href="python-web-scraping.html#cb603-6"></a>                  <span class="st">&#39;offset&#39;</span>: <span class="dv">0</span>}</span>
+<span id="cb603-7"><a href="python-web-scraping.html#cb603-7"></a>)</span></code></pre></div>
+<p>Note that the parameters <code>load_amount</code> and <code>offset</code> are essentially another way of setting page numbers — they refer to the amount of information retrieved at one time and the starting position, respectively.</p>
+</div>
+<div id="parsing-json-data" class="section level3">
+<h3>Parsing JSON data</h3>
+<p>We already know from inspecting network traffic in our web browser that this URL returns JSON, but we can use Python to verify this assumption.</p>
+<div class="sourceCode" id="cb604"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb604-1"><a href="python-web-scraping.html#cb604-1"></a>collections1.headers[<span class="st">&#39;Content-Type&#39;</span>]</span></code></pre></div>
+<pre><code>## &#39;application/json&#39;</code></pre>
+<p>Since JSON is a structured data format, parsing it into Python data structures is easy. In fact, there’s a method for that!</p>
+<div class="sourceCode" id="cb606"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb606-1"><a href="python-web-scraping.html#cb606-1"></a>collections1 <span class="op">=</span> collections1.json()</span>
+<span id="cb606-2"><a href="python-web-scraping.html#cb606-2"></a><span class="co"># print(collections1)</span></span></code></pre></div>
+<p>That’s it. Really, we are done here. Everyone go home!</p>
+<p>OK not really, there is still more we can learn. But you have to admit that was pretty easy. If you can identify a service that returns the data you want in structured from, web scraping becomes a pretty trivial enterprise. We’ll discuss several other scenarios and topics, but for some web scraping tasks this is really all you need to know.</p>
+</div>
+<div id="organizing-saving-the-data" class="section level3">
+<h3>Organizing &amp; saving the data</h3>
+<p>The records we retrieved from <a href="https://www.harvardartmuseums.org/browse" class="uri">https://www.harvardartmuseums.org/browse</a> are arranged as a list of dictionaries. We can easily select the fields of arrange these data into a pandas <code>DataFrame</code> to facilitate subsequent analysis.</p>
+<div class="sourceCode" id="cb607"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb607-1"><a href="python-web-scraping.html#cb607-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb608-1"><a href="python-web-scraping.html#cb608-1"></a>records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">&#39;records&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb609-1"><a href="python-web-scraping.html#cb609-1"></a><span class="bu">print</span>(records1)</span></code></pre></div>
+<pre><code>##                        copyright  contextualtextcount  ...                        seeAlso                        details
+## 0                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 1                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 2             © 2004 Glenn Ligon                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 3                           None                    1  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;I...
+## 4                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 5                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 6                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 7                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 8  © Estate of Pablo Picasso ...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 9  © Succession H. Matisse / ...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 
+## [10 rows x 63 columns]</code></pre>
+<p>and write the data to a file.</p>
+<div class="sourceCode" id="cb611"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb611-1"><a href="python-web-scraping.html#cb611-1"></a>records1.to_csv(<span class="st">&quot;records1.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="iterating-to-retrieve-all-the-data" class="section level3">
+<h3>Iterating to retrieve all the data</h3>
+<p>Of course we don’t want just the first page of collections. How can we retrieve all of them?</p>
+<p>Now that we know the web service works, and how to make requests in Python, we can iterate in the usual way.</p>
+<div class="sourceCode" id="cb612"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb612-1"><a href="python-web-scraping.html#cb612-1"></a>records <span class="op">=</span> []</span>
+<span id="cb612-2"><a href="python-web-scraping.html#cb612-2"></a><span class="cf">for</span> offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">10</span>):</span>
+<span id="cb612-3"><a href="python-web-scraping.html#cb612-3"></a>    param_values <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>, <span class="st">&#39;offset&#39;</span>: offset}</span>
+<span id="cb612-4"><a href="python-web-scraping.html#cb612-4"></a>    current_request <span class="op">=</span> requests.get(collection_url, params <span class="op">=</span> param_values)</span>
+<span id="cb612-5"><a href="python-web-scraping.html#cb612-5"></a>    records.extend(current_request.json()[<span class="st">&#39;records&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb613-1"><a href="python-web-scraping.html#cb613-1"></a><span class="co">## convert list of dicts to a `DataFrame`</span></span>
+<span id="cb613-2"><a href="python-web-scraping.html#cb613-2"></a>records_final <span class="op">=</span> pd.DataFrame.from_records(records)</span></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb614-1"><a href="python-web-scraping.html#cb614-1"></a><span class="co"># write the data to a file.</span></span>
+<span id="cb614-2"><a href="python-web-scraping.html#cb614-2"></a>records_final.to_csv(<span class="st">&quot;records_final.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb615-1"><a href="python-web-scraping.html#cb615-1"></a><span class="bu">print</span>(records_final)</span></code></pre></div>
+<pre><code>##                         copyright  contextualtextcount  ...                        seeAlso                        details
+## 0                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 1                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 2              © 2004 Glenn Ligon                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 3                            None                    1  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;I...
+## 4                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 5                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 6                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 7                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 8   © Estate of Pablo Picasso ...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 9   © Succession H. Matisse / ...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 10                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 11                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 12                           None                    1  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+## 13                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 14                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 15  © Estate of Alfred Stiegli...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 16                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 17                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 18  © 2020 The Estate of David...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 19                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 20                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 21                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;coins&#39;: {&#39;reverseinscrip...
+## 22                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 23                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 24                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 25                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 26                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 27          © 1981 Gary Schneider                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 28                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 29                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 30  © 2020 The Arshile Gorky F...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 31                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 32  © Succession H. Matisse / ...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 33                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 34                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 35                           None                    1  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 36                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 37  Artwork © Estate of Ben Sh...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 38                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 39   © Andy Warhol Foundation ...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 40                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 41                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 42                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 43                           None                    1  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+## 44                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 45                           None                    1  ...  [{&#39;id&#39;: &#39;https://iiif.harv...  {&#39;technical&#39;: [{&#39;text&#39;: &#39;X...
+## 46               © Allan McCollum                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 47                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 48                           None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 49  © Estate of Alfred Stiegli...                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
+## 
+## [50 rows x 63 columns]</code></pre>
+</div>
+<div id="exercise-0-4" class="section level3">
+<h3>Exercise 0</h3>
+<p><strong>Retrieve exhibits data</strong></p>
+<p>In this exercise you will retrieve information about the art exhibitions at Harvard Art Museums from <a href="https://www.harvardartmuseums.org/exhibitions" class="uri">https://www.harvardartmuseums.org/exhibitions</a></p>
+<ol style="list-style-type: decimal">
+<li>Using a web browser (Firefox or Chrome recommended) inspect the
+page at <a href="https://www.harvardartmuseums.org/exhibitions" class="uri">https://www.harvardartmuseums.org/exhibitions</a>. Examine
+the network traffic as you interact with the page. Try to find
+where the data displayed on that page comes from.</li>
+</ol>
+<div class="sourceCode" id="cb617"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb617-1"><a href="python-web-scraping.html#cb617-1"></a><span class="co">##</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Make a <code>get</code> request in Python to retrieve the data from the URL
+identified in step1.</li>
+</ol>
+<div class="sourceCode" id="cb618"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb618-1"><a href="python-web-scraping.html#cb618-1"></a><span class="co">##</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Write a <em>loop</em> or <em>list comprehension</em> in Python to retrieve data
+for the first 5 pages of exhibitions data.</li>
+</ol>
+<div class="sourceCode" id="cb619"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb619-1"><a href="python-web-scraping.html#cb619-1"></a><span class="co">##</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Bonus (optional): Convert the data you retrieved into a pandas
+<code>DataFrame</code> and save it to a <code>.csv</code> file.</li>
+</ol>
+<div class="sourceCode" id="cb620"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb620-1"><a href="python-web-scraping.html#cb620-1"></a><span class="co">##</span></span></code></pre></div>
+<details>
+<summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
+<div class="alert alert-danger">
+<p>Question #1:</p>
+<div class="sourceCode" id="cb621"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb621-1"><a href="python-web-scraping.html#cb621-1"></a>museum_domain <span class="op">=</span> <span class="st">&quot;https://www.harvardartmuseums.org&quot;</span></span>
+<span id="cb621-2"><a href="python-web-scraping.html#cb621-2"></a>exhibit_path <span class="op">=</span> <span class="st">&quot;search/load_next&quot;</span></span>
+<span id="cb621-3"><a href="python-web-scraping.html#cb621-3"></a>exhibit_url <span class="op">=</span> museum_domain <span class="op">+</span> <span class="st">&quot;/&quot;</span> <span class="op">+</span> exhibit_path</span>
+<span id="cb621-4"><a href="python-web-scraping.html#cb621-4"></a><span class="bu">print</span>(exhibit_url)</span></code></pre></div>
+<pre><code>## &#39;https://www.harvardartmuseums.org/search/load_next&#39;</code></pre>
+<p>Question #2:</p>
+<div class="sourceCode" id="cb623"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb623-1"><a href="python-web-scraping.html#cb623-1"></a><span class="im">import</span> requests</span>
+<span id="cb623-2"><a href="python-web-scraping.html#cb623-2"></a><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> <span class="bu">print</span> </span>
+<span id="cb623-3"><a href="python-web-scraping.html#cb623-3"></a>exhibit1 <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: <span class="dv">1</span>})</span>
+<span id="cb623-4"><a href="python-web-scraping.html#cb623-4"></a><span class="bu">print</span>(exhibit1.headers[<span class="st">&quot;Content-Type&quot;</span>])</span></code></pre></div>
+<pre><code>## &#39;application/json&#39;</code></pre>
+<div class="sourceCode" id="cb625"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb625-1"><a href="python-web-scraping.html#cb625-1"></a>exhibit1 <span class="op">=</span> exhibit1.json()</span>
+<span id="cb625-2"><a href="python-web-scraping.html#cb625-2"></a><span class="co"># print(exhibit1)</span></span></code></pre></div>
+<p>Questions #3+4 (loop solution):</p>
+<div class="sourceCode" id="cb626"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb626-1"><a href="python-web-scraping.html#cb626-1"></a>firstFivePages <span class="op">=</span> []</span>
+<span id="cb626-2"><a href="python-web-scraping.html#cb626-2"></a><span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb626-3"><a href="python-web-scraping.html#cb626-3"></a>    records_per_page <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>]</span>
+<span id="cb626-4"><a href="python-web-scraping.html#cb626-4"></a>    firstFivePages.extend(records_per_page)</span>
+<span id="cb626-5"><a href="python-web-scraping.html#cb626-5"></a>firstFivePages_records <span class="op">=</span> pd.DataFrame.from_records(firstFivePages)</span>
+<span id="cb626-6"><a href="python-web-scraping.html#cb626-6"></a><span class="bu">print</span>(firstFivePages_records)</span></code></pre></div>
+<pre><code>##                  shortdescription                         images  ...                   publications                         videos
+## 0                            None  [{&#39;date&#39;: None, &#39;copyright...  ...                            NaN                            NaN
+## 1                            None  [{&#39;date&#39;: &#39;2018-11-09&#39;, &#39;c...  ...                            NaN                            NaN
+## 2                            None  [{&#39;date&#39;: &#39;2018-06-04&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 3                            None  [{&#39;date&#39;: &#39;2001-03-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 4                            None  [{&#39;date&#39;: &#39;2005-04-18&#39;, &#39;c...  ...                            NaN                            NaN
+## 5                            None  [{&#39;date&#39;: &#39;2018-06-29&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Marina I...
+## 6                            None  [{&#39;date&#39;: &#39;2018-03-15&#39;, &#39;c...  ...                            NaN                            NaN
+## 7                            None  [{&#39;date&#39;: &#39;2016-10-17&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 8                            None  [{&#39;date&#39;: &#39;2017-02-16&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 9                            None  [{&#39;date&#39;: &#39;2018-01-23&#39;, &#39;c...  ...                            NaN                            NaN
+## 10                           None  [{&#39;date&#39;: &#39;2001-04-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 11                           None  [{&#39;date&#39;: &#39;2016-06-10&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Fernando...
+## 12                           None  [{&#39;date&#39;: &#39;2008-10-27&#39;, &#39;c...  ...                            NaN                            NaN
+## 13                           None  [{&#39;date&#39;: &#39;2017-10-05&#39;, &#39;c...  ...                            NaN                            NaN
+## 14                           None  [{&#39;date&#39;: &#39;2002-05-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 15                           None  [{&#39;date&#39;: &#39;2007-08-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 16                           None  [{&#39;date&#39;: &#39;2003-03-21&#39;, &#39;c...  ...                            NaN                            NaN
+## 17                           None  [{&#39;date&#39;: &#39;2017-05-08&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 18                           None  [{&#39;date&#39;: &#39;2002-08-01&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Symposiu...
+## 19                           None  [{&#39;date&#39;: &#39;2016-07-05&#39;, &#39;c...  ...                            NaN                            NaN
+## 20                           None  [{&#39;date&#39;: &#39;2017-03-29&#39;, &#39;c...  ...                            NaN                            NaN
+## 21                           None  [{&#39;date&#39;: &#39;2015-03-22&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...  [{&#39;description&#39;: &#39;The Phil...
+## 22                           None  [{&#39;date&#39;: &#39;2017-03-07&#39;, &#39;c...  ...                            NaN                            NaN
+## 23  Harvard professor Ewa Laje...  [{&#39;date&#39;: &#39;2001-03-01&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 24  This exhibition features w...  [{&#39;date&#39;: &#39;2016-07-12&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 25                           None  [{&#39;date&#39;: &#39;2017-02-08&#39;, &#39;c...  ...                            NaN                            NaN
+## 26                           None  [{&#39;date&#39;: &#39;2001-06-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 27                           None  [{&#39;date&#39;: &#39;2005-11-03&#39;, &#39;c...  ...                            NaN                            NaN
+## 28                           None  [{&#39;date&#39;: &#39;2015-04-06&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Wolfgang...
+## 29                    In progress  [{&#39;date&#39;: &#39;2016-07-28&#39;, &#39;c...  ...                            NaN                            NaN
+## 30                           None  [{&#39;date&#39;: None, &#39;copyright...  ...                            NaN                            NaN
+## 31                           None  [{&#39;date&#39;: &#39;2016-03-21&#39;, &#39;c...  ...                            NaN                            NaN
+## 32                           None  [{&#39;date&#39;: &#39;2007-04-18&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 33                           None  [{&#39;date&#39;: &#39;2015-04-01&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 34                           None  [{&#39;date&#39;: &#39;2016-01-12&#39;, &#39;c...  ...                            NaN                            NaN
+## 35                           None  [{&#39;date&#39;: &#39;2002-07-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 36                           None  [{&#39;date&#39;: &#39;2007-02-27&#39;, &#39;c...  ...                            NaN                            NaN
+## 37                           None  [{&#39;date&#39;: &#39;2006-01-18&#39;, &#39;c...  ...                            NaN                            NaN
+## 38                           None  [{&#39;date&#39;: &#39;2015-10-29&#39;, &#39;c...  ...                            NaN                            NaN
+## 39                           None  [{&#39;date&#39;: &#39;2014-08-12&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...  [{&#39;description&#39;: &#39;Teaser: ...
+## 40                           None  [{&#39;date&#39;: &#39;2005-11-03&#39;, &#39;c...  ...                            NaN                            NaN
+## 41                           None  [{&#39;date&#39;: &#39;1989-08-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 42  This multi-component insta...  [{&#39;date&#39;: &#39;2014-03-31&#39;, &#39;c...  ...                            NaN                            NaN
+## 43                           None  [{&#39;date&#39;: &#39;2009-11-30&#39;, &#39;c...  ...                            NaN                            NaN
+## 44  Harvard Art Museums’ new p...  [{&#39;date&#39;: &#39;2012-06-29&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Rothko S...
+## 45                           None  [{&#39;date&#39;: &#39;2014-11-10&#39;, &#39;c...  ...                            NaN                            NaN
+## 46  In the Japanese context, a...  [{&#39;date&#39;: &#39;2012-07-17&#39;, &#39;c...  ...                            NaN                            NaN
+## 47  World’s Fairs were created...  [{&#39;date&#39;: &#39;2005-12-21&#39;, &#39;c...  ...                            NaN                            NaN
+## 48                           None  [{&#39;date&#39;: &#39;2005-11-09&#39;, &#39;c...  ...                            NaN                            NaN
+## 49  Teaching Galleries\r\n\r\n...  [{&#39;date&#39;: &#39;2003-03-18&#39;, &#39;c...  ...                            NaN                            NaN
+## 
+## [50 rows x 19 columns]</code></pre>
+<p>Questions #3+4 (list comprehension solution):</p>
+<div class="sourceCode" id="cb628"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb628-1"><a href="python-web-scraping.html#cb628-1"></a>first5Pages <span class="op">=</span> [requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>] <span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)]</span>
+<span id="cb628-2"><a href="python-web-scraping.html#cb628-2"></a><span class="im">from</span> itertools <span class="im">import</span> chain</span>
+<span id="cb628-3"><a href="python-web-scraping.html#cb628-3"></a>first5Pages <span class="op">=</span> <span class="bu">list</span>(chain.from_iterable(first5Pages))</span>
+<span id="cb628-4"><a href="python-web-scraping.html#cb628-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb628-5"><a href="python-web-scraping.html#cb628-5"></a>first5Pages_records <span class="op">=</span> pd.DataFrame.from_records(first5Pages)</span>
+<span id="cb628-6"><a href="python-web-scraping.html#cb628-6"></a><span class="bu">print</span>(first5Pages_records)</span></code></pre></div>
+<pre><code>##                  shortdescription                         images  ...                   publications                         videos
+## 0                            None  [{&#39;date&#39;: None, &#39;copyright...  ...                            NaN                            NaN
+## 1                            None  [{&#39;date&#39;: &#39;2018-11-09&#39;, &#39;c...  ...                            NaN                            NaN
+## 2                            None  [{&#39;date&#39;: &#39;2018-06-04&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 3                            None  [{&#39;date&#39;: &#39;2001-03-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 4                            None  [{&#39;date&#39;: &#39;2005-04-18&#39;, &#39;c...  ...                            NaN                            NaN
+## 5                            None  [{&#39;date&#39;: &#39;2018-06-29&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Marina I...
+## 6                            None  [{&#39;date&#39;: &#39;2018-03-15&#39;, &#39;c...  ...                            NaN                            NaN
+## 7                            None  [{&#39;date&#39;: &#39;2016-10-17&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 8                            None  [{&#39;date&#39;: &#39;2017-02-16&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 9                            None  [{&#39;date&#39;: &#39;2018-01-23&#39;, &#39;c...  ...                            NaN                            NaN
+## 10                           None  [{&#39;date&#39;: &#39;2001-04-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 11                           None  [{&#39;date&#39;: &#39;2016-06-10&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Fernando...
+## 12                           None  [{&#39;date&#39;: &#39;2008-10-27&#39;, &#39;c...  ...                            NaN                            NaN
+## 13                           None  [{&#39;date&#39;: &#39;2017-10-05&#39;, &#39;c...  ...                            NaN                            NaN
+## 14                           None  [{&#39;date&#39;: &#39;2002-05-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 15                           None  [{&#39;date&#39;: &#39;2007-08-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 16                           None  [{&#39;date&#39;: &#39;2003-03-21&#39;, &#39;c...  ...                            NaN                            NaN
+## 17                           None  [{&#39;date&#39;: &#39;2017-05-08&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 18                           None  [{&#39;date&#39;: &#39;2002-08-01&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Symposiu...
+## 19                           None  [{&#39;date&#39;: &#39;2016-07-05&#39;, &#39;c...  ...                            NaN                            NaN
+## 20                           None  [{&#39;date&#39;: &#39;2017-03-29&#39;, &#39;c...  ...                            NaN                            NaN
+## 21                           None  [{&#39;date&#39;: &#39;2015-03-22&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...  [{&#39;description&#39;: &#39;The Phil...
+## 22                           None  [{&#39;date&#39;: &#39;2017-03-07&#39;, &#39;c...  ...                            NaN                            NaN
+## 23  Harvard professor Ewa Laje...  [{&#39;date&#39;: &#39;2001-03-01&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 24  This exhibition features w...  [{&#39;date&#39;: &#39;2016-07-12&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 25                           None  [{&#39;date&#39;: &#39;2017-02-08&#39;, &#39;c...  ...                            NaN                            NaN
+## 26                           None  [{&#39;date&#39;: &#39;2001-06-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 27                           None  [{&#39;date&#39;: &#39;2005-11-03&#39;, &#39;c...  ...                            NaN                            NaN
+## 28                           None  [{&#39;date&#39;: &#39;2015-04-06&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Wolfgang...
+## 29                    In progress  [{&#39;date&#39;: &#39;2016-07-28&#39;, &#39;c...  ...                            NaN                            NaN
+## 30                           None  [{&#39;date&#39;: None, &#39;copyright...  ...                            NaN                            NaN
+## 31                           None  [{&#39;date&#39;: &#39;2016-03-21&#39;, &#39;c...  ...                            NaN                            NaN
+## 32                           None  [{&#39;date&#39;: &#39;2007-04-18&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 33                           None  [{&#39;date&#39;: &#39;2015-04-01&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...                            NaN
+## 34                           None  [{&#39;date&#39;: &#39;2016-01-12&#39;, &#39;c...  ...                            NaN                            NaN
+## 35                           None  [{&#39;date&#39;: &#39;2002-07-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 36                           None  [{&#39;date&#39;: &#39;2007-02-27&#39;, &#39;c...  ...                            NaN                            NaN
+## 37                           None  [{&#39;date&#39;: &#39;2006-01-18&#39;, &#39;c...  ...                            NaN                            NaN
+## 38                           None  [{&#39;date&#39;: &#39;2015-10-29&#39;, &#39;c...  ...                            NaN                            NaN
+## 39                           None  [{&#39;date&#39;: &#39;2014-08-12&#39;, &#39;c...  ...  [{&#39;publicationplace&#39;: &#39;Cam...  [{&#39;description&#39;: &#39;Teaser: ...
+## 40                           None  [{&#39;date&#39;: &#39;2005-11-03&#39;, &#39;c...  ...                            NaN                            NaN
+## 41                           None  [{&#39;date&#39;: &#39;1989-08-01&#39;, &#39;c...  ...                            NaN                            NaN
+## 42  This multi-component insta...  [{&#39;date&#39;: &#39;2014-03-31&#39;, &#39;c...  ...                            NaN                            NaN
+## 43                           None  [{&#39;date&#39;: &#39;2009-11-30&#39;, &#39;c...  ...                            NaN                            NaN
+## 44  Harvard Art Museums’ new p...  [{&#39;date&#39;: &#39;2012-06-29&#39;, &#39;c...  ...                            NaN  [{&#39;description&#39;: &#39;Rothko S...
+## 45                           None  [{&#39;date&#39;: &#39;2014-11-10&#39;, &#39;c...  ...                            NaN                            NaN
+## 46  In the Japanese context, a...  [{&#39;date&#39;: &#39;2012-07-17&#39;, &#39;c...  ...                            NaN                            NaN
+## 47  World’s Fairs were created...  [{&#39;date&#39;: &#39;2005-12-21&#39;, &#39;c...  ...                            NaN                            NaN
+## 48                           None  [{&#39;date&#39;: &#39;2005-11-09&#39;, &#39;c...  ...                            NaN                            NaN
+## 49  Teaching Galleries\r\n\r\n...  [{&#39;date&#39;: &#39;2003-03-18&#39;, &#39;c...  ...                            NaN                            NaN
+## 
+## [50 rows x 19 columns]</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div id="parsing-html-if-you-have-to" class="section level2">
+<h2>Parsing HTML if you have to</h2>
+<div class="alert alert-info">
+<p><strong>GOAL: To retrieve information in HTML format and organize it into a spreadsheet.</strong></p>
+<ol style="list-style-type: decimal">
+<li>Make a request to the website server to retrieve the HTML</li>
+<li>Inspect the HTML to determine the XPATHs that point to the data we want</li>
+<li>Extract the information from the location the XPATHs point to and store in a dictionary</li>
+<li>Convert from a dictionary to a .csv file</li>
+</ol>
+</div>
+<p>As we’ve seen, you can often inspect network traffic or other sources to locate the source of the data you are interested in and the API used to retrieve it. You should always start by looking for these shortcuts and using them where possible. If you are really lucky, you’ll find a shortcut that returns the data as JSON or XML. If you are not quite so lucky, you will have to parse HTML to retrieve the information you need.</p>
+<div id="document-object-model-dom" class="section level3">
+<h3>Document Object Model (DOM)</h3>
+<p>To parse HTML, we need to have a nice tree structure that contains the whole HTML file through which we can locate the information. This tree-like structure is the <strong>Document Object Model (DOM)</strong>. DOM is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree. <em>Each branch of the tree ends in a node, and each node contains objects</em>. DOM methods allow programmatic access to the tree; with them one can change the structure, style or content of a document. The following is an example of DOM hierarchy in an HTML document:</p>
+<p><img src="Python/PythonWebScrape/images/DOM.png" /></p>
+</div>
+<div id="retrieving-html" class="section level3">
+<h3>Retrieving HTML</h3>
+<p>When I inspect the network traffic while interacting with <a href="https://www.harvardartmuseums.org/calendar" class="uri">https://www.harvardartmuseums.org/calendar</a> I don’t see any requests that return JSON data. The best we can do appears to be to return HTML.</p>
+<p>To retrieve data on the events listed in the calender, the first step is the same as before: we make a <code>get</code> request.</p>
+<div class="sourceCode" id="cb630"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb630-1"><a href="python-web-scraping.html#cb630-1"></a>calendar_path <span class="op">=</span> <span class="st">&#39;calendar&#39;</span></span>
+<span id="cb630-2"><a href="python-web-scraping.html#cb630-2"></a></span>
+<span id="cb630-3"><a href="python-web-scraping.html#cb630-3"></a>calendar_url <span class="op">=</span> (museum_domain <span class="co"># recall that we defined museum_domain earlier</span></span>
+<span id="cb630-4"><a href="python-web-scraping.html#cb630-4"></a>                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb630-5"><a href="python-web-scraping.html#cb630-5"></a>                  <span class="op">+</span> calendar_path)</span>
+<span id="cb630-6"><a href="python-web-scraping.html#cb630-6"></a></span>
+<span id="cb630-7"><a href="python-web-scraping.html#cb630-7"></a><span class="bu">print</span>(calendar_url)</span></code></pre></div>
+<pre><code>## &#39;https://www.harvardartmuseums.org/calendar&#39;</code></pre>
+<div class="sourceCode" id="cb632"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb632-1"><a href="python-web-scraping.html#cb632-1"></a>events <span class="op">=</span> requests.get(calendar_url)</span></code></pre></div>
+<p>As before, we can check the headers to see what type of content we received in response to our request.</p>
+<div class="sourceCode" id="cb633"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb633-1"><a href="python-web-scraping.html#cb633-1"></a>events.headers[<span class="st">&#39;Content-Type&#39;</span>]</span></code></pre></div>
+<pre><code>## &#39;text/html; charset=UTF-8&#39;</code></pre>
+</div>
+<div id="parsing-html-using-the-lxml-library" class="section level3">
+<h3>Parsing HTML using the lxml library</h3>
+<p>Like JSON, HTML is structured; unlike JSON, it is designed to be rendered into a human-readable page rather than simply to store and exchange data in a computer-readable format. Consequently, parsing HTML and extracting information from it is somewhat more difficult than parsing JSON.</p>
+<p>While JSON parsing is built into the Python <code>requests</code> library, parsing HTML requires a separate library. I recommend using the HTML parser from the <code>lxml</code> library; others prefer an alternative called <code>beautifulsoup4</code>.</p>
+<div class="sourceCode" id="cb635"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb635-1"><a href="python-web-scraping.html#cb635-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
+<span id="cb635-2"><a href="python-web-scraping.html#cb635-2"></a></span>
+<span id="cb635-3"><a href="python-web-scraping.html#cb635-3"></a><span class="co"># convert a html text representation (`events.text`) into </span></span>
+<span id="cb635-4"><a href="python-web-scraping.html#cb635-4"></a><span class="co"># a tree-structure (DOM) html representation (`events_html`)</span></span>
+<span id="cb635-5"><a href="python-web-scraping.html#cb635-5"></a>events_html <span class="op">=</span> html.fromstring(events.text)</span></code></pre></div>
+</div>
+<div id="using-xpath-to-extract-content-from-html" class="section level3">
+<h3>Using XPath to extract content from HTML</h3>
+<p><code>XPath</code> is a tool for identifying particular elements within a HTML document. The developer tools built into modern web browsers make it easy to generate <code>XPath</code>s that can be used to identify the elements of a web page that we wish to extract.</p>
+<p>We can open the html document we retrieved and inspect it using our web browser.</p>
+<div class="sourceCode" id="cb636"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb636-1"><a href="python-web-scraping.html#cb636-1"></a>html.open_in_browser(events_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</span></code></pre></div>
+<p><img src="Python/PythonWebScrape/images/dev_tools_right_click.png" /></p>
+<p><img src="Python/PythonWebScrape/images/dev_tools_inspect.png" /></p>
+<p>Once we identify the element containing the information of interest we can use our web browser to copy the <code>XPath</code> that uniquely identifies that element.</p>
+<p><img src="Python/PythonWebScrape/images/dev_tools_xpath.png" /></p>
+<p>Next we can use Python to extract the element of interest:</p>
+<div class="sourceCode" id="cb637"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb637-1"><a href="python-web-scraping.html#cb637-1"></a>events_list_html <span class="op">=</span> events_html.xpath(<span class="st">&#39;//*[@id=&quot;events_list&quot;]/article&#39;</span>)</span></code></pre></div>
+<p>Let’s just extract the second element in our events list.</p>
+<div class="sourceCode" id="cb638"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb638-1"><a href="python-web-scraping.html#cb638-1"></a>second_event_html <span class="op">=</span> events_list_html[<span class="dv">1</span>]</span></code></pre></div>
+<p>Once again, we can use a web browser to inspect the HTML we’re currently working with - from the second event - and to figure out what we want to extract from it.</p>
+<div class="sourceCode" id="cb639"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb639-1"><a href="python-web-scraping.html#cb639-1"></a>html.open_in_browser(second_event_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</span></code></pre></div>
+<p>As before we can use our browser to find the xpath of the elements we want.</p>
+<p><img src="Python/PythonWebScrape/images/dev_tools_figcaption.png" /></p>
+<p>(Note that the <code>html.open_in_browser</code> function adds enclosing <code>html</code> and <code>body</code> tags in order to create a complete web page for viewing. This requires that we adjust the <code>xpath</code> accordingly.)</p>
+<p>By repeating this process for each element we want, we can build a list of the xpaths to those elements.</p>
+<div class="sourceCode" id="cb640"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb640-1"><a href="python-web-scraping.html#cb640-1"></a>elements_we_want <span class="op">=</span> {<span class="st">&#39;figcaption&#39;</span>: <span class="st">&#39;div/figure/div/figcaption&#39;</span>,</span>
+<span id="cb640-2"><a href="python-web-scraping.html#cb640-2"></a>                    <span class="st">&#39;date&#39;</span>: <span class="st">&#39;div/div/header/time&#39;</span>,</span>
+<span id="cb640-3"><a href="python-web-scraping.html#cb640-3"></a>                    <span class="st">&#39;title&#39;</span>: <span class="st">&#39;div/div/header/h2/a&#39;</span>,</span>
+<span id="cb640-4"><a href="python-web-scraping.html#cb640-4"></a>                    <span class="st">&#39;time&#39;</span>: <span class="st">&#39;div/div/div/p[1]/time&#39;</span>,</span>
+<span id="cb640-5"><a href="python-web-scraping.html#cb640-5"></a>                    <span class="st">&#39;description&#39;</span>: <span class="st">&#39;div/div/div/p[3]&#39;</span></span>
+<span id="cb640-6"><a href="python-web-scraping.html#cb640-6"></a>                    }</span></code></pre></div>
+<p>Finally, we can iterate over the elements we want and extract them.</p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb641-1"><a href="python-web-scraping.html#cb641-1"></a>second_event_values <span class="op">=</span> {}</span>
+<span id="cb641-2"><a href="python-web-scraping.html#cb641-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
+<span id="cb641-3"><a href="python-web-scraping.html#cb641-3"></a>    element <span class="op">=</span> second_event_html.xpath(elements_we_want[key])[<span class="dv">0</span>]</span>
+<span id="cb641-4"><a href="python-web-scraping.html#cb641-4"></a>    second_event_values[key] <span class="op">=</span> element.text_content().strip()</span>
+<span id="cb641-5"><a href="python-web-scraping.html#cb641-5"></a></span>
+<span id="cb641-6"><a href="python-web-scraping.html#cb641-6"></a><span class="bu">print</span>(second_event_values)</span></code></pre></div>
+<pre><code>## {&#39;date&#39;: &#39;Thursday, August 27, 2020&#39;,
+##  &#39;description&#39;: &#39;We’ll take a close look at a late 18th-century book &#39;
+##                 &#39;illustration by French artists Pierre-Paul Prud’hon and &#39;
+##                 &#39;Barthélemy Roger.&#39;,
+##  &#39;figcaption&#39;: &#39;Pierre-Paul Prud’hon (design and etching) and Barthélemy &#39;
+##                &#39;Joseph Fulcran Roger (engraving), French, Phrosine and &#39;
+##                &#39;Mélidore, 1797. Etching and engraving. Harvard Art &#39;
+##                &#39;Museums/Fogg Museum, Gray Collection of Engravings Fund and &#39;
+##                &#39;the Jakob Rosenberg Fund, G9063.&#39;,
+##  &#39;time&#39;: &#39;2:00pm - 2:30pm&#39;,
+##  &#39;title&#39;: &#39;Art Talk Live: One Print—Five Stories&#39;}</code></pre>
+</div>
+<div id="iterating-to-retrieve-content-from-a-list-of-html-elements" class="section level3">
+<h3>Iterating to retrieve content from a list of HTML elements</h3>
+<p>So far we’ve retrieved information only for the second event. To
+retrieve data for all the events listed on the page we need to iterate
+over the events. If we are very lucky, each event will have exactly
+the same information structured in exactly the same way and we can
+simply extend the code we wrote above to iterate over the events list.</p>
+<p>Unfortunately, not all these elements are available for every event, so
+we need to take care to handle the case where one or more of these
+elements is not available. We can do that by <strong>defining a function</strong> that
+tries to retrieve a value and returns an empty string if it fails.</p>
+<p>If you’re not familiar with Python functions, here’s the basic syntax:</p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb643-1"><a href="python-web-scraping.html#cb643-1"></a><span class="co"># anatomy of a function</span></span>
+<span id="cb643-2"><a href="python-web-scraping.html#cb643-2"></a></span>
+<span id="cb643-3"><a href="python-web-scraping.html#cb643-3"></a><span class="kw">def</span> name_of_function(arg1, arg2, ...argn):  <span class="co"># define the function name and arguments</span></span>
+<span id="cb643-4"><a href="python-web-scraping.html#cb643-4"></a>    <span class="op">&lt;</span>body of function<span class="op">&gt;</span>   <span class="co"># specify calculations</span></span>
+<span id="cb643-5"><a href="python-web-scraping.html#cb643-5"></a>    <span class="cf">return</span> <span class="op">&lt;</span>result<span class="op">&gt;</span>      <span class="co"># output result of calculations</span></span></code></pre></div>
+<p>Here’s an example of a simple function:</p>
+<div class="sourceCode" id="cb644"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb644-1"><a href="python-web-scraping.html#cb644-1"></a><span class="kw">def</span> square_fun(x):</span>
+<span id="cb644-2"><a href="python-web-scraping.html#cb644-2"></a>    y <span class="op">=</span> x<span class="op">**</span><span class="dv">2</span> <span class="co"># exponentiation</span></span>
+<span id="cb644-3"><a href="python-web-scraping.html#cb644-3"></a>    <span class="cf">return</span> y</span>
+<span id="cb644-4"><a href="python-web-scraping.html#cb644-4"></a></span>
+<span id="cb644-5"><a href="python-web-scraping.html#cb644-5"></a>square_fun(<span class="dv">4</span>)    </span></code></pre></div>
+<pre><code>## 16</code></pre>
+<p>Here’s a function to perform our actual task:</p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb646-1"><a href="python-web-scraping.html#cb646-1"></a><span class="kw">def</span> get_event_info(event, path):</span>
+<span id="cb646-2"><a href="python-web-scraping.html#cb646-2"></a>    <span class="cf">try</span>:</span>
+<span id="cb646-3"><a href="python-web-scraping.html#cb646-3"></a>        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text_content().strip()</span>
+<span id="cb646-4"><a href="python-web-scraping.html#cb646-4"></a>    <span class="cf">except</span>:</span>
+<span id="cb646-5"><a href="python-web-scraping.html#cb646-5"></a>        info <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb646-6"><a href="python-web-scraping.html#cb646-6"></a>    <span class="cf">return</span> info</span></code></pre></div>
+<p>Armed with this function we can iterate over the list of events and extract the available information for each one.</p>
+<div class="sourceCode" id="cb647"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb647-1"><a href="python-web-scraping.html#cb647-1"></a>all_event_values <span class="op">=</span> {}</span>
+<span id="cb647-2"><a href="python-web-scraping.html#cb647-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
+<span id="cb647-3"><a href="python-web-scraping.html#cb647-3"></a>    key_values <span class="op">=</span> []</span>
+<span id="cb647-4"><a href="python-web-scraping.html#cb647-4"></a>    <span class="cf">for</span> event <span class="kw">in</span> events_list_html: </span>
+<span id="cb647-5"><a href="python-web-scraping.html#cb647-5"></a>        key_values.append(get_event_info(event, elements_we_want[key]))</span>
+<span id="cb647-6"><a href="python-web-scraping.html#cb647-6"></a>    all_event_values[key] <span class="op">=</span> key_values</span></code></pre></div>
+<p>For convenience we can arrange these values in a pandas <code>DataFrame</code> and save them as .csv files, just as we did with our exhibitions data earlier.</p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb648-1"><a href="python-web-scraping.html#cb648-1"></a>all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</span>
+<span id="cb648-2"><a href="python-web-scraping.html#cb648-2"></a></span>
+<span id="cb648-3"><a href="python-web-scraping.html#cb648-3"></a>all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</span>
+<span id="cb648-4"><a href="python-web-scraping.html#cb648-4"></a></span>
+<span id="cb648-5"><a href="python-web-scraping.html#cb648-5"></a><span class="bu">print</span>(all_event_values)</span></code></pre></div>
+</div>
+<div id="exercise-1-5" class="section level3">
+<h3>Exercise 1</h3>
+<p><strong>parsing HTML</strong></p>
+<p>In this exercise you will retrieve information about the physical layout of the Harvard Art Museums. The web page at
+<a href="https://www.harvardartmuseums.org/visit/floor-plan" class="uri">https://www.harvardartmuseums.org/visit/floor-plan</a> contains this information in HTML from.</p>
+<ol style="list-style-type: decimal">
+<li><p>Using a web browser (Firefox or Chrome recommended) inspect the
+page at <a href="https://www.harvardartmuseums.org/visit/floor-plan" class="uri">https://www.harvardartmuseums.org/visit/floor-plan</a>. Copy
+the <code>XPath</code> to the element containing the list of level
+information. (HINT: the element if interest is a <code>ul</code>, i.e.,
+<code>unordered list</code>.)</p></li>
+<li><p>Make a <code>get</code> request in Python to retrieve the web page at
+<a href="https://www.harvardartmuseums.org/visit/floor-plan" class="uri">https://www.harvardartmuseums.org/visit/floor-plan</a>. Extract the
+content from your request object and parse it using <code>html.fromstring</code>
+from the <code>lxml</code> library.</p></li>
+</ol>
+<div class="sourceCode" id="cb649"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb649-1"><a href="python-web-scraping.html#cb649-1"></a><span class="co">##</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Use your web browser to find the <code>XPath</code>s to the facilities housed on
+level one. Use Python to extract the text from those <code>Xpath</code>s.</li>
+</ol>
+<div class="sourceCode" id="cb650"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb650-1"><a href="python-web-scraping.html#cb650-1"></a><span class="co">##</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Bonus (optional): Write a <em>for loop</em> or <em>list comprehension</em> in Python
+to retrieve data for all the levels.</li>
+</ol>
+<div class="sourceCode" id="cb651"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb651-1"><a href="python-web-scraping.html#cb651-1"></a><span class="co">##</span></span></code></pre></div>
+<details>
+<summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
+<div class="alert alert-danger">
+<p>Question #2:</p>
+<div class="sourceCode" id="cb652"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb652-1"><a href="python-web-scraping.html#cb652-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
+<span id="cb652-2"><a href="python-web-scraping.html#cb652-2"></a>floor_plan <span class="op">=</span> requests.get(<span class="st">&#39;https://www.harvardartmuseums.org/visit/floor-plan&#39;</span>)</span>
+<span id="cb652-3"><a href="python-web-scraping.html#cb652-3"></a>floor_plan_html <span class="op">=</span> html.fromstring(floor_plan.text)</span></code></pre></div>
+<p>Question #3:</p>
+<div class="sourceCode" id="cb653"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb653-1"><a href="python-web-scraping.html#cb653-1"></a>level_one <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul&#39;</span>)[<span class="dv">0</span>]</span>
+<span id="cb653-2"><a href="python-web-scraping.html#cb653-2"></a><span class="bu">print</span>(<span class="bu">type</span>(level_one))</span></code></pre></div>
+<pre><code>## &lt;class &#39;lxml.html.HtmlElement&#39;&gt;</code></pre>
+<div class="sourceCode" id="cb655"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb655-1"><a href="python-web-scraping.html#cb655-1"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one))</span></code></pre></div>
+<pre><code>## 6</code></pre>
+<div class="sourceCode" id="cb657"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb657-1"><a href="python-web-scraping.html#cb657-1"></a>level_one_facilities <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul/li&#39;</span>)</span>
+<span id="cb657-2"><a href="python-web-scraping.html#cb657-2"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one_facilities))</span></code></pre></div>
+<pre><code>## 6</code></pre>
+<div class="sourceCode" id="cb659"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb659-1"><a href="python-web-scraping.html#cb659-1"></a><span class="bu">print</span>([facility.text_content() <span class="cf">for</span> facility <span class="kw">in</span> level_one_facilities])</span></code></pre></div>
+<pre><code>## [&#39;Admissions&#39;, &#39;Collection Galleries&#39;, &#39;Courtyard&#39;, &#39;Shop&#39;, &#39;Café&#39;, &#39;Coatroom&#39;]</code></pre>
+<p>Question #4:</p>
+<div class="sourceCode" id="cb661"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb661-1"><a href="python-web-scraping.html#cb661-1"></a>all_levels <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li&#39;</span>)</span>
+<span id="cb661-2"><a href="python-web-scraping.html#cb661-2"></a><span class="bu">print</span>(<span class="bu">len</span>(all_levels))</span></code></pre></div>
+<pre><code>## 6</code></pre>
+<div class="sourceCode" id="cb663"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb663-1"><a href="python-web-scraping.html#cb663-1"></a>all_levels_facilities <span class="op">=</span> []</span>
+<span id="cb663-2"><a href="python-web-scraping.html#cb663-2"></a><span class="cf">for</span> level <span class="kw">in</span> all_levels:</span>
+<span id="cb663-3"><a href="python-web-scraping.html#cb663-3"></a>    level_facilities <span class="op">=</span> []</span>
+<span id="cb663-4"><a href="python-web-scraping.html#cb663-4"></a>    level_facilities_collection <span class="op">=</span> level.xpath(<span class="st">&#39;div[2]/ul/li&#39;</span>)</span>
+<span id="cb663-5"><a href="python-web-scraping.html#cb663-5"></a>    <span class="cf">for</span> level_facility <span class="kw">in</span> level_facilities_collection:</span>
+<span id="cb663-6"><a href="python-web-scraping.html#cb663-6"></a>        level_facilities.append(level_facility.text_content())</span>
+<span id="cb663-7"><a href="python-web-scraping.html#cb663-7"></a>    all_levels_facilities.append(level_facilities)</span>
+<span id="cb663-8"><a href="python-web-scraping.html#cb663-8"></a><span class="bu">print</span>(all_levels_facilities)</span></code></pre></div>
+<pre><code>## [[&#39;Conservation Center / Lightbox Gallery&#39;],
+##  [&#39;Art Study Center&#39;],
+##  [&#39;Collection Galleries&#39;,
+##   &#39;Special Exhibitions Gallery&#39;,
+##   &#39;University Galleries&#39;],
+##  [&#39;Collections Galleries&#39;],
+##  [&#39;Admissions&#39;,
+##   &#39;Collection Galleries&#39;,
+##   &#39;Courtyard&#39;,
+##   &#39;Shop&#39;,
+##   &#39;Café&#39;,
+##   &#39;Coatroom&#39;],
+##  [&#39;Lower Lobby&#39;,
+##   &#39;Lecture Halls&#39;,
+##   &#39;Seminar Room&#39;,
+##   &#39;Materials Lab&#39;,
+##   &#39;Coatroom&#39;,
+##   &#39;Offices&#39;]]</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div id="scrapy-for-large-complex-projects" class="section level2">
+<h2><code>Scrapy</code>: for large / complex projects</h2>
+<p>Scraping websites using the <code>requests</code> library to make GET and POST requests, and the <code>lxml</code> library to process HTML is a good way to learn basic web scraping techniques. It is a good choice for small to medium size projects. For very large or complicated scraping tasks the <code>scrapy</code> library offers a number of conveniences, including asynchronous retrieval, session management, convenient methods for extracting and storing values, and more. More information about <code>scrapy</code> can be found at <a href="https://doc.scrapy.org" class="uri">https://doc.scrapy.org</a>.</p>
+</div>
+<div id="browser-drivers-a-last-resort" class="section level2">
+<h2>Browser drivers: a last resort</h2>
+<p>It is sometimes necessary (or sometimes just easier) to use a web browser as an intermediary rather than communicate directly with a web service. This method of using a “browser driver” has the advantage of being able to use the javascript engine and session management features of a web browser; the main disadvantage is that it is slower and tends to be more fragile than using <code>requests</code> or <code>scrapy</code> to make requests directly from Python. For small scraping projects involving complicated sites with CAPTHAs or lots of complicated javascript using a browser driver can be a good option. More information is available at <a href="https://www.seleniumhq.org/docs/03_webdriver.jsp" class="uri">https://www.seleniumhq.org/docs/03_webdriver.jsp</a>.</p>
+</div>
+<div id="wrap-up-6" class="section level2">
+<h2>Wrap-up</h2>
+<div id="feedback-6" class="section level3">
+<h3>Feedback</h3>
+<p>These workshops are a work in progress, please provide any feedback to: <a href="mailto:help@iq.harvard.edu" class="email">help@iq.harvard.edu</a></p>
+</div>
+<div id="resources-8" class="section level3">
+<h3>Resources</h3>
+<ul>
+<li>IQSS
+<ul>
+<li>Workshops: <a href="https://www.iq.harvard.edu/data-science-services/workshop-materials" class="uri">https://www.iq.harvard.edu/data-science-services/workshop-materials</a></li>
+<li>Data Science Services: <a href="https://www.iq.harvard.edu/data-science-services" class="uri">https://www.iq.harvard.edu/data-science-services</a></li>
+<li>Research Computing Environment: <a href="https://iqss.github.io/dss-rce/" class="uri">https://iqss.github.io/dss-rce/</a></li>
+</ul></li>
+<li>HBS
+<ul>
+<li>Research Computing Services workshops: <a href="https://training.rcs.hbs.org/workshops" class="uri">https://training.rcs.hbs.org/workshops</a></li>
+<li>Other HBS RCS resources: <a href="https://training.rcs.hbs.org/workshop-materials" class="uri">https://training.rcs.hbs.org/workshop-materials</a></li>
+<li>RCS consulting email: <a href="mailto:research@hbs.edu" class="uri">mailto:research@hbs.edu</a></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="python-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stata-installation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/IQSS/dss-workshops/edit/master/Python/PythonWebScrape/PythonWebScrape.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Data_Science_Workshops.pdf", "Data_Science_Workshops.epub"],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
