@@ -716,7 +716,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
               data = na.omit(Exam))
   summary(Norm1)
 
-# The ICC is calculated as .161/(.161 + .852) = .159, which means that ~16% of the variance is at the school level. 
+# The ICC is calculated as .163/(.163 + .852) = .161, which means that ~16% of the variance is at the school level. 
 #
 # There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite approximation).
 
