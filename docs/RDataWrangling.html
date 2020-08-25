@@ -1904,7 +1904,7 @@ HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</l
 <div id="complete-code" class="section level2">
 <h2>Complete code</h2>
 <ol style="list-style-type: decimal">
-<li>Code for Section 1: Reading data from multiple Excel worksheets into R data frames</li>
+<li>Code for Section 1: Reading data from multiple Excel worksheets into R data frames:</li>
 </ol>
 <div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="RDataWrangling.html#cb476-1"></a>boy_file_names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;dataSets/boys&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb476-2"><a href="RDataWrangling.html#cb476-2"></a></span>
@@ -1922,24 +1922,27 @@ HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</l
 <span id="cb476-14"><a href="RDataWrangling.html#cb476-14"></a></span>
 <span id="cb476-15"><a href="RDataWrangling.html#cb476-15"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_boys_names, <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Code for Section 2: Clean up data within each R data frame</li>
+<li>Code for Section 2: Clean up data within each R data frame:</li>
 </ol>
 <div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="RDataWrangling.html#cb477-1"></a>cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){</span>
-<span id="cb477-2"><a href="RDataWrangling.html#cb477-2"></a>  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span></span>
-<span id="cb477-3"><a href="RDataWrangling.html#cb477-3"></a>  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span></span>
-<span id="cb477-4"><a href="RDataWrangling.html#cb477-4"></a><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb477-5"><a href="RDataWrangling.html#cb477-5"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
-<span id="cb477-6"><a href="RDataWrangling.html#cb477-6"></a>  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
-<span id="cb477-7"><a href="RDataWrangling.html#cb477-7"></a>  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) </span>
-<span id="cb477-8"><a href="RDataWrangling.html#cb477-8"></a>  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),</span>
-<span id="cb477-9"><a href="RDataWrangling.html#cb477-9"></a>                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))</span>
-<span id="cb477-10"><a href="RDataWrangling.html#cb477-10"></a>  <span class="co"># append the two datasets</span></span>
-<span id="cb477-11"><a href="RDataWrangling.html#cb477-11"></a>  <span class="kw">bind_rows</span>(first_columns, second_columns)</span>
-<span id="cb477-12"><a href="RDataWrangling.html#cb477-12"></a>}</span>
-<span id="cb477-13"><a href="RDataWrangling.html#cb477-13"></a></span>
-<span id="cb477-14"><a href="RDataWrangling.html#cb477-14"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</span></code></pre></div>
+<span id="cb477-2"><a href="RDataWrangling.html#cb477-2"></a>  </span>
+<span id="cb477-3"><a href="RDataWrangling.html#cb477-3"></a>  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span></span>
+<span id="cb477-4"><a href="RDataWrangling.html#cb477-4"></a>  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span></span>
+<span id="cb477-5"><a href="RDataWrangling.html#cb477-5"></a><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb477-6"><a href="RDataWrangling.html#cb477-6"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
+<span id="cb477-7"><a href="RDataWrangling.html#cb477-7"></a></span>
+<span id="cb477-8"><a href="RDataWrangling.html#cb477-8"></a>  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
+<span id="cb477-9"><a href="RDataWrangling.html#cb477-9"></a>  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) </span>
+<span id="cb477-10"><a href="RDataWrangling.html#cb477-10"></a>  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),</span>
+<span id="cb477-11"><a href="RDataWrangling.html#cb477-11"></a>                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))</span>
+<span id="cb477-12"><a href="RDataWrangling.html#cb477-12"></a></span>
+<span id="cb477-13"><a href="RDataWrangling.html#cb477-13"></a>  <span class="co"># append the two datasets</span></span>
+<span id="cb477-14"><a href="RDataWrangling.html#cb477-14"></a>  <span class="kw">bind_rows</span>(first_columns, second_columns)</span>
+<span id="cb477-15"><a href="RDataWrangling.html#cb477-15"></a>}</span>
+<span id="cb477-16"><a href="RDataWrangling.html#cb477-16"></a></span>
+<span id="cb477-17"><a href="RDataWrangling.html#cb477-17"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Code for Section 3: Organize the data into one large data frame and store it</li>
+<li>Code for Section 3: Organize the data into one large data frame and store it:</li>
 </ol>
 <div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="RDataWrangling.html#cb478-1"></a>Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)</span>
 <span id="cb478-2"><a href="RDataWrangling.html#cb478-2"></a></span>

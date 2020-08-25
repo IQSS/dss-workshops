@@ -823,7 +823,8 @@ ggplot(andrew, aes(x = Year, y = Count)) +
 
 ## Complete code
 
-1. Code for Section 1: Reading data from multiple Excel worksheets into R data frames
+1. Code for Section 1: Reading data from multiple Excel worksheets into R data frames:
+
 ```{r}
 boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
 
@@ -842,17 +843,21 @@ read_boys_names <- function(file, sheet_name) {
 boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 ```
 
-2. Code for Section 2: Clean up data within each R data frame
+2. Code for Section 2: Clean up data within each R data frame:
+
 ```{r}
 cleanupNamesData <- function(file){
+  
   # subset data to include only those columns that include the term `Name` and `Count`
   subsetted_file <- file %>%
     select(matches("Name|Count")) %>%
     drop_na()
+
   # subset two separate data frames, with first and second set of `Name` and `Count` columns 
   first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
   second_columns <- select(subsetted_file, Name = matches("Name...6|Name...7|Name...8"),
                                            Count = matches("Count...7|Count...8|Count...9"))
+
   # append the two datasets
   bind_rows(first_columns, second_columns)
 }
@@ -860,7 +865,8 @@ cleanupNamesData <- function(file){
 boysNames <- map(boysNames, cleanupNamesData)
 ```
 
-3. Code for Section 3: Organize the data into one large data frame and store it
+3. Code for Section 3: Organize the data into one large data frame and store it:
+
 ```{r}
 Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
 

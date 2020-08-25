@@ -3,10 +3,13 @@
 #
 # **Topics**
 #
-# * R `ggplot2` package
+# * R `ggplot2` package basics
 # * Geometric objects and aesthetics
-# * Setup basic plots
+# * Aesthetic inheritance
+# * Aesthetic mapping versus assignment
+# * Statistical transformations
 # * Add and modify scales and legends
+# * Statify plots using facets
 # * Manipulate plot labels
 # * Change and create plot themes
 
@@ -757,6 +760,7 @@ p6 <- ggplot(midwest, aes(x = area, y = log(poptotal))) +
 p6         
 # </div>
 # </details>
+#
 
 # ## Wrap-up
 #

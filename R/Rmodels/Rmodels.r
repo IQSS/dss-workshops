@@ -388,11 +388,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
     # standardized residuals versus fitted values plot
   qplot(x = fitted(mod_en_met), y = rstandard(mod_en_met), geom = "point") +
       geom_smooth(se = FALSE) +
-      labs(x = "Fitted Values", y = "Standardized residuals")
+      labs(x = "Fitted Values", y = "Standardized Residuals")
 
   # Quantile-quantile plot of standardized residuals
   qplot(sample = rstandard(mod_en_met), geom = c("qq", "qq_line")) + 
-      labs(x = "Theoretical Quantiles", y = "Standardized residuals")
+      labs(x = "Theoretical Quantiles", y = "Standardized Residuals")
 
 # 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 

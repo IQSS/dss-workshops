@@ -4600,7 +4600,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
     \CommentTok{\# standardized residuals versus fitted values plot}
   \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fitted}\NormalTok{(mod\_en\_met), }\DataTypeTok{y =} \KeywordTok{rstandard}\NormalTok{(mod\_en\_met), }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{) }\OperatorTok{+}
 \StringTok{      }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
+\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized Residuals"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4610,7 +4610,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \begin{Highlighting}[]
   \CommentTok{\# Quantile{-}quantile plot of standardized residuals}
   \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{sample =} \KeywordTok{rstandard}\NormalTok{(mod\_en\_met), }\DataTypeTok{geom =} \KeywordTok{c}\NormalTok{(}\StringTok{"qq"}\NormalTok{, }\StringTok{"qq\_line"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
+\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized Residuals"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5925,13 +5925,19 @@ These workshops are a work in progress, please provide any feedback to: \href{ma
 \begin{itemize}
 \tightlist
 \item
-  R \texttt{ggplot2} package
+  R \texttt{ggplot2} package basics
 \item
   Geometric objects and aesthetics
 \item
-  Setup basic plots
+  Aesthetic inheritance
+\item
+  Aesthetic mapping versus assignment
+\item
+  Statistical transformations
 \item
   Add and modify scales and legends
+\item
+  Statify plots using facets
 \item
   Manipulate plot labels
 \item
@@ -9569,7 +9575,7 @@ information to each data frame before flattening.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Code for Section 1: Reading data from multiple Excel worksheets into R data frames
+  Code for Section 1: Reading data from multiple Excel worksheets into R data frames:
 \end{enumerate}
 
 \begin{Shaded}
@@ -9597,20 +9603,23 @@ information to each data frame before flattening.
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Code for Section 2: Clean up data within each R data frame
+  Code for Section 2: Clean up data within each R data frame:
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{cleanupNamesData \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file)\{}
+  
   \CommentTok{\# subset data to include only those columns that include the term \textasciigrave{}Name\textasciigrave{} and \textasciigrave{}Count\textasciigrave{}}
 \NormalTok{  subsetted\_file \textless{}{-}}\StringTok{ }\NormalTok{file }\OperatorTok{\%\textgreater{}\%}
 \StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{)) }\OperatorTok{\%\textgreater{}\%}
 \StringTok{    }\KeywordTok{drop\_na}\NormalTok{()}
+
   \CommentTok{\# subset two separate data frames, with first and second set of \textasciigrave{}Name\textasciigrave{} and \textasciigrave{}Count\textasciigrave{} columns }
 \NormalTok{  first\_columns \textless{}{-}}\StringTok{ }\KeywordTok{select}\NormalTok{(subsetted\_file, }\DataTypeTok{Name =}\NormalTok{ Name...}\DecValTok{2}\NormalTok{, }\DataTypeTok{Count =}\NormalTok{ Count...}\DecValTok{3}\NormalTok{) }
 \NormalTok{  second\_columns \textless{}{-}}\StringTok{ }\KeywordTok{select}\NormalTok{(subsetted\_file, }\DataTypeTok{Name =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Name...6|Name...7|Name...8"}\NormalTok{),}
                                            \DataTypeTok{Count =} \KeywordTok{matches}\NormalTok{(}\StringTok{"Count...7|Count...8|Count...9"}\NormalTok{))}
+
   \CommentTok{\# append the two datasets}
   \KeywordTok{bind\_rows}\NormalTok{(first\_columns, second\_columns)}
 \NormalTok{\}}
@@ -9624,7 +9633,7 @@ information to each data frame before flattening.
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Code for Section 3: Organize the data into one large data frame and store it
+  Code for Section 3: Organize the data into one large data frame and store it:
 \end{enumerate}
 
 \begin{Shaded}
