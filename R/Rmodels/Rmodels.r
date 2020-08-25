@@ -167,7 +167,7 @@ list.files("dataSets")
 # Plot the data to look for multivariate outliers, non-linear relationships etc.
 
   # scatter plot of expense vs csat
-  plot(sts_ex_sat)
+  qplot(x = expense, y = csat, geom = "point", data = sts_ex_sat)
 
 # Obviously, in a real project, you would want to spend more time investigating the data,
 # but we'll now move on to modeling.
@@ -296,8 +296,14 @@ methods("summary")
 #
 # Investigate assumptions #7 and #8 visually by plotting your model:
 
-  par(mfrow = c(2, 2)) # splits the plotting window into 4 panels
-  plot(sat_mod)
+  # standardized residuals versus fitted values plot
+  qplot(x = fitted(sat_mod), y = rstandard(sat_mod), geom = "point") +
+      geom_smooth(se = FALSE) +
+      labs(x = "Fitted Values", y = "Standardized residuals")
+
+  # Quantile-quantile plot of standardized residuals
+  qplot(sample = rstandard(sat_mod), geom = c("qq", "qq_line")) + 
+      labs(x = "Theoretical Quantiles", y = "Standardized residuals")
 
 # ### Comparing models
 #
@@ -346,7 +352,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # 2.  Print and interpret the model `summary()`
 ## 
 
-# 3.  `plot()` the model to look for deviations from modeling assumptions
+# 3.  Plot the model using `qplot()` to look for deviations from modeling assumptions
 ## 
 
 # 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
@@ -369,27 +375,32 @@ dat[with(dat, complete.cases(x, y, z)), ]
       select(metro, energy)
 
   summary(states_en_met)
-  plot(states_en_met)
   cor(states_en_met, use = "pairwise")
+  qplot(x = metro, y = energy, geom = "point", data = states_en_met)
 
 # 2.  Print and interpret the model `summary()`.
 
   mod_en_met <- lm(energy ~ metro, data = states)
   summary(mod_en_met)
 
-# 3.  `plot()` the model to look for deviations from modeling assumptions.
+# 3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
 
-  par(mfrow = c(2, 2)) # splits the plotting window into 4 panels
-  plot(mod_en_met)
+    # standardized residuals versus fitted values plot
+  qplot(x = fitted(mod_en_met), y = rstandard(mod_en_met), geom = "point") +
+      geom_smooth(se = FALSE) +
+      labs(x = "Fitted Values", y = "Standardized residuals")
 
-# 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
+  # Quantile-quantile plot of standardized residuals
+  qplot(sample = rstandard(mod_en_met), geom = c("qq", "qq_line")) + 
+      labs(x = "Theoretical Quantiles", y = "Standardized residuals")
+
+# 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 
   states_en_met_pop_wst <- 
       states %>%
       select(energy, metro, pop, waste)
 
   summary(states_en_met_pop_wst)
-  plot(states_en_met_pop_wst)
   cor(states_en_met_pop_wst, use = "pairwise")
 
   mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states)
@@ -713,7 +724,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   # null model, grouping by school but not fixed effects.
   Norm1 <-lmer(normexam ~ 1 + (1 | school), 
-              data = na.omit(Exam))
+               data = na.omit(Exam))
   summary(Norm1)
 
 # The ICC is calculated as .163/(.163 + .852) = .161, which means that ~16% of the variance is at the school level. 
@@ -763,7 +774,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # Use the `bh1996` dataset: 
 
 ## install.packages("multilevel")
-data(bh1996, package="multilevel")
+data(bh1996, package = "multilevel")
 
 # From the data documentation:
 #

@@ -189,7 +189,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 
 ```{r}
   # scatter plot of expense vs csat
-  plot(sts_ex_sat)
+  qplot(x = expense, y = csat, geom = "point", data = sts_ex_sat)
 ```
 
 Obviously, in a real project, you would want to spend more time investigating the data,
@@ -336,8 +336,14 @@ OLS regression relies on several assumptions, including:
 Investigate assumptions #7 and #8 visually by plotting your model:
 
 ```{r}
-  par(mfrow = c(2, 2)) # splits the plotting window into 4 panels
-  plot(sat_mod)
+  # standardized residuals versus fitted values plot
+  qplot(x = fitted(sat_mod), y = rstandard(sat_mod), geom = "point") +
+      geom_smooth(se = FALSE) +
+      labs(x = "Fitted Values", y = "Standardized residuals")
+
+  # Quantile-quantile plot of standardized residuals
+  qplot(sample = rstandard(sat_mod), geom = c("qq", "qq_line")) + 
+      labs(x = "Theoretical Quantiles", y = "Standardized residuals")
 ```
 
 ### Comparing models
@@ -397,7 +403,7 @@ Use the *states.rds* data set. Fit a model predicting energy consumed per capita
 ## 
 ```
 
-3.  `plot()` the model to look for deviations from modeling assumptions
+3.  Plot the model using `qplot()` to look for deviations from modeling assumptions
 ```{r}
 ## 
 ```
@@ -427,8 +433,8 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
       select(metro, energy)
 
   summary(states_en_met)
-  plot(states_en_met)
   cor(states_en_met, use = "pairwise")
+  qplot(x = metro, y = energy, geom = "point", data = states_en_met)
 ```
 
 2.  Print and interpret the model `summary()`.
@@ -438,14 +444,20 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
   summary(mod_en_met)
 ```
 
-3.  `plot()` the model to look for deviations from modeling assumptions.
+3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
 
 ```{r}
-  par(mfrow = c(2, 2)) # splits the plotting window into 4 panels
-  plot(mod_en_met)
+    # standardized residuals versus fitted values plot
+  qplot(x = fitted(mod_en_met), y = rstandard(mod_en_met), geom = "point") +
+      geom_smooth(se = FALSE) +
+      labs(x = "Fitted Values", y = "Standardized residuals")
+
+  # Quantile-quantile plot of standardized residuals
+  qplot(sample = rstandard(mod_en_met), geom = c("qq", "qq_line")) + 
+      labs(x = "Theoretical Quantiles", y = "Standardized residuals")
 ```
 
-4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
+4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 
 ```{r}
   states_en_met_pop_wst <- 
@@ -453,7 +465,6 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
       select(energy, metro, pop, waste)
 
   summary(states_en_met_pop_wst)
-  plot(states_en_met_pop_wst)
   cor(states_en_met_pop_wst, use = "pairwise")
 
   mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states)
@@ -827,7 +838,7 @@ As a preliminary modeling step, it is often useful to partition the variance in 
 ```{r}
   # null model, grouping by school but not fixed effects.
   Norm1 <-lmer(normexam ~ 1 + (1 | school), 
-              data = na.omit(Exam))
+               data = na.omit(Exam))
   summary(Norm1)
 ```
 
@@ -888,7 +899,7 @@ Use the `bh1996` dataset:
 
 ```{r}
 ## install.packages("multilevel")
-data(bh1996, package="multilevel")
+data(bh1996, package = "multilevel")
 ```
 
 From the data documentation:

@@ -3842,7 +3842,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# scatter plot of expense vs csat}
-  \KeywordTok{plot}\NormalTok{(sts\_ex\_sat)}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ expense, }\DataTypeTok{y =}\NormalTok{ csat, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ sts\_ex\_sat)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4308,12 +4308,24 @@ Investigate assumptions \#7 and \#8 visually by plotting your model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{\# splits the plotting window into 4 panels}
-  \KeywordTok{plot}\NormalTok{(sat\_mod)}
+  \CommentTok{\# standardized residuals versus fitted values plot}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fitted}\NormalTok{(sat\_mod), }\DataTypeTok{y =} \KeywordTok{rstandard}\NormalTok{(sat\_mod), }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{R/Rmodels/figures/unnamed-chunk-91-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\# Quantile{-}quantile plot of standardized residuals}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{sample =} \KeywordTok{rstandard}\NormalTok{(sat\_mod), }\DataTypeTok{geom =} \KeywordTok{c}\NormalTok{(}\StringTok{"qq"}\NormalTok{, }\StringTok{"qq\_line"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R/Rmodels/figures/unnamed-chunk-91-2.pdf}
 
 \hypertarget{comparing-models}{%
 \subsection{Comparing models}\label{comparing-models}}
@@ -4453,7 +4465,7 @@ Use the \emph{states.rds} data set. Fit a model predicting energy consumed per c
 \setcounter{enumi}{2}
 \tightlist
 \item
-  \texttt{plot()} the model to look for deviations from modeling assumptions
+  Plot the model using \texttt{qplot()} to look for deviations from modeling assumptions
 \end{enumerate}
 
 \begin{Shaded}
@@ -4520,14 +4532,6 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{plot}\NormalTok{(states\_en\_met)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{R/Rmodels/figures/unnamed-chunk-100-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
   \KeywordTok{cor}\NormalTok{(states\_en\_met, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4537,6 +4541,14 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 ## metro   1.0000000 -0.3397445
 ## energy -0.3397445  1.0000000
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ metro, }\DataTypeTok{y =}\NormalTok{ energy, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ states\_en\_met)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R/Rmodels/figures/unnamed-chunk-100-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4580,24 +4592,36 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \setcounter{enumi}{2}
 \tightlist
 \item
-  \texttt{plot()} the model to look for deviations from modeling assumptions.
+  Plot the model using \texttt{qplot()} to look for deviations from modeling assumptions.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{\# splits the plotting window into 4 panels}
-  \KeywordTok{plot}\NormalTok{(mod\_en\_met)}
+    \CommentTok{\# standardized residuals versus fitted values plot}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fitted}\NormalTok{(mod\_en\_met), }\DataTypeTok{y =} \KeywordTok{rstandard}\NormalTok{(mod\_en\_met), }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{R/Rmodels/figures/unnamed-chunk-102-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\# Quantile{-}quantile plot of standardized residuals}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{sample =} \KeywordTok{rstandard}\NormalTok{(mod\_en\_met), }\DataTypeTok{geom =} \KeywordTok{c}\NormalTok{(}\StringTok{"qq"}\NormalTok{, }\StringTok{"qq\_line"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R/Rmodels/figures/unnamed-chunk-102-2.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with \emph{metro} as the only predictor?
+  Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with \texttt{metro} as the only predictor?
 \end{enumerate}
 
 \begin{Shaded}
@@ -4620,14 +4644,6 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 ##  Max.   :991.0   Max.   :100.00   Max.   :29760000   Max.   :1.5100  
 ##  NA's   :1       NA's   :1        NA's   :1          NA's   :1
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \KeywordTok{plot}\NormalTok{(states\_en\_met\_pop\_wst)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{R/Rmodels/figures/unnamed-chunk-103-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5493,7 +5509,7 @@ As a preliminary modeling step, it is often useful to partition the variance in 
 \begin{Highlighting}[]
   \CommentTok{\# null model, grouping by school but not fixed effects.}
 \NormalTok{  Norm1 \textless{}{-}}\KeywordTok{lmer}\NormalTok{(normexam }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{school), }
-              \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(Exam))}
+               \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(Exam))}
   \KeywordTok{summary}\NormalTok{(Norm1)}
 \end{Highlighting}
 \end{Shaded}
@@ -5671,7 +5687,7 @@ Use the \texttt{bh1996} dataset:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\#\# install.packages("multilevel")}
-\KeywordTok{data}\NormalTok{(bh1996, }\DataTypeTok{package=}\StringTok{"multilevel"}\NormalTok{)}
+\KeywordTok{data}\NormalTok{(bh1996, }\DataTypeTok{package =} \StringTok{"multilevel"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11840,17 +11856,17 @@ The records we retrieved from \url{https://www.harvardartmuseums.org/browse} are
 \end{Shaded}
 
 \begin{verbatim}
-##                        copyright  contextualtextcount  ...                        seeAlso                        details
-## 0                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 1                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 2             © 2004 Glenn Ligon                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 3                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'I...
-## 4                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 5                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 6                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 7                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 8  © Estate of Pablo Picasso ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 9  © Succession H. Matisse / ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+##                        copyright  contextualtextcount  ...                         colors                        details
+## 0                           None                    0  ...                            NaN                            NaN
+## 1  © Jess - The Jess Collins ...                    0  ...                            NaN                            NaN
+## 2                           None                    0  ...  [{'color': '#e1c8af', 'spe...                            NaN
+## 3                           None                    0  ...                            NaN                            NaN
+## 4                           None                    1  ...                            NaN  {'technical': [{'text': 'I...
+## 5      © Estate of Aaron Siskind                    0  ...  [{'color': '#323232', 'spe...                            NaN
+## 6            © William Kentridge                    0  ...  [{'color': '#fae1e1', 'spe...                            NaN
+## 7                           None                    0  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'X...
+## 8                           None                    0  ...  [{'color': '#c8af96', 'spe...                            NaN
+## 9                           None                    1  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'I...
 ## 
 ## [10 rows x 63 columns]
 \end{verbatim}
@@ -11901,57 +11917,57 @@ Now that we know the web service works, and how to make requests in Python, we c
 \end{Shaded}
 
 \begin{verbatim}
-##                         copyright  contextualtextcount  ...                        seeAlso                        details
-## 0                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 1                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 2              © 2004 Glenn Ligon                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 3                            None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'I...
-## 4                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 5                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 6                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 7                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 8   © Estate of Pablo Picasso ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 9   © Succession H. Matisse / ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 10                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 11                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 12                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
-## 13                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 14                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 15  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 16                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 17                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 18  © 2020 The Estate of David...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 19                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 20                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 21                           None                    0  ...  [{'id': 'https://iiif.harv...  {'coins': {'reverseinscrip...
-## 22                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 23                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 24                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 25                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 26                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 27          © 1981 Gary Schneider                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 28                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 29                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 30  © 2020 The Arshile Gorky F...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 31                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 32  © Succession H. Matisse / ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 33                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 34                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 35                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
-## 36                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 37  Artwork © Estate of Ben Sh...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 38                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 39   © Andy Warhol Foundation ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 40                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 41                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 42                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 43                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
-## 44                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 45                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
-## 46               © Allan McCollum                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 47                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 48                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 49  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+##                         copyright  contextualtextcount  ...                         colors                        details
+## 0                            None                    0  ...                            NaN                            NaN
+## 1   © Jess - The Jess Collins ...                    0  ...                            NaN                            NaN
+## 2                            None                    0  ...  [{'color': '#e1c8af', 'spe...                            NaN
+## 3                            None                    0  ...                            NaN                            NaN
+## 4                            None                    1  ...                            NaN  {'technical': [{'text': 'I...
+## 5       © Estate of Aaron Siskind                    0  ...  [{'color': '#323232', 'spe...                            NaN
+## 6             © William Kentridge                    0  ...  [{'color': '#fae1e1', 'spe...                            NaN
+## 7                            None                    0  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'X...
+## 8                            None                    0  ...  [{'color': '#c8af96', 'spe...                            NaN
+## 9                            None                    1  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'I...
+## 10                           None                    0  ...  [{'color': '#e1e1c8', 'spe...                            NaN
+## 11                           None                    0  ...                            NaN                            NaN
+## 12                           None                    1  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'I...
+## 13                           None                    1  ...                            NaN  {'technical': [{'text': 'I...
+## 14                           None                    0  ...  [{'color': '#191919', 'spe...                            NaN
+## 15                           None                    0  ...  [{'color': '#af7d4b', 'spe...                            NaN
+## 16                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 17                           None                    0  ...  [{'color': '#c8af96', 'spe...                            NaN
+## 18  © Estate of Alfred Stiegli...                    0  ...                            NaN                            NaN
+## 19                           None                    0  ...  [{'color': '#967d64', 'spe...                            NaN
+## 20  © The Munch Museum / The M...                    0  ...  [{'color': '#191919', 'spe...                            NaN
+## 21  © Berenice Abbott/Commerce...                    0  ...                            NaN                            NaN
+## 22                           None                    0  ...  [{'color': '#e1e1e1', 'spe...                            NaN
+## 23                           None                    0  ...                            NaN  {'coins': {'reverseinscrip...
+## 24  © Jasper Johns and ULAE/Li...                    0  ...                            NaN                            NaN
+## 25  Art © Elizabeth Catlett/Li...                    0  ...  [{'color': '#c8c8af', 'spe...                            NaN
+## 26                           None                    0  ...                            NaN                            NaN
+## 27                           None                    0  ...                            NaN                            NaN
+## 28  © Aperture Foundation Inc....                    0  ...  [{'color': '#323232', 'spe...                            NaN
+## 29                           None                    0  ...  [{'color': '#e1e1c8', 'spe...                            NaN
+## 30                           None                    0  ...                            NaN                            NaN
+## 31                           None                    0  ...  [{'color': '#c8c8af', 'spe...                            NaN
+## 32                           None                    0  ...  [{'color': '#e1e1e1', 'spe...                            NaN
+## 33                           None                    0  ...  [{'color': '#191919', 'spe...                            NaN
+## 34                           None                    0  ...  [{'color': '#967d64', 'spe...                            NaN
+## 35  Art © Nancy Graves Foundat...                    0  ...  [{'color': '#e1af96', 'spe...                            NaN
+## 36                           None                    0  ...  [{'color': '#4b4b4b', 'spe...                            NaN
+## 37                           None                    0  ...  [{'color': '#323219', 'spe...                            NaN
+## 38                           None                    0  ...  [{'color': '#323232', 'spe...                            NaN
+## 39                           None                    0  ...  [{'color': '#e1e1c8', 'spe...                            NaN
+## 40                           None                    0  ...                            NaN                            NaN
+## 41                           None                    0  ...                            NaN                            NaN
+## 42                           None                    0  ...                            NaN                            NaN
+## 43                           None                    0  ...  [{'color': '#321900', 'spe...                            NaN
+## 44                           None                    0  ...                            NaN                            NaN
+## 45                           None                    0  ...  [{'color': '#afafaf', 'spe...                            NaN
+## 46                           None                    0  ...                            NaN                            NaN
+## 47                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 48                           None                    0  ...  [{'color': '#4b4b4b', 'spe...                            NaN
+## 49  © Jasper Johns and ULAE/Li...                    0  ...  [{'color': '#4b9664', 'spe...                            NaN
 ## 
 ## [50 rows x 63 columns]
 \end{verbatim}
@@ -12124,7 +12140,7 @@ Questions \#3+4 (loop solution):
 ## 41                           None  [{'date': '1989-08-01', 'c...  ...                            NaN                            NaN
 ## 42  This multi-component insta...  [{'date': '2014-03-31', 'c...  ...                            NaN                            NaN
 ## 43                           None  [{'date': '2009-11-30', 'c...  ...                            NaN                            NaN
-## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Rothko S...
+## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Mark Rot...
 ## 45                           None  [{'date': '2014-11-10', 'c...  ...                            NaN                            NaN
 ## 46  In the Japanese context, a...  [{'date': '2012-07-17', 'c...  ...                            NaN                            NaN
 ## 47  World’s Fairs were created...  [{'date': '2005-12-21', 'c...  ...                            NaN                            NaN
@@ -12193,7 +12209,7 @@ Questions \#3+4 (list comprehension solution):
 ## 41                           None  [{'date': '1989-08-01', 'c...  ...                            NaN                            NaN
 ## 42  This multi-component insta...  [{'date': '2014-03-31', 'c...  ...                            NaN                            NaN
 ## 43                           None  [{'date': '2009-11-30', 'c...  ...                            NaN                            NaN
-## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Rothko S...
+## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Mark Rot...
 ## 45                           None  [{'date': '2014-11-10', 'c...  ...                            NaN                            NaN
 ## 46  In the Japanese context, a...  [{'date': '2012-07-17', 'c...  ...                            NaN                            NaN
 ## 47  World’s Fairs were created...  [{'date': '2005-12-21', 'c...  ...                            NaN                            NaN
