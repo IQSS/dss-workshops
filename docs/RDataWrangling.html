@@ -801,9 +801,9 @@ RStudio will be in your applications folder.</li>
 packages onto your computer before the workshop
 — see <a href="./Rinstall.html">R Installation</a>.
 Now let’s load these packages into the search path of our R session.</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="RDataWrangling.html#cb371-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb371-2"><a href="RDataWrangling.html#cb371-2"></a><span class="kw">library</span>(rmarkdown)</span>
-<span id="cb371-3"><a href="RDataWrangling.html#cb371-3"></a><span class="kw">library</span>(readxl) <span class="co"># installed with tidyverse, but not loaded into R session</span></span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="RDataWrangling.html#cb370-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb370-2"><a href="RDataWrangling.html#cb370-2"></a><span class="kw">library</span>(rmarkdown)</span>
+<span id="cb370-3"><a href="RDataWrangling.html#cb370-3"></a><span class="kw">library</span>(readxl) <span class="co"># installed with tidyverse, but not loaded into R session</span></span></code></pre></div>
 </div>
 <div id="workshop-outline" class="section level3">
 <h3>Workshop Outline</h3>
@@ -890,14 +890,14 @@ Each file also contains additional supplemental worksheets that we are
 not currently interested in. As noted above, the worksheet of interest
 differs from year to year, but always has “Table 1” in the sheet name.</p>
 <p>The first step is to get a character vector of file names.</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="RDataWrangling.html#cb372-1"></a>boy_file_names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;dataSets/boys&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="RDataWrangling.html#cb371-1"></a>boy_file_names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;dataSets/boys&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Now that we’ve told R the names of the data files, we can start working
 with them. For example, the first file is</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="RDataWrangling.html#cb373-1"></a>boy_file_names[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="RDataWrangling.html#cb372-1"></a>boy_file_names[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;dataSets/boys/1996boys_tcm77-254026.xlsx&quot;</code></pre>
 <p>and we can use the <code>excel_sheets()</code> function from the <code>readxl</code> package
 within <code>tidyverse</code> to list the worksheet names from this file.</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="RDataWrangling.html#cb375-1"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="RDataWrangling.html#cb374-1"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## [1] &quot;Contents&quot;                     &quot;Table 1 - Top 100 boys, E&amp;W&quot; 
 ## [3] &quot;Table 2-Top 10 boys by month&quot; &quot;Table 3 - Boys names - E&amp;W&quot;</code></pre>
 <div id="iterating-with-map" class="section level3">
@@ -905,16 +905,16 @@ within <code>tidyverse</code> to list the worksheet names from this file.</p>
 <p>Now that we know how to retrieve the names of the worksheets in an
 Excel file, we could start writing code to extract the sheet names from
 each file, e.g.,</p>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="RDataWrangling.html#cb377-1"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="RDataWrangling.html#cb376-1"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## [1] &quot;Contents&quot;                     &quot;Table 1 - Top 100 boys, E&amp;W&quot; 
 ## [3] &quot;Table 2-Top 10 boys by month&quot; &quot;Table 3 - Boys names - E&amp;W&quot;</code></pre>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="RDataWrangling.html#cb379-1"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="RDataWrangling.html#cb378-1"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">2</span>])</span></code></pre></div>
 <pre><code>## [1] &quot;Contents&quot;                        &quot;Table 1 - Top 100 boys, E&amp;W&quot;    
 ## [3] &quot;Table 2 - Top 100 boys, England&quot; &quot;Table 3 - Top 100 boys, Wales&quot;  
 ## [5] &quot;Table 4 - Top 10 boys by region&quot; &quot;Table 5 - Top 10 boys by month&quot; 
 ## [7] &quot;Table 6 - Boys names - E&amp;W&quot;</code></pre>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="RDataWrangling.html#cb381-1"></a><span class="co">## ...</span></span>
-<span id="cb381-2"><a href="RDataWrangling.html#cb381-2"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">20</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="RDataWrangling.html#cb380-1"></a><span class="co">## ...</span></span>
+<span id="cb380-2"><a href="RDataWrangling.html#cb380-2"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">20</span>])</span></code></pre></div>
 <pre><code>##  [1] &quot;Contents&quot;             &quot;Metadata&quot;             &quot;Terms and Conditions&quot;
 ##  [4] &quot;Table 1&quot;              &quot;Table 2&quot;              &quot;Table 3&quot;             
 ##  [7] &quot;Table 4&quot;              &quot;Table 5&quot;              &quot;Table 6&quot;             
@@ -924,9 +924,9 @@ more convenient to let R do the iteration for us. We could use a <code>for loop<
 or <code>sapply()</code>, but the <code>map()</code> family of functions from the <code>purrr</code>
 package within <code>tidyverse</code> gives us a more consistent alternative,
 so we’ll use that.</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="RDataWrangling.html#cb383-1"></a><span class="co"># map(object to iterate over, function that does task within each iteration)</span></span>
-<span id="cb383-2"><a href="RDataWrangling.html#cb383-2"></a></span>
-<span id="cb383-3"><a href="RDataWrangling.html#cb383-3"></a><span class="kw">map</span>(boy_file_names, excel_sheets)</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="RDataWrangling.html#cb382-1"></a><span class="co"># map(object to iterate over, function that does task within each iteration)</span></span>
+<span id="cb382-2"><a href="RDataWrangling.html#cb382-2"></a></span>
+<span id="cb382-3"><a href="RDataWrangling.html#cb382-3"></a><span class="kw">map</span>(boy_file_names, excel_sheets)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;Contents&quot;                     &quot;Table 1 - Top 100 boys, E&amp;W&quot; 
 ## [3] &quot;Table 2-Top 10 boys by month&quot; &quot;Table 3 - Boys names - E&amp;W&quot;  
@@ -1079,13 +1079,13 @@ just a programmatic way of doing operations like “find” or “find and repla
 in MS Word or Excel.</p>
 <p>Now that we know how to filter character vectors using <code>str_subset()</code> we can
 identify the correct sheet in a particular Excel file. For example,</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="RDataWrangling.html#cb385-1"></a><span class="co"># str_subset(character_vector, regex_pattern)</span></span>
-<span id="cb385-2"><a href="RDataWrangling.html#cb385-2"></a></span>
-<span id="cb385-3"><a href="RDataWrangling.html#cb385-3"></a><span class="co"># nesting functions</span></span>
-<span id="cb385-4"><a href="RDataWrangling.html#cb385-4"></a><span class="kw">str_subset</span>(<span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]), <span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="RDataWrangling.html#cb384-1"></a><span class="co"># str_subset(character_vector, regex_pattern)</span></span>
+<span id="cb384-2"><a href="RDataWrangling.html#cb384-2"></a></span>
+<span id="cb384-3"><a href="RDataWrangling.html#cb384-3"></a><span class="co"># nesting functions</span></span>
+<span id="cb384-4"><a href="RDataWrangling.html#cb384-4"></a><span class="kw">str_subset</span>(<span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]), <span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Table 1 - Top 100 boys, E&amp;W&quot;</code></pre>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="RDataWrangling.html#cb387-1"></a><span class="co"># piping functions</span></span>
-<span id="cb387-2"><a href="RDataWrangling.html#cb387-2"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="RDataWrangling.html#cb386-1"></a><span class="co"># piping functions</span></span>
+<span id="cb386-2"><a href="RDataWrangling.html#cb386-2"></a><span class="kw">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Table 1 - Top 100 boys, E&amp;W&quot;</code></pre>
 </div>
 <div id="writing-your-own-functions" class="section level3">
@@ -1109,44 +1109,44 @@ Functions require 3 elements:</p>
 <li>A <strong>body</strong> containing computations</li>
 </ol>
 <p>Anatomy of a function:</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="RDataWrangling.html#cb389-1"></a>function_name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, ....) {</span>
-<span id="cb389-2"><a href="RDataWrangling.html#cb389-2"></a>  </span>
-<span id="cb389-3"><a href="RDataWrangling.html#cb389-3"></a>    body of <span class="cf">function</span> <span class="co"># where stuff happens </span></span>
-<span id="cb389-4"><a href="RDataWrangling.html#cb389-4"></a></span>
-<span id="cb389-5"><a href="RDataWrangling.html#cb389-5"></a>    <span class="kw">return</span>( results ) </span>
-<span id="cb389-6"><a href="RDataWrangling.html#cb389-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="RDataWrangling.html#cb388-1"></a>function_name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, ....) {</span>
+<span id="cb388-2"><a href="RDataWrangling.html#cb388-2"></a>  </span>
+<span id="cb388-3"><a href="RDataWrangling.html#cb388-3"></a>    body of <span class="cf">function</span> <span class="co"># where stuff happens </span></span>
+<span id="cb388-4"><a href="RDataWrangling.html#cb388-4"></a></span>
+<span id="cb388-5"><a href="RDataWrangling.html#cb388-5"></a>    <span class="kw">return</span>( results ) </span>
+<span id="cb388-6"><a href="RDataWrangling.html#cb388-6"></a>}</span></code></pre></div>
 <p>Simple examples:</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="RDataWrangling.html#cb390-1"></a>myfun &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb390-2"><a href="RDataWrangling.html#cb390-2"></a>  x<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb390-3"><a href="RDataWrangling.html#cb390-3"></a>}</span>
-<span id="cb390-4"><a href="RDataWrangling.html#cb390-4"></a></span>
-<span id="cb390-5"><a href="RDataWrangling.html#cb390-5"></a><span class="kw">myfun</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="RDataWrangling.html#cb389-1"></a>myfun &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb389-2"><a href="RDataWrangling.html#cb389-2"></a>  x<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb389-3"><a href="RDataWrangling.html#cb389-3"></a>}</span>
+<span id="cb389-4"><a href="RDataWrangling.html#cb389-4"></a></span>
+<span id="cb389-5"><a href="RDataWrangling.html#cb389-5"></a><span class="kw">myfun</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]   1   4   9  16  25  36  49  64  81 100</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="RDataWrangling.html#cb392-1"></a>myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
-<span id="cb392-2"><a href="RDataWrangling.html#cb392-2"></a>  z &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>y</span>
-<span id="cb392-3"><a href="RDataWrangling.html#cb392-3"></a>  <span class="kw">return</span>(z)</span>
-<span id="cb392-4"><a href="RDataWrangling.html#cb392-4"></a>}</span>
-<span id="cb392-5"><a href="RDataWrangling.html#cb392-5"></a></span>
-<span id="cb392-6"><a href="RDataWrangling.html#cb392-6"></a><span class="kw">myfun2</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">y=</span><span class="dv">42</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="RDataWrangling.html#cb391-1"></a>myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
+<span id="cb391-2"><a href="RDataWrangling.html#cb391-2"></a>  z &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>y</span>
+<span id="cb391-3"><a href="RDataWrangling.html#cb391-3"></a>  <span class="kw">return</span>(z)</span>
+<span id="cb391-4"><a href="RDataWrangling.html#cb391-4"></a>}</span>
+<span id="cb391-5"><a href="RDataWrangling.html#cb391-5"></a></span>
+<span id="cb391-6"><a href="RDataWrangling.html#cb391-6"></a><span class="kw">myfun2</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">y=</span><span class="dv">42</span>)</span></code></pre></div>
 <pre><code>##  [1]  43  46  51  58  67  78  91 106 123 142</code></pre>
 <p>Examples using the Excel data:</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="RDataWrangling.html#cb394-1"></a>get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</span>(file, term){</span>
-<span id="cb394-2"><a href="RDataWrangling.html#cb394-2"></a>  <span class="kw">excel_sheets</span>(file) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> term)</span>
-<span id="cb394-3"><a href="RDataWrangling.html#cb394-3"></a>}</span>
-<span id="cb394-4"><a href="RDataWrangling.html#cb394-4"></a></span>
-<span id="cb394-5"><a href="RDataWrangling.html#cb394-5"></a><span class="co"># the goal is generalization </span></span>
-<span id="cb394-6"><a href="RDataWrangling.html#cb394-6"></a><span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="RDataWrangling.html#cb393-1"></a>get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</span>(file, term){</span>
+<span id="cb393-2"><a href="RDataWrangling.html#cb393-2"></a>  <span class="kw">excel_sheets</span>(file) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> term)</span>
+<span id="cb393-3"><a href="RDataWrangling.html#cb393-3"></a>}</span>
+<span id="cb393-4"><a href="RDataWrangling.html#cb393-4"></a></span>
+<span id="cb393-5"><a href="RDataWrangling.html#cb393-5"></a><span class="co"># the goal is generalization </span></span>
+<span id="cb393-6"><a href="RDataWrangling.html#cb393-6"></a><span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Table 1 - Top 100 boys, E&amp;W&quot;</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="RDataWrangling.html#cb396-1"></a><span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="RDataWrangling.html#cb395-1"></a><span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 2&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Table 2-Top 10 boys by month&quot;</code></pre>
 <p>Now we can map this new function over our vector of file names.</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="RDataWrangling.html#cb398-1"></a><span class="co"># map(object to iterate over, </span></span>
-<span id="cb398-2"><a href="RDataWrangling.html#cb398-2"></a><span class="co">#     function that does task within each iteration, </span></span>
-<span id="cb398-3"><a href="RDataWrangling.html#cb398-3"></a><span class="co">#     arguments to previous function)</span></span>
-<span id="cb398-4"><a href="RDataWrangling.html#cb398-4"></a> </span>
-<span id="cb398-5"><a href="RDataWrangling.html#cb398-5"></a><span class="kw">map</span>(boy_file_names,      <span class="co"># list object</span></span>
-<span id="cb398-6"><a href="RDataWrangling.html#cb398-6"></a>    get_data_sheet_name, <span class="co"># function</span></span>
-<span id="cb398-7"><a href="RDataWrangling.html#cb398-7"></a>    <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>)    <span class="co"># argument to previous function</span></span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="RDataWrangling.html#cb397-1"></a><span class="co"># map(object to iterate over, </span></span>
+<span id="cb397-2"><a href="RDataWrangling.html#cb397-2"></a><span class="co">#     function that does task within each iteration, </span></span>
+<span id="cb397-3"><a href="RDataWrangling.html#cb397-3"></a><span class="co">#     arguments to previous function)</span></span>
+<span id="cb397-4"><a href="RDataWrangling.html#cb397-4"></a> </span>
+<span id="cb397-5"><a href="RDataWrangling.html#cb397-5"></a><span class="kw">map</span>(boy_file_names,      <span class="co"># list object</span></span>
+<span id="cb397-6"><a href="RDataWrangling.html#cb397-6"></a>    get_data_sheet_name, <span class="co"># function</span></span>
+<span id="cb397-7"><a href="RDataWrangling.html#cb397-7"></a>    <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>)    <span class="co"># argument to previous function</span></span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;Table 1 - Top 100 boys, E&amp;W&quot;
 ## 
@@ -1216,13 +1216,13 @@ read those data into R. We can do that using the <code>read_excel()</code> funct
 that it works. Recall that the actual data starts on row 7, so we want
 to skip the first 6 rows. We can use the <code>glimpse()</code> function from
 the <code>dplyr</code> package within <code>tidyverse</code> to view the output.</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="RDataWrangling.html#cb400-1"></a>temp &lt;-<span class="st"> </span><span class="kw">read_excel</span>(</span>
-<span id="cb400-2"><a href="RDataWrangling.html#cb400-2"></a>  <span class="dt">path =</span> boy_file_names[<span class="dv">1</span>],</span>
-<span id="cb400-3"><a href="RDataWrangling.html#cb400-3"></a>  <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>),</span>
-<span id="cb400-4"><a href="RDataWrangling.html#cb400-4"></a>  <span class="dt">skip =</span> <span class="dv">6</span></span>
-<span id="cb400-5"><a href="RDataWrangling.html#cb400-5"></a>)</span>
-<span id="cb400-6"><a href="RDataWrangling.html#cb400-6"></a></span>
-<span id="cb400-7"><a href="RDataWrangling.html#cb400-7"></a><span class="kw">glimpse</span>(temp)</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="RDataWrangling.html#cb399-1"></a>temp &lt;-<span class="st"> </span><span class="kw">read_excel</span>(</span>
+<span id="cb399-2"><a href="RDataWrangling.html#cb399-2"></a>  <span class="dt">path =</span> boy_file_names[<span class="dv">1</span>],</span>
+<span id="cb399-3"><a href="RDataWrangling.html#cb399-3"></a>  <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">term =</span> <span class="st">&quot;Table 1&quot;</span>),</span>
+<span id="cb399-4"><a href="RDataWrangling.html#cb399-4"></a>  <span class="dt">skip =</span> <span class="dv">6</span></span>
+<span id="cb399-5"><a href="RDataWrangling.html#cb399-5"></a>)</span>
+<span id="cb399-6"><a href="RDataWrangling.html#cb399-6"></a></span>
+<span id="cb399-7"><a href="RDataWrangling.html#cb399-7"></a><span class="kw">glimpse</span>(temp)</span></code></pre></div>
 <pre><code>## Rows: 59
 ## Columns: 7
 ## $ ...1      &lt;chr&gt; NA, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;…
@@ -1242,34 +1242,34 @@ to disambiguate. The trailing number represents the index of the column.</p>
 and reads the worksheet containing “Table 1” from that file. Don’t forget
 to skip the first 6 rows.</li>
 </ol>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="RDataWrangling.html#cb402-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="RDataWrangling.html#cb401-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Test your function by using it to read <em>one</em> of the boys names
 Excel files.</li>
 </ol>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="RDataWrangling.html#cb403-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="RDataWrangling.html#cb402-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the <code>map()</code> function to create a list of data frames called <code>boysNames</code><br />
 from all the Excel files, using the function you wrote in step 1.</li>
 </ol>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="RDataWrangling.html#cb404-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="RDataWrangling.html#cb403-1"></a><span class="co">## </span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Write a function that takes a file name as an argument and reads the worksheet containing “Table 1” from that file.</li>
 </ol>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="RDataWrangling.html#cb405-1"></a>read_boys_names &lt;-<span class="st"> </span><span class="cf">function</span>(file, sheet_name) {</span>
-<span id="cb405-2"><a href="RDataWrangling.html#cb405-2"></a>  <span class="kw">read_excel</span>(</span>
-<span id="cb405-3"><a href="RDataWrangling.html#cb405-3"></a>    <span class="dt">path =</span> file,</span>
-<span id="cb405-4"><a href="RDataWrangling.html#cb405-4"></a>    <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(file, <span class="dt">term =</span> sheet_name),</span>
-<span id="cb405-5"><a href="RDataWrangling.html#cb405-5"></a>    <span class="dt">skip =</span> <span class="dv">6</span></span>
-<span id="cb405-6"><a href="RDataWrangling.html#cb405-6"></a>  )</span>
-<span id="cb405-7"><a href="RDataWrangling.html#cb405-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="RDataWrangling.html#cb404-1"></a>read_boys_names &lt;-<span class="st"> </span><span class="cf">function</span>(file, sheet_name) {</span>
+<span id="cb404-2"><a href="RDataWrangling.html#cb404-2"></a>  <span class="kw">read_excel</span>(</span>
+<span id="cb404-3"><a href="RDataWrangling.html#cb404-3"></a>    <span class="dt">path =</span> file,</span>
+<span id="cb404-4"><a href="RDataWrangling.html#cb404-4"></a>    <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(file, <span class="dt">term =</span> sheet_name),</span>
+<span id="cb404-5"><a href="RDataWrangling.html#cb404-5"></a>    <span class="dt">skip =</span> <span class="dv">6</span></span>
+<span id="cb404-6"><a href="RDataWrangling.html#cb404-6"></a>  )</span>
+<span id="cb404-7"><a href="RDataWrangling.html#cb404-7"></a>}</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Test your function by using it to read <em>one</em> of the boys names Excel files.</li>
 </ol>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="RDataWrangling.html#cb406-1"></a><span class="kw">read_boys_names</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="RDataWrangling.html#cb405-1"></a><span class="kw">read_boys_names</span>(boy_file_names[<span class="dv">1</span>], <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 59
 ## Columns: 7
 ## $ ...1      &lt;chr&gt; NA, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;…
@@ -1282,7 +1282,7 @@ from all the Excel files, using the function you wrote in step 1.</li>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the <code>map()</code> function to read data from all the Excel files, using the function you wrote in step 1.</li>
 </ol>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="RDataWrangling.html#cb408-1"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_boys_names, <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="RDataWrangling.html#cb407-1"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_boys_names, <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1305,9 +1305,9 @@ problems we need to fix. Specifically, we need to:</p>
 <li>get rid of extraneous “changes in rank” columns if they exist</li>
 <li>transform the side-by-side tables layout to a single table</li>
 </ol>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="RDataWrangling.html#cb409-1"></a><span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span></span>
-<span id="cb409-2"><a href="RDataWrangling.html#cb409-2"></a><span class="co"># Rank 51:100 --- Names / Counts are in columns 6 and 7</span></span>
-<span id="cb409-3"><a href="RDataWrangling.html#cb409-3"></a><span class="kw">glimpse</span>(boysNames[[<span class="dv">1</span>]]) </span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="RDataWrangling.html#cb408-1"></a><span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span></span>
+<span id="cb408-2"><a href="RDataWrangling.html#cb408-2"></a><span class="co"># Rank 51:100 --- Names / Counts are in columns 6 and 7</span></span>
+<span id="cb408-3"><a href="RDataWrangling.html#cb408-3"></a><span class="kw">glimpse</span>(boysNames[[<span class="dv">1</span>]]) </span></code></pre></div>
 <pre><code>## Rows: 59
 ## Columns: 7
 ## $ ...1      &lt;chr&gt; NA, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;…
@@ -1317,9 +1317,9 @@ problems we need to fix. Specifically, we need to:</p>
 ## $ ...5      &lt;dbl&gt; NA, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64,…
 ## $ Name...6  &lt;chr&gt; NA, &quot;DOMINIC&quot;, &quot;NICHOLAS&quot;, &quot;BRANDON&quot;, &quot;RHYS&quot;, &quot;MARK&quot;, &quot;MAX&quot;…
 ## $ Count...7 &lt;dbl&gt; NA, 1519, 1385, 1337, 1259, 1222, 1192, 1186, 1135, 1128, 1…</code></pre>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="RDataWrangling.html#cb411-1"></a><span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span></span>
-<span id="cb411-2"><a href="RDataWrangling.html#cb411-2"></a><span class="co"># Rank 51:100 --- Names / Counts are in columns 7 and 8</span></span>
-<span id="cb411-3"><a href="RDataWrangling.html#cb411-3"></a><span class="kw">glimpse</span>(boysNames[[<span class="dv">10</span>]]) </span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="RDataWrangling.html#cb410-1"></a><span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span></span>
+<span id="cb410-2"><a href="RDataWrangling.html#cb410-2"></a><span class="co"># Rank 51:100 --- Names / Counts are in columns 7 and 8</span></span>
+<span id="cb410-3"><a href="RDataWrangling.html#cb410-3"></a><span class="kw">glimpse</span>(boysNames[[<span class="dv">10</span>]]) </span></code></pre></div>
 <pre><code>## Rows: 61
 ## Columns: 9
 ## $ ...1             &lt;chr&gt; NA, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10…
@@ -1331,9 +1331,9 @@ problems we need to fix. Specifically, we need to:</p>
 ## $ Name...7         &lt;chr&gt; NA, &quot;NOAH&quot;, &quot;MUHAMMAD&quot;, &quot;ALEX&quot;, &quot;ISAAC&quot;, &quot;OSCAR&quot;, &quot;R…
 ## $ Count...8        &lt;dbl&gt; NA, 1346, 1318, 1302, 1302, 1262, 1256, 1172, 1126, …
 ## $ `since 2004...9` &lt;chr&gt; NA, &quot;+23&quot;, &quot;-1&quot;, &quot;-7&quot;, &quot;+5&quot;, &quot;+4&quot;, &quot;-4&quot;, &quot;+6&quot;, &quot;+17&quot;…</code></pre>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="RDataWrangling.html#cb413-1"></a><span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span></span>
-<span id="cb413-2"><a href="RDataWrangling.html#cb413-2"></a><span class="co"># Rank 51:100 --- Names / Counts are in columns 8 and 9</span></span>
-<span id="cb413-3"><a href="RDataWrangling.html#cb413-3"></a><span class="kw">glimpse</span>(boysNames[[<span class="dv">20</span>]]) </span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="RDataWrangling.html#cb412-1"></a><span class="co"># Rank 1:50 --- Names / Counts are in columns 2 and 3 </span></span>
+<span id="cb412-2"><a href="RDataWrangling.html#cb412-2"></a><span class="co"># Rank 51:100 --- Names / Counts are in columns 8 and 9</span></span>
+<span id="cb412-3"><a href="RDataWrangling.html#cb412-3"></a><span class="kw">glimpse</span>(boysNames[[<span class="dv">20</span>]]) </span></code></pre></div>
 <pre><code>## Rows: 61
 ## Columns: 11
 ## $ Rank...1          &lt;chr&gt; NA, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;1…
@@ -1362,7 +1362,7 @@ to make our lives easier.</p>
 <h3>Selecting columns</h3>
 <p>Next we want to retain just the <code>Name...2</code>, <code>Name...6</code>, <code>Count...3</code> and <code>Count...7</code> columns.
 We can do that using the <code>select()</code> function:</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="RDataWrangling.html#cb415-1"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="RDataWrangling.html#cb414-1"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 7
 ##    ...1  Name...2 Count...3 ...4   ...5 Name...6 Count...7
 ##    &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
@@ -1377,8 +1377,8 @@ We can do that using the <code>select()</code> function:</p>
 ##  9 8     JOSEPH        6193 NA       58 HENRY         1135
 ## 10 9     SAMUEL        6161 NA       59 PETER         1128
 ## # … with 49 more rows</code></pre>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="RDataWrangling.html#cb417-1"></a>boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], Name...<span class="dv">2</span>, Name...<span class="dv">6</span>, Count...<span class="dv">3</span>, Count...<span class="dv">7</span>)</span>
-<span id="cb417-2"><a href="RDataWrangling.html#cb417-2"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="RDataWrangling.html#cb416-1"></a>boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], Name...<span class="dv">2</span>, Name...<span class="dv">6</span>, Count...<span class="dv">3</span>, Count...<span class="dv">7</span>)</span>
+<span id="cb416-2"><a href="RDataWrangling.html#cb416-2"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 4
 ##    Name...2 Name...6 Count...3 Count...7
 ##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
@@ -1489,11 +1489,11 @@ can hold a <em>collection</em> of values. Vectors come in two basic forms:</p>
 </table>
 <p><strong>Coercion:</strong></p>
 <p>If heterogeneous elements are stored in an atomic vector, R will <strong>coerce</strong> the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -&gt; integer -&gt; double -&gt; character -&gt; list. For example:</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="RDataWrangling.html#cb419-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">2.7</span>, <span class="fl">3.9</span>)</span>
-<span id="cb419-2"><a href="RDataWrangling.html#cb419-2"></a><span class="kw">typeof</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="RDataWrangling.html#cb418-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">2.7</span>, <span class="fl">3.9</span>)</span>
+<span id="cb418-2"><a href="RDataWrangling.html#cb418-2"></a><span class="kw">typeof</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="RDataWrangling.html#cb421-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">2.7</span>, <span class="fl">3.9</span>, <span class="st">&quot;a&quot;</span>)</span>
-<span id="cb421-2"><a href="RDataWrangling.html#cb421-2"></a><span class="kw">typeof</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="RDataWrangling.html#cb420-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">2.7</span>, <span class="fl">3.9</span>, <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb420-2"><a href="RDataWrangling.html#cb420-2"></a><span class="kw">typeof</span>(y)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div id="list-indexing" class="section level3">
@@ -1503,24 +1503,24 @@ Why are we using <strong>double brackets</strong> <code>[[</code> to index this 
 <center>
 <img src="R/RDataWrangling/images/indexing_lists.png" title="fig:" alt="list indexing" />
 </center>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="RDataWrangling.html#cb423-1"></a><span class="co"># various data structures</span></span>
-<span id="cb423-2"><a href="RDataWrangling.html#cb423-2"></a>numbers &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
-<span id="cb423-3"><a href="RDataWrangling.html#cb423-3"></a>letters &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span>
-<span id="cb423-4"><a href="RDataWrangling.html#cb423-4"></a>dat &lt;-<span class="st"> </span><span class="kw">head</span>(mtcars)</span>
-<span id="cb423-5"><a href="RDataWrangling.html#cb423-5"></a>x &lt;-<span class="st"> </span>237L</span>
-<span id="cb423-6"><a href="RDataWrangling.html#cb423-6"></a></span>
-<span id="cb423-7"><a href="RDataWrangling.html#cb423-7"></a><span class="co"># combine in a list</span></span>
-<span id="cb423-8"><a href="RDataWrangling.html#cb423-8"></a>mylist &lt;-<span class="st"> </span><span class="kw">list</span>(numbers, letters, dat, x)</span>
-<span id="cb423-9"><a href="RDataWrangling.html#cb423-9"></a></span>
-<span id="cb423-10"><a href="RDataWrangling.html#cb423-10"></a><span class="co"># indexing the list</span></span>
-<span id="cb423-11"><a href="RDataWrangling.html#cb423-11"></a>mylist[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="RDataWrangling.html#cb422-1"></a><span class="co"># various data structures</span></span>
+<span id="cb422-2"><a href="RDataWrangling.html#cb422-2"></a>numbers &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb422-3"><a href="RDataWrangling.html#cb422-3"></a>letters &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span>
+<span id="cb422-4"><a href="RDataWrangling.html#cb422-4"></a>dat &lt;-<span class="st"> </span><span class="kw">head</span>(mtcars)</span>
+<span id="cb422-5"><a href="RDataWrangling.html#cb422-5"></a>x &lt;-<span class="st"> </span>237L</span>
+<span id="cb422-6"><a href="RDataWrangling.html#cb422-6"></a></span>
+<span id="cb422-7"><a href="RDataWrangling.html#cb422-7"></a><span class="co"># combine in a list</span></span>
+<span id="cb422-8"><a href="RDataWrangling.html#cb422-8"></a>mylist &lt;-<span class="st"> </span><span class="kw">list</span>(numbers, letters, dat, x)</span>
+<span id="cb422-9"><a href="RDataWrangling.html#cb422-9"></a></span>
+<span id="cb422-10"><a href="RDataWrangling.html#cb422-10"></a><span class="co"># indexing the list</span></span>
+<span id="cb422-11"><a href="RDataWrangling.html#cb422-11"></a>mylist[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot;</code></pre>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="RDataWrangling.html#cb425-1"></a><span class="kw">class</span>(mylist[<span class="dv">2</span>]) <span class="co"># a list</span></span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="RDataWrangling.html#cb424-1"></a><span class="kw">class</span>(mylist[<span class="dv">2</span>]) <span class="co"># a list</span></span></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="RDataWrangling.html#cb427-1"></a>mylist[[<span class="dv">2</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="RDataWrangling.html#cb426-1"></a>mylist[[<span class="dv">2</span>]]</span></code></pre></div>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot;</code></pre>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="RDataWrangling.html#cb429-1"></a><span class="kw">class</span>(mylist[[<span class="dv">2</span>]]) <span class="co"># a character vector</span></span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="RDataWrangling.html#cb428-1"></a><span class="kw">class</span>(mylist[[<span class="dv">2</span>]]) <span class="co"># a character vector</span></span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div id="dropping-missing-values" class="section level3">
@@ -1528,7 +1528,7 @@ Why are we using <strong>double brackets</strong> <code>[[</code> to index this 
 <p>Next we want to remove blank rows and rows used for notes. An easy way
 to do that is to use <code>drop_na()</code> from the <code>tidyr</code> package within <code>tidyverse</code>
 to remove rows with missing values.</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="RDataWrangling.html#cb431-1"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="RDataWrangling.html#cb430-1"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 4
 ##    Name...2 Name...6 Count...3 Count...7
 ##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
@@ -1543,9 +1543,9 @@ to remove rows with missing values.</p>
 ##  9 JOSEPH   HENRY         6193      1135
 ## 10 SAMUEL   PETER         6161      1128
 ## # … with 49 more rows</code></pre>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="RDataWrangling.html#cb433-1"></a>boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span>boysNames[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()</span>
-<span id="cb433-2"><a href="RDataWrangling.html#cb433-2"></a></span>
-<span id="cb433-3"><a href="RDataWrangling.html#cb433-3"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="RDataWrangling.html#cb432-1"></a>boysNames[[<span class="dv">1</span>]] &lt;-<span class="st"> </span>boysNames[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()</span>
+<span id="cb432-2"><a href="RDataWrangling.html#cb432-2"></a></span>
+<span id="cb432-3"><a href="RDataWrangling.html#cb432-3"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## # A tibble: 50 x 4
 ##    Name...2 Name...6 Count...3 Count...7
 ##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
@@ -1569,30 +1569,30 @@ argument and returns a modified version, which keeps only columns that
 include the strings <code>Name</code> and <code>Count</code> in the column names.
 HINT: see the <code>?matches</code> function.</li>
 </ol>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="RDataWrangling.html#cb435-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="RDataWrangling.html#cb434-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Test your function on the first data frame in the list of boys
 names data.</li>
 </ol>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="RDataWrangling.html#cb436-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="RDataWrangling.html#cb435-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the <code>map()</code> function to each data frame in the list of boys
 names data and save it to the list called <code>boysNames</code>.</li>
 </ol>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="RDataWrangling.html#cb437-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="RDataWrangling.html#cb436-1"></a><span class="co">## </span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings <code>Name</code> and <code>Count</code> in the column names. HINT: see the <code>?matches</code> function.</li>
 </ol>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="RDataWrangling.html#cb438-1"></a>  namecount &lt;-<span class="st"> </span><span class="cf">function</span>(data) {</span>
-<span id="cb438-2"><a href="RDataWrangling.html#cb438-2"></a>      <span class="kw">select</span>(data, <span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))</span>
-<span id="cb438-3"><a href="RDataWrangling.html#cb438-3"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="RDataWrangling.html#cb437-1"></a>  namecount &lt;-<span class="st"> </span><span class="cf">function</span>(data) {</span>
+<span id="cb437-2"><a href="RDataWrangling.html#cb437-2"></a>      <span class="kw">select</span>(data, <span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))</span>
+<span id="cb437-3"><a href="RDataWrangling.html#cb437-3"></a>  }</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Test your function on the first data frame in the list of boys names data.</li>
 </ol>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="RDataWrangling.html#cb439-1"></a>  <span class="kw">namecount</span>(boysNames[[<span class="dv">1</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="RDataWrangling.html#cb438-1"></a>  <span class="kw">namecount</span>(boysNames[[<span class="dv">1</span>]])</span></code></pre></div>
 <pre><code>## # A tibble: 50 x 4
 ##    Name...2 Name...6 Count...3 Count...7
 ##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
@@ -1610,7 +1610,7 @@ names data and save it to the list called <code>boysNames</code>.</li>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the <code>map()</code> function to each data frame in the list of boys names data.</li>
 </ol>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="RDataWrangling.html#cb441-1"></a>  boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, namecount)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="RDataWrangling.html#cb440-1"></a>  boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, namecount)</span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1625,7 +1625,7 @@ case we will be better off using a combination of <code>select()</code> and
 <img src="R/RDataWrangling/images/wide_vs_long.png" />
 </center>
 <p>Here’s the code that implements the transformation:</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="RDataWrangling.html#cb442-1"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="RDataWrangling.html#cb441-1"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## # A tibble: 50 x 4
 ##    Name...2 Name...6 Count...3 Count...7
 ##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
@@ -1640,10 +1640,10 @@ case we will be better off using a combination of <code>select()</code> and
 ##  9 SAMUEL   PETER         6161      1128
 ## 10 LIAM     STEPHEN       5802      1122
 ## # … with 40 more rows</code></pre>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="RDataWrangling.html#cb444-1"></a>first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>)</span>
-<span id="cb444-2"><a href="RDataWrangling.html#cb444-2"></a>second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name =</span> Name...<span class="dv">6</span>, <span class="dt">Count =</span> Count...<span class="dv">7</span>)</span>
-<span id="cb444-3"><a href="RDataWrangling.html#cb444-3"></a></span>
-<span id="cb444-4"><a href="RDataWrangling.html#cb444-4"></a><span class="kw">bind_rows</span>(first_columns, second_columns)</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="RDataWrangling.html#cb443-1"></a>first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>)</span>
+<span id="cb443-2"><a href="RDataWrangling.html#cb443-2"></a>second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(boysNames[[<span class="dv">1</span>]], <span class="dt">Name =</span> Name...<span class="dv">6</span>, <span class="dt">Count =</span> Count...<span class="dv">7</span>)</span>
+<span id="cb443-3"><a href="RDataWrangling.html#cb443-3"></a></span>
+<span id="cb443-4"><a href="RDataWrangling.html#cb443-4"></a><span class="kw">bind_rows</span>(first_columns, second_columns)</span></code></pre></div>
 <pre><code>## # A tibble: 100 x 2
 ##    Name    Count
 ##    &lt;chr&gt;   &lt;dbl&gt;
@@ -1674,49 +1674,49 @@ function.</p>
 <ol style="list-style-type: decimal">
 <li>Create a new function called <code>cleanupNamesData</code> that:</li>
 </ol>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="RDataWrangling.html#cb446-1"></a><span class="co"># 1) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion</span></span>
-<span id="cb446-2"><a href="RDataWrangling.html#cb446-2"></a></span>
-<span id="cb446-3"><a href="RDataWrangling.html#cb446-3"></a><span class="co"># 2) subset two separate data frames, with first and second set of `Name` and `Count` columns</span></span>
-<span id="cb446-4"><a href="RDataWrangling.html#cb446-4"></a></span>
-<span id="cb446-5"><a href="RDataWrangling.html#cb446-5"></a><span class="co"># 3) append the two datasets</span></span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="RDataWrangling.html#cb445-1"></a><span class="co"># 1) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion</span></span>
+<span id="cb445-2"><a href="RDataWrangling.html#cb445-2"></a></span>
+<span id="cb445-3"><a href="RDataWrangling.html#cb445-3"></a><span class="co"># 2) subset two separate data frames, with first and second set of `Name` and `Count` columns</span></span>
+<span id="cb445-4"><a href="RDataWrangling.html#cb445-4"></a></span>
+<span id="cb445-5"><a href="RDataWrangling.html#cb445-5"></a><span class="co"># 3) append the two datasets</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Your task now is to use the <code>map()</code> function to apply each of these
 transformations to all the elements in <code>boysNames</code>.</li>
 </ol>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="RDataWrangling.html#cb447-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="RDataWrangling.html#cb446-1"></a><span class="co">## </span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Create a new function called <code>cleanupNamesData</code> that:</li>
 </ol>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="RDataWrangling.html#cb448-1"></a>cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){</span>
-<span id="cb448-2"><a href="RDataWrangling.html#cb448-2"></a></span>
-<span id="cb448-3"><a href="RDataWrangling.html#cb448-3"></a>  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span></span>
-<span id="cb448-4"><a href="RDataWrangling.html#cb448-4"></a>  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span></span>
-<span id="cb448-5"><a href="RDataWrangling.html#cb448-5"></a><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb448-6"><a href="RDataWrangling.html#cb448-6"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
-<span id="cb448-7"><a href="RDataWrangling.html#cb448-7"></a></span>
-<span id="cb448-8"><a href="RDataWrangling.html#cb448-8"></a>  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
-<span id="cb448-9"><a href="RDataWrangling.html#cb448-9"></a>  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) </span>
-<span id="cb448-10"><a href="RDataWrangling.html#cb448-10"></a></span>
-<span id="cb448-11"><a href="RDataWrangling.html#cb448-11"></a>  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),</span>
-<span id="cb448-12"><a href="RDataWrangling.html#cb448-12"></a>                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))</span>
-<span id="cb448-13"><a href="RDataWrangling.html#cb448-13"></a></span>
-<span id="cb448-14"><a href="RDataWrangling.html#cb448-14"></a>  <span class="co"># append the two datasets</span></span>
-<span id="cb448-15"><a href="RDataWrangling.html#cb448-15"></a>  <span class="kw">bind_rows</span>(first_columns, second_columns)</span>
-<span id="cb448-16"><a href="RDataWrangling.html#cb448-16"></a>}</span>
-<span id="cb448-17"><a href="RDataWrangling.html#cb448-17"></a></span>
-<span id="cb448-18"><a href="RDataWrangling.html#cb448-18"></a></span>
-<span id="cb448-19"><a href="RDataWrangling.html#cb448-19"></a><span class="co">## test it out on the second data frame in the list</span></span>
-<span id="cb448-20"><a href="RDataWrangling.html#cb448-20"></a>boysNames[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() <span class="co"># before cleanup</span></span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="RDataWrangling.html#cb447-1"></a>cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){</span>
+<span id="cb447-2"><a href="RDataWrangling.html#cb447-2"></a></span>
+<span id="cb447-3"><a href="RDataWrangling.html#cb447-3"></a>  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span></span>
+<span id="cb447-4"><a href="RDataWrangling.html#cb447-4"></a>  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span></span>
+<span id="cb447-5"><a href="RDataWrangling.html#cb447-5"></a><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb447-6"><a href="RDataWrangling.html#cb447-6"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
+<span id="cb447-7"><a href="RDataWrangling.html#cb447-7"></a></span>
+<span id="cb447-8"><a href="RDataWrangling.html#cb447-8"></a>  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
+<span id="cb447-9"><a href="RDataWrangling.html#cb447-9"></a>  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) </span>
+<span id="cb447-10"><a href="RDataWrangling.html#cb447-10"></a></span>
+<span id="cb447-11"><a href="RDataWrangling.html#cb447-11"></a>  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),</span>
+<span id="cb447-12"><a href="RDataWrangling.html#cb447-12"></a>                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))</span>
+<span id="cb447-13"><a href="RDataWrangling.html#cb447-13"></a></span>
+<span id="cb447-14"><a href="RDataWrangling.html#cb447-14"></a>  <span class="co"># append the two datasets</span></span>
+<span id="cb447-15"><a href="RDataWrangling.html#cb447-15"></a>  <span class="kw">bind_rows</span>(first_columns, second_columns)</span>
+<span id="cb447-16"><a href="RDataWrangling.html#cb447-16"></a>}</span>
+<span id="cb447-17"><a href="RDataWrangling.html#cb447-17"></a></span>
+<span id="cb447-18"><a href="RDataWrangling.html#cb447-18"></a></span>
+<span id="cb447-19"><a href="RDataWrangling.html#cb447-19"></a><span class="co">## test it out on the second data frame in the list</span></span>
+<span id="cb447-20"><a href="RDataWrangling.html#cb447-20"></a>boysNames[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() <span class="co"># before cleanup</span></span></code></pre></div>
 <pre><code>## Rows: 61
 ## Columns: 4
 ## $ Name...2  &lt;chr&gt; NA, &quot;JACK&quot;, &quot;JAMES&quot;, &quot;THOMAS&quot;, &quot;DANIEL&quot;, &quot;JOSHUA&quot;, &quot;MATTHEW…
 ## $ Count...3 &lt;dbl&gt; NA, 10145, 9853, 9479, 9047, 7698, 7443, 6367, 5809, 5631, …
 ## $ Name...7  &lt;chr&gt; NA, &quot;SEAN&quot;, &quot;DYLAN&quot;, &quot;DOMINIC&quot;, &quot;LOUIS&quot;, &quot;RHYS&quot;, &quot;NICHOLAS&quot;…
 ## $ Count...8 &lt;dbl&gt; NA, 1388, 1380, 1359, 1325, 1291, 1274, 1244, 1241, 1158, 1…</code></pre>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="RDataWrangling.html#cb450-1"></a>boysNames[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cleanupNamesData</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() <span class="co"># after cleanup</span></span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="RDataWrangling.html#cb449-1"></a>boysNames[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cleanupNamesData</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() <span class="co"># after cleanup</span></span></code></pre></div>
 <pre><code>## Rows: 100
 ## Columns: 2
 ## $ Name  &lt;chr&gt; &quot;JACK&quot;, &quot;JAMES&quot;, &quot;THOMAS&quot;, &quot;DANIEL&quot;, &quot;JOSHUA&quot;, &quot;MATTHEW&quot;, &quot;SAMU…
@@ -1724,7 +1724,7 @@ transformations to all the elements in <code>boysNames</code>.</li>
 <ol start="2" style="list-style-type: decimal">
 <li>Your task now is to use the <code>map()</code> function to apply each of these transformations to all the elements in <code>boysNames</code>.</li>
 </ol>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="RDataWrangling.html#cb452-1"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="RDataWrangling.html#cb451-1"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1742,7 +1742,7 @@ transformations to all the elements in <code>boysNames</code>.</li>
 <div id="a-list-of-data-frames" class="section level3">
 <h3>A list of data frames</h3>
 <p>Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="RDataWrangling.html#cb453-1"></a><span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="RDataWrangling.html#cb452-1"></a><span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>## List of 6
 ##  $ : tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
 ##   ..$ Name : chr [1:100] &quot;JACK&quot; &quot;DANIEL&quot; &quot;THOMAS&quot; &quot;JAMES&quot; ...
@@ -1762,27 +1762,27 @@ transformations to all the elements in <code>boysNames</code>.</li>
 ##  $ : tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
 ##   ..$ Name : chr [1:100] &quot;JACK&quot; &quot;THOMAS&quot; &quot;JOSHUA&quot; &quot;JAMES&quot; ...
 ##   ..$ Count: num [1:100] 9000 8337 7182 7026 5759 ...</code></pre>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="RDataWrangling.html#cb455-1"></a><span class="kw">head</span>(boy_file_names)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="RDataWrangling.html#cb454-1"></a><span class="kw">head</span>(boy_file_names)</span></code></pre></div>
 <pre><code>## [1] &quot;dataSets/boys/1996boys_tcm77-254026.xlsx&quot;
 ## [2] &quot;dataSets/boys/1997boys_tcm77-254022.xlsx&quot;
 ## [3] &quot;dataSets/boys/1998boys_tcm77-254018.xlsx&quot;
 ## [4] &quot;dataSets/boys/1999boys_tcm77-254014.xlsx&quot;
 ## [5] &quot;dataSets/boys/2000boys_tcm77-254008.xlsx&quot;
 ## [6] &quot;dataSets/boys/2001boys_tcm77-254000.xlsx&quot;</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="RDataWrangling.html#cb457-1"></a><span class="co"># use regex to extract years from file names</span></span>
-<span id="cb457-2"><a href="RDataWrangling.html#cb457-2"></a>Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)</span>
-<span id="cb457-3"><a href="RDataWrangling.html#cb457-3"></a>Years</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="RDataWrangling.html#cb456-1"></a><span class="co"># use regex to extract years from file names</span></span>
+<span id="cb456-2"><a href="RDataWrangling.html#cb456-2"></a>Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)</span>
+<span id="cb456-3"><a href="RDataWrangling.html#cb456-3"></a>Years</span></code></pre></div>
 <pre><code>##  [1] &quot;1996&quot; &quot;1997&quot; &quot;1998&quot; &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot;
 ## [11] &quot;2006&quot; &quot;2007&quot; &quot;2008&quot; &quot;2009&quot; &quot;2010&quot; &quot;2011&quot; &quot;2012&quot; &quot;2013&quot; &quot;2014&quot; &quot;2015&quot;</code></pre>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="RDataWrangling.html#cb459-1"></a><span class="kw">names</span>(boysNames) <span class="co"># returns NULL - no names in the list</span></span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="RDataWrangling.html#cb458-1"></a><span class="kw">names</span>(boysNames) <span class="co"># returns NULL - no names in the list</span></span></code></pre></div>
 <pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="RDataWrangling.html#cb461-1"></a><span class="co"># assign years to list names</span></span>
-<span id="cb461-2"><a href="RDataWrangling.html#cb461-2"></a><span class="kw">names</span>(boysNames) &lt;-<span class="st"> </span>Years </span>
-<span id="cb461-3"><a href="RDataWrangling.html#cb461-3"></a></span>
-<span id="cb461-4"><a href="RDataWrangling.html#cb461-4"></a><span class="kw">names</span>(boysNames) <span class="co"># returns the years as list names</span></span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="RDataWrangling.html#cb460-1"></a><span class="co"># assign years to list names</span></span>
+<span id="cb460-2"><a href="RDataWrangling.html#cb460-2"></a><span class="kw">names</span>(boysNames) &lt;-<span class="st"> </span>Years </span>
+<span id="cb460-3"><a href="RDataWrangling.html#cb460-3"></a></span>
+<span id="cb460-4"><a href="RDataWrangling.html#cb460-4"></a><span class="kw">names</span>(boysNames) <span class="co"># returns the years as list names</span></span></code></pre></div>
 <pre><code>##  [1] &quot;1996&quot; &quot;1997&quot; &quot;1998&quot; &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot;
 ## [11] &quot;2006&quot; &quot;2007&quot; &quot;2008&quot; &quot;2009&quot; &quot;2010&quot; &quot;2011&quot; &quot;2012&quot; &quot;2013&quot; &quot;2014&quot; &quot;2015&quot;</code></pre>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="RDataWrangling.html#cb463-1"></a><span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="RDataWrangling.html#cb462-1"></a><span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>() </span></code></pre></div>
 <pre><code>## List of 6
 ##  $ 1996: tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
 ##   ..$ Name : chr [1:100] &quot;JACK&quot; &quot;DANIEL&quot; &quot;THOMAS&quot; &quot;JAMES&quot; ...
@@ -1813,10 +1813,10 @@ information is stored in the names of the list elements, and so
 flattening the data.frames into one will result in losing the year
 information! Fortunately it is not too much trouble to add the year
 information to each data frame before flattening.</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="RDataWrangling.html#cb465-1"></a><span class="co"># apply name of the list element (.y) as a new column in the data.frame (.x)</span></span>
-<span id="cb465-2"><a href="RDataWrangling.html#cb465-2"></a>boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, <span class="op">~</span><span class="st"> </span><span class="kw">mutate</span>(.x, <span class="dt">Year =</span> <span class="kw">as.integer</span>(.y)))</span>
-<span id="cb465-3"><a href="RDataWrangling.html#cb465-3"></a></span>
-<span id="cb465-4"><a href="RDataWrangling.html#cb465-4"></a>boysNames[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="RDataWrangling.html#cb464-1"></a><span class="co"># apply name of the list element (.y) as a new column in the data.frame (.x)</span></span>
+<span id="cb464-2"><a href="RDataWrangling.html#cb464-2"></a>boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, <span class="op">~</span><span class="st"> </span><span class="kw">mutate</span>(.x, <span class="dt">Year =</span> <span class="kw">as.integer</span>(.y)))</span>
+<span id="cb464-3"><a href="RDataWrangling.html#cb464-3"></a></span>
+<span id="cb464-4"><a href="RDataWrangling.html#cb464-4"></a>boysNames[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## $`1996`
 ## # A tibble: 100 x 3
 ##    Name    Count  Year
@@ -1839,28 +1839,28 @@ information to each data frame before flattening.</p>
 <ol style="list-style-type: decimal">
 <li>Turn the list of boys names data frames into a single data frame. HINT: see <code>?bind_rows</code>.</li>
 </ol>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="RDataWrangling.html#cb467-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="RDataWrangling.html#cb466-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a new directory called <code>all</code> within <code>dataSets</code> and write the data to a <code>.csv</code> file.
 HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</li>
 </ol>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="RDataWrangling.html#cb468-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="RDataWrangling.html#cb467-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>What were the five most popular names in 2013?</li>
 </ol>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="RDataWrangling.html#cb469-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="RDataWrangling.html#cb468-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>How has the popularity of the name “ANDREW” changed over time?</li>
 </ol>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="RDataWrangling.html#cb470-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="RDataWrangling.html#cb469-1"></a><span class="co">## </span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 4 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
 <li>Turn the list of boys names data frames into a single data frame.</li>
 </ol>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="RDataWrangling.html#cb471-1"></a>boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)</span>
-<span id="cb471-2"><a href="RDataWrangling.html#cb471-2"></a><span class="kw">glimpse</span>(boysNames)</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="RDataWrangling.html#cb470-1"></a>boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)</span>
+<span id="cb470-2"><a href="RDataWrangling.html#cb470-2"></a><span class="kw">glimpse</span>(boysNames)</span></code></pre></div>
 <pre><code>## Rows: 2,000
 ## Columns: 3
 ## $ Name  &lt;chr&gt; &quot;JACK&quot;, &quot;DANIEL&quot;, &quot;THOMAS&quot;, &quot;JAMES&quot;, &quot;JOSHUA&quot;, &quot;MATTHEW&quot;, &quot;RYAN…
@@ -1869,16 +1869,16 @@ HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</l
 <ol start="2" style="list-style-type: decimal">
 <li>Create a new directory called <code>all</code> within <code>dataSets</code> and write the data to a <code>.csv</code> file. HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</li>
 </ol>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="RDataWrangling.html#cb473-1"></a><span class="kw">dir.create</span>(<span class="st">&quot;dataSets/all&quot;</span>)</span>
-<span id="cb473-2"><a href="RDataWrangling.html#cb473-2"></a></span>
-<span id="cb473-3"><a href="RDataWrangling.html#cb473-3"></a><span class="kw">write_csv</span>(boysNames, <span class="st">&quot;dataSets/all/boys_names.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="RDataWrangling.html#cb472-1"></a><span class="kw">dir.create</span>(<span class="st">&quot;dataSets/all&quot;</span>)</span>
+<span id="cb472-2"><a href="RDataWrangling.html#cb472-2"></a></span>
+<span id="cb472-3"><a href="RDataWrangling.html#cb472-3"></a><span class="kw">write_csv</span>(boysNames, <span class="st">&quot;dataSets/all/boys_names.csv&quot;</span>)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>What were the five most popular names in 2013?</li>
 </ol>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="RDataWrangling.html#cb474-1"></a>boysNames <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb474-2"><a href="RDataWrangling.html#cb474-2"></a><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>) <span class="op">%&gt;%</span></span>
-<span id="cb474-3"><a href="RDataWrangling.html#cb474-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Count)) <span class="op">%&gt;%</span></span>
-<span id="cb474-4"><a href="RDataWrangling.html#cb474-4"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="RDataWrangling.html#cb473-1"></a>boysNames <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb473-2"><a href="RDataWrangling.html#cb473-2"></a><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>) <span class="op">%&gt;%</span></span>
+<span id="cb473-3"><a href="RDataWrangling.html#cb473-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Count)) <span class="op">%&gt;%</span></span>
+<span id="cb473-4"><a href="RDataWrangling.html#cb473-4"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   Name    Count  Year
 ##   &lt;chr&gt;   &lt;dbl&gt; &lt;int&gt;
@@ -1891,11 +1891,11 @@ HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</l
 <ol start="4" style="list-style-type: decimal">
 <li>How has the popularity of the name “ANDREW” changed over time?</li>
 </ol>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="RDataWrangling.html#cb476-1"></a>andrew &lt;-<span class="st"> </span><span class="kw">filter</span>(boysNames, Name <span class="op">==</span><span class="st"> &quot;ANDREW&quot;</span>)</span>
-<span id="cb476-2"><a href="RDataWrangling.html#cb476-2"></a></span>
-<span id="cb476-3"><a href="RDataWrangling.html#cb476-3"></a><span class="kw">ggplot</span>(andrew, <span class="kw">aes</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count)) <span class="op">+</span></span>
-<span id="cb476-4"><a href="RDataWrangling.html#cb476-4"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb476-5"><a href="RDataWrangling.html#cb476-5"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of Andrew, over time&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="RDataWrangling.html#cb475-1"></a>andrew &lt;-<span class="st"> </span><span class="kw">filter</span>(boysNames, Name <span class="op">==</span><span class="st"> &quot;ANDREW&quot;</span>)</span>
+<span id="cb475-2"><a href="RDataWrangling.html#cb475-2"></a></span>
+<span id="cb475-3"><a href="RDataWrangling.html#cb475-3"></a><span class="kw">ggplot</span>(andrew, <span class="kw">aes</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count)) <span class="op">+</span></span>
+<span id="cb475-4"><a href="RDataWrangling.html#cb475-4"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb475-5"><a href="RDataWrangling.html#cb475-5"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of Andrew, over time&quot;</span>)</span></code></pre></div>
 <p><img src="R/RDataWrangling/figures/unnamed-chunk-261-1.png" width="672" /></p>
 </div>
 </details>
@@ -1906,51 +1906,51 @@ HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</l
 <ol style="list-style-type: decimal">
 <li>Code for Section 1: Reading data from multiple Excel worksheets into R data frames:</li>
 </ol>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="RDataWrangling.html#cb477-1"></a>boy_file_names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;dataSets/boys&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb477-2"><a href="RDataWrangling.html#cb477-2"></a></span>
-<span id="cb477-3"><a href="RDataWrangling.html#cb477-3"></a>get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</span>(file, term){</span>
-<span id="cb477-4"><a href="RDataWrangling.html#cb477-4"></a>  <span class="kw">excel_sheets</span>(file) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> term)</span>
-<span id="cb477-5"><a href="RDataWrangling.html#cb477-5"></a>}</span>
-<span id="cb477-6"><a href="RDataWrangling.html#cb477-6"></a></span>
-<span id="cb477-7"><a href="RDataWrangling.html#cb477-7"></a>read_boys_names &lt;-<span class="st"> </span><span class="cf">function</span>(file, sheet_name) {</span>
-<span id="cb477-8"><a href="RDataWrangling.html#cb477-8"></a>  <span class="kw">read_excel</span>(</span>
-<span id="cb477-9"><a href="RDataWrangling.html#cb477-9"></a>    <span class="dt">path =</span> file,</span>
-<span id="cb477-10"><a href="RDataWrangling.html#cb477-10"></a>    <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(file, <span class="dt">term =</span> sheet_name),</span>
-<span id="cb477-11"><a href="RDataWrangling.html#cb477-11"></a>    <span class="dt">skip =</span> <span class="dv">6</span></span>
-<span id="cb477-12"><a href="RDataWrangling.html#cb477-12"></a>  )</span>
-<span id="cb477-13"><a href="RDataWrangling.html#cb477-13"></a>}</span>
-<span id="cb477-14"><a href="RDataWrangling.html#cb477-14"></a></span>
-<span id="cb477-15"><a href="RDataWrangling.html#cb477-15"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_boys_names, <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="RDataWrangling.html#cb476-1"></a>boy_file_names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;dataSets/boys&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb476-2"><a href="RDataWrangling.html#cb476-2"></a></span>
+<span id="cb476-3"><a href="RDataWrangling.html#cb476-3"></a>get_data_sheet_name &lt;-<span class="st"> </span><span class="cf">function</span>(file, term){</span>
+<span id="cb476-4"><a href="RDataWrangling.html#cb476-4"></a>  <span class="kw">excel_sheets</span>(file) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_subset</span>(<span class="dt">pattern =</span> term)</span>
+<span id="cb476-5"><a href="RDataWrangling.html#cb476-5"></a>}</span>
+<span id="cb476-6"><a href="RDataWrangling.html#cb476-6"></a></span>
+<span id="cb476-7"><a href="RDataWrangling.html#cb476-7"></a>read_boys_names &lt;-<span class="st"> </span><span class="cf">function</span>(file, sheet_name) {</span>
+<span id="cb476-8"><a href="RDataWrangling.html#cb476-8"></a>  <span class="kw">read_excel</span>(</span>
+<span id="cb476-9"><a href="RDataWrangling.html#cb476-9"></a>    <span class="dt">path =</span> file,</span>
+<span id="cb476-10"><a href="RDataWrangling.html#cb476-10"></a>    <span class="dt">sheet =</span> <span class="kw">get_data_sheet_name</span>(file, <span class="dt">term =</span> sheet_name),</span>
+<span id="cb476-11"><a href="RDataWrangling.html#cb476-11"></a>    <span class="dt">skip =</span> <span class="dv">6</span></span>
+<span id="cb476-12"><a href="RDataWrangling.html#cb476-12"></a>  )</span>
+<span id="cb476-13"><a href="RDataWrangling.html#cb476-13"></a>}</span>
+<span id="cb476-14"><a href="RDataWrangling.html#cb476-14"></a></span>
+<span id="cb476-15"><a href="RDataWrangling.html#cb476-15"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boy_file_names, read_boys_names, <span class="dt">sheet_name =</span> <span class="st">&quot;Table 1&quot;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Code for Section 2: Clean up data within each R data frame:</li>
 </ol>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="RDataWrangling.html#cb478-1"></a>cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){</span>
-<span id="cb478-2"><a href="RDataWrangling.html#cb478-2"></a>  </span>
-<span id="cb478-3"><a href="RDataWrangling.html#cb478-3"></a>  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span></span>
-<span id="cb478-4"><a href="RDataWrangling.html#cb478-4"></a>  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span></span>
-<span id="cb478-5"><a href="RDataWrangling.html#cb478-5"></a><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb478-6"><a href="RDataWrangling.html#cb478-6"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
-<span id="cb478-7"><a href="RDataWrangling.html#cb478-7"></a></span>
-<span id="cb478-8"><a href="RDataWrangling.html#cb478-8"></a>  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
-<span id="cb478-9"><a href="RDataWrangling.html#cb478-9"></a>  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) </span>
-<span id="cb478-10"><a href="RDataWrangling.html#cb478-10"></a>  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),</span>
-<span id="cb478-11"><a href="RDataWrangling.html#cb478-11"></a>                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))</span>
-<span id="cb478-12"><a href="RDataWrangling.html#cb478-12"></a></span>
-<span id="cb478-13"><a href="RDataWrangling.html#cb478-13"></a>  <span class="co"># append the two datasets</span></span>
-<span id="cb478-14"><a href="RDataWrangling.html#cb478-14"></a>  <span class="kw">bind_rows</span>(first_columns, second_columns)</span>
-<span id="cb478-15"><a href="RDataWrangling.html#cb478-15"></a>}</span>
-<span id="cb478-16"><a href="RDataWrangling.html#cb478-16"></a></span>
-<span id="cb478-17"><a href="RDataWrangling.html#cb478-17"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="RDataWrangling.html#cb477-1"></a>cleanupNamesData &lt;-<span class="st"> </span><span class="cf">function</span>(file){</span>
+<span id="cb477-2"><a href="RDataWrangling.html#cb477-2"></a>  </span>
+<span id="cb477-3"><a href="RDataWrangling.html#cb477-3"></a>  <span class="co"># subset data to include only those columns that include the term `Name` and `Count`</span></span>
+<span id="cb477-4"><a href="RDataWrangling.html#cb477-4"></a>  subsetted_file &lt;-<span class="st"> </span>file <span class="op">%&gt;%</span></span>
+<span id="cb477-5"><a href="RDataWrangling.html#cb477-5"></a><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb477-6"><a href="RDataWrangling.html#cb477-6"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
+<span id="cb477-7"><a href="RDataWrangling.html#cb477-7"></a></span>
+<span id="cb477-8"><a href="RDataWrangling.html#cb477-8"></a>  <span class="co"># subset two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
+<span id="cb477-9"><a href="RDataWrangling.html#cb477-9"></a>  first_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> Name...<span class="dv">2</span>, <span class="dt">Count =</span> Count...<span class="dv">3</span>) </span>
+<span id="cb477-10"><a href="RDataWrangling.html#cb477-10"></a>  second_columns &lt;-<span class="st"> </span><span class="kw">select</span>(subsetted_file, <span class="dt">Name =</span> <span class="kw">matches</span>(<span class="st">&quot;Name...6|Name...7|Name...8&quot;</span>),</span>
+<span id="cb477-11"><a href="RDataWrangling.html#cb477-11"></a>                                           <span class="dt">Count =</span> <span class="kw">matches</span>(<span class="st">&quot;Count...7|Count...8|Count...9&quot;</span>))</span>
+<span id="cb477-12"><a href="RDataWrangling.html#cb477-12"></a></span>
+<span id="cb477-13"><a href="RDataWrangling.html#cb477-13"></a>  <span class="co"># append the two datasets</span></span>
+<span id="cb477-14"><a href="RDataWrangling.html#cb477-14"></a>  <span class="kw">bind_rows</span>(first_columns, second_columns)</span>
+<span id="cb477-15"><a href="RDataWrangling.html#cb477-15"></a>}</span>
+<span id="cb477-16"><a href="RDataWrangling.html#cb477-16"></a></span>
+<span id="cb477-17"><a href="RDataWrangling.html#cb477-17"></a>boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, cleanupNamesData)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Code for Section 3: Organize the data into one large data frame and store it:</li>
 </ol>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="RDataWrangling.html#cb479-1"></a>Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)</span>
-<span id="cb479-2"><a href="RDataWrangling.html#cb479-2"></a></span>
-<span id="cb479-3"><a href="RDataWrangling.html#cb479-3"></a><span class="kw">names</span>(boysNames) &lt;-<span class="st"> </span>Years</span>
-<span id="cb479-4"><a href="RDataWrangling.html#cb479-4"></a></span>
-<span id="cb479-5"><a href="RDataWrangling.html#cb479-5"></a>boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, <span class="op">~</span><span class="st"> </span><span class="kw">mutate</span>(.x, <span class="dt">Year =</span> <span class="kw">as.integer</span>(.y)))</span>
-<span id="cb479-6"><a href="RDataWrangling.html#cb479-6"></a></span>
-<span id="cb479-7"><a href="RDataWrangling.html#cb479-7"></a>boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="RDataWrangling.html#cb478-1"></a>Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)</span>
+<span id="cb478-2"><a href="RDataWrangling.html#cb478-2"></a></span>
+<span id="cb478-3"><a href="RDataWrangling.html#cb478-3"></a><span class="kw">names</span>(boysNames) &lt;-<span class="st"> </span>Years</span>
+<span id="cb478-4"><a href="RDataWrangling.html#cb478-4"></a></span>
+<span id="cb478-5"><a href="RDataWrangling.html#cb478-5"></a>boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, <span class="op">~</span><span class="st"> </span><span class="kw">mutate</span>(.x, <span class="dt">Year =</span> <span class="kw">as.integer</span>(.y)))</span>
+<span id="cb478-6"><a href="RDataWrangling.html#cb478-6"></a></span>
+<span id="cb478-7"><a href="RDataWrangling.html#cb478-7"></a>boysNames &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(boysNames)</span></code></pre></div>
 </div>
 <div id="wrap-up-4" class="section level2">
 <h2>Wrap-up</h2>

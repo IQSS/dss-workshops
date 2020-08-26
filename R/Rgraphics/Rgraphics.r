@@ -727,7 +727,6 @@ head(midwest)
 
 p5 <- ggplot(midwest, aes(x = area, y = log(poptotal))) 
 p5 + geom_point() 
-p5
 
 # 2.  Within the `geom_point()` call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
 
@@ -758,16 +757,14 @@ p5
 
 # Here's the complete code for the Exercise 3 plot:
 
-p5 <- ggplot(midwest, aes(x = area, y = log(poptotal))) +
+ggplot(midwest, aes(x = area, y = log(poptotal))) +
     geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) +
     geom_smooth(method = "loess", se = FALSE) +
     facet_wrap(~ state, scales = "free_x") +
     scale_color_brewer(palette = "Set1") +
     theme_bw() +
     theme(axis.title = element_text(color = "blue", face = "bold"),
-         strip.background = element_rect(fill = "yellow"))
-
-p5         
+          strip.background = element_rect(fill = "yellow"))       
 # </div>
 # </details>
 #

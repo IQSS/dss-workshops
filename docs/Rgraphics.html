@@ -1631,51 +1631,47 @@ Here is the logic behind this process:</p>
 <div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="Rgraphics.html#cb363-1"></a>p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x =</span> area, <span class="dt">y =</span> <span class="kw">log</span>(poptotal))) </span>
 <span id="cb363-2"><a href="Rgraphics.html#cb363-2"></a>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-210-1.png" width="672" /></p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="Rgraphics.html#cb364-1"></a>p5</span></code></pre></div>
-<p><img src="R/Rgraphics/figures/unnamed-chunk-210-2.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Within the <code>geom_point()</code> call, map color to <code>state</code>, map size to the log of <code>popdensity</code>, and fix transparency (<code>alpha</code>) to 0.3.</li>
 </ol>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="Rgraphics.html#cb365-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) </span>
-<span id="cb365-2"><a href="Rgraphics.html#cb365-2"></a>p5</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="Rgraphics.html#cb364-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) </span>
+<span id="cb364-2"><a href="Rgraphics.html#cb364-2"></a>p5</span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-211-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Add a smoother and turn off plotting the confidence interval. Hint: see the <code>se</code> argument to <code>geom_smooth()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="Rgraphics.html#cb366-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) </span>
-<span id="cb366-2"><a href="Rgraphics.html#cb366-2"></a>p5</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="Rgraphics.html#cb365-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) </span>
+<span id="cb365-2"><a href="Rgraphics.html#cb365-2"></a>p5</span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-212-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Facet the plot by <code>state</code>. Set the <code>scales</code> argument to <code>facet_wrap()</code> to allow separate ranges for the x-axis.</li>
 </ol>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="Rgraphics.html#cb367-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span>
-<span id="cb367-2"><a href="Rgraphics.html#cb367-2"></a>p5</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="Rgraphics.html#cb366-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</span>
+<span id="cb366-2"><a href="Rgraphics.html#cb366-2"></a>p5</span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-213-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Change the default color scale to use the discrete <code>RColorBrewer</code> palette called <code>Set1</code>. Hint: see <code>?scale_color_brewer</code>.</li>
 </ol>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="Rgraphics.html#cb368-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span>
-<span id="cb368-2"><a href="Rgraphics.html#cb368-2"></a>p5</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="Rgraphics.html#cb367-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span>
+<span id="cb367-2"><a href="Rgraphics.html#cb367-2"></a>p5</span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-214-1.png" width="672" /></p>
 <ol start="6" style="list-style-type: decimal">
 <li>BONUS: Change the default theme to <code>theme_bw()</code> and modify it so that the axis text and facet label background are blue. Hint: see <code>?theme</code> and especially <code>axis.text</code> and <code>strip.background</code>.</li>
 </ol>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="Rgraphics.html#cb369-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb369-2"><a href="Rgraphics.html#cb369-2"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb369-3"><a href="Rgraphics.html#cb369-3"></a>          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))</span>
-<span id="cb369-4"><a href="Rgraphics.html#cb369-4"></a>p5</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="Rgraphics.html#cb368-1"></a>p5 &lt;-<span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb368-2"><a href="Rgraphics.html#cb368-2"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb368-3"><a href="Rgraphics.html#cb368-3"></a>          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))</span>
+<span id="cb368-4"><a href="Rgraphics.html#cb368-4"></a>p5</span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-215-1.png" width="672" /></p>
 <p>Here’s the complete code for the Exercise 3 plot:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="Rgraphics.html#cb370-1"></a>p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x =</span> area, <span class="dt">y =</span> <span class="kw">log</span>(poptotal))) <span class="op">+</span></span>
-<span id="cb370-2"><a href="Rgraphics.html#cb370-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
-<span id="cb370-3"><a href="Rgraphics.html#cb370-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb370-4"><a href="Rgraphics.html#cb370-4"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
-<span id="cb370-5"><a href="Rgraphics.html#cb370-5"></a><span class="st">    </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></span>
-<span id="cb370-6"><a href="Rgraphics.html#cb370-6"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb370-7"><a href="Rgraphics.html#cb370-7"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb370-8"><a href="Rgraphics.html#cb370-8"></a>         <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))</span>
-<span id="cb370-9"><a href="Rgraphics.html#cb370-9"></a></span>
-<span id="cb370-10"><a href="Rgraphics.html#cb370-10"></a>p5         </span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="Rgraphics.html#cb369-1"></a><span class="kw">ggplot</span>(midwest, <span class="kw">aes</span>(<span class="dt">x =</span> area, <span class="dt">y =</span> <span class="kw">log</span>(poptotal))) <span class="op">+</span></span>
+<span id="cb369-2"><a href="Rgraphics.html#cb369-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> state, <span class="dt">size =</span> <span class="kw">log</span>(popdensity)), <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
+<span id="cb369-3"><a href="Rgraphics.html#cb369-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb369-4"><a href="Rgraphics.html#cb369-4"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>state, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
+<span id="cb369-5"><a href="Rgraphics.html#cb369-5"></a><span class="st">    </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></span>
+<span id="cb369-6"><a href="Rgraphics.html#cb369-6"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb369-7"><a href="Rgraphics.html#cb369-7"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb369-8"><a href="Rgraphics.html#cb369-8"></a>          <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>))       </span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-216-1.png" width="672" /></p>
 </div>
 </details>
