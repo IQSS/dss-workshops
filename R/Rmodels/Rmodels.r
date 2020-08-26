@@ -271,9 +271,10 @@ methods("summary")
 # | `anova()`     | `stats`   | anova table (one model), model comparison (> one model) |
 # | `coef()`      | `stats`   | point estimates                                         |
 # | `drop1()`     | `stats`   | model comparison                                        |
-# | `predict()`   | `stats`   | predicted response values                               |
-# | `fitted()`    | `stats`   | predicted response values (for observed data)           |
+# | `predict()`   | `stats`   | predicted response values (for observed or new data)    |
+# | `fitted()`    | `stats`   | predicted response values (for observed data only)      |
 # | `residuals()` | `stats`   | residuals                                               |
+# | `rstandard()` | `stats`   | standardized residuals                                  |
 # | `fixef()`     | `lme4`    | fixed effect point estimates (mixed models only)        |
 # | `ranef()`     | `lme4`    | random effect point estimates (mixed models only)       |
 # | `coef()`      | `lme4`    | empirical Bayes estimates (mixed models only)           |

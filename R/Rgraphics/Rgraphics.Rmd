@@ -226,8 +226,10 @@ A plot constructed with `ggplot()` can have more than one geom. In that case the
 hp2001Q1$pred_SC <- lm(Structure_Cost ~ log(Land_Value), data = hp2001Q1) %>%
   predict()
 
+# here we store the 'base plot' - without geometric objects - in the object 'p1'
 p1 <- ggplot(hp2001Q1, aes(x = log(Land_Value), y = Structure_Cost))
 
+# we can then add geometric objects to our base plot 'p1'
 p1 + geom_point(aes(color = Home_Value)) + # values for x and y are inherited from the ggplot() call above
   geom_line(aes(y = pred_SC)) # add predicted values to the plot overriding the y values from the ggplot() call above
 ```
@@ -558,7 +560,7 @@ Specific scale functions may have additional arguments; for example, the `scale_
 Start by constructing a dotplot showing the distribution of home values by `Date` and `State`.
 
 ```{r}
-p4 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) + 
+p3 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) + 
     geom_point(aes(color = Date), alpha = 0.5, size = 1.5,
                position = position_jitter(width = 0.25, height = 0))
 ```
@@ -567,7 +569,7 @@ p4 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) +
 Now modify the breaks for the color scales
 
 ```{r}
-p4 + 
+p3 + 
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
                          labels = c("'76", "'94", "'13"))
@@ -576,7 +578,7 @@ p4 +
 Next change the low and high values to blue and red:
 
 ```{r}
-p4 +
+p3 +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
                          labels = c("'76", "'94", "'13"),
@@ -590,7 +592,7 @@ p4 +
 `ggplot2` has a wide variety of color scales; here is an example using `scale_color_gradient2()` to interpolate between three different colors.
 
 ```{r}
-p4 +
+p3 +
   scale_color_gradient2(name="",
                         breaks = c(1976, 1994, 2013),
                         labels = c("'76", "'94", "'13"),
@@ -694,8 +696,8 @@ ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
 Start by using a technique we already know; map `State` to color:
 
 ```{r}
-p5 <- ggplot(housing, aes(x = Date, y = Home_Value))
-p5 + geom_line(aes(color = State))  
+p4 <- ggplot(housing, aes(x = Date, y = Home_Value))
+p4 + geom_line(aes(color = State))  
 ```
 
 There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.
@@ -705,9 +707,9 @@ There are two problems here; there are too many states to distinguish each one b
 We can remedy the deficiencies of the previous plot by faceting by `State` rather than mapping `State` to color.
 
 ```{r}
-p5 <- p5 + geom_line() +
+p4 <- p4 + geom_line() +
    facet_wrap(~ State, ncol = 10)
-p5
+p4
 ```
 
 
@@ -729,12 +731,13 @@ Built-in themes include:
 * `theme_classic()`
 
 ```{r}
-p5 + theme_linedraw()
+p4 + theme_linedraw()
 ```
 
 ```{r}
-p5 + theme_light()
+p4 + theme_light()
 ```
+
 You can see a list of available built-in themes here <https://ggplot2.tidyverse.org/reference/>
 
 
@@ -745,7 +748,7 @@ Specific theme elements can be overridden using `theme()`. For example:
 ```{r}
 # theme(thing_to_modify = modifying_function(arg1, arg2))
 
-p5 + theme_minimal() +
+p4 + theme_minimal() +
   theme(text = element_text(color = "red"))  
 ```
 
@@ -769,7 +772,7 @@ theme_new <- theme_bw() +
         panel.background = element_rect(fill = "pink"),
         strip.background = element_rect(fill = muted("orange")))
 
-p5 + theme_new
+p4 + theme_new
 ```
 
 ## Saving plots
@@ -779,7 +782,8 @@ or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using
 the `ggsave()` function:
 
 ```{r, eval=FALSE}
-ggsave(filename = "myplot.pdf", plot = p5, device = "pdf", height = 6, width = 6, units = "in")
+ggsave(filename = "myplot.pdf", plot = p5, device = "pdf", 
+       height = 6, width = 6, units = "in")
 ```
 
 
@@ -881,46 +885,52 @@ head(midwest)
 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
 
 ```{r}
-p6 <- ggplot(midwest, aes(x = area, y = log(poptotal))) 
-p6 + geom_point() 
+p5 <- ggplot(midwest, aes(x = area, y = log(poptotal))) 
+p5 + geom_point() 
+p5
 ```
 
 2.  Within the `geom_point()` call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
 
 ```{r}
-p6 <- p6 + geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) 
+p5 <- p5 + geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) 
+p5
 ```
 
 3.  Add a smoother and turn off plotting the confidence interval. Hint: see the `se` argument to `geom_smooth()`.
 
 ```{r}
-p6 <- p6 + geom_smooth(method = "loess", se = FALSE) 
+p5 <- p5 + geom_smooth(method = "loess", se = FALSE) 
+p5
 ```
 
 4.  Facet the plot by `state`. Set the `scales` argument to `facet_wrap()` to allow separate ranges for the x-axis.
 
 ```{r}
-p6 <- p6 + facet_wrap(~ state, scales = "free_x")
+p5 <- p5 + facet_wrap(~ state, scales = "free_x")
+p5
 ```
 
 5.  Change the default color scale to use the discrete `RColorBrewer` palette called `Set1`. Hint: see `?scale_color_brewer`.
 
 ```{r}
-p6 <- p6 + scale_color_brewer(palette = "Set1")
+p5 <- p5 + scale_color_brewer(palette = "Set1")
+p5
 ```
 
 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: see `?theme` and especially `axis.text` and `strip.background`.
 
 ```{r}
-p6 <- p6 + theme_bw() +
+p5 <- p5 + theme_bw() +
     theme(axis.title = element_text(color = "blue", face = "bold"),
           strip.background = element_rect(fill = "yellow"))
+p5
 ```
 
 Here's the complete code for the Exercise 3 plot:
 
 ```{r}
-p6 <- ggplot(midwest, aes(x = area, y = log(poptotal))) +
+p5 <- ggplot(midwest, aes(x = area, y = log(poptotal))) +
     geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) +
     geom_smooth(method = "loess", se = FALSE) +
     facet_wrap(~ state, scales = "free_x") +
@@ -929,7 +939,7 @@ p6 <- ggplot(midwest, aes(x = area, y = log(poptotal))) +
     theme(axis.title = element_text(color = "blue", face = "bold"),
          strip.background = element_rect(fill = "yellow"))
 
-p6         
+p5         
 ```
 </div>
 </details>

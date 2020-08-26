@@ -4266,9 +4266,10 @@ Function & Package & Output\tabularnewline
 \texttt{anova()} & \texttt{stats} & anova table (one model), model comparison (\textgreater{} one model)\tabularnewline
 \texttt{coef()} & \texttt{stats} & point estimates\tabularnewline
 \texttt{drop1()} & \texttt{stats} & model comparison\tabularnewline
-\texttt{predict()} & \texttt{stats} & predicted response values\tabularnewline
-\texttt{fitted()} & \texttt{stats} & predicted response values (for observed data)\tabularnewline
+\texttt{predict()} & \texttt{stats} & predicted response values (for observed or new data)\tabularnewline
+\texttt{fitted()} & \texttt{stats} & predicted response values (for observed data only)\tabularnewline
 \texttt{residuals()} & \texttt{stats} & residuals\tabularnewline
+\texttt{rstandard()} & \texttt{stats} & standardized residuals\tabularnewline
 \texttt{fixef()} & \texttt{lme4} & fixed effect point estimates (mixed models only)\tabularnewline
 \texttt{ranef()} & \texttt{lme4} & random effect point estimates (mixed models only)\tabularnewline
 \texttt{coef()} & \texttt{lme4} & empirical Bayes estimates (mixed models only)\tabularnewline
@@ -6316,8 +6317,10 @@ A plot constructed with \texttt{ggplot()} can have more than one geom. In that c
 \NormalTok{hp2001Q1}\OperatorTok{$}\NormalTok{pred\_SC \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(Structure\_Cost }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{log}\NormalTok{(Land\_Value), }\DataTypeTok{data =}\NormalTok{ hp2001Q1) }\OperatorTok{\%\textgreater{}\%}
 \StringTok{  }\KeywordTok{predict}\NormalTok{()}
 
+\CommentTok{\# here we store the \textquotesingle{}base plot\textquotesingle{} {-} without geometric objects {-} in the object \textquotesingle{}p1\textquotesingle{}}
 \NormalTok{p1 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(hp2001Q1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(Land\_Value), }\DataTypeTok{y =}\NormalTok{ Structure\_Cost))}
 
+\CommentTok{\# we can then add geometric objects to our base plot \textquotesingle{}p1\textquotesingle{}}
 \NormalTok{p1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Home\_Value)) }\OperatorTok{+}\StringTok{ }\CommentTok{\# values for x and y are inherited from the ggplot() call above}
 \StringTok{  }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ pred\_SC)) }\CommentTok{\# add predicted values to the plot overriding the y values from the ggplot() call above}
 \end{Highlighting}
@@ -6972,7 +6975,7 @@ Start by constructing a dotplot showing the distribution of home values by \text
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p4 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ State, }\DataTypeTok{y =}\NormalTok{ Home\_Price\_Index)) }\OperatorTok{+}\StringTok{ }
+\NormalTok{p3 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ State, }\DataTypeTok{y =}\NormalTok{ Home\_Price\_Index)) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ Date), }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{size =} \FloatTok{1.5}\NormalTok{,}
                \DataTypeTok{position =} \KeywordTok{position\_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{))}
 \end{Highlighting}
@@ -6982,7 +6985,7 @@ Now modify the breaks for the color scales
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p4 }\OperatorTok{+}\StringTok{ }
+\NormalTok{p3 }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{scale\_color\_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
                          \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"\textquotesingle{}76"}\NormalTok{, }\StringTok{"\textquotesingle{}94"}\NormalTok{, }\StringTok{"\textquotesingle{}13"}\NormalTok{))}
@@ -6995,7 +6998,7 @@ Next change the low and high values to blue and red:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p4 }\OperatorTok{+}
+\NormalTok{p3 }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale\_color\_continuous}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                          \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
                          \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"\textquotesingle{}76"}\NormalTok{, }\StringTok{"\textquotesingle{}94"}\NormalTok{, }\StringTok{"\textquotesingle{}13"}\NormalTok{),}
@@ -7012,7 +7015,7 @@ Next change the low and high values to blue and red:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p4 }\OperatorTok{+}
+\NormalTok{p3 }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale\_color\_gradient2}\NormalTok{(}\DataTypeTok{name=}\StringTok{""}\NormalTok{,}
                         \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1976}\NormalTok{, }\DecValTok{1994}\NormalTok{, }\DecValTok{2013}\NormalTok{),}
                         \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"\textquotesingle{}76"}\NormalTok{, }\StringTok{"\textquotesingle{}94"}\NormalTok{, }\StringTok{"\textquotesingle{}13"}\NormalTok{),}
@@ -7200,8 +7203,8 @@ Start by using a technique we already know; map \texttt{State} to color:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Date, }\DataTypeTok{y =}\NormalTok{ Home\_Value))}
-\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ State))  }
+\NormalTok{p4 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(housing, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Date, }\DataTypeTok{y =}\NormalTok{ Home\_Value))}
+\NormalTok{p4 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ State))  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -7216,9 +7219,9 @@ We can remedy the deficiencies of the previous plot by faceting by \texttt{State
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 \textless{}{-}}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{() }\OperatorTok{+}
+\NormalTok{p4 \textless{}{-}}\StringTok{ }\NormalTok{p4 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_line}\NormalTok{() }\OperatorTok{+}
 \StringTok{   }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{State, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{)}
-\NormalTok{p5}
+\NormalTok{p4}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7258,7 +7261,7 @@ Built-in themes include:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_linedraw}\NormalTok{()}
+\NormalTok{p4 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_linedraw}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7266,11 +7269,12 @@ Built-in themes include:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_light}\NormalTok{()}
+\NormalTok{p4 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_light}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
+
 You can see a list of available built-in themes here \url{https://ggplot2.tidyverse.org/reference/}
 
 \hypertarget{overriding-theme-defaults}{%
@@ -7282,7 +7286,7 @@ Specific theme elements can be overridden using \texttt{theme()}. For example:
 \begin{Highlighting}[]
 \CommentTok{\# theme(thing\_to\_modify = modifying\_function(arg1, arg2))}
 
-\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_minimal}\NormalTok{() }\OperatorTok{+}
+\NormalTok{p4 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_minimal}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{text =} \KeywordTok{element\_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"red"}\NormalTok{))  }
 \end{Highlighting}
 \end{Shaded}
@@ -7313,7 +7317,7 @@ You can create new themes, as in the following example:
         \DataTypeTok{panel.background =} \KeywordTok{element\_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"pink"}\NormalTok{),}
         \DataTypeTok{strip.background =} \KeywordTok{element\_rect}\NormalTok{(}\DataTypeTok{fill =} \KeywordTok{muted}\NormalTok{(}\StringTok{"orange"}\NormalTok{)))}
 
-\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\NormalTok{theme\_new}
+\NormalTok{p4 }\OperatorTok{+}\StringTok{ }\NormalTok{theme\_new}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7328,7 +7332,8 @@ the \texttt{ggsave()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggsave}\NormalTok{(}\DataTypeTok{filename =} \StringTok{"myplot.pdf"}\NormalTok{, }\DataTypeTok{plot =}\NormalTok{ p5, }\DataTypeTok{device =} \StringTok{"pdf"}\NormalTok{, }\DataTypeTok{height =} \DecValTok{6}\NormalTok{, }\DataTypeTok{width =} \DecValTok{6}\NormalTok{, }\DataTypeTok{units =} \StringTok{"in"}\NormalTok{)}
+\KeywordTok{ggsave}\NormalTok{(}\DataTypeTok{filename =} \StringTok{"myplot.pdf"}\NormalTok{, }\DataTypeTok{plot =}\NormalTok{ p5, }\DataTypeTok{device =} \StringTok{"pdf"}\NormalTok{, }
+       \DataTypeTok{height =} \DecValTok{6}\NormalTok{, }\DataTypeTok{width =} \DecValTok{6}\NormalTok{, }\DataTypeTok{units =} \StringTok{"in"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7523,12 +7528,20 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(midwest, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ area, }\DataTypeTok{y =} \KeywordTok{log}\NormalTok{(poptotal))) }
-\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_point}\NormalTok{() }
+\NormalTok{p5 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(midwest, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ area, }\DataTypeTok{y =} \KeywordTok{log}\NormalTok{(poptotal))) }
+\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_point}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{R/Rgraphics/figures/unnamed-chunk-210-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p5}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-210-2.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7540,9 +7553,12 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 \textless{}{-}}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ state, }\DataTypeTok{size =} \KeywordTok{log}\NormalTok{(popdensity)), }\DataTypeTok{alpha =} \FloatTok{0.3}\NormalTok{) }
+\NormalTok{p5 \textless{}{-}}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ state, }\DataTypeTok{size =} \KeywordTok{log}\NormalTok{(popdensity)), }\DataTypeTok{alpha =} \FloatTok{0.3}\NormalTok{) }
+\NormalTok{p5}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-211-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7554,9 +7570,12 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 \textless{}{-}}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }
+\NormalTok{p5 \textless{}{-}}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }
+\NormalTok{p5}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-212-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7568,9 +7587,12 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 \textless{}{-}}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{state, }\DataTypeTok{scales =} \StringTok{"free\_x"}\NormalTok{)}
+\NormalTok{p5 \textless{}{-}}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{state, }\DataTypeTok{scales =} \StringTok{"free\_x"}\NormalTok{)}
+\NormalTok{p5}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-213-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7582,9 +7604,12 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 \textless{}{-}}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{scale\_color\_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Set1"}\NormalTok{)}
+\NormalTok{p5 \textless{}{-}}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{scale\_color\_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Set1"}\NormalTok{)}
+\NormalTok{p5}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-214-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7596,17 +7621,20 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 \textless{}{-}}\StringTok{ }\NormalTok{p6 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}
+\NormalTok{p5 \textless{}{-}}\StringTok{ }\NormalTok{p5 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme\_bw}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title =} \KeywordTok{element\_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{face =} \StringTok{"bold"}\NormalTok{),}
           \DataTypeTok{strip.background =} \KeywordTok{element\_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"yellow"}\NormalTok{))}
+\NormalTok{p5}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-215-1.pdf}
 
 Here's the complete code for the Exercise 3 plot:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p6 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(midwest, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ area, }\DataTypeTok{y =} \KeywordTok{log}\NormalTok{(poptotal))) }\OperatorTok{+}
+\NormalTok{p5 \textless{}{-}}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(midwest, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ area, }\DataTypeTok{y =} \KeywordTok{log}\NormalTok{(poptotal))) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ state, }\DataTypeTok{size =} \KeywordTok{log}\NormalTok{(popdensity)), }\DataTypeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{state, }\DataTypeTok{scales =} \StringTok{"free\_x"}\NormalTok{) }\OperatorTok{+}
@@ -7615,7 +7643,7 @@ Here's the complete code for the Exercise 3 plot:
 \StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title =} \KeywordTok{element\_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{face =} \StringTok{"bold"}\NormalTok{),}
          \DataTypeTok{strip.background =} \KeywordTok{element\_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"yellow"}\NormalTok{))}
 
-\NormalTok{p6         }
+\NormalTok{p5         }
 \end{Highlighting}
 \end{Shaded}
 
@@ -11865,17 +11893,17 @@ The records we retrieved from \url{https://www.harvardartmuseums.org/browse} are
 \end{Shaded}
 
 \begin{verbatim}
-##                        copyright  contextualtextcount  ...                         colors                        details
-## 0                           None                    0  ...                            NaN                            NaN
-## 1  © Jess - The Jess Collins ...                    0  ...                            NaN                            NaN
-## 2                           None                    0  ...  [{'color': '#e1c8af', 'spe...                            NaN
-## 3                           None                    0  ...                            NaN                            NaN
-## 4                           None                    1  ...                            NaN  {'technical': [{'text': 'I...
-## 5      © Estate of Aaron Siskind                    0  ...  [{'color': '#323232', 'spe...                            NaN
-## 6            © William Kentridge                    0  ...  [{'color': '#fae1e1', 'spe...                            NaN
-## 7                           None                    0  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'X...
-## 8                           None                    0  ...  [{'color': '#c8af96', 'spe...                            NaN
-## 9                           None                    1  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'I...
+##                        copyright  contextualtextcount  ...                         colors                         people
+## 0                           None                    1  ...                            NaN                            NaN
+## 1                           None                    0  ...  [{'color': '#c8af96', 'spe...  [{'role': 'Artist', 'birth...
+## 2                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
+## 3                           None                    1  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 4                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 5  © Estate of Alfred Stiegli...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 6  © The Munch Museum / The M...                    0  ...  [{'color': '#191919', 'spe...  [{'role': 'Artist', 'birth...
+## 7  © Berenice Abbott/Commerce...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 8  © Jasper Johns and ULAE/Li...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 9                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
 ## 
 ## [10 rows x 63 columns]
 \end{verbatim}
@@ -11926,57 +11954,57 @@ Now that we know the web service works, and how to make requests in Python, we c
 \end{Shaded}
 
 \begin{verbatim}
-##                         copyright  contextualtextcount  ...                         colors                        details
-## 0                            None                    0  ...                            NaN                            NaN
-## 1   © Jess - The Jess Collins ...                    0  ...                            NaN                            NaN
-## 2                            None                    0  ...  [{'color': '#e1c8af', 'spe...                            NaN
-## 3                            None                    0  ...                            NaN                            NaN
-## 4                            None                    1  ...                            NaN  {'technical': [{'text': 'I...
-## 5       © Estate of Aaron Siskind                    0  ...  [{'color': '#323232', 'spe...                            NaN
-## 6             © William Kentridge                    0  ...  [{'color': '#fae1e1', 'spe...                            NaN
-## 7                            None                    0  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'X...
-## 8                            None                    0  ...  [{'color': '#c8af96', 'spe...                            NaN
-## 9                            None                    1  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'I...
-## 10                           None                    0  ...  [{'color': '#e1e1c8', 'spe...                            NaN
-## 11                           None                    0  ...                            NaN                            NaN
-## 12                           None                    1  ...  [{'color': '#c8c8c8', 'spe...  {'technical': [{'text': 'I...
-## 13                           None                    1  ...                            NaN  {'technical': [{'text': 'I...
-## 14                           None                    0  ...  [{'color': '#191919', 'spe...                            NaN
-## 15                           None                    0  ...  [{'color': '#af7d4b', 'spe...                            NaN
-## 16                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 17                           None                    0  ...  [{'color': '#c8af96', 'spe...                            NaN
-## 18  © Estate of Alfred Stiegli...                    0  ...                            NaN                            NaN
-## 19                           None                    0  ...  [{'color': '#967d64', 'spe...                            NaN
-## 20  © The Munch Museum / The M...                    0  ...  [{'color': '#191919', 'spe...                            NaN
-## 21  © Berenice Abbott/Commerce...                    0  ...                            NaN                            NaN
-## 22                           None                    0  ...  [{'color': '#e1e1e1', 'spe...                            NaN
-## 23                           None                    0  ...                            NaN  {'coins': {'reverseinscrip...
-## 24  © Jasper Johns and ULAE/Li...                    0  ...                            NaN                            NaN
-## 25  Art © Elizabeth Catlett/Li...                    0  ...  [{'color': '#c8c8af', 'spe...                            NaN
-## 26                           None                    0  ...                            NaN                            NaN
-## 27                           None                    0  ...                            NaN                            NaN
-## 28  © Aperture Foundation Inc....                    0  ...  [{'color': '#323232', 'spe...                            NaN
-## 29                           None                    0  ...  [{'color': '#e1e1c8', 'spe...                            NaN
-## 30                           None                    0  ...                            NaN                            NaN
-## 31                           None                    0  ...  [{'color': '#c8c8af', 'spe...                            NaN
-## 32                           None                    0  ...  [{'color': '#e1e1e1', 'spe...                            NaN
-## 33                           None                    0  ...  [{'color': '#191919', 'spe...                            NaN
-## 34                           None                    0  ...  [{'color': '#967d64', 'spe...                            NaN
-## 35  Art © Nancy Graves Foundat...                    0  ...  [{'color': '#e1af96', 'spe...                            NaN
-## 36                           None                    0  ...  [{'color': '#4b4b4b', 'spe...                            NaN
-## 37                           None                    0  ...  [{'color': '#323219', 'spe...                            NaN
-## 38                           None                    0  ...  [{'color': '#323232', 'spe...                            NaN
-## 39                           None                    0  ...  [{'color': '#e1e1c8', 'spe...                            NaN
-## 40                           None                    0  ...                            NaN                            NaN
-## 41                           None                    0  ...                            NaN                            NaN
-## 42                           None                    0  ...                            NaN                            NaN
-## 43                           None                    0  ...  [{'color': '#321900', 'spe...                            NaN
-## 44                           None                    0  ...                            NaN                            NaN
-## 45                           None                    0  ...  [{'color': '#afafaf', 'spe...                            NaN
-## 46                           None                    0  ...                            NaN                            NaN
-## 47                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 48                           None                    0  ...  [{'color': '#4b4b4b', 'spe...                            NaN
-## 49  © Jasper Johns and ULAE/Li...                    0  ...  [{'color': '#4b9664', 'spe...                            NaN
+##                         copyright  contextualtextcount  ...                         colors                         people
+## 0                            None                    1  ...                            NaN                            NaN
+## 1                            None                    0  ...  [{'color': '#c8af96', 'spe...  [{'role': 'Artist', 'birth...
+## 2                            None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
+## 3                            None                    1  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 4                            None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 5   © Estate of Alfred Stiegli...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 6   © The Munch Museum / The M...                    0  ...  [{'color': '#191919', 'spe...  [{'role': 'Artist', 'birth...
+## 7   © Berenice Abbott/Commerce...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 8   © Jasper Johns and ULAE/Li...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 9                            None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 10                           None                    0  ...                            NaN                            NaN
+## 11                           None                    0  ...  [{'color': '#e1e1e1', 'spe...  [{'role': 'Artist', 'birth...
+## 12                           None                    0  ...  [{'color': '#191919', 'spe...  [{'role': 'Artist', 'birth...
+## 13                           None                    0  ...  [{'color': '#967d64', 'spe...  [{'role': 'Artist', 'birth...
+## 14  Art © Nancy Graves Foundat...                    0  ...  [{'color': '#e1af96', 'spe...  [{'role': 'Artist', 'birth...
+## 15                           None                    0  ...  [{'color': '#4b4b4b', 'spe...  [{'role': 'Artist', 'birth...
+## 16                           None                    0  ...  [{'color': '#323219', 'spe...  [{'role': 'Artist', 'birth...
+## 17                           None                    0  ...  [{'color': '#323232', 'spe...  [{'role': 'Artist', 'birth...
+## 18                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
+## 19                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 20                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 21                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 22                           None                    0  ...  [{'color': '#afafaf', 'spe...                            NaN
+## 23                           None                    0  ...  [{'color': '#4b4b4b', 'spe...  [{'role': 'Artist', 'birth...
+## 24  © Jasper Johns and ULAE/Li...                    0  ...  [{'color': '#4b9664', 'spe...  [{'role': 'Artist', 'birth...
+## 25                           None                    0  ...  [{'color': '#323232', 'spe...  [{'role': 'Artist', 'birth...
+## 26                           None                    0  ...  [{'color': '#323232', 'spe...  [{'role': 'Artist', 'birth...
+## 27                           None                    0  ...  [{'color': '#e1c8af', 'spe...  [{'role': 'Artist', 'birth...
+## 28                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 29                           None                    0  ...  [{'color': '#af967d', 'spe...  [{'role': 'Artist', 'birth...
+## 30  © Courtesy of Hiroshi Sugi...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 31                           None                    0  ...  [{'color': '#e1c8af', 'spe...  [{'role': 'Artist', 'birth...
+## 32                           None                    1  ...  [{'color': '#e1e1e1', 'spe...                            NaN
+## 33                           None                    0  ...  [{'color': '#c8af7d', 'spe...                            NaN
+## 34                           None                    0  ...  [{'color': '#64644b', 'spe...  [{'role': 'Artist', 'birth...
+## 35                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 36                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 37                   © Mimi Smith                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 38                           None                    0  ...                            NaN                            NaN
+## 39  © Estate of Pablo Picasso ...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 40                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 41                           None                    0  ...  [{'color': '#967d4b', 'spe...  [{'role': 'Artist', 'birth...
+## 42                           None                    1  ...  [{'color': '#c8c8c8', 'spe...                            NaN
+## 43                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 44                           None                    0  ...  [{'color': '#644b4b', 'spe...  [{'role': 'Artist', 'birth...
+## 45                           None                    1  ...                            NaN                            NaN
+## 46                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
+## 47  © Artists Rights Society (...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 48               © Richard Tuttle                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 49                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
 ## 
 ## [50 rows x 63 columns]
 \end{verbatim}
