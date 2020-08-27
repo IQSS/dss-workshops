@@ -764,6 +764,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Contrasts to test specific hypotheses</li>
 <li>Model comparisons</li>
 <li>Predicted marginal effects</li>
+<li>Modeling continuous and binary outcomes</li>
+<li>Modeling clustered data</li>
 </ul>
 <div id="setup-1" class="section level2">
 <h2>Setup</h2>
@@ -917,6 +919,7 @@ of the data we wish to model by creating plots and summaries. Let’s do this no
 ## 48 16.51    52     64  913  433  480      49    5000 36.338 83.8    22.9
 ## 49 51.14    48     57  926  441  485      17    4911 24.233 66.0    12.3
 ##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2 rows ]</code></pre>
+<p>Here’s a table that describes what each variable in the dataset represents:</p>
 <table>
 <thead>
 <tr class="header">
@@ -994,7 +997,7 @@ of the data we wish to model by creating plots and summaries. Let’s do this no
 <h3>Plot the data</h3>
 <p>Plot the data to look for multivariate outliers, non-linear relationships etc.</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="Rmodels.html#cb155-1"></a>  <span class="co"># scatter plot of expense vs csat</span></span>
-<span id="cb155-2"><a href="Rmodels.html#cb155-2"></a>  <span class="kw">qplot</span>(<span class="dt">x =</span> expense, <span class="dt">y =</span> csat, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">data =</span> sts_ex_sat)</span></code></pre></div>
+<span id="cb155-2"><a href="Rmodels.html#cb155-2"></a>  <span class="kw">qplot</span>(<span class="dt">x =</span> expense, <span class="dt">y =</span> csat, <span class="dt">data =</span> sts_ex_sat)</span></code></pre></div>
 <p><img src="R/Rmodels/figures/unnamed-chunk-83-1.png" width="672" /></p>
 <p>Obviously, in a real project, you would want to spend more time investigating the data,
 but we’ll now move on to modeling.</p>
@@ -1041,9 +1044,9 @@ SATscores_i = \beta_{0}1 + \beta_1expenditures_i + \epsilon_i
 ## Coefficients:
 ## (Intercept)      expense  
 ##  1060.73244     -0.02228</code></pre>
+<p>The default printed output from the fitted model is very austere — just point estimates of the coefficients. We can get more information by passing the fitted model object to the <code>summary()</code> function, which provides standard errors, test statistics, and p-values for individual coefficients, as well as goodness-of-fit measures for the overall model.</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="Rmodels.html#cb159-1"></a>  <span class="co"># get more informative summary information </span></span>
-<span id="cb159-2"><a href="Rmodels.html#cb159-2"></a>  <span class="co"># about coefficients and goodness-of-fit</span></span>
-<span id="cb159-3"><a href="Rmodels.html#cb159-3"></a>  <span class="kw">summary</span>(sat_mod)</span></code></pre></div>
+<span id="cb159-2"><a href="Rmodels.html#cb159-2"></a>  <span class="kw">summary</span>(sat_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = csat ~ 1 + expense, data = states_data)
@@ -1062,6 +1065,7 @@ SATscores_i = \beta_{0}1 + \beta_1expenditures_i + \epsilon_i
 ## Residual standard error: 59.81 on 49 degrees of freedom
 ## Multiple R-squared:  0.2174, Adjusted R-squared:  0.2015 
 ## F-statistic: 13.61 on 1 and 49 DF,  p-value: 0.0005631</code></pre>
+<p>If we just want to inspect the coefficients, we can further pipe the summary output into the function <code>coef()</code> to obtain just the coefficients table.</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="Rmodels.html#cb161-1"></a>  <span class="co"># show only the regression coefficients table </span></span>
 <span id="cb161-2"><a href="Rmodels.html#cb161-2"></a>  <span class="kw">summary</span>(sat_mod) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() </span></code></pre></div>
 <pre><code>##                  Estimate   Std. Error   t value     Pr(&gt;|t|)
@@ -1104,9 +1108,18 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 <p>But before we can do any of that, we need to know more about <strong>what a fitted model actually is,</strong>
 <strong>what information it contains, and how we can extract from it information that we want to report</strong>.</p>
 <p>Let’s start by examining the model object:</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="Rmodels.html#cb165-1"></a>  <span class="kw">class</span>(sat_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="Rmodels.html#cb165-1"></a>  <span class="co"># what class of object is the fitted model?</span></span>
+<span id="cb165-2"><a href="Rmodels.html#cb165-2"></a>  <span class="kw">class</span>(sat_mod)</span></code></pre></div>
 <pre><code>## [1] &quot;lm&quot;</code></pre>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="Rmodels.html#cb167-1"></a>  <span class="kw">str</span>(sat_mod)</span></code></pre></div>
+<p>We can see that fitted model object is of class <code>lm</code>, which stands for linear model. What quantities are stored within this model object?</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="Rmodels.html#cb167-1"></a>  <span class="co"># what are the elements stored within the fitted model object?</span></span>
+<span id="cb167-2"><a href="Rmodels.html#cb167-2"></a>  <span class="kw">names</span>(sat_mod)</span></code></pre></div>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<p>We can see that 12 different things are stored within a fitted model of class <code>lm</code>. In what structure are these quantities organized?</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="Rmodels.html#cb169-1"></a>  <span class="co"># what is the structure of the fitted model object?</span></span>
+<span id="cb169-2"><a href="Rmodels.html#cb169-2"></a>  <span class="kw">str</span>(sat_mod)</span></code></pre></div>
 <pre><code>## List of 12
 ##  $ coefficients : Named num [1:2] 1060.7324 -0.0223
 ##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;expense&quot;
@@ -1164,10 +1177,7 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
 ##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;csat&quot; &quot;expense&quot;
 ##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="Rmodels.html#cb169-1"></a>  <span class="kw">names</span>(sat_mod)</span></code></pre></div>
-<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
-##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
-##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<p>We can see that fitted model object is a <code>list</code> structure (a type of container for different pieces of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class <code>lm</code> is only a very small part of the information stored within the model object. How can we access other quantities of interest from the model?</p>
 <p>We can list all the functions that extract particular quantities of interest (called <code>extractor functions</code>) by using the <code>methods()</code> function with the <code>class</code> argument set to the class of the model object:</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="Rmodels.html#cb171-1"></a><span class="kw">methods</span>(<span class="dt">class =</span> <span class="kw">class</span>(sat_mod))</span></code></pre></div>
 <pre><code>##  [1] add1           alias          anova          case.names     coerce        
@@ -1180,8 +1190,9 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ## [36] residuals      rstandard      rstudent       show           simulate      
 ## [41] slotsFromS3    summary        variable.names vcov          
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
-<p>We can also use <code>function methods</code> to get more information about the fit:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="Rmodels.html#cb173-1"></a>  <span class="kw">summary</span>(sat_mod) <span class="co"># summary table</span></span></code></pre></div>
+<p>We can also use <code>function methods</code> to get more information about the fit. We’ve already seen the <code>summary()</code> function for <code>lm</code>, which is a good place to start:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="Rmodels.html#cb173-1"></a>  <span class="co"># summary table</span></span>
+<span id="cb173-2"><a href="Rmodels.html#cb173-2"></a>  <span class="kw">summary</span>(sat_mod) </span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = csat ~ 1 + expense, data = states_data)
@@ -1200,11 +1211,15 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ## Residual standard error: 59.81 on 49 degrees of freedom
 ## Multiple R-squared:  0.2174, Adjusted R-squared:  0.2015 
 ## F-statistic: 13.61 on 1 and 49 DF,  p-value: 0.0005631</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="Rmodels.html#cb175-1"></a>  <span class="kw">confint</span>(sat_mod) <span class="co"># confidence intervals</span></span></code></pre></div>
+<p>We can use the <code>confint()</code> function to get interval estimates for our coefficients:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="Rmodels.html#cb175-1"></a>  <span class="co"># confidence intervals</span></span>
+<span id="cb175-2"><a href="Rmodels.html#cb175-2"></a>  <span class="kw">confint</span>(sat_mod) </span></code></pre></div>
 <pre><code>##                    2.5 %        97.5 %
 ## (Intercept) 995.01753164 1126.44735626
 ## expense      -0.03440768   -0.01014361</code></pre>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="Rmodels.html#cb177-1"></a>  <span class="kw">anova</span>(sat_mod) <span class="co"># ANOVA table  </span></span></code></pre></div>
+<p>And we can use the <code>anova()</code> function to get an ANOVA-style table of the model:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="Rmodels.html#cb177-1"></a>  <span class="co"># ANOVA table</span></span>
+<span id="cb177-2"><a href="Rmodels.html#cb177-2"></a>  <span class="kw">anova</span>(sat_mod)   </span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: csat
@@ -1375,11 +1390,11 @@ Here’s a summary table of some of the most often used extractor functions, whi
 <span id="cb181-2"><a href="Rmodels.html#cb181-2"></a>  <span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">fitted</span>(sat_mod), <span class="dt">y =</span> <span class="kw">rstandard</span>(sat_mod), <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="op">+</span></span>
 <span id="cb181-3"><a href="Rmodels.html#cb181-3"></a><span class="st">      </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb181-4"><a href="Rmodels.html#cb181-4"></a><span class="st">      </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Fitted Values&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Standardized residuals&quot;</span>)</span></code></pre></div>
-<p><img src="R/Rmodels/figures/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="R/Rmodels/figures/unnamed-chunk-97-1.png" width="672" /></p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="Rmodels.html#cb182-1"></a>  <span class="co"># Quantile-quantile plot of standardized residuals</span></span>
 <span id="cb182-2"><a href="Rmodels.html#cb182-2"></a>  <span class="kw">qplot</span>(<span class="dt">sample =</span> <span class="kw">rstandard</span>(sat_mod), <span class="dt">geom =</span> <span class="kw">c</span>(<span class="st">&quot;qq&quot;</span>, <span class="st">&quot;qq_line&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb182-3"><a href="Rmodels.html#cb182-3"></a><span class="st">      </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Theoretical Quantiles&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Standardized residuals&quot;</span>)</span></code></pre></div>
-<p><img src="R/Rmodels/figures/unnamed-chunk-91-2.png" width="672" /></p>
+<p><img src="R/Rmodels/figures/unnamed-chunk-97-2.png" width="672" /></p>
 </div>
 <div id="comparing-models" class="section level3">
 <h3>Comparing models</h3>
@@ -1394,7 +1409,7 @@ Here’s a summary table of some of the most often used extractor functions, whi
 ## expense       -0.01870832  0.009691494 -1.9303852 6.001998e-02
 ## house         -1.44243754  0.600478382 -2.4021473 2.058666e-02
 ## senate         0.49817861  0.513561356  0.9700469 3.373256e-01</code></pre>
-<p>Why are we using <code>na.omit()</code>? Let’s see what <code>na.omit()</code> does.</p>
+<p>Why are we using <code>na.omit()</code>? Let’s see what <code>na.omit()</code> does by creating some fake data:</p>
 <div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="Rmodels.html#cb185-1"></a><span class="co"># fake data</span></span>
 <span id="cb185-2"><a href="Rmodels.html#cb185-2"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
 <span id="cb185-3"><a href="Rmodels.html#cb185-3"></a>  <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
@@ -1407,14 +1422,16 @@ Here’s a summary table of some of the most often used extractor functions, whi
 ## 3 3  1  2
 ## 4 4 NA  7
 ## 5 5  5  3</code></pre>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="Rmodels.html#cb187-1"></a><span class="kw">na.omit</span>(dat) <span class="co"># listwise deletion of observations</span></span></code></pre></div>
+<p>We can see that there are missing values on rows 2 and 4. Now let’s use <code>na.omit()</code> on these data:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="Rmodels.html#cb187-1"></a><span class="co"># listwise deletion of observations</span></span>
+<span id="cb187-2"><a href="Rmodels.html#cb187-2"></a><span class="kw">na.omit</span>(dat) </span></code></pre></div>
 <pre><code>##   x y z
 ## 1 1 3 6
 ## 3 3 1 2
 ## 5 5 5 3</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="Rmodels.html#cb189-1"></a><span class="co"># also see</span></span>
-<span id="cb189-2"><a href="Rmodels.html#cb189-2"></a><span class="co"># ?complete.cases</span></span>
-<span id="cb189-3"><a href="Rmodels.html#cb189-3"></a>dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, y, z)), ]</span></code></pre></div>
+<p>Here, the rows with missing values have been omitted — so, <code>na.omit()</code> performs <em>listwise deletion</em> of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the <code>complete.cases()</code> function:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="Rmodels.html#cb189-1"></a><span class="co"># ?complete.cases</span></span>
+<span id="cb189-2"><a href="Rmodels.html#cb189-2"></a>dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, y, z)), ]</span></code></pre></div>
 <pre><code>##   x y z
 ## 1 1 3 6
 ## 3 3 1 2
@@ -1484,7 +1501,7 @@ Now let’s update our first model using <code>na.omit()</code>:</p>
 ## metro   1.0000000 -0.3397445
 ## energy -0.3397445  1.0000000</code></pre>
 <div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="Rmodels.html#cb202-1"></a>  <span class="kw">qplot</span>(<span class="dt">x =</span> metro, <span class="dt">y =</span> energy, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">data =</span> states_en_met)</span></code></pre></div>
-<p><img src="R/Rmodels/figures/unnamed-chunk-100-1.png" width="672" /></p>
+<p><img src="R/Rmodels/figures/unnamed-chunk-108-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Print and interpret the model <code>summary()</code>.</li>
 </ol>
@@ -1516,11 +1533,11 @@ Now let’s update our first model using <code>na.omit()</code>:</p>
 <span id="cb205-2"><a href="Rmodels.html#cb205-2"></a>  <span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">fitted</span>(mod_en_met), <span class="dt">y =</span> <span class="kw">rstandard</span>(mod_en_met), <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="op">+</span></span>
 <span id="cb205-3"><a href="Rmodels.html#cb205-3"></a><span class="st">      </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb205-4"><a href="Rmodels.html#cb205-4"></a><span class="st">      </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Fitted Values&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Standardized Residuals&quot;</span>)</span></code></pre></div>
-<p><img src="R/Rmodels/figures/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="R/Rmodels/figures/unnamed-chunk-110-1.png" width="672" /></p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="Rmodels.html#cb206-1"></a>  <span class="co"># Quantile-quantile plot of standardized residuals</span></span>
 <span id="cb206-2"><a href="Rmodels.html#cb206-2"></a>  <span class="kw">qplot</span>(<span class="dt">sample =</span> <span class="kw">rstandard</span>(mod_en_met), <span class="dt">geom =</span> <span class="kw">c</span>(<span class="st">&quot;qq&quot;</span>, <span class="st">&quot;qq_line&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb206-3"><a href="Rmodels.html#cb206-3"></a><span class="st">      </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Theoretical Quantiles&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Standardized Residuals&quot;</span>)</span></code></pre></div>
-<p><img src="R/Rmodels/figures/unnamed-chunk-102-2.png" width="672" /></p>
+<p><img src="R/Rmodels/figures/unnamed-chunk-110-2.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with <code>metro</code> as the only predictor?</li>
 </ol>
@@ -1621,6 +1638,7 @@ Note that you must make sure R does not think your categorical variable is numer
 <span id="cb219-6"><a href="Rmodels.html#cb219-6"></a></span>
 <span id="cb219-7"><a href="Rmodels.html#cb219-7"></a>  <span class="kw">levels</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
 <pre><code>## [1] &quot;West&quot;    &quot;N. East&quot; &quot;South&quot;   &quot;Midwest&quot;</code></pre>
+<p>Now let’s add <code>region</code> to the model:</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="Rmodels.html#cb221-1"></a>  <span class="co"># add region to the model</span></span>
 <span id="cb221-2"><a href="Rmodels.html#cb221-2"></a>  sat_region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states_data) </span>
 <span id="cb221-3"><a href="Rmodels.html#cb221-3"></a></span>
@@ -1646,6 +1664,7 @@ Note that you must make sure R does not think your categorical variable is numer
 <h3>Setting factor reference groups &amp; contrasts</h3>
 <p><strong>Contrasts</strong> is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.</p>
 <p>The default contrasts in R are “treatment” contrasts (aka “dummy coding”), where each level within a factor is identified within a matrix of binary <code>0</code> / <code>1</code> variables, with the first level chosen as the reference category. They’re called “treatment” contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.</p>
+<p>First, let’s examine the default contrasts for <code>region</code>:</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="Rmodels.html#cb225-1"></a>  <span class="co"># default treatment (dummy) contrasts</span></span>
 <span id="cb225-2"><a href="Rmodels.html#cb225-2"></a>  <span class="kw">contrasts</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
 <pre><code>##         N. East South Midwest
@@ -1653,6 +1672,7 @@ Note that you must make sure R does not think your categorical variable is numer
 ## N. East       1     0       0
 ## South         0     1       0
 ## Midwest       0     0       1</code></pre>
+<p>We can see that the reference level is <code>West</code>. How can we change this? Let’s use the <code>relevel()</code> function:</p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="Rmodels.html#cb227-1"></a>  <span class="co"># change the reference group</span></span>
 <span id="cb227-2"><a href="Rmodels.html#cb227-2"></a>  states_data &lt;-<span class="st"> </span>states_data <span class="op">%&gt;%</span></span>
 <span id="cb227-3"><a href="Rmodels.html#cb227-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">relevel</span>(region, <span class="dt">ref =</span> <span class="st">&quot;Midwest&quot;</span>))</span>
@@ -1664,6 +1684,7 @@ Note that you must make sure R does not think your categorical variable is numer
 ## West       1       0     0
 ## N. East    0       1     0
 ## South      0       0     1</code></pre>
+<p>Now let’s refit the model with the releveled <code>region</code> variable:</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="Rmodels.html#cb229-1"></a>  <span class="co"># refit the model</span></span>
 <span id="cb229-2"><a href="Rmodels.html#cb229-2"></a>  mod_region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states_data)</span>
 <span id="cb229-3"><a href="Rmodels.html#cb229-3"></a>  <span class="kw">summary</span>(mod_region) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
@@ -1672,6 +1693,7 @@ Note that you must make sure R does not think your categorical variable is numer
 ## regionWest     -63.77564   21.35592 -2.986321 4.514152e-03
 ## regionN. East -120.52778   23.52385 -5.123641 5.798399e-06
 ## regionSouth    -80.08333   20.37225 -3.931000 2.826007e-04</code></pre>
+<p>Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare some levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the <code>emmeans()</code> postestimation function from the <code>emmeans</code> package to do the calculations for us:</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="Rmodels.html#cb231-1"></a>  <span class="co"># get all pairwise contrasts between means</span></span>
 <span id="cb231-2"><a href="Rmodels.html#cb231-2"></a>  mod_region <span class="op">%&gt;%</span></span>
 <span id="cb231-3"><a href="Rmodels.html#cb231-3"></a><span class="st">      </span><span class="kw">emmeans</span>(<span class="dt">specs =</span> pairwise <span class="op">~</span><span class="st"> </span>region)</span></code></pre></div>
@@ -1839,7 +1861,7 @@ Here we transform them into odds ratios by exponentiating:</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="Rmodels.html#cb251-1"></a>  hyp_out <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb251-2"><a href="Rmodels.html#cb251-2"></a><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></span>
 <span id="cb251-3"><a href="Rmodels.html#cb251-3"></a><span class="st">      </span><span class="kw">plot</span>(<span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># &quot;response&quot; refers to the probability scale</span></span></code></pre></div>
-<p><img src="R/Rmodels/figures/unnamed-chunk-118-1.png" width="672" /></p>
+<p><img src="R/Rmodels/figures/unnamed-chunk-129-1.png" width="672" /></p>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="Rmodels.html#cb252-1"></a>  <span class="co"># generate a sequence of ages at which to get predictions of the outcome</span></span>
 <span id="cb252-2"><a href="Rmodels.html#cb252-2"></a>  age_years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)</span>
 <span id="cb252-3"><a href="Rmodels.html#cb252-3"></a>  age_years</span></code></pre></div>

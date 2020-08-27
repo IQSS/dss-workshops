@@ -8,6 +8,8 @@
 # * Contrasts to test specific hypotheses
 # * Model comparisons
 # * Predicted marginal effects
+# * Modeling continuous and binary outcomes
+# * Modeling clustered data
 
 # ## Setup
 #
@@ -135,6 +137,8 @@ list.files("dataSets")
   # look at the last few rows
   tail(states_data)
 
+# Here's a table that describes what each variable in the dataset represents:
+#
 # | Variable | Description                                        |
 # |:---------|:---------------------------------------------------|
 # | csat     | Mean composite SAT score                           |
@@ -167,7 +171,7 @@ list.files("dataSets")
 # Plot the data to look for multivariate outliers, non-linear relationships etc.
 
   # scatter plot of expense vs csat
-  qplot(x = expense, y = csat, geom = "point", data = sts_ex_sat)
+  qplot(x = expense, y = csat, data = sts_ex_sat)
 
 # Obviously, in a real project, you would want to spend more time investigating the data,
 # but we'll now move on to modeling.
@@ -213,9 +217,12 @@ outcome ~ pred1 + pred2 + pred3
   # look at the basic printed output
   sat_mod
 
+# The default printed output from the fitted model is very austere --- just point estimates of the coefficients. We can get more information by passing the fitted model object to the `summary()` function, which provides standard errors, test statistics, and p-values for individual coefficients, as well as goodness-of-fit measures for the overall model.
+
   # get more informative summary information 
-  # about coefficients and goodness-of-fit
   summary(sat_mod)
+
+# If we just want to inspect the coefficients, we can further pipe the summary output into the function `coef()` to obtain just the coefficients table.
 
   # show only the regression coefficients table 
   summary(sat_mod) %>% coef() 
@@ -241,19 +248,39 @@ outcome ~ pred1 + pred2 + pred3
 #
 # Let's start by examining the model object:
 
+  # what class of object is the fitted model?
   class(sat_mod)
-  str(sat_mod)
+
+# We can see that fitted model object is of class `lm`, which stands for linear model. What quantities are stored within this model object? 
+
+  # what are the elements stored within the fitted model object?
   names(sat_mod)
 
+# We can see that 12 different things are stored within a fitted model of class `lm`. In what structure are these quantities organized?
+
+  # what is the structure of the fitted model object?
+  str(sat_mod)
+
+# We can see that fitted model object is a `list` structure (a type of container for different pieces of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class `lm` is only a very small part of the information stored within the model object. How can we access other quantities of interest from the model?
+#
 # We can list all the functions that extract particular quantities of interest (called `extractor functions`) by using the `methods()` function with the `class` argument set to the class of the model object:
 
 methods(class = class(sat_mod))
 
-# We can also use `function methods` to get more information about the fit:
+# We can also use `function methods` to get more information about the fit. We've already seen the `summary()` function for `lm`, which is a good place to start:
 
-  summary(sat_mod) # summary table
-  confint(sat_mod) # confidence intervals
-  anova(sat_mod) # ANOVA table  
+  # summary table
+  summary(sat_mod) 
+
+# We can use the `confint()` function to get interval estimates for our coefficients:
+
+  # confidence intervals
+  confint(sat_mod) 
+
+# And we can use the `anova()` function to get an ANOVA-style table of the model:
+
+  # ANOVA table
+  anova(sat_mod)   
 
 # How does R know which method to call for a given object? R uses `generic functions`, which provide access to `methods`. Method dispatch takes place based on the `class` of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Function methods always take the form `generic.method()`:
 
@@ -316,7 +343,7 @@ methods("summary")
 
   summary(sat_voting_mod) %>% coef()
 
-# Why are we using `na.omit()`? Let's see what `na.omit()` does.
+# Why are we using `na.omit()`? Let's see what `na.omit()` does by creating some fake data:
 
 # fake data
 dat <- data.frame(
@@ -325,9 +352,13 @@ dat <- data.frame(
   z = c(6, NA, 2, 7, 3))
 dat
 
-na.omit(dat) # listwise deletion of observations
+# We can see that there are missing values on rows 2 and 4. Now let's use `na.omit()` on these data:
 
-# also see
+# listwise deletion of observations
+na.omit(dat) 
+
+# Here, the rows with missing values have been omitted --- so, `na.omit()` performs *listwise deletion* of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the `complete.cases()` function:
+
 # ?complete.cases
 dat[with(dat, complete.cases(x, y, z)), ]
 
@@ -451,6 +482,8 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   levels(states_data$region)
 
+# Now let's add `region` to the model:
+
   # add region to the model
   sat_region <- lm(csat ~ 1 + region, data = states_data) 
 
@@ -465,9 +498,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # **Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.
 #
 # The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category. They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
+#
+# First, let's examine the default contrasts for `region`:
 
   # default treatment (dummy) contrasts
   contrasts(states_data$region)
+
+# We can see that the reference level is `West`. How can we change this? Let's use the `relevel()` function:
 
   # change the reference group
   states_data <- states_data %>%
@@ -476,9 +513,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
   # check the reference group has changed
   contrasts(states_data$region)
 
+# Now let's refit the model with the releveled `region` variable:
+
   # refit the model
   mod_region <- lm(csat ~ 1 + region, data = states_data)
   summary(mod_region) %>% coef()
+
+# Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare some levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the `emmeans()` postestimation function from the `emmeans` package to do the calculations for us:
 
   # get all pairwise contrasts between means
   mod_region %>%

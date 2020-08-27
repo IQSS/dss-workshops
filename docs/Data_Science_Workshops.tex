@@ -293,7 +293,7 @@ old school & ASCII text file & vi & fortran & TeX & Bourne (compatible) shell\ta
 \hypertarget{something-old-something-new}{%
 \subsection{Something old \& something new}\label{something-old-something-new}}
 
-Next we're going to do the same basic process, this time using a modern text editor (\textbf{Atom}), a different programming language (\textbf{Python}), and a modern report generation system (\textbf{LaTeX} processed via \textbf{xelatex}). For the glue we're still going to use a shell.
+Next we're going to do the same basic process, this time using a modern text editor (\textbf{Atom}), a different programming language (\textbf{Python}), and a modern report generation system (\textbf{LaTeX} processed via \textbf{XeLaTeX}). For the glue we're still going to use a shell.
 
 OLD AND NEW DEMO:
 
@@ -525,7 +525,7 @@ In this example we will compare the syntax for reading and summarizing data stor
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{import delimited }\KeywordTok{using} \StringTok{"https://github.com/IQSS/dss{-}workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv"}
+\NormalTok{import delimited }\KeywordTok{using} \StringTok{"https://github.com/IQSS/dss{-}workshops/raw/master/General/DataScienceTools/dataSets/EconomistData.csv"}
 \KeywordTok{sum}
 \end{Highlighting}
 \end{Shaded}
@@ -556,7 +556,7 @@ sum
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cpi \textless{}{-}}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"https://github.com/IQSS/dss{-}workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv"}\NormalTok{)}
+\NormalTok{cpi \textless{}{-}}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"https://github.com/IQSS/dss{-}workshops/raw/master/General/DataScienceTools/dataSets/EconomistData.csv"}\NormalTok{)}
 \KeywordTok{summary}\NormalTok{(cpi)}
 \end{Highlighting}
 \end{Shaded}
@@ -587,14 +587,14 @@ Max.   :9.500   SSA              :46
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\VariableTok{tmpfile} \OperatorTok{=} \VariableTok{websave}\NormalTok{(}\VariableTok{tempname}\NormalTok{()}\OperatorTok{,} \SpecialStringTok{\textquotesingle{}https://github.com/IQSS/dss{-}workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
+\VariableTok{tmpfile} \OperatorTok{=} \VariableTok{websave}\NormalTok{(}\VariableTok{tempname}\NormalTok{()}\OperatorTok{,} \SpecialStringTok{\textquotesingle{}https://github.com/IQSS/dss{-}workshops/raw/master/General/DataScienceTools/dataSets/EconomistData.csv\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
 \VariableTok{cpi} \OperatorTok{=} \VariableTok{readtable}\NormalTok{(}\VariableTok{tmpfile}\NormalTok{)}\OperatorTok{;}
 \VariableTok{summary}\NormalTok{(}\VariableTok{cpi}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-tmpfile = websave(tempname(), 'https://github.com/IQSS/dss-workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv');
+tmpfile = websave(tempname(), 'https://github.com/IQSS/dss-workshops/raw/master/General/DataScienceTools/dataSets/EconomistData.csv');
 cpi = readtable(tmpfile);
 summary(cpi)
 
@@ -646,7 +646,7 @@ ans =
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{cpi }\OperatorTok{=}\NormalTok{ pd.read\_csv(}\StringTok{\textquotesingle{}https://github.com/IQSS/dss{-}workshops/raw/master/R/Rgraphics/dataSets/EconomistData.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{cpi }\OperatorTok{=}\NormalTok{ pd.read\_csv(}\StringTok{\textquotesingle{}https://github.com/IQSS/dss{-}workshops/raw/master/General/DataScienceTools/dataSets/EconomistData.csv\textquotesingle{}}\NormalTok{)}
 \NormalTok{cpi.describe(include }\OperatorTok{=} \StringTok{\textquotesingle{}all\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1227,8 +1227,8 @@ Before starting any of our R workshops, it is necessary to complete 4 tasks. Ple
 \hypertarget{troubleshooting-session}{%
 \section{Troubleshooting session}\label{troubleshooting-session}}
 
-We will hold a troubleshooting session during the 20 minutes prior to the start of the workshop.
-\textbf{If you are unable to complete all of the tasks, please stop by the training room during this session.}
+We will hold a troubleshooting session to help with setup during the 20 minutes prior to the start of the workshop.
+\textbf{If you are unable to complete all four tasks by yourself, please join us at the workshop location for this session.}
 Once the workshop starts we will \textbf{NOT} be able to give you one-to-one assistance with troubleshooting installation problems. Likewise, if you arrive late, please do \textbf{NOT} expect one-to-one assistance for anything covered at the beginning of the workshop.
 
 \hypertarget{materials}{%
@@ -3565,6 +3565,10 @@ These workshops are a work-in-progress, please provide any feedback to: \href{ma
   Model comparisons
 \item
   Predicted marginal effects
+\item
+  Modeling continuous and binary outcomes
+\item
+  Modeling clustered data
 \end{itemize}
 
 \hypertarget{setup-1}{%
@@ -3777,6 +3781,8 @@ We're going to use the \texttt{states} data first, which originally appeared in 
 ##  [ reached 'max' / getOption("max.print") -- omitted 2 rows ]
 \end{verbatim}
 
+Here's a table that describes what each variable in the dataset represents:
+
 \begin{longtable}[]{@{}ll@{}}
 \toprule
 Variable & Description\tabularnewline
@@ -3842,7 +3848,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# scatter plot of expense vs csat}
-  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ expense, }\DataTypeTok{y =}\NormalTok{ csat, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ sts\_ex\_sat)}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ expense, }\DataTypeTok{y =}\NormalTok{ csat, }\DataTypeTok{data =}\NormalTok{ sts\_ex\_sat)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3923,10 +3929,11 @@ We can use \texttt{lm()} to fit this model:
 ##  1060.73244     -0.02228
 \end{verbatim}
 
+The default printed output from the fitted model is very austere --- just point estimates of the coefficients. We can get more information by passing the fitted model object to the \texttt{summary()} function, which provides standard errors, test statistics, and p-values for individual coefficients, as well as goodness-of-fit measures for the overall model.
+
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# get more informative summary information }
-  \CommentTok{\# about coefficients and goodness{-}of{-}fit}
   \KeywordTok{summary}\NormalTok{(sat\_mod)}
 \end{Highlighting}
 \end{Shaded}
@@ -3951,6 +3958,8 @@ We can use \texttt{lm()} to fit this model:
 ## Multiple R-squared:  0.2174, Adjusted R-squared:  0.2015 
 ## F-statistic: 13.61 on 1 and 49 DF,  p-value: 0.0005631
 \end{verbatim}
+
+If we just want to inspect the coefficients, we can further pipe the summary output into the function \texttt{coef()} to obtain just the coefficients table.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4023,6 +4032,7 @@ Let's start by examining the model object:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+  \CommentTok{\# what class of object is the fitted model?}
   \KeywordTok{class}\NormalTok{(sat\_mod)}
 \end{Highlighting}
 \end{Shaded}
@@ -4031,8 +4041,26 @@ Let's start by examining the model object:
 ## [1] "lm"
 \end{verbatim}
 
+We can see that fitted model object is of class \texttt{lm}, which stands for linear model. What quantities are stored within this model object?
+
 \begin{Shaded}
 \begin{Highlighting}[]
+  \CommentTok{\# what are the elements stored within the fitted model object?}
+  \KeywordTok{names}\NormalTok{(sat\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "coefficients"  "residuals"     "effects"       "rank"         
+##  [5] "fitted.values" "assign"        "qr"            "df.residual"  
+##  [9] "xlevels"       "call"          "terms"         "model"
+\end{verbatim}
+
+We can see that 12 different things are stored within a fitted model of class \texttt{lm}. In what structure are these quantities organized?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\# what is the structure of the fitted model object?}
   \KeywordTok{str}\NormalTok{(sat\_mod)}
 \end{Highlighting}
 \end{Shaded}
@@ -4097,17 +4125,7 @@ Let's start by examining the model object:
 ##  - attr(*, "class")= chr "lm"
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-  \KeywordTok{names}\NormalTok{(sat\_mod)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] "coefficients"  "residuals"     "effects"       "rank"         
-##  [5] "fitted.values" "assign"        "qr"            "df.residual"  
-##  [9] "xlevels"       "call"          "terms"         "model"
-\end{verbatim}
+We can see that fitted model object is a \texttt{list} structure (a type of container for different pieces of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class \texttt{lm} is only a very small part of the information stored within the model object. How can we access other quantities of interest from the model?
 
 We can list all the functions that extract particular quantities of interest (called \texttt{extractor\ functions}) by using the \texttt{methods()} function with the \texttt{class} argument set to the class of the model object:
 
@@ -4130,11 +4148,12 @@ We can list all the functions that extract particular quantities of interest (ca
 ## see '?methods' for accessing help and source code
 \end{verbatim}
 
-We can also use \texttt{function\ methods} to get more information about the fit:
+We can also use \texttt{function\ methods} to get more information about the fit. We've already seen the \texttt{summary()} function for \texttt{lm}, which is a good place to start:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{summary}\NormalTok{(sat\_mod) }\CommentTok{\# summary table}
+  \CommentTok{\# summary table}
+  \KeywordTok{summary}\NormalTok{(sat\_mod) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -4159,9 +4178,12 @@ We can also use \texttt{function\ methods} to get more information about the fit
 ## F-statistic: 13.61 on 1 and 49 DF,  p-value: 0.0005631
 \end{verbatim}
 
+We can use the \texttt{confint()} function to get interval estimates for our coefficients:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{confint}\NormalTok{(sat\_mod) }\CommentTok{\# confidence intervals}
+  \CommentTok{\# confidence intervals}
+  \KeywordTok{confint}\NormalTok{(sat\_mod) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -4171,9 +4193,12 @@ We can also use \texttt{function\ methods} to get more information about the fit
 ## expense      -0.03440768   -0.01014361
 \end{verbatim}
 
+And we can use the \texttt{anova()} function to get an ANOVA-style table of the model:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{anova}\NormalTok{(sat\_mod) }\CommentTok{\# ANOVA table  }
+  \CommentTok{\# ANOVA table}
+  \KeywordTok{anova}\NormalTok{(sat\_mod)   }
 \end{Highlighting}
 \end{Shaded}
 
@@ -4316,7 +4341,7 @@ Investigate assumptions \#7 and \#8 visually by plotting your model:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-91-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-97-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4326,7 +4351,7 @@ Investigate assumptions \#7 and \#8 visually by plotting your model:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-91-2.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-97-2.pdf}
 
 \hypertarget{comparing-models}{%
 \subsection{Comparing models}\label{comparing-models}}
@@ -4351,7 +4376,7 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 ## senate         0.49817861  0.513561356  0.9700469 3.373256e-01
 \end{verbatim}
 
-Why are we using \texttt{na.omit()}? Let's see what \texttt{na.omit()} does.
+Why are we using \texttt{na.omit()}? Let's see what \texttt{na.omit()} does by creating some fake data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4373,9 +4398,12 @@ Why are we using \texttt{na.omit()}? Let's see what \texttt{na.omit()} does.
 ## 5 5  5  3
 \end{verbatim}
 
+We can see that there are missing values on rows 2 and 4. Now let's use \texttt{na.omit()} on these data:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{na.omit}\NormalTok{(dat) }\CommentTok{\# listwise deletion of observations}
+\CommentTok{\# listwise deletion of observations}
+\KeywordTok{na.omit}\NormalTok{(dat) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -4386,9 +4414,10 @@ Why are we using \texttt{na.omit()}? Let's see what \texttt{na.omit()} does.
 ## 5 5 5 3
 \end{verbatim}
 
+Here, the rows with missing values have been omitted --- so, \texttt{na.omit()} performs \emph{listwise deletion} of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the \texttt{complete.cases()} function:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# also see}
 \CommentTok{\# ?complete.cases}
 \NormalTok{dat[}\KeywordTok{with}\NormalTok{(dat, }\KeywordTok{complete.cases}\NormalTok{(x, y, z)), ]}
 \end{Highlighting}
@@ -4549,7 +4578,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-100-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-108-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4605,7 +4634,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-102-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-110-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4615,7 +4644,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-102-2.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-110-2.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4790,6 +4819,8 @@ Here, R is already treating \texttt{region} as categorical --- that is, in R par
 ## [1] "West"    "N. East" "South"   "Midwest"
 \end{verbatim}
 
+Now let's add \texttt{region} to the model:
+
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# add region to the model}
@@ -4834,6 +4865,8 @@ So, make sure to tell R which variables are categorical by converting them to fa
 
 The default contrasts in R are ``treatment'' contrasts (aka ``dummy coding''), where each level within a factor is identified within a matrix of binary \texttt{0} / \texttt{1} variables, with the first level chosen as the reference category. They're called ``treatment'' contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
 
+First, let's examine the default contrasts for \texttt{region}:
+
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# default treatment (dummy) contrasts}
@@ -4848,6 +4881,8 @@ The default contrasts in R are ``treatment'' contrasts (aka ``dummy coding''), w
 ## South         0     1       0
 ## Midwest       0     0       1
 \end{verbatim}
+
+We can see that the reference level is \texttt{West}. How can we change this? Let's use the \texttt{relevel()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4868,6 +4903,8 @@ The default contrasts in R are ``treatment'' contrasts (aka ``dummy coding''), w
 ## South      0       0     1
 \end{verbatim}
 
+Now let's refit the model with the releveled \texttt{region} variable:
+
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# refit the model}
@@ -4883,6 +4920,8 @@ The default contrasts in R are ``treatment'' contrasts (aka ``dummy coding''), w
 ## regionN. East -120.52778   23.52385 -5.123641 5.798399e-06
 ## regionSouth    -80.08333   20.37225 -3.931000 2.826007e-04
 \end{verbatim}
+
+Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare some levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the \texttt{emmeans()} postestimation function from the \texttt{emmeans} package to do the calculations for us:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5200,7 +5239,7 @@ Instead of reporting odds ratios, we may want to calculate predicted marginal me
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-118-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-129-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6280,7 +6319,7 @@ Let's look at housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-143-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-154-1.pdf}
 
 \textbf{Step 2:} specify aesthetic mappings (how you want to map variables to visual aspects):
 
@@ -6291,7 +6330,7 @@ Let's look at housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-144-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-155-1.pdf}
 
 \textbf{Step 3:} add new layers of geometric objects that will show up on the plot:
 
@@ -6304,7 +6343,7 @@ Let's look at housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-145-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-156-1.pdf}
 
 \hypertarget{lines-prediction-line}{%
 \subsubsection{Lines (prediction line)}\label{lines-prediction-line}}
@@ -6326,7 +6365,7 @@ A plot constructed with \texttt{ggplot()} can have more than one geom. In that c
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-146-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-157-1.pdf}
 
 \hypertarget{smoothers}{%
 \subsubsection{Smoothers}\label{smoothers}}
@@ -6341,7 +6380,7 @@ Not all geometric objects are simple shapes; the smooth geom includes a line and
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-147-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-158-1.pdf}
 
 \hypertarget{text-label-points}{%
 \subsubsection{Text (label points)}\label{text-label-points}}
@@ -6355,7 +6394,7 @@ Each geom accepts a particular set of mappings; for example \texttt{geom\_text()
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-148-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-159-1.pdf}
 
 But what if we want to include points and labels? We can use \texttt{geom\_text\_repel()} to keep labels from overlapping the points and each other.
 
@@ -6367,7 +6406,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-149-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-160-1.pdf}
 
 \hypertarget{aesthetic-mapping-vs-assignment}{%
 \subsection{Aesthetic mapping VS assignment}\label{aesthetic-mapping-vs-assignment}}
@@ -6386,7 +6425,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-150-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-161-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6403,7 +6442,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-151-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-162-1.pdf}
 
 This sometimes leads to confusion, as in this example:
 
@@ -6415,7 +6454,7 @@ This sometimes leads to confusion, as in this example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-152-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-163-1.pdf}
 
 \hypertarget{mapping-variables-to-other-aesthetics}{%
 \subsection{Mapping variables to other aesthetics}\label{mapping-variables-to-other-aesthetics}}
@@ -6429,7 +6468,7 @@ Other aesthetics are mapped in the same way as x and y in the previous example.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-153-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-164-1.pdf}
 
 \hypertarget{exercise-0-2}{%
 \subsection{Exercise 0}\label{exercise-0-2}}
@@ -6533,7 +6572,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-160-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-171-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6550,7 +6589,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-161-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-172-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6567,7 +6606,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-162-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-173-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6584,7 +6623,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-163-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-174-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6601,7 +6640,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-164-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-175-1.pdf}
 
 \end{alert}
 
@@ -6666,7 +6705,7 @@ For example, here is the default histogram of \texttt{Home\_Value}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-166-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-177-1.pdf}
 
 We can change the binning scheme by passing the \texttt{binwidth} argument to the \texttt{stat\_bin()} function:
 
@@ -6676,7 +6715,7 @@ We can change the binning scheme by passing the \texttt{binwidth} argument to th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-167-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-178-1.pdf}
 
 \hypertarget{changing-the-transformation}{%
 \subsection{Changing the transformation}\label{changing-the-transformation}}
@@ -6725,7 +6764,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-170-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-181-1.pdf}
 
 \hypertarget{exercise-1-2}{%
 \subsection{Exercise 1}\label{exercise-1-2}}
@@ -6831,7 +6870,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-177-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-188-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6849,7 +6888,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-178-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-189-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6867,7 +6906,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-179-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-190-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6885,7 +6924,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-180-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-191-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6903,7 +6942,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-181-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6921,7 +6960,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-182-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
 
 \end{alert}
 
@@ -6992,7 +7031,7 @@ Now modify the breaks for the color scales
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-184-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-195-1.pdf}
 
 Next change the low and high values to blue and red:
 
@@ -7006,7 +7045,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-185-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
 
 \hypertarget{using-different-color-scales}{%
 \subsection{Using different color scales}\label{using-different-color-scales}}
@@ -7026,7 +7065,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-186-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-197-1.pdf}
 
 \hypertarget{available-scales}{%
 \subsection{Available scales}\label{available-scales}}
@@ -7124,7 +7163,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-190-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-201-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7144,7 +7183,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-191-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-202-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7165,7 +7204,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-203-1.pdf}
 
 \end{alert}
 
@@ -7208,7 +7247,7 @@ Start by using a technique we already know; map \texttt{State} to color:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-204-1.pdf}
 
 There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.
 
@@ -7225,7 +7264,7 @@ We can remedy the deficiencies of the previous plot by faceting by \texttt{State
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-194-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-205-1.pdf}
 
 \hypertarget{themes}{%
 \section{Themes}\label{themes}}
@@ -7265,7 +7304,7 @@ Built-in themes include:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-195-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-206-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7273,7 +7312,7 @@ Built-in themes include:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-207-1.pdf}
 
 You can see a list of available built-in themes here \url{https://ggplot2.tidyverse.org/reference/}
 
@@ -7291,7 +7330,7 @@ Specific theme elements can be overridden using \texttt{theme()}. For example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-197-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-208-1.pdf}
 
 All theme options are documented in \texttt{?theme}. We can also see the
 existing default values using:
@@ -7321,7 +7360,7 @@ You can create new themes, as in the following example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-199-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-210-1.pdf}
 
 \hypertarget{saving-plots}{%
 \section{Saving plots}\label{saving-plots}}
@@ -7375,7 +7414,7 @@ Fixing, rather than mapping, the color aesthetic:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-201-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-212-1.pdf}
 
 \textbf{Right}
 
@@ -7400,7 +7439,7 @@ Here's the code that implements this transformation:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-202-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-213-1.pdf}
 
 \hypertarget{exercise-3-2}{%
 \subsection{Exercise 3}\label{exercise-3-2}}
@@ -7533,7 +7572,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-210-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-221-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7550,7 +7589,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-211-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-222-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7567,7 +7606,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-212-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-223-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7584,7 +7623,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-213-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-224-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7601,7 +7640,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-214-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-225-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7620,7 +7659,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-215-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-226-1.pdf}
 
 Here's the complete code for the Exercise 3 plot:
 
@@ -7637,7 +7676,7 @@ Here's the complete code for the Exercise 3 plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-216-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-227-1.pdf}
 
 \end{alert}
 
@@ -9582,7 +9621,7 @@ information to each data frame before flattening.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/RDataWrangling/figures/unnamed-chunk-261-1.pdf}
+\includegraphics{R/RDataWrangling/figures/unnamed-chunk-272-1.pdf}
 
 \end{alert}
 
@@ -9751,8 +9790,8 @@ Before starting any of our Python workshops, it is necessary to complete 2 tasks
 \hypertarget{troubleshooting-session-1}{%
 \section{Troubleshooting session}\label{troubleshooting-session-1}}
 
-We will hold a troubleshooting session during the 20 minutes prior to the start of the workshop.
-\textbf{If you are unable to complete all of the tasks, please stop by the training room during this session.}
+We will hold a troubleshooting session to help with setup during the 20 minutes prior to the start of the workshop.
+\textbf{If you are unable to complete all four tasks by yourself, please join us at the workshop location for this session.}
 Once the workshop starts we will \textbf{NOT} be able to give you one-to-one assistance with troubleshooting installation problems. Likewise, if you arrive late, please do \textbf{NOT} expect one-to-one assistance for anything covered at the beginning of the workshop.
 
 \hypertarget{materials-1}{%
@@ -11883,17 +11922,17 @@ The records we retrieved from \url{https://www.harvardartmuseums.org/browse} are
 \end{Shaded}
 
 \begin{verbatim}
-##                        copyright  contextualtextcount  ...                         colors                         people
-## 0                           None                    1  ...                            NaN                            NaN
-## 1                           None                    0  ...  [{'color': '#c8af96', 'spe...  [{'role': 'Artist', 'birth...
-## 2                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
-## 3                           None                    1  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 4                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 5  © Estate of Alfred Stiegli...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 6  © The Munch Museum / The M...                    0  ...  [{'color': '#191919', 'spe...  [{'role': 'Artist', 'birth...
-## 7  © Berenice Abbott/Commerce...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 8  © Jasper Johns and ULAE/Li...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 9                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+##                        copyright  contextualtextcount  ...                        seeAlso                         people
+## 0                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 1  © Jasper Johns and ULAE/Li...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 2                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 3                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 4                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 5                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 6                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 7                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 8                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 9                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
 ## 
 ## [10 rows x 63 columns]
 \end{verbatim}
@@ -11944,57 +11983,57 @@ Now that we know the web service works, and how to make requests in Python, we c
 \end{Shaded}
 
 \begin{verbatim}
-##                         copyright  contextualtextcount  ...                         colors                         people
-## 0                            None                    1  ...                            NaN                            NaN
-## 1                            None                    0  ...  [{'color': '#c8af96', 'spe...  [{'role': 'Artist', 'birth...
-## 2                            None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
-## 3                            None                    1  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 4                            None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 5   © Estate of Alfred Stiegli...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 6   © The Munch Museum / The M...                    0  ...  [{'color': '#191919', 'spe...  [{'role': 'Artist', 'birth...
-## 7   © Berenice Abbott/Commerce...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 8   © Jasper Johns and ULAE/Li...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 9                            None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 10                           None                    0  ...                            NaN                            NaN
-## 11                           None                    0  ...  [{'color': '#e1e1e1', 'spe...  [{'role': 'Artist', 'birth...
-## 12                           None                    0  ...  [{'color': '#191919', 'spe...  [{'role': 'Artist', 'birth...
-## 13                           None                    0  ...  [{'color': '#967d64', 'spe...  [{'role': 'Artist', 'birth...
-## 14  Art © Nancy Graves Foundat...                    0  ...  [{'color': '#e1af96', 'spe...  [{'role': 'Artist', 'birth...
-## 15                           None                    0  ...  [{'color': '#4b4b4b', 'spe...  [{'role': 'Artist', 'birth...
-## 16                           None                    0  ...  [{'color': '#323219', 'spe...  [{'role': 'Artist', 'birth...
-## 17                           None                    0  ...  [{'color': '#323232', 'spe...  [{'role': 'Artist', 'birth...
-## 18                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
-## 19                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 20                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 21                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 22                           None                    0  ...  [{'color': '#afafaf', 'spe...                            NaN
-## 23                           None                    0  ...  [{'color': '#4b4b4b', 'spe...  [{'role': 'Artist', 'birth...
-## 24  © Jasper Johns and ULAE/Li...                    0  ...  [{'color': '#4b9664', 'spe...  [{'role': 'Artist', 'birth...
-## 25                           None                    0  ...  [{'color': '#323232', 'spe...  [{'role': 'Artist', 'birth...
-## 26                           None                    0  ...  [{'color': '#323232', 'spe...  [{'role': 'Artist', 'birth...
-## 27                           None                    0  ...  [{'color': '#e1c8af', 'spe...  [{'role': 'Artist', 'birth...
-## 28                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 29                           None                    0  ...  [{'color': '#af967d', 'spe...  [{'role': 'Artist', 'birth...
-## 30  © Courtesy of Hiroshi Sugi...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 31                           None                    0  ...  [{'color': '#e1c8af', 'spe...  [{'role': 'Artist', 'birth...
-## 32                           None                    1  ...  [{'color': '#e1e1e1', 'spe...                            NaN
-## 33                           None                    0  ...  [{'color': '#c8af7d', 'spe...                            NaN
-## 34                           None                    0  ...  [{'color': '#64644b', 'spe...  [{'role': 'Artist', 'birth...
-## 35                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 36                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 37                   © Mimi Smith                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 38                           None                    0  ...                            NaN                            NaN
-## 39  © Estate of Pablo Picasso ...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 40                           None                    0  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 41                           None                    0  ...  [{'color': '#967d4b', 'spe...  [{'role': 'Artist', 'birth...
-## 42                           None                    1  ...  [{'color': '#c8c8c8', 'spe...                            NaN
-## 43                           None                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 44                           None                    0  ...  [{'color': '#644b4b', 'spe...  [{'role': 'Artist', 'birth...
-## 45                           None                    1  ...                            NaN                            NaN
-## 46                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
-## 47  © Artists Rights Society (...                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 48               © Richard Tuttle                    0  ...                            NaN  [{'role': 'Artist', 'birth...
-## 49                           None                    0  ...  [{'color': '#e1e1c8', 'spe...  [{'role': 'Artist', 'birth...
+##                         copyright  contextualtextcount  ...                        seeAlso                         people
+## 0                            None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 1   © Jasper Johns and ULAE/Li...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 2                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 3                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 4                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 5                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 6                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 7                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 8                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 9                            None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 10                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 11                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 12                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 13                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 14                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 15                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 16                   © Mimi Smith                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 17                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 18  © Estate of Pablo Picasso ...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 19                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 20                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 21                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 22                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 23                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 24  © Artists Rights Society (...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 25               © Richard Tuttle                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 26  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 27                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 28                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 29                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 30                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 31                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 32                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 33  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 34                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 35                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 36                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 37                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 38                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 39                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 40                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 41                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 42                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 43  ©Vija Celmins, Courtesy Ma...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 44                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 45                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 46  © Andreas Gursky / Artists...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 47                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 48                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
+## 49                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
 ## 
 ## [50 rows x 63 columns]
 \end{verbatim}

@@ -7,7 +7,7 @@ set -ev
 base_path="/Users/sworthin/Documents/IQSS/dss-workshops"
 
 # DataScienceTools
-DataScienceTools_path="other_workshops/DataScienceTools"
+DataScienceTools_path="General/DataScienceTools"
 cd $base_path/$DataScienceTools_path
 jupytext --to R:bare DataScienceTools.Rmd
 sed -i "" '1,6d' DataScienceTools.R # delete lines 1-6
