@@ -3959,7 +3959,7 @@ The default printed output from the fitted model is very austere --- just point 
 ## F-statistic: 13.61 on 1 and 49 DF,  p-value: 0.0005631
 \end{verbatim}
 
-If we just want to inspect the coefficients, we can further pipe the summary output into the function \texttt{coef()} to obtain just the coefficients table.
+If we just want to inspect the coefficients, we can further pipe the summary output into the function \texttt{coef()} to obtain just the table of coefficients.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4028,7 +4028,9 @@ is to extract \textbf{quantities of interest} from our fitted model. These quant
 But before we can do any of that, we need to know more about \textbf{what a fitted model actually is,}
 \textbf{what information it contains, and how we can extract from it information that we want to report}.
 
-Let's start by examining the model object:
+To understand what a fitted model object is and what information we can extract from it, we need to know about the concepts of \textbf{class} and \textbf{method}. A class defines a type of object, describing what properties it possesses, how it behaves, and how it relates to other types of objects. Every object must be an instance of some class. A method is a function associated with a particular type of object.
+
+Let's start by examining the class of the model object:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4125,9 +4127,9 @@ We can see that 12 different things are stored within a fitted model of class \t
 ##  - attr(*, "class")= chr "lm"
 \end{verbatim}
 
-We can see that fitted model object is a \texttt{list} structure (a type of container for different pieces of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class \texttt{lm} is only a very small part of the information stored within the model object. How can we access other quantities of interest from the model?
+We can see that the fitted model object is a \texttt{list} structure (a container that can hold different types of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class \texttt{lm} is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
 
-We can list all the functions that extract particular quantities of interest (called \texttt{extractor\ functions}) by using the \texttt{methods()} function with the \texttt{class} argument set to the class of the model object:
+We can use \textbf{methods} (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes referred to as \textbf{extractor functions}). A list of all the available methods for a given class of object can be shown by using the \texttt{methods()} function with the \texttt{class} argument set to the class of the model object:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4148,7 +4150,7 @@ We can list all the functions that extract particular quantities of interest (ca
 ## see '?methods' for accessing help and source code
 \end{verbatim}
 
-We can also use \texttt{function\ methods} to get more information about the fit. We've already seen the \texttt{summary()} function for \texttt{lm}, which is a good place to start:
+There are 44 methods available for the \texttt{lm} class. We've already seen the \texttt{summary()} method for \texttt{lm}, which is always a good place to start after fitting a model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4178,7 +4180,7 @@ We can also use \texttt{function\ methods} to get more information about the fit
 ## F-statistic: 13.61 on 1 and 49 DF,  p-value: 0.0005631
 \end{verbatim}
 
-We can use the \texttt{confint()} function to get interval estimates for our coefficients:
+We can use the \texttt{confint()} method to get interval estimates for our coefficients:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4193,7 +4195,7 @@ We can use the \texttt{confint()} function to get interval estimates for our coe
 ## expense      -0.03440768   -0.01014361
 \end{verbatim}
 
-And we can use the \texttt{anova()} function to get an ANOVA-style table of the model:
+And we can use the \texttt{anova()} method to get an ANOVA-style table of the model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4213,7 +4215,7 @@ And we can use the \texttt{anova()} function to get an ANOVA-style table of the 
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
-How does R know which method to call for a given object? R uses \texttt{generic\ functions}, which provide access to \texttt{methods}. Method dispatch takes place based on the \texttt{class} of the first argument to the generic function. For example, for the generic function \texttt{summary()} and an object of class \texttt{lm}, the method dispatched will be \texttt{summary.lm()}. Function methods always take the form \texttt{generic.method()}:
+How does R know which method to call for a given object? R uses \textbf{generic functions}, which provide access to the methods. \textbf{Method dispatch} takes place based on the class of the first argument to the generic function. For example, for the generic function \texttt{summary()} and an object of class \texttt{lm}, the method dispatched will be \texttt{summary.lm()}. Function methods always take the form \texttt{generic.method()}. Let's look at all the methods for the generic \texttt{summary()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4276,10 +4278,11 @@ How does R know which method to call for a given object? R uses \texttt{generic\
 ## see '?methods' for accessing help and source code
 \end{verbatim}
 
+There are 137 \texttt{summary()} methods and counting! Here's a schematic that shows the process of method dispatch in action:
+
 \includegraphics{R/Rmodels/images/methods.png}
 
-It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
-Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
+It's always worth examining whether the class of model you've fitted has a method for a particular generic extractor function. Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -4839,21 +4842,10 @@ Now let's add \texttt{region} to the model:
 ## regionMidwest  63.77564   21.35592  2.9863209 4.514152e-03
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-  \KeywordTok{anova}\NormalTok{(sat\_region) }\CommentTok{\# show ANOVA table}
-\end{Highlighting}
-\end{Shaded}
+We can get an omnibus F-test for \texttt{region} by using the \texttt{anova()} method:
 
 \begin{verbatim}
-## Analysis of Variance Table
-## 
-## Response: csat
-##           Df Sum Sq Mean Sq F value    Pr(>F)    
-## region     3  82049 27349.8  9.6102 4.859e-05 ***
-## Residuals 46 130912  2845.9                      
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  anova(sat_region) # show ANOVA table
 \end{verbatim}
 
 So, make sure to tell R which variables are categorical by converting them to factors!
@@ -4903,7 +4895,7 @@ We can see that the reference level is \texttt{West}. How can we change this? Le
 ## South      0       0     1
 \end{verbatim}
 
-Now let's refit the model with the releveled \texttt{region} variable:
+Now the reference level has changed to \texttt{Midwest}. Let's refit the model with the releveled \texttt{region} variable:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4921,7 +4913,7 @@ Now let's refit the model with the releveled \texttt{region} variable:
 ## regionSouth    -80.08333   20.37225 -3.931000 2.826007e-04
 \end{verbatim}
 
-Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare some levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the \texttt{emmeans()} postestimation function from the \texttt{emmeans} package to do the calculations for us:
+Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare particular levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the \texttt{emmeans()} post-estimation function from the \texttt{emmeans} package to do the calculations for us:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6415,7 +6407,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Variables are \textbf{mapped} to aesthetics inside the \texttt{aes()} function.
+  Variables are \textbf{mapped} to aesthetics inside the \texttt{aes()} function:
 \end{enumerate}
 
 \begin{Shaded}
@@ -6432,7 +6424,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Constants are \textbf{assigned} to aesthetics outside the \texttt{aes()} call
+  Constants are \textbf{assigned} to aesthetics outside the \texttt{aes()} call:
 \end{enumerate}
 
 \begin{Shaded}
@@ -6473,7 +6465,7 @@ Other aesthetics are mapped in the same way as x and y in the previous example.
 \hypertarget{exercise-0-2}{%
 \subsection{Exercise 0}\label{exercise-0-2}}
 
-The data for the exercises is available in the \texttt{dataSets/EconomistData.csv} file. Read it in with
+The data for the next few exercises is available in the \texttt{dataSets/EconomistData.csv} file. Read it in with:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6481,7 +6473,7 @@ The data for the exercises is available in the \texttt{dataSets/EconomistData.cs
 \end{Highlighting}
 \end{Shaded}
 
-Original sources for these data are \url{http://www.transparency.org/content/download/64476/1031428} \url{http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106\&lang=en}
+Original sources for these data are \url{http://www.transparency.org/content/download/64476/1031428} and \url{http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106\&lang=en}
 
 These data consist of \emph{Human Development Index} and \emph{Corruption Perception Index} scores for several countries.
 
@@ -6655,12 +6647,19 @@ Some plot types (such as scatterplots) do not require transformations; each poin
 \begin{itemize}
 \tightlist
 \item
-  for a boxplot the y values must be transformed to the median and 1.5(IQR)
+  For a boxplot, the y values must be transformed to the median, quartiles, and 1.5 times the interquartile range.
 \item
-  for a smoother the y values must be transformed into predicted values
+  For a smoother, the y values must be transformed into predicted mean values
 \end{itemize}
 
-Each geom has a default statistic, but these can be changed. For example, the default statistic for \texttt{geom\_histogram()} is \texttt{stat\_bin()}:
+\hypertarget{setting-arguments}{%
+\subsection{Setting arguments}\label{setting-arguments}}
+
+Each \texttt{geom\_} function has a default statistic that it is paired with and, likewise, each \texttt{stat\_} function has a default geometic object that it is paired with. For example, the default statistic for \texttt{geom\_histogram()} is \texttt{stat\_bin()}, while the default geometric object for \texttt{stat\_bin()} is \texttt{geom\_bar()}. These defaults can be changed.
+
+Arguments to \texttt{stat\_} functions can be passed through \texttt{geom\_} functions and vice versa. This can be slightly annoying, because in order to specify some arguments you have to first determine which statistic the geometric object uses, then determine the arguments to that statistic.
+
+Let's look at the arguments for \texttt{geom\_histogram()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6674,6 +6673,8 @@ Each geom has a default statistic, but these can be changed. For example, the de
 ##     show.legend = NA, inherit.aes = TRUE) 
 ## NULL
 \end{verbatim}
+
+Notice that the third argument is \texttt{stat\ =\ "bin"}, which calls the \texttt{stat\_bin()} function. This is how the histogram geom is, by default, paired with the bin statistic. The fifth argument is \texttt{...}, which allows us to pass arguments to \texttt{stat\_bin()} through our call to \texttt{geom\_histogram()}. Now let's look at the arguments to \texttt{stat\_bin()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6689,14 +6690,7 @@ Each geom has a default statistic, but these can be changed. For example, the de
 ## NULL
 \end{verbatim}
 
-Here is a list of geoms and their default statistics \url{https://ggplot2.tidyverse.org/reference/}
-
-\hypertarget{setting-arguments}{%
-\subsection{Setting arguments}\label{setting-arguments}}
-
-Arguments to \texttt{stat\_} functions can be passed through \texttt{geom\_} functions. This can be slightly annoying because in order to change them you have to first determine which stat the geom uses, then determine the arguments to that stat.
-
-For example, here is the default histogram of \texttt{Home\_Value}:
+We can see that there is a \texttt{binwidth} argument to \texttt{stat\_bin()} that is not present for \texttt{geom\_histogram()}. But, we can still use this \texttt{binwidth} argument in \texttt{geom\_histogram()} --- it will automatically be passed to its paired statistic function. For example, here is the default histogram of \texttt{Home\_Value}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6705,9 +6699,9 @@ For example, here is the default histogram of \texttt{Home\_Value}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-177-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-178-1.pdf}
 
-We can change the binning scheme by passing the \texttt{binwidth} argument to the \texttt{stat\_bin()} function:
+We can change the binning scheme by passing the \texttt{binwidth} argument through \texttt{geom\_histogram()} to the \texttt{stat\_bin()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6715,7 +6709,9 @@ We can change the binning scheme by passing the \texttt{binwidth} argument to th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-178-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-179-1.pdf}
+
+Here is a list of geometric objects and their default statistics \url{https://ggplot2.tidyverse.org/reference/}
 
 \hypertarget{changing-the-transformation}{%
 \subsection{Changing the transformation}\label{changing-the-transformation}}
@@ -6724,6 +6720,7 @@ Sometimes the default statistical transformation is not what you need. This is o
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# create new variable that is the mean of \textquotesingle{}Home Value\textquotesingle{} for each \textquotesingle{}State\textquotesingle{}}
 \NormalTok{housing\_sum \textless{}{-}}\StringTok{ }
 \StringTok{  }\NormalTok{housing }\OperatorTok{\%\textgreater{}\%}
 \StringTok{  }\KeywordTok{group\_by}\NormalTok{(State) }\OperatorTok{\%\textgreater{}\%}
@@ -6755,7 +6752,7 @@ Sometimes the default statistical transformation is not what you need. This is o
 \end{Highlighting}
 \end{Shaded}
 
-What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, \texttt{geom\_bar()} defaults to \texttt{stat\ =\ stat\_count}; obviously this will not work. We can fix it by telling \texttt{geom\_bar()} to use a different statistical transformation function. The \texttt{identity} function returns the same output as the input.
+What is the problem with the previous plot? Basically, we take binned and summarized data and ask \texttt{ggplot()} to bin and summarize it again (\texttt{geom\_bar()} defaults to \texttt{stat\ =\ stat\_count}). Obviously this will not work. We can fix it by telling \texttt{geom\_bar()} to use a different statistical transformation function. The \texttt{identity} function returns the same output as the input.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6764,7 +6761,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-181-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-182-1.pdf}
 
 \hypertarget{exercise-1-2}{%
 \subsection{Exercise 1}\label{exercise-1-2}}
@@ -6870,7 +6867,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-188-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-189-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6888,7 +6885,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-189-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-190-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6906,7 +6903,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-190-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-191-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6924,7 +6921,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-191-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6942,7 +6939,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6960,7 +6957,7 @@ What is the problem with the previous plot? Basically we take binned and summari
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-194-1.pdf}
 
 \end{alert}
 
@@ -7031,7 +7028,7 @@ Now modify the breaks for the color scales
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-195-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
 
 Next change the low and high values to blue and red:
 
@@ -7045,7 +7042,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-197-1.pdf}
 
 \hypertarget{using-different-color-scales}{%
 \subsection{Using different color scales}\label{using-different-color-scales}}
@@ -7065,7 +7062,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-197-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-198-1.pdf}
 
 \hypertarget{available-scales}{%
 \subsection{Available scales}\label{available-scales}}
@@ -7163,7 +7160,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-201-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-202-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7183,7 +7180,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-202-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-203-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7204,7 +7201,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-203-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-204-1.pdf}
 
 \end{alert}
 
@@ -7247,7 +7244,7 @@ Start by using a technique we already know; map \texttt{State} to color:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-204-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-205-1.pdf}
 
 There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.
 
@@ -7264,7 +7261,7 @@ We can remedy the deficiencies of the previous plot by faceting by \texttt{State
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-205-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-206-1.pdf}
 
 \hypertarget{themes}{%
 \section{Themes}\label{themes}}
@@ -7304,7 +7301,7 @@ Built-in themes include:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-206-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-207-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7312,7 +7309,7 @@ Built-in themes include:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-207-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-208-1.pdf}
 
 You can see a list of available built-in themes here \url{https://ggplot2.tidyverse.org/reference/}
 
@@ -7330,7 +7327,7 @@ Specific theme elements can be overridden using \texttt{theme()}. For example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-208-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-209-1.pdf}
 
 All theme options are documented in \texttt{?theme}. We can also see the
 existing default values using:
@@ -7360,7 +7357,7 @@ You can create new themes, as in the following example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-210-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-211-1.pdf}
 
 \hypertarget{saving-plots}{%
 \section{Saving plots}\label{saving-plots}}
@@ -7414,7 +7411,7 @@ Fixing, rather than mapping, the color aesthetic:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-212-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-213-1.pdf}
 
 \textbf{Right}
 
@@ -7439,7 +7436,7 @@ Here's the code that implements this transformation:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-213-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-214-1.pdf}
 
 \hypertarget{exercise-3-2}{%
 \subsection{Exercise 3}\label{exercise-3-2}}
@@ -7572,7 +7569,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-221-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-222-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7589,7 +7586,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-222-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-223-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7606,7 +7603,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-223-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-224-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7623,7 +7620,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-224-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-225-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7640,7 +7637,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-225-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-226-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7659,7 +7656,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-226-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-227-1.pdf}
 
 Here's the complete code for the Exercise 3 plot:
 
@@ -7676,7 +7673,7 @@ Here's the complete code for the Exercise 3 plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-227-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-228-1.pdf}
 
 \end{alert}
 
@@ -9621,7 +9618,7 @@ information to each data frame before flattening.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/RDataWrangling/figures/unnamed-chunk-272-1.pdf}
+\includegraphics{R/RDataWrangling/figures/unnamed-chunk-273-1.pdf}
 
 \end{alert}
 

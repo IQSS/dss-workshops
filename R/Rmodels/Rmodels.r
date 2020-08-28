@@ -222,7 +222,7 @@ outcome ~ pred1 + pred2 + pred3
   # get more informative summary information 
   summary(sat_mod)
 
-# If we just want to inspect the coefficients, we can further pipe the summary output into the function `coef()` to obtain just the coefficients table.
+# If we just want to inspect the coefficients, we can further pipe the summary output into the function `coef()` to obtain just the table of coefficients.
 
   # show only the regression coefficients table 
   summary(sat_mod) %>% coef() 
@@ -246,7 +246,9 @@ outcome ~ pred1 + pred2 + pred3
 # But before we can do any of that, we need to know more about **what a fitted model actually is,**
 # **what information it contains, and how we can extract from it information that we want to report**.
 #
-# Let's start by examining the model object:
+# To understand what a fitted model object is and what information we can extract from it, we need to know about the concepts of **class** and **method**. A class defines a type of object, describing what properties it possesses, how it behaves, and how it relates to other types of objects. Every object must be an instance of some class. A method is a function associated with a particular type of object.
+#
+# Let's start by examining the class of the model object:
 
   # what class of object is the fitted model?
   class(sat_mod)
@@ -261,35 +263,36 @@ outcome ~ pred1 + pred2 + pred3
   # what is the structure of the fitted model object?
   str(sat_mod)
 
-# We can see that fitted model object is a `list` structure (a type of container for different pieces of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class `lm` is only a very small part of the information stored within the model object. How can we access other quantities of interest from the model?
+# We can see that the fitted model object is a `list` structure (a container that can hold different types of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class `lm` is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
 #
-# We can list all the functions that extract particular quantities of interest (called `extractor functions`) by using the `methods()` function with the `class` argument set to the class of the model object:
+# We can use **methods** (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes referred to as **extractor functions**). A list of all the available methods for a given class of object can be shown by using the `methods()` function with the `class` argument set to the class of the model object:
 
 methods(class = class(sat_mod))
 
-# We can also use `function methods` to get more information about the fit. We've already seen the `summary()` function for `lm`, which is a good place to start:
+# There are 44 methods available for the `lm` class. We've already seen the `summary()` method for `lm`, which is always a good place to start after fitting a model:
 
   # summary table
   summary(sat_mod) 
 
-# We can use the `confint()` function to get interval estimates for our coefficients:
+# We can use the `confint()` method to get interval estimates for our coefficients:
 
   # confidence intervals
   confint(sat_mod) 
 
-# And we can use the `anova()` function to get an ANOVA-style table of the model:
+# And we can use the `anova()` method to get an ANOVA-style table of the model:
 
   # ANOVA table
   anova(sat_mod)   
 
-# How does R know which method to call for a given object? R uses `generic functions`, which provide access to `methods`. Method dispatch takes place based on the `class` of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Function methods always take the form `generic.method()`:
+# How does R know which method to call for a given object? R uses **generic functions**, which provide access to the methods. **Method dispatch** takes place based on the class of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Function methods always take the form `generic.method()`. Let's look at all the methods for the generic `summary()` function:
 
 methods("summary")
 
+# There are 137 `summary()` methods and counting! Here's a schematic that shows the process of method dispatch in action:
+#
 # ![](R/Rmodels/images/methods.png)
 #
-# It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
-# Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
+# It's always worth examining whether the class of model you've fitted has a method for a particular generic extractor function. Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 #
 # | Function      | Package   | Output                                                  |
 # |:--------------|:----------|:--------------------------------------------------------|
@@ -489,8 +492,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   # show the results
   summary(sat_region) %>% coef() # show the regression coefficients table
-  anova(sat_region) # show ANOVA table
 
+# We can get an omnibus F-test for `region` by using the `anova()` method:
+#
+# ```[r]
+#   anova(sat_region) # show ANOVA table
+# ```
+#
 # So, make sure to tell R which variables are categorical by converting them to factors!
 
 # ### Setting factor reference groups & contrasts
@@ -513,13 +521,13 @@ dat[with(dat, complete.cases(x, y, z)), ]
   # check the reference group has changed
   contrasts(states_data$region)
 
-# Now let's refit the model with the releveled `region` variable:
+# Now the reference level has changed to `Midwest`. Let's refit the model with the releveled `region` variable:
 
   # refit the model
   mod_region <- lm(csat ~ 1 + region, data = states_data)
   summary(mod_region) %>% coef()
 
-# Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare some levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the `emmeans()` postestimation function from the `emmeans` package to do the calculations for us:
+# Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare particular levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the `emmeans()` post-estimation function from the `emmeans` package to do the calculations for us:
 
   # get all pairwise contrasts between means
   mod_region %>%

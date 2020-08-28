@@ -266,14 +266,14 @@ p1 +
 
 ### Aesthetic mapping VS assignment
 
-1.  Variables are **mapped** to aesthetics inside the `aes()` function.
+1.  Variables are **mapped** to aesthetics inside the `aes()` function:
 
 ```{r}
 p1 +
   geom_point(aes(size = Home_Value))
 ```
 
-2.  Constants are **assigned** to aesthetics outside the `aes()` call
+2.  Constants are **assigned** to aesthetics outside the `aes()` call:
 
 ```{r}
 p1 +
@@ -301,13 +301,13 @@ p1 +
 
 ### Exercise 0
 
-The data for the exercises is available in the `dataSets/EconomistData.csv` file. Read it in with
+The data for the next few exercises is available in the `dataSets/EconomistData.csv` file. Read it in with:
 
 ```{r}
 dat <- read_csv("dataSets/EconomistData.csv")
 ```
 
-Original sources for these data are <http://www.transparency.org/content/download/64476/1031428> <http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&lang=en>
+Original sources for these data are <http://www.transparency.org/content/download/64476/1031428> and <http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&lang=en>
 
 These data consist of *Human Development Index* and *Corruption Perception Index* scores for several countries.
 
@@ -384,35 +384,42 @@ geom_point(aes(color = Region, size =  HDI_Rank))
 
 Some plot types (such as scatterplots) do not require transformations; each point is plotted at x and y coordinates equal to the original value. Other plots, such as boxplots, histograms, prediction lines etc. require statistical transformations:
 
-* for a boxplot the y values must be transformed to the median and 1.5(IQR)
-* for a smoother the y values must be transformed into predicted values
-
-Each geom has a default statistic, but these can be changed. For example, the default statistic for `geom_histogram()` is `stat_bin()`:
-
-```{r}
-args(geom_histogram)
-args(stat_bin)
-```
-
-Here is a list of geoms and their default statistics <https://ggplot2.tidyverse.org/reference/>
+* For a boxplot, the y values must be transformed to the median, quartiles, and 1.5 times the interquartile range.
+* For a smoother, the y values must be transformed into predicted mean values
 
 
 ### Setting arguments
 
-Arguments to `stat_` functions can be passed through `geom_` functions. This can be slightly annoying because in order to change them you have to first determine which stat the geom uses, then determine the arguments to that stat.
+Each `geom_` function has a default statistic that it is paired with and, likewise, each `stat_` function has a default geometic object that it is paired with. For example, the default statistic for `geom_histogram()` is `stat_bin()`, while the default geometric object for `stat_bin()` is `geom_bar()`. These defaults can be changed. 
 
-For example, here is the default histogram of `Home_Value`:
+Arguments to `stat_` functions can be passed through `geom_` functions and vice versa. This can be slightly annoying, because in order to specify some arguments you have to first determine which statistic the geometric object uses, then determine the arguments to that statistic.
+
+Let's look at the arguments for `geom_histogram()`:
+
+```{r}
+args(geom_histogram)
+```
+
+Notice that the third argument is `stat = "bin"`, which calls the `stat_bin()` function. This is how the histogram geom is, by default, paired with the bin statistic. The fifth argument is `...`, which allows us to pass arguments to `stat_bin()` through our call to `geom_histogram()`. Now let's look at the arguments to `stat_bin()`:
+
+```{r}
+args(stat_bin)
+```
+
+We can see that there is a `binwidth` argument to `stat_bin()` that is not present for `geom_histogram()`. But, we can still use this `binwidth` argument in `geom_histogram()` --- it will automatically be passed to its paired statistic function. For example, here is the default histogram of `Home_Value`:
 
 ```{r}
 p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
 ```
 
-We can change the binning scheme by passing the `binwidth` argument to the `stat_bin()` function:
+We can change the binning scheme by passing the `binwidth` argument through `geom_histogram()` to the `stat_bin()` function:
 
 ```{r}
 p2 + geom_histogram(stat = "bin", binwidth = 4000)
 ```
+
+Here is a list of geometric objects and their default statistics <https://ggplot2.tidyverse.org/reference/>
 
 
 ### Changing the transformation
@@ -420,6 +427,7 @@ p2 + geom_histogram(stat = "bin", binwidth = 4000)
 Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:
 
 ```{r}
+# create new variable that is the mean of 'Home Value' for each 'State'
 housing_sum <- 
   housing %>%
   group_by(State) %>%
@@ -436,7 +444,7 @@ ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) +
 ## Error: stat_count() must not be used with a y aesthetic.  
 ```
 
-What is the problem with the previous plot? Basically we take binned and summarized data and ask ggplot to bin and summarize it again (remember, `geom_bar()` defaults to `stat = stat_count`; obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function. The `identity` function returns the same output as the input.
+What is the problem with the previous plot? Basically, we take binned and summarized data and ask `ggplot()` to bin and summarize it again (`geom_bar()` defaults to `stat = stat_count`). Obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function. The `identity` function returns the same output as the input.
 
 ```{r}
 ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
