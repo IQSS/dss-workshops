@@ -346,7 +346,7 @@ p2 + geom_histogram()
 
 # We can change the boundaries for the bins by passing the `breaks` argument through `geom_histogram()` to the `stat_bin()` function:
 
-p2 + geom_histogram(stat = "bin", breaks = seq(0, 1e6, by = 250))
+p2 + geom_histogram(breaks = seq(0, 875000, by = 250))
 
 # For reference, here is a list of geometric objects and their default statistics <https://ggplot2.tidyverse.org/reference/>.
 

@@ -804,14 +804,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>GOAL: To understand the working directory of Stata, how to change working directory, and open files from the working directory.</strong> In particular:</p>
 </div>
 <p>Look at bottom left hand corner of Stata screen, this is the directory Stata is currently reading from. Files are located in the <code>StataDatMan</code> folder in your user directory. Let’s start by telling Stata where to look for these:</p>
-<div class="sourceCode" id="cb709"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb709-1"><a href="StataDataManage.html#cb709-1"></a><span class="co">// change directory</span></span>
-<span id="cb709-2"><a href="StataDataManage.html#cb709-2"></a>cd <span class="st">&quot;~/Desktop/dss-workshops/Stata/StataDatMan&quot;</span></span>
-<span id="cb709-3"><a href="StataDataManage.html#cb709-3"></a></span>
-<span id="cb709-4"><a href="StataDataManage.html#cb709-4"></a><span class="co">// Use dir to see what is in the directory:</span></span>
-<span id="cb709-5"><a href="StataDataManage.html#cb709-5"></a><span class="ot">dir</span></span>
-<span id="cb709-6"><a href="StataDataManage.html#cb709-6"></a><span class="ot">dir</span> dataSets</span></code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb711-1"><a href="StataDataManage.html#cb711-1"></a><span class="co">// change directory</span></span>
+<span id="cb711-2"><a href="StataDataManage.html#cb711-2"></a>cd <span class="st">&quot;~/Desktop/dss-workshops/Stata/StataDatMan&quot;</span></span>
+<span id="cb711-3"><a href="StataDataManage.html#cb711-3"></a></span>
+<span id="cb711-4"><a href="StataDataManage.html#cb711-4"></a><span class="co">// Use dir to see what is in the directory:</span></span>
+<span id="cb711-5"><a href="StataDataManage.html#cb711-5"></a><span class="ot">dir</span></span>
+<span id="cb711-6"><a href="StataDataManage.html#cb711-6"></a><span class="ot">dir</span> dataSets</span></code></pre></div>
 <p>Now we can read in the <code>gss.dta</code> dataset:</p>
-<div class="sourceCode" id="cb710"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb710-1"><a href="StataDataManage.html#cb710-1"></a><span class="kw">use</span> dataSets/gss.dta</span></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb712-1"><a href="StataDataManage.html#cb712-1"></a><span class="kw">use</span> dataSets/gss.dta</span></code></pre></div>
 </div>
 <div id="generating-replacing-variables-1" class="section level2">
 <h2>Generating &amp; replacing variables</h2>
@@ -870,24 +870,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>For example:</p>
-<div class="sourceCode" id="cb711"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb711-1"><a href="StataDataManage.html#cb711-1"></a><span class="co">//create &quot;hapnew&quot; variable</span></span>
-<span id="cb711-2"><a href="StataDataManage.html#cb711-2"></a><span class="kw">gen</span> hapnew = .</span>
-<span id="cb711-3"><a href="StataDataManage.html#cb711-3"></a><span class="co">//set to 0 if happy equals 1</span></span>
-<span id="cb711-4"><a href="StataDataManage.html#cb711-4"></a><span class="kw">replace</span> hapnew=0 <span class="kw">if</span> happy==1 </span>
-<span id="cb711-5"><a href="StataDataManage.html#cb711-5"></a><span class="co">//set to 1 if happy both and hapmar are greater than 3</span></span>
-<span id="cb711-6"><a href="StataDataManage.html#cb711-6"></a><span class="kw">replace</span> hapnew=1 <span class="kw">if</span> happy&gt;3 &amp; hapmar&gt;3 </span>
-<span id="cb711-7"><a href="StataDataManage.html#cb711-7"></a><span class="co">// tabulate the new </span></span>
-<span id="cb711-8"><a href="StataDataManage.html#cb711-8"></a><span class="kw">tab</span> hapnew</span></code></pre></div>
+<div class="sourceCode" id="cb713"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb713-1"><a href="StataDataManage.html#cb713-1"></a><span class="co">//create &quot;hapnew&quot; variable</span></span>
+<span id="cb713-2"><a href="StataDataManage.html#cb713-2"></a><span class="kw">gen</span> hapnew = .</span>
+<span id="cb713-3"><a href="StataDataManage.html#cb713-3"></a><span class="co">//set to 0 if happy equals 1</span></span>
+<span id="cb713-4"><a href="StataDataManage.html#cb713-4"></a><span class="kw">replace</span> hapnew=0 <span class="kw">if</span> happy==1 </span>
+<span id="cb713-5"><a href="StataDataManage.html#cb713-5"></a><span class="co">//set to 1 if happy both and hapmar are greater than 3</span></span>
+<span id="cb713-6"><a href="StataDataManage.html#cb713-6"></a><span class="kw">replace</span> hapnew=1 <span class="kw">if</span> happy&gt;3 &amp; hapmar&gt;3 </span>
+<span id="cb713-7"><a href="StataDataManage.html#cb713-7"></a><span class="co">// tabulate the new </span></span>
+<span id="cb713-8"><a href="StataDataManage.html#cb713-8"></a><span class="kw">tab</span> hapnew</span></code></pre></div>
 </div>
 <div id="recode" class="section level3">
 <h3>Recode</h3>
 <p>The <code>recode</code> command is basically <code>generate</code> and <code>replace</code> combined. You can <code>recode</code> an existing variable OR use <code>recode</code> to create a new variable (via the <code>gen</code> option).</p>
-<div class="sourceCode" id="cb712"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb712-1"><a href="StataDataManage.html#cb712-1"></a><span class="co">// recode the wrkstat variable </span></span>
-<span id="cb712-2"><a href="StataDataManage.html#cb712-2"></a><span class="kw">recode</span> wrkstat (1=8) (2=7) (3=6) (4=5) (5=4) (6=3) (7=2) (8=1)</span>
-<span id="cb712-3"><a href="StataDataManage.html#cb712-3"></a><span class="co">// recode wrkstat into a new variable named wrkstat2</span></span>
-<span id="cb712-4"><a href="StataDataManage.html#cb712-4"></a><span class="kw">recode</span> wrkstat (1=8), <span class="kw">gen</span>(wrkstat2)</span>
-<span id="cb712-5"><a href="StataDataManage.html#cb712-5"></a><span class="co">// tabulate workstat</span></span>
-<span id="cb712-6"><a href="StataDataManage.html#cb712-6"></a><span class="kw">tab</span> wrkstat</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb714-1"><a href="StataDataManage.html#cb714-1"></a><span class="co">// recode the wrkstat variable </span></span>
+<span id="cb714-2"><a href="StataDataManage.html#cb714-2"></a><span class="kw">recode</span> wrkstat (1=8) (2=7) (3=6) (4=5) (5=4) (6=3) (7=2) (8=1)</span>
+<span id="cb714-3"><a href="StataDataManage.html#cb714-3"></a><span class="co">// recode wrkstat into a new variable named wrkstat2</span></span>
+<span id="cb714-4"><a href="StataDataManage.html#cb714-4"></a><span class="kw">recode</span> wrkstat (1=8), <span class="kw">gen</span>(wrkstat2)</span>
+<span id="cb714-5"><a href="StataDataManage.html#cb714-5"></a><span class="co">// tabulate workstat</span></span>
+<span id="cb714-6"><a href="StataDataManage.html#cb714-6"></a><span class="kw">tab</span> wrkstat</span></code></pre></div>
 <p>The table below illustrates common forms of recoding:</p>
 <table>
 <thead>
@@ -929,16 +929,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="egen" class="section level3">
 <h3>egen</h3>
 <p>The <code>egen</code> command (“extensions” to the <code>gen</code> command) reaches beyond simple computations (var1 + var2, log(var1), etc.) to add descriptive stats, standardizations and more. For example, we can use <code>egen</code> to create a new variable that counts the number of “yes” responses on computer, email and internet use:</p>
-<div class="sourceCode" id="cb713"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb713-1"><a href="StataDataManage.html#cb713-1"></a><span class="co">// count number of yes on use comp email and net </span></span>
-<span id="cb713-2"><a href="StataDataManage.html#cb713-2"></a><span class="kw">egen</span> compuser = <span class="fu">anycount</span>(usecomp usemail usenet), <span class="kw">values</span>(1)</span>
-<span id="cb713-3"><a href="StataDataManage.html#cb713-3"></a><span class="kw">tab</span> compuser</span></code></pre></div>
+<div class="sourceCode" id="cb715"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb715-1"><a href="StataDataManage.html#cb715-1"></a><span class="co">// count number of yes on use comp email and net </span></span>
+<span id="cb715-2"><a href="StataDataManage.html#cb715-2"></a><span class="kw">egen</span> compuser = <span class="fu">anycount</span>(usecomp usemail usenet), <span class="kw">values</span>(1)</span>
+<span id="cb715-3"><a href="StataDataManage.html#cb715-3"></a><span class="kw">tab</span> compuser</span></code></pre></div>
 <p>Here are some additional examples of <code>egen</code> in action:</p>
-<div class="sourceCode" id="cb714"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb714-1"><a href="StataDataManage.html#cb714-1"></a><span class="co">// assess how much missing data each participant has:</span></span>
-<span id="cb714-2"><a href="StataDataManage.html#cb714-2"></a><span class="kw">egen</span> countmiss = <span class="fu">rowmiss</span>(age-wifeft)</span>
-<span id="cb714-3"><a href="StataDataManage.html#cb714-3"></a><span class="kw">codebook</span> countmiss</span>
-<span id="cb714-4"><a href="StataDataManage.html#cb714-4"></a><span class="co">// compare values on multiple variables</span></span>
-<span id="cb714-5"><a href="StataDataManage.html#cb714-5"></a><span class="kw">egen</span> ftdiff = <span class="fu">diff</span>(wkftwife wkfthusb)</span>
-<span id="cb714-6"><a href="StataDataManage.html#cb714-6"></a><span class="kw">codebook</span> ftdiff</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb716-1"><a href="StataDataManage.html#cb716-1"></a><span class="co">// assess how much missing data each participant has:</span></span>
+<span id="cb716-2"><a href="StataDataManage.html#cb716-2"></a><span class="kw">egen</span> countmiss = <span class="fu">rowmiss</span>(age-wifeft)</span>
+<span id="cb716-3"><a href="StataDataManage.html#cb716-3"></a><span class="kw">codebook</span> countmiss</span>
+<span id="cb716-4"><a href="StataDataManage.html#cb716-4"></a><span class="co">// compare values on multiple variables</span></span>
+<span id="cb716-5"><a href="StataDataManage.html#cb716-5"></a><span class="kw">egen</span> ftdiff = <span class="fu">diff</span>(wkftwife wkfthusb)</span>
+<span id="cb716-6"><a href="StataDataManage.html#cb716-6"></a><span class="kw">codebook</span> ftdiff</span></code></pre></div>
 <p>You will need to refer to the documentation to discover what else <code>egen</code> can do: type <code>help egen</code> in Stata to get a complete list of available functions.</p>
 </div>
 <div id="exercise-0-6" class="section level3">
@@ -946,30 +946,30 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>Open the <code>gss.dta</code> data, <code>generate</code> a new variable that represents the squared value of <code>age</code>.</li>
 </ol>
-<div class="sourceCode" id="cb715"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb715-1"><a href="StataDataManage.html#cb715-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb717"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb717-1"><a href="StataDataManage.html#cb717-1"></a>##</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li><code>generate</code> a new variable equal to “1” if <code>income</code> is greater than “19”.</li>
 </ol>
-<div class="sourceCode" id="cb716"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb716-1"><a href="StataDataManage.html#cb716-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb718-1"><a href="StataDataManage.html#cb718-1"></a>##</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Create a new variable that counts the number of missing responses for each respondent. What is the maximum number of missing variables?</li>
 </ol>
-<div class="sourceCode" id="cb717"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb717-1"><a href="StataDataManage.html#cb717-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb719-1"><a href="StataDataManage.html#cb719-1"></a>##</span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 <div class="alert alert-danger">
-<div class="sourceCode" id="cb718"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb718-1"><a href="StataDataManage.html#cb718-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
-<span id="cb718-2"><a href="StataDataManage.html#cb718-2"></a><span class="kw">gen</span> age2 = age^2</span>
-<span id="cb718-3"><a href="StataDataManage.html#cb718-3"></a></span>
-<span id="cb718-4"><a href="StataDataManage.html#cb718-4"></a><span class="kw">describe</span> income</span>
-<span id="cb718-5"><a href="StataDataManage.html#cb718-5"></a><span class="kw">label</span> <span class="ot">list</span> income</span>
-<span id="cb718-6"><a href="StataDataManage.html#cb718-6"></a><span class="kw">recode</span> income (99=.) (98=.)</span>
-<span id="cb718-7"><a href="StataDataManage.html#cb718-7"></a><span class="kw">gen</span> highincome =0 <span class="kw">if</span> income != .</span>
-<span id="cb718-8"><a href="StataDataManage.html#cb718-8"></a><span class="kw">replace</span> highincome=1 <span class="kw">if</span> income&gt;19</span>
-<span id="cb718-9"><a href="StataDataManage.html#cb718-9"></a><span class="kw">sum</span> highincome</span>
-<span id="cb718-10"><a href="StataDataManage.html#cb718-10"></a></span>
-<span id="cb718-11"><a href="StataDataManage.html#cb718-11"></a><span class="kw">egen</span> nmissing = <span class="fu">rowmiss</span>(<span class="dt">_all</span>)</span>
-<span id="cb718-12"><a href="StataDataManage.html#cb718-12"></a><span class="kw">sum</span> nmissing</span></code></pre></div>
+<div class="sourceCode" id="cb720"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb720-1"><a href="StataDataManage.html#cb720-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb720-2"><a href="StataDataManage.html#cb720-2"></a><span class="kw">gen</span> age2 = age^2</span>
+<span id="cb720-3"><a href="StataDataManage.html#cb720-3"></a></span>
+<span id="cb720-4"><a href="StataDataManage.html#cb720-4"></a><span class="kw">describe</span> income</span>
+<span id="cb720-5"><a href="StataDataManage.html#cb720-5"></a><span class="kw">label</span> <span class="ot">list</span> income</span>
+<span id="cb720-6"><a href="StataDataManage.html#cb720-6"></a><span class="kw">recode</span> income (99=.) (98=.)</span>
+<span id="cb720-7"><a href="StataDataManage.html#cb720-7"></a><span class="kw">gen</span> highincome =0 <span class="kw">if</span> income != .</span>
+<span id="cb720-8"><a href="StataDataManage.html#cb720-8"></a><span class="kw">replace</span> highincome=1 <span class="kw">if</span> income&gt;19</span>
+<span id="cb720-9"><a href="StataDataManage.html#cb720-9"></a><span class="kw">sum</span> highincome</span>
+<span id="cb720-10"><a href="StataDataManage.html#cb720-10"></a></span>
+<span id="cb720-11"><a href="StataDataManage.html#cb720-11"></a><span class="kw">egen</span> nmissing = <span class="fu">rowmiss</span>(<span class="dt">_all</span>)</span>
+<span id="cb720-12"><a href="StataDataManage.html#cb720-12"></a><span class="kw">sum</span> nmissing</span></code></pre></div>
 </div>
 </details>
 </div>
@@ -983,24 +983,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="making-sure-missingness-is-preserved" class="section level3">
 <h3>Making sure missingness is preserved</h3>
 <p>To identify highly educated women, we might use the command:</p>
-<div class="sourceCode" id="cb719"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb719-1"><a href="StataDataManage.html#cb719-1"></a><span class="co">// generate and replace without considering missing values</span></span>
-<span id="cb719-2"><a href="StataDataManage.html#cb719-2"></a><span class="kw">gen</span> hi_ed=0</span>
-<span id="cb719-3"><a href="StataDataManage.html#cb719-3"></a><span class="kw">replace</span> hi_ed=1 <span class="kw">if</span> wifeduc&gt;15</span>
-<span id="cb719-4"><a href="StataDataManage.html#cb719-4"></a><span class="co">// What happens to our missing values?</span></span>
-<span id="cb719-5"><a href="StataDataManage.html#cb719-5"></a><span class="kw">tab</span> hi_ed, <span class="fu">mi</span> nola</span></code></pre></div>
+<div class="sourceCode" id="cb721"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb721-1"><a href="StataDataManage.html#cb721-1"></a><span class="co">// generate and replace without considering missing values</span></span>
+<span id="cb721-2"><a href="StataDataManage.html#cb721-2"></a><span class="kw">gen</span> hi_ed=0</span>
+<span id="cb721-3"><a href="StataDataManage.html#cb721-3"></a><span class="kw">replace</span> hi_ed=1 <span class="kw">if</span> wifeduc&gt;15</span>
+<span id="cb721-4"><a href="StataDataManage.html#cb721-4"></a><span class="co">// What happens to our missing values?</span></span>
+<span id="cb721-5"><a href="StataDataManage.html#cb721-5"></a><span class="kw">tab</span> hi_ed, <span class="fu">mi</span> nola</span></code></pre></div>
 <p>It looks like around 66% have higher education, but look closer:</p>
-<div class="sourceCode" id="cb720"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb720-1"><a href="StataDataManage.html#cb720-1"></a><span class="co">// generate hi_ed2, but only set a value if wifeduc is not missing</span></span>
-<span id="cb720-2"><a href="StataDataManage.html#cb720-2"></a><span class="kw">gen</span> hi_ed2 = 0 <span class="kw">if</span> wifeduc != . </span>
-<span id="cb720-3"><a href="StataDataManage.html#cb720-3"></a><span class="co">// only replace non-missing values</span></span>
-<span id="cb720-4"><a href="StataDataManage.html#cb720-4"></a><span class="kw">replace</span> hi_ed2=1 <span class="kw">if</span> wifeduc &gt;15 &amp; wifeduc !=. </span>
-<span id="cb720-5"><a href="StataDataManage.html#cb720-5"></a><span class="co">//check to see that missingness is preserved</span></span>
-<span id="cb720-6"><a href="StataDataManage.html#cb720-6"></a><span class="kw">tab</span> hi_ed2, <span class="fu">mi</span></span></code></pre></div>
+<div class="sourceCode" id="cb722"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb722-1"><a href="StataDataManage.html#cb722-1"></a><span class="co">// generate hi_ed2, but only set a value if wifeduc is not missing</span></span>
+<span id="cb722-2"><a href="StataDataManage.html#cb722-2"></a><span class="kw">gen</span> hi_ed2 = 0 <span class="kw">if</span> wifeduc != . </span>
+<span id="cb722-3"><a href="StataDataManage.html#cb722-3"></a><span class="co">// only replace non-missing values</span></span>
+<span id="cb722-4"><a href="StataDataManage.html#cb722-4"></a><span class="kw">replace</span> hi_ed2=1 <span class="kw">if</span> wifeduc &gt;15 &amp; wifeduc !=. </span>
+<span id="cb722-5"><a href="StataDataManage.html#cb722-5"></a><span class="co">//check to see that missingness is preserved</span></span>
+<span id="cb722-6"><a href="StataDataManage.html#cb722-6"></a><span class="kw">tab</span> hi_ed2, <span class="fu">mi</span></span></code></pre></div>
 <p>The correct value is 10%. Moral of the story? Be careful with missing values and remember that Stata considers missing values to be <strong>positive infinity</strong>!</p>
 </div>
 <div id="bulk-conversion-to-missing-values" class="section level3">
 <h3>Bulk Conversion to missing values</h3>
 <p>Often the data collection / generating procedure will have used some other value besides <code>.</code> to represent missing values. The <code>mvdecode</code> command will convert all these values to missing. For example:</p>
-<div class="sourceCode" id="cb721"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb721-1"><a href="StataDataManage.html#cb721-1"></a><span class="kw">mvdecode</span> <span class="dt">_all</span>, mv(999)</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb723-1"><a href="StataDataManage.html#cb723-1"></a><span class="kw">mvdecode</span> <span class="dt">_all</span>, mv(999)</span></code></pre></div>
 <p>The <code>_all</code> command tells Stata to perform this conversion for all variables. Use this command carefully! If you have any variables where “999” is a legitimate value, Stata is going to recode it to missing. As an alternative, you could list var names separately rather than using <code>_all</code>.</p>
 </div>
 </div>
@@ -1062,15 +1062,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="converting-to-from-strings" class="section level3">
 <h3>Converting to &amp; from Strings</h3>
 <p>Stata provides several ways to convert to and from strings. You can use <code>tostring</code> and <code>destring</code> to convert from one type to the other:</p>
-<div class="sourceCode" id="cb722"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb722-1"><a href="StataDataManage.html#cb722-1"></a><span class="co">// convert degree to a string</span></span>
-<span id="cb722-2"><a href="StataDataManage.html#cb722-2"></a><span class="kw">tostring</span> degree, <span class="kw">gen</span>(degree_s)</span>
-<span id="cb722-3"><a href="StataDataManage.html#cb722-3"></a><span class="co">// and back to a number</span></span>
-<span id="cb722-4"><a href="StataDataManage.html#cb722-4"></a><span class="kw">destring</span> degree_s, <span class="kw">gen</span>(degree_n)</span></code></pre></div>
+<div class="sourceCode" id="cb724"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb724-1"><a href="StataDataManage.html#cb724-1"></a><span class="co">// convert degree to a string</span></span>
+<span id="cb724-2"><a href="StataDataManage.html#cb724-2"></a><span class="kw">tostring</span> degree, <span class="kw">gen</span>(degree_s)</span>
+<span id="cb724-3"><a href="StataDataManage.html#cb724-3"></a><span class="co">// and back to a number</span></span>
+<span id="cb724-4"><a href="StataDataManage.html#cb724-4"></a><span class="kw">destring</span> degree_s, <span class="kw">gen</span>(degree_n)</span></code></pre></div>
 <p>Use <code>decode</code> and <code>encode</code> to convert to / from variable labels:</p>
-<div class="sourceCode" id="cb723"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb723-1"><a href="StataDataManage.html#cb723-1"></a><span class="co">// convert degree to a descriptive string</span></span>
-<span id="cb723-2"><a href="StataDataManage.html#cb723-2"></a><span class="kw">decode</span> degree, <span class="kw">gen</span>(degree_s2)</span>
-<span id="cb723-3"><a href="StataDataManage.html#cb723-3"></a><span class="co">// and back to a number with labels</span></span>
-<span id="cb723-4"><a href="StataDataManage.html#cb723-4"></a><span class="kw">encode</span> degree_s2, <span class="kw">gen</span>(degree_n2)</span></code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb725-1"><a href="StataDataManage.html#cb725-1"></a><span class="co">// convert degree to a descriptive string</span></span>
+<span id="cb725-2"><a href="StataDataManage.html#cb725-2"></a><span class="kw">decode</span> degree, <span class="kw">gen</span>(degree_s2)</span>
+<span id="cb725-3"><a href="StataDataManage.html#cb725-3"></a><span class="co">// and back to a number with labels</span></span>
+<span id="cb725-4"><a href="StataDataManage.html#cb725-4"></a><span class="kw">encode</span> degree_s2, <span class="kw">gen</span>(degree_n2)</span></code></pre></div>
 </div>
 <div id="converting-strings-to-date-time" class="section level3">
 <h3>Converting strings to date / time</h3>
@@ -1117,20 +1117,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>Date / time variables are stored as the number of units elapsed since 01 January 1960 00:00:00.000. For example, the <code>date</code> function returns the number of days since that time, and the <code>clock</code> function returns the number of milliseconds since that time.</p>
-<div class="sourceCode" id="cb724"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb724-1"><a href="StataDataManage.html#cb724-1"></a><span class="co">// create string variable and convert to date</span></span>
-<span id="cb724-2"><a href="StataDataManage.html#cb724-2"></a><span class="kw">gen</span> <span class="fu">date</span> = <span class="st">&quot;November 9 2020&quot;</span></span>
-<span id="cb724-3"><a href="StataDataManage.html#cb724-3"></a><span class="kw">gen</span> date1 = <span class="fu">date</span>(<span class="fu">date</span>, <span class="st">&quot;MDY&quot;</span>)</span>
-<span id="cb724-4"><a href="StataDataManage.html#cb724-4"></a><span class="ot">list</span> date1 <span class="kw">in</span> 1/5</span></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb726-1"><a href="StataDataManage.html#cb726-1"></a><span class="co">// create string variable and convert to date</span></span>
+<span id="cb726-2"><a href="StataDataManage.html#cb726-2"></a><span class="kw">gen</span> <span class="fu">date</span> = <span class="st">&quot;November 9 2020&quot;</span></span>
+<span id="cb726-3"><a href="StataDataManage.html#cb726-3"></a><span class="kw">gen</span> date1 = <span class="fu">date</span>(<span class="fu">date</span>, <span class="st">&quot;MDY&quot;</span>)</span>
+<span id="cb726-4"><a href="StataDataManage.html#cb726-4"></a><span class="ot">list</span> date1 <span class="kw">in</span> 1/5</span></code></pre></div>
 </div>
 <div id="formatting-numbers-as-dates" class="section level3">
 <h3>Formatting numbers as dates</h3>
 <p>Once you have converted a string to a number you can format it for display. You can either accept the defaults used by your formatting string or provide details to customize it.</p>
-<div class="sourceCode" id="cb725"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb725-1"><a href="StataDataManage.html#cb725-1"></a><span class="co">// format so humans can read the date</span></span>
-<span id="cb725-2"><a href="StataDataManage.html#cb725-2"></a><span class="kw">format</span> date1 %<span class="kw">d</span></span>
-<span id="cb725-3"><a href="StataDataManage.html#cb725-3"></a><span class="ot">list</span> date1 <span class="kw">in</span> 1/5</span>
-<span id="cb725-4"><a href="StataDataManage.html#cb725-4"></a><span class="co">// format with detail</span></span>
-<span id="cb725-5"><a href="StataDataManage.html#cb725-5"></a><span class="kw">format</span> date1 %tdMonth_dd,_CCYY</span>
-<span id="cb725-6"><a href="StataDataManage.html#cb725-6"></a><span class="ot">list</span> date1 <span class="kw">in</span> 1/5</span></code></pre></div>
+<div class="sourceCode" id="cb727"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb727-1"><a href="StataDataManage.html#cb727-1"></a><span class="co">// format so humans can read the date</span></span>
+<span id="cb727-2"><a href="StataDataManage.html#cb727-2"></a><span class="kw">format</span> date1 %<span class="kw">d</span></span>
+<span id="cb727-3"><a href="StataDataManage.html#cb727-3"></a><span class="ot">list</span> date1 <span class="kw">in</span> 1/5</span>
+<span id="cb727-4"><a href="StataDataManage.html#cb727-4"></a><span class="co">// format with detail</span></span>
+<span id="cb727-5"><a href="StataDataManage.html#cb727-5"></a><span class="kw">format</span> date1 %tdMonth_dd,_CCYY</span>
+<span id="cb727-6"><a href="StataDataManage.html#cb727-6"></a><span class="ot">list</span> date1 <span class="kw">in</span> 1/5</span></code></pre></div>
 </div>
 <div id="exercise-1-7" class="section level3">
 <h3>Exercise 1</h3>
@@ -1138,35 +1138,35 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>Recode values “99” and “98” on the variable <code>hrs1</code> as missing.</li>
 </ol>
-<div class="sourceCode" id="cb726"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb726-1"><a href="StataDataManage.html#cb726-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb728-1"><a href="StataDataManage.html#cb728-1"></a>##</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Recode the <code>marital</code> variable into a string variable and then back into a numeric variable.</li>
 </ol>
-<div class="sourceCode" id="cb727"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb727-1"><a href="StataDataManage.html#cb727-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb729"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb729-1"><a href="StataDataManage.html#cb729-1"></a>##</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last <code>by</code> example for inspiration).</li>
 </ol>
-<div class="sourceCode" id="cb728"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb728-1"><a href="StataDataManage.html#cb728-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb730"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb730-1"><a href="StataDataManage.html#cb730-1"></a>##</span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 <div class="alert alert-danger">
-<div class="sourceCode" id="cb729"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb729-1"><a href="StataDataManage.html#cb729-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
-<span id="cb729-2"><a href="StataDataManage.html#cb729-2"></a><span class="kw">sum</span> hrs1</span>
-<span id="cb729-3"><a href="StataDataManage.html#cb729-3"></a><span class="kw">recode</span> hrs1 (99=.) (98=.) </span>
-<span id="cb729-4"><a href="StataDataManage.html#cb729-4"></a><span class="kw">sum</span> hrs1</span>
-<span id="cb729-5"><a href="StataDataManage.html#cb729-5"></a></span>
-<span id="cb729-6"><a href="StataDataManage.html#cb729-6"></a><span class="kw">tostring</span> marital, <span class="kw">gen</span>(marstring)</span>
-<span id="cb729-7"><a href="StataDataManage.html#cb729-7"></a><span class="kw">destring</span> marstring, <span class="kw">gen</span>(mardstring)</span>
-<span id="cb729-8"><a href="StataDataManage.html#cb729-8"></a><span class="co">//compare with</span></span>
-<span id="cb729-9"><a href="StataDataManage.html#cb729-9"></a><span class="kw">decode</span> marital, <span class="kw">gen</span>(marital_s)</span>
-<span id="cb729-10"><a href="StataDataManage.html#cb729-10"></a><span class="kw">encode</span> marital_s, <span class="kw">gen</span>(marital_n)</span>
-<span id="cb729-11"><a href="StataDataManage.html#cb729-11"></a></span>
-<span id="cb729-12"><a href="StataDataManage.html#cb729-12"></a><span class="kw">describe</span> marital marstring mardstring marital_s marital_n</span>
-<span id="cb729-13"><a href="StataDataManage.html#cb729-13"></a><span class="kw">sum</span> marital marstring mardstring marital_s marital_n</span>
-<span id="cb729-14"><a href="StataDataManage.html#cb729-14"></a></span>
-<span id="cb729-15"><a href="StataDataManage.html#cb729-15"></a><span class="kw">bysort</span> degree: <span class="kw">egen</span> hrsdegree = <span class="kw">mean</span>(hrs1)</span>
-<span id="cb729-16"><a href="StataDataManage.html#cb729-16"></a><span class="kw">tab</span> hrsdegree</span>
-<span id="cb729-17"><a href="StataDataManage.html#cb729-17"></a><span class="kw">tab</span> hrsdegree degree </span></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb731-1"><a href="StataDataManage.html#cb731-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb731-2"><a href="StataDataManage.html#cb731-2"></a><span class="kw">sum</span> hrs1</span>
+<span id="cb731-3"><a href="StataDataManage.html#cb731-3"></a><span class="kw">recode</span> hrs1 (99=.) (98=.) </span>
+<span id="cb731-4"><a href="StataDataManage.html#cb731-4"></a><span class="kw">sum</span> hrs1</span>
+<span id="cb731-5"><a href="StataDataManage.html#cb731-5"></a></span>
+<span id="cb731-6"><a href="StataDataManage.html#cb731-6"></a><span class="kw">tostring</span> marital, <span class="kw">gen</span>(marstring)</span>
+<span id="cb731-7"><a href="StataDataManage.html#cb731-7"></a><span class="kw">destring</span> marstring, <span class="kw">gen</span>(mardstring)</span>
+<span id="cb731-8"><a href="StataDataManage.html#cb731-8"></a><span class="co">//compare with</span></span>
+<span id="cb731-9"><a href="StataDataManage.html#cb731-9"></a><span class="kw">decode</span> marital, <span class="kw">gen</span>(marital_s)</span>
+<span id="cb731-10"><a href="StataDataManage.html#cb731-10"></a><span class="kw">encode</span> marital_s, <span class="kw">gen</span>(marital_n)</span>
+<span id="cb731-11"><a href="StataDataManage.html#cb731-11"></a></span>
+<span id="cb731-12"><a href="StataDataManage.html#cb731-12"></a><span class="kw">describe</span> marital marstring mardstring marital_s marital_n</span>
+<span id="cb731-13"><a href="StataDataManage.html#cb731-13"></a><span class="kw">sum</span> marital marstring mardstring marital_s marital_n</span>
+<span id="cb731-14"><a href="StataDataManage.html#cb731-14"></a></span>
+<span id="cb731-15"><a href="StataDataManage.html#cb731-15"></a><span class="kw">bysort</span> degree: <span class="kw">egen</span> hrsdegree = <span class="kw">mean</span>(hrs1)</span>
+<span id="cb731-16"><a href="StataDataManage.html#cb731-16"></a><span class="kw">tab</span> hrsdegree</span>
+<span id="cb731-17"><a href="StataDataManage.html#cb731-17"></a><span class="kw">tab</span> hrsdegree degree </span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1184,21 +1184,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="appending-datasets" class="section level3">
 <h3>Appending datasets</h3>
 <p>Sometimes you have observations in two different datasets, or you’d like to add observations to an existing dataset. In this case you can use the <code>append</code> command to add observations to the end of the observations in the master dataset. For example:</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb730-1"><a href="StataDataManage.html#cb730-1"></a><span class="kw">clear</span></span>
-<span id="cb730-2"><a href="StataDataManage.html#cb730-2"></a><span class="co">// from the append help file</span></span>
-<span id="cb730-3"><a href="StataDataManage.html#cb730-3"></a><span class="kw">webuse</span> even</span>
-<span id="cb730-4"><a href="StataDataManage.html#cb730-4"></a><span class="ot">list</span></span>
-<span id="cb730-5"><a href="StataDataManage.html#cb730-5"></a><span class="kw">webuse</span> odd</span>
-<span id="cb730-6"><a href="StataDataManage.html#cb730-6"></a><span class="ot">list</span></span>
-<span id="cb730-7"><a href="StataDataManage.html#cb730-7"></a><span class="co">// Append even data to the end of the odd data</span></span>
-<span id="cb730-8"><a href="StataDataManage.html#cb730-8"></a><span class="kw">append</span> <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/even&quot;</span></span>
-<span id="cb730-9"><a href="StataDataManage.html#cb730-9"></a><span class="ot">list</span></span>
-<span id="cb730-10"><a href="StataDataManage.html#cb730-10"></a><span class="kw">clear</span></span></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb732-1"><a href="StataDataManage.html#cb732-1"></a><span class="kw">clear</span></span>
+<span id="cb732-2"><a href="StataDataManage.html#cb732-2"></a><span class="co">// from the append help file</span></span>
+<span id="cb732-3"><a href="StataDataManage.html#cb732-3"></a><span class="kw">webuse</span> even</span>
+<span id="cb732-4"><a href="StataDataManage.html#cb732-4"></a><span class="ot">list</span></span>
+<span id="cb732-5"><a href="StataDataManage.html#cb732-5"></a><span class="kw">webuse</span> odd</span>
+<span id="cb732-6"><a href="StataDataManage.html#cb732-6"></a><span class="ot">list</span></span>
+<span id="cb732-7"><a href="StataDataManage.html#cb732-7"></a><span class="co">// Append even data to the end of the odd data</span></span>
+<span id="cb732-8"><a href="StataDataManage.html#cb732-8"></a><span class="kw">append</span> <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/even&quot;</span></span>
+<span id="cb732-9"><a href="StataDataManage.html#cb732-9"></a><span class="ot">list</span></span>
+<span id="cb732-10"><a href="StataDataManage.html#cb732-10"></a><span class="kw">clear</span></span></code></pre></div>
 <p>To keep track of where observations came from, use the <code>generate</code> option as shown below:</p>
-<div class="sourceCode" id="cb731"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb731-1"><a href="StataDataManage.html#cb731-1"></a><span class="kw">webuse</span> odd</span>
-<span id="cb731-2"><a href="StataDataManage.html#cb731-2"></a><span class="kw">append</span> <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/even&quot;</span>, <span class="kw">generate</span>(observesource)</span>
-<span id="cb731-3"><a href="StataDataManage.html#cb731-3"></a><span class="ot">list</span></span>
-<span id="cb731-4"><a href="StataDataManage.html#cb731-4"></a><span class="kw">clear</span></span></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb733-1"><a href="StataDataManage.html#cb733-1"></a><span class="kw">webuse</span> odd</span>
+<span id="cb733-2"><a href="StataDataManage.html#cb733-2"></a><span class="kw">append</span> <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/even&quot;</span>, <span class="kw">generate</span>(observesource)</span>
+<span id="cb733-3"><a href="StataDataManage.html#cb733-3"></a><span class="ot">list</span></span>
+<span id="cb733-4"><a href="StataDataManage.html#cb733-4"></a><span class="kw">clear</span></span></code></pre></div>
 <p>There is a <code>force</code> option will allow for data type mismatches, but this is not recommended. Remember, <code>append</code> is for adding observations (i.e., rows) from a second data set to your current dataset.</p>
 </div>
 <div id="merging-datasets" class="section level3">
@@ -1215,22 +1215,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Variable types must match across datasets (there is a <code>force</code> option to get around this, but it is not recommended)</li>
 </ol>
 <p>Note — data do NOT have to be sorted prior to merging.</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb732-1"><a href="StataDataManage.html#cb732-1"></a><span class="co">// Adapted from the merge help page</span></span>
-<span id="cb732-2"><a href="StataDataManage.html#cb732-2"></a><span class="kw">webuse</span> autosize </span>
-<span id="cb732-3"><a href="StataDataManage.html#cb732-3"></a><span class="ot">list</span></span>
-<span id="cb732-4"><a href="StataDataManage.html#cb732-4"></a><span class="kw">webuse</span> autoexpense</span>
-<span id="cb732-5"><a href="StataDataManage.html#cb732-5"></a><span class="ot">list</span></span>
-<span id="cb732-6"><a href="StataDataManage.html#cb732-6"></a></span>
-<span id="cb732-7"><a href="StataDataManage.html#cb732-7"></a><span class="kw">webuse</span> autosize</span>
-<span id="cb732-8"><a href="StataDataManage.html#cb732-8"></a><span class="kw">merge</span> 1:1 make <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/autoexpense&quot;</span></span>
-<span id="cb732-9"><a href="StataDataManage.html#cb732-9"></a><span class="ot">list</span></span>
-<span id="cb732-10"><a href="StataDataManage.html#cb732-10"></a><span class="kw">clear</span></span>
-<span id="cb732-11"><a href="StataDataManage.html#cb732-11"></a></span>
-<span id="cb732-12"><a href="StataDataManage.html#cb732-12"></a><span class="co">// keep only the matches (AKA &quot;inner join&quot;)</span></span>
-<span id="cb732-13"><a href="StataDataManage.html#cb732-13"></a><span class="kw">webuse</span> autosize, <span class="kw">clear</span></span>
-<span id="cb732-14"><a href="StataDataManage.html#cb732-14"></a><span class="kw">merge</span> 1:1 make <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/autoexpense&quot;</span>, <span class="kw">keep</span>(<span class="fu">match</span>) nogen</span>
-<span id="cb732-15"><a href="StataDataManage.html#cb732-15"></a><span class="ot">list</span></span>
-<span id="cb732-16"><a href="StataDataManage.html#cb732-16"></a><span class="kw">clear</span></span></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb734-1"><a href="StataDataManage.html#cb734-1"></a><span class="co">// Adapted from the merge help page</span></span>
+<span id="cb734-2"><a href="StataDataManage.html#cb734-2"></a><span class="kw">webuse</span> autosize </span>
+<span id="cb734-3"><a href="StataDataManage.html#cb734-3"></a><span class="ot">list</span></span>
+<span id="cb734-4"><a href="StataDataManage.html#cb734-4"></a><span class="kw">webuse</span> autoexpense</span>
+<span id="cb734-5"><a href="StataDataManage.html#cb734-5"></a><span class="ot">list</span></span>
+<span id="cb734-6"><a href="StataDataManage.html#cb734-6"></a></span>
+<span id="cb734-7"><a href="StataDataManage.html#cb734-7"></a><span class="kw">webuse</span> autosize</span>
+<span id="cb734-8"><a href="StataDataManage.html#cb734-8"></a><span class="kw">merge</span> 1:1 make <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/autoexpense&quot;</span></span>
+<span id="cb734-9"><a href="StataDataManage.html#cb734-9"></a><span class="ot">list</span></span>
+<span id="cb734-10"><a href="StataDataManage.html#cb734-10"></a><span class="kw">clear</span></span>
+<span id="cb734-11"><a href="StataDataManage.html#cb734-11"></a></span>
+<span id="cb734-12"><a href="StataDataManage.html#cb734-12"></a><span class="co">// keep only the matches (AKA &quot;inner join&quot;)</span></span>
+<span id="cb734-13"><a href="StataDataManage.html#cb734-13"></a><span class="kw">webuse</span> autosize, <span class="kw">clear</span></span>
+<span id="cb734-14"><a href="StataDataManage.html#cb734-14"></a><span class="kw">merge</span> 1:1 make <span class="kw">using</span> <span class="st">&quot;http://www.stata-press.com/data/r14/autoexpense&quot;</span>, <span class="kw">keep</span>(<span class="fu">match</span>) nogen</span>
+<span id="cb734-15"><a href="StataDataManage.html#cb734-15"></a><span class="ot">list</span></span>
+<span id="cb734-16"><a href="StataDataManage.html#cb734-16"></a><span class="kw">clear</span></span></code></pre></div>
 <p>Remember, <code>merge</code> is for adding variables (i.e., columns) from a second data set.</p>
 </div>
 <div id="merge-options" class="section level3">
@@ -1259,14 +1259,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Save your current dataset and then save it again under a new name (this will prevent <code>collapse</code> from writing over your original data</li>
 <li>Consider issues of missing data. Do you want Stata to use all possible observations? If not, the <code>cw</code> (casewise) option will make casewise deletions</li>
 </ul>
-<div class="sourceCode" id="cb733"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb733-1"><a href="StataDataManage.html#cb733-1"></a><span class="co">// Adapted from the collapse help page</span></span>
-<span id="cb733-2"><a href="StataDataManage.html#cb733-2"></a><span class="kw">clear</span></span>
-<span id="cb733-3"><a href="StataDataManage.html#cb733-3"></a><span class="kw">webuse</span> college</span>
-<span id="cb733-4"><a href="StataDataManage.html#cb733-4"></a><span class="ot">list</span></span>
-<span id="cb733-5"><a href="StataDataManage.html#cb733-5"></a><span class="co">// mean and sd by hospital</span></span>
-<span id="cb733-6"><a href="StataDataManage.html#cb733-6"></a><span class="kw">collapse</span> (<span class="kw">mean</span>) mean_gpa = gpa mean_hour = hour (<span class="fu">sd</span>) sd_gpa = gpa sd_hour = hour, <span class="kw">by</span>(<span class="fu">year</span>)</span>
-<span id="cb733-7"><a href="StataDataManage.html#cb733-7"></a><span class="ot">list</span></span>
-<span id="cb733-8"><a href="StataDataManage.html#cb733-8"></a><span class="kw">clear</span></span></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb735-1"><a href="StataDataManage.html#cb735-1"></a><span class="co">// Adapted from the collapse help page</span></span>
+<span id="cb735-2"><a href="StataDataManage.html#cb735-2"></a><span class="kw">clear</span></span>
+<span id="cb735-3"><a href="StataDataManage.html#cb735-3"></a><span class="kw">webuse</span> college</span>
+<span id="cb735-4"><a href="StataDataManage.html#cb735-4"></a><span class="ot">list</span></span>
+<span id="cb735-5"><a href="StataDataManage.html#cb735-5"></a><span class="co">// mean and sd by hospital</span></span>
+<span id="cb735-6"><a href="StataDataManage.html#cb735-6"></a><span class="kw">collapse</span> (<span class="kw">mean</span>) mean_gpa = gpa mean_hour = hour (<span class="fu">sd</span>) sd_gpa = gpa sd_hour = hour, <span class="kw">by</span>(<span class="fu">year</span>)</span>
+<span id="cb735-7"><a href="StataDataManage.html#cb735-7"></a><span class="ot">list</span></span>
+<span id="cb735-8"><a href="StataDataManage.html#cb735-8"></a><span class="kw">clear</span></span></code></pre></div>
 <p>You could also generate different statistics for multiple variables.</p>
 </div>
 <div id="exercise-2-5" class="section level3">
@@ -1276,37 +1276,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>Merge dataset <code>gss1.dta</code> with dataset <code>gss2.dta</code>. The identification variable is <code>id</code>.</li>
 </ol>
-<div class="sourceCode" id="cb734"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb734-1"><a href="StataDataManage.html#cb734-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb736-1"><a href="StataDataManage.html#cb736-1"></a>##</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Open the <code>gss.dta</code> dataset and merge in data from the <code>marital.dta</code> dataset, which includes income information grouped by individuals’ marital status. The <code>marital.dta</code> dataset contains collapsed data regarding average statistics of individuals based on their marital status.</li>
 </ol>
-<div class="sourceCode" id="cb735"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb735-1"><a href="StataDataManage.html#cb735-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb737-1"><a href="StataDataManage.html#cb737-1"></a>##</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Open the <code>gssAppend.dta</code> dataset and create a new dataset that combines the observations in <code>gssAppend.dta</code> with those in <code>gssAddObserve.dta</code>.</li>
 </ol>
-<div class="sourceCode" id="cb736"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb736-1"><a href="StataDataManage.html#cb736-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb738-1"><a href="StataDataManage.html#cb738-1"></a>##</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Open the <code>gss.dta</code> dataset and create a new dataset that summarizes the mean and standard deviation of income based on individuals’ degree status (<code>degree</code>). In the process of creating this new dataset, rename your three new variables.</li>
 </ol>
-<div class="sourceCode" id="cb737"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb737-1"><a href="StataDataManage.html#cb737-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb739-1"><a href="StataDataManage.html#cb739-1"></a>##</span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 <div class="alert alert-danger">
-<div class="sourceCode" id="cb738"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb738-1"><a href="StataDataManage.html#cb738-1"></a><span class="kw">use</span> dataSets/gss2.dta, <span class="kw">clear</span></span>
-<span id="cb738-2"><a href="StataDataManage.html#cb738-2"></a><span class="kw">merge</span> 1:1 id <span class="kw">using</span> dataSets/gss1.dta</span>
-<span id="cb738-3"><a href="StataDataManage.html#cb738-3"></a><span class="kw">save</span> gss3.dta, <span class="kw">replace</span></span>
-<span id="cb738-4"><a href="StataDataManage.html#cb738-4"></a></span>
-<span id="cb738-5"><a href="StataDataManage.html#cb738-5"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
-<span id="cb738-6"><a href="StataDataManage.html#cb738-6"></a><span class="kw">merge</span> <span class="fu">m</span>:1 marital <span class="kw">using</span> dataSets/marital.dta, nogenerate <span class="kw">replace</span> update</span>
-<span id="cb738-7"><a href="StataDataManage.html#cb738-7"></a><span class="kw">save</span> gss4.dta, <span class="kw">replace</span></span>
-<span id="cb738-8"><a href="StataDataManage.html#cb738-8"></a></span>
-<span id="cb738-9"><a href="StataDataManage.html#cb738-9"></a><span class="kw">use</span> dataSets/gssAppend.dta, <span class="kw">clear</span></span>
-<span id="cb738-10"><a href="StataDataManage.html#cb738-10"></a><span class="kw">append</span> <span class="kw">using</span> dataSets/gssAddObserve, <span class="kw">generate</span>(observe) </span>
-<span id="cb738-11"><a href="StataDataManage.html#cb738-11"></a></span>
-<span id="cb738-12"><a href="StataDataManage.html#cb738-12"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
-<span id="cb738-13"><a href="StataDataManage.html#cb738-13"></a><span class="kw">save</span> collapse2.dta, <span class="kw">replace</span></span>
-<span id="cb738-14"><a href="StataDataManage.html#cb738-14"></a><span class="kw">use</span> collapse2.dta, <span class="kw">clear</span></span>
-<span id="cb738-15"><a href="StataDataManage.html#cb738-15"></a><span class="kw">collapse</span> (<span class="kw">mean</span>) meaninc=income (<span class="fu">sd</span>) sdinc=income, <span class="kw">by</span>(marital)</span></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb740-1"><a href="StataDataManage.html#cb740-1"></a><span class="kw">use</span> dataSets/gss2.dta, <span class="kw">clear</span></span>
+<span id="cb740-2"><a href="StataDataManage.html#cb740-2"></a><span class="kw">merge</span> 1:1 id <span class="kw">using</span> dataSets/gss1.dta</span>
+<span id="cb740-3"><a href="StataDataManage.html#cb740-3"></a><span class="kw">save</span> gss3.dta, <span class="kw">replace</span></span>
+<span id="cb740-4"><a href="StataDataManage.html#cb740-4"></a></span>
+<span id="cb740-5"><a href="StataDataManage.html#cb740-5"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb740-6"><a href="StataDataManage.html#cb740-6"></a><span class="kw">merge</span> <span class="fu">m</span>:1 marital <span class="kw">using</span> dataSets/marital.dta, nogenerate <span class="kw">replace</span> update</span>
+<span id="cb740-7"><a href="StataDataManage.html#cb740-7"></a><span class="kw">save</span> gss4.dta, <span class="kw">replace</span></span>
+<span id="cb740-8"><a href="StataDataManage.html#cb740-8"></a></span>
+<span id="cb740-9"><a href="StataDataManage.html#cb740-9"></a><span class="kw">use</span> dataSets/gssAppend.dta, <span class="kw">clear</span></span>
+<span id="cb740-10"><a href="StataDataManage.html#cb740-10"></a><span class="kw">append</span> <span class="kw">using</span> dataSets/gssAddObserve, <span class="kw">generate</span>(observe) </span>
+<span id="cb740-11"><a href="StataDataManage.html#cb740-11"></a></span>
+<span id="cb740-12"><a href="StataDataManage.html#cb740-12"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb740-13"><a href="StataDataManage.html#cb740-13"></a><span class="kw">save</span> collapse2.dta, <span class="kw">replace</span></span>
+<span id="cb740-14"><a href="StataDataManage.html#cb740-14"></a><span class="kw">use</span> collapse2.dta, <span class="kw">clear</span></span>
+<span id="cb740-15"><a href="StataDataManage.html#cb740-15"></a><span class="kw">collapse</span> (<span class="kw">mean</span>) meaninc=income (<span class="fu">sd</span>) sdinc=income, <span class="kw">by</span>(marital)</span></code></pre></div>
 </div>
 </details>
 </div>

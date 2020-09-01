@@ -6709,7 +6709,7 @@ We can change the boundaries for the bins by passing the \texttt{breaks} argumen
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p2 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"bin"}\NormalTok{, }\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{1e6}\NormalTok{, }\DataTypeTok{by =} \DecValTok{250}\NormalTok{))}
+\NormalTok{p2 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{875000}\NormalTok{, }\DataTypeTok{by =} \DecValTok{250}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7808,10 +7808,8 @@ Start RStudio and create a new project:
 \hypertarget{packages-2}{%
 \subsection{Packages}\label{packages-2}}
 
-You should have already installed the \texttt{tidyverse} and \texttt{rmarkdown}
-packages onto your computer before the workshop
---- see \href{./Rinstall.html}{R Installation}.
-Now let's load these packages into the search path of our R session.
+You should have already installed the \texttt{tidyverse} and \texttt{rmarkdown} packages onto your computer before the workshop
+--- see \href{./Rinstall.html}{R Installation}. Now let's load these packages into the search path of our R session.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7929,9 +7927,7 @@ These differences will make it more difficult to automate re-arranging the data 
 
 \end{alert}
 
-NOTE: please make sure you close the Excel files before continuing with the
-workshop, otherwise you may encounter issues with file paths when reading
-the data into R.
+NOTE: please make sure you close the Excel files before continuing with the workshop, otherwise you may encounter issues with file paths when reading the data into R.
 
 \hypertarget{working-with-excel-worksheets}{%
 \section{Working with Excel worksheets}\label{working-with-excel-worksheets}}
@@ -7953,15 +7949,9 @@ the data into R.
 
 \end{alert}
 
-As you can see, the data is in quite a messy state. Note that this is
-not a contrived example; this is exactly the way the data came to us
-from the UK government website! Let's start cleaning and organizing
-it.
+As you can see, the data is in quite a messy state. Note that this is not a contrived example; this is exactly the way the data came to us from the UK government website! Let's start cleaning and organizing it.
 
-Each Excel file contains a worksheet with the boy names data we want.
-Each file also contains additional supplemental worksheets that we are
-not currently interested in. As noted above, the worksheet of interest
-differs from year to year, but always has ``Table 1'' in the sheet name.
+Each Excel file contains a worksheet with the boy names data we want. Each file also contains additional supplemental worksheets that we are not currently interested in. As noted above, the worksheet of interest differs from year to year, but always has ``Table 1'' in the sheet name.
 
 The first step is to get a character vector of file names.
 
@@ -7971,8 +7961,7 @@ The first step is to get a character vector of file names.
 \end{Highlighting}
 \end{Shaded}
 
-Now that we've told R the names of the data files, we can start working
-with them. For example, the first file is
+Now that we've told R the names of the data files, we can start working with them. For example, the first file is
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7984,8 +7973,7 @@ with them. For example, the first file is
 ## [1] "dataSets/boys/1996boys_tcm77-254026.xlsx"
 \end{verbatim}
 
-and we can use the \texttt{excel\_sheets()} function from the \texttt{readxl} package
-within \texttt{tidyverse} to list the worksheet names from this file.
+and we can use the \texttt{excel\_sheets()} function from the \texttt{readxl} package within \texttt{tidyverse} to list the worksheet names from this file.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8001,9 +7989,7 @@ within \texttt{tidyverse} to list the worksheet names from this file.
 \hypertarget{iterating-with-map}{%
 \subsection{\texorpdfstring{Iterating with \texttt{map()}}{Iterating with map()}}\label{iterating-with-map}}
 
-Now that we know how to retrieve the names of the worksheets in an
-Excel file, we could start writing code to extract the sheet names from
-each file, e.g.,
+Now that we know how to retrieve the names of the worksheets in an Excel file, we could start writing code to extract the sheet names from each file, e.g.,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8043,11 +8029,7 @@ each file, e.g.,
 ## [10] "Related Publications"
 \end{verbatim}
 
-This is not a terrible idea for a small number of files, but it is
-more convenient to let R do the iteration for us. We could use a \texttt{for\ loop},
-or \texttt{sapply()}, but the \texttt{map()} family of functions from the \texttt{purrr}
-package within \texttt{tidyverse} gives us a more consistent alternative,
-so we'll use that.
+This is not a terrible idea for a small number of files, but it is more convenient to let R do the iteration for us. We could use a \texttt{for\ loop}, or \texttt{sapply()}, but the \texttt{map()} family of functions from the \texttt{purrr} package within \texttt{tidyverse} gives us a more consistent alternative, so we'll use that.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8184,13 +8166,9 @@ so we'll use that.
 \hypertarget{filtering-strings-using-regex}{%
 \subsection{Filtering strings using regex}\label{filtering-strings-using-regex}}
 
-To extract the correct worksheet names we need a way to extract
-strings containing ``Table 1''.
+To extract the correct worksheet names we need a way to extract strings containing ``Table 1''.
 
-Base R provides some string manipulation capabilities
-(see \texttt{?regex}, \texttt{?sub} and \texttt{?grep}), but we will use the
-\texttt{stringr} package within \texttt{tidyverse} because it is more
-user-friendly. \texttt{stringr} provides functions to:
+Base R provides some string manipulation capabilities (see \texttt{?regex}, \texttt{?sub} and \texttt{?grep}), but we will use the \texttt{stringr} package within \texttt{tidyverse} because it is more user-friendly. \texttt{stringr} provides functions to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8211,9 +8189,7 @@ user-friendly. \texttt{stringr} provides functions to:
   split
 \end{enumerate}
 
-strings. Here we want to detect the pattern ``Table 1'', and only
-return elements with this pattern. We can do that using the
-\texttt{str\_subset()} function:
+strings. Here we want to detect the pattern ``Table 1'', and only return elements with this pattern. We can do that using the \texttt{str\_subset()} function:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8224,13 +8200,9 @@ return elements with this pattern. We can do that using the
   The second argument is a \emph{regular expression} matching the pattern we want to retain.
 \end{enumerate}
 
-If you are not familiar with regular expressions (regex),
-\url{http://www.regexr.com/} is a good place to start. Regex is essentially
-just a programmatic way of doing operations like ``find'' or ``find and replace''
-in MS Word or Excel.
+If you are not familiar with regular expressions (regex), \url{http://www.regexr.com/} is a good place to start. Regex is essentially just a programmatic way of doing operations like ``find'' or ``find and replace'' in MS Word or Excel.
 
-Now that we know how to filter character vectors using \texttt{str\_subset()} we can
-identify the correct sheet in a particular Excel file. For example,
+Now that we know how to filter character vectors using \texttt{str\_subset()} we can identify the correct sheet in a particular Excel file. For example,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8261,11 +8233,7 @@ identify the correct sheet in a particular Excel file. For example,
 
 The next step is to retrieve worksheet names and subset them.
 
-The \texttt{map*} functions are useful when you want to apply a function to a
-vector of inputs and obtain the return values for each input. This
-is very convenient when a function already exists that does exactly what you
-want. In the examples above we mapped the \texttt{excel\_sheets()} function to
-the elements of a character vector containing file names.
+The \texttt{map*} functions are useful when you want to apply a function to a vector of inputs and obtain the return values for each input. This is very convenient when a function already exists that does exactly what you want. In the examples above we mapped the \texttt{excel\_sheets()} function to the elements of a character vector containing file names.
 
 However, there is no function that both:
 
@@ -8278,8 +8246,7 @@ However, there is no function that both:
   Subsets the names
 \end{enumerate}
 
-So, we will have to write one. Fortunately, writing functions in R is easy.
-Functions require 3 elements:
+So, we will have to write one. Fortunately, writing functions in R is easy. Functions require 3 elements:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8442,13 +8409,9 @@ Now we can map this new function over our vector of file names.
 \hypertarget{reading-excel-data-files}{%
 \section{Reading Excel data files}\label{reading-excel-data-files}}
 
-Now that we know the correct worksheet from each file, we can actually
-read those data into R. We can do that using the \texttt{read\_excel()} function.
+Now that we know the correct worksheet from each file, we can actually read those data into R. We can do that using the \texttt{read\_excel()} function.
 
-We'll start by reading the data from the first file, just to check
-that it works. Recall that the actual data starts on row 7, so we want
-to skip the first 6 rows. We can use the \texttt{glimpse()} function from
-the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
+We'll start by reading the data from the first file, just to check that it works. Recall that the actual data starts on row 7, so we want to skip the first 6 rows. We can use the \texttt{glimpse()} function from the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8474,9 +8437,7 @@ the \texttt{dplyr} package within \texttt{tidyverse} to view the output.
 ## $ Count...7 <dbl> NA, 1519, 1385, 1337, 1259, 1222, 1192, 1186, 1135, 1128,...
 \end{verbatim}
 
-Note that R has added a suffix to each column name \texttt{...1}, \texttt{...2},
-\texttt{...3}, etc. because duplicate names are not allowed, so the suffix serves
-to disambiguate. The trailing number represents the index of the column.
+Note that R has added a suffix to each column name \texttt{...1}, \texttt{...2}, \texttt{...3}, etc. because duplicate names are not allowed, so the suffix serves to disambiguate. The trailing number represents the index of the column.
 
 \hypertarget{exercise-1-3}{%
 \subsection{Exercise 1}\label{exercise-1-3}}
@@ -8611,8 +8572,7 @@ to disambiguate. The trailing number represents the index of the column.
 
 \end{alert}
 
-Now that we've read in the data, we can see that there are some
-problems we need to fix. Specifically, we need to:
+Now that we've read in the data, we can see that there are some problems we need to fix. Specifically, we need to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8701,15 +8661,12 @@ to this:
 
 \includegraphics{R/RDataWrangling/images/clean.png}
 
-There are many ways to do this kind of data manipulation in R. We're
-going to use the \texttt{dplyr} and \texttt{tidyr} packages from within \texttt{tidyverse}
-to make our lives easier.
+There are many ways to do this kind of data manipulation in R. We're going to use the \texttt{dplyr} and \texttt{tidyr} packages from within \texttt{tidyverse} to make our lives easier.
 
 \hypertarget{selecting-columns}{%
 \subsection{Selecting columns}\label{selecting-columns}}
 
-Next we want to retain just the \texttt{Name...2}, \texttt{Name...6}, \texttt{Count...3} and \texttt{Count...7} columns.
-We can do that using the \texttt{select()} function:
+Next we want to retain just the \texttt{Name...2}, \texttt{Name...6}, \texttt{Count...3} and \texttt{Count...7} columns. We can do that using the \texttt{select()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8765,8 +8722,7 @@ We've now encountered several different data types and data structures. Let's ta
 
 \textbf{Data structures:}
 
-In R, the most foundational data structure is the \textbf{vector}. Vectors are \emph{containers} that
-can hold a \emph{collection} of values. Vectors come in two basic forms:
+In R, the most foundational data structure is the \textbf{vector}. Vectors are \emph{containers} that can hold a \emph{collection} of values. Vectors come in two basic forms:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8839,7 +8795,7 @@ a rectangular list with elements (columns) containing atomic vectors of equal le
 \bottomrule
 \end{longtable}
 
-Each vector can have \textbf{attributes}, which are a named list of metadata that can include the vector's \textbf{dimensions} and its \textbf{class}. The latter is a property assigned to an object that determines how \textbf{generic functions} operate with it, and thus which \textbf{methods} are available for it. The class of an object can be queried using the \texttt{class()} function. You can learn more details about R data structures here: \url{https://adv-r.hadley.nz/vectors-chap.html}
+Each vector can have \textbf{attributes}, which are a named list of metadata that can include the vector's \textbf{dimensions} and its \textbf{class}. The latter is a property assigned to an object that determines how \textbf{generic functions} operate with it, and thus which \textbf{methods} are available for it. The class of an object can be queried using the \texttt{class()} function. You can learn more details about R data structures here: \url{https://adv-r.hadley.nz/vectors-chap.html}.
 
 \textbf{Data types:}
 
@@ -8888,22 +8844,52 @@ If heterogeneous elements are stored in an atomic vector, R will \textbf{coerce}
 \hypertarget{list-indexing}{%
 \subsection{List indexing}\label{list-indexing}}
 
-Now that we know about data structures more generally, let's focus on the \emph{list} structure we created for \texttt{boysNames}.
-Why are we using \textbf{double brackets} \texttt{{[}{[}} to index this list object, instead of the single brackets \texttt{{[}} we used to index atomic vectors?
+Now that we know about data structures more generally, let's focus on the \emph{list} structure we created for \texttt{boysNames}. Why are we using \textbf{double brackets} \texttt{{[}{[}} to index this list object, instead of the single brackets \texttt{{[}} we used to index atomic vectors?
+
+Here's a symbolic representation using pepper! The pepper pot represents a list, while each pepper sachet denotes a list element. On the left, we see a list structure with multiple elements \texttt{x}, while in the middle we extract the first list element \texttt{x{[}1{]}} using single brackets, which keeps the list structure. On the upper right, we use double brackets to extract the first list element \texttt{x{[}{[}1{]}{]}} and \emph{remove the list structure}. On the lower right, we extract the first item within the first list element \texttt{x{[}{[}1{]}{]}{[}{[}1{]}{]}} (e.g., the first column within a data frame stored inside the list).
 
 \includegraphics{R/RDataWrangling/images/indexing_lists.png}
+
+Let's illustrate how this works with a practical example. Here's a list containing various data structures:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# various data structures}
 \NormalTok{numbers \textless{}{-}}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
-\NormalTok{letters \textless{}{-}}\StringTok{ }\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{]}
-\NormalTok{dat \textless{}{-}}\StringTok{ }\KeywordTok{head}\NormalTok{(mtcars)}
-\NormalTok{x \textless{}{-}}\StringTok{ }\NormalTok{237L}
+\NormalTok{characters \textless{}{-}}\StringTok{ }\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{]}
+\NormalTok{dataframe \textless{}{-}}\StringTok{ }\KeywordTok{head}\NormalTok{(mtcars)}
+\NormalTok{integer \textless{}{-}}\StringTok{ }\NormalTok{237L}
 
 \CommentTok{\# combine in a list}
-\NormalTok{mylist \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(numbers, letters, dat, x)}
+\NormalTok{mylist \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(numbers, characters, dataframe, integer)}
+\NormalTok{mylist}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## [[1]]
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## [[2]]
+## [1] "A" "B" "C" "D"
+## 
+## [[3]]
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+## 
+## [[4]]
+## [1] 237
+\end{verbatim}
+
+Using single brackets for extraction, we maintain the list structure. Here we extract a character vector stored within a list with only one element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# indexing the list}
 \NormalTok{mylist[}\DecValTok{2}\NormalTok{]}
 \end{Highlighting}
@@ -8923,6 +8909,8 @@ Why are we using \textbf{double brackets} \texttt{{[}{[}} to index this list obj
 \begin{verbatim}
 ## [1] "list"
 \end{verbatim}
+
+While using double brackets for extraction, we remove the list structure. Here we extract the same character vector, but now without any surrounding list structure:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8947,9 +8935,7 @@ Why are we using \textbf{double brackets} \texttt{{[}{[}} to index this list obj
 \hypertarget{dropping-missing-values}{%
 \subsection{Dropping missing values}\label{dropping-missing-values}}
 
-Next we want to remove blank rows and rows used for notes. An easy way
-to do that is to use \texttt{drop\_na()} from the \texttt{tidyr} package within \texttt{tidyverse}
-to remove rows with missing values.
+Next we want to remove blank rows and rows used for notes. An easy way to do that is to use \texttt{drop\_na()} from the \texttt{tidyr} package within \texttt{tidyverse} to remove rows with missing values.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9117,11 +9103,7 @@ to remove rows with missing values.
 \hypertarget{reshaping-from-wide-to-long}{%
 \subsection{Reshaping from wide to long}\label{reshaping-from-wide-to-long}}
 
-Our final task is to re-arrange the data so that it is all in a single
-table instead of in two side-by-side tables. For many similar tasks
-the \texttt{gather()} function in the \texttt{tidyr} package is useful, but in this
-case we will be better off using a combination of \texttt{select()} and
-\texttt{bind\_rows()}. Here's the logic behind this step:
+Our final task is to re-arrange the data so that it is all in a single table instead of in two side-by-side tables. For many similar tasks the \texttt{pivot\_longer()} function in the \texttt{tidyr} package is useful, but in this case we will be better off using a combination of \texttt{select()} and \texttt{bind\_rows()}. Here's the logic behind this step:
 
 \includegraphics{R/RDataWrangling/images/wide_vs_long.png}
 
@@ -9181,16 +9163,10 @@ Here's the code that implements the transformation:
 
 \textbf{Cleanup all the data}
 
-In the previous examples we learned how to drop empty rows with
-\texttt{drop\_na()}, select only relevant columns with \texttt{select()}, and re-arrange
-our data with \texttt{select()} and \texttt{bind\_rows()}. In each case we applied the
-changes only to the first element of our \texttt{boysNames} list.
+In the previous examples we learned how to drop empty rows with \texttt{drop\_na()}, select only relevant columns with \texttt{select()}, and re-arrange our data with \texttt{select()} and \texttt{bind\_rows()}. In each case we applied the changes only to the first element of our \texttt{boysNames} list.
 
-NOTE: some Excel files include extra blank columns between the first and second
-set of \texttt{Name} and \texttt{Count} columns, resulting in different numeric suffixes
-for the second set of columns. You will need to use a regular expression
-to match each of these different column names. HINT: see the \texttt{?matches}
-function.
+NOTE: some Excel files include extra blank columns between the first and second set of \texttt{Name} and \texttt{Count} columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression
+(regex) to match each of these different column names. HINT: see the \texttt{?matches} function.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9239,7 +9215,7 @@ function.
 \begin{Highlighting}[]
 \NormalTok{cleanupNamesData \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file)\{}
 
-  \CommentTok{\# subset data to include only those columns that include the term \textasciigrave{}Name\textasciigrave{} and \textasciigrave{}Count\textasciigrave{}}
+  \CommentTok{\# subsets data to include only those columns that include the term \textasciigrave{}Name\textasciigrave{} and \textasciigrave{}Count\textasciigrave{} and apply listwise deletion}
 \NormalTok{  subsetted\_file \textless{}{-}}\StringTok{ }\NormalTok{file }\OperatorTok{\%\textgreater{}\%}
 \StringTok{    }\KeywordTok{select}\NormalTok{(}\KeywordTok{matches}\NormalTok{(}\StringTok{"Name|Count"}\NormalTok{)) }\OperatorTok{\%\textgreater{}\%}
 \StringTok{    }\KeywordTok{drop\_na}\NormalTok{()}
@@ -9368,7 +9344,7 @@ Right now we have a list of data frames; one for each year. This is not a bad wa
 ## [6] "dataSets/boys/2001boys_tcm77-254000.xlsx"
 \end{verbatim}
 
-We can use regular expressions (regex) --- a programmatic way of doing ``find and replace'' --- to extract the year information from the file names and store it in a character vector:
+We can use regular expresssions (regex) to extract the year information from the file names and store it in a character vector:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9387,7 +9363,7 @@ Then we can assign the year vector to be the names of the list elements:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{\# returns NULL {-} no names currently in the list}
+\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{\# returns NULL {-} since no names are currently in the list}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9400,7 +9376,7 @@ Then we can assign the year vector to be the names of the list elements:
 \CommentTok{\# assign years to list names}
 \KeywordTok{names}\NormalTok{(boysNames) \textless{}{-}}\StringTok{ }\NormalTok{Years }
 
-\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{\# returns the years as list names}
+\KeywordTok{names}\NormalTok{(boysNames) }\CommentTok{\# check assignment by returning the years as list names}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9408,6 +9384,8 @@ Then we can assign the year vector to be the names of the list elements:
 ##  [1] "1996" "1997" "1998" "1999" "2000" "2001" "2002" "2003" "2004" "2005"
 ## [11] "2006" "2007" "2008" "2009" "2010" "2011" "2012" "2013" "2014" "2015"
 \end{verbatim}
+
+Now let's view our list of data frames again --- we can see that year information has been added to each element as a name just after the \texttt{\$} extractor:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9440,7 +9418,9 @@ Then we can assign the year vector to be the names of the list elements:
 \hypertarget{one-big-data-frame}{%
 \subsection{One big data frame}\label{one-big-data-frame}}
 
-While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data.frame using \texttt{bind\_rows()}, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data.frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
+While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data frame using \texttt{bind\_rows()}, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
+
+We can use the \texttt{imap()} function --- which stands for `index' mapping --- to do this operation. We know that the \texttt{mutate()} function can create a new column for us within a data frame. Here, we create a column called \texttt{Year} within each data frame (indexed by \texttt{.x}) that takes the name of each list element (indexed by \texttt{.y}), converts it from character (e.g., \texttt{"1996"}) to integer (e.g., \texttt{1996}), and repeats it along the rows of the data frame.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9619,7 +9599,7 @@ While storing the data in separate data frames by year makes some sense, many op
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/RDataWrangling/figures/unnamed-chunk-275-1.pdf}
+\includegraphics{R/RDataWrangling/figures/unnamed-chunk-278-1.pdf}
 
 \end{alert}
 

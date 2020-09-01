@@ -895,43 +895,43 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
    https www.harvardartmuseums.org  browse  load_amount=10&amp;offset=0</code></pre>
 <p>It is often convenient to create variables containing the domain(s) and path(s) you’ll be working with, as this allows you to swap out paths and parameters as needed. Note that the path is separated from the domain with <code>/</code> and the parameters are separated from the path with <code>?</code>. If there are multiple parameters they are separated from each other with a <code>&amp;</code>.</p>
 <p>For example, we can define the domain and path of the collections URL as follows:</p>
-<div class="sourceCode" id="cb601"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb601-1"><a href="PythonWebScrape.html#cb601-1"></a>museum_domain <span class="op">=</span> <span class="st">&#39;https://www.harvardartmuseums.org&#39;</span></span>
-<span id="cb601-2"><a href="PythonWebScrape.html#cb601-2"></a>collection_path <span class="op">=</span> <span class="st">&#39;browse&#39;</span></span>
-<span id="cb601-3"><a href="PythonWebScrape.html#cb601-3"></a></span>
-<span id="cb601-4"><a href="PythonWebScrape.html#cb601-4"></a>collection_url <span class="op">=</span> (museum_domain</span>
-<span id="cb601-5"><a href="PythonWebScrape.html#cb601-5"></a>                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></span>
-<span id="cb601-6"><a href="PythonWebScrape.html#cb601-6"></a>                  <span class="op">+</span> collection_path)</span>
-<span id="cb601-7"><a href="PythonWebScrape.html#cb601-7"></a></span>
-<span id="cb601-8"><a href="PythonWebScrape.html#cb601-8"></a><span class="bu">print</span>(collection_url)</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb603-1"><a href="PythonWebScrape.html#cb603-1"></a>museum_domain <span class="op">=</span> <span class="st">&#39;https://www.harvardartmuseums.org&#39;</span></span>
+<span id="cb603-2"><a href="PythonWebScrape.html#cb603-2"></a>collection_path <span class="op">=</span> <span class="st">&#39;browse&#39;</span></span>
+<span id="cb603-3"><a href="PythonWebScrape.html#cb603-3"></a></span>
+<span id="cb603-4"><a href="PythonWebScrape.html#cb603-4"></a>collection_url <span class="op">=</span> (museum_domain</span>
+<span id="cb603-5"><a href="PythonWebScrape.html#cb603-5"></a>                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb603-6"><a href="PythonWebScrape.html#cb603-6"></a>                  <span class="op">+</span> collection_path)</span>
+<span id="cb603-7"><a href="PythonWebScrape.html#cb603-7"></a></span>
+<span id="cb603-8"><a href="PythonWebScrape.html#cb603-8"></a><span class="bu">print</span>(collection_url)</span></code></pre></div>
 <pre><code>## &#39;https://www.harvardartmuseums.org/browse&#39;</code></pre>
 <p>Note that we omit the parameters here because it is usually easier to pass them as a <code>dict</code> when using the <code>requests</code> library in Python. This will become clearer shortly.</p>
 <p>Now that we’ve constructed the URL we wish to interact with, we’re ready to make our first request in Python.</p>
-<div class="sourceCode" id="cb603"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb603-1"><a href="PythonWebScrape.html#cb603-1"></a><span class="im">import</span> requests</span>
-<span id="cb603-2"><a href="PythonWebScrape.html#cb603-2"></a></span>
-<span id="cb603-3"><a href="PythonWebScrape.html#cb603-3"></a>collections1 <span class="op">=</span> requests.get(</span>
-<span id="cb603-4"><a href="PythonWebScrape.html#cb603-4"></a>    collection_url,</span>
-<span id="cb603-5"><a href="PythonWebScrape.html#cb603-5"></a>    params <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>,</span>
-<span id="cb603-6"><a href="PythonWebScrape.html#cb603-6"></a>                  <span class="st">&#39;offset&#39;</span>: <span class="dv">0</span>}</span>
-<span id="cb603-7"><a href="PythonWebScrape.html#cb603-7"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb605-1"><a href="PythonWebScrape.html#cb605-1"></a><span class="im">import</span> requests</span>
+<span id="cb605-2"><a href="PythonWebScrape.html#cb605-2"></a></span>
+<span id="cb605-3"><a href="PythonWebScrape.html#cb605-3"></a>collections1 <span class="op">=</span> requests.get(</span>
+<span id="cb605-4"><a href="PythonWebScrape.html#cb605-4"></a>    collection_url,</span>
+<span id="cb605-5"><a href="PythonWebScrape.html#cb605-5"></a>    params <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>,</span>
+<span id="cb605-6"><a href="PythonWebScrape.html#cb605-6"></a>                  <span class="st">&#39;offset&#39;</span>: <span class="dv">0</span>}</span>
+<span id="cb605-7"><a href="PythonWebScrape.html#cb605-7"></a>)</span></code></pre></div>
 <p>Note that the parameters <code>load_amount</code> and <code>offset</code> are essentially another way of setting page numbers — they refer to the amount of information retrieved at one time and the starting position, respectively.</p>
 </div>
 <div id="parsing-json-data" class="section level3">
 <h3>Parsing JSON data</h3>
 <p>We already know from inspecting network traffic in our web browser that this URL returns JSON, but we can use Python to verify this assumption.</p>
-<div class="sourceCode" id="cb604"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb604-1"><a href="PythonWebScrape.html#cb604-1"></a>collections1.headers[<span class="st">&#39;Content-Type&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb606-1"><a href="PythonWebScrape.html#cb606-1"></a>collections1.headers[<span class="st">&#39;Content-Type&#39;</span>]</span></code></pre></div>
 <pre><code>## &#39;application/json&#39;</code></pre>
 <p>Since JSON is a structured data format, parsing it into Python data structures is easy. In fact, there’s a method for that!</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb606-1"><a href="PythonWebScrape.html#cb606-1"></a>collections1 <span class="op">=</span> collections1.json()</span>
-<span id="cb606-2"><a href="PythonWebScrape.html#cb606-2"></a><span class="co"># print(collections1)</span></span></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb608-1"><a href="PythonWebScrape.html#cb608-1"></a>collections1 <span class="op">=</span> collections1.json()</span>
+<span id="cb608-2"><a href="PythonWebScrape.html#cb608-2"></a><span class="co"># print(collections1)</span></span></code></pre></div>
 <p>That’s it. Really, we are done here. Everyone go home!</p>
 <p>OK not really, there is still more we can learn. But you have to admit that was pretty easy. If you can identify a service that returns the data you want in structured from, web scraping becomes a pretty trivial enterprise. We’ll discuss several other scenarios and topics, but for some web scraping tasks this is really all you need to know.</p>
 </div>
 <div id="organizing-saving-the-data" class="section level3">
 <h3>Organizing &amp; saving the data</h3>
 <p>The records we retrieved from <a href="https://www.harvardartmuseums.org/browse" class="uri">https://www.harvardartmuseums.org/browse</a> are arranged as a list of dictionaries. We can easily select the fields of arrange these data into a pandas <code>DataFrame</code> to facilitate subsequent analysis.</p>
-<div class="sourceCode" id="cb607"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb607-1"><a href="PythonWebScrape.html#cb607-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div>
-<div class="sourceCode" id="cb608"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb608-1"><a href="PythonWebScrape.html#cb608-1"></a>records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">&#39;records&#39;</span>])</span></code></pre></div>
-<div class="sourceCode" id="cb609"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb609-1"><a href="PythonWebScrape.html#cb609-1"></a><span class="bu">print</span>(records1)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb609-1"><a href="PythonWebScrape.html#cb609-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb610-1"><a href="PythonWebScrape.html#cb610-1"></a>records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">&#39;records&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb611-1"><a href="PythonWebScrape.html#cb611-1"></a><span class="bu">print</span>(records1)</span></code></pre></div>
 <pre><code>##   copyright  contextualtextcount  ...                        seeAlso                        details
 ## 0      None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
 ## 1      None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
@@ -946,22 +946,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## [10 rows x 63 columns]</code></pre>
 <p>and write the data to a file.</p>
-<div class="sourceCode" id="cb611"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb611-1"><a href="PythonWebScrape.html#cb611-1"></a>records1.to_csv(<span class="st">&quot;records1.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb613-1"><a href="PythonWebScrape.html#cb613-1"></a>records1.to_csv(<span class="st">&quot;records1.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="iterating-to-retrieve-all-the-data" class="section level3">
 <h3>Iterating to retrieve all the data</h3>
 <p>Of course we don’t want just the first page of collections. How can we retrieve all of them?</p>
 <p>Now that we know the web service works, and how to make requests in Python, we can iterate in the usual way.</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb612-1"><a href="PythonWebScrape.html#cb612-1"></a>records <span class="op">=</span> []</span>
-<span id="cb612-2"><a href="PythonWebScrape.html#cb612-2"></a><span class="cf">for</span> offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">10</span>):</span>
-<span id="cb612-3"><a href="PythonWebScrape.html#cb612-3"></a>    param_values <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>, <span class="st">&#39;offset&#39;</span>: offset}</span>
-<span id="cb612-4"><a href="PythonWebScrape.html#cb612-4"></a>    current_request <span class="op">=</span> requests.get(collection_url, params <span class="op">=</span> param_values)</span>
-<span id="cb612-5"><a href="PythonWebScrape.html#cb612-5"></a>    records.extend(current_request.json()[<span class="st">&#39;records&#39;</span>])</span></code></pre></div>
-<div class="sourceCode" id="cb613"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb613-1"><a href="PythonWebScrape.html#cb613-1"></a><span class="co">## convert list of dicts to a `DataFrame`</span></span>
-<span id="cb613-2"><a href="PythonWebScrape.html#cb613-2"></a>records_final <span class="op">=</span> pd.DataFrame.from_records(records)</span></code></pre></div>
-<div class="sourceCode" id="cb614"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb614-1"><a href="PythonWebScrape.html#cb614-1"></a><span class="co"># write the data to a file.</span></span>
-<span id="cb614-2"><a href="PythonWebScrape.html#cb614-2"></a>records_final.to_csv(<span class="st">&quot;records_final.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb615"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb615-1"><a href="PythonWebScrape.html#cb615-1"></a><span class="bu">print</span>(records_final)</span></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb614-1"><a href="PythonWebScrape.html#cb614-1"></a>records <span class="op">=</span> []</span>
+<span id="cb614-2"><a href="PythonWebScrape.html#cb614-2"></a><span class="cf">for</span> offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">10</span>):</span>
+<span id="cb614-3"><a href="PythonWebScrape.html#cb614-3"></a>    param_values <span class="op">=</span> {<span class="st">&#39;load_amount&#39;</span>: <span class="dv">10</span>, <span class="st">&#39;offset&#39;</span>: offset}</span>
+<span id="cb614-4"><a href="PythonWebScrape.html#cb614-4"></a>    current_request <span class="op">=</span> requests.get(collection_url, params <span class="op">=</span> param_values)</span>
+<span id="cb614-5"><a href="PythonWebScrape.html#cb614-5"></a>    records.extend(current_request.json()[<span class="st">&#39;records&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb615-1"><a href="PythonWebScrape.html#cb615-1"></a><span class="co">## convert list of dicts to a `DataFrame`</span></span>
+<span id="cb615-2"><a href="PythonWebScrape.html#cb615-2"></a>records_final <span class="op">=</span> pd.DataFrame.from_records(records)</span></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb616-1"><a href="PythonWebScrape.html#cb616-1"></a><span class="co"># write the data to a file.</span></span>
+<span id="cb616-2"><a href="PythonWebScrape.html#cb616-2"></a>records_final.to_csv(<span class="st">&quot;records_final.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb617-1"><a href="PythonWebScrape.html#cb617-1"></a><span class="bu">print</span>(records_final)</span></code></pre></div>
 <pre><code>##                         copyright  contextualtextcount  ...                        seeAlso                        details
 ## 0                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
 ## 1                            None                    0  ...  [{&#39;id&#39;: &#39;https://iiif.harv...                            NaN
@@ -1026,46 +1026,46 @@ page at <a href="https://www.harvardartmuseums.org/exhibitions" class="uri">http
 the network traffic as you interact with the page. Try to find
 where the data displayed on that page comes from.</li>
 </ol>
-<div class="sourceCode" id="cb617"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb617-1"><a href="PythonWebScrape.html#cb617-1"></a><span class="co">##</span></span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb619-1"><a href="PythonWebScrape.html#cb619-1"></a><span class="co">##</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Make a <code>get</code> request in Python to retrieve the data from the URL
 identified in step1.</li>
 </ol>
-<div class="sourceCode" id="cb618"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb618-1"><a href="PythonWebScrape.html#cb618-1"></a><span class="co">##</span></span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb620-1"><a href="PythonWebScrape.html#cb620-1"></a><span class="co">##</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Write a <em>loop</em> or <em>list comprehension</em> in Python to retrieve data
 for the first 5 pages of exhibitions data.</li>
 </ol>
-<div class="sourceCode" id="cb619"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb619-1"><a href="PythonWebScrape.html#cb619-1"></a><span class="co">##</span></span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb621-1"><a href="PythonWebScrape.html#cb621-1"></a><span class="co">##</span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Bonus (optional): Convert the data you retrieved into a pandas
 <code>DataFrame</code> and save it to a <code>.csv</code> file.</li>
 </ol>
-<div class="sourceCode" id="cb620"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb620-1"><a href="PythonWebScrape.html#cb620-1"></a><span class="co">##</span></span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb622-1"><a href="PythonWebScrape.html#cb622-1"></a><span class="co">##</span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 <div class="alert alert-danger">
 <p>Question #1:</p>
-<div class="sourceCode" id="cb621"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb621-1"><a href="PythonWebScrape.html#cb621-1"></a>museum_domain <span class="op">=</span> <span class="st">&quot;https://www.harvardartmuseums.org&quot;</span></span>
-<span id="cb621-2"><a href="PythonWebScrape.html#cb621-2"></a>exhibit_path <span class="op">=</span> <span class="st">&quot;search/load_next&quot;</span></span>
-<span id="cb621-3"><a href="PythonWebScrape.html#cb621-3"></a>exhibit_url <span class="op">=</span> museum_domain <span class="op">+</span> <span class="st">&quot;/&quot;</span> <span class="op">+</span> exhibit_path</span>
-<span id="cb621-4"><a href="PythonWebScrape.html#cb621-4"></a><span class="bu">print</span>(exhibit_url)</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb623-1"><a href="PythonWebScrape.html#cb623-1"></a>museum_domain <span class="op">=</span> <span class="st">&quot;https://www.harvardartmuseums.org&quot;</span></span>
+<span id="cb623-2"><a href="PythonWebScrape.html#cb623-2"></a>exhibit_path <span class="op">=</span> <span class="st">&quot;search/load_next&quot;</span></span>
+<span id="cb623-3"><a href="PythonWebScrape.html#cb623-3"></a>exhibit_url <span class="op">=</span> museum_domain <span class="op">+</span> <span class="st">&quot;/&quot;</span> <span class="op">+</span> exhibit_path</span>
+<span id="cb623-4"><a href="PythonWebScrape.html#cb623-4"></a><span class="bu">print</span>(exhibit_url)</span></code></pre></div>
 <pre><code>## &#39;https://www.harvardartmuseums.org/search/load_next&#39;</code></pre>
 <p>Question #2:</p>
-<div class="sourceCode" id="cb623"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb623-1"><a href="PythonWebScrape.html#cb623-1"></a><span class="im">import</span> requests</span>
-<span id="cb623-2"><a href="PythonWebScrape.html#cb623-2"></a><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> <span class="bu">print</span> </span>
-<span id="cb623-3"><a href="PythonWebScrape.html#cb623-3"></a>exhibit1 <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: <span class="dv">1</span>})</span>
-<span id="cb623-4"><a href="PythonWebScrape.html#cb623-4"></a><span class="bu">print</span>(exhibit1.headers[<span class="st">&quot;Content-Type&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb625-1"><a href="PythonWebScrape.html#cb625-1"></a><span class="im">import</span> requests</span>
+<span id="cb625-2"><a href="PythonWebScrape.html#cb625-2"></a><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> <span class="bu">print</span> </span>
+<span id="cb625-3"><a href="PythonWebScrape.html#cb625-3"></a>exhibit1 <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: <span class="dv">1</span>})</span>
+<span id="cb625-4"><a href="PythonWebScrape.html#cb625-4"></a><span class="bu">print</span>(exhibit1.headers[<span class="st">&quot;Content-Type&quot;</span>])</span></code></pre></div>
 <pre><code>## &#39;application/json&#39;</code></pre>
-<div class="sourceCode" id="cb625"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb625-1"><a href="PythonWebScrape.html#cb625-1"></a>exhibit1 <span class="op">=</span> exhibit1.json()</span>
-<span id="cb625-2"><a href="PythonWebScrape.html#cb625-2"></a><span class="co"># print(exhibit1)</span></span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb627-1"><a href="PythonWebScrape.html#cb627-1"></a>exhibit1 <span class="op">=</span> exhibit1.json()</span>
+<span id="cb627-2"><a href="PythonWebScrape.html#cb627-2"></a><span class="co"># print(exhibit1)</span></span></code></pre></div>
 <p>Questions #3+4 (loop solution):</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb626-1"><a href="PythonWebScrape.html#cb626-1"></a>firstFivePages <span class="op">=</span> []</span>
-<span id="cb626-2"><a href="PythonWebScrape.html#cb626-2"></a><span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
-<span id="cb626-3"><a href="PythonWebScrape.html#cb626-3"></a>    records_per_page <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>]</span>
-<span id="cb626-4"><a href="PythonWebScrape.html#cb626-4"></a>    firstFivePages.extend(records_per_page)</span>
-<span id="cb626-5"><a href="PythonWebScrape.html#cb626-5"></a>firstFivePages_records <span class="op">=</span> pd.DataFrame.from_records(firstFivePages)</span>
-<span id="cb626-6"><a href="PythonWebScrape.html#cb626-6"></a><span class="bu">print</span>(firstFivePages_records)</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb628-1"><a href="PythonWebScrape.html#cb628-1"></a>firstFivePages <span class="op">=</span> []</span>
+<span id="cb628-2"><a href="PythonWebScrape.html#cb628-2"></a><span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb628-3"><a href="PythonWebScrape.html#cb628-3"></a>    records_per_page <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>]</span>
+<span id="cb628-4"><a href="PythonWebScrape.html#cb628-4"></a>    firstFivePages.extend(records_per_page)</span>
+<span id="cb628-5"><a href="PythonWebScrape.html#cb628-5"></a>firstFivePages_records <span class="op">=</span> pd.DataFrame.from_records(firstFivePages)</span>
+<span id="cb628-6"><a href="PythonWebScrape.html#cb628-6"></a><span class="bu">print</span>(firstFivePages_records)</span></code></pre></div>
 <pre><code>##                  shortdescription                         images  ...                   publications                         videos
 ## 0                            None  [{&#39;date&#39;: None, &#39;copyright...  ...                            NaN                            NaN
 ## 1                            None  [{&#39;date&#39;: &#39;2018-11-09&#39;, &#39;c...  ...                            NaN                            NaN
@@ -1120,12 +1120,12 @@ for the first 5 pages of exhibitions data.</li>
 ## 
 ## [50 rows x 19 columns]</code></pre>
 <p>Questions #3+4 (list comprehension solution):</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb628-1"><a href="PythonWebScrape.html#cb628-1"></a>first5Pages <span class="op">=</span> [requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>] <span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)]</span>
-<span id="cb628-2"><a href="PythonWebScrape.html#cb628-2"></a><span class="im">from</span> itertools <span class="im">import</span> chain</span>
-<span id="cb628-3"><a href="PythonWebScrape.html#cb628-3"></a>first5Pages <span class="op">=</span> <span class="bu">list</span>(chain.from_iterable(first5Pages))</span>
-<span id="cb628-4"><a href="PythonWebScrape.html#cb628-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb628-5"><a href="PythonWebScrape.html#cb628-5"></a>first5Pages_records <span class="op">=</span> pd.DataFrame.from_records(first5Pages)</span>
-<span id="cb628-6"><a href="PythonWebScrape.html#cb628-6"></a><span class="bu">print</span>(first5Pages_records)</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb630-1"><a href="PythonWebScrape.html#cb630-1"></a>first5Pages <span class="op">=</span> [requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">&#39;type&#39;</span>: <span class="st">&#39;past-exhibition&#39;</span>, <span class="st">&#39;page&#39;</span>: page}).json()[<span class="st">&#39;records&#39;</span>] <span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)]</span>
+<span id="cb630-2"><a href="PythonWebScrape.html#cb630-2"></a><span class="im">from</span> itertools <span class="im">import</span> chain</span>
+<span id="cb630-3"><a href="PythonWebScrape.html#cb630-3"></a>first5Pages <span class="op">=</span> <span class="bu">list</span>(chain.from_iterable(first5Pages))</span>
+<span id="cb630-4"><a href="PythonWebScrape.html#cb630-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb630-5"><a href="PythonWebScrape.html#cb630-5"></a>first5Pages_records <span class="op">=</span> pd.DataFrame.from_records(first5Pages)</span>
+<span id="cb630-6"><a href="PythonWebScrape.html#cb630-6"></a><span class="bu">print</span>(first5Pages_records)</span></code></pre></div>
 <pre><code>##                  shortdescription                         images  ...                   publications                         videos
 ## 0                            None  [{&#39;date&#39;: None, &#39;copyright...  ...                            NaN                            NaN
 ## 1                            None  [{&#39;date&#39;: &#39;2018-11-09&#39;, &#39;c...  ...                            NaN                            NaN
@@ -1204,61 +1204,61 @@ for the first 5 pages of exhibitions data.</li>
 <h3>Retrieving HTML</h3>
 <p>When I inspect the network traffic while interacting with <a href="https://www.harvardartmuseums.org/calendar" class="uri">https://www.harvardartmuseums.org/calendar</a> I don’t see any requests that return JSON data. The best we can do appears to be to return HTML.</p>
 <p>To retrieve data on the events listed in the calender, the first step is the same as before: we make a <code>get</code> request.</p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb630-1"><a href="PythonWebScrape.html#cb630-1"></a>calendar_path <span class="op">=</span> <span class="st">&#39;calendar&#39;</span></span>
-<span id="cb630-2"><a href="PythonWebScrape.html#cb630-2"></a></span>
-<span id="cb630-3"><a href="PythonWebScrape.html#cb630-3"></a>calendar_url <span class="op">=</span> (museum_domain <span class="co"># recall that we defined museum_domain earlier</span></span>
-<span id="cb630-4"><a href="PythonWebScrape.html#cb630-4"></a>                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></span>
-<span id="cb630-5"><a href="PythonWebScrape.html#cb630-5"></a>                  <span class="op">+</span> calendar_path)</span>
-<span id="cb630-6"><a href="PythonWebScrape.html#cb630-6"></a></span>
-<span id="cb630-7"><a href="PythonWebScrape.html#cb630-7"></a><span class="bu">print</span>(calendar_url)</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb632-1"><a href="PythonWebScrape.html#cb632-1"></a>calendar_path <span class="op">=</span> <span class="st">&#39;calendar&#39;</span></span>
+<span id="cb632-2"><a href="PythonWebScrape.html#cb632-2"></a></span>
+<span id="cb632-3"><a href="PythonWebScrape.html#cb632-3"></a>calendar_url <span class="op">=</span> (museum_domain <span class="co"># recall that we defined museum_domain earlier</span></span>
+<span id="cb632-4"><a href="PythonWebScrape.html#cb632-4"></a>                  <span class="op">+</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb632-5"><a href="PythonWebScrape.html#cb632-5"></a>                  <span class="op">+</span> calendar_path)</span>
+<span id="cb632-6"><a href="PythonWebScrape.html#cb632-6"></a></span>
+<span id="cb632-7"><a href="PythonWebScrape.html#cb632-7"></a><span class="bu">print</span>(calendar_url)</span></code></pre></div>
 <pre><code>## &#39;https://www.harvardartmuseums.org/calendar&#39;</code></pre>
-<div class="sourceCode" id="cb632"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb632-1"><a href="PythonWebScrape.html#cb632-1"></a>events <span class="op">=</span> requests.get(calendar_url)</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb634-1"><a href="PythonWebScrape.html#cb634-1"></a>events <span class="op">=</span> requests.get(calendar_url)</span></code></pre></div>
 <p>As before, we can check the headers to see what type of content we received in response to our request.</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb633-1"><a href="PythonWebScrape.html#cb633-1"></a>events.headers[<span class="st">&#39;Content-Type&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb635-1"><a href="PythonWebScrape.html#cb635-1"></a>events.headers[<span class="st">&#39;Content-Type&#39;</span>]</span></code></pre></div>
 <pre><code>## &#39;text/html; charset=UTF-8&#39;</code></pre>
 </div>
 <div id="parsing-html-using-the-lxml-library" class="section level3">
 <h3>Parsing HTML using the lxml library</h3>
 <p>Like JSON, HTML is structured; unlike JSON, it is designed to be rendered into a human-readable page rather than simply to store and exchange data in a computer-readable format. Consequently, parsing HTML and extracting information from it is somewhat more difficult than parsing JSON.</p>
 <p>While JSON parsing is built into the Python <code>requests</code> library, parsing HTML requires a separate library. I recommend using the HTML parser from the <code>lxml</code> library; others prefer an alternative called <code>beautifulsoup4</code>.</p>
-<div class="sourceCode" id="cb635"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb635-1"><a href="PythonWebScrape.html#cb635-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
-<span id="cb635-2"><a href="PythonWebScrape.html#cb635-2"></a></span>
-<span id="cb635-3"><a href="PythonWebScrape.html#cb635-3"></a><span class="co"># convert a html text representation (`events.text`) into </span></span>
-<span id="cb635-4"><a href="PythonWebScrape.html#cb635-4"></a><span class="co"># a tree-structure (DOM) html representation (`events_html`)</span></span>
-<span id="cb635-5"><a href="PythonWebScrape.html#cb635-5"></a>events_html <span class="op">=</span> html.fromstring(events.text)</span></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb637-1"><a href="PythonWebScrape.html#cb637-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
+<span id="cb637-2"><a href="PythonWebScrape.html#cb637-2"></a></span>
+<span id="cb637-3"><a href="PythonWebScrape.html#cb637-3"></a><span class="co"># convert a html text representation (`events.text`) into </span></span>
+<span id="cb637-4"><a href="PythonWebScrape.html#cb637-4"></a><span class="co"># a tree-structure (DOM) html representation (`events_html`)</span></span>
+<span id="cb637-5"><a href="PythonWebScrape.html#cb637-5"></a>events_html <span class="op">=</span> html.fromstring(events.text)</span></code></pre></div>
 </div>
 <div id="using-xpath-to-extract-content-from-html" class="section level3">
 <h3>Using XPath to extract content from HTML</h3>
 <p><code>XPath</code> is a tool for identifying particular elements within a HTML document. The developer tools built into modern web browsers make it easy to generate <code>XPath</code>s that can be used to identify the elements of a web page that we wish to extract.</p>
 <p>We can open the html document we retrieved and inspect it using our web browser.</p>
-<div class="sourceCode" id="cb636"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb636-1"><a href="PythonWebScrape.html#cb636-1"></a>html.open_in_browser(events_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb638-1"><a href="PythonWebScrape.html#cb638-1"></a>html.open_in_browser(events_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</span></code></pre></div>
 <p><img src="Python/PythonWebScrape/images/dev_tools_right_click.png" /></p>
 <p><img src="Python/PythonWebScrape/images/dev_tools_inspect.png" /></p>
 <p>Once we identify the element containing the information of interest we can use our web browser to copy the <code>XPath</code> that uniquely identifies that element.</p>
 <p><img src="Python/PythonWebScrape/images/dev_tools_xpath.png" /></p>
 <p>Next we can use Python to extract the element of interest:</p>
-<div class="sourceCode" id="cb637"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb637-1"><a href="PythonWebScrape.html#cb637-1"></a>events_list_html <span class="op">=</span> events_html.xpath(<span class="st">&#39;//*[@id=&quot;events_list&quot;]/article&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb639-1"><a href="PythonWebScrape.html#cb639-1"></a>events_list_html <span class="op">=</span> events_html.xpath(<span class="st">&#39;//*[@id=&quot;events_list&quot;]/article&#39;</span>)</span></code></pre></div>
 <p>Let’s just extract the second element in our events list.</p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb638-1"><a href="PythonWebScrape.html#cb638-1"></a>second_event_html <span class="op">=</span> events_list_html[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb640-1"><a href="PythonWebScrape.html#cb640-1"></a>second_event_html <span class="op">=</span> events_list_html[<span class="dv">1</span>]</span></code></pre></div>
 <p>Once again, we can use a web browser to inspect the HTML we’re currently working with - from the second event - and to figure out what we want to extract from it.</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb639-1"><a href="PythonWebScrape.html#cb639-1"></a>html.open_in_browser(second_event_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb641-1"><a href="PythonWebScrape.html#cb641-1"></a>html.open_in_browser(second_event_html, encoding <span class="op">=</span> <span class="st">&#39;UTF-8&#39;</span>)</span></code></pre></div>
 <p>As before we can use our browser to find the xpath of the elements we want.</p>
 <p><img src="Python/PythonWebScrape/images/dev_tools_figcaption.png" /></p>
 <p>(Note that the <code>html.open_in_browser</code> function adds enclosing <code>html</code> and <code>body</code> tags in order to create a complete web page for viewing. This requires that we adjust the <code>xpath</code> accordingly.)</p>
 <p>By repeating this process for each element we want, we can build a list of the xpaths to those elements.</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb640-1"><a href="PythonWebScrape.html#cb640-1"></a>elements_we_want <span class="op">=</span> {<span class="st">&#39;figcaption&#39;</span>: <span class="st">&#39;div/figure/div/figcaption&#39;</span>,</span>
-<span id="cb640-2"><a href="PythonWebScrape.html#cb640-2"></a>                    <span class="st">&#39;date&#39;</span>: <span class="st">&#39;div/div/header/time&#39;</span>,</span>
-<span id="cb640-3"><a href="PythonWebScrape.html#cb640-3"></a>                    <span class="st">&#39;title&#39;</span>: <span class="st">&#39;div/div/header/h2/a&#39;</span>,</span>
-<span id="cb640-4"><a href="PythonWebScrape.html#cb640-4"></a>                    <span class="st">&#39;time&#39;</span>: <span class="st">&#39;div/div/div/p[1]/time&#39;</span>,</span>
-<span id="cb640-5"><a href="PythonWebScrape.html#cb640-5"></a>                    <span class="st">&#39;description&#39;</span>: <span class="st">&#39;div/div/div/p[3]&#39;</span></span>
-<span id="cb640-6"><a href="PythonWebScrape.html#cb640-6"></a>                    }</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb642-1"><a href="PythonWebScrape.html#cb642-1"></a>elements_we_want <span class="op">=</span> {<span class="st">&#39;figcaption&#39;</span>: <span class="st">&#39;div/figure/div/figcaption&#39;</span>,</span>
+<span id="cb642-2"><a href="PythonWebScrape.html#cb642-2"></a>                    <span class="st">&#39;date&#39;</span>: <span class="st">&#39;div/div/header/time&#39;</span>,</span>
+<span id="cb642-3"><a href="PythonWebScrape.html#cb642-3"></a>                    <span class="st">&#39;title&#39;</span>: <span class="st">&#39;div/div/header/h2/a&#39;</span>,</span>
+<span id="cb642-4"><a href="PythonWebScrape.html#cb642-4"></a>                    <span class="st">&#39;time&#39;</span>: <span class="st">&#39;div/div/div/p[1]/time&#39;</span>,</span>
+<span id="cb642-5"><a href="PythonWebScrape.html#cb642-5"></a>                    <span class="st">&#39;description&#39;</span>: <span class="st">&#39;div/div/div/p[3]&#39;</span></span>
+<span id="cb642-6"><a href="PythonWebScrape.html#cb642-6"></a>                    }</span></code></pre></div>
 <p>Finally, we can iterate over the elements we want and extract them.</p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb641-1"><a href="PythonWebScrape.html#cb641-1"></a>second_event_values <span class="op">=</span> {}</span>
-<span id="cb641-2"><a href="PythonWebScrape.html#cb641-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
-<span id="cb641-3"><a href="PythonWebScrape.html#cb641-3"></a>    element <span class="op">=</span> second_event_html.xpath(elements_we_want[key])[<span class="dv">0</span>]</span>
-<span id="cb641-4"><a href="PythonWebScrape.html#cb641-4"></a>    second_event_values[key] <span class="op">=</span> element.text_content().strip()</span>
-<span id="cb641-5"><a href="PythonWebScrape.html#cb641-5"></a></span>
-<span id="cb641-6"><a href="PythonWebScrape.html#cb641-6"></a><span class="bu">print</span>(second_event_values)</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb643-1"><a href="PythonWebScrape.html#cb643-1"></a>second_event_values <span class="op">=</span> {}</span>
+<span id="cb643-2"><a href="PythonWebScrape.html#cb643-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
+<span id="cb643-3"><a href="PythonWebScrape.html#cb643-3"></a>    element <span class="op">=</span> second_event_html.xpath(elements_we_want[key])[<span class="dv">0</span>]</span>
+<span id="cb643-4"><a href="PythonWebScrape.html#cb643-4"></a>    second_event_values[key] <span class="op">=</span> element.text_content().strip()</span>
+<span id="cb643-5"><a href="PythonWebScrape.html#cb643-5"></a></span>
+<span id="cb643-6"><a href="PythonWebScrape.html#cb643-6"></a><span class="bu">print</span>(second_event_values)</span></code></pre></div>
 <pre><code>## {&#39;date&#39;: &#39;Thursday, September 10, 2020&#39;,
 ##  &#39;description&#39;: &#39;Join us for a discussion of an exquisite Persian album &#39;
 ##                 &#39;containing decorated folios of calligraphy, penned by the &#39;
@@ -1282,38 +1282,38 @@ we need to take care to handle the case where one or more of these
 elements is not available. We can do that by <strong>defining a function</strong> that
 tries to retrieve a value and returns an empty string if it fails.</p>
 <p>If you’re not familiar with Python functions, here’s the basic syntax:</p>
-<div class="sourceCode" id="cb643"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb643-1"><a href="PythonWebScrape.html#cb643-1"></a><span class="co"># anatomy of a function</span></span>
-<span id="cb643-2"><a href="PythonWebScrape.html#cb643-2"></a></span>
-<span id="cb643-3"><a href="PythonWebScrape.html#cb643-3"></a><span class="kw">def</span> name_of_function(arg1, arg2, ...argn):  <span class="co"># define the function name and arguments</span></span>
-<span id="cb643-4"><a href="PythonWebScrape.html#cb643-4"></a>    <span class="op">&lt;</span>body of function<span class="op">&gt;</span>   <span class="co"># specify calculations</span></span>
-<span id="cb643-5"><a href="PythonWebScrape.html#cb643-5"></a>    <span class="cf">return</span> <span class="op">&lt;</span>result<span class="op">&gt;</span>      <span class="co"># output result of calculations</span></span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb645-1"><a href="PythonWebScrape.html#cb645-1"></a><span class="co"># anatomy of a function</span></span>
+<span id="cb645-2"><a href="PythonWebScrape.html#cb645-2"></a></span>
+<span id="cb645-3"><a href="PythonWebScrape.html#cb645-3"></a><span class="kw">def</span> name_of_function(arg1, arg2, ...argn):  <span class="co"># define the function name and arguments</span></span>
+<span id="cb645-4"><a href="PythonWebScrape.html#cb645-4"></a>    <span class="op">&lt;</span>body of function<span class="op">&gt;</span>   <span class="co"># specify calculations</span></span>
+<span id="cb645-5"><a href="PythonWebScrape.html#cb645-5"></a>    <span class="cf">return</span> <span class="op">&lt;</span>result<span class="op">&gt;</span>      <span class="co"># output result of calculations</span></span></code></pre></div>
 <p>Here’s an example of a simple function:</p>
-<div class="sourceCode" id="cb644"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb644-1"><a href="PythonWebScrape.html#cb644-1"></a><span class="kw">def</span> square_fun(x):</span>
-<span id="cb644-2"><a href="PythonWebScrape.html#cb644-2"></a>    y <span class="op">=</span> x<span class="op">**</span><span class="dv">2</span> <span class="co"># exponentiation</span></span>
-<span id="cb644-3"><a href="PythonWebScrape.html#cb644-3"></a>    <span class="cf">return</span> y</span>
-<span id="cb644-4"><a href="PythonWebScrape.html#cb644-4"></a></span>
-<span id="cb644-5"><a href="PythonWebScrape.html#cb644-5"></a>square_fun(<span class="dv">4</span>)    </span></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb646-1"><a href="PythonWebScrape.html#cb646-1"></a><span class="kw">def</span> square_fun(x):</span>
+<span id="cb646-2"><a href="PythonWebScrape.html#cb646-2"></a>    y <span class="op">=</span> x<span class="op">**</span><span class="dv">2</span> <span class="co"># exponentiation</span></span>
+<span id="cb646-3"><a href="PythonWebScrape.html#cb646-3"></a>    <span class="cf">return</span> y</span>
+<span id="cb646-4"><a href="PythonWebScrape.html#cb646-4"></a></span>
+<span id="cb646-5"><a href="PythonWebScrape.html#cb646-5"></a>square_fun(<span class="dv">4</span>)    </span></code></pre></div>
 <pre><code>## 16</code></pre>
 <p>Here’s a function to perform our actual task:</p>
-<div class="sourceCode" id="cb646"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb646-1"><a href="PythonWebScrape.html#cb646-1"></a><span class="kw">def</span> get_event_info(event, path):</span>
-<span id="cb646-2"><a href="PythonWebScrape.html#cb646-2"></a>    <span class="cf">try</span>:</span>
-<span id="cb646-3"><a href="PythonWebScrape.html#cb646-3"></a>        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text_content().strip()</span>
-<span id="cb646-4"><a href="PythonWebScrape.html#cb646-4"></a>    <span class="cf">except</span>:</span>
-<span id="cb646-5"><a href="PythonWebScrape.html#cb646-5"></a>        info <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
-<span id="cb646-6"><a href="PythonWebScrape.html#cb646-6"></a>    <span class="cf">return</span> info</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb648-1"><a href="PythonWebScrape.html#cb648-1"></a><span class="kw">def</span> get_event_info(event, path):</span>
+<span id="cb648-2"><a href="PythonWebScrape.html#cb648-2"></a>    <span class="cf">try</span>:</span>
+<span id="cb648-3"><a href="PythonWebScrape.html#cb648-3"></a>        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text_content().strip()</span>
+<span id="cb648-4"><a href="PythonWebScrape.html#cb648-4"></a>    <span class="cf">except</span>:</span>
+<span id="cb648-5"><a href="PythonWebScrape.html#cb648-5"></a>        info <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb648-6"><a href="PythonWebScrape.html#cb648-6"></a>    <span class="cf">return</span> info</span></code></pre></div>
 <p>Armed with this function we can iterate over the list of events and extract the available information for each one.</p>
-<div class="sourceCode" id="cb647"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb647-1"><a href="PythonWebScrape.html#cb647-1"></a>all_event_values <span class="op">=</span> {}</span>
-<span id="cb647-2"><a href="PythonWebScrape.html#cb647-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
-<span id="cb647-3"><a href="PythonWebScrape.html#cb647-3"></a>    key_values <span class="op">=</span> []</span>
-<span id="cb647-4"><a href="PythonWebScrape.html#cb647-4"></a>    <span class="cf">for</span> event <span class="kw">in</span> events_list_html: </span>
-<span id="cb647-5"><a href="PythonWebScrape.html#cb647-5"></a>        key_values.append(get_event_info(event, elements_we_want[key]))</span>
-<span id="cb647-6"><a href="PythonWebScrape.html#cb647-6"></a>    all_event_values[key] <span class="op">=</span> key_values</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb649-1"><a href="PythonWebScrape.html#cb649-1"></a>all_event_values <span class="op">=</span> {}</span>
+<span id="cb649-2"><a href="PythonWebScrape.html#cb649-2"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
+<span id="cb649-3"><a href="PythonWebScrape.html#cb649-3"></a>    key_values <span class="op">=</span> []</span>
+<span id="cb649-4"><a href="PythonWebScrape.html#cb649-4"></a>    <span class="cf">for</span> event <span class="kw">in</span> events_list_html: </span>
+<span id="cb649-5"><a href="PythonWebScrape.html#cb649-5"></a>        key_values.append(get_event_info(event, elements_we_want[key]))</span>
+<span id="cb649-6"><a href="PythonWebScrape.html#cb649-6"></a>    all_event_values[key] <span class="op">=</span> key_values</span></code></pre></div>
 <p>For convenience we can arrange these values in a pandas <code>DataFrame</code> and save them as .csv files, just as we did with our exhibitions data earlier.</p>
-<div class="sourceCode" id="cb648"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb648-1"><a href="PythonWebScrape.html#cb648-1"></a>all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</span>
-<span id="cb648-2"><a href="PythonWebScrape.html#cb648-2"></a></span>
-<span id="cb648-3"><a href="PythonWebScrape.html#cb648-3"></a>all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</span>
-<span id="cb648-4"><a href="PythonWebScrape.html#cb648-4"></a></span>
-<span id="cb648-5"><a href="PythonWebScrape.html#cb648-5"></a><span class="bu">print</span>(all_event_values)</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb650-1"><a href="PythonWebScrape.html#cb650-1"></a>all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</span>
+<span id="cb650-2"><a href="PythonWebScrape.html#cb650-2"></a></span>
+<span id="cb650-3"><a href="PythonWebScrape.html#cb650-3"></a>all_event_values.to_csv(<span class="st">&quot;all_event_values.csv&quot;</span>)</span>
+<span id="cb650-4"><a href="PythonWebScrape.html#cb650-4"></a></span>
+<span id="cb650-5"><a href="PythonWebScrape.html#cb650-5"></a><span class="bu">print</span>(all_event_values)</span></code></pre></div>
 </div>
 <div id="exercise-1-5" class="section level3">
 <h3>Exercise 1</h3>
@@ -1331,47 +1331,47 @@ information. (HINT: the element if interest is a <code>ul</code>, i.e.,
 content from your request object and parse it using <code>html.fromstring</code>
 from the <code>lxml</code> library.</p></li>
 </ol>
-<div class="sourceCode" id="cb649"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb649-1"><a href="PythonWebScrape.html#cb649-1"></a><span class="co">##</span></span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb651-1"><a href="PythonWebScrape.html#cb651-1"></a><span class="co">##</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Use your web browser to find the <code>XPath</code>s to the facilities housed on
 level one. Use Python to extract the text from those <code>Xpath</code>s.</li>
 </ol>
-<div class="sourceCode" id="cb650"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb650-1"><a href="PythonWebScrape.html#cb650-1"></a><span class="co">##</span></span></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb652-1"><a href="PythonWebScrape.html#cb652-1"></a><span class="co">##</span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Bonus (optional): Write a <em>for loop</em> or <em>list comprehension</em> in Python
 to retrieve data for all the levels.</li>
 </ol>
-<div class="sourceCode" id="cb651"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb651-1"><a href="PythonWebScrape.html#cb651-1"></a><span class="co">##</span></span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb653-1"><a href="PythonWebScrape.html#cb653-1"></a><span class="co">##</span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 <div class="alert alert-danger">
 <p>Question #2:</p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb652-1"><a href="PythonWebScrape.html#cb652-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
-<span id="cb652-2"><a href="PythonWebScrape.html#cb652-2"></a>floor_plan <span class="op">=</span> requests.get(<span class="st">&#39;https://www.harvardartmuseums.org/visit/floor-plan&#39;</span>)</span>
-<span id="cb652-3"><a href="PythonWebScrape.html#cb652-3"></a>floor_plan_html <span class="op">=</span> html.fromstring(floor_plan.text)</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb654-1"><a href="PythonWebScrape.html#cb654-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
+<span id="cb654-2"><a href="PythonWebScrape.html#cb654-2"></a>floor_plan <span class="op">=</span> requests.get(<span class="st">&#39;https://www.harvardartmuseums.org/visit/floor-plan&#39;</span>)</span>
+<span id="cb654-3"><a href="PythonWebScrape.html#cb654-3"></a>floor_plan_html <span class="op">=</span> html.fromstring(floor_plan.text)</span></code></pre></div>
 <p>Question #3:</p>
-<div class="sourceCode" id="cb653"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb653-1"><a href="PythonWebScrape.html#cb653-1"></a>level_one <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul&#39;</span>)[<span class="dv">0</span>]</span>
-<span id="cb653-2"><a href="PythonWebScrape.html#cb653-2"></a><span class="bu">print</span>(<span class="bu">type</span>(level_one))</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb655-1"><a href="PythonWebScrape.html#cb655-1"></a>level_one <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul&#39;</span>)[<span class="dv">0</span>]</span>
+<span id="cb655-2"><a href="PythonWebScrape.html#cb655-2"></a><span class="bu">print</span>(<span class="bu">type</span>(level_one))</span></code></pre></div>
 <pre><code>## &lt;class &#39;lxml.html.HtmlElement&#39;&gt;</code></pre>
-<div class="sourceCode" id="cb655"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb655-1"><a href="PythonWebScrape.html#cb655-1"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one))</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb657-1"><a href="PythonWebScrape.html#cb657-1"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one))</span></code></pre></div>
 <pre><code>## 6</code></pre>
-<div class="sourceCode" id="cb657"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb657-1"><a href="PythonWebScrape.html#cb657-1"></a>level_one_facilities <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul/li&#39;</span>)</span>
-<span id="cb657-2"><a href="PythonWebScrape.html#cb657-2"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one_facilities))</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb659-1"><a href="PythonWebScrape.html#cb659-1"></a>level_one_facilities <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li[5]/div[2]/ul/li&#39;</span>)</span>
+<span id="cb659-2"><a href="PythonWebScrape.html#cb659-2"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one_facilities))</span></code></pre></div>
 <pre><code>## 6</code></pre>
-<div class="sourceCode" id="cb659"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb659-1"><a href="PythonWebScrape.html#cb659-1"></a><span class="bu">print</span>([facility.text_content() <span class="cf">for</span> facility <span class="kw">in</span> level_one_facilities])</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb661-1"><a href="PythonWebScrape.html#cb661-1"></a><span class="bu">print</span>([facility.text_content() <span class="cf">for</span> facility <span class="kw">in</span> level_one_facilities])</span></code></pre></div>
 <pre><code>## [&#39;Admissions&#39;, &#39;Collection Galleries&#39;, &#39;Courtyard&#39;, &#39;Shop&#39;, &#39;Café&#39;, &#39;Coatroom&#39;]</code></pre>
 <p>Question #4:</p>
-<div class="sourceCode" id="cb661"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb661-1"><a href="PythonWebScrape.html#cb661-1"></a>all_levels <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li&#39;</span>)</span>
-<span id="cb661-2"><a href="PythonWebScrape.html#cb661-2"></a><span class="bu">print</span>(<span class="bu">len</span>(all_levels))</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb663-1"><a href="PythonWebScrape.html#cb663-1"></a>all_levels <span class="op">=</span> floor_plan_html.xpath(<span class="st">&#39;/html/body/main/section/ul/li&#39;</span>)</span>
+<span id="cb663-2"><a href="PythonWebScrape.html#cb663-2"></a><span class="bu">print</span>(<span class="bu">len</span>(all_levels))</span></code></pre></div>
 <pre><code>## 6</code></pre>
-<div class="sourceCode" id="cb663"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb663-1"><a href="PythonWebScrape.html#cb663-1"></a>all_levels_facilities <span class="op">=</span> []</span>
-<span id="cb663-2"><a href="PythonWebScrape.html#cb663-2"></a><span class="cf">for</span> level <span class="kw">in</span> all_levels:</span>
-<span id="cb663-3"><a href="PythonWebScrape.html#cb663-3"></a>    level_facilities <span class="op">=</span> []</span>
-<span id="cb663-4"><a href="PythonWebScrape.html#cb663-4"></a>    level_facilities_collection <span class="op">=</span> level.xpath(<span class="st">&#39;div[2]/ul/li&#39;</span>)</span>
-<span id="cb663-5"><a href="PythonWebScrape.html#cb663-5"></a>    <span class="cf">for</span> level_facility <span class="kw">in</span> level_facilities_collection:</span>
-<span id="cb663-6"><a href="PythonWebScrape.html#cb663-6"></a>        level_facilities.append(level_facility.text_content())</span>
-<span id="cb663-7"><a href="PythonWebScrape.html#cb663-7"></a>    all_levels_facilities.append(level_facilities)</span>
-<span id="cb663-8"><a href="PythonWebScrape.html#cb663-8"></a><span class="bu">print</span>(all_levels_facilities)</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb665-1"><a href="PythonWebScrape.html#cb665-1"></a>all_levels_facilities <span class="op">=</span> []</span>
+<span id="cb665-2"><a href="PythonWebScrape.html#cb665-2"></a><span class="cf">for</span> level <span class="kw">in</span> all_levels:</span>
+<span id="cb665-3"><a href="PythonWebScrape.html#cb665-3"></a>    level_facilities <span class="op">=</span> []</span>
+<span id="cb665-4"><a href="PythonWebScrape.html#cb665-4"></a>    level_facilities_collection <span class="op">=</span> level.xpath(<span class="st">&#39;div[2]/ul/li&#39;</span>)</span>
+<span id="cb665-5"><a href="PythonWebScrape.html#cb665-5"></a>    <span class="cf">for</span> level_facility <span class="kw">in</span> level_facilities_collection:</span>
+<span id="cb665-6"><a href="PythonWebScrape.html#cb665-6"></a>        level_facilities.append(level_facility.text_content())</span>
+<span id="cb665-7"><a href="PythonWebScrape.html#cb665-7"></a>    all_levels_facilities.append(level_facilities)</span>
+<span id="cb665-8"><a href="PythonWebScrape.html#cb665-8"></a><span class="bu">print</span>(all_levels_facilities)</span></code></pre></div>
 <pre><code>## [[&#39;Conservation Center / Lightbox Gallery&#39;],
 ##  [&#39;Art Study Center&#39;],
 ##  [&#39;Collection Galleries&#39;,

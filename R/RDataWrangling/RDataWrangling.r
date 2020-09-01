@@ -41,10 +41,8 @@ knitr::opts_knit$set(root.dir="R/RDataWrangling") # base.dir="R/RDataWrangling"
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` and `rmarkdown`
-# packages onto your computer before the workshop 
-# --- see [R Installation](./Rinstall.html). 
-# Now let's load these packages into the search path of our R session.
+# You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop 
+# --- see [R Installation](./Rinstall.html). Now let's load these packages into the search path of our R session.
 
 library(tidyverse)
 library(rmarkdown)
@@ -117,9 +115,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #     + append all the data frames in the list into one large data frame
 # </div>
 #
-# NOTE: please make sure you close the Excel files before continuing with the
-# workshop, otherwise you may encounter issues with file paths when reading
-# the data into R.
+# NOTE: please make sure you close the Excel files before continuing with the workshop, otherwise you may encounter issues with file paths when reading the data into R.
 
 # ## Working with Excel worksheets
 #
@@ -131,35 +127,25 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 # 3. Read Excel data for "Table 1" only into a list of data frames
 # </div>
 #
-# As you can see, the data is in quite a messy state. Note that this is
-# not a contrived example; this is exactly the way the data came to us
-# from the UK government website! Let's start cleaning and organizing
-# it. 
+# As you can see, the data is in quite a messy state. Note that this is not a contrived example; this is exactly the way the data came to us from the UK government website! Let's start cleaning and organizing it. 
 #
-# Each Excel file contains a worksheet with the boy names data we want.
-# Each file also contains additional supplemental worksheets that we are
-# not currently interested in. As noted above, the worksheet of interest
-# differs from year to year, but always has "Table 1" in the sheet name.
+# Each Excel file contains a worksheet with the boy names data we want. Each file also contains additional supplemental worksheets that we are not currently interested in. As noted above, the worksheet of interest differs from year to year, but always has "Table 1" in the sheet name.
 #
 # The first step is to get a character vector of file names.
 
 boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
 
-# Now that we've told R the names of the data files, we can start working
-# with them. For example, the first file is
+# Now that we've told R the names of the data files, we can start working with them. For example, the first file is
 
 boy_file_names[1]
 
-# and we can use the `excel_sheets()` function from the `readxl` package
-# within `tidyverse` to list the worksheet names from this file.
+# and we can use the `excel_sheets()` function from the `readxl` package within `tidyverse` to list the worksheet names from this file.
 
 excel_sheets(boy_file_names[1])
 
 # ### Iterating with `map()`
 #
-# Now that we know how to retrieve the names of the worksheets in an
-# Excel file, we could start writing code to extract the sheet names from
-# each file, e.g.,
+# Now that we know how to retrieve the names of the worksheets in an Excel file, we could start writing code to extract the sheet names from each file, e.g.,
 
 excel_sheets(boy_file_names[1])
 
@@ -169,11 +155,7 @@ excel_sheets(boy_file_names[2])
 excel_sheets(boy_file_names[20])
 
 
-# This is not a terrible idea for a small number of files, but it is
-# more convenient to let R do the iteration for us. We could use a `for loop`,
-# or `sapply()`, but the `map()` family of functions from the `purrr`
-# package within `tidyverse` gives us a more consistent alternative, 
-# so we'll use that.
+# This is not a terrible idea for a small number of files, but it is more convenient to let R do the iteration for us. We could use a `for loop`, or `sapply()`, but the `map()` family of functions from the `purrr` package within `tidyverse` gives us a more consistent alternative, so we'll use that.
 
 # map(object to iterate over, function that does task within each iteration)
 
@@ -181,13 +163,9 @@ map(boy_file_names, excel_sheets)
 
 # ### Filtering strings using regex
 #
-# To extract the correct worksheet names we need a way to extract
-# strings containing "Table 1". 
+# To extract the correct worksheet names we need a way to extract strings containing "Table 1". 
 #
-# Base R provides some string manipulation capabilities 
-# (see `?regex`, `?sub` and `?grep`), but we will use the
-# `stringr` package within `tidyverse` because it is more
-# user-friendly. `stringr` provides functions to:
+# Base R provides some string manipulation capabilities (see `?regex`, `?sub` and `?grep`), but we will use the `stringr` package within `tidyverse` because it is more user-friendly. `stringr` provides functions to:
 #
 # 1. detect 
 # 2. locate
@@ -197,20 +175,14 @@ map(boy_file_names, excel_sheets)
 # 6. combine
 # 7. split   
 #
-# strings. Here we want to detect the pattern "Table 1", and only
-# return elements with this pattern. We can do that using the
-# `str_subset()` function: 
+# strings. Here we want to detect the pattern "Table 1", and only return elements with this pattern. We can do that using the `str_subset()` function: 
 #
 # 1.  The first argument to `str_subset()` is character vector we want to search in. 
 # 2.  The second argument is a *regular expression* matching the pattern we want to retain.
 #
-# If you are not familiar with regular expressions (regex), 
-# <http://www.regexr.com/> is a good place to start. Regex is essentially
-# just a programmatic way of doing operations like "find" or "find and replace"
-# in MS Word or Excel.
+# If you are not familiar with regular expressions (regex), <http://www.regexr.com/> is a good place to start. Regex is essentially just a programmatic way of doing operations like "find" or "find and replace" in MS Word or Excel.
 #
-# Now that we know how to filter character vectors using `str_subset()` we can
-# identify the correct sheet in a particular Excel file. For example,
+# Now that we know how to filter character vectors using `str_subset()` we can identify the correct sheet in a particular Excel file. For example,
 
 # str_subset(character_vector, regex_pattern)
 
@@ -224,19 +196,14 @@ excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 #
 # The next step is to retrieve worksheet names and subset them.
 #
-# The `map*` functions are useful when you want to apply a function to a
-# vector of inputs and obtain the return values for each input. This 
-# is very convenient when a function already exists that does exactly what you
-# want. In the examples above we mapped the `excel_sheets()` function to
-# the elements of a character vector containing file names. 
+# The `map*` functions are useful when you want to apply a function to a vector of inputs and obtain the return values for each input. This is very convenient when a function already exists that does exactly what you want. In the examples above we mapped the `excel_sheets()` function to the elements of a character vector containing file names. 
 #
 # However, there is no function that both:
 #
 # 1. Retrieves worksheet names, and 
 # 2. Subsets the names
 #
-# So, we will have to write one. Fortunately, writing functions in R is easy. 
-# Functions require 3 elements:
+# So, we will have to write one. Fortunately, writing functions in R is easy. Functions require 3 elements:
 #
 # 1. A **name**
 # 2. One or more **arguments**
@@ -288,13 +255,9 @@ map(boy_file_names,      # list object
 
 # ## Reading Excel data files
 #
-# Now that we know the correct worksheet from each file, we can actually
-# read those data into R. We can do that using the `read_excel()` function.
+# Now that we know the correct worksheet from each file, we can actually read those data into R. We can do that using the `read_excel()` function.
 #
-# We'll start by reading the data from the first file, just to check
-# that it works. Recall that the actual data starts on row 7, so we want
-# to skip the first 6 rows. We can use the `glimpse()` function from
-# the `dplyr` package within `tidyverse` to view the output.
+# We'll start by reading the data from the first file, just to check that it works. Recall that the actual data starts on row 7, so we want to skip the first 6 rows. We can use the `glimpse()` function from the `dplyr` package within `tidyverse` to view the output.
 
 temp <- read_excel(
   path = boy_file_names[1],
@@ -304,9 +267,7 @@ temp <- read_excel(
 
 glimpse(temp)
 
-# Note that R has added a suffix to each column name `...1`, `...2`,
-# `...3`, etc. because duplicate names are not allowed, so the suffix serves
-#  to disambiguate. The trailing number represents the index of the column.
+# Note that R has added a suffix to each column name `...1`, `...2`, `...3`, etc. because duplicate names are not allowed, so the suffix serves to disambiguate. The trailing number represents the index of the column.
 
 # ### Exercise 1
 #
@@ -357,8 +318,7 @@ boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 # 3. Reshape data format from wide to long
 # </div>
 #
-# Now that we've read in the data, we can see that there are some
-# problems we need to fix. Specifically, we need to:
+# Now that we've read in the data, we can see that there are some problems we need to fix. Specifically, we need to:
 #
 # 1. fix column names
 # 2. get rid of blank row at the top and the notes at the bottom
@@ -389,14 +349,11 @@ glimpse(boysNames[[20]])
 # ![tidy](R/RDataWrangling/images/clean.png)
 # </center>
 #
-# There are many ways to do this kind of data manipulation in R. We're
-# going to use the `dplyr` and `tidyr` packages from within `tidyverse`
-# to make our lives easier.
+# There are many ways to do this kind of data manipulation in R. We're going to use the `dplyr` and `tidyr` packages from within `tidyverse` to make our lives easier.
 
 # ### Selecting columns
 #
-# Next we want to retain just the `Name...2`, `Name...6`, `Count...3` and `Count...7` columns. 
-# We can do that using the `select()` function:
+# Next we want to retain just the `Name...2`, `Name...6`, `Count...3` and `Count...7` columns. We can do that using the `select()` function:
 
 boysNames[[1]]
 
@@ -409,8 +366,7 @@ boysNames[[1]]
 #
 # **Data structures:**
 #
-# In R, the most foundational data structure is the **vector**. Vectors are *containers* that
-# can hold a *collection* of values. Vectors come in two basic forms:
+# In R, the most foundational data structure is the **vector**. Vectors are *containers* that can hold a *collection* of values. Vectors come in two basic forms:
 #
 # 1. **atomic**: only hold elements of the same type; they are **homogeneous**. The `c()` function can be used to create atomic vectors.
 # 2. **list**: can hold elements of different types; they are **heterogeneous**. The `list()` function can be used to create list vectors.
@@ -432,7 +388,7 @@ boysNames[[1]]
 # | list           | heterogeneous  | a container whose elements can encompass any mixture of data types        |
 # | data.frame     | heterogeneous  | a rectangular list with elements (columns) containing atomic vectors of equal length                              |
 #
-# Each vector can have **attributes**, which are a named list of metadata that can include the vector's **dimensions** and its **class**. The latter is a property assigned to an object that determines how **generic functions** operate with it, and thus which **methods** are available for it. The class of an object can be queried using the `class()` function. You can learn more details about R data structures here: <https://adv-r.hadley.nz/vectors-chap.html>
+# Each vector can have **attributes**, which are a named list of metadata that can include the vector's **dimensions** and its **class**. The latter is a property assigned to an object that determines how **generic functions** operate with it, and thus which **methods** are available for it. The class of an object can be queried using the `class()` function. You can learn more details about R data structures here: <https://adv-r.hadley.nz/vectors-chap.html>.
 
 # **Data types:**
 #
@@ -462,25 +418,33 @@ typeof(y)
 
 # ### List indexing
 #
-# Now that we know about data structures more generally, let's focus on the *list* structure we created for `boysNames`. 
-# Why are we using **double brackets** `[[` to index this list object, instead of the single brackets `[` we used to index atomic vectors?
+# Now that we know about data structures more generally, let's focus on the *list* structure we created for `boysNames`. Why are we using **double brackets** `[[` to index this list object, instead of the single brackets `[` we used to index atomic vectors? 
+#
+# Here's a symbolic representation using pepper! The pepper pot represents a list, while each pepper sachet denotes a list element. On the left, we see a list structure with multiple elements `x`, while in the middle we extract the first list element `x[1]` using single brackets, which keeps the list structure. On the upper right, we use double brackets to extract the first list element `x[[1]]` and *remove the list structure*. On the lower right, we extract the first item within the first list element `x[[1]][[1]]` (e.g., the first column within a data frame stored inside the list).
 #
 # <center>
 # ![list indexing](R/RDataWrangling/images/indexing_lists.png)
 # </center>
+#
+# Let's illustrate how this works with a practical example. Here's a list containing various data structures:
 
 # various data structures
 numbers <- 1:10
-letters <- LETTERS[1:4]
-dat <- head(mtcars)
-x <- 237L
+characters <- LETTERS[1:4]
+dataframe <- head(mtcars)
+integer <- 237L
 
 # combine in a list
-mylist <- list(numbers, letters, dat, x)
+mylist <- list(numbers, characters, dataframe, integer)
+mylist
+
+# Using single brackets for extraction, we maintain the list structure. Here we extract a character vector stored within a list with only one element:
 
 # indexing the list
 mylist[2]
 class(mylist[2]) # a list
+
+# While using double brackets for extraction, we remove the list structure. Here we extract the same character vector, but now without any surrounding list structure:
 
 mylist[[2]]
 class(mylist[[2]]) # a character vector
@@ -488,9 +452,7 @@ class(mylist[[2]]) # a character vector
 
 # ### Dropping missing values
 #
-# Next we want to remove blank rows and rows used for notes. An easy way
-# to do that is to use `drop_na()` from the `tidyr` package within `tidyverse`
-# to remove rows with missing values.
+# Next we want to remove blank rows and rows used for notes. An easy way to do that is to use `drop_na()` from the `tidyr` package within `tidyverse` to remove rows with missing values.
 
 boysNames[[1]]
 
@@ -537,12 +499,7 @@ boysNames[[1]]
 
 # ### Reshaping from wide to long
 #
-# Our final task is to re-arrange the data so that it is all in a single
-# table instead of in two side-by-side tables. For many similar tasks
-# the `gather()` function in the `tidyr` package is useful, but in this
-# case we will be better off using a combination of `select()` and
-# `bind_rows()`. Here's the logic behind this step:
-#
+# Our final task is to re-arrange the data so that it is all in a single table instead of in two side-by-side tables. For many similar tasks the `pivot_longer()` function in the `tidyr` package is useful, but in this case we will be better off using a combination of `select()` and `bind_rows()`. Here's the logic behind this step:
 # <center>
 # ![](R/RDataWrangling/images/wide_vs_long.png)
 # </center>
@@ -561,16 +518,10 @@ bind_rows(first_columns, second_columns)
 #
 # **Cleanup all the data**
 #
-# In the previous examples we learned how to drop empty rows with
-# `drop_na()`, select only relevant columns with `select()`, and re-arrange
-# our data with `select()` and `bind_rows()`. In each case we applied the
-# changes only to the first element of our `boysNames` list.
+# In the previous examples we learned how to drop empty rows with `drop_na()`, select only relevant columns with `select()`, and re-arrange our data with `select()` and `bind_rows()`. In each case we applied the changes only to the first element of our `boysNames` list.
 #
-# NOTE: some Excel files include extra blank columns between the first and second 
-# set of `Name` and `Count` columns, resulting in different numeric suffixes
-# for the second set of columns. You will need to use a regular expression
-# to match each of these different column names. HINT: see the `?matches`
-# function.
+# NOTE: some Excel files include extra blank columns between the first and second set of `Name` and `Count` columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression
+# (regex) to match each of these different column names. HINT: see the `?matches` function.
 #
 # 1. Create a new function called `cleanupNamesData` that:
 # 1) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
@@ -592,7 +543,7 @@ bind_rows(first_columns, second_columns)
 
 cleanupNamesData <- function(file){
 
-  # subset data to include only those columns that include the term `Name` and `Count`
+  # subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
   subsetted_file <- file %>%
     select(matches("Name|Count")) %>%
     drop_na()
@@ -639,7 +590,7 @@ head(boysNames) %>% glimpse()
 # the file names containing the 'year' information
 head(boy_file_names)
 
-# We can use regular expressions (regex) --- a programmatic way of doing "find and replace" --- to extract the year information from the file names and store it in a character vector:
+# We can use regular expresssions (regex) to extract the year information from the file names and store it in a character vector:
 
 # we can use regex to extract years from file names
 Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
@@ -647,18 +598,22 @@ Years
 
 # Then we can assign the year vector to be the names of the list elements:
 
-names(boysNames) # returns NULL - no names currently in the list
+names(boysNames) # returns NULL - since no names are currently in the list
 
 # assign years to list names
 names(boysNames) <- Years 
 
-names(boysNames) # returns the years as list names
+names(boysNames) # check assignment by returning the years as list names
+
+# Now let's view our list of data frames again --- we can see that year information has been added to each element as a name just after the `$` extractor:
 
 head(boysNames) %>% glimpse() 
 
 # ### One big data frame
 #
-# While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data.frame using `bind_rows()`, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data.frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
+# While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data frame using `bind_rows()`, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
+#
+# We can use the `imap()` function --- which stands for 'index' mapping --- to do this operation. We know that the `mutate()` function can create a new column for us within a data frame. Here, we create a column called `Year` within each data frame (indexed by `.x`) that takes the name of each list element (indexed by `.y`), converts it from character (e.g., `"1996"`) to integer (e.g., `1996`), and repeats it along the rows of the data frame. 
 
 # apply name of the list element (.y) as a new column in the data.frame (.x)
 boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
