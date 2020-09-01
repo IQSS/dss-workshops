@@ -709,12 +709,13 @@ head(boysNames) %>% glimpse()
 
 While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data frame using `bind_rows()`, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
 
-We can use the `imap()` function --- which stands for 'index' mapping --- to do this operation. We know that the `mutate()` function can create a new column for us within a data frame. Here, we create a column called `Year` within each data frame (indexed by `.x`) that takes the name of each list element (indexed by `.y`), converts it from character (e.g., `"1996"`) to integer (e.g., `1996`), and repeats it along the rows of the data frame. 
+We can use the `imap()` function --- which stands for 'index' mapping --- to do this operation. We know that the `mutate()` function can create a new column within a data frame. Here, we create a column called `Year` within each data frame (indexed by `.x`) that takes the name of each list element (indexed by `.y`), converts it from character (i.e., `"1996"`) to integer (i.e., `1996`), and repeats it along the rows of the data frame. 
 
 ```{r}
 # apply name of the list element (.y) as a new column in the data.frame (.x)
 boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
 
+# examine the first data frame within the list
 boysNames[1]
 ```
 

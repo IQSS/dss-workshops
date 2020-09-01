@@ -1775,11 +1775,12 @@ transformations to all the elements in <code>boysNames</code>.</li>
 <div id="one-big-data-frame" class="section level3">
 <h3>One big data frame</h3>
 <p>While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We’ve already seen how to turn a list of data frames into a single data frame using <code>bind_rows()</code>, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.</p>
-<p>We can use the <code>imap()</code> function — which stands for ‘index’ mapping — to do this operation. We know that the <code>mutate()</code> function can create a new column for us within a data frame. Here, we create a column called <code>Year</code> within each data frame (indexed by <code>.x</code>) that takes the name of each list element (indexed by <code>.y</code>), converts it from character (e.g., <code>"1996"</code>) to integer (e.g., <code>1996</code>), and repeats it along the rows of the data frame.</p>
+<p>We can use the <code>imap()</code> function — which stands for ‘index’ mapping — to do this operation. We know that the <code>mutate()</code> function can create a new column within a data frame. Here, we create a column called <code>Year</code> within each data frame (indexed by <code>.x</code>) that takes the name of each list element (indexed by <code>.y</code>), converts it from character (i.e., <code>"1996"</code>) to integer (i.e., <code>1996</code>), and repeats it along the rows of the data frame.</p>
 <div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="RDataWrangling.html#cb465-1"></a><span class="co"># apply name of the list element (.y) as a new column in the data.frame (.x)</span></span>
 <span id="cb465-2"><a href="RDataWrangling.html#cb465-2"></a>boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, <span class="op">~</span><span class="st"> </span><span class="kw">mutate</span>(.x, <span class="dt">Year =</span> <span class="kw">as.integer</span>(.y)))</span>
 <span id="cb465-3"><a href="RDataWrangling.html#cb465-3"></a></span>
-<span id="cb465-4"><a href="RDataWrangling.html#cb465-4"></a>boysNames[<span class="dv">1</span>]</span></code></pre></div>
+<span id="cb465-4"><a href="RDataWrangling.html#cb465-4"></a><span class="co"># examine the first data frame within the list</span></span>
+<span id="cb465-5"><a href="RDataWrangling.html#cb465-5"></a>boysNames[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## $`1996`
 ## # A tibble: 100 x 3
 ##    Name    Count  Year

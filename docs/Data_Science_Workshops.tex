@@ -9420,13 +9420,14 @@ Now let's view our list of data frames again --- we can see that year informatio
 
 While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data frame using \texttt{bind\_rows()}, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
 
-We can use the \texttt{imap()} function --- which stands for `index' mapping --- to do this operation. We know that the \texttt{mutate()} function can create a new column for us within a data frame. Here, we create a column called \texttt{Year} within each data frame (indexed by \texttt{.x}) that takes the name of each list element (indexed by \texttt{.y}), converts it from character (e.g., \texttt{"1996"}) to integer (e.g., \texttt{1996}), and repeats it along the rows of the data frame.
+We can use the \texttt{imap()} function --- which stands for `index' mapping --- to do this operation. We know that the \texttt{mutate()} function can create a new column within a data frame. Here, we create a column called \texttt{Year} within each data frame (indexed by \texttt{.x}) that takes the name of each list element (indexed by \texttt{.y}), converts it from character (i.e., \texttt{"1996"}) to integer (i.e., \texttt{1996}), and repeats it along the rows of the data frame.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# apply name of the list element (.y) as a new column in the data.frame (.x)}
 \NormalTok{boysNames \textless{}{-}}\StringTok{ }\KeywordTok{imap}\NormalTok{(boysNames, }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(.x, }\DataTypeTok{Year =} \KeywordTok{as.integer}\NormalTok{(.y)))}
 
+\CommentTok{\# examine the first data frame within the list}
 \NormalTok{boysNames[}\DecValTok{1}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
