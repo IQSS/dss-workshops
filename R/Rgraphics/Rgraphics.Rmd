@@ -390,41 +390,43 @@ Some plot types (such as scatterplots) do not require transformations; each poin
 
 ### Setting arguments
 
-Each `geom_` function has a default statistic that it is paired with and, likewise, each `stat_` function has a default geometic object that it is paired with. For example, the default statistic for `geom_histogram()` is `stat_bin()`, while the default geometric object for `stat_bin()` is `geom_bar()`. These defaults can be changed. 
+Each `geom_` function has a default statistic that it is paired with and, likewise, each `stat_` function has a default geometic object that it is paired with. For example, the default statistic for `geom_histogram()` is "bin" (called by the `stat_bin()` function), while the default geometric object for `stat_bin()` is "bar" (called by the `geom_bar()` function). These defaults can be changed. 
 
-Arguments to `stat_` functions can be passed through `geom_` functions and vice versa. This can be slightly annoying, because in order to specify some arguments you have to first determine which statistic the geometric object uses, then determine the arguments to that statistic.
+Arguments to `stat_` functions can be passed through `geom_` functions and vice versa. This can be slightly annoying, because if you are using a `geom_` function, in order to specify some arguments you may have to first determine which statistic the geometric object uses, then determine the arguments to that `stat_` function.
 
-Let's look at the arguments for `geom_histogram()`:
+Let's look at the arguments for the histogram geometric object (`geom_histogram()`):
 
 ```{r}
 args(geom_histogram)
 ```
 
-Notice that the third argument is `stat = "bin"`, which calls the `stat_bin()` function. This is how the histogram geom is, by default, paired with the bin statistic. The fifth argument is `...`, which allows us to pass arguments to `stat_bin()` through our call to `geom_histogram()`. Now let's look at the arguments to `stat_bin()`:
+Notice that the third argument is `stat = "bin"`, which calls the `stat_bin()` function. This is how the histogram geom is, by default, paired with the bin statistic. The fifth argument is `...`, which allows us to pass certain arguments to `stat_bin()` through our call to `geom_histogram()`. Now let's look at the arguments available through `stat_bin()`:
 
 ```{r}
 args(stat_bin)
 ```
 
-We can see that there is a `binwidth` argument to `stat_bin()` that is not present for `geom_histogram()`. But, we can still use this `binwidth` argument in `geom_histogram()` --- it will automatically be passed to its paired statistic function. For example, here is the default histogram of `Home_Value`:
+The tenth argument is `breaks`, which allows us to supply a numeric vector of bin boundaries. Notice that this argument is *not* available in `geom_histogram()`, but we can still supply the argument and it will be passed to `stat_bin()` through the `...` argument.
+
+For example, here is the default histogram of `Home_Value`:
 
 ```{r}
 p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
 ```
 
-We can change the binning scheme by passing the `binwidth` argument through `geom_histogram()` to the `stat_bin()` function:
+We can change the boundaries for the bins by passing the `breaks` argument through `geom_histogram()` to the `stat_bin()` function:
 
 ```{r}
-p2 + geom_histogram(stat = "bin", binwidth = 4000)
+p2 + geom_histogram(stat = "bin", breaks = seq(0, 1e6, by = 250))
 ```
 
-Here is a list of geometric objects and their default statistics <https://ggplot2.tidyverse.org/reference/>
+For reference, here is a list of geometric objects and their default statistics <https://ggplot2.tidyverse.org/reference/>.
 
 
 ### Changing the transformation
 
-Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:
+Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data. Let's create a new variable `Home_Value_Mean` that is the mean of `Home_Value` for each `State`:
 
 ```{r}
 # create new variable that is the mean of 'Home Value' for each 'State'
@@ -436,6 +438,8 @@ housing_sum <-
 
 head(housing_sum)
 ```
+
+Now let's try to create a bar chart using this pre-summarized data:
 
 ```{r, eval=FALSE, error=TRUE}
 ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
@@ -573,8 +577,7 @@ p3 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) +
                position = position_jitter(width = 0.25, height = 0))
 ```
 
-
-Now modify the breaks for the color scales
+Now modify the breaks for the color scales and shorten the labels:
 
 ```{r}
 p3 + 
@@ -613,7 +616,7 @@ p3 +
 
 ### Available scales
 
-* Partial combination matrix of available scales
+Here's a partial combination matrix of available scales:
 
 | `scale_`          | Types        |  Examples                   |
 |:------------------|:-------------|:----------------------------|
@@ -633,7 +636,7 @@ p3 +
 |                   | `date`       | `scale_x_date()`            |
 |                   | `datetime`   | `scale_y_datetime()`        |
 
-Note that in RStudio you can type `scale_` followed by `tab` to get the whole list of available scales. For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>
+Note that in RStudio you can type `scale_` followed by `tab` to get the whole list of available scales. For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>.
 
 
 ### Exercise 2

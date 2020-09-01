@@ -265,7 +265,7 @@ outcome ~ pred1 + pred2 + pred3
 
 # We can see that the fitted model object is a `list` structure (a container that can hold different types of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class `lm` is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
 #
-# We can use **methods** (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes referred to as **extractor functions**). A list of all the available methods for a given class of object can be shown by using the `methods()` function with the `class` argument set to the class of the model object:
+# We can use **methods** (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as **extractor functions**). A list of all the available methods for a given class of object can be shown by using the `methods()` function with the `class` argument set to the class of the model object:
 
 methods(class = class(sat_mod))
 
@@ -284,13 +284,15 @@ methods(class = class(sat_mod))
   # ANOVA table
   anova(sat_mod)   
 
-# How does R know which method to call for a given object? R uses **generic functions**, which provide access to the methods. **Method dispatch** takes place based on the class of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Function methods always take the form `generic.method()`. Let's look at all the methods for the generic `summary()` function:
+# How does R know which method to call for a given object? R uses **generic functions**, which provide access to the methods. **Method dispatch** takes place based on the class of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Here's a schematic that shows the process of method dispatch in action:
+#
+# ![](R/Rmodels/images/methods.png)
+#
+# Function methods always take the form `generic.method()`. Let's look at all the methods for the generic `summary()` function:
 
 methods("summary")
 
-# There are 137 `summary()` methods and counting! Here's a schematic that shows the process of method dispatch in action:
-#
-# ![](R/Rmodels/images/methods.png)
+# There are 137 `summary()` methods and counting! 
 #
 # It's always worth examining whether the class of model you've fitted has a method for a particular generic extractor function. Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 #

@@ -1734,7 +1734,7 @@ transformations to all the elements in <code>boysNames</code>.</li>
 <div class="alert alert-info">
 <p><strong>GOAL: To learn how to organize the data into one large data frame and store it.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
-<li>Create a year column within each data frame within the list</li>
+<li>Create a <code>Year</code> column within each data frame within the list</li>
 <li>Append all the data frames in the list into one large data frame</li>
 </ol>
 </div>
@@ -1742,7 +1742,8 @@ transformations to all the elements in <code>boysNames</code>.</li>
 <div id="a-list-of-data-frames" class="section level3">
 <h3>A list of data frames</h3>
 <p>Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="RDataWrangling.html#cb451-1"></a><span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="RDataWrangling.html#cb451-1"></a><span class="co"># our list of data frames</span></span>
+<span id="cb451-2"><a href="RDataWrangling.html#cb451-2"></a><span class="kw">head</span>(boysNames) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>## List of 6
 ##  $ : tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
 ##   ..$ Name : chr [1:100] &quot;JACK&quot; &quot;DANIEL&quot; &quot;THOMAS&quot; &quot;JAMES&quot; ...
@@ -1762,19 +1763,22 @@ transformations to all the elements in <code>boysNames</code>.</li>
 ##  $ : tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
 ##   ..$ Name : chr [1:100] &quot;JACK&quot; &quot;THOMAS&quot; &quot;JOSHUA&quot; &quot;JAMES&quot; ...
 ##   ..$ Count: num [1:100] 9000 8337 7182 7026 5759 ...</code></pre>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="RDataWrangling.html#cb453-1"></a><span class="kw">head</span>(boy_file_names)</span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="RDataWrangling.html#cb453-1"></a><span class="co"># the file names containing the &#39;year&#39; information</span></span>
+<span id="cb453-2"><a href="RDataWrangling.html#cb453-2"></a><span class="kw">head</span>(boy_file_names)</span></code></pre></div>
 <pre><code>## [1] &quot;dataSets/boys/1996boys_tcm77-254026.xlsx&quot;
 ## [2] &quot;dataSets/boys/1997boys_tcm77-254022.xlsx&quot;
 ## [3] &quot;dataSets/boys/1998boys_tcm77-254018.xlsx&quot;
 ## [4] &quot;dataSets/boys/1999boys_tcm77-254014.xlsx&quot;
 ## [5] &quot;dataSets/boys/2000boys_tcm77-254008.xlsx&quot;
 ## [6] &quot;dataSets/boys/2001boys_tcm77-254000.xlsx&quot;</code></pre>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="RDataWrangling.html#cb455-1"></a><span class="co"># use regex to extract years from file names</span></span>
+<p>We can use regular expressions (regex) — a programmatic way of doing “find and replace” — to extract the year information from the file names and store it in a character vector:</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="RDataWrangling.html#cb455-1"></a><span class="co"># we can use regex to extract years from file names</span></span>
 <span id="cb455-2"><a href="RDataWrangling.html#cb455-2"></a>Years &lt;-<span class="st"> </span><span class="kw">str_extract</span>(boy_file_names, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]{4}&quot;</span>)</span>
 <span id="cb455-3"><a href="RDataWrangling.html#cb455-3"></a>Years</span></code></pre></div>
 <pre><code>##  [1] &quot;1996&quot; &quot;1997&quot; &quot;1998&quot; &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot;
 ## [11] &quot;2006&quot; &quot;2007&quot; &quot;2008&quot; &quot;2009&quot; &quot;2010&quot; &quot;2011&quot; &quot;2012&quot; &quot;2013&quot; &quot;2014&quot; &quot;2015&quot;</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="RDataWrangling.html#cb457-1"></a><span class="kw">names</span>(boysNames) <span class="co"># returns NULL - no names in the list</span></span></code></pre></div>
+<p>Then we can assign the year vector to be the names of the list elements:</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="RDataWrangling.html#cb457-1"></a><span class="kw">names</span>(boysNames) <span class="co"># returns NULL - no names currently in the list</span></span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="RDataWrangling.html#cb459-1"></a><span class="co"># assign years to list names</span></span>
 <span id="cb459-2"><a href="RDataWrangling.html#cb459-2"></a><span class="kw">names</span>(boysNames) &lt;-<span class="st"> </span>Years </span>
@@ -1805,14 +1809,7 @@ transformations to all the elements in <code>boysNames</code>.</li>
 </div>
 <div id="one-big-data-frame" class="section level3">
 <h3>One big data frame</h3>
-<p>While storing the data in separate data frames by year makes some sense,
-many operations will be easier if the data is simply stored in one big
-data frame. We’ve already seen how to turn a list of data frames into a
-single data.frame using <code>bind_rows()</code>, but there is a problem; The year
-information is stored in the names of the list elements, and so
-flattening the data.frames into one will result in losing the year
-information! Fortunately it is not too much trouble to add the year
-information to each data frame before flattening.</p>
+<p>While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We’ve already seen how to turn a list of data frames into a single data.frame using <code>bind_rows()</code>, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data.frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.</p>
 <div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="RDataWrangling.html#cb463-1"></a><span class="co"># apply name of the list element (.y) as a new column in the data.frame (.x)</span></span>
 <span id="cb463-2"><a href="RDataWrangling.html#cb463-2"></a>boysNames &lt;-<span class="st"> </span><span class="kw">imap</span>(boysNames, <span class="op">~</span><span class="st"> </span><span class="kw">mutate</span>(.x, <span class="dt">Year =</span> <span class="kw">as.integer</span>(.y)))</span>
 <span id="cb463-3"><a href="RDataWrangling.html#cb463-3"></a></span>
@@ -1896,7 +1893,7 @@ HINT: see the <code>?dir.create</code> and <code>?write_csv</code> functions.</l
 <span id="cb474-3"><a href="RDataWrangling.html#cb474-3"></a><span class="kw">ggplot</span>(andrew, <span class="kw">aes</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count)) <span class="op">+</span></span>
 <span id="cb474-4"><a href="RDataWrangling.html#cb474-4"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb474-5"><a href="RDataWrangling.html#cb474-5"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of Andrew, over time&quot;</span>)</span></code></pre></div>
-<p><img src="R/RDataWrangling/figures/unnamed-chunk-273-1.png" width="672" /></p>
+<p><img src="R/RDataWrangling/figures/unnamed-chunk-275-1.png" width="672" /></p>
 </div>
 </details>
 </div>

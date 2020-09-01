@@ -1126,33 +1126,34 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 </div>
 <div id="setting-arguments" class="section level3">
 <h3>Setting arguments</h3>
-<p>Each <code>geom_</code> function has a default statistic that it is paired with and, likewise, each <code>stat_</code> function has a default geometic object that it is paired with. For example, the default statistic for <code>geom_histogram()</code> is <code>stat_bin()</code>, while the default geometric object for <code>stat_bin()</code> is <code>geom_bar()</code>. These defaults can be changed.</p>
-<p>Arguments to <code>stat_</code> functions can be passed through <code>geom_</code> functions and vice versa. This can be slightly annoying, because in order to specify some arguments you have to first determine which statistic the geometric object uses, then determine the arguments to that statistic.</p>
-<p>Let’s look at the arguments for <code>geom_histogram()</code>:</p>
+<p>Each <code>geom_</code> function has a default statistic that it is paired with and, likewise, each <code>stat_</code> function has a default geometic object that it is paired with. For example, the default statistic for <code>geom_histogram()</code> is “bin” (called by the <code>stat_bin()</code> function), while the default geometric object for <code>stat_bin()</code> is “bar” (called by the <code>geom_bar()</code> function). These defaults can be changed.</p>
+<p>Arguments to <code>stat_</code> functions can be passed through <code>geom_</code> functions and vice versa. This can be slightly annoying, because if you are using a <code>geom_</code> function, in order to specify some arguments you may have to first determine which statistic the geometric object uses, then determine the arguments to that <code>stat_</code> function.</p>
+<p>Let’s look at the arguments for the histogram geometric object (<code>geom_histogram()</code>):</p>
 <div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="Rgraphics.html#cb312-1"></a><span class="kw">args</span>(geom_histogram)</span></code></pre></div>
 <pre><code>## function (mapping = NULL, data = NULL, stat = &quot;bin&quot;, position = &quot;stack&quot;, 
 ##     ..., binwidth = NULL, bins = NULL, na.rm = FALSE, orientation = NA, 
 ##     show.legend = NA, inherit.aes = TRUE) 
 ## NULL</code></pre>
-<p>Notice that the third argument is <code>stat = "bin"</code>, which calls the <code>stat_bin()</code> function. This is how the histogram geom is, by default, paired with the bin statistic. The fifth argument is <code>...</code>, which allows us to pass arguments to <code>stat_bin()</code> through our call to <code>geom_histogram()</code>. Now let’s look at the arguments to <code>stat_bin()</code>:</p>
+<p>Notice that the third argument is <code>stat = "bin"</code>, which calls the <code>stat_bin()</code> function. This is how the histogram geom is, by default, paired with the bin statistic. The fifth argument is <code>...</code>, which allows us to pass certain arguments to <code>stat_bin()</code> through our call to <code>geom_histogram()</code>. Now let’s look at the arguments available through <code>stat_bin()</code>:</p>
 <div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="Rgraphics.html#cb314-1"></a><span class="kw">args</span>(stat_bin)</span></code></pre></div>
 <pre><code>## function (mapping = NULL, data = NULL, geom = &quot;bar&quot;, position = &quot;stack&quot;, 
 ##     ..., binwidth = NULL, bins = NULL, center = NULL, boundary = NULL, 
 ##     breaks = NULL, closed = c(&quot;right&quot;, &quot;left&quot;), pad = FALSE, 
 ##     na.rm = FALSE, orientation = NA, show.legend = NA, inherit.aes = TRUE) 
 ## NULL</code></pre>
-<p>We can see that there is a <code>binwidth</code> argument to <code>stat_bin()</code> that is not present for <code>geom_histogram()</code>. But, we can still use this <code>binwidth</code> argument in <code>geom_histogram()</code> — it will automatically be passed to its paired statistic function. For example, here is the default histogram of <code>Home_Value</code>:</p>
+<p>The tenth argument is <code>breaks</code>, which allows us to supply a numeric vector of bin boundaries. Notice that this argument is <em>not</em> available in <code>geom_histogram()</code>, but we can still supply the argument and it will be passed to <code>stat_bin()</code> through the <code>...</code> argument.</p>
+<p>For example, here is the default histogram of <code>Home_Value</code>:</p>
 <div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="Rgraphics.html#cb316-1"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> Home_Value))</span>
 <span id="cb316-2"><a href="Rgraphics.html#cb316-2"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-178-1.png" width="672" /></p>
-<p>We can change the binning scheme by passing the <code>binwidth</code> argument through <code>geom_histogram()</code> to the <code>stat_bin()</code> function:</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="Rgraphics.html#cb317-1"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">stat =</span> <span class="st">&quot;bin&quot;</span>, <span class="dt">binwidth =</span> <span class="dv">4000</span>)</span></code></pre></div>
+<p>We can change the boundaries for the bins by passing the <code>breaks</code> argument through <code>geom_histogram()</code> to the <code>stat_bin()</code> function:</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="Rgraphics.html#cb317-1"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">stat =</span> <span class="st">&quot;bin&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">1e6</span>, <span class="dt">by =</span> <span class="dv">250</span>))</span></code></pre></div>
 <p><img src="R/Rgraphics/figures/unnamed-chunk-179-1.png" width="672" /></p>
-<p>Here is a list of geometric objects and their default statistics <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a></p>
+<p>For reference, here is a list of geometric objects and their default statistics <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a>.</p>
 </div>
 <div id="changing-the-transformation" class="section level3">
 <h3>Changing the transformation</h3>
-<p>Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data:</p>
+<p>Sometimes the default statistical transformation is not what you need. This is often the case with pre-summarized data. Let’s create a new variable <code>Home_Value_Mean</code> that is the mean of <code>Home_Value</code> for each <code>State</code>:</p>
 <div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="Rgraphics.html#cb318-1"></a><span class="co"># create new variable that is the mean of &#39;Home Value&#39; for each &#39;State&#39;</span></span>
 <span id="cb318-2"><a href="Rgraphics.html#cb318-2"></a>housing_sum &lt;-<span class="st"> </span></span>
 <span id="cb318-3"><a href="Rgraphics.html#cb318-3"></a><span class="st">  </span>housing <span class="op">%&gt;%</span></span>
@@ -1170,6 +1171,7 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 ## 4 AZ            140756.
 ## 5 CA            282808.
 ## 6 CO            158176.</code></pre>
+<p>Now let’s try to create a bar chart using this pre-summarized data:</p>
 <div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="Rgraphics.html#cb320-1"></a><span class="kw">ggplot</span>(housing_sum, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Value_Mean)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb320-2"><a href="Rgraphics.html#cb320-2"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span>
 <span id="cb320-3"><a href="Rgraphics.html#cb320-3"></a></span>
@@ -1284,7 +1286,7 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="Rgraphics.html#cb334-1"></a>p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(housing, <span class="kw">aes</span>(<span class="dt">x =</span> State, <span class="dt">y =</span> Home_Price_Index)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb334-2"><a href="Rgraphics.html#cb334-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Date), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,</span>
 <span id="cb334-3"><a href="Rgraphics.html#cb334-3"></a>               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">height =</span> <span class="dv">0</span>))</span></code></pre></div>
-<p>Now modify the breaks for the color scales</p>
+<p>Now modify the breaks for the color scales and shorten the labels:</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="Rgraphics.html#cb335-1"></a>p3 <span class="op">+</span><span class="st"> </span></span>
 <span id="cb335-2"><a href="Rgraphics.html#cb335-2"></a><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,</span>
 <span id="cb335-3"><a href="Rgraphics.html#cb335-3"></a>                         <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1994</span>, <span class="dv">2013</span>),</span>
@@ -1313,9 +1315,7 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 </div>
 <div id="available-scales" class="section level3">
 <h3>Available scales</h3>
-<ul>
-<li>Partial combination matrix of available scales</li>
-</ul>
+<p>Here’s a partial combination matrix of available scales:</p>
 <table>
 <thead>
 <tr class="header">
@@ -1402,7 +1402,7 @@ with required aesthetics in <strong>bold</strong> and optional aesthetics in pla
 </tr>
 </tbody>
 </table>
-<p>Note that in RStudio you can type <code>scale_</code> followed by <code>tab</code> to get the whole list of available scales. For a complete list of available scales see <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a></p>
+<p>Note that in RStudio you can type <code>scale_</code> followed by <code>tab</code> to get the whole list of available scales. For a complete list of available scales see <a href="https://ggplot2.tidyverse.org/reference/" class="uri">https://ggplot2.tidyverse.org/reference/</a>.</p>
 </div>
 <div id="exercise-2-1" class="section level3">
 <h3>Exercise 2</h3>

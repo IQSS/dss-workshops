@@ -623,7 +623,7 @@ boysNames <- map(boysNames, cleanupNamesData)
 # <div class="alert alert-info">
 # **GOAL: To learn how to organize the data into one large data frame and store it.** In particular:
 #
-# 1. Create a year column within each data frame within the list
+# 1. Create a `Year` column within each data frame within the list
 # 2. Append all the data frames in the list into one large data frame
 # </div>
 #
@@ -633,15 +633,21 @@ boysNames <- map(boysNames, cleanupNamesData)
 #
 # Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
+# our list of data frames
 head(boysNames) %>% glimpse()
 
+# the file names containing the 'year' information
 head(boy_file_names)
 
-# use regex to extract years from file names
+# We can use regular expressions (regex) --- a programmatic way of doing "find and replace" --- to extract the year information from the file names and store it in a character vector:
+
+# we can use regex to extract years from file names
 Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
 Years
 
-names(boysNames) # returns NULL - no names in the list
+# Then we can assign the year vector to be the names of the list elements:
+
+names(boysNames) # returns NULL - no names currently in the list
 
 # assign years to list names
 names(boysNames) <- Years 
@@ -652,14 +658,7 @@ head(boysNames) %>% glimpse()
 
 # ### One big data frame
 #
-# While storing the data in separate data frames by year makes some sense,
-# many operations will be easier if the data is simply stored in one big
-# data frame. We've already seen how to turn a list of data frames into a
-# single data.frame using `bind_rows()`, but there is a problem; The year
-# information is stored in the names of the list elements, and so
-# flattening the data.frames into one will result in losing the year
-# information! Fortunately it is not too much trouble to add the year
-# information to each data frame before flattening.
+# While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data.frame using `bind_rows()`, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data.frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
 
 # apply name of the list element (.y) as a new column in the data.frame (.x)
 boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))

@@ -1179,7 +1179,7 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;csat&quot; &quot;expense&quot;
 ##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
 <p>We can see that the fitted model object is a <code>list</code> structure (a container that can hold different types of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class <code>lm</code> is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?</p>
-<p>We can use <strong>methods</strong> (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes referred to as <strong>extractor functions</strong>). A list of all the available methods for a given class of object can be shown by using the <code>methods()</code> function with the <code>class</code> argument set to the class of the model object:</p>
+<p>We can use <strong>methods</strong> (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as <strong>extractor functions</strong>). A list of all the available methods for a given class of object can be shown by using the <code>methods()</code> function with the <code>class</code> argument set to the class of the model object:</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="Rmodels.html#cb171-1"></a><span class="kw">methods</span>(<span class="dt">class =</span> <span class="kw">class</span>(sat_mod))</span></code></pre></div>
 <pre><code>##  [1] add1           alias          anova          case.names     coerce        
 ##  [6] confint        cooks.distance deviance       dfbeta         dfbetas       
@@ -1229,7 +1229,9 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ## Residuals 49 175306    3578                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>How does R know which method to call for a given object? R uses <strong>generic functions</strong>, which provide access to the methods. <strong>Method dispatch</strong> takes place based on the class of the first argument to the generic function. For example, for the generic function <code>summary()</code> and an object of class <code>lm</code>, the method dispatched will be <code>summary.lm()</code>. Function methods always take the form <code>generic.method()</code>. Let’s look at all the methods for the generic <code>summary()</code> function:</p>
+<p>How does R know which method to call for a given object? R uses <strong>generic functions</strong>, which provide access to the methods. <strong>Method dispatch</strong> takes place based on the class of the first argument to the generic function. For example, for the generic function <code>summary()</code> and an object of class <code>lm</code>, the method dispatched will be <code>summary.lm()</code>. Here’s a schematic that shows the process of method dispatch in action:</p>
+<p><img src="R/Rmodels/images/methods.png" /></p>
+<p>Function methods always take the form <code>generic.method()</code>. Let’s look at all the methods for the generic <code>summary()</code> function:</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="Rmodels.html#cb179-1"></a><span class="kw">methods</span>(<span class="st">&quot;summary&quot;</span>)</span></code></pre></div>
 <pre><code>##   [1] summary,ANY-method             summary,DBIObject-method      
 ##   [3] summary,diagonalMatrix-method  summary,sparseMatrix-method   
@@ -1283,8 +1285,7 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ##  [99] summary.srcref                 summary.stepfun               
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 37 entries ]
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
-<p>There are 137 <code>summary()</code> methods and counting! Here’s a schematic that shows the process of method dispatch in action:</p>
-<p><img src="R/Rmodels/images/methods.png" /></p>
+<p>There are 137 <code>summary()</code> methods and counting!</p>
 <p>It’s always worth examining whether the class of model you’ve fitted has a method for a particular generic extractor function. Here’s a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:</p>
 <table>
 <thead>
