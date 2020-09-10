@@ -143,7 +143,7 @@
 
 \title{Data Science Workshops}
 \author{}
-\date{\vspace{-2.5em}August 2020}
+\date{\vspace{-2.5em}September 2020}
 
 \begin{document}
 \maketitle
@@ -3848,7 +3848,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# scatter plot of expense vs csat}
-  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ expense, }\DataTypeTok{y =}\NormalTok{ csat, }\DataTypeTok{data =}\NormalTok{ sts\_ex\_sat)}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ expense, }\DataTypeTok{y =}\NormalTok{ csat, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ sts\_ex\_sat)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4043,7 +4043,7 @@ Let's start by examining the class of the model object:
 ## [1] "lm"
 \end{verbatim}
 
-We can see that fitted model object is of class \texttt{lm}, which stands for linear model. What quantities are stored within this model object?
+We can see that the fitted model object is of class \texttt{lm}, which stands for linear model. What quantities are stored within this model object?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4127,7 +4127,7 @@ We can see that 12 different things are stored within a fitted model of class \t
 ##  - attr(*, "class")= chr "lm"
 \end{verbatim}
 
-We can see that the fitted model object is a \texttt{list} structure (a container that can hold different types of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class \texttt{lm} is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
+We can see that the fitted model object is a \texttt{list} structure (a container that can hold different types of objects). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class \texttt{lm} is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
 
 We can use \textbf{methods} (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as \textbf{extractor functions}). A list of all the available methods for a given class of object can be shown by using the \texttt{methods()} function with the \texttt{class} argument set to the class of the model object:
 
@@ -11901,19 +11901,19 @@ The records we retrieved from \url{https://www.harvardartmuseums.org/browse} are
 \end{Shaded}
 
 \begin{verbatim}
-##   copyright  contextualtextcount  ...                        seeAlso                        details
-## 0      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 1      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 2      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 3      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 4      None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
-## 5      None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
-## 6      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 7      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 8      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 9      None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+##                        copyright  contextualtextcount  ...                     dimensions                        seeAlso
+## 0                           None                    0  ...  image: 38.8 x 48.5 cm (15 ...  [{'id': 'https://iiif.harv...
+## 1  © Jasper Johns and ULAE/Li...                    0  ...  sight: 127 x 87.6 x 10.2 c...  [{'id': 'https://iiif.harv...
+## 2  © Estate of Alfred Stiegli...                    0  ...  27.6 x 20 cm (10 7/8 x 7 7...  [{'id': 'https://iiif.harv...
+## 3                           None                    0  ...  257.98 g\r\n13.2 × 9.7 cm ...  [{'id': 'https://iiif.harv...
+## 4  © Estate of Alfred Stiegli...                    0  ...  17.8 x 14.6 cm (7 x 5 3/4 ...  [{'id': 'https://iiif.harv...
+## 5  © Estate of Alfred Stiegli...                    0  ...  12 x 23.3 cm (4 3/4 x 9 3/...  [{'id': 'https://iiif.harv...
+## 6                           None                    1  ...  4 x 21.7 x 3.3 cm (1 9/16 ...  [{'id': 'https://iiif.harv...
+## 7                           None                    0  ...  H. 64 x W. 19 x D. 15.5 cm...  [{'id': 'https://iiif.harv...
+## 8                           None                    0  ...  2003.193.1: H. 35 x W. 27....  [{'id': 'https://iiif.harv...
+## 9                           None                    0  ...  24.2 x 18.7 cm (9 1/2 x 7 ...  [{'id': 'https://iiif.harv...
 ## 
-## [10 rows x 63 columns]
+## [10 rows x 62 columns]
 \end{verbatim}
 
 and write the data to a file.
@@ -11964,53 +11964,53 @@ Now that we know the web service works, and how to make requests in Python, we c
 \begin{verbatim}
 ##                         copyright  contextualtextcount  ...                        seeAlso                        details
 ## 0                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 1                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 2                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 1   © Jasper Johns and ULAE/Li...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 2   © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 3                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 4                            None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
-## 5                            None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
-## 6                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 4   © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 5   © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 6                            None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 7                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 8                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 9                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 10                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 11                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 12                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 13                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 13                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': '2...
 ## 14                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 15                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 16                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 17  © Estate of THeordore Rosz...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 15               © Richard Tuttle                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 16  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 17                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 18                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 19                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'I...
-## 20  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 19                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 20                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 21                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 22               © Allan McCollum                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 22                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 23                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 24                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 25                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 26                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 27                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
-## 28                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 27                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 28  © Artists Rights Society (...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 29                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 30                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 31                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 32                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 33  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 34                           None                    0  ...  [{'id': 'https://iiif.harv...  {'coins': {'reverseinscrip...
+## 33                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 34                    © Roni Horn                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 35                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 36  © Artists Rights Society (...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 37                           None                    0  ...  [{'id': 'https://iiif.harv...  {'coins': {'reverseinscrip...
+## 36                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
+## 37                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 38                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 39                           None                    0  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
-## 40                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 41                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
-## 42  © Artists Rights Society (...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 39                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
+## 40  © Julian Faulhaber / Artis...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 41                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 42  Art © Nancy Graves Foundat...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 43                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 44             © 2004 Glenn Ligon                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 44                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 45                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 46                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 47  © Artists Rights Society (...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 47  © Jenny Holzer / Artists R...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 48                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 49                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 
@@ -12185,7 +12185,7 @@ Questions \#3+4 (loop solution):
 ## 41                           None  [{'date': '1989-08-01', 'c...  ...                            NaN                            NaN
 ## 42  This multi-component insta...  [{'date': '2014-03-31', 'c...  ...                            NaN                            NaN
 ## 43                           None  [{'date': '2009-11-30', 'c...  ...                            NaN                            NaN
-## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Mark Rot...
+## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Rothko S...
 ## 45                           None  [{'date': '2014-11-10', 'c...  ...                            NaN                            NaN
 ## 46  In the Japanese context, a...  [{'date': '2012-07-17', 'c...  ...                            NaN                            NaN
 ## 47  World’s Fairs were created...  [{'date': '2005-12-21', 'c...  ...                            NaN                            NaN
@@ -12254,7 +12254,7 @@ Questions \#3+4 (list comprehension solution):
 ## 41                           None  [{'date': '1989-08-01', 'c...  ...                            NaN                            NaN
 ## 42  This multi-component insta...  [{'date': '2014-03-31', 'c...  ...                            NaN                            NaN
 ## 43                           None  [{'date': '2009-11-30', 'c...  ...                            NaN                            NaN
-## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Mark Rot...
+## 44  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Rothko S...
 ## 45                           None  [{'date': '2014-11-10', 'c...  ...                            NaN                            NaN
 ## 46  In the Japanese context, a...  [{'date': '2012-07-17', 'c...  ...                            NaN                            NaN
 ## 47  World’s Fairs were created...  [{'date': '2005-12-21', 'c...  ...                            NaN                            NaN

@@ -997,7 +997,7 @@ of the data we wish to model by creating plots and summaries. Let’s do this no
 <h3>Plot the data</h3>
 <p>Plot the data to look for multivariate outliers, non-linear relationships etc.</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="Rmodels.html#cb155-1"></a>  <span class="co"># scatter plot of expense vs csat</span></span>
-<span id="cb155-2"><a href="Rmodels.html#cb155-2"></a>  <span class="kw">qplot</span>(<span class="dt">x =</span> expense, <span class="dt">y =</span> csat, <span class="dt">data =</span> sts_ex_sat)</span></code></pre></div>
+<span id="cb155-2"><a href="Rmodels.html#cb155-2"></a>  <span class="kw">qplot</span>(<span class="dt">x =</span> expense, <span class="dt">y =</span> csat, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">data =</span> sts_ex_sat)</span></code></pre></div>
 <p><img src="R/Rmodels/figures/unnamed-chunk-83-1.png" width="672" /></p>
 <p>Obviously, in a real project, you would want to spend more time investigating the data,
 but we’ll now move on to modeling.</p>
@@ -1112,7 +1112,7 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="Rmodels.html#cb165-1"></a>  <span class="co"># what class of object is the fitted model?</span></span>
 <span id="cb165-2"><a href="Rmodels.html#cb165-2"></a>  <span class="kw">class</span>(sat_mod)</span></code></pre></div>
 <pre><code>## [1] &quot;lm&quot;</code></pre>
-<p>We can see that fitted model object is of class <code>lm</code>, which stands for linear model. What quantities are stored within this model object?</p>
+<p>We can see that the fitted model object is of class <code>lm</code>, which stands for linear model. What quantities are stored within this model object?</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="Rmodels.html#cb167-1"></a>  <span class="co"># what are the elements stored within the fitted model object?</span></span>
 <span id="cb167-2"><a href="Rmodels.html#cb167-2"></a>  <span class="kw">names</span>(sat_mod)</span></code></pre></div>
 <pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
@@ -1178,7 +1178,7 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
 ##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;csat&quot; &quot;expense&quot;
 ##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
-<p>We can see that the fitted model object is a <code>list</code> structure (a container that can hold different types of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class <code>lm</code> is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?</p>
+<p>We can see that the fitted model object is a <code>list</code> structure (a container that can hold different types of objects). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class <code>lm</code> is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?</p>
 <p>We can use <strong>methods</strong> (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as <strong>extractor functions</strong>). A list of all the available methods for a given class of object can be shown by using the <code>methods()</code> function with the <code>class</code> argument set to the class of the model object:</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="Rmodels.html#cb171-1"></a><span class="kw">methods</span>(<span class="dt">class =</span> <span class="kw">class</span>(sat_mod))</span></code></pre></div>
 <pre><code>##  [1] add1           alias          anova          case.names     coerce        

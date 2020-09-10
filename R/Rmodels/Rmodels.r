@@ -171,7 +171,7 @@ list.files("dataSets")
 # Plot the data to look for multivariate outliers, non-linear relationships etc.
 
   # scatter plot of expense vs csat
-  qplot(x = expense, y = csat, data = sts_ex_sat)
+  qplot(x = expense, y = csat, geom = "point", data = sts_ex_sat)
 
 # Obviously, in a real project, you would want to spend more time investigating the data,
 # but we'll now move on to modeling.
@@ -253,7 +253,7 @@ outcome ~ pred1 + pred2 + pred3
   # what class of object is the fitted model?
   class(sat_mod)
 
-# We can see that fitted model object is of class `lm`, which stands for linear model. What quantities are stored within this model object? 
+# We can see that the fitted model object is of class `lm`, which stands for linear model. What quantities are stored within this model object? 
 
   # what are the elements stored within the fitted model object?
   names(sat_mod)
@@ -263,7 +263,7 @@ outcome ~ pred1 + pred2 + pred3
   # what is the structure of the fitted model object?
   str(sat_mod)
 
-# We can see that the fitted model object is a `list` structure (a container that can hold different types of information). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class `lm` is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
+# We can see that the fitted model object is a `list` structure (a container that can hold different types of objects). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class `lm` is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
 #
 # We can use **methods** (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as **extractor functions**). A list of all the available methods for a given class of object can be shown by using the `methods()` function with the `class` argument set to the class of the model object:
 
