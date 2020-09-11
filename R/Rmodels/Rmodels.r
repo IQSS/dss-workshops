@@ -552,7 +552,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
-# Use the states data set.
+# Use the `states` data set.
 #
 # 1.  Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.
 
@@ -704,7 +704,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
-# Use the NH11 data set that we loaded earlier. Note that the data is not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
+# Use the `NH11` data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 #
 # 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
@@ -848,7 +848,7 @@ data(bh1996, package = "multilevel")
 #   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
-# Use the dataset, bh1996:
+# Use the dataset `bh1996`:
 
   # install.packages("multilevel")
   data(bh1996, package="multilevel")

@@ -1538,27 +1538,22 @@ from all the Excel files, using the function you wrote in step 1.</li>
 <div id="exercise-2-2" class="section level3">
 <h3>Exercise 2</h3>
 <ol style="list-style-type: decimal">
-<li>Write a function called <code>namecount</code> that takes a data frame as an
-argument and returns a modified version, which keeps only columns that
-include the strings <code>Name</code> and <code>Count</code> in the column names.
-HINT: see the <code>?matches</code> function.</li>
+<li>Write a function called <code>namecount</code> that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings <code>Name</code> and <code>Count</code> in the column names. HINT: see the <code>?matches</code> function.</li>
 </ol>
 <div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="RDataWrangling.html#cb435-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Test your function on the first data frame in the list of boys
-names data.</li>
+<li>Test your function on the first data frame in the list of boys names data.</li>
 </ol>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="RDataWrangling.html#cb436-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Use the <code>map()</code> function to each data frame in the list of boys
-names data and save it to the list called <code>boysNames</code>.</li>
+<li>Use the <code>map()</code> function to call your <code>namecount()</code> function on each data frame in the list called <code>boysNames</code>.Save the results back to the list called <code>boysNames</code>.</li>
 </ol>
 <div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="RDataWrangling.html#cb437-1"></a><span class="co">## </span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 <div class="alert alert-danger">
 <ol style="list-style-type: decimal">
-<li>Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings <code>Name</code> and <code>Count</code> in the column names. HINT: see the <code>?matches</code> function.</li>
+<li>Write a function called <code>namecount</code> that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings <code>Name</code> and <code>Count</code> in the column names. HINT: see the <code>?matches</code> function.</li>
 </ol>
 <div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="RDataWrangling.html#cb438-1"></a>  namecount &lt;-<span class="st"> </span><span class="cf">function</span>(data) {</span>
 <span id="cb438-2"><a href="RDataWrangling.html#cb438-2"></a>      <span class="kw">select</span>(data, <span class="kw">matches</span>(<span class="st">&quot;Name|Count&quot;</span>))</span>
@@ -1582,7 +1577,7 @@ names data and save it to the list called <code>boysNames</code>.</li>
 ## 10 LIAM     STEPHEN       5802      1122
 ## # … with 40 more rows</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Use the <code>map()</code> function to each data frame in the list of boys names data.</li>
+<li>Use the <code>map()</code> function to call your <code>namecount()</code> function on each data frame in the list called <code>boysNames</code>.Save the results back to the list called <code>boysNames</code>.</li>
 </ol>
 <div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="RDataWrangling.html#cb441-1"></a>  boysNames &lt;-<span class="st"> </span><span class="kw">map</span>(boysNames, namecount)</span></code></pre></div>
 </div>

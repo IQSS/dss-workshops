@@ -463,25 +463,20 @@ boysNames[[1]]
 
 # ### Exercise 2
 #
-#   1. Write a function called `namecount` that takes a data frame as an 
-#      argument and returns a modified version, which keeps only columns that
-#      include the strings `Name` and `Count` in the column names.
-#      HINT: see the `?matches` function. 
+#   1. Write a function called `namecount` that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function. 
 ## 
 
-#   2. Test your function on the first data frame in the list of boys
-#      names data.
+#   2. Test your function on the first data frame in the list of boys names data.
 ## 
 
-#   3. Use the `map()` function to each data frame in the list of boys
-#      names data and save it to the list called `boysNames`.
+#   3. Use the `map()` function to call your `namecount()` function on each data frame in the list called `boysNames`.Save the results back to the list called `boysNames`.
 ## 
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
-# 1. Write a function that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
+# 1. Write a function called `namecount` that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
 
   namecount <- function(data) {
       select(data, matches("Name|Count"))
@@ -491,7 +486,7 @@ boysNames[[1]]
 
   namecount(boysNames[[1]])
 
-# 3. Use the `map()` function to each data frame in the list of boys names data.
+# 3. Use the `map()` function to call your `namecount()` function on each data frame in the list called `boysNames`.Save the results back to the list called `boysNames`.
 
   boysNames <- map(boysNames, namecount)
 # </div>

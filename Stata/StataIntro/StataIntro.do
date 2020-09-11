@@ -121,7 +121,7 @@
 *  * Open up a new do-file
 *  * Run our first Stata code!
 *
-* 1. Try to get Stata to say "Hello World!". Search `help display`
+* 1. Try to get Stata to say "Hello World!". Search `help display`.
 
 *#
 
@@ -132,7 +132,12 @@
 * <details>
 *   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 *   <div class="alert alert-danger">
+*
+* 1. Try to get Stata to say "Hello World!". Search `help display`.
+
 disp "Hello " "World!" // 'disp' is short for 'display'
+
+* 2. Try to get Stata to break "Hello World!" over two lines:
 
 disp "Hello" ///
      " World!"
@@ -233,7 +238,7 @@ codebook region // information about how region is coded
 
 tab sex // numbers of male and female participants
 
-* Note --- if you run these commands without specifying variables, Stata will produce output for every variable
+* Note --- if you run these commands without specifying variables, Stata will produce output for every variable.
 
 * ### Basic graphing commands
 *
@@ -310,19 +315,29 @@ bysort marital: sum educ
 * <details>
 *   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 *   <div class="alert alert-danger">
+*
+* 1. Read in the dataset `talent.dta`:
+
 use talent.dta, clear
+
+* 2. Examine a few selected variables using the `describe`, `sum` and `codebook` commands:
+
 describe workperweek
 tab I3
 sum income
 codebook job
 
+* 3. Produce a histogram of hours worked (`workload`) and add a normal curve:
+
 hist workload, normal 
 
-bysort marital: sum income
-bysort job: tab marital 
-summarize income if marital == 1
+* 4. Summarize the total household income last year (`income`) by marital status (`marital`):
 
-save talent.dta, replace 
+bysort marital: sum income
+
+* 5. Cross-tabulate marital status (`marital`) with respondents' type of main job (`job`):
+
+bysort job: tab marital  
 * </div>
 * </details>
 
@@ -424,36 +439,59 @@ replace age_wealth=4 if age > 30 & inc > 10
 
 *#
 
-* 8. Save the changes to `newtalent.dta`
-*
+* 8. Save the changes to `newtalent.dta`:
+
+*#
+
 * <details>
 *   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 *   <div class="alert alert-danger">
+*
+* Open the `talent.dta` data, use the basic data management tools we have learned to add labels and generate new variables:
+*
+* 1. Tabulate the variable, marital status (`marital`), with and without labels:
+
 use talent.dta, clear
 
 tab marital
 tab marital, nol 
+
+* 2. Summarize the total household income last year (`income`) for married individuals only:
+
+summarize income if marital == 1
+
+* 3. Generate a new `overwork` dummy variable from the original variable `workperweek` that will take on a value of 1 if a person works more than 40 hours per week, and 0 if a person works equal to or less than 40 hours per week:
 
 gen overwork = .
 replace overwork = 1 if workperweek > 40
 replace overwork = 0 if workperweek <= 40
 tab overwork
 
+* 4. Generate a new `marital_dummy` dummy variable from the original variable `marital` that will take on a value of 1 if a person is either married or partnered and 0 otherwise:
+
 gen marital_dummy = .
 replace marital_dummy = 1 if marital == 1 | marital == 2
 replace marital_dummy = 0 if marital != 1 & marital != 2
 tab marital_dummy
 
+* 5. Rename the `Sex` variable and give it a more intuitive name:
+
 rename I3 Sex
+
+* 6. Give a variable label and value labels for the variable `overwork`:
 
 label variable overwork "whether someone works more than 40 hours per week"
 label define overworklabel 1 "Yes" 0 "No"
 label values overwork overworklabel
 
+* 7. Generate a new variable called `work_family` and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance:
+
 gen work_family = .
 replace work_family = 2 if B3A > B3B
 replace work_family = 1 if B3A < B3B
 replace work_family = 0 if B3A == B3B
+
+* 8. Save the changes to `newtalent.dta`:
 
 save newtalent.dta, replace 
 * </div>
@@ -516,7 +554,7 @@ oneway inc region if region==1 | region==4
 * ### Exercise 3
 *
 * Open the `newtalent.dta` data, use the basic data management tools we have learned to conduct bivariate analysis. 
-
+*
 * 1.  Test the relationship between two variables `sex` and type of main job (`job`):
 
 *#
@@ -532,14 +570,22 @@ oneway inc region if region==1 | region==4
 * <details>
 *   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 *   <div class="alert alert-danger">
+*
+* Open the `newtalent.dta` data, use the basic data management tools we have learned to conduct bivariate analysis. 
+*
+* 1.  Test the relationship between two variables `sex` and type of main job (`job`):
+
 use newtalent.dta, clear 
 
 tab Sex job, chi2 
 
-ttest workload, by(Sex)
-oneway workload marital 
+* 2.  Test if there is a significant difference in hours worked per week (`workload`) and `sex`:
 
-save newtalent.dta, replace 
+ttest workload, by(Sex)
+
+* 3.  Test if there is a significant difference in hours worked per week (`workload`) and marital status (`marital`):
+
+oneway workload marital 
 * </div>
 * </details>
 *

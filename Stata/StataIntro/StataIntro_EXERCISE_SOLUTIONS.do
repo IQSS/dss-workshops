@@ -53,7 +53,6 @@ bysort marital: sum income
 * 5. Cross-tabulate marital status (`marital`) with respondents' type of main job (`job`):
 
 bysort job: tab marital 
-save talent.dta, replace 
 
 
 
@@ -126,6 +125,6 @@ ttest workload, by(Sex)
 * 3.  Test if there is a significant difference in hours worked per week (`workload`) and marital status (`marital`): 
 
 oneway workload marital 
-save newtalent.dta, replace 
+ 
 
      

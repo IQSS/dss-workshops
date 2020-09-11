@@ -355,7 +355,7 @@ events_html = html.fromstring(events.text)
 #
 # `XPath` is a tool for identifying particular elements within a HTML document. The developer tools built into modern web browsers make it easy to generate `XPath`s that can be used to identify the elements of a web page that we wish to extract.
 #
-# We can open the html document we retrieved and inspect it using our web browser.
+# We can open the HTML document we retrieved and inspect it using our web browser.
 
 html.open_in_browser(events_html, encoding = 'UTF-8')
 
@@ -379,7 +379,7 @@ second_event_html = events_list_html[1]
 
 html.open_in_browser(second_event_html, encoding = 'UTF-8')
 
-# As before we can use our browser to find the xpath of the elements we want.
+# As before, we can use our browser to find the xpath of the elements we want.
 #
 # ![](Python/PythonWebScrape/images/dev_tools_figcaption.png)
 #
@@ -445,7 +445,7 @@ def get_event_info(event, path):
     return info
 
 
-# Armed with this function we can iterate over the list of events and extract the available information for each one.
+# Armed with this function, we can iterate over the list of events and extract the available information for each one.
 
 all_event_values = {}
 for key in elements_we_want.keys():

@@ -854,27 +854,27 @@ but the process is sequential — we move through the stages in order (though of
 <div id="set-working-directory" class="section level3">
 <h3>Set working directory</h3>
 <p>Files are located in the <code>dataSets</code> folder in <code>StataMod</code>. Start by telling Stata where to look for these:</p>
-<div class="sourceCode" id="cb741"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb741-1"><a href="StataModels.html#cb741-1"></a><span class="co">// change directory</span></span>
-<span id="cb741-2"><a href="StataModels.html#cb741-2"></a>cd <span class="st">&quot;~/Desktop/Stata/StataMod&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb763"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb763-1"><a href="StataModels.html#cb763-1"></a><span class="co">// change directory</span></span>
+<span id="cb763-2"><a href="StataModels.html#cb763-2"></a>cd <span class="st">&quot;~/Desktop/Stata/StataMod&quot;</span></span></code></pre></div>
 <p>Use <code>dir</code> to see what is in the directory:</p>
-<div class="sourceCode" id="cb742"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb742-1"><a href="StataModels.html#cb742-1"></a><span class="ot">dir</span></span>
-<span id="cb742-2"><a href="StataModels.html#cb742-2"></a>cd dataSets</span></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb764-1"><a href="StataModels.html#cb764-1"></a><span class="ot">dir</span></span>
+<span id="cb764-2"><a href="StataModels.html#cb764-2"></a>cd dataSets</span></code></pre></div>
 </div>
 <div id="load-the-data-1" class="section level3">
 <h3>Load the data</h3>
-<div class="sourceCode" id="cb743"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb743-1"><a href="StataModels.html#cb743-1"></a><span class="co">// use the states data set</span></span>
-<span id="cb743-2"><a href="StataModels.html#cb743-2"></a><span class="kw">use</span> dataSets/states.dta</span></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb765-1"><a href="StataModels.html#cb765-1"></a><span class="co">// use the states data set</span></span>
+<span id="cb765-2"><a href="StataModels.html#cb765-2"></a><span class="kw">use</span> dataSets/states.dta</span></code></pre></div>
 </div>
 <div id="examine-descriptive-statistics" class="section level3">
 <h3>Examine descriptive statistics</h3>
-<div class="sourceCode" id="cb744"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb744-1"><a href="StataModels.html#cb744-1"></a><span class="co">// descriptive statistics </span></span>
-<span id="cb744-2"><a href="StataModels.html#cb744-2"></a><span class="kw">sum</span> expense income <span class="kw">percent</span> csat</span></code></pre></div>
+<div class="sourceCode" id="cb766"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb766-1"><a href="StataModels.html#cb766-1"></a><span class="co">// descriptive statistics </span></span>
+<span id="cb766-2"><a href="StataModels.html#cb766-2"></a><span class="kw">sum</span> expense income <span class="kw">percent</span> csat</span></code></pre></div>
 </div>
 <div id="visualize-the-data" class="section level3">
 <h3>Visualize the data</h3>
-<div class="sourceCode" id="cb745"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb745-1"><a href="StataModels.html#cb745-1"></a><span class="co">// visualize data </span></span>
-<span id="cb745-2"><a href="StataModels.html#cb745-2"></a><span class="kw">scatter</span> expense income</span>
-<span id="cb745-3"><a href="StataModels.html#cb745-3"></a><span class="kw">scatter</span> expense <span class="kw">percent</span> </span></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb767-1"><a href="StataModels.html#cb767-1"></a><span class="co">// visualize data </span></span>
+<span id="cb767-2"><a href="StataModels.html#cb767-2"></a><span class="kw">scatter</span> expense income</span>
+<span id="cb767-3"><a href="StataModels.html#cb767-3"></a><span class="kw">scatter</span> expense <span class="kw">percent</span> </span></code></pre></div>
 </div>
 </div>
 <div id="models-with-continuous-outcomes-1" class="section level2">
@@ -892,8 +892,8 @@ but the process is sequential — we move through the stages in order (though of
 <h3>Fit the model</h3>
 <p>To fit a model in Stata, we first have to convert our theoretical model into
 Stata syntax — a symbolic representation of the model:</p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb746-1"><a href="StataModels.html#cb746-1"></a><span class="co">// model specification</span></span>
-<span id="cb746-2"><a href="StataModels.html#cb746-2"></a>command outcome pred1 pred2 pred3</span></code></pre></div>
+<div class="sourceCode" id="cb768"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb768-1"><a href="StataModels.html#cb768-1"></a><span class="co">// model specification</span></span>
+<span id="cb768-2"><a href="StataModels.html#cb768-2"></a>command outcome pred1 pred2 pred3</span></code></pre></div>
 <p>Note that immediately after the modeling command comes the outcome variable, followed by numerous predictors.</p>
 <p>For example, the following model predicts SAT scores based on the amount of money spent on education (<code>expense</code>), family income(<code>income</code>), and percentage of students taking SATs (<code>percent</code>) in a state. Here’s the theoretical model:</p>
 <div class="alert alert-secondary">
@@ -902,7 +902,7 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 \]</span></p>
 </div>
 <p>And here’s how we use the <code>regress</code> command to fit this model in Stata:</p>
-<div class="sourceCode" id="cb747"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb747-1"><a href="StataModels.html#cb747-1"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> </span></code></pre></div>
+<div class="sourceCode" id="cb769"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb769-1"><a href="StataModels.html#cb769-1"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> </span></code></pre></div>
 </div>
 <div id="ols-assumptions" class="section level3">
 <h3>OLS assumptions</h3>
@@ -918,38 +918,38 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 <li>(Optional - only needed for inference). The error term is normally distributed.</li>
 </ol>
 <p>We can investigate assumptions #7 and #8 by plotting model diagnostics. A simple histogram of the residuals can be informative:</p>
-<div class="sourceCode" id="cb748"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb748-1"><a href="StataModels.html#cb748-1"></a><span class="co">// graph the residual values of csat</span></span>
-<span id="cb748-2"><a href="StataModels.html#cb748-2"></a><span class="kw">predict</span> <span class="kw">resid</span>, residual</span>
-<span id="cb748-3"><a href="StataModels.html#cb748-3"></a><span class="kw">histogram</span> <span class="kw">resid</span>, <span class="fu">normal</span> </span></code></pre></div>
+<div class="sourceCode" id="cb770"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb770-1"><a href="StataModels.html#cb770-1"></a><span class="co">// graph the residual values of csat</span></span>
+<span id="cb770-2"><a href="StataModels.html#cb770-2"></a><span class="kw">predict</span> <span class="kw">resid</span>, residual</span>
+<span id="cb770-3"><a href="StataModels.html#cb770-3"></a><span class="kw">histogram</span> <span class="kw">resid</span>, <span class="fu">normal</span> </span></code></pre></div>
 <p>We can also examine homoscedasticity:</p>
-<div class="sourceCode" id="cb749"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb749-1"><a href="StataModels.html#cb749-1"></a><span class="kw">rvfplot</span>, <span class="kw">yline</span>(0)</span></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb771-1"><a href="StataModels.html#cb771-1"></a><span class="kw">rvfplot</span>, <span class="kw">yline</span>(0)</span></code></pre></div>
 <p>Type <code>-help regress postestimation</code> — for more information about model diagnostics. If assumptions are not met, alter the specification and refit the model.</p>
 </div>
 <div id="interactions" class="section level3">
 <h3>Interactions</h3>
 <p>What if we wanted to test an interaction between <code>percent</code> and <code>high</code>?</p>
 <p>Option 1: generate product terms by hand:</p>
-<div class="sourceCode" id="cb750"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb750-1"><a href="StataModels.html#cb750-1"></a><span class="co">// generate product of percent and high</span></span>
-<span id="cb750-2"><a href="StataModels.html#cb750-2"></a><span class="kw">gen</span> percenthigh = <span class="kw">percent</span>*high </span>
-<span id="cb750-3"><a href="StataModels.html#cb750-3"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high percenthigh</span></code></pre></div>
+<div class="sourceCode" id="cb772"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb772-1"><a href="StataModels.html#cb772-1"></a><span class="co">// generate product of percent and high</span></span>
+<span id="cb772-2"><a href="StataModels.html#cb772-2"></a><span class="kw">gen</span> percenthigh = <span class="kw">percent</span>*high </span>
+<span id="cb772-3"><a href="StataModels.html#cb772-3"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high percenthigh</span></code></pre></div>
 <p>Option 2: let Stata do your dirty work:</p>
-<div class="sourceCode" id="cb751"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb751-1"><a href="StataModels.html#cb751-1"></a><span class="co">// use the # sign to represent interactions </span></span>
-<span id="cb751-2"><a href="StataModels.html#cb751-2"></a><span class="kw">regress</span> csat <span class="kw">percent</span> high c.percent#c.high</span>
-<span id="cb751-3"><a href="StataModels.html#cb751-3"></a><span class="co">// same as: regress csat c.percent##c.high</span></span></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb773-1"><a href="StataModels.html#cb773-1"></a><span class="co">// use the # sign to represent interactions </span></span>
+<span id="cb773-2"><a href="StataModels.html#cb773-2"></a><span class="kw">regress</span> csat <span class="kw">percent</span> high c.percent#c.high</span>
+<span id="cb773-3"><a href="StataModels.html#cb773-3"></a><span class="co">// same as: regress csat c.percent##c.high</span></span></code></pre></div>
 </div>
 <div id="categorical-predictors" class="section level3">
 <h3>Categorical predictors</h3>
 <p>For categorical variables, we first need to dummy code. Let’s use <code>region</code> as an example.</p>
 <p>Option 1: create dummy codes before fitting regression model:</p>
-<div class="sourceCode" id="cb752"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb752-1"><a href="StataModels.html#cb752-1"></a><span class="co">// create region dummy codes using tab </span></span>
-<span id="cb752-2"><a href="StataModels.html#cb752-2"></a><span class="kw">tab</span> region, <span class="kw">gen</span>(region)</span>
-<span id="cb752-3"><a href="StataModels.html#cb752-3"></a></span>
-<span id="cb752-4"><a href="StataModels.html#cb752-4"></a><span class="co">// regress csat on region</span></span>
-<span id="cb752-5"><a href="StataModels.html#cb752-5"></a><span class="kw">regress</span> csat region1 region2 region3</span></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb774-1"><a href="StataModels.html#cb774-1"></a><span class="co">// create region dummy codes using tab </span></span>
+<span id="cb774-2"><a href="StataModels.html#cb774-2"></a><span class="kw">tab</span> region, <span class="kw">gen</span>(region)</span>
+<span id="cb774-3"><a href="StataModels.html#cb774-3"></a></span>
+<span id="cb774-4"><a href="StataModels.html#cb774-4"></a><span class="co">// regress csat on region</span></span>
+<span id="cb774-5"><a href="StataModels.html#cb774-5"></a><span class="kw">regress</span> csat region1 region2 region3</span></code></pre></div>
 <p>Option 2: let Stata do it for you:</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb753-1"><a href="StataModels.html#cb753-1"></a><span class="co">// regress csat on region using fvvarlist syntax</span></span>
-<span id="cb753-2"><a href="StataModels.html#cb753-2"></a><span class="co">// see `help fvvarlist` for details</span></span>
-<span id="cb753-3"><a href="StataModels.html#cb753-3"></a><span class="kw">regress</span> csat i.region</span></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb775-1"><a href="StataModels.html#cb775-1"></a><span class="co">// regress csat on region using fvvarlist syntax</span></span>
+<span id="cb775-2"><a href="StataModels.html#cb775-2"></a><span class="co">// see `help fvvarlist` for details</span></span>
+<span id="cb775-3"><a href="StataModels.html#cb775-3"></a><span class="kw">regress</span> csat i.region</span></code></pre></div>
 </div>
 <div id="exercise-0-7" class="section level3">
 <h3>Exercise 0</h3>
@@ -959,42 +959,45 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 <ol style="list-style-type: decimal">
 <li>Before running the regression, examine descriptive statistics of the variables and generate a few scatterplots.</li>
 </ol>
-<div class="sourceCode" id="cb754"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb754-1"><a href="StataModels.html#cb754-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb776-1"><a href="StataModels.html#cb776-1"></a>##</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Run your regression model.</li>
 </ol>
-<div class="sourceCode" id="cb755"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb755-1"><a href="StataModels.html#cb755-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb777-1"><a href="StataModels.html#cb777-1"></a>##</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Examine the plausibility of the assumptions of normality and homoscedasticity.</li>
 </ol>
-<div class="sourceCode" id="cb756"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb756-1"><a href="StataModels.html#cb756-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb778-1"><a href="StataModels.html#cb778-1"></a>##</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Add on to the regression equation by generating an interaction term between <code>sex</code> and <code>educ</code> and testing the interaction.</li>
 </ol>
-<div class="sourceCode" id="cb757"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb757-1"><a href="StataModels.html#cb757-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb779-1"><a href="StataModels.html#cb779-1"></a>##</span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 <div class="alert alert-danger">
-<div class="sourceCode" id="cb758"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb758-1"><a href="StataModels.html#cb758-1"></a><span class="co">// 1.  Before running the regression, examine descriptive statistics of the variables and generate a few scatterplots.</span></span>
-<span id="cb758-2"><a href="StataModels.html#cb758-2"></a></span>
-<span id="cb758-3"><a href="StataModels.html#cb758-3"></a><span class="kw">sum</span> happy educ rincome </span>
-<span id="cb758-4"><a href="StataModels.html#cb758-4"></a><span class="kw">tab</span> sex </span>
-<span id="cb758-5"><a href="StataModels.html#cb758-5"></a><span class="kw">tab</span> marital </span>
-<span id="cb758-6"><a href="StataModels.html#cb758-6"></a></span>
-<span id="cb758-7"><a href="StataModels.html#cb758-7"></a><span class="kw">scatter</span> happy rincome</span>
-<span id="cb758-8"><a href="StataModels.html#cb758-8"></a></span>
-<span id="cb758-9"><a href="StataModels.html#cb758-9"></a><span class="co">// 2.  Run your regression model. </span></span>
-<span id="cb758-10"><a href="StataModels.html#cb758-10"></a></span>
-<span id="cb758-11"><a href="StataModels.html#cb758-11"></a><span class="kw">regress</span> happy i.sex educ i.marital rincome</span>
-<span id="cb758-12"><a href="StataModels.html#cb758-12"></a></span>
-<span id="cb758-13"><a href="StataModels.html#cb758-13"></a><span class="co">// 3.  Examine the plausibility of the assumptions of normality and homoscedasticity. </span></span>
-<span id="cb758-14"><a href="StataModels.html#cb758-14"></a></span>
-<span id="cb758-15"><a href="StataModels.html#cb758-15"></a><span class="kw">hist</span> happy, <span class="fu">normal</span> </span>
-<span id="cb758-16"><a href="StataModels.html#cb758-16"></a><span class="kw">rvfplot</span>,<span class="kw">yline</span>(0)</span>
-<span id="cb758-17"><a href="StataModels.html#cb758-17"></a></span>
-<span id="cb758-18"><a href="StataModels.html#cb758-18"></a><span class="co">// 4.  Add on to the regression equation by generating an interaction term between `sex` and `educ` and testing the interaction.</span></span>
-<span id="cb758-19"><a href="StataModels.html#cb758-19"></a></span>
-<span id="cb758-20"><a href="StataModels.html#cb758-20"></a><span class="kw">regress</span> happy i.sex##c.educ i.marital rincome</span></code></pre></div>
+<p>Open the datafile, <code>gss.dta</code>.</p>
+<p>Fit an OLS regression model to predict general happiness (<code>happy</code>) based on respondent’s sex (<code>sex</code>), marital status (<code>marital</code>), highest year of school completed (<code>educ</code>), and respondent’s income for last year (<code>rincome</code>).</p>
+<ol style="list-style-type: decimal">
+<li>Before running the regression, examine descriptive statistics of the variables and generate a few scatterplots.</li>
+</ol>
+<div class="sourceCode" id="cb780"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb780-1"><a href="StataModels.html#cb780-1"></a><span class="kw">sum</span> happy educ rincome </span>
+<span id="cb780-2"><a href="StataModels.html#cb780-2"></a><span class="kw">tab</span> sex </span>
+<span id="cb780-3"><a href="StataModels.html#cb780-3"></a><span class="kw">tab</span> marital </span>
+<span id="cb780-4"><a href="StataModels.html#cb780-4"></a></span>
+<span id="cb780-5"><a href="StataModels.html#cb780-5"></a><span class="kw">scatter</span> happy rincome</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Run your regression model.</li>
+</ol>
+<div class="sourceCode" id="cb781"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb781-1"><a href="StataModels.html#cb781-1"></a><span class="kw">regress</span> happy i.sex educ i.marital rincome</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Examine the plausibility of the assumptions of normality and homoscedasticity.</li>
+</ol>
+<div class="sourceCode" id="cb782"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb782-1"><a href="StataModels.html#cb782-1"></a><span class="kw">hist</span> happy, <span class="fu">normal</span> </span>
+<span id="cb782-2"><a href="StataModels.html#cb782-2"></a><span class="kw">rvfplot</span>,<span class="kw">yline</span>(0)</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Add on to the regression equation by generating an interaction term between <code>sex</code> and <code>educ</code> and testing the interaction.</li>
+</ol>
+<div class="sourceCode" id="cb783"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb783-1"><a href="StataModels.html#cb783-1"></a><span class="kw">regress</span> happy i.sex##c.educ i.marital rincome</span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1014,20 +1017,20 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 </div>
 <div id="load-the-dataset" class="section level3">
 <h3>Load the dataset</h3>
-<div class="sourceCode" id="cb759"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb759-1"><a href="StataModels.html#cb759-1"></a><span class="co">// use the states data set</span></span>
-<span id="cb759-2"><a href="StataModels.html#cb759-2"></a><span class="kw">use</span> dataSets/states.dta</span></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb784-1"><a href="StataModels.html#cb784-1"></a><span class="co">// use the states data set</span></span>
+<span id="cb784-2"><a href="StataModels.html#cb784-2"></a><span class="kw">use</span> dataSets/states.dta</span></code></pre></div>
 </div>
 <div id="recode-the-outcome-variable" class="section level3">
 <h3>Recode the outcome variable</h3>
 <p>Recode the composite SAT score (<code>csat</code>) into two categories: <strong>whether a region’s mean SAT score is greater than or equal to 1000, or less than 1000.</strong></p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb760-1"><a href="StataModels.html#cb760-1"></a><span class="kw">gen</span> sat_binary = .</span>
-<span id="cb760-2"><a href="StataModels.html#cb760-2"></a><span class="kw">replace</span> sat_binary = 0 <span class="kw">if</span> csat &lt; 1000</span>
-<span id="cb760-3"><a href="StataModels.html#cb760-3"></a><span class="kw">replace</span> sat_binary = 1 <span class="kw">if</span> csat &gt;= 1000</span></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb785-1"><a href="StataModels.html#cb785-1"></a><span class="kw">gen</span> sat_binary = .</span>
+<span id="cb785-2"><a href="StataModels.html#cb785-2"></a><span class="kw">replace</span> sat_binary = 0 <span class="kw">if</span> csat &lt; 1000</span>
+<span id="cb785-3"><a href="StataModels.html#cb785-3"></a><span class="kw">replace</span> sat_binary = 1 <span class="kw">if</span> csat &gt;= 1000</span></code></pre></div>
 </div>
 <div id="run-summary-statistics" class="section level3">
 <h3>Run summary statistics</h3>
-<div class="sourceCode" id="cb761"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb761-1"><a href="StataModels.html#cb761-1"></a><span class="kw">tab</span> sat_binary</span>
-<span id="cb761-2"><a href="StataModels.html#cb761-2"></a><span class="kw">sum</span> density <span class="kw">percent</span> expense </span></code></pre></div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb786-1"><a href="StataModels.html#cb786-1"></a><span class="kw">tab</span> sat_binary</span>
+<span id="cb786-2"><a href="StataModels.html#cb786-2"></a><span class="kw">sum</span> density <span class="kw">percent</span> expense </span></code></pre></div>
 </div>
 <div id="run-the-logistic-model" class="section level3">
 <h3>Run the logistic model</h3>
@@ -1045,11 +1048,11 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 \]</span></p>
 </div>
 <p>And here’s how we use the <code>logit</code> command to fit this model in Stata:</p>
-<div class="sourceCode" id="cb762"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb762-1"><a href="StataModels.html#cb762-1"></a><span class="co">// logit regression with estimates on the log odds scale </span></span>
-<span id="cb762-2"><a href="StataModels.html#cb762-2"></a><span class="kw">logit</span> sat_binary density <span class="kw">percent</span> expense</span>
-<span id="cb762-3"><a href="StataModels.html#cb762-3"></a></span>
-<span id="cb762-4"><a href="StataModels.html#cb762-4"></a><span class="co">// logit regression with estimates on the odds ratio scale </span></span>
-<span id="cb762-5"><a href="StataModels.html#cb762-5"></a><span class="kw">logit</span> sat_binary density <span class="kw">percent</span> expense, <span class="kw">or</span> </span></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb787-1"><a href="StataModels.html#cb787-1"></a><span class="co">// logit regression with estimates on the log odds scale </span></span>
+<span id="cb787-2"><a href="StataModels.html#cb787-2"></a><span class="kw">logit</span> sat_binary density <span class="kw">percent</span> expense</span>
+<span id="cb787-3"><a href="StataModels.html#cb787-3"></a></span>
+<span id="cb787-4"><a href="StataModels.html#cb787-4"></a><span class="co">// logit regression with estimates on the odds ratio scale </span></span>
+<span id="cb787-5"><a href="StataModels.html#cb787-5"></a><span class="kw">logit</span> sat_binary density <span class="kw">percent</span> expense, <span class="kw">or</span> </span></code></pre></div>
 </div>
 <div id="exercise-1-8" class="section level3">
 <h3>Exercise 1</h3>
@@ -1058,24 +1061,26 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <ol style="list-style-type: decimal">
 <li>Load the dataset.</li>
 </ol>
-<div class="sourceCode" id="cb763"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb763-1"><a href="StataModels.html#cb763-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb788"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb788-1"><a href="StataModels.html#cb788-1"></a>##</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Run summary statistics, delete subjects who did not provide an answer to the <code>usenet</code> question.</li>
 </ol>
-<div class="sourceCode" id="cb764"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb764-1"><a href="StataModels.html#cb764-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb789-1"><a href="StataModels.html#cb789-1"></a>##</span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 <div class="alert alert-danger">
-<div class="sourceCode" id="cb765"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb765-1"><a href="StataModels.html#cb765-1"></a><span class="co">// 1.  Load the dataset. </span></span>
-<span id="cb765-2"><a href="StataModels.html#cb765-2"></a></span>
-<span id="cb765-3"><a href="StataModels.html#cb765-3"></a><span class="kw">use</span> gss.dta, <span class="kw">clear</span> </span>
-<span id="cb765-4"><a href="StataModels.html#cb765-4"></a></span>
-<span id="cb765-5"><a href="StataModels.html#cb765-5"></a><span class="co">// 2.  Run summary statistics, delete subjects who did not provide an answer to the `usenet` question.</span></span>
-<span id="cb765-6"><a href="StataModels.html#cb765-6"></a></span>
-<span id="cb765-7"><a href="StataModels.html#cb765-7"></a><span class="kw">tab</span> usenet </span>
-<span id="cb765-8"><a href="StataModels.html#cb765-8"></a><span class="kw">drop</span> <span class="kw">if</span> usenet == 9</span>
-<span id="cb765-9"><a href="StataModels.html#cb765-9"></a><span class="kw">tab</span> degree </span>
-<span id="cb765-10"><a href="StataModels.html#cb765-10"></a><span class="kw">sum</span> age tvhours income </span></code></pre></div>
+<p>Use the data file, <code>gss.dta</code>. Examine how age of a respondent (<code>age</code>), highest year of school completed (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>) relate to whether someone uses internet (<code>usenet</code>).</p>
+<ol style="list-style-type: decimal">
+<li>Load the dataset.</li>
+</ol>
+<div class="sourceCode" id="cb790"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb790-1"><a href="StataModels.html#cb790-1"></a><span class="kw">use</span> gss.dta, <span class="kw">clear</span> </span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Run summary statistics, delete subjects who did not provide an answer to the <code>usenet</code> question.</li>
+</ol>
+<div class="sourceCode" id="cb791"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb791-1"><a href="StataModels.html#cb791-1"></a><span class="kw">tab</span> usenet </span>
+<span id="cb791-2"><a href="StataModels.html#cb791-2"></a><span class="kw">drop</span> <span class="kw">if</span> usenet == 9</span>
+<span id="cb791-3"><a href="StataModels.html#cb791-3"></a><span class="kw">tab</span> degree </span>
+<span id="cb791-4"><a href="StataModels.html#cb791-4"></a><span class="kw">sum</span> age tvhours income </span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1093,32 +1098,32 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <div id="storing-results" class="section level3">
 <h3>Storing results</h3>
 <p>Stata offers several user-friendly options for storing and viewing regression output from multiple models. First, download the necessary packages:</p>
-<div class="sourceCode" id="cb766"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb766-1"><a href="StataModels.html#cb766-1"></a><span class="co">// install outreg2 package</span></span>
-<span id="cb766-2"><a href="StataModels.html#cb766-2"></a><span class="kw">findit</span> outreg2</span></code></pre></div>
+<div class="sourceCode" id="cb792"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb792-1"><a href="StataModels.html#cb792-1"></a><span class="co">// install outreg2 package</span></span>
+<span id="cb792-2"><a href="StataModels.html#cb792-2"></a><span class="kw">findit</span> outreg2</span></code></pre></div>
 <p>Then store the results of some regression models using the <code>estimates</code> command and <code>store</code> option:</p>
-<div class="sourceCode" id="cb767"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb767-1"><a href="StataModels.html#cb767-1"></a><span class="co">// fit two regression models and store the results</span></span>
-<span id="cb767-2"><a href="StataModels.html#cb767-2"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high</span>
-<span id="cb767-3"><a href="StataModels.html#cb767-3"></a><span class="kw">estimates</span> <span class="kw">store</span> Model1</span>
-<span id="cb767-4"><a href="StataModels.html#cb767-4"></a>  </span>
-<span id="cb767-5"><a href="StataModels.html#cb767-5"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high i.region</span>
-<span id="cb767-6"><a href="StataModels.html#cb767-6"></a><span class="kw">estimates</span> <span class="kw">store</span> Model2</span></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb793-1"><a href="StataModels.html#cb793-1"></a><span class="co">// fit two regression models and store the results</span></span>
+<span id="cb793-2"><a href="StataModels.html#cb793-2"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high</span>
+<span id="cb793-3"><a href="StataModels.html#cb793-3"></a><span class="kw">estimates</span> <span class="kw">store</span> Model1</span>
+<span id="cb793-4"><a href="StataModels.html#cb793-4"></a>  </span>
+<span id="cb793-5"><a href="StataModels.html#cb793-5"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high i.region</span>
+<span id="cb793-6"><a href="StataModels.html#cb793-6"></a><span class="kw">estimates</span> <span class="kw">store</span> Model2</span></code></pre></div>
 <p>The stored models can be recalled by name using the <code>estimates</code> command and <code>replay</code> option:</p>
-<div class="sourceCode" id="cb768"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb768-1"><a href="StataModels.html#cb768-1"></a><span class="co">// display Model1</span></span>
-<span id="cb768-2"><a href="StataModels.html#cb768-2"></a><span class="kw">estimates</span> <span class="fu">replay</span> Model1</span></code></pre></div>
+<div class="sourceCode" id="cb794"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb794-1"><a href="StataModels.html#cb794-1"></a><span class="co">// display Model1</span></span>
+<span id="cb794-2"><a href="StataModels.html#cb794-2"></a><span class="kw">estimates</span> <span class="fu">replay</span> Model1</span></code></pre></div>
 </div>
 <div id="comparing-models-1" class="section level3">
 <h3>Comparing models</h3>
 <p>The stored models can be compared by name using the <code>estimates</code> command and <code>table</code> option. For a more formal comparison, the <code>lrtest</code> command can be used to perform a likelihhod ratio test:</p>
-<div class="sourceCode" id="cb769"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb769-1"><a href="StataModels.html#cb769-1"></a><span class="co">// compare Model1 and Model2 coefficients</span></span>
-<span id="cb769-2"><a href="StataModels.html#cb769-2"></a><span class="kw">estimates</span> <span class="kw">table</span> Model1 Model2</span>
-<span id="cb769-3"><a href="StataModels.html#cb769-3"></a></span>
-<span id="cb769-4"><a href="StataModels.html#cb769-4"></a><span class="co">// compare Model1 and Model2 fit </span></span>
-<span id="cb769-5"><a href="StataModels.html#cb769-5"></a><span class="kw">lrtest</span> Model1 Model2 </span></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb795-1"><a href="StataModels.html#cb795-1"></a><span class="co">// compare Model1 and Model2 coefficients</span></span>
+<span id="cb795-2"><a href="StataModels.html#cb795-2"></a><span class="kw">estimates</span> <span class="kw">table</span> Model1 Model2</span>
+<span id="cb795-3"><a href="StataModels.html#cb795-3"></a></span>
+<span id="cb795-4"><a href="StataModels.html#cb795-4"></a><span class="co">// compare Model1 and Model2 fit </span></span>
+<span id="cb795-5"><a href="StataModels.html#cb795-5"></a><span class="kw">lrtest</span> Model1 Model2 </span></code></pre></div>
 </div>
 <div id="exporting-to-excel" class="section level3">
 <h3>Exporting to Excel</h3>
 <p>To avoid human error when transferring coefficients into tables, Excel can be used to format publication-ready tables:</p>
-<div class="sourceCode" id="cb770"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb770-1"><a href="StataModels.html#cb770-1"></a>outreg2 [Model1 Model2] <span class="kw">using</span> csatprediction.xls, <span class="kw">replace</span></span></code></pre></div>
+<div class="sourceCode" id="cb796"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb796-1"><a href="StataModels.html#cb796-1"></a>outreg2 [Model1 Model2] <span class="kw">using</span> csatprediction.xls, <span class="kw">replace</span></span></code></pre></div>
 </div>
 <div id="exercise-2-6" class="section level3">
 <h3>Exercise 2</h3>
@@ -1126,34 +1131,35 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <ol style="list-style-type: decimal">
 <li>Fit the logistic model and save it as <code>Model1</code>.</li>
 </ol>
-<div class="sourceCode" id="cb771"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb771-1"><a href="StataModels.html#cb771-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb797-1"><a href="StataModels.html#cb797-1"></a>##</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Add another predictor (<code>hrs1</code>) in the model and save the new model as <code>Model2</code> and compare between <code>Model1</code> and <code>Model2</code>.</li>
 </ol>
-<div class="sourceCode" id="cb772"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb772-1"><a href="StataModels.html#cb772-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb798"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb798-1"><a href="StataModels.html#cb798-1"></a>##</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Save the output of the better fitted model to a word document.</li>
 </ol>
-<div class="sourceCode" id="cb773"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb773-1"><a href="StataModels.html#cb773-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb799-1"><a href="StataModels.html#cb799-1"></a>##</span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 <div class="alert alert-danger">
-<div class="sourceCode" id="cb774"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb774-1"><a href="StataModels.html#cb774-1"></a><span class="co">// 1.  Fit the logistic model and save it as `Model1`.  </span></span>
-<span id="cb774-2"><a href="StataModels.html#cb774-2"></a></span>
-<span id="cb774-3"><a href="StataModels.html#cb774-3"></a><span class="kw">logit</span> usenet age i.degree tvhours income </span>
-<span id="cb774-4"><a href="StataModels.html#cb774-4"></a><span class="kw">est</span> <span class="kw">store</span> Model1</span>
-<span id="cb774-5"><a href="StataModels.html#cb774-5"></a></span>
-<span id="cb774-6"><a href="StataModels.html#cb774-6"></a><span class="co">// 2.  Add another predictor (`hrs1`) in the model and save the new model as `Model2` and compare between `Model1` and `Model2`. </span></span>
-<span id="cb774-7"><a href="StataModels.html#cb774-7"></a></span>
-<span id="cb774-8"><a href="StataModels.html#cb774-8"></a><span class="kw">logit</span> usenet age i.degree tvhours income hrs1</span>
-<span id="cb774-9"><a href="StataModels.html#cb774-9"></a><span class="kw">est</span> <span class="kw">store</span> Model2 </span>
-<span id="cb774-10"><a href="StataModels.html#cb774-10"></a></span>
-<span id="cb774-11"><a href="StataModels.html#cb774-11"></a><span class="kw">lrtest</span> Model1 Model2</span>
-<span id="cb774-12"><a href="StataModels.html#cb774-12"></a></span>
-<span id="cb774-13"><a href="StataModels.html#cb774-13"></a><span class="co">// 3.  Save the better fitted model output to a word document. </span></span>
-<span id="cb774-14"><a href="StataModels.html#cb774-14"></a></span>
-<span id="cb774-15"><a href="StataModels.html#cb774-15"></a><span class="kw">logit</span> usenet age i.degree tvhours income hrs1</span>
-<span id="cb774-16"><a href="StataModels.html#cb774-16"></a>outreg2 <span class="kw">using</span> Mymodel.doc</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li>Fit the logistic model and save it as <code>Model1</code>.</li>
+</ol>
+<div class="sourceCode" id="cb800"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb800-1"><a href="StataModels.html#cb800-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income </span>
+<span id="cb800-2"><a href="StataModels.html#cb800-2"></a><span class="kw">est</span> <span class="kw">store</span> Model1</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Add another predictor (<code>hrs1</code>) in the model and save the new model as <code>Model2</code> and compare between <code>Model1</code> and <code>Model2</code>.</li>
+</ol>
+<div class="sourceCode" id="cb801"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb801-1"><a href="StataModels.html#cb801-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income hrs1</span>
+<span id="cb801-2"><a href="StataModels.html#cb801-2"></a><span class="kw">est</span> <span class="kw">store</span> Model2 </span>
+<span id="cb801-3"><a href="StataModels.html#cb801-3"></a></span>
+<span id="cb801-4"><a href="StataModels.html#cb801-4"></a><span class="kw">lrtest</span> Model1 Model2</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Save the better fitted model output to a word document.</li>
+</ol>
+<div class="sourceCode" id="cb802"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb802-1"><a href="StataModels.html#cb802-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income hrs1</span>
+<span id="cb802-2"><a href="StataModels.html#cb802-2"></a>outreg2 <span class="kw">using</span> Mymodel.doc</span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1208,83 +1214,85 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <h3>The dataset</h3>
 <p>The case study examples use the <code>nhanesII</code> dataset (Second National Health and Nutrition Examination Survey),
 which was conducted in the mid to late 1970s. More on the study can be found at <a href="https://wwwn.cdc.gov/nchs/nhanes/nhanes2/" class="uri">https://wwwn.cdc.gov/nchs/nhanes/nhanes2/</a>. Let’s load the data:</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb775-1"><a href="StataModels.html#cb775-1"></a><span class="kw">use</span> dataSets/nhanesII.dta</span></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb803-1"><a href="StataModels.html#cb803-1"></a><span class="kw">use</span> dataSets/nhanesII.dta</span></code></pre></div>
 </div>
 <div id="fit-a-model" class="section level3">
 <h3>Fit a model</h3>
 <p>We will examine a continuous measure of systolic blood pressure (<code>bpsystol</code>) as a function of a respondent’s age (<code>age</code>), whether they have diabetes (<code>diabetes</code>), and what geographical region they come from (<code>region</code>), using OLS regression.</p>
-<div class="sourceCode" id="cb776"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb776-1"><a href="StataModels.html#cb776-1"></a><span class="kw">regress</span> bpsystol age i.diabetes i.region</span></code></pre></div>
+<div class="sourceCode" id="cb804"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb804-1"><a href="StataModels.html#cb804-1"></a><span class="kw">regress</span> bpsystol age i.diabetes i.region</span></code></pre></div>
 </div>
 <div id="apm-average-predictive-margins" class="section level3">
 <h3>APM: Average Predictive Margins</h3>
 <p>If you just type <code>margins</code> by itself, Stata will calculate the predicted value of the model outcome (<code>bpsystol</code>) for each observation in the data, then report the mean value of those predictions.</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb777-1"><a href="StataModels.html#cb777-1"></a>margins</span></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb805-1"><a href="StataModels.html#cb805-1"></a>margins</span></code></pre></div>
 <p>If <code>margins</code> is followed by a categorical variable, for example, <code>region</code>, Stata first identifies all the levels of the categorical variable. Then, it calculates what the mean predicted value of the model outcome (<code>bpsystol</code>) would be if all observations had that value for <code>region</code>. All other variables are left unchanged.</p>
-<div class="sourceCode" id="cb778"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb778-1"><a href="StataModels.html#cb778-1"></a><span class="co">// margins for dummy variable </span></span>
-<span id="cb778-2"><a href="StataModels.html#cb778-2"></a>margins diabetes</span>
-<span id="cb778-3"><a href="StataModels.html#cb778-3"></a></span>
-<span id="cb778-4"><a href="StataModels.html#cb778-4"></a><span class="co">// margins for multi-level categorical variable </span></span>
-<span id="cb778-5"><a href="StataModels.html#cb778-5"></a>margins region</span></code></pre></div>
+<div class="sourceCode" id="cb806"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb806-1"><a href="StataModels.html#cb806-1"></a><span class="co">// margins for dummy variable </span></span>
+<span id="cb806-2"><a href="StataModels.html#cb806-2"></a>margins diabetes</span>
+<span id="cb806-3"><a href="StataModels.html#cb806-3"></a></span>
+<span id="cb806-4"><a href="StataModels.html#cb806-4"></a><span class="co">// margins for multi-level categorical variable </span></span>
+<span id="cb806-5"><a href="StataModels.html#cb806-5"></a>margins region</span></code></pre></div>
 </div>
 <div id="pmm-predictive-margins-at-the-means" class="section level3">
 <h3>PMM: Predictive Margins at the Means</h3>
 <p>By default, <code>margins</code> reports the average of the predictions for each person (i.e., observation) in the data. This is the average response among the actual people in the data. But we can also get <code>margins</code> to report the prediction at the average of the covariates by using the <code>atmeans</code> option. This represents the expected response of a person with average characteristics.</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb779-1"><a href="StataModels.html#cb779-1"></a><span class="co">// margins for dummy variable </span></span>
-<span id="cb779-2"><a href="StataModels.html#cb779-2"></a>margins diabetes, atmeans</span></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb807-1"><a href="StataModels.html#cb807-1"></a><span class="co">// margins for dummy variable </span></span>
+<span id="cb807-2"><a href="StataModels.html#cb807-2"></a>margins diabetes, atmeans</span></code></pre></div>
 </div>
 <div id="pmr-predictive-margins-at-representative-values" class="section level3">
 <h3>PMR: Predictive Margins at Representative values</h3>
 <p>For continuous variables, <code>margins</code> cannot look at all possible values, but we can specify which values we want to examine with the <code>at</code> option:</p>
-<div class="sourceCode" id="cb780"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb780-1"><a href="StataModels.html#cb780-1"></a>margins, <span class="fu">at</span>(age = (50 80))</span></code></pre></div>
+<div class="sourceCode" id="cb808"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb808-1"><a href="StataModels.html#cb808-1"></a>margins, <span class="fu">at</span>(age = (50 80))</span></code></pre></div>
 <p>The previous step calculates the mean predicted value of the model outcome (<code>bpsystol</code>) with <code>age</code> set to 50, and then again with <code>age</code> set to 80. We can also add more values by listing the numbers we want in a <em>numlist</em>:</p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb781-1"><a href="StataModels.html#cb781-1"></a><span class="co">// predicted values for ages 50 to 80 in 5 year increments</span></span>
-<span id="cb781-2"><a href="StataModels.html#cb781-2"></a>margins, <span class="fu">at</span>(age=(50(5)80))</span></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb809-1"><a href="StataModels.html#cb809-1"></a><span class="co">// predicted values for ages 50 to 80 in 5 year increments</span></span>
+<span id="cb809-2"><a href="StataModels.html#cb809-2"></a>margins, <span class="fu">at</span>(age=(50(5)80))</span></code></pre></div>
 </div>
 <div id="graph-margins-of-responses" class="section level3">
 <h3>Graph margins of responses</h3>
 <p>The previous step calculates the mean predicted value of <code>bpsystol</code> with age set to 50, 55, 60, 65, 70, 75, and 80. We can now use <code>marginsplot</code> to graph the results.</p>
-<div class="sourceCode" id="cb782"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb782-1"><a href="StataModels.html#cb782-1"></a>marginsplot</span></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb810-1"><a href="StataModels.html#cb810-1"></a>marginsplot</span></code></pre></div>
 </div>
 <div id="exercise-3-5" class="section level3">
 <h3>Exercise 3</h3>
 <p><strong>Margins of responses</strong></p>
+<p>Open the datafile <code>gss.dta</code>.</p>
+<ol style="list-style-type: decimal">
+<li>Fit an OLS regression model to predict general happiness (<code>happy</code>) based on respondent’s sex (<code>sex</code>), marital status (<code>marital</code>), highest year of school completed (<code>educ</code>), and respondent’s income for last year (<code>rincome</code>). Obtain average predictive margins for <code>happy</code>.</li>
+</ol>
+<div class="sourceCode" id="cb811"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb811-1"><a href="StataModels.html#cb811-1"></a>##</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Obtain predictive margins of <code>sex</code> and <code>marital</code>.</li>
+</ol>
+<div class="sourceCode" id="cb812"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb812-1"><a href="StataModels.html#cb812-1"></a>##</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Obtain predictive margins of <code>rincome</code> from 10000 to 30000, with an interval of 5000.</li>
+</ol>
+<div class="sourceCode" id="cb813"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb813-1"><a href="StataModels.html#cb813-1"></a>##</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a <code>marginsplot</code> and interpret the results.</li>
+</ol>
+<div class="sourceCode" id="cb814"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb814-1"><a href="StataModels.html#cb814-1"></a>## </span></code></pre></div>
+<details>
+<summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
+<div class="alert alert-danger">
 <p>Open the datafile <code>gss.dta</code></p>
 <ol style="list-style-type: decimal">
 <li>Fit an OLS regression model to predict general happiness (<code>happy</code>) based on respondent’s sex (<code>sex</code>), marital status (<code>marital</code>), highest year of school completed (<code>educ</code>), and respondent’s income for last year (<code>rincome</code>). Obtain average predictive margins for <code>happy</code>.</li>
 </ol>
-<div class="sourceCode" id="cb783"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb783-1"><a href="StataModels.html#cb783-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb815"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb815-1"><a href="StataModels.html#cb815-1"></a><span class="kw">regress</span> happy i.sex educ i.marital rincome</span>
+<span id="cb815-2"><a href="StataModels.html#cb815-2"></a>margins </span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Obtain predictive margins of <code>sex</code> and <code>marital</code>.</li>
 </ol>
-<div class="sourceCode" id="cb784"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb784-1"><a href="StataModels.html#cb784-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb816"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb816-1"><a href="StataModels.html#cb816-1"></a>margins, sex </span>
+<span id="cb816-2"><a href="StataModels.html#cb816-2"></a>margins, marital</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Obtain predictive margins of <code>rincome</code> from 10000 to 30000, with an interval of 5000.</li>
 </ol>
-<div class="sourceCode" id="cb785"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb785-1"><a href="StataModels.html#cb785-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb817-1"><a href="StataModels.html#cb817-1"></a>margins, <span class="fu">at</span>(rincome=(10000(5000)30000))</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a <code>marginsplot</code> and interpret the results.</li>
 </ol>
-<div class="sourceCode" id="cb786"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb786-1"><a href="StataModels.html#cb786-1"></a>## </span></code></pre></div>
-<details>
-<summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
-<div class="alert alert-danger">
-<div class="sourceCode" id="cb787"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb787-1"><a href="StataModels.html#cb787-1"></a><span class="co">// 1. Fit an OLS regression model to predict general happiness (`happy`) based on respondent&#39;s sex (`sex`), marital status (`marital`), highest year of school completed (`educ`), and respondent&#39;s income for last year (`rincome`). Obtain average predictive margins for `happy`.</span></span>
-<span id="cb787-2"><a href="StataModels.html#cb787-2"></a></span>
-<span id="cb787-3"><a href="StataModels.html#cb787-3"></a><span class="kw">regress</span> happy i.sex educ i.marital rincome</span>
-<span id="cb787-4"><a href="StataModels.html#cb787-4"></a>margins </span>
-<span id="cb787-5"><a href="StataModels.html#cb787-5"></a></span>
-<span id="cb787-6"><a href="StataModels.html#cb787-6"></a><span class="co">// 2. Obtain predictive margins of `sex` and `marital`. </span></span>
-<span id="cb787-7"><a href="StataModels.html#cb787-7"></a></span>
-<span id="cb787-8"><a href="StataModels.html#cb787-8"></a>margins, sex </span>
-<span id="cb787-9"><a href="StataModels.html#cb787-9"></a>margins, marital</span>
-<span id="cb787-10"><a href="StataModels.html#cb787-10"></a></span>
-<span id="cb787-11"><a href="StataModels.html#cb787-11"></a><span class="co">// 3. Obtain predictive margins of `rincome` from 10000 to 30000, with an interval of 5000. </span></span>
-<span id="cb787-12"><a href="StataModels.html#cb787-12"></a></span>
-<span id="cb787-13"><a href="StataModels.html#cb787-13"></a>margins, <span class="fu">at</span>(rincome=(10000(5000)30000))</span>
-<span id="cb787-14"><a href="StataModels.html#cb787-14"></a></span>
-<span id="cb787-15"><a href="StataModels.html#cb787-15"></a><span class="co">// 4. Create a `marginsplot` and interpret the results. </span></span>
-<span id="cb787-16"><a href="StataModels.html#cb787-16"></a></span>
-<span id="cb787-17"><a href="StataModels.html#cb787-17"></a>marginsplot </span></code></pre></div>
+<div class="sourceCode" id="cb818"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb818-1"><a href="StataModels.html#cb818-1"></a>marginsplot </span></code></pre></div>
 </div>
 </details>
 </div>
@@ -1303,80 +1311,83 @@ which was conducted in the mid to late 1970s. More on the study can be found at 
 <div id="the-dataset-3" class="section level3">
 <h3>The dataset</h3>
 <p>We will be using the same dataset as the previous example: the Second National Health and Nutrition Examination Survey (NHANES II). Let’s load the data:</p>
-<div class="sourceCode" id="cb788"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb788-1"><a href="StataModels.html#cb788-1"></a><span class="kw">use</span> dataSets/nhanesII.dta</span></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb819-1"><a href="StataModels.html#cb819-1"></a><span class="kw">use</span> dataSets/nhanesII.dta</span></code></pre></div>
 </div>
 <div id="fit-a-model-1" class="section level3">
 <h3>Fit a model</h3>
 <p>We will predict the probability of someone having diabetes (<code>diabetes</code>), as a function of race (<code>black</code>), sex (<code>female</code>), and age (<code>age</code>), using logistic regression.</p>
-<div class="sourceCode" id="cb789"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb789-1"><a href="StataModels.html#cb789-1"></a><span class="kw">logit</span> diabetes <span class="bn">black</span> female age, <span class="kw">nolog</span> </span></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb820-1"><a href="StataModels.html#cb820-1"></a><span class="kw">logit</span> diabetes <span class="bn">black</span> female age, <span class="kw">nolog</span> </span></code></pre></div>
 </div>
 <div id="ame-average-marginal-effects" class="section level3">
 <h3>AME: Average Marginal Effects</h3>
 <p>We can first obtain the Average Predictive Margins of race (<code>black</code>) and sex (<code>female</code>). Then, we can use the <code>dydx</code> command to estimate changes in the response when the levels of race and sex change. Since, by default, these changes are averaged over each person in the dataset, we obtain Average Marginal Effects. As the current model is logistic, margins automatically back-transforms the APMs and AMEs from the estimation scale (i.e., the log odds scale) to the response scale (i.e., the probability scale).</p>
-<div class="sourceCode" id="cb790"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb790-1"><a href="StataModels.html#cb790-1"></a><span class="co">// obtain Average Predictive Margins </span></span>
-<span id="cb790-2"><a href="StataModels.html#cb790-2"></a>margins <span class="bn">black</span> female </span>
-<span id="cb790-3"><a href="StataModels.html#cb790-3"></a></span>
-<span id="cb790-4"><a href="StataModels.html#cb790-4"></a><span class="co">// calculate the average of all the marginal effects </span></span>
-<span id="cb790-5"><a href="StataModels.html#cb790-5"></a>margins, <span class="kw">dydx</span>(<span class="bn">black</span> female)</span></code></pre></div>
+<div class="sourceCode" id="cb821"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb821-1"><a href="StataModels.html#cb821-1"></a><span class="co">// obtain Average Predictive Margins </span></span>
+<span id="cb821-2"><a href="StataModels.html#cb821-2"></a>margins <span class="bn">black</span> female </span>
+<span id="cb821-3"><a href="StataModels.html#cb821-3"></a></span>
+<span id="cb821-4"><a href="StataModels.html#cb821-4"></a><span class="co">// calculate the average of all the marginal effects </span></span>
+<span id="cb821-5"><a href="StataModels.html#cb821-5"></a>margins, <span class="kw">dydx</span>(<span class="bn">black</span> female)</span></code></pre></div>
 </div>
 <div id="mem-marginal-effects-at-the-mean" class="section level3">
 <h3>MEM: Marginal Effects at the Mean</h3>
 <p>By default, <code>margins</code> with the <code>dydx</code> command reports the average of the changes in the probability of the response among actual people in the data. But we can also get margins to report the expected change in the probability of the response for a person with average characteristics by using the <code>atmeans</code> option.</p>
-<div class="sourceCode" id="cb791"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb791-1"><a href="StataModels.html#cb791-1"></a><span class="co">// obtain Predictive Margins at the Means</span></span>
-<span id="cb791-2"><a href="StataModels.html#cb791-2"></a>margins <span class="bn">black</span> female, atmeans</span>
-<span id="cb791-3"><a href="StataModels.html#cb791-3"></a></span>
-<span id="cb791-4"><a href="StataModels.html#cb791-4"></a><span class="co">// calculate marginal effects with all other covariates fixed at their sample means </span></span>
-<span id="cb791-5"><a href="StataModels.html#cb791-5"></a>margins, <span class="kw">dydx</span>(<span class="bn">black</span> female) atmeans</span></code></pre></div>
+<div class="sourceCode" id="cb822"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb822-1"><a href="StataModels.html#cb822-1"></a><span class="co">// obtain Predictive Margins at the Means</span></span>
+<span id="cb822-2"><a href="StataModels.html#cb822-2"></a>margins <span class="bn">black</span> female, atmeans</span>
+<span id="cb822-3"><a href="StataModels.html#cb822-3"></a></span>
+<span id="cb822-4"><a href="StataModels.html#cb822-4"></a><span class="co">// calculate marginal effects with all other covariates fixed at their sample means </span></span>
+<span id="cb822-5"><a href="StataModels.html#cb822-5"></a>margins, <span class="kw">dydx</span>(<span class="bn">black</span> female) atmeans</span></code></pre></div>
 </div>
 <div id="mer-marginal-effects-at-representative-values" class="section level3">
 <h3>MER: Marginal Effects at Representative values</h3>
 <p>For continuous variables, <code>margins</code> needs us to specify which values we want to examine using the <code>at</code> option. We can calculate the change in the probability of the model outcome (<code>diabetes</code>) when levels of race (<code>black</code>) and sex (<code>female</code>) change, across a range of values for <code>age</code> by supplying a list of numbers to a <em>numlist</em>:</p>
-<div class="sourceCode" id="cb792"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb792-1"><a href="StataModels.html#cb792-1"></a><span class="co">// obtain Predictive Margins at Representative values</span></span>
-<span id="cb792-2"><a href="StataModels.html#cb792-2"></a><span class="co">// choose range of values for one or more variables</span></span>
-<span id="cb792-3"><a href="StataModels.html#cb792-3"></a><span class="co">// note: the `vsquish` option omits vertical white space between results</span></span>
-<span id="cb792-4"><a href="StataModels.html#cb792-4"></a>margins <span class="bn">black</span>, <span class="fu">at</span>(age=(20 30 40 50 60 70)) vsquish </span>
-<span id="cb792-5"><a href="StataModels.html#cb792-5"></a></span>
-<span id="cb792-6"><a href="StataModels.html#cb792-6"></a><span class="co">// calculate marginal effects across that range </span></span>
-<span id="cb792-7"><a href="StataModels.html#cb792-7"></a>margins, <span class="kw">dydx</span>(<span class="bn">black</span> female) <span class="fu">at</span>(age=(20 30 40 50 60 70)) vsquish </span></code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb823-1"><a href="StataModels.html#cb823-1"></a><span class="co">// obtain Predictive Margins at Representative values</span></span>
+<span id="cb823-2"><a href="StataModels.html#cb823-2"></a><span class="co">// choose range of values for one or more variables</span></span>
+<span id="cb823-3"><a href="StataModels.html#cb823-3"></a><span class="co">// note: the `vsquish` option omits vertical white space between results</span></span>
+<span id="cb823-4"><a href="StataModels.html#cb823-4"></a>margins <span class="bn">black</span>, <span class="fu">at</span>(age=(20 30 40 50 60 70)) vsquish </span>
+<span id="cb823-5"><a href="StataModels.html#cb823-5"></a></span>
+<span id="cb823-6"><a href="StataModels.html#cb823-6"></a><span class="co">// calculate marginal effects across that range </span></span>
+<span id="cb823-7"><a href="StataModels.html#cb823-7"></a>margins, <span class="kw">dydx</span>(<span class="bn">black</span> female) <span class="fu">at</span>(age=(20 30 40 50 60 70)) vsquish </span></code></pre></div>
 </div>
 <div id="graph-margins-of-changes-in-responses" class="section level3">
 <h3>Graph margins of changes in responses</h3>
 <p>The previous step calculates the average change in the predicted probability of <code>diabetes</code>, when levels of race (<code>black</code>) and sex (<code>female</code>) change, with age set to 20, 30, 40, 50, 60, and 70. We can now use <code>marginsplot</code> to graph the results.</p>
-<div class="sourceCode" id="cb793"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb793-1"><a href="StataModels.html#cb793-1"></a>marginsplot</span></code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb824-1"><a href="StataModels.html#cb824-1"></a>marginsplot</span></code></pre></div>
 </div>
 <div id="exercise-4-2" class="section level3">
 <h3>Exercise 4</h3>
 <p><strong>Margins of changes in responses</strong></p>
-<p>Open the datafile <code>gss.dta</code></p>
+<p>Open the datafile <code>gss.dta</code>.</p>
 <ol style="list-style-type: decimal">
 <li>Fit a logistic model to examine how whether someone uses internet (<code>usenet</code>) is related to age of the respondent (<code>age</code>), highest year of school completed (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>). Obtain Average Predictive Margins and Average Marginal Effects for <code>degree</code>.</li>
 </ol>
-<div class="sourceCode" id="cb794"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb794-1"><a href="StataModels.html#cb794-1"></a>## </span></code></pre></div>
+<div class="sourceCode" id="cb825"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb825-1"><a href="StataModels.html#cb825-1"></a>## </span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Obtain Predictive Margins of <code>degree</code> at Representative values of <code>tvhours</code> from 0 to 10 hours, on a 1 hour interval. Examine how the marginal effect of <code>degree</code> differs across the range of <code>tvhours</code> (i.e., obtain Marginal Effects at Representative values).</li>
 </ol>
-<div class="sourceCode" id="cb795"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb795-1"><a href="StataModels.html#cb795-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb826"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb826-1"><a href="StataModels.html#cb826-1"></a>##</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Create a <code>marginsplot</code> for the marginal effects from #2.</li>
 </ol>
-<div class="sourceCode" id="cb796"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb796-1"><a href="StataModels.html#cb796-1"></a>##</span></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb827-1"><a href="StataModels.html#cb827-1"></a>##</span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 4 Solution</b></span></summary>
 <div class="alert alert-danger">
-<div class="sourceCode" id="cb797"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb797-1"><a href="StataModels.html#cb797-1"></a><span class="co">// 1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.</span></span>
-<span id="cb797-2"><a href="StataModels.html#cb797-2"></a></span>
-<span id="cb797-3"><a href="StataModels.html#cb797-3"></a><span class="kw">logit</span> usenet age i.degree tvhours income </span>
-<span id="cb797-4"><a href="StataModels.html#cb797-4"></a></span>
-<span id="cb797-5"><a href="StataModels.html#cb797-5"></a>margins degree</span>
-<span id="cb797-6"><a href="StataModels.html#cb797-6"></a>margins, <span class="kw">dydx</span>(degree)</span>
-<span id="cb797-7"><a href="StataModels.html#cb797-7"></a></span>
-<span id="cb797-8"><a href="StataModels.html#cb797-8"></a><span class="co">// 2. Obtain Predictive Margins of `degree` at Representative values of `tvhours` from 0 to 10 hours, on a 1 hour interval. Examine how the marginal effect of `degree` differs across the range of `tvhours` (i.e., obtain Marginal Effects at Representative values). </span></span>
-<span id="cb797-9"><a href="StataModels.html#cb797-9"></a></span>
-<span id="cb797-10"><a href="StataModels.html#cb797-10"></a>margins degree, <span class="fu">at</span>(tvhours=(0 1 2 3 4 5 6 7 8 9 10) vsquish </span>
-<span id="cb797-11"><a href="StataModels.html#cb797-11"></a>margins, <span class="kw">dydx</span>(degree) <span class="fu">at</span>(tvhours=(0 1 2 3 4 5 6 7 8 9 10)) vsquish </span>
-<span id="cb797-12"><a href="StataModels.html#cb797-12"></a></span>
-<span id="cb797-13"><a href="StataModels.html#cb797-13"></a><span class="co">// 3. Create a `marginsplot` for the marginal effects from #2. </span></span>
-<span id="cb797-14"><a href="StataModels.html#cb797-14"></a>marginsplot</span></code></pre></div>
+<p>Open the datafile <code>gss.dta</code>.</p>
+<ol style="list-style-type: decimal">
+<li>Fit a logistic model to examine how whether someone uses internet (<code>usenet</code>) is related to age of the respondent (<code>age</code>), highest year of school completed (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>). Obtain Average Predictive Margins and Average Marginal Effects for <code>degree</code>.</li>
+</ol>
+<div class="sourceCode" id="cb828"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb828-1"><a href="StataModels.html#cb828-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income </span>
+<span id="cb828-2"><a href="StataModels.html#cb828-2"></a></span>
+<span id="cb828-3"><a href="StataModels.html#cb828-3"></a>margins degree</span>
+<span id="cb828-4"><a href="StataModels.html#cb828-4"></a>margins, <span class="kw">dydx</span>(degree)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Obtain Predictive Margins of <code>degree</code> at Representative values of <code>tvhours</code> from 0 to 10 hours, on a 1 hour interval. Examine how the marginal effect of <code>degree</code> differs across the range of <code>tvhours</code> (i.e., obtain Marginal Effects at Representative values).</li>
+</ol>
+<div class="sourceCode" id="cb829"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb829-1"><a href="StataModels.html#cb829-1"></a>margins degree, <span class="fu">at</span>(tvhours=(0 1 2 3 4 5 6 7 8 9 10) vsquish </span>
+<span id="cb829-2"><a href="StataModels.html#cb829-2"></a>margins, <span class="kw">dydx</span>(degree) <span class="fu">at</span>(tvhours=(0 1 2 3 4 5 6 7 8 9 10)) vsquish </span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a <code>marginsplot</code> for the marginal effects from #2.</li>
+</ol>
+<div class="sourceCode" id="cb830"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb830-1"><a href="StataModels.html#cb830-1"></a>marginsplot</span></code></pre></div>
 </div>
 </details>
 </div>

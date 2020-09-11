@@ -85,29 +85,29 @@
 
 // change directory
 
-##
+
 
 * Use `dir` to see what is in the directory:
 
-##
+
 
 * ### Load the data
 
 // use the states data set
 
-##
+
 
 * ### Examine descriptive statistics
 
 // descriptive statistics
 
-##
+
 
 * ### Visualize the data
 
 // visualize data
 
-##
+
 
 * ## Models with continuous outcomes
 *
@@ -136,7 +136,7 @@
 
 * And here's how we use the `regress` command to fit this model in Stata:
 
-##
+
 
 
 * ### OLS assumptions
@@ -156,11 +156,11 @@
 
 // graph the residual values of csat
 
-##
+
 
 * We can also examine homoscedasticity:
 
-##
+
 
 * Type `-help regress postestimation` --- for more information about model diagnostics. If assumptions are not met, alter the specification and refit the model.
 
@@ -172,13 +172,13 @@
 
 // generate product of percent and high
 
-##
+
 
 * Option 2: let Stata do your dirty work:
 
 // use the * sign to represent interactions
 
-##
+
 
 // same as: regress csat c.percent*#c.high
 
@@ -190,18 +190,18 @@
 
 // create region dummy codes using tab
 
-##
+
 
 // regress csat on region
 
-##
+
 
 * Option 2: let Stata do it for you:
 
 // regress csat on region using fvvarlist syntax
 // see `help fvvarlist` for details
 
-##
+
 
 * ### Exercise 0
 *
@@ -213,19 +213,19 @@
 *
 * 1.  Before running the regression, examine descriptive statistics of the variables and generate a few scatterplots.
 
-*#
+
 
 * 2.  Run your regression model.
 
-*#
+
 
 * 3.  Examine the plausibility of the assumptions of normality and homoscedasticity.
 
-*#
+
 
 * 4.  Add on to the regression equation by generating an interaction term between `sex` and `educ` and testing the interaction.
 
-*#
+
 
 
 
@@ -244,17 +244,17 @@
 
 // use the states data set
 
-##
+
 
 * ### Recode the outcome variable
 *
 * Recode the composite SAT score (`csat`) into two categories: **whether a region's mean SAT score is greater than or equal to 1000, or less than 1000.**
 
-##
+
 
 * ### Run summary statistics
 
-##
+
 
 * ### Run the logistic model
 *
@@ -276,11 +276,11 @@
 
 // logit regression with estimates on the log odds scale
 
-##
+
 
 // logit regression with estimates on the odds ratio scale
 
-##
+
 
 
 * ### Exercise 1
@@ -291,11 +291,11 @@
 *
 * 1.  Load the dataset.
 
-*#
+
 
 * 2.  Run summary statistics, delete subjects who did not provide an answer to the `usenet` question.
 
-*#
+
 
 
 * ## Exporting & saving results
@@ -312,21 +312,21 @@
 
 // install outreg2 package
 
-##
+
 
 * Then store the results of some regression models using the `estimates` command and `store` option:
 
 // fit two regression models and store the results
 
-##
 
-##
+
+
 
 * The stored models can be recalled by name using the `estimates` command and `replay` option:
 
 // display Model1
 
-##
+
 
 * ### Comparing models
 *
@@ -334,17 +334,17 @@
 
 // compare Model1 and Model2 coefficients
 
-##
+
 
 // compare Model1 and Model2 fit
 
-##
+
 
 * ### Exporting to Excel
 *
 * To avoid human error when transferring coefficients into tables, Excel can be used to format publication-ready tables:
 
-##
+
 
 * ### Exercise 2
 *
@@ -352,15 +352,15 @@
 *
 * 1.  Fit the logistic model and save it as `Model1`.
 
-*#
+
 
 * 2.  Add another predictor (`hrs1`) in the model and save the new model as `Model2` and compare between `Model1` and `Model2`.
 
-*#
+
 
 * 3.  Save the output of the better fitted model to a word document.
 
-*#
+
 
 
 * ## Obtaining quantities of interest
@@ -405,29 +405,29 @@
 * The case study examples use the `nhanesII` dataset (Second National Health and Nutrition Examination Survey),
 *   which was conducted in the mid to late 1970s. More on the study can be found at https://wwwn.cdc.gov/nchs/nhanes/nhanes2/. Let's load the data:
 
-##
+
 
 * ### Fit a model
 *
 * We will examine a continuous measure of systolic blood pressure (`bpsystol`) as a function of a respondent's age (`age`), whether they have diabetes (`diabetes`), and what geographical region they come from (`region`), using OLS regression.
 
-##
+
 
 * ### APM: Average Predictive Margins
 *
 * If you just type `margins` by itself, Stata will calculate the predicted value of the model outcome (`bpsystol`) for each observation in the data, then report the mean value of those predictions.
 
-##
+
 
 * If `margins` is followed by a categorical variable, for example, `region`, Stata first identifies all the levels of the categorical variable. Then, it calculates what the mean predicted value of the model outcome (`bpsystol`) would be if all observations had that value for `region`. All other variables are left unchanged.
 
 // margins for dummy variable
 
-##
+
 
 // margins for multi-level categorical variable
 
-##
+
 
 
 * ### PMM: Predictive Margins at the Means
@@ -436,25 +436,25 @@
 
 // margins for dummy variable
 
-##
+
 
 * ### PMR: Predictive Margins at Representative values
 *
 * For continuous variables, `margins` cannot look at all possible values, but we can specify which values we want to examine with the `at` option:
 
-##
+
 
 * The previous step calculates the mean predicted value of the model outcome (`bpsystol`) with `age` set to 50, and then again with `age` set to 80. We can also add more values by listing the numbers we want in a *numlist*:
 
 // predicted values for ages 50 to 80 in 5 year increments
 
-##
+
 
 * ### Graph margins of responses
 *
 * The previous step calculates the mean predicted value of `bpsystol` with age set to 50, 55, 60, 65, 70, 75, and 80. We can now use `marginsplot` to graph the results.
 
-##
+
 
 
 * ### Exercise 3
@@ -465,19 +465,19 @@
 *
 * 1. Fit an OLS regression model to predict general happiness (`happy`) based on respondent's sex (`sex`), marital status (`marital`), highest year of school completed (`educ`), and respondent's income for last year (`rincome`). Obtain average predictive margins for `happy`.
 
-*#
+
 
 * 2. Obtain predictive margins of `sex` and `marital`.
 
-*#
+
 
 * 3. Obtain predictive margins of `rincome` from 10000 to 30000, with an interval of 5000.
 
-*#
+
 
 * 4. Create a `marginsplot` and interpret the results.
 
-*#
+
 
 
 
@@ -494,13 +494,13 @@
 *
 * We will be using the same dataset as the previous example: the Second National Health and Nutrition Examination Survey (NHANES II). Let's load the data:
 
-##
+
 
 * ### Fit a model
 *
 * We will predict the probability of someone having diabetes (`diabetes`), as a function of race (`black`), sex (`female`), and age (`age`), using logistic regression.
 
-##
+
 
 * ### AME: Average Marginal Effects
 *
@@ -508,11 +508,11 @@
 
 // obtain Average Predictive Margins
 
-##
+
 
 // calculate the average of all the marginal effects
 
-##
+
 
 * ### MEM: Marginal Effects at the Mean
 *
@@ -520,11 +520,11 @@
 
 // obtain Predictive Margins at the Means
 
-##
+
 
 // calculate marginal effects with all other covariates fixed at their sample means
 
-##
+
 
 * ### MER: Marginal Effects at Representative values
 *
@@ -534,17 +534,17 @@
 // choose range of values for one or more variables
 // note: the `vsquish` option omits vertical white space between results
 
-##
+
 
 // calculate marginal effects across that range
 
-##
+
 
 * ### Graph margins of changes in responses
 *
 * The previous step calculates the average change in the predicted probability of `diabetes`, when levels of race (`black`) and sex (`female`) change, with age set to 20, 30, 40, 50, 60, and 70. We can now use `marginsplot` to graph the results.
 
-##
+
 
 
 
@@ -556,15 +556,15 @@
 *
 * 1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.
 
-*#
+
 
 * 2. Obtain Predictive Margins of `degree` at Representative values of `tvhours` from 0 to 10 hours, on a 1 hour interval. Examine how the marginal effect of `degree` differs across the range of `tvhours` (i.e., obtain Marginal Effects at Representative values).
 
-*#
+
 
 * 3. Create a `marginsplot` for the marginal effects from #2.
 
-*#
+
 
 
 * ## Wrap-up

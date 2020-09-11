@@ -1034,8 +1034,7 @@ head(bn_by_year)
 #       summarize(TotalProportion = sum(Proportion))
 #     ```
 #
-# 3. Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by `Sex` and notice
-#     the trend.
+# 3. Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by `Sex` and notice the trend.
 #
 #     ```{r}
 #     qplot(x = Year, 

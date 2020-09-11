@@ -117,22 +117,22 @@
 *
 * 1. Try to get Stata to say "Hello World!". Search `help display`
 
-*#
+
 
 * 2. Try to get Stata to break "Hello World!" over two lines:
 
-*#
+
 
 
 * ### Working directory
 *
 * 1. print current working directory 
 
-##
+
 
 * 2. change working directory 
 
-##
+
 
 * #### A note about file path names
 *
@@ -149,10 +149,10 @@
 
 // open the gss.dta data set 
 
-##
 
-##// save data file
-##// `replace` option means OK to overwrite existing file
+
+// save data file
+// `replace` option means OK to overwrite existing file
 
 * #### Where's my data?
 *
@@ -168,15 +168,15 @@
 
 // import data from a .csv file
 
-##
+
 
 // save data to a .csv file
 
-##
 
-* * Import / export Excel files
 
-##// import/export Excel files
+* Import / export Excel files
+
+// import/export Excel files
 
 
 
@@ -211,11 +211,11 @@
 
 
 
-##// statistical summary of education
+// statistical summary of education
 
-##// information about how region is coded
+// information about how region is coded
 
-##// numbers of male and female participants
+// numbers of male and female participants
 
 * Note --- if you run these commands without specifying variables, Stata will produce output for every variable
 
@@ -223,15 +223,15 @@
 *
 * Univariate distribution(s) using `hist`:
 
-##// Histograms 
+// Histograms 
 
 
-##// histogram with normal curve; see `help hist` for other options
+// histogram with normal curve; see `help hist` for other options
  
 
 * View bivariate distributions with scatterplots:
 
-##// scatterplots 
+// scatterplots 
 
 
 
@@ -242,15 +242,15 @@
 *
 * 1. you want to know the distribution of happiness seperately for men and women: tabulate `happy` by `sex`: 
 
-##
+
 
 * 2. you want to know the mean level of education for different marital status:  summarize `education` by marital status (`marital`): 
 
-##
+
 
 * Save your changes to the original `gss.dta` dataset. 
 
-##
+
 
 
 * ### Exercise 1
@@ -275,23 +275,23 @@
 *
 * 1. Read in the dataset `talent.dta`: 
 
-*#
+
 
 * 2. Examine a few selected variables using the `describe`, `sum` and `codebook` commands:
 
-*#
+
 
 * 3. Produce a histogram of hours worked (`workload`) and add a normal curve: 
 
-*#
+
 
 * 4. Summarize the total household income last year (`income`) by marital status (`marital`):
 
-*#
+
 
 * 5. Cross-tabulate marital status (`marital`) with respondents' type of main job (`job`):
 
-*#
+
 
 
 
@@ -308,24 +308,24 @@
 *
 * It's good practice to ALWAYS label every variable, no matter how insignificant it may seem.
 
-##// Labelling and renaming 
-##// Label variable inc "household income"
+// Labelling and renaming 
+// Label variable inc "household income"
 
 
-##// change the name "educ" to "education"
+// change the name "educ" to "education"
 
 
-##// you can search names and labels with `lookfor`
+// you can search names and labels with `lookfor`
 
 
 * #### Value labels 
 *
 * Value labels are a little more complicated, with a two step process: define a value label, then assign defined label to variable(s)
 
-##// define a value label for sex 
+// define a value label for sex 
 
 
-##// assign our label set to the sex variable
+// assign our label set to the sex variable
 
 
 
@@ -350,10 +350,10 @@
 *
 * Often, it can be useful to start with a new variable composed of blank values and fill values in based on the values of existing variables:
 
-##// generate a column of missings
+// generate a column of missings
 
 
-##// Next, start adding your qualifications
+// Next, start adding your qualifications
 
 
 
@@ -364,34 +364,34 @@
 *
 * 1. Tabulate the variable, marital status (`marital`), with and without labels:
 
-*#
+
 
 * 2. Summarize the total household income last year (`income`) for married individuals only:
 
-*#
+
 
 * 3. Generate a new `overwork` dummy variable from the original variable `workperweek` that will take on a value of 1 if a person works more than 40 hours per week, and 0 if a person works equal to or less than 40 hours per week:
 
-*#
+
 
 * 4. Generate a new `marital_dummy` dummy variable from the original variable `marital` that will take on a value of 1 if a person is either married or partnered and 0 otherwise:
 
-*#
+
 
 * 5. Rename the `Sex` variable and give it a more intuitive name:
 
-*#
+
 
 * 6. Give a variable label and value labels for the variable `overwork`:
 
-*#
+
 
 * 7. Generate a new variable called `work_family` and code it as 2 if a respondent perceived work to be more important than family, 1 if a respondent perceived family to be more important than work, and 0 if the two are of equal importance:
 
-*#
+
 
 * 8. Save the changes to `newtalent.dta`
-*
+
 
 
 * ## Bivariate analyses
@@ -416,7 +416,7 @@
 
 * The first command below conducts a Chi-square test for a 2x2 table, while the second and third commands run the test for 3x2 and 2x3 tables, respectively.
 
-##
+
 
 
 
@@ -431,17 +431,17 @@
 *
 * In our example, we conduct an independent group t-test to compare mean income (`inc`) between males and females (`sex`):
 
-##
+
 
 * ### One-way ANOVA
 *
 * One-way ANOVA allows us to test the equality of more than two sample means (i.e., whether they could plausibly have come from the same population). For example, our dataset contains income (`inc`) and four regions of the country (`region`). Using one-way ANOVA, we can simultaneously test the equality of the income means across all regions.
 
-##
+
 
 * Now we find evidence that the means are different, but perhaps we are interested only in testing whether the means for the North (region==1) and South (region==4) are different. We also use one-way ANOVA, which in this case would be equivelant to the independent group t-test:
 
-##
+
 
 
 * ### Exercise 3
@@ -450,15 +450,15 @@
 
 * 1.  Test the relationship between two variables `sex` and type of main job (`job`):
 
-*#
+
 
 * 2.  Test if there is a significant difference in hours worked per week (`workload`) and `sex`: 
 
-*#
+
 
 * 3.  Test if there is a significant difference in hours worked per week (`workload`) and marital status (`marital`): 
 
-*#
+
 
 
 * ## Wrap-up

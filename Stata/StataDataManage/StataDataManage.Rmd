@@ -103,10 +103,13 @@ For example:
 ```{stata}
 //create "hapnew" variable
 gen hapnew = .
+
 //set to 0 if happy equals 1
 replace hapnew=0 if happy==1 
+
 //set to 1 if happy both and hapmar are greater than 3
-replace hapnew=1 if happy>3 & hapmar>3 
+replace hapnew=1 if happy>3 & hapmar>3
+
 // tabulate the new 
 tab hapnew
 ```
@@ -119,8 +122,10 @@ The `recode` command is basically `generate` and `replace` combined. You can `re
 ```{stata}
 // recode the wrkstat variable 
 recode wrkstat (1=8) (2=7) (3=6) (4=5) (5=4) (6=3) (7=2) (8=1)
+
 // recode wrkstat into a new variable named wrkstat2
 recode wrkstat (1=8), gen(wrkstat2)
+
 // tabulate workstat
 tab wrkstat
 ```
@@ -152,6 +157,7 @@ Here are some additional examples of `egen` in action:
 // assess how much missing data each participant has:
 egen countmiss = rowmiss(age-wifeft)
 codebook countmiss
+
 // compare values on multiple variables
 egen ftdiff = diff(wkftwife wkfthusb)
 codebook ftdiff
@@ -183,17 +189,28 @@ You will need to refer to the documentation to discover what else `egen` can do:
 <details>
   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
   <div class="alert alert-danger">
+
+1.  Open the `gss.dta` data, `generate` a new variable that represents the squared value of `age`.
+
 ```{stata}
 use dataSets/gss.dta, clear
 gen age2 = age^2
+```
 
+2.  `generate` a new variable equal to "1" if `income` is greater than "19".
+
+```{stata}
 describe income
 label list income
 recode income (99=.) (98=.)
 gen highincome =0 if income != .
 replace highincome=1 if income>19
 sum highincome
+```
 
+3.  Create a new variable that counts the number of missing responses for each respondent. What is the maximum number of missing variables?
+
+```{stata}
 egen nmissing = rowmiss(_all)
 sum nmissing
 ```
@@ -285,7 +302,6 @@ decode degree, gen(degree_s2)
 encode degree_s2, gen(degree_n2)
 ```
 
-
 ### Converting strings to date / time
 
 Often date / time variables start out as strings --- you'll need to convert them to numbers using one of the conversion functions listed below:
@@ -308,7 +324,6 @@ gen date1 = date(date, "MDY")
 list date1 in 1/5
 ```
 
-
 ### Formatting numbers as dates
 
 Once you have converted a string to a number you can format it for display. You can either accept the defaults used by your formatting string or provide details to customize it.
@@ -321,7 +336,6 @@ list date1 in 1/5
 format date1 %tdMonth_dd,_CCYY
 list date1 in 1/5
 ```
-
 
 ### Exercise 1
 
@@ -348,21 +362,33 @@ list date1 in 1/5
 <details>
   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
   <div class="alert alert-danger">
+
+1.  Recode values "99" and "98" on the variable `hrs1` as missing.
+
 ```{stata}
 use dataSets/gss.dta, clear
 sum hrs1
 recode hrs1 (99=.) (98=.) 
 sum hrs1
+```
 
+2.  Recode the `marital` variable into a string variable and then back into a numeric variable.
+
+```{stata}
 tostring marital, gen(marstring)
 destring marstring, gen(mardstring)
+
 //compare with
 decode marital, gen(marital_s)
 encode marital_s, gen(marital_n)
 
 describe marital marstring mardstring marital_s marital_n
 sum marital marstring mardstring marital_s marital_n
+```
 
+3.  Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last `by` example for inspiration).
+
+```{stata}
 bysort degree: egen hrsdegree = mean(hrs1)
 tab hrsdegree
 tab hrsdegree degree 
@@ -522,18 +548,35 @@ Open the `gss2.dta` dataset. This dataset contains only half of the variables th
 <details>
   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
   <div class="alert alert-danger">
+
+Open the `gss2.dta` dataset. This dataset contains only half of the variables that are in the complete gss dataset.
+
+1.  Merge dataset `gss1.dta` with dataset `gss2.dta`. The identification variable is `id`.
+
 ```{stata}
 use dataSets/gss2.dta, clear
 merge 1:1 id using dataSets/gss1.dta
 save gss3.dta, replace
+```
 
+2.  Open the `gss.dta` dataset and merge in data from the `marital.dta` dataset, which includes income information grouped by individuals' marital status. The `marital.dta` dataset contains collapsed data regarding average statistics of individuals based on their marital status.
+
+```{stata}
 use dataSets/gss.dta, clear
 merge m:1 marital using dataSets/marital.dta, nogenerate replace update
 save gss4.dta, replace
+```
 
+3.  Open the `gssAppend.dta` dataset and create a new dataset that combines the observations in `gssAppend.dta` with those in `gssAddObserve.dta`.
+
+```{stata}
 use dataSets/gssAppend.dta, clear
 append using dataSets/gssAddObserve, generate(observe) 
+```
 
+4.  Open the `gss.dta` dataset and create a new dataset that summarizes the mean and standard deviation of income based on individuals' degree status (`degree`). In the process of creating this new dataset, rename your three new variables.
+
+```{stata}
 use dataSets/gss.dta, clear
 save collapse2.dta, replace
 use collapse2.dta, clear

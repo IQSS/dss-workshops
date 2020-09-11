@@ -39,6 +39,7 @@ sum hrs1
 tostring marital, gen(marstring)
 destring marstring, gen(mardstring)
 
+//compare with
 decode marital, gen(marital_s)
 encode marital_s, gen(marital_n)
 

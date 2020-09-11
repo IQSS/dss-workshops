@@ -74,11 +74,11 @@
 
 // Step 1: tell Stata where to find data:
 
-##
+
 
 // Step 2: call up our dataset:
 
-##
+
 
 * ### Single continuous variable
 *
@@ -152,35 +152,35 @@ hist F4, title("Racial breakdown of Time Poll Sample") xtitle("Race") ///
 *
 * 1.  Open the datafile, `NatNeighCrimeStudy.dta`.
 
-*#
+
 
 * 2.  Create a histogram of the tract-level poverty rate (`T_POVRTY`).
 
-*#
+
 
 * 3.  Insert the normal curve over the histogram.
 
-*#
+
 
 * 4.  Change the numeric representation on the Y-axis to `percent`.
 
-*#
+
 
 * 5.  Add appropriate titles to the overall graph and the x axis and y axis. Also, add a note that states the source of this data.
 
-*#
+
 
 * 6.  Open the datafile, `TimePollPubSchools.dta`.
 
-*#
+
 
 * 7.  Create a histogram of the question, "What grade would you give your child's school" (`Q11`). Be sure to tell Stata that this is a categorical variable.
 
-*#
+
 
 * 8.  Format this graph so that the axes have proper titles and labels. Also, add an appropriate title to the overall graph. Add a note stating the source of the data.
 
-*#
+
 
 
 
@@ -209,11 +209,11 @@ hist F4, title("Racial breakdown of Time Poll Sample") xtitle("Race") ///
 *     + e.g., insert line of best fit over a scatter plot
 * * Some basic examples:
 
-##
+
 
 * **Twoway & the `by` statement**
 
-##
+
 
 * ![](images/twowayby.png)
 *
@@ -284,17 +284,17 @@ twoway (scatter T_PERCAP T_VIOLNT if T_VIOLNT==1976, ///
 * * We will use data on US life expectancy from 1900-1999
 *     + `webuse uslifeexp, clear`
 
-##
+
 
 * ![](images/linegraph1.png)
 
-##
+
 
 * ![](images/linegraph2.png)
 *
 * ### Stata graphing lines
 
-##
+
 
 * ![](images/linepalette.png)
 
@@ -304,27 +304,27 @@ twoway (scatter T_PERCAP T_VIOLNT if T_VIOLNT==1976, ///
 *
 * 1. Open the datafile, `NatNeighCrimeStudy.dta`.
 
-*#
+
 
 * 2.  Create a basic twoway scatterplot that compares the city unemployment rate (`C_UNEMP`) to the percent secondary sector low-wage jobs (`C_SSLOW`)
 
-*#
+
 
 * 3.  Generate the same scatterplot, but this time, divide the plot by the dummy variable indicating whether the city is located in the south or not (`C_SOUTH`)
 
-*#
+
 
 * 4.  Change the color of the symbol that you use in this scatter plot
 
-*#
+
 
 * 5.  Change the type of symbol you use to a marker of your choice
 
-*#
+
 
 * 6.  Notice in your scatterplot that is broken down by `C_SOUTH` that there is an outlier in the upper right hand corner of the "Not South" graph. Add the city name label to this marker.
 
-*#
+
 
 
 * ## Exporting graphs

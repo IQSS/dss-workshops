@@ -19,8 +19,8 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
       select(metro, energy)
 
   summary(states_en_met)
-  plot(states_en_met)
   cor(states_en_met, use = "pairwise")
+  qplot(x = metro, y = energy, geom = "point", data = states_en_met)
 ```
 
 2.  Print and interpret the model `summary()`.
@@ -30,14 +30,20 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
   summary(mod_en_met)
 ```
 
-3.  `plot()` the model to look for deviations from modeling assumptions.
+3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
 
 ```{r}
-  par(mfrow = c(2, 2)) # splits the plotting window into 4 panels
-  plot(mod_en_met)
+    # standardized residuals versus fitted values plot
+  qplot(x = fitted(mod_en_met), y = rstandard(mod_en_met), geom = "point") +
+      geom_smooth(se = FALSE) +
+      labs(x = "Fitted Values", y = "Standardized Residuals")
+
+  # Quantile-quantile plot of standardized residuals
+  qplot(sample = rstandard(mod_en_met), geom = c("qq", "qq_line")) + 
+      labs(x = "Theoretical Quantiles", y = "Standardized Residuals")
 ```
 
-4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with *metro* as the only predictor?
+4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 
 ```{r}
   states_en_met_pop_wst <- 
@@ -45,7 +51,6 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
       select(energy, metro, pop, waste)
 
   summary(states_en_met_pop_wst)
-  plot(states_en_met_pop_wst)
   cor(states_en_met_pop_wst, use = "pairwise")
 
   mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states)
@@ -55,7 +60,7 @@ Fit a model predicting energy consumed per capita (energy) from the percentage o
 
 ### Ex 1: prototype
 
-Use the states data set.
+Use the `states` data set.
 
 1.  Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.
 
@@ -72,7 +77,7 @@ Use the states data set.
 
 ### Ex 2: prototype
 
-Use the NH11 data set that we loaded earlier. Note that the data is not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
+Use the `NH11` data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
@@ -100,7 +105,7 @@ Use the NH11 data set that we loaded earlier. Note that the data is not perfectl
 
 ### Ex 3: prototype
 
-Use the dataset, bh1996:
+Use the dataset `bh1996`:
 
 ```{r}
   # install.packages("multilevel")

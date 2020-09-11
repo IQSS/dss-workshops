@@ -116,4 +116,5 @@ margins degree, at(tvhours=(0 1 2 3 4 5 6 7 8 9 10) vsquish
 margins, dydx(degree) at(tvhours=(0 1 2 3 4 5 6 7 8 9 10)) vsquish
 
 // 3. Create a `marginsplot` for the marginal effects from *2.
+
 marginsplot

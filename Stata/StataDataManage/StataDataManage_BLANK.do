@@ -39,15 +39,15 @@
 
 // change directory
 
-## 
+
 
 // Use dir to see what is in the directory:
 
-##
+
 
 * Now we can read in the `gss.dta` dataset:
 
-##
+
 
 * ## Generating & replacing variables
 *
@@ -78,19 +78,19 @@
 
 //create "hapnew" variable
 
-##
+
 
 //set to 0 if happy equals 1
 
-##
+
 
 //set to 1 if happy both and hapmar are greater than 3
 
-##
+
 
 // tabulate the new 
 
-##
+
 
 
 * ### Recode
@@ -99,15 +99,15 @@
 
 // recode the wrkstat variable 
 
-##
+
 
 // recode wrkstat into a new variable named wrkstat2
 
-##
+
 
 // tabulate workstat
 
-##
+
 
 * The table below illustrates common forms of recoding:
 *
@@ -125,17 +125,17 @@
 
 // count number of yes on use comp email and net 
 
-##
+
 
 * Here are some additional examples of `egen` in action:
 
 // assess how much missing data each participant has:
 
-##
+
 
 // compare values on multiple variables
 
-##
+
 
 
 * You will need to refer to the documentation to discover what else `egen` can do: type `help egen` in Stata to get a complete list of available functions.
@@ -144,15 +144,15 @@
 *
 * 1.  Open the `gss.dta` data, `generate` a new variable that represents the squared value of `age`.
 
-*#
+
 
 * 2.  `generate` a new variable equal to "1" if `income` is greater than "19".
 
-*#
+
 
 * 3.  Create a new variable that counts the number of missing responses for each respondent. What is the maximum number of missing variables?
 
-*#
+
 
 
 
@@ -168,26 +168,26 @@
 
 // generate and replace without considering missing values
 
-##
+
 
 // What happens to our missing values?
 
-##
+
 
 
 * It looks like around 66% have higher education, but look closer:
 
 // generate hi_ed2, but only set a value if wifeduc is not missing
 
-##
+
 
 // only replace non-missing values
 
-##
+
 
 //check to see that missingness is preserved
 
-##
+
 
 
 * The correct value is 10%. Moral of the story? Be careful with missing values and remember that Stata considers missing values to be **positive infinity**!
@@ -196,7 +196,7 @@
 *
 * Often the data collection / generating procedure will have used some other value besides `.` to represent missing values. The `mvdecode` command will convert all these values to missing. For example:
 
-##
+
 
 * The `_all` command tells Stata to perform this conversion for all variables. Use this command carefully! If you have any variables where "999" is a legitimate value, Stata is going to recode it to missing. As an alternative, you could list var names separately rather than using `_all`.
 
@@ -222,21 +222,21 @@
 
 // convert degree to a string
 
-##
+
 
 // and back to a number
 
-##
+
 
 * Use `decode` and `encode` to convert to / from variable labels:
 
 // convert degree to a descriptive string
 
-##
+
 
 // and back to a number with labels
 
-##
+
 
 
 * ### Converting strings to date / time
@@ -256,7 +256,7 @@
 
 // create string variable and convert to date
 
-##
+
 
 
 * ### Formatting numbers as dates
@@ -265,11 +265,11 @@
 
 // format so humans can read the date
 
-##
+
 
 // format with detail
 
-##
+
 
 
 * ### Exercise 1
@@ -278,15 +278,15 @@
 *
 * 1.  Recode values "99" and "98" on the variable `hrs1` as missing.
 
-*#
+
 
 * 2.  Recode the `marital` variable into a string variable and then back into a numeric variable.
 
-*#
+
 
 * 3.  Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last `by` example for inspiration).
 
-*#
+
 
 
 
@@ -343,13 +343,13 @@ clear
 
 // Adapted from the merge help page
 
-##
 
-##
+
+
 
 // keep only the matches (AKA "inner join")
 
-##
+
 
 * Remember, `merge` is for adding variables (i.e., columns) from a second data set.
 
@@ -380,11 +380,11 @@ clear
 
 // Adapted from the collapse help page
 
-##
+
 
 // mean and sd by hospital
 
-##
+
 
 * You could also generate different statistics for multiple variables.
 
@@ -396,19 +396,19 @@ clear
 *
 * 1.  Merge dataset `gss1.dta` with dataset `gss2.dta`. The identification variable is `id`.
 
-*#
+
 
 * 2.  Open the `gss.dta` dataset and merge in data from the `marital.dta` dataset, which includes income information grouped by individuals' marital status. The `marital.dta` dataset contains collapsed data regarding average statistics of individuals based on their marital status.
 
-*#
+
 
 * 3.  Open the `gssAppend.dta` dataset and create a new dataset that combines the observations in `gssAppend.dta` with those in `gssAddObserve.dta`.
 
-*#
+
 
 * 4.  Open the `gss.dta` dataset and create a new dataset that summarizes the mean and standard deviation of income based on individuals' degree status (`degree`). In the process of creating this new dataset, rename your three new variables.
 
-*#
+
 
 
 

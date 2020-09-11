@@ -1,5 +1,4 @@
 
-
 ## Exercise solutions
 
 ### Ex 0: prototype
@@ -73,7 +72,15 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_smooth(method = "lm")
 ```
 
-5.  BONUS: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
+5.  BONUS 1: Allow the smoothing line created in the last plot to vary across the levels of `Region`. Hint: map `Region` to the color and fill aesthetics.
+
+```{r}
+ggplot(dat, aes(x = CPI, y = HDI, color = Region, fill = Region)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+6.  BONUS 2: Overlay a loess `(method = "loess")` smoothing line on top of the scatter plot using `geom_line()`. Hint: change the statistical transformation.
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI)) +
@@ -96,19 +103,19 @@ ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
-geom_point() +
-scale_x_continuous(name = "Corruption Perception Index") +
-scale_y_continuous(name = "Human Development Index") +
-scale_color_discrete(name = "Region of the world")
+  geom_point() +
+  scale_x_continuous(name = "Corruption Perception Index") +
+  scale_y_continuous(name = "Human Development Index") +
+  scale_color_discrete(name = "Region of the world")
 ```
 
 3.  Modify the color scale to use specific values of your choosing. Hint: see `?scale_color_manual`. NOTE: you can specify color by name (e.g., "blue") or by "Hex value" --- see <https://www.color-hex.com/>.
 
 ```{r}
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
-geom_point() +
-scale_x_continuous(name = "Corruption Perception Index") +
-scale_y_continuous(name = "Human Development Index") +
+  geom_point() +
+  scale_x_continuous(name = "Corruption Perception Index") +
+  scale_y_continuous(name = "Human Development Index") +
   scale_color_manual(name = "Region of the world",
                      values = c("red", "green", "blue", "orange", "grey", "brown"))
 ```
@@ -119,54 +126,57 @@ scale_y_continuous(name = "Human Development Index") +
 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
 
 ```{r}
-p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) 
-p6 + geom_point() 
+p5 <- ggplot(midwest, aes(x = area, y = log(poptotal))) 
+p5 + geom_point() 
 ```
 
 2.  Within the `geom_point()` call, map color to `state`, map size to the log of `popdensity`, and fix transparency (`alpha`) to 0.3.
 
 ```{r}
-p6 <- p6 + geom_point(aes(color=state, size=log(popdensity)), alpha = 0.3) 
+p5 <- p5 + geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) 
+p5
 ```
 
 3.  Add a smoother and turn off plotting the confidence interval. Hint: see the `se` argument to `geom_smooth()`.
 
 ```{r}
-p6 <- p6 + geom_smooth(method="loess", se=FALSE) 
+p5 <- p5 + geom_smooth(method = "loess", se = FALSE) 
+p5
 ```
 
 4.  Facet the plot by `state`. Set the `scales` argument to `facet_wrap()` to allow separate ranges for the x-axis.
 
 ```{r}
-p6 <- p6 + facet_wrap(~ state, scales = "free_x")
+p5 <- p5 + facet_wrap(~ state, scales = "free_x")
+p5
 ```
 
 5.  Change the default color scale to use the discrete `RColorBrewer` palette called `Set1`. Hint: see `?scale_color_brewer`.
 
 ```{r}
-p6 <- p6 + scale_color_brewer(palette = "Set1")
+p5 <- p5 + scale_color_brewer(palette = "Set1")
+p5
 ```
 
 6.  BONUS: Change the default theme to `theme_bw()` and modify it so that the axis text and facet label background are blue. Hint: see `?theme` and especially `axis.text` and `strip.background`.
 
 ```{r}
-p6 <- p6 + theme_bw() +
+p5 <- p5 + theme_bw() +
     theme(axis.title = element_text(color = "blue", face = "bold"),
           strip.background = element_rect(fill = "yellow"))
+p5
 ```
 
 Here's the complete code for the Exercise 3 plot:
 
 ```{r}
-p6 <- ggplot(midwest, aes(x=area, y=log(poptotal))) +
-    geom_point(aes(color=state, size=log(popdensity)), alpha = 0.3) +
-    geom_smooth(method="loess", se=FALSE) +
+ggplot(midwest, aes(x = area, y = log(poptotal))) +
+    geom_point(aes(color = state, size = log(popdensity)), alpha = 0.3) +
+    geom_smooth(method = "loess", se = FALSE) +
     facet_wrap(~ state, scales = "free_x") +
     scale_color_brewer(palette = "Set1") +
     theme_bw() +
     theme(axis.title = element_text(color = "blue", face = "bold"),
-         strip.background = element_rect(fill = "yellow"))
-
-p6         
+          strip.background = element_rect(fill = "yellow"))       
 ```
 
