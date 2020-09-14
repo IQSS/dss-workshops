@@ -1,8 +1,4 @@
 
-```{r}
-knitr::opts_chunk$set(eval=TRUE, results=TRUE) 
-```
-
 # R Regression Models
 
 **Topics**
@@ -12,6 +8,8 @@ knitr::opts_chunk$set(eval=TRUE, results=TRUE)
 * Contrasts to test specific hypotheses
 * Model comparisons
 * Predicted marginal effects
+* Modeling continuous and binary outcomes
+* Modeling clustered data
 
 
 ## Setup
@@ -32,13 +30,11 @@ This is an intermediate R course:
 
 * Assumes working knowledge of R
 * Relatively fast-paced
-* This is not a statistics course! We will teach you *how* to fit models in R,
-  but we assume you know the theory behind the models.
+* This is not a statistics course! We will teach you *how* to fit models in R, but we assume you know the theory behind the models.
 
 ### Goals
 
-We will learn about the R modeling ecosystem by fitting a variety of statistical models to
-different datasets. In particular, our goals are to learn about:
+We will learn about the R modeling ecosystem by fitting a variety of statistical models to different datasets. In particular, our goals are to learn about:
 
 1. Modeling workflow
 2. Visualizing and summarizing data before modeling
@@ -46,26 +42,20 @@ different datasets. In particular, our goals are to learn about:
 4. Modeling binary outcomes
 5. Modeling clustered data
 
-We will not spend much time *interpreting* the models we fit, since this is not a statistics workshop.
-But, we will walk you through how model results are organized and orientate you to where you can find
-typical quantities of interest.
+We will not spend much time *interpreting* the models we fit, since this is not a statistics workshop. But, we will walk you through how model results are organized and orientate you to where you can find typical quantities of interest.
 
 ### Launch an R session
 
 Start RStudio and create a new project:
 
-* On Windows click the start button and search for RStudio. On Mac
-    RStudio will be in your applications folder.
+* On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
 * In Rstudio go to `File -> New Project`.
 * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
 * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 
 ### Packages
 
-You should have already installed the `tidyverse` and `rmarkdown`
-packages onto your computer before the workshop
---- see [R Installation](./Rinstall.html).
-Now let's load these packages into the search path of our R session.
+You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop --- see [R Installation](./Rinstall.html). Now let's load these packages into the search path of our R session.
 
 ```{r}
 library(tidyverse)
@@ -87,16 +77,13 @@ library(effects)  # for predicted marginal means
 
 ## Modeling workflow
 
-Before we delve into the details of how to fit models in R, it's worth taking a step
-back and thinking more broadly about the components of the modeling process. These
-can roughly be divided into 3 stages:
+Before we delve into the details of how to fit models in R, it's worth taking a step back and thinking more broadly about the components of the modeling process. These can roughly be divided into 3 stages:
 
 1. Pre-estimation
 2. Estimation
 3. Post-estimaton
 
-At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis),
-but the process is sequential --- we move through the stages in order (though often many times in one project!)
+At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis), but the process is sequential --- we move through the stages in order (though often many times in one project!)
 
 ![](images/R_model_pipeline.png)
 
@@ -104,12 +91,7 @@ Throughout this workshop we will go through these stages several times as we fit
 
 ## R modeling ecosystem
 
-There are literally hundreds of R packages that provide model fitting functionality.
-We're going to focus on just two during this workshop --- `stats`, from Base R, and
-`lme4`. It's a good idea to look at [CRAN Task Views](https://cran.r-project.org/web/views/) 
-when trying to find a modeling package for your needs, as they provide an extensive 
-curated list. But, here's a more digestable table showing some of the most popular
- packages for particular types of model.
+There are literally hundreds of R packages that provide model fitting functionality. We're going to focus on just two during this workshop --- `stats`, from Base R, and `lme4`. It's a good idea to look at [CRAN Task Views](https://cran.r-project.org/web/views/) when trying to find a modeling package for your needs, as they provide an extensive curated list. But, here's a more digestable table showing some of the most popular packages for particular types of model.
 
 | Models              | Packages                               |             
 |:--------------------|:---------------------------------------|
@@ -124,8 +106,7 @@ curated list. But, here's a more digestable table showing some of the most popul
 
 **GOAL: To learn about the data by creating summaries and visualizations.**
 
-One important part of the pre-estimation stage of model fitting, is gaining an understanding
-of the data we wish to model by creating plots and summaries. Let's do this now.
+One important part of the pre-estimation stage of model fitting, is gaining an understanding of the data we wish to model by creating plots and summaries. Let's do this now.
 
 ### Load the data
 
@@ -144,6 +125,8 @@ We're going to use the `states` data first, which originally appeared in *Statis
   # look at the last few rows
   
 ```
+
+Here's a table that describes what each variable in the dataset represents:
 
 | Variable | Description                                        |
 |:---------|:---------------------------------------------------|
@@ -180,8 +163,6 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
   
 ```
 
-![](images/statesCorr1.png)
-
 Obviously, in a real project, you would want to spend more time investigating the data,
 but we'll now move on to modeling.
 
@@ -190,18 +171,14 @@ but we'll now move on to modeling.
 
 **GOAL: To learn about the R modeling ecosystem by fitting ordinary least squares (OLS) models.** In particular:
 
-1. Formula representation of a model specification
+1. Formula representation of model specification
 2. Model classes
 3. Function methods
 4. Model comparison
 
-Once the data have been inspected and cleaned, we can start estimating models.
-The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes.
-Typically, for these outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS),
-which in R can be fit with the `lm()` (linear model) function.
+Once the data have been inspected and cleaned, we can start estimating models. The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes. Typically, for these outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS), which in R can be fit with the `lm()` (linear model) function.
 
-To fit a model in R, we first have to convert our theoretical model into
-a `formula` --- a symbolic representation of the model in R syntax:
+To fit a model in R, we first have to convert our theoretical model into a `formula` --- a symbolic representation of the model in R syntax:
 
 ```{r, eval=FALSE}
 # formula for model specification
@@ -213,21 +190,30 @@ outcome ~ pred1 + pred2 + pred3
 For example, the following theoretical model predicts SAT scores based on per-pupil expenditures:
 
 $$
-csat_i = \beta_{0}1 + \beta_1expense_i + \epsilon_i
+SATscores_i = \beta_{0}1 + \beta_1expenditures_i + \epsilon_i
 $$
 
 We can use `lm()` to fit this model:
 
 ```{r}
   # fit our regression model
-  # regression formula
-  # data 
+      # regression formula
+      # data 
                 
   # look at the basic printed output
 
-  # get more informative summary information 
-  # about coefficients and goodness-of-fit
+```
 
+The default printed output from the fitted model is very austere --- just point estimates of the coefficients. We can get more information by passing the fitted model object to the `summary()` function, which provides standard errors, test statistics, and p-values for individual coefficients, as well as goodness-of-fit measures for the overall model.
+
+```{r}
+  # get more informative summary information 
+
+```
+
+If we just want to inspect the coefficients, we can further pipe the summary output into the function `coef()` to obtain just the table of coefficients.
+
+```{r}
   # show only the regression coefficients table 
   
 ```
@@ -252,53 +238,91 @@ is to extract **quantities of interest** from our fitted model. These quantities
 But before we can do any of that, we need to know more about **what a fitted model actually is,**
 **what information it contains, and how we can extract from it information that we want to report**.
 
-Let's start by examining the model object:
+To understand what a fitted model object is and what information we can extract from it, we need to know about the concepts of **class** and **method**. A class defines a type of object, describing what properties it possesses, how it behaves, and how it relates to other types of objects. Every object must be an instance of some class. A method is a function associated with a particular type of object.
+
+Let's start by examining the class of the model object:
 
 ```{r}
+  # what class of object is the fitted model?
   
 ```
 
-We can list all the functions that extract particular quantities of interest (called `extractor functions`) by using the `methods()` function with the `class` argument set to the class of the model object:
+We can see that the fitted model object is of class `lm`, which stands for linear model. What quantities are stored within this model object? 
 
 ```{r}
+  # what are the elements stored within the fitted model object?
+  
+```
+
+We can see that 12 different things are stored within a fitted model of class `lm`. In what structure are these quantities organized?
+
+```{r}
+  # what is the structure of the fitted model object?
+  
+```
+
+We can see that the fitted model object is a `list` structure (a container that can hold different types of objects). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class `lm` is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?
+
+We can use **methods** (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as **extractor functions**). A list of all the available methods for a given class of object can be shown by using the `methods()` function with the `class` argument set to the class of the model object:
+
+```{r}
+  # methods for class `lm`
 
 ```
 
-We can also use `function methods` to get more information about the fit:
+There are 44 methods available for the `lm` class. We've already seen the `summary()` method for `lm`, which is always a good place to start after fitting a model:
 
 ```{r}
-   # summary table
-   # confidence intervals
-   # ANOVA table  
+  # summary table
+   
 ```
 
-How does R know which method to call for a given object? R uses `generic functions`, which provide access to `methods`. Method dispatch takes place based on the `class` of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Function methods always take the form `generic.method()`:
+We can use the `confint()` method to get interval estimates for our coefficients:
 
 ```{r}
-
+  # confidence intervals
+   
 ```
 
-![](images/methods.png)
+And we can use the `anova()` method to get an ANOVA-style table of the model:
 
-It's always worth examining whether the class of model you're fitting has a method for a particular extractor function.
-Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
+```{r}  
+  # ANOVA table
+     
+```
 
-| Function      | Package        | Output                                                  |
-|:--------------|:---------------|:--------------------------------------------------------|
-| `summary()`   | `stats` base R | standard errors, test statistics, p-values, GOF stats   |
-| `confint()`   | `stats` base R | confidence intervals                                    |
-| `anova()`     | `stats` base R | anova table (one model), model comparison (> one model) |
-| `coef()`      | `stats` base R | point estimates                                         |
-| `drop1()`     | `stats` base R | model comparison                                        |
-| `predict()`   | `stats` base R | predicted response values                               |
-| `fitted()`    | `stats` base R | predicted response values (for observed data)           |
-| `residuals()` | `stats` base R | residuals                                               |
-| `fixef()`     | `lme4`         | fixed effect point estimates (mixed models only)        |
-| `ranef()`     | `lme4`         | random effect point estimates (mixed models only)       |
-| `coef()`      | `lme4`         | empirical Bayes estimates (mixed models only)           |
-| `allEffects()`| `effects`      | predicted marginal means                                |
-| `emmeans()`   | `emmeans`      | predicted marginal means & marginal effects             |
-| `margins()`   | `margins`      | predicted marginal means & marginal effects             |
+How does R know which method to call for a given object? R uses **generic functions**, which provide access to the methods. **Method dispatch** takes place based on the class of the first argument to the generic function. For example, for the generic function `summary()` and an object of class `lm`, the method dispatched will be `summary.lm()`. Here's a schematic that shows the process of method dispatch in action:
+
+![](R/Rmodels/images/methods.png)
+
+Function methods always take the form `generic.method()`. Let's look at all the methods for the generic `summary()` function:
+
+```{r}
+  # methods for generic `summary()` function
+  
+```
+
+There are 137 `summary()` methods and counting! 
+
+It's always worth examining whether the class of model you've fitted has a method for a particular generic extractor function. Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
+
+| Function      | Package   | Output                                                  |
+|:--------------|:----------|:--------------------------------------------------------|
+| `summary()`   | `stats`   | standard errors, test statistics, p-values, GOF stats   |
+| `confint()`   | `stats`   | confidence intervals                                    |
+| `anova()`     | `stats`   | anova table (one model), model comparison (> one model) |
+| `coef()`      | `stats`   | point estimates                                         |
+| `drop1()`     | `stats`   | model comparison                                        |
+| `predict()`   | `stats`   | predicted response values (for observed or new data)    |
+| `fitted()`    | `stats`   | predicted response values (for observed data only)      |
+| `residuals()` | `stats`   | residuals                                               |
+| `rstandard()` | `stats`   | standardized residuals                                  |
+| `fixef()`     | `lme4`    | fixed effect point estimates (mixed models only)        |
+| `ranef()`     | `lme4`    | random effect point estimates (mixed models only)       |
+| `coef()`      | `lme4`    | empirical Bayes estimates (mixed models only)           |
+| `allEffects()`| `effects` | predicted marginal means                                |
+| `emmeans()`   | `emmeans` | predicted marginal means & marginal effects             |
+| `margins()`   | `margins` | predicted marginal means & marginal effects             |
 
 
 ### OLS regression assumptions
@@ -317,7 +341,9 @@ OLS regression relies on several assumptions, including:
 Investigate assumptions #7 and #8 visually by plotting your model:
 
 ```{r}
-  # splits the plotting window into 4 panels
+  # standardized residuals versus fitted values plot
+
+  # Quantile-quantile plot of standardized residuals
   
 ```
 
@@ -328,31 +354,37 @@ Do congressional voting patterns predict SAT scores over and above expense? Fit 
 ```{r}
   # fit another model, adding house and senate as predictors
   
-  
 ```
 
-Why are we using `na.omit()`? Let's see what `na.omit()` does.
+Why are we using `na.omit()`? Let's see what `na.omit()` does by creating some fake data.
 
 ```{r}
-# fake data
-dat <- data.frame(
-  x = 1:5,
-  y = c(3, 2, 1, NA, 5),
-  z = c(6, NA, 2, 7, 3))
-dat
-
-na.omit(dat) # listwise deletion of observations
-
-# also see
-# ?complete.cases
-dat[with(dat, complete.cases(x, y, z)), ]
+  # fake data
+  dat <- data.frame(
+    x = 1:5,
+    y = c(3, 2, 1, NA, 5),
+    z = c(6, NA, 2, 7, 3))
+  dat
 ```
 
-To compare models, we must fit them to the same data. This is why we need `na.omit()`.
-Now let's update our first model using `na.omit()`:
+We can see that there are missing values on rows 2 and 4. Now let's use `na.omit()` on these data:
 
 ```{r}
-  
+  # listwise deletion of observations
+  na.omit(dat) 
+```
+
+Here, the rows with missing values have been omitted --- so, `na.omit()` performs *listwise deletion* of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the `complete.cases()` function:
+
+```{r}
+  # ?complete.cases
+  dat[with(dat, complete.cases(x, y, z)), ]
+```
+
+To compare models, we must fit them to the same data. This is why we need `na.omit()`. Now let's update our first model using `na.omit()`:
+
+```{r}
+  # update model using `na.omit()`
 
   # compare using an F-test with the anova() function
   
@@ -362,19 +394,19 @@ Now let's update our first model using `na.omit()`:
 
 **Ordinary least squares regression**
 
-Use the *states.rds* data set. Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (`metro`). Be sure to
+Use the `states.rds` data set. Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to
 
-1.  Examine/plot the data before fitting the model
+1.  Examine/plot the data before fitting the model.
 ```{r}
 
 ```
 
-2.  Print and interpret the model `summary()`
+2.  Print and interpret the model `summary()`.
 ```{r}
 
 ```
 
-3.  `plot()` the model to look for deviations from modeling assumptions
+3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
 ```{r}
  
 ```
@@ -395,41 +427,53 @@ Use the *states.rds* data set. Fit a model predicting energy consumed per capita
 
 ### Modeling interactions
 
-Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
+Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: does the association between expense and SAT scores depend on the median income in the state?
 
 ```{r}
-  # Add the interaction to the model
+  # add the interaction to the model
   
 
   # same as above, but shorter syntax
   
 
-  # Show the regression coefficients table
+  # show the regression coefficients table
   
 ```
 
 ### Regression with categorical predictors
 
-Let's try to predict SAT scores from region, a categorical variable. 
-Note that you must make sure R does not think your categorical variable is numeric.
+Let's try to predict SAT scores (`csat`) from geographical region (`region`), a categorical variable. Note that you must make sure R does not think your categorical variable is numeric.
 
 ```{r}
   # make sure R knows region is categorical
   
+```
 
-  # arguments to the factor() function
+Here, R is already treating `region` as categorical --- that is, in R parlance, a "factor" variable. If `region` were not already a factor, we could make it so like this:
+
+```{r}
+  # convert `region` to a factor
+
+  # arguments to the factor() function:
   # factor(x, levels, labels)
 
+  # examine factor levels
   
 ```
 
-```{r}
-  # Add region to the model
-  
+Now let's add `region` to the model:
 
-  # Show the results
-  # show the regression coefficients table
-  # show ANOVA table
+```{r}
+  # add region to the model 
+
+  # show the results
+      # show only the regression coefficients table
+```
+
+We can get an omnibus F-test for `region` by using the `anova()` method:
+
+```{r}
+      # show ANOVA table
 ```
 
 So, make sure to tell R which variables are categorical by converting them to factors!
@@ -439,19 +483,38 @@ So, make sure to tell R which variables are categorical by converting them to fa
 
 **Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.
 
-The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category.They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
+The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category. They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
+
+First, let's examine the default contrasts for `region`:
 
 ```{r}
   # default treatment (dummy) contrasts
+  
+```
 
+We can see that the reference level is `West`. How can we change this? Let's use the `relevel()` function:
+
+```{r}
   # change the reference group
 
   # check the reference group has changed
   
-  # refit the model
+```
 
+Now the reference level has changed to `Midwest`. Let's refit the model with the releveled `region` variable:
+
+```{r}
+  # refit the model
+  
+  # print summary coefficients table
+
+```
+
+Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare particular levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the `emmeans()` post-estimation function from the `emmeans` package to do the calculations for us:
+
+```{r}
   # get all pairwise contrasts between means
- 
+  
 ```
 
 
@@ -466,7 +529,7 @@ Use the `states` data set.
  
 ```
 
-2.  Try adding region to the model. Are there significant differences across the four regions?
+2.  Try adding `region` to the model. Are there significant differences across the four regions?
 ```{r}
 
 ```
@@ -482,7 +545,7 @@ Use the `states` data set.
 
 ### Logistic regression
 
-This far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited --- in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
+Thus far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited --- in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
 
 For these models we will use a different dataset, drawn from the National Health Interview Survey. From the [CDC website](http://www.cdc.gov/nchs/nhis.htm):
 
@@ -496,7 +559,7 @@ Load the National Health Interview Survey data:
 
 ### Logistic regression example
 
-Motivation for a logistic regression model --- with a binary response:
+Some motivations for using a logistic regression model, rather than a linear model, when we have a binary response:
 
 1. Errors will not be normally distributed
 2. Variance will not be homoskedastic
@@ -523,21 +586,23 @@ Anatomy of a generalized linear model:
       family = binomial(link = "logit"))
 ```
 
-The `family` argument sets the error distribution for the model, while the `link` function
-argument relates the predictors to the expected value of the outcome.
+The `family` argument sets the error distribution for the model, while the `link` function argument relates the predictors to the expected value of the outcome.
 
-Let's predict the probability of being diagnosed with hypertension based on `age`, `sex`, `sleep`, and `bmi`.
-Here's the theoretical model:
+Let's predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi. Here's the theoretical model:
 
+<div class="alert alert-secondary">
 $$
-logit(p(hypev_i=1)) = \beta_{0}1 + \beta_1agep_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
+logit(p(hypertension_i = 1)) = \beta_{0}1 + \beta_1age_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
 $$
+</div>
 
 where $logit(\cdot)$ is the non-linear link function that relates a linear expression of the predictors to the expectation of the binary response:
 
+<div class="alert alert-secondary">
 $$
-logit(p(hypev_i = 1)) = ln \left( \frac{p(hypev_i = 1)}{1-p(hypev_i = 1)} \right) = ln \left( \frac{p(hypev_i = 1)}{p(hypev_i = 0)} \right)
+logit(p(hypertension_i = 1)) = ln \left( \frac{p(hypertension_i = 1)}{1-p(hypertension_i = 1)} \right) = ln \left( \frac{p(hypertension_i = 1)}{p(hypertension_i = 0)} \right)
 $$
+</div>
 
 And here's how we fit this model in R. First, let's clean up the hypertension outcome by making it binary:
 
@@ -554,23 +619,18 @@ Now let's use `glm()` to estimate the model:
 ```{r}
   # run our regression model
   
-
+  # summary model coefficients table
  
 ```
 
 ### Odds ratios
 
-Generalized linear models use link functions to relate the average value of the response to the predictors,
-so raw coefficients are difficult to interpret. For example, the `age` coefficient of .06 in the previous
-model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases
-by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
+Generalized linear models use link functions to relate the average value of the response to the predictors, so raw coefficients are difficult to interpret. For example, the `age` coefficient of 0.06 in the previous model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 
-One solution is to transform the coefficients to make them easier to interpret.
-Here we transform them into odds ratios by exponentiating:
+One solution is to transform the coefficients to make them easier to interpret. Here we transform them into odds ratios by exponentiating:
 
 ```{r}
   # point estimates
-  
   
   # confidence intervals
   
@@ -581,26 +641,29 @@ Here we transform them into odds ratios by exponentiating:
 Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least-squares means" or "estimated marginal means"). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
 
 ```{r}
-  
-  # "response" refers to the probability scale
+  # get predicted marginal means
 
-  # generate a sequence at which to get predictions of the outcome
-  
-
-  # override defaults
-  
-  # confidence intervals
-  
+      # "response" refers to the probability scale
 ```
 
-![](images/effects1.png)
+By default, `allEffects()` will produce predictions for all levels of factor variables, while for continuous variables it will chose 5 representative values based on quantiles. We can easily override this behavior using the `xlevels` argument and get predictions at any values of a continuous variable. 
+
+```{r}
+  # generate a sequence of ages at which to get predictions of the outcome
+  
+  # get predicted marginal means
+  
+      # override defaults for age
+      # get confidence intervals
+  
+```
 
 
 ### Exercise 2 
 
 **Logistic regression**
 
-Use the `NH11` data set that we loaded earlier.
+Use the `NH11` data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 ```{r}
@@ -611,8 +674,6 @@ Use the `NH11` data set that we loaded earlier.
 ```{r}
 
 ```
-
-Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
 
 ## Multilevel modeling
@@ -631,12 +692,12 @@ Note that the data are not perfectly clean and ready to be modeled. You will nee
   + **Fixed-effects** -- observed levels are of direct interest (.e.g, sex, political party...)
   + **Random-effects** -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
   + In R, the `lme4` package is the most popular for mixed effects models
-  + Use the `lmer()` function for liner mixed models, `glmer()` for generalized linear mixed models
+  + Use the `lmer()` function for linear mixed models, `glmer()` for generalized linear mixed models
 
 
 ### The Exam data
 
-The Exam data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
+The `Exam.rds` data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
 
 | Variable | Description                             |
 |:---------|:----------------------------------------|
@@ -645,46 +706,50 @@ The Exam data set contains exam scores of 4,059 students from 65 schools in Inne
 | standLRT | Standardized LR test score.             |
 | student  | Student id (within school) - a factor   |
 
-```{r}
-  Exam <- read_rds("dataSets/Exam.rds")
-```
+Let's read in the data:
 
+```{r}
+  exam <- read_rds("dataSets/Exam.rds")
+```
 
 ### The null model & ICC
 
-As a preliminary step it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors).
+Before we fit our first model, let's take a look at the R syntax for multilevel models:
 
 ```{r, eval=FALSE}
   # anatomy of lmer() function
-  lmer(outcome ~ 1 + pred1 + pred2 + (1 | grouping_variable), 
-       data = mydata, 
-       REML = FALSE)
+  
 ```
+
+Notice the formula section within the brackets: `(1 | grouping_variable)`. This part of the formula tells R about the hierarchical structure of the model. In this case, it says we have a model with random intercepts (`1`) grouped by (`|`) a `grouping_variable`.
+
+As a preliminary modeling step, it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors) and then calculating the intra-class correlation (ICC).
 
 ```{r}
   # null model, grouping by school but not fixed effects.
   
 ```
 
-The is .161/(.161 + .852) = .159 = 16% of the variance is at the school level. 
+The ICC is calculated as .163/(.163 + .852) = .161, which means that ~16% of the variance is at the school level. 
 
-There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. 
-But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite 
-approximation).
+There is no consensus on how to calculate p-values for MLMs; hence why they are omitted from the `lme4` output. But, if you really need p-values, the `lmerTest` package will calculate p-values for you (using the Satterthwaite approximation).
 
 
 ### Adding fixed-effects predictors
 
 Here's a theoretical model that predicts exam scores from student's standardized tests scores:
 
+<div class="alert alert-secondary">
 $$
-normexam_{ij} = \mu1 + \beta_1standLRT_{ij} + U_{0j} + \epsilon_{ij}
+examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 $$
+</div>
 
 where $U_{0j}$ is the random intercept for the $j$<sup>th</sup> `school`. Let's implement this in R using `lmer()`:
 
 ```{r}
-  
+  # model with exam scores regressed on student's standardized tests scores
+
 ```
 
 ### Multiple degree of freedom comparisons
@@ -692,15 +757,17 @@ where $U_{0j}$ is the random intercept for the $j$<sup>th</sup> `school`. Let's 
 As with `lm()` and `glm()` models, you can compare the two `lmer()` models using the `anova()` function. With mixed effects models, this will produce a likelihood ratio test.
 
 ```{r}
-  
+   # likelihood ratio test of two nested models
+
 ```
 
 ### Random slopes
 
-Add a random effect of students' standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.
+We can add a random effect of students' standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.
 
 ```{r}
-  
+   # add random effect of students' standardized test scores to model
+
 ```
 
 ### Test the significance of the random slope
@@ -708,7 +775,8 @@ Add a random effect of students' standardized test scores as well. Now in additi
 To test the significance of a random slope just compare models with and without the random slope term using a likelihood ratio test:
 
 ```{r}
-  
+   # likelihood ratio test for random slope term
+
 ```
 
 ### Exercise 3
@@ -719,7 +787,7 @@ Use the `bh1996` dataset:
 
 ```{r}
 ## install.packages("multilevel")
-data(bh1996, package="multilevel")
+data(bh1996, package = "multilevel")
 ```
 
 From the data documentation:
@@ -745,8 +813,6 @@ From the data documentation:
 ```{r}
 
 ```
-
-
 
 
 ## Wrap-up

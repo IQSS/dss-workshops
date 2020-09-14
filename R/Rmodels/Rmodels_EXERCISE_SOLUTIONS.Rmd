@@ -3,13 +3,13 @@
 
 ### Ex 0: prototype
 
-Use the *states.rds* data set.
+Use the `states.rds` data set.
 
 ```{r}
   states <- read_rds("dataSets/states.rds")
 ```
 
-Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to:
+Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to:
 
 1.  Examine/plot the data before fitting the model.
 
@@ -68,7 +68,7 @@ Use the `states` data set.
   mod_en_metro_by_waste <- lm(energy ~ 1 + metro * waste, data = states)
 ```
 
-2.  Try adding a region to the model. Are there significant differences across the four regions?
+2.  Try adding `region` to the model. Are there significant differences across the four regions?
 
 ```{r}
   mod_en_region <- lm(energy ~ 1 + metro * waste + region, data = states)
@@ -109,7 +109,7 @@ Use the dataset `bh1996`:
 
 ```{r}
   # install.packages("multilevel")
-  data(bh1996, package="multilevel")
+  data(bh1996, package = "multilevel")
 ```
 
 From the data documentation:
@@ -123,6 +123,12 @@ From the data documentation:
   summary(mod_grp0)
 ```
 
+2.  Calculate the ICC for your null model
+
+```{r}
+  0.0358 / (0.0358 + 0.7895)
+```
+
 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
 ```{r}
@@ -130,7 +136,7 @@ From the data documentation:
   summary(mod_grp1)
 ```
 
-3.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
+4.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
 ```{r}
   mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = na.omit(bh1996))

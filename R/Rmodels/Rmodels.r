@@ -29,14 +29,12 @@
 #
 # * Assumes working knowledge of R
 # * Relatively fast-paced
-# * This is not a statistics course! We will teach you *how* to fit models in R,
-#   but we assume you know the theory behind the models.
+# * This is not a statistics course! We will teach you *how* to fit models in R, but we assume you know the theory behind the models.
 #
 # ### Goals
 #
 # <div class="alert alert-success">
-# We will learn about the R modeling ecosystem by fitting a variety of statistical models to
-# different datasets. In particular, our goals are to learn about:
+# We will learn about the R modeling ecosystem by fitting a variety of statistical models to different datasets. In particular, our goals are to learn about:
 #
 # 1. Modeling workflow
 # 2. Visualizing and summarizing data before modeling
@@ -44,27 +42,21 @@
 # 4. Modeling binary outcomes
 # 5. Modeling clustered data
 #
-# We will not spend much time *interpreting* the models we fit, since this is not a statistics workshop.
-# But, we will walk you through how model results are organized and orientate you to where you can find
-# typical quantities of interest.
+# We will not spend much time *interpreting* the models we fit, since this is not a statistics workshop. But, we will walk you through how model results are organized and orientate you to where you can find typical quantities of interest.
 # </div>
 #
 # ### Launch an R session
 #
 # Start RStudio and create a new project:
 #
-# * On Windows click the start button and search for RStudio. On Mac
-#     RStudio will be in your applications folder.
+# * On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
 # * In Rstudio go to `File -> New Project`.
 # * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
 # * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` and `rmarkdown`
-# packages onto your computer before the workshop
-# --- see [R Installation](./Rinstall.html).
-# Now let's load these packages into the search path of our R session.
+# You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop --- see [R Installation](./Rinstall.html). Now let's load these packages into the search path of our R session.
 
 library(tidyverse)
 library(rmarkdown)
@@ -82,16 +74,13 @@ library(effects)  # for predicted marginal means
 
 # ## Modeling workflow
 #
-# Before we delve into the details of how to fit models in R, it's worth taking a step
-# back and thinking more broadly about the components of the modeling process. These
-# can roughly be divided into 3 stages:
+# Before we delve into the details of how to fit models in R, it's worth taking a step back and thinking more broadly about the components of the modeling process. These can roughly be divided into 3 stages:
 #
 # 1. Pre-estimation
 # 2. Estimation
 # 3. Post-estimaton
 #
-# At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis),
-# but the process is sequential --- we move through the stages in order (though often many times in one project!)
+# At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis), but the process is sequential --- we move through the stages in order (though often many times in one project!)
 #
 # ![](R/Rmodels/images/R_model_pipeline.png)
 #
@@ -99,12 +88,7 @@ library(effects)  # for predicted marginal means
 #
 # ## R modeling ecosystem
 #
-# There are literally hundreds of R packages that provide model fitting functionality.
-# We're going to focus on just two during this workshop --- `stats`, from Base R, and
-# `lme4`. It's a good idea to look at [CRAN Task Views](https://cran.r-project.org/web/views/) 
-# when trying to find a modeling package for your needs, as they provide an extensive 
-# curated list. But, here's a more digestable table showing some of the most popular
-#  packages for particular types of model.
+# There are literally hundreds of R packages that provide model fitting functionality. We're going to focus on just two during this workshop --- `stats`, from Base R, and `lme4`. It's a good idea to look at [CRAN Task Views](https://cran.r-project.org/web/views/) when trying to find a modeling package for your needs, as they provide an extensive curated list. But, here's a more digestable table showing some of the most popular packages for particular types of model.
 #
 # | Models              | Packages                               |             
 # |:--------------------|:---------------------------------------|
@@ -120,8 +104,7 @@ library(effects)  # for predicted marginal means
 # **GOAL: To learn about the data by creating summaries and visualizations.**
 # </div>
 #
-# One important part of the pre-estimation stage of model fitting, is gaining an understanding
-# of the data we wish to model by creating plots and summaries. Let's do this now.
+# One important part of the pre-estimation stage of model fitting, is gaining an understanding of the data we wish to model by creating plots and summaries. Let's do this now.
 #
 # ### Load the data
 #
@@ -181,19 +164,15 @@ list.files("dataSets")
 # <div class="alert alert-info">
 # **GOAL: To learn about the R modeling ecosystem by fitting ordinary least squares (OLS) models.** In particular:
 #
-# 1. Formula representation of a model specification
+# 1. Formula representation of model specification
 # 2. Model classes
 # 3. Function methods
 # 4. Model comparison
 # </div>
 #
-# Once the data have been inspected and cleaned, we can start estimating models.
-# The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes.
-# Typically, for these outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS),
-# which in R can be fit with the `lm()` (linear model) function.
+# Once the data have been inspected and cleaned, we can start estimating models. The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes. Typically, for these outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS), which in R can be fit with the `lm()` (linear model) function.
 #
-# To fit a model in R, we first have to convert our theoretical model into
-# a `formula` --- a symbolic representation of the model in R syntax:
+# To fit a model in R, we first have to convert our theoretical model into a `formula` --- a symbolic representation of the model in R syntax:
 
 # formula for model specification
 outcome ~ pred1 + pred2 + pred3
@@ -267,7 +246,8 @@ outcome ~ pred1 + pred2 + pred3
 #
 # We can use **methods** (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as **extractor functions**). A list of all the available methods for a given class of object can be shown by using the `methods()` function with the `class` argument set to the class of the model object:
 
-methods(class = class(sat_mod))
+  # methods for class `lm`
+  methods(class = class(sat_mod))
 
 # There are 44 methods available for the `lm` class. We've already seen the `summary()` method for `lm`, which is always a good place to start after fitting a model:
 
@@ -290,7 +270,8 @@ methods(class = class(sat_mod))
 #
 # Function methods always take the form `generic.method()`. Let's look at all the methods for the generic `summary()` function:
 
-methods("summary")
+  # methods for generic `summary()` function
+  methods("summary")
 
 # There are 137 `summary()` methods and counting! 
 #
@@ -350,26 +331,26 @@ methods("summary")
 
 # Why are we using `na.omit()`? Let's see what `na.omit()` does by creating some fake data:
 
-# fake data
-dat <- data.frame(
-  x = 1:5,
-  y = c(3, 2, 1, NA, 5),
-  z = c(6, NA, 2, 7, 3))
-dat
+  # fake data
+  dat <- data.frame(
+    x = 1:5,
+    y = c(3, 2, 1, NA, 5),
+    z = c(6, NA, 2, 7, 3))
+  dat
 
 # We can see that there are missing values on rows 2 and 4. Now let's use `na.omit()` on these data:
 
-# listwise deletion of observations
-na.omit(dat) 
+  # listwise deletion of observations
+  na.omit(dat) 
 
 # Here, the rows with missing values have been omitted --- so, `na.omit()` performs *listwise deletion* of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the `complete.cases()` function:
 
-# ?complete.cases
-dat[with(dat, complete.cases(x, y, z)), ]
+  # ?complete.cases
+  dat[with(dat, complete.cases(x, y, z)), ]
 
-# To compare models, we must fit them to the same data. This is why we need `na.omit()`.
-# Now let's update our first model using `na.omit()`:
+# To compare models, we must fit them to the same data. This is why we need `na.omit()`. Now let's update our first model using `na.omit()`:
 
+  # update model using `na.omit()`
   sat_mod <- 
       sat_mod %>%
       update(data = na.omit(states_data))
@@ -381,15 +362,15 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # **Ordinary least squares regression**
 #
-# Use the *states.rds* data set. Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (`metro`). Be sure to
+# Use the `states.rds` data set. Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to
 #
-# 1.  Examine/plot the data before fitting the model
+# 1.  Examine/plot the data before fitting the model.
 ## 
 
-# 2.  Print and interpret the model `summary()`
+# 2.  Print and interpret the model `summary()`.
 ## 
 
-# 3.  Plot the model using `qplot()` to look for deviations from modeling assumptions
+# 3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
 ## 
 
 # 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
@@ -399,11 +380,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
-# Use the *states.rds* data set.
+# Use the `states.rds` data set.
 
   states <- read_rds("dataSets/states.rds")
 
-# Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to:
+# Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to:
 #
 # 1.  Examine/plot the data before fitting the model.
 
@@ -458,9 +439,9 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # ### Modeling interactions
 #
-# Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?
+# Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: does the association between expense and SAT scores depend on the median income in the state?
 
-  # Add the interaction to the model
+  # add the interaction to the model
   sat_expense_by_percent <- lm(csat ~ 1 + expense + income + expense : income, data = states_data)
 
   # same as above, but shorter syntax
@@ -471,20 +452,21 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### Regression with categorical predictors
 #
-# Let's try to predict SAT scores from `region`, a categorical variable. 
-# Note that you must make sure R does not think your categorical variable is numeric.
+# Let's try to predict SAT scores (`csat`) from geographical region (`region`), a categorical variable. Note that you must make sure R does not think your categorical variable is numeric.
 
   # make sure R knows region is categorical
   str(states_data$region)
 
 # Here, R is already treating `region` as categorical --- that is, in R parlance, a "factor" variable. If `region` were not already a factor, we could make it so like this:
 
+  # convert `region` to a factor
   states_data <- states_data %>%
       mutate(region = factor(region))
 
-  # arguments to the factor() function
+  # arguments to the factor() function:
   # factor(x, levels, labels)
 
+  # examine factor levels
   levels(states_data$region)
 
 # Now let's add `region` to the model:
@@ -493,14 +475,12 @@ dat[with(dat, complete.cases(x, y, z)), ]
   sat_region <- lm(csat ~ 1 + region, data = states_data) 
 
   # show the results
-  summary(sat_region) %>% coef() # show the regression coefficients table
+  summary(sat_region) %>% coef() # show only the regression coefficients table
 
 # We can get an omnibus F-test for `region` by using the `anova()` method:
-#
-# ```[r]
-#   anova(sat_region) # show ANOVA table
-# ```
-#
+
+  anova(sat_region) # show ANOVA table
+
 # So, make sure to tell R which variables are categorical by converting them to factors!
 
 # ### Setting factor reference groups & contrasts
@@ -527,6 +507,8 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   # refit the model
   mod_region <- lm(csat ~ 1 + region, data = states_data)
+
+  # print summary coefficients table
   summary(mod_region) %>% coef()
 
 # Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare particular levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the `emmeans()` post-estimation function from the `emmeans` package to do the calculations for us:
@@ -545,7 +527,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # 1.  Add on to the regression equation that you created in Exercise 1 by generating an interaction term and testing the interaction.
 ## 
 
-# 2.  Try adding region to the model. Are there significant differences across the four regions?
+# 2.  Try adding `region` to the model. Are there significant differences across the four regions?
 ## 
 
 # <details>
@@ -558,7 +540,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   mod_en_metro_by_waste <- lm(energy ~ 1 + metro * waste, data = states)
 
-# 2.  Try adding a region to the model. Are there significant differences across the four regions?
+# 2.  Try adding `region` to the model. Are there significant differences across the four regions?
 
   mod_en_region <- lm(energy ~ 1 + metro * waste + region, data = states)
   anova(mod_en_metro_by_waste, mod_en_region)
@@ -577,7 +559,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # ### Logistic regression
 #
-# This far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited --- in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
+# Thus far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited --- in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
 #
 # For these models we will use a different dataset, drawn from the National Health Interview Survey. From the [CDC website](http://www.cdc.gov/nchs/nhis.htm):
 #
@@ -589,7 +571,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
 # ### Logistic regression example
 #
-# Motivation for a logistic regression model --- with a binary response:
+# Some motivations for using a logistic regression model, rather than a linear model, when we have a binary response:
 #
 # 1. Errors will not be normally distributed
 # 2. Variance will not be homoskedastic
@@ -613,11 +595,9 @@ dat[with(dat, complete.cases(x, y, z)), ]
       data = mydata, 
       family = binomial(link = "logit"))
 
-# The `family` argument sets the error distribution for the model, while the `link` function
-# argument relates the predictors to the expected value of the outcome.
+# The `family` argument sets the error distribution for the model, while the `link` function argument relates the predictors to the expected value of the outcome.
 #
-# Let's predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi.
-# Here's the theoretical model:
+# Let's predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi. Here's the theoretical model:
 #
 # <div class="alert alert-secondary">
 # $$
@@ -648,18 +628,15 @@ dat[with(dat, complete.cases(x, y, z)), ]
   hyp_out <- glm(hypev ~ 1 + age_p + sex + sleep + bmi,
                  data = NH11, 
                  family = binomial(link = "logit"))
-
+  
+  # summary model coefficients table
   summary(hyp_out) %>% coef()
 
 # ### Odds ratios
 #
-# Generalized linear models use link functions to relate the average value of the response to the predictors,
-# so raw coefficients are difficult to interpret. For example, the `age` coefficient of .06 in the previous
-# model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases
-# by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
+# Generalized linear models use link functions to relate the average value of the response to the predictors, so raw coefficients are difficult to interpret. For example, the `age` coefficient of 0.06 in the previous model tells us that for every one unit increase in `age`, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!
 #
-# One solution is to transform the coefficients to make them easier to interpret.
-# Here we transform them into odds ratios by exponentiating:
+# One solution is to transform the coefficients to make them easier to interpret. Here we transform them into odds ratios by exponentiating:
 
   # point estimates
   coef(hyp_out) %>% exp()
@@ -671,14 +648,18 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least-squares means" or "estimated marginal means"). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
 
+  # get predicted marginal means
   hyp_out %>% 
       allEffects() %>%
       plot(type = "response") # "response" refers to the probability scale
 
+# By default, `allEffects()` will produce predictions for all levels of factor variables, while for continuous variables it will chose 5 representative values based on quantiles. We can easily override this behavior using the `xlevels` argument and get predictions at any values of a continuous variable. 
+
   # generate a sequence of ages at which to get predictions of the outcome
   age_years <- seq(20, 80, by = 5)
   age_years
-
+  
+  # get predicted marginal means
   eff_df <- 
       hyp_out %>% 
       allEffects(xlevels = list(age_p = age_years)) %>% # override defaults for age
@@ -690,7 +671,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # **Logistic regression**
 #
-# Use the `NH11` data set that we loaded earlier.
+# Use the `NH11` data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 #
 # 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 ## 
@@ -746,11 +727,11 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #   + **Fixed-effects** -- observed levels are of direct interest (.e.g, sex, political party...)
 #   + **Random-effects** -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
 #   + In R, the `lme4` package is the most popular for mixed effects models
-#   + Use the `lmer()` function for liner mixed models, `glmer()` for generalized linear mixed models
+#   + Use the `lmer()` function for linear mixed models, `glmer()` for generalized linear mixed models
 
 # ### The Exam data
 #
-# The Exam data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
+# The `Exam.rds` data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:
 #
 # | Variable | Description                             |
 # |:---------|:----------------------------------------|
@@ -758,9 +739,10 @@ dat[with(dat, complete.cases(x, y, z)), ]
 # | normexam | Normalized exam score.                  |
 # | standLRT | Standardized LR test score.             |
 # | student  | Student id (within school) - a factor   |
+#
+# Let's read in the data:
 
-  Exam <- read_rds("dataSets/Exam.rds")
-
+  exam <- read_rds("dataSets/Exam.rds")
 
 # ### The null model & ICC
 #
@@ -776,7 +758,7 @@ dat[with(dat, complete.cases(x, y, z)), ]
 
   # null model, grouping by school but not fixed effects.
   Norm1 <-lmer(normexam ~ 1 + (1 | school), 
-               data = na.omit(Exam))
+               data = na.omit(exam))
   summary(Norm1)
 
 # The ICC is calculated as .163/(.163 + .852) = .161, which means that ~16% of the variance is at the school level. 
@@ -795,28 +777,32 @@ dat[with(dat, complete.cases(x, y, z)), ]
 #
 # where $U_{0j}$ is the random intercept for the $j$<sup>th</sup> `school`. Let's implement this in R using `lmer()`:
 
+  # model with exam scores regressed on student's standardized tests scores
   Norm2 <-lmer(normexam ~ 1 + standLRT + (1 | school),
-               data = na.omit(Exam)) 
+               data = na.omit(exam)) 
   summary(Norm2) 
 
 # ### Multiple degree of freedom comparisons
 #
 # As with `lm()` and `glm()` models, you can compare the two `lmer()` models using the `anova()` function. With mixed effects models, this will produce a likelihood ratio test.
 
+  # likelihood ratio test of two nested models
   anova(Norm1, Norm2)
 
 # ### Random slopes
 #
-# Add a random effect of students' standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.
+# We can add a random effect of students' standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.
 
+  # add random effect of students' standardized test scores to model
   Norm3 <- lmer(normexam ~ 1 + standLRT + (1 + standLRT | school), 
-                data = na.omit(Exam)) 
+                data = na.omit(exam)) 
   summary(Norm3) 
 
 # ### Test the significance of the random slope
 #
 # To test the significance of a random slope just compare models with and without the random slope term using a likelihood ratio test:
 
+  # likelihood ratio test for random slope term
   anova(Norm2, Norm3) 
 
 # ### Exercise 3
@@ -862,12 +848,16 @@ data(bh1996, package = "multilevel")
   mod_grp0 <- lmer(WBEING ~ 1 + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp0)
 
+# 2.  Calculate the ICC for your null model
+
+  0.0358 / (0.0358 + 0.7895)
+
 # 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
   mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp1)
 
-# 3.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
+# 4.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
   mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = na.omit(bh1996))
   anova(mod_grp1, mod_grp2)

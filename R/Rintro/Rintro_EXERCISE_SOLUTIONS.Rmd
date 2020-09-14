@@ -3,7 +3,7 @@
 
 ### Ex 0: prototype
 
-1. 2 plus 2
+1. Try to get R to add 2 plus 2.
 
     ```{r}
     2 + 2
@@ -11,7 +11,7 @@
     sum(2, 2)
     ```
 
-2. square root of 10
+2. Try to calculate the square root of 10.
 
     ```{r}
     sqrt(10)
@@ -19,7 +19,7 @@
     10^(1/2)
     ```
 
-3. Find "An Introduction to R".
+3. R includes extensive documentation, including a manual named "An introduction to R". Use the RStudio help pane to locate this manual.
 
     ```{r}
     # Go to the main help page by running 'help.start() or using the GUI
@@ -64,7 +64,7 @@
     arrange(baby_names_george, desc(Count))
     ```
 
-3. BONUS (optional): Filter the data to extract _only_ the row containing the most popular boys name in 1999.
+3. BONUS (optional): Filter the data to extract *only* the row containing the most popular boys name in 1999.
 
     ```{r}
     baby_names_boys_1999 <- filter(baby_names,
@@ -166,12 +166,12 @@ baby_names %>%
 
     ```{r}
     girls_and_boys <- inner_join(filter(baby_names, Sex == "Boys"), 
-                                filter(baby_names, Sex == "Girls"),
-                                by = c("Year", "Name"))
+                                 filter(baby_names, Sex == "Girls"),
+                                 by = c("Year", "Name"))
 
     girls_and_boys <- mutate(girls_and_boys,
-                            Product = Count.x * Count.y,
-                            Rank = rank(desc(Product)))
+                             Product = Count.x * Count.y,
+                             Rank = rank(desc(Product)))
 
     filter(girls_and_boys, Rank == 1)
     ```
@@ -179,7 +179,7 @@ baby_names %>%
 
 ### Ex 5: prototype
 
-1. Filter the baby_names data, retaining only the 10 most popular girl and boy names for each year.
+1. Filter the `baby_names` data, retaining only the 10 most popular girl and boy names for each year.
 
     ```{r}
     most_popular <- 
@@ -190,7 +190,7 @@ baby_names %>%
     head(most_popular, n = 10)
     ```
 
-2. Summarize the data produced in step one to calculate the total Proportion of boys and girls given one of the top 10 names each year.
+2. Summarize the data produced in step one to calculate the `Total Proportion` of boys and girls given one of the top 10 names each year.
 
     ```{r}
     top10 <- 
@@ -198,7 +198,7 @@ baby_names %>%
       summarize(TotalProportion = sum(Proportion))
     ```
 
-3. Plot the data produced in step 2, with year on the x-axis and total proportion on the y axis. Color by `Sex` and notice the trend.
+3. Plot the data produced in step 2, with `Year` on the x-axis and `Total Proportion` on the y axis. Color by `Sex` and notice the trend.
 
     ```{r}
     qplot(x = Year, 

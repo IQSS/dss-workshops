@@ -1,4 +1,3 @@
-knitr::opts_knit$set(root.dir="R/RDataWrangling") # base.dir="R/RDataWrangling"
 
 # # R Data Wrangling
 #
@@ -33,16 +32,14 @@ knitr::opts_knit$set(root.dir="R/RDataWrangling") # base.dir="R/RDataWrangling"
 #
 # Start RStudio and create a new project:
 #
-# * On Windows click the start button and search for RStudio. On Mac
-#     RStudio will be in your applications folder.
+# * On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
 # * In Rstudio go to `File -> New Project`.
 # * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
 # * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop 
-# --- see [R Installation](./Rinstall.html). Now let's load these packages into the search path of our R session.
+# You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop --- see [R Installation](./Rinstall.html). Now let's load these packages into the search path of our R session.
 
 library(tidyverse)
 library(rmarkdown)
@@ -52,9 +49,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 # **Example data**
 #
-# The UK [Office for National Statistics](https://www.ons.gov.uk) provides yearly
-#     data on the most popular boys names going back to 1996. The data is provided
-#     separately for boys and girls and is stored in Excel spreadsheets.
+# The UK [Office for National Statistics](https://www.ons.gov.uk) provides yearly data on the most popular boys names going back to 1996. The data is provided separately for boys and girls and is stored in Excel spreadsheets.
 #
 # **Overall Goal** 
 #
@@ -68,18 +63,13 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 # There are several things that make our goal challenging. Let's take a look at the data:
 #
-# 1.  Locate the files named `1996boys_tcm77-254026.xlsx` and 
-#     `2015boysnamesfinal.xlsx` and open them separately in a 
-#     spreadsheet program. 
+# 1. Locate the files named `1996boys_tcm77-254026.xlsx` and `2015boysnamesfinal.xlsx` and open them separately in a spreadsheet program. 
 #
-#     (If you don't have a spreadsheet program installed on
-#     your computer you can download one from
-#     https://www.libreoffice.org/download/download/). 
+#   (If you don't have a spreadsheet program installed on your computer you can download one from https://www.libreoffice.org/download/download/). 
 #
-#     What issues can you identify that might make working
-#     with these data difficult?
+#   What issues can you identify that might make working with these data difficult?
 #
-#     In what ways is the format different between the two files?
+#   In what ways is the format different between the two files?
 #
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
@@ -133,20 +123,24 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 # The first step is to get a character vector of file names.
 
+# read file names into a character vector
 boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
 
-# Now that we've told R the names of the data files, we can start working with them. For example, the first file is
+# Now that we've told R the names of the data files, we can start working with them. For example, the first file is:
 
+# view path of first file
 boy_file_names[1]
 
 # and we can use the `excel_sheets()` function from the `readxl` package within `tidyverse` to list the worksheet names from this file.
 
+# list worksheet names from first file
 excel_sheets(boy_file_names[1])
 
 # ### Iterating with `map()`
 #
 # Now that we know how to retrieve the names of the worksheets in an Excel file, we could start writing code to extract the sheet names from each file, e.g.,
 
+# extract sheet names from each file
 excel_sheets(boy_file_names[1])
 
 excel_sheets(boy_file_names[2])
@@ -186,10 +180,10 @@ map(boy_file_names, excel_sheets)
 
 # str_subset(character_vector, regex_pattern)
 
-# nesting functions
+# we can do this by nesting functions
 str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")
 
-# piping functions
+# or, we can do this by piping functions
 excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 
 # ### Writing your own functions
@@ -239,7 +233,7 @@ get_data_sheet_name <- function(file, term){
   excel_sheets(file) %>% str_subset(pattern = term)
 }
 
-# the goal is generalization 
+# the goal is generalization - we can now extract any Table
 get_data_sheet_name(boy_file_names[1], term = "Table 1")
 get_data_sheet_name(boy_file_names[1], term = "Table 2")
 
@@ -250,8 +244,8 @@ get_data_sheet_name(boy_file_names[1], term = "Table 2")
 #     arguments to previous function)
  
 map(boy_file_names,      # list object
-    get_data_sheet_name, # function
-    term = "Table 1")    # argument to previous function
+    get_data_sheet_name, # our function
+    term = "Table 1")    # argument to our function `get_data_sheet_name()`
 
 # ## Reading Excel data files
 #
@@ -259,6 +253,7 @@ map(boy_file_names,      # list object
 #
 # We'll start by reading the data from the first file, just to check that it works. Recall that the actual data starts on row 7, so we want to skip the first 6 rows. We can use the `glimpse()` function from the `dplyr` package within `tidyverse` to view the output.
 
+# read in data from the first file only
 temp <- read_excel(
   path = boy_file_names[1],
   sheet = get_data_sheet_name(boy_file_names[1], term = "Table 1"),
@@ -271,24 +266,20 @@ glimpse(temp)
 
 # ### Exercise 1
 #
-#   1. Write a function called `read_boys_names` that takes a file name as an argument 
-#      and reads the worksheet containing "Table 1" from that file. Don't forget
-#      to skip the first 6 rows.
+# 1. Write a function called `read_boys_names` that takes a file name as an argument and reads the worksheet containing "Table 1" from that file. Don't forget to skip the first 6 rows.
 ## 
 
-#   2. Test your function by using it to read *one* of the boys names
-#      Excel files.
+# 2. Test your function by using it to read *one* of the boys names Excel files.
 ## 
 
-#   3. Use the `map()` function to create a list of data frames called `boysNames`          
-#      from all the Excel files, using the function you wrote in step 1.
+# 3. Use the `map()` function to create a list of data frames called `boysNames` from all the Excel files, using the function you wrote in step 1.
 ## 
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
-# 1.  Write a function that takes a file name as an argument and reads the worksheet containing "Table 1" from that file.
+# 1. Write a function called `read_boys_names` that takes a file name as an argument and reads the worksheet containing "Table 1" from that file. Don't forget to skip the first 6 rows.
 
 read_boys_names <- function(file, sheet_name) {
   read_excel(
@@ -298,11 +289,11 @@ read_boys_names <- function(file, sheet_name) {
   )
 }
 
-# 2.  Test your function by using it to read *one* of the boys names Excel files.
+# 2. Test your function by using it to read *one* of the boys names Excel files.
 
 read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
 
-# 3.  Use the `map()` function to read data from all the Excel files, using the function you wrote in step 1.
+# 3. Use the `map()` function to create a list of data frames called `boysNames` from all the Excel files, using the function you wrote in step 1.
 
 boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 # </div>
@@ -357,6 +348,7 @@ glimpse(boysNames[[20]])
 
 boysNames[[1]]
 
+# retain only columns of interest
 boysNames[[1]] <- select(boysNames[[1]], Name...2, Name...6, Count...3, Count...7)
 boysNames[[1]]
 
@@ -410,10 +402,10 @@ boysNames[[1]]
 # If heterogeneous elements are stored in an atomic vector, R will **coerce** the vector to the simplest type required to store all the information. The order of coercion is roughly: logical -> integer -> double -> character -> list. For example:
 
 x <- c(1.5, 2.7, 3.9)
-typeof(x)
+typeof(x) # the vector is numeric
 
 y <- c(1.5, 2.7, 3.9, "a")
-typeof(y)
+typeof(y) # the vector has been coerced to character
 
 
 # ### List indexing
@@ -456,6 +448,7 @@ class(mylist[[2]]) # a character vector
 
 boysNames[[1]]
 
+# remove rows with missing values
 boysNames[[1]] <- boysNames[[1]] %>% drop_na()
 
 boysNames[[1]]
@@ -463,26 +456,26 @@ boysNames[[1]]
 
 # ### Exercise 2
 #
-#   1. Write a function called `namecount` that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function. 
+# 1. Write a function called `namecount` that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function. 
 ## 
 
-#   2. Test your function on the first data frame in the list of boys names data.
+# 2. Test your function on the first data frame in the list of `boysNames` data.
 ## 
 
-#   3. Use the `map()` function to call your `namecount()` function on each data frame in the list called `boysNames`.Save the results back to the list called `boysNames`.
+# 3. Use the `map()` function to call your `namecount()` function on each data frame in the list called `boysNames`.Save the results back to the list called `boysNames`.
 ## 
 
 # <details>
 #   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
-# 1. Write a function called `namecount` that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function.
+# 1. Write a function called `namecount` that takes a data frame as an argument and returns a modified version, which keeps only columns that include the strings `Name` and `Count` in the column names. HINT: see the `?matches` function. 
 
   namecount <- function(data) {
       select(data, matches("Name|Count"))
   }
 
-# 2. Test your function on the first data frame in the list of boys names data.
+# 2. Test your function on the first data frame in the list of `boysNames` data.
 
   namecount(boysNames[[1]])
 
@@ -494,18 +487,21 @@ boysNames[[1]]
 
 # ### Reshaping from wide to long
 #
-# Our final task is to re-arrange the data so that it is all in a single table instead of in two side-by-side tables. For many similar tasks the `pivot_longer()` function in the `tidyr` package is useful, but in this case we will be better off using a combination of `select()` and `bind_rows()`. Here's the logic behind this step:
+# Our final task is to re-arrange the data so that it is all in a single table instead of in two side-by-side tables. For many similar tasks the `pivot_longer()` function in the `tidyr` package is useful, but in this case we will be better off using a combination of `select()` and `bind_rows()`. Here is the logic behind this step:
+#
 # <center>
 # ![](R/RDataWrangling/images/wide_vs_long.png)
 # </center>
 #
-# Here’s the code that implements the transformation:
+# Here is the code that implements the transformation:
 
 boysNames[[1]]
 
+# select the two separate sets of columns and standardize the column names
 first_columns <- select(boysNames[[1]], Name = Name...2, Count = Count...3)
 second_columns <- select(boysNames[[1]], Name = Name...6, Count = Count...7)
 
+# glue the rows together to form one long data frame
 bind_rows(first_columns, second_columns)
 
 
@@ -515,19 +511,19 @@ bind_rows(first_columns, second_columns)
 #
 # In the previous examples we learned how to drop empty rows with `drop_na()`, select only relevant columns with `select()`, and re-arrange our data with `select()` and `bind_rows()`. In each case we applied the changes only to the first element of our `boysNames` list.
 #
-# NOTE: some Excel files include extra blank columns between the first and second set of `Name` and `Count` columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression
-# (regex) to match each of these different column names. HINT: see the `?matches` function.
+# NOTE: some Excel files include extra blank columns between the first and second set of `Name` and `Count` columns, resulting in different numeric suffixes for the second set of columns. You will need to use a regular expression (regex) to match each of these different column names. HINT: see the `?matches` function.
 #
 # 1. Create a new function called `cleanupNamesData` that:
-# 1) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
+# A) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
 
-# 2) subset two separate data frames, with first and second set of `Name` and `Count` columns
+# B) subsets two separate data frames, with first and second set of `Name` and `Count` columns
 
-# 3) append the two datasets
+# C) appends the two datasets
+
+# D) once you've written the function, test it out on *one* of the data frames in the list
 
 
-# 2. Your task now is to use the `map()` function to apply each of these
-# transformations to all the elements in `boysNames`. 
+# 2. Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
 ## 
 
 # <details>
@@ -538,28 +534,29 @@ bind_rows(first_columns, second_columns)
 
 cleanupNamesData <- function(file){
 
-  # subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
+  # A) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
   subsetted_file <- file %>%
     select(matches("Name|Count")) %>%
     drop_na()
 
-  # subset two separate data frames, with first and second set of `Name` and `Count` columns 
+  # B) subsets two separate data frames, with first and second set of `Name` and `Count` columns 
   first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
 
   second_columns <- select(subsetted_file, Name = matches("Name...6|Name...7|Name...8"),
                                            Count = matches("Count...7|Count...8|Count...9"))
 
-  # append the two datasets
+  # C) appends the two datasets
   bind_rows(first_columns, second_columns)
 }
 
 
-## test it out on the second data frame in the list
+# D) once you've written the function, test it out on *one* of the data frames in the list
 boysNames[[2]] %>% glimpse() # before cleanup
 boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
 
 # 2. Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
 
+# apply your function to elements in `boysNames` using `map()`
 boysNames <- map(boysNames, cleanupNamesData)
 # </div>
 # </details>
@@ -579,7 +576,7 @@ boysNames <- map(boysNames, cleanupNamesData)
 #
 # Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.
 
-# our list of data frames
+# our unnamed list of data frames
 head(boysNames) %>% glimpse()
 
 # the file names containing the 'year' information
@@ -587,7 +584,7 @@ head(boy_file_names)
 
 # We can use regular expresssions (regex) to extract the year information from the file names and store it in a character vector:
 
-# we can use regex to extract years from file names
+# use regex to extract years from file names
 Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
 Years
 
@@ -600,13 +597,14 @@ names(boysNames) <- Years
 
 names(boysNames) # check assignment by returning the years as list names
 
-# Now let's view our list of data frames again --- we can see that year information has been added to each element as a name just after the `$` extractor:
+# Now when we view our list of data frames again we can see that year information has been added to each element as a name just after the `$` extractor:
 
+# view named list of data frames
 head(boysNames) %>% glimpse() 
 
 # ### One big data frame
 #
-# While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We've already seen how to turn a list of data frames into a single data frame using `bind_rows()`, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
+# While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We have already seen how to turn a list of data frames into a single data frame using `bind_rows()`, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
 #
 # We can use the `imap()` function --- which stands for 'index' mapping --- to do this operation. We know that the `mutate()` function can create a new column within a data frame. Here, we create a column called `Year` within each data frame (indexed by `.x`) that takes the name of each list element (indexed by `.y`), converts it from character (i.e., `"1996"`) to integer (i.e., `1996`), and repeats it along the rows of the data frame. 
 
@@ -623,8 +621,7 @@ boysNames[1]
 # 1. Turn the list of boys names data frames into a single data frame. HINT: see `?bind_rows`.
 ## 
 
-# 2. Create a new directory called `all` within `dataSets` and write the data to a `.csv` file.
-#     HINT: see the `?dir.create` and `?write_csv` functions.
+# 2. Create a new directory called `all` within `dataSets` and write the data to a `.csv` file. HINT: see the `?dir.create` and `?write_csv` functions.
 ## 
 
 # 3. What were the five most popular names in 2013?
@@ -639,6 +636,7 @@ boysNames[1]
 #
 # 1. Turn the list of boys names data frames into a single data frame.
 
+# convert list of data frames into single data frame
 boysNames <- bind_rows(boysNames)
 glimpse(boysNames)
 
@@ -670,12 +668,15 @@ ggplot(andrew, aes(x = Year, y = Count)) +
 #
 # 1. Code for Section 1: Reading data from multiple Excel worksheets into R data frames:
 
+# read file names into a character vector
 boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
 
+# function to extract sheet names from an Excel file
 get_data_sheet_name <- function(file, term){
   excel_sheets(file) %>% str_subset(pattern = term)
 }
 
+# function to read in arbirary sheets from an Excel file
 read_boys_names <- function(file, sheet_name) {
   read_excel(
     path = file,
@@ -684,36 +685,43 @@ read_boys_names <- function(file, sheet_name) {
   )
 }
 
+# apply your function to elements in `boy_file_names` using `map()`
 boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 
 # 2. Code for Section 2: Clean up data within each R data frame:
 
+# function to clean up the data
 cleanupNamesData <- function(file){
   
-  # subset data to include only those columns that include the term `Name` and `Count`
+  # A) subset data to include only those columns that include the term `Name` and `Count`
   subsetted_file <- file %>%
     select(matches("Name|Count")) %>%
     drop_na()
 
-  # subset two separate data frames, with first and second set of `Name` and `Count` columns 
+  # B) subsets two separate data frames, with first and second set of `Name` and `Count` columns 
   first_columns <- select(subsetted_file, Name = Name...2, Count = Count...3) 
   second_columns <- select(subsetted_file, Name = matches("Name...6|Name...7|Name...8"),
                                            Count = matches("Count...7|Count...8|Count...9"))
 
-  # append the two datasets
+  # C) appends the two datasets
   bind_rows(first_columns, second_columns)
 }
 
+# apply your function to elements in `boysNames` using `map()`
 boysNames <- map(boysNames, cleanupNamesData)
 
 # 3. Code for Section 3: Organize the data into one large data frame and store it:
 
+# use regex to extract years from file names
 Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
 
+# assign years to list names
 names(boysNames) <- Years
 
+# apply name of the list element (.y) as a new column in the data.frame (.x)
 boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
 
+# convert list of data frames into single data frame
 boysNames <- bind_rows(boysNames)
 
 

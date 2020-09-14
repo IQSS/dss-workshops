@@ -36,25 +36,19 @@
 #
 # Start RStudio and create a new project:
 #
-# * On Windows click the start button and search for RStudio. On Mac
-#     RStudio will be in your applications folder.
+# * On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
 # * In Rstudio go to `File -> New Project`.
 # * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
 # * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` and `rmarkdown`
-# packages onto your computer before the workshop 
-# --- see [R Installation](./Rinstall.html). 
-# Now let's load these packages into the search path of our R session.
+# You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop --- see [R Installation](./Rinstall.html). Now let's load these packages into the search path of our R session.
 
 library(tidyverse)
 library(rmarkdown)
 
-# The `ggplot2` package is contained within `tidyverse`, but we also want to 
-# install two additional packages, `scales` and `ggrepel`, which provide 
-# additional functionality.
+# The `ggplot2` package is contained within `tidyverse`, but we also want to install two additional packages, `scales` and `ggrepel`, which provide additional functionality.
 
 # install.packages("scales")
 library(scales)
@@ -65,9 +59,7 @@ library(ggrepel)
 # ### Goals
 #
 # <div class="alert alert-success">
-# We will learn about the `grammar of graphics` --- a system for understanding
-# the building blocks of a graph --- using the `ggplot2` package. In particular,
-# we'll learn about:  
+# We will learn about the `grammar of graphics` --- a system for understanding the building blocks of a graph --- using the `ggplot2` package. In particular, we'll learn about:  
 #
 # 1.  Basic plots, **aesthetic mapping and inheritance**
 # 2.  Tailoring **statistical transformations** to particular plots
@@ -93,9 +85,7 @@ library(ggrepel)
 
 # ### What is the Grammar Of Graphics?
 #
-# The basic idea: independently specify plot building blocks and combine them to create just 
-# about any kind of graphical display you want. Building blocks of a graph include the
-# following (**bold denotes essential elements**):
+# The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include the following (**bold denotes essential elements**):
 #
 # * **data**
 # * **aesthetic mapping**
@@ -107,8 +97,7 @@ library(ggrepel)
 # * faceting
 # * themes
 #
-# By the end of this workshop, you should understand what these building blocks do and
-# how to use them to create the following plot:
+# By the end of this workshop, you should understand what these building blocks do and how to use them to create the following plot:
 #
 # ![](R/Rgraphics/images/final_plot.png)
 
@@ -146,8 +135,7 @@ library(ggrepel)
 #
 # A plot **must have at least one geom**; there is no upper limit. You can add a geom to a plot using the `+` operator.
 #
-# Each `geom_` has a particular set of aesthetic mappings associated with it. Some examples are provided below, 
-# with required aesthetics in **bold** and optional aesthetics in plain text:
+# Each `geom_` has a particular set of aesthetic mappings associated with it. Some examples are provided below, with required aesthetics in **bold** and optional aesthetics in plain text:
 #
 # | `geom_`          | Usage             | Aesthetics                                                                      |
 # |:-----------------|:------------------|:-----------------------------------------------------------------------------------------|
@@ -163,11 +151,11 @@ library(ggrepel)
 
 # #### Points (scatterplot)
 #
-# Now that we know about geometric objects and aesthetic mapping, we can make a `ggplot()`. `geom_point()` requires mappings for x and y, all others are optional.
+# Now that we know about geometric objects and aesthetic mapping, we can make a ggplot. To add points to a plot, `geom_point()` requires mappings for x and y, all others are optional.
 #
 # **Example data: housing prices**
 #
-# Let's look at housing prices.
+# Let's look at data on housing prices.
 
 housing <- read_csv("dataSets/landdata-states.csv")
 head(housing[1:5]) # view first 5 columns
@@ -205,13 +193,14 @@ p1 <- ggplot(hp2001Q1, aes(x = log(Land_Value), y = Structure_Cost))
 
 # we can then add geometric objects to our base plot 'p1'
 p1 + geom_point(aes(color = Home_Value)) + # values for x and y are inherited from the ggplot() call above
-  geom_line(aes(y = pred_SC)) # add predicted values to the plot overriding the y values from the ggplot() call above
+     geom_line(aes(y = pred_SC)) # add predicted values to the plot overriding the y values from the ggplot() call above
 
 
 # #### Smoothers
 #
 # Not all geometric objects are simple shapes; the smooth geom includes a line and a ribbon.
 
+# add smooth geom to base plot
 p1 +
   geom_point(aes(color = Home_Value)) +
   geom_smooth()
@@ -221,11 +210,13 @@ p1 +
 #
 # Each geom accepts a particular set of mappings; for example `geom_text()` accepts a `label` mapping.
 
+# add text geom to base plot
 p1 + 
   geom_text(aes(label = State), size = 3)
 
 # But what if we want to include points and labels? We can use `geom_text_repel()` to keep labels from overlapping the points and each other.
 
+# add points and text geoms to base plot
 p1 + 
   geom_point() + 
   geom_text_repel(aes(label = State), size = 3)
@@ -235,11 +226,13 @@ p1 +
 #
 # 1.  Variables are **mapped** to aesthetics inside the `aes()` function:
 
+# map `Home_Value` to point size
 p1 +
   geom_point(aes(size = Home_Value))
 
 # 2.  Constants are **assigned** to aesthetics outside the `aes()` call:
 
+# assign all points a size of 2
 p1 +
   geom_point(size = 2)
 
@@ -247,15 +240,16 @@ p1 +
 
 p1 +
   geom_point(aes(size = 2),# incorrect! 2 is not a variable
-             color="red") # this is fine -- all points red
+             color = "red") # this is fine -- all points red
 
 
 # ### Mapping variables to other aesthetics
 #
 # Other aesthetics are mapped in the same way as x and y in the previous example.
 
+# map `Home_Value` to color and `Region` to shape 
 p1 +
-  geom_point(aes(color = Home_Value, shape = region))
+  geom_point(aes(color = Home_Value, shape = Region))
 
 
 # ### Exercise 0
@@ -341,11 +335,13 @@ args(stat_bin)
 #
 # For example, here is the default histogram of `Home_Value`:
 
+# histogram of `Home_Value`
 p2 <- ggplot(housing, aes(x = Home_Value))
 p2 + geom_histogram()
 
 # We can change the boundaries for the bins by passing the `breaks` argument through `geom_histogram()` to the `stat_bin()` function:
 
+# change bin boundaries for histogram
 p2 + geom_histogram(breaks = seq(0, 875000, by = 250))
 
 # For reference, here is a list of geometric objects and their default statistics <https://ggplot2.tidyverse.org/reference/>.
@@ -365,6 +361,7 @@ head(housing_sum)
 
 # Now let's try to create a bar chart using this pre-summarized data:
 
+# barchart using pre-summarized data
 ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
   geom_bar()
 
@@ -372,6 +369,7 @@ ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) +
 
 # What is the problem with the previous plot? Basically, we take binned and summarized data and ask `ggplot()` to bin and summarize it again (`geom_bar()` defaults to `stat = stat_count`). Obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function. The `identity` function returns the same output as the input.
 
+# change the statistical transformation function
 ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
   geom_bar(stat = "identity")
 
@@ -441,7 +439,7 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 #
 # ### Controlling aesthetic mapping
 #
-# Aesthetic mapping (i.e., with `aes()`) only says that a variable should be mapped to an aesthetic. It doesn't say *how* that should happen. For example, when mapping a variable to *shape* with `aes(shape = x)` you don't say *what* shapes should be used. Similarly, `aes(color = y)` doesn't say *what* colors should be used. Also, `aes(size = z)` doesn't say *what* sizes should be used. Describing what colors/shapes/sizes etc. to use is done by modifying the corresponding *scale*. In `ggplot2` scales include
+# Aesthetic mapping (i.e., with `aes()`) only says that a variable should be mapped to an aesthetic. It doesn't say *how* that should happen. For example, when mapping a variable to *shape* with `aes(shape = x)` you don't say *what* shapes should be used. Similarly, `aes(color = y)` doesn't say *what* colors should be used. Also, `aes(size = z)` doesn't say *what* sizes should be used. Describing what colors/shapes/sizes etc. to use is done by modifying the corresponding *scale*. In `ggplot2` scales include:
 #
 # * position
 # * color and fill
@@ -466,12 +464,14 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 #
 # Start by constructing a dotplot showing the distribution of home values by `Date` and `State`.
 
+# base dotplot
 p3 <- ggplot(housing, aes(x = State, y = Home_Price_Index)) + 
     geom_point(aes(color = Date), alpha = 0.5, size = 1.5,
                position = position_jitter(width = 0.25, height = 0))
 
-# Now modify the breaks for the color scales and shorten the labels:
+# Now modify the breaks and shorten the labels for the color scales:
 
+# modify color scale breaks and labels
 p3 + 
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
@@ -479,6 +479,7 @@ p3 +
 
 # Next change the low and high values to blue and red:
 
+# modify color scale low and high values
 p3 +
   scale_color_continuous(name="",
                          breaks = c(1976, 1994, 2013),
@@ -491,6 +492,7 @@ p3 +
 #
 # `ggplot2` has a wide variety of color scales; here is an example using `scale_color_gradient2()` to interpolate between three different colors.
 
+# modify color scale to interpolate between three different colors
 p3 +
   scale_color_gradient2(name="",
                         breaks = c(1976, 1994, 2013),
@@ -545,7 +547,7 @@ p3 +
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
   geom_point()
 
-# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`).
+# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_continous`, `?scale_y_continuous`, and `?scale_color_discrete`.
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
   geom_point() +
@@ -568,17 +570,17 @@ ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
 #
 # ### What is faceting?
 #
-# * Faceting is `ggplot2` parlance for **small multiples**
-# * The idea is to create separate graphs for subsets of data
-# * `ggplot2` offers two functions for creating small multiples:
+# * Faceting is `ggplot2` parlance for **creating individual graphs for subsets of data**
+# * `ggplot2` offers two functions for creating facets:
 #     1.  `facet_wrap()`: define subsets as the levels of a single grouping variable
 #     2.  `facet_grid()`: define subsets as the crossing of two grouping variables
-# * Facilitates comparison among plots, not just of geoms within a plot
+# * Facets facilitate comparison among plots, not just of geoms within a plot
 #
 # ### What is the trend in housing prices in each state?
 #
 # Start by using a technique we already know; map `State` to color:
 
+# map `State` to color
 p4 <- ggplot(housing, aes(x = Date, y = Home_Value))
 p4 + geom_line(aes(color = State))  
 
@@ -588,6 +590,7 @@ p4 + geom_line(aes(color = State))
 #
 # We can remedy the deficiencies of the previous plot by faceting by `State` rather than mapping `State` to color.
 
+# facet by `State`
 p4 <- p4 + geom_line() +
    facet_wrap(~ State, ncol = 10)
 p4
@@ -609,12 +612,16 @@ p4
 # * `theme_gray()` (default)
 # * `theme_bw()`
 # * `theme_classic()`
+#
+# Here are a couple of examples:
 
+# theme linedraw
 p4 + theme_linedraw()
 
+# theme light
 p4 + theme_light()
 
-# You can see a list of available built-in themes here <https://ggplot2.tidyverse.org/reference/>
+# You can see a list of available built-in themes here: <https://ggplot2.tidyverse.org/reference/>.
 
 # ### Overriding theme defaults
 #
@@ -625,8 +632,7 @@ p4 + theme_light()
 p4 + theme_minimal() +
   theme(text = element_text(color = "red"))  
 
-# All theme options are documented in `?theme`. We can also see the
-# existing default values using:
+# All theme options are documented in `?theme`. We can also see the existing default values using:
 
 theme_get()
 
@@ -646,10 +652,9 @@ p4 + theme_new
 
 # ## Saving plots
 #
-# We can save a plot to either a vector (e.g., pdf, eps, ps, svg) 
-# or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using
-# the `ggsave()` function:
+# We can save a plot to either a vector (e.g., pdf, eps, ps, svg) or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using the `ggsave()` function:
 
+# save plot output to a file
 ggsave(filename = "myplot.pdf", plot = p5, device = "pdf", 
        height = 6, width = 6, units = "in")
 
@@ -658,17 +663,19 @@ ggsave(filename = "myplot.pdf", plot = p5, device = "pdf",
 #
 # ### Map aesthetic to different columns
 #
-# The most frequently asked question goes something like this: *I have two variables in my data.frame, and I'd like to plot them as separate points, with different color depending on which variable it is. How do I do that?*
+# The most frequently asked question goes something like this: *"I have two variables in my data.frame, and I'd like to plot them as separate points, with different color depending on which variable it is. How do I do that?"*
 #
-# **Wrong**
+# **Wrong way**
 #
-# Fixing, rather than mapping, the color aesthetic:
+# Assigning, rather than mapping, the color aesthetic:
 #
 # 1.  Produces verbose code when using many colors
 # 2.  Results in no legend being produced
 # 3.  Means you cannot change color scales
 #
+# To see this, let's first calculate summary home and land value data:
 
+# get summary home and land value data
 housing_byyear <- 
   housing %>%
   group_by(Date) %>%
@@ -676,28 +683,33 @@ housing_byyear <-
             Land_Value_Mean = mean(Land_Value)) %>%
   ungroup()
 
+# Now let's assign the color aesthetic to the line geom for each variable:
+
+# assigning the color aesthetic to constants
 ggplot(housing_byyear, aes(x=Date)) +
   geom_line(aes(y=Home_Value_Mean), color="red") +
   geom_line(aes(y=Land_Value_Mean), color="blue")
 
-# **Right**
+# **Right way**
 #
-# To avoid these pitfalls, we need to **map** our data to the color aesthetic. 
-# We can do this by **reshaping** our data from **wide format** to **long format**. 
-# Here is the logic behind this process:
+# To avoid these pitfalls, we need to **map** our data to the color aesthetic. We can do this by **reshaping** our data from **wide format** to **long format**. Here is the logic behind this process:
 #
 # <center>
 # ![](R/Rgraphics/images/wide_vs_long.png)
 # </center>
 #
-# Here's the code that implements this transformation:
+# Here's the code that implements this transformation using `pivot_longer()`:
 
+# reshape data from wide to long
 home_land_byyear <- 
     housing_byyear %>%
     pivot_longer(cols = c(Home_Value_Mean, Land_Value_Mean),
                  names_to = "type",
                  values_to = "value")
-                          
+
+# Now we can map all our variables to the color aesthetic simultaneously, and `ggplot()` will automatically create a legend for us:
+
+# map data to the color aesthetic                  
 ggplot(home_land_byyear, aes(x = Date, y = value, color = type)) +
   geom_line()
 
@@ -731,6 +743,11 @@ head(midwest)
 #   <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 #   <div class="alert alert-danger">
 #
+# For this exercise, we're going to use the built-in `midwest` dataset:
+
+data("midwest", package = "ggplot2")
+head(midwest)
+
 # 1.  Create a scatter plot with `area` on the x axis and the log of `poptotal` on the y axis. 
 
 p5 <- ggplot(midwest, aes(x = area, y = log(poptotal))) 

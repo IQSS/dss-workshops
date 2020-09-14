@@ -784,15 +784,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Assumes working knowledge of R</li>
 <li>Relatively fast-paced</li>
-<li>This is not a statistics course! We will teach you <em>how</em> to fit models in R,
-but we assume you know the theory behind the models.</li>
+<li>This is not a statistics course! We will teach you <em>how</em> to fit models in R, but we assume you know the theory behind the models.</li>
 </ul>
 </div>
 <div id="goals-1" class="section level3">
 <h3>Goals</h3>
 <div class="alert alert-success">
-<p>We will learn about the R modeling ecosystem by fitting a variety of statistical models to
-different datasets. In particular, our goals are to learn about:</p>
+<p>We will learn about the R modeling ecosystem by fitting a variety of statistical models to different datasets. In particular, our goals are to learn about:</p>
 <ol style="list-style-type: decimal">
 <li>Modeling workflow</li>
 <li>Visualizing and summarizing data before modeling</li>
@@ -800,17 +798,14 @@ different datasets. In particular, our goals are to learn about:</p>
 <li>Modeling binary outcomes</li>
 <li>Modeling clustered data</li>
 </ol>
-<p>We will not spend much time <em>interpreting</em> the models we fit, since this is not a statistics workshop.
-But, we will walk you through how model results are organized and orientate you to where you can find
-typical quantities of interest.</p>
+<p>We will not spend much time <em>interpreting</em> the models we fit, since this is not a statistics workshop. But, we will walk you through how model results are organized and orientate you to where you can find typical quantities of interest.</p>
 </div>
 </div>
 <div id="launch-an-r-session" class="section level3">
 <h3>Launch an R session</h3>
 <p>Start RStudio and create a new project:</p>
 <ul>
-<li>On Windows click the start button and search for RStudio. On Mac
-RStudio will be in your applications folder.</li>
+<li>On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.</li>
 <li>In Rstudio go to <code>File -&gt; New Project</code>.</li>
 <li>Choose <code>Existing Directory</code> and browse to the workshop materials directory on your desktop.</li>
 <li>Choose <code>File -&gt; Open File</code> and select the file with the word “BLANK” in the name.</li>
@@ -818,10 +813,7 @@ RStudio will be in your applications folder.</li>
 </div>
 <div id="packages" class="section level3">
 <h3>Packages</h3>
-<p>You should have already installed the <code>tidyverse</code> and <code>rmarkdown</code>
-packages onto your computer before the workshop
-— see <a href="./Rinstall.html">R Installation</a>.
-Now let’s load these packages into the search path of our R session.</p>
+<p>You should have already installed the <code>tidyverse</code> and <code>rmarkdown</code> packages onto your computer before the workshop — see <a href="./Rinstall.html">R Installation</a>. Now let’s load these packages into the search path of our R session.</p>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="Rmodels.html#cb145-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb145-2"><a href="Rmodels.html#cb145-2"></a><span class="kw">library</span>(rmarkdown)</span></code></pre></div>
 <p>Finally, lets install some packages that will help with modeling:</p>
@@ -837,27 +829,19 @@ Now let’s load these packages into the search path of our R session.</p>
 </div>
 <div id="modeling-workflow" class="section level2">
 <h2>Modeling workflow</h2>
-<p>Before we delve into the details of how to fit models in R, it’s worth taking a step
-back and thinking more broadly about the components of the modeling process. These
-can roughly be divided into 3 stages:</p>
+<p>Before we delve into the details of how to fit models in R, it’s worth taking a step back and thinking more broadly about the components of the modeling process. These can roughly be divided into 3 stages:</p>
 <ol style="list-style-type: decimal">
 <li>Pre-estimation</li>
 <li>Estimation</li>
 <li>Post-estimaton</li>
 </ol>
-<p>At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis),
-but the process is sequential — we move through the stages in order (though often many times in one project!)</p>
+<p>At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis), but the process is sequential — we move through the stages in order (though often many times in one project!)</p>
 <p><img src="R/Rmodels/images/R_model_pipeline.png" /></p>
 <p>Throughout this workshop we will go through these stages several times as we fit different types of model.</p>
 </div>
 <div id="r-modeling-ecosystem" class="section level2">
 <h2>R modeling ecosystem</h2>
-<p>There are literally hundreds of R packages that provide model fitting functionality.
-We’re going to focus on just two during this workshop — <code>stats</code>, from Base R, and
-<code>lme4</code>. It’s a good idea to look at <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a>
-when trying to find a modeling package for your needs, as they provide an extensive
-curated list. But, here’s a more digestable table showing some of the most popular
-packages for particular types of model.</p>
+<p>There are literally hundreds of R packages that provide model fitting functionality. We’re going to focus on just two during this workshop — <code>stats</code>, from Base R, and <code>lme4</code>. It’s a good idea to look at <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> when trying to find a modeling package for your needs, as they provide an extensive curated list. But, here’s a more digestable table showing some of the most popular packages for particular types of model.</p>
 <table>
 <thead>
 <tr class="header">
@@ -894,8 +878,7 @@ packages for particular types of model.</p>
 <div class="alert alert-info">
 <p><strong>GOAL: To learn about the data by creating summaries and visualizations.</strong></p>
 </div>
-<p>One important part of the pre-estimation stage of model fitting, is gaining an understanding
-of the data we wish to model by creating plots and summaries. Let’s do this now.</p>
+<p>One important part of the pre-estimation stage of model fitting, is gaining an understanding of the data we wish to model by creating plots and summaries. Let’s do this now.</p>
 <div id="load-the-data" class="section level3">
 <h3>Load the data</h3>
 <p>List the data files we’re going to work with:</p>
@@ -1008,18 +991,14 @@ but we’ll now move on to modeling.</p>
 <div class="alert alert-info">
 <p><strong>GOAL: To learn about the R modeling ecosystem by fitting ordinary least squares (OLS) models.</strong> In particular:</p>
 <ol style="list-style-type: decimal">
-<li>Formula representation of a model specification</li>
+<li>Formula representation of model specification</li>
 <li>Model classes</li>
 <li>Function methods</li>
 <li>Model comparison</li>
 </ol>
 </div>
-<p>Once the data have been inspected and cleaned, we can start estimating models.
-The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes.
-Typically, for these outcomes, we’d use a model estimated using Ordinary Least Lquares (OLS),
-which in R can be fit with the <code>lm()</code> (linear model) function.</p>
-<p>To fit a model in R, we first have to convert our theoretical model into
-a <code>formula</code> — a symbolic representation of the model in R syntax:</p>
+<p>Once the data have been inspected and cleaned, we can start estimating models. The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes. Typically, for these outcomes, we’d use a model estimated using Ordinary Least Lquares (OLS), which in R can be fit with the <code>lm()</code> (linear model) function.</p>
+<p>To fit a model in R, we first have to convert our theoretical model into a <code>formula</code> — a symbolic representation of the model in R syntax:</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="Rmodels.html#cb156-1"></a><span class="co"># formula for model specification</span></span>
 <span id="cb156-2"><a href="Rmodels.html#cb156-2"></a>outcome <span class="op">~</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2 <span class="op">+</span><span class="st"> </span>pred3</span>
 <span id="cb156-3"><a href="Rmodels.html#cb156-3"></a></span>
@@ -1180,7 +1159,8 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
 <p>We can see that the fitted model object is a <code>list</code> structure (a container that can hold different types of objects). What have we learned by examining the fitted model object? We can see that the default output we get when printing a fitted model of class <code>lm</code> is only a small subset of the information stored within the model object. How can we access other quantities of interest from the model?</p>
 <p>We can use <strong>methods</strong> (functions designed to work with specific classes of object) to extract various quantities from a fitted model object (sometimes these are referred to as <strong>extractor functions</strong>). A list of all the available methods for a given class of object can be shown by using the <code>methods()</code> function with the <code>class</code> argument set to the class of the model object:</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="Rmodels.html#cb171-1"></a><span class="kw">methods</span>(<span class="dt">class =</span> <span class="kw">class</span>(sat_mod))</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="Rmodels.html#cb171-1"></a>  <span class="co"># methods for class `lm`</span></span>
+<span id="cb171-2"><a href="Rmodels.html#cb171-2"></a>  <span class="kw">methods</span>(<span class="dt">class =</span> <span class="kw">class</span>(sat_mod))</span></code></pre></div>
 <pre><code>##  [1] add1           alias          anova          case.names     coerce        
 ##  [6] confint        cooks.distance deviance       dfbeta         dfbetas       
 ## [11] drop1          dummy.coef     Effect         effects        emm_basis     
@@ -1232,7 +1212,8 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 <p>How does R know which method to call for a given object? R uses <strong>generic functions</strong>, which provide access to the methods. <strong>Method dispatch</strong> takes place based on the class of the first argument to the generic function. For example, for the generic function <code>summary()</code> and an object of class <code>lm</code>, the method dispatched will be <code>summary.lm()</code>. Here’s a schematic that shows the process of method dispatch in action:</p>
 <p><img src="R/Rmodels/images/methods.png" /></p>
 <p>Function methods always take the form <code>generic.method()</code>. Let’s look at all the methods for the generic <code>summary()</code> function:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="Rmodels.html#cb179-1"></a><span class="kw">methods</span>(<span class="st">&quot;summary&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="Rmodels.html#cb179-1"></a>  <span class="co"># methods for generic `summary()` function</span></span>
+<span id="cb179-2"><a href="Rmodels.html#cb179-2"></a>  <span class="kw">methods</span>(<span class="st">&quot;summary&quot;</span>)</span></code></pre></div>
 <pre><code>##   [1] summary,ANY-method             summary,DBIObject-method      
 ##   [3] summary,diagonalMatrix-method  summary,sparseMatrix-method   
 ##   [5] summary.aareg*                 summary.allFit*               
@@ -1412,12 +1393,12 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ## house         -1.44243754  0.600478382 -2.4021473 2.058666e-02
 ## senate         0.49817861  0.513561356  0.9700469 3.373256e-01</code></pre>
 <p>Why are we using <code>na.omit()</code>? Let’s see what <code>na.omit()</code> does by creating some fake data:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="Rmodels.html#cb185-1"></a><span class="co"># fake data</span></span>
-<span id="cb185-2"><a href="Rmodels.html#cb185-2"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb185-3"><a href="Rmodels.html#cb185-3"></a>  <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
-<span id="cb185-4"><a href="Rmodels.html#cb185-4"></a>  <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">5</span>),</span>
-<span id="cb185-5"><a href="Rmodels.html#cb185-5"></a>  <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">6</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>))</span>
-<span id="cb185-6"><a href="Rmodels.html#cb185-6"></a>dat</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="Rmodels.html#cb185-1"></a>  <span class="co"># fake data</span></span>
+<span id="cb185-2"><a href="Rmodels.html#cb185-2"></a>  dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb185-3"><a href="Rmodels.html#cb185-3"></a>    <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
+<span id="cb185-4"><a href="Rmodels.html#cb185-4"></a>    <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">5</span>),</span>
+<span id="cb185-5"><a href="Rmodels.html#cb185-5"></a>    <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">6</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb185-6"><a href="Rmodels.html#cb185-6"></a>  dat</span></code></pre></div>
 <pre><code>##   x  y  z
 ## 1 1  3  6
 ## 2 2  2 NA
@@ -1425,27 +1406,27 @@ is to extract <strong>quantities of interest</strong> from our fitted model. The
 ## 4 4 NA  7
 ## 5 5  5  3</code></pre>
 <p>We can see that there are missing values on rows 2 and 4. Now let’s use <code>na.omit()</code> on these data:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="Rmodels.html#cb187-1"></a><span class="co"># listwise deletion of observations</span></span>
-<span id="cb187-2"><a href="Rmodels.html#cb187-2"></a><span class="kw">na.omit</span>(dat) </span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="Rmodels.html#cb187-1"></a>  <span class="co"># listwise deletion of observations</span></span>
+<span id="cb187-2"><a href="Rmodels.html#cb187-2"></a>  <span class="kw">na.omit</span>(dat) </span></code></pre></div>
 <pre><code>##   x y z
 ## 1 1 3 6
 ## 3 3 1 2
 ## 5 5 5 3</code></pre>
 <p>Here, the rows with missing values have been omitted — so, <code>na.omit()</code> performs <em>listwise deletion</em> of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the <code>complete.cases()</code> function:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="Rmodels.html#cb189-1"></a><span class="co"># ?complete.cases</span></span>
-<span id="cb189-2"><a href="Rmodels.html#cb189-2"></a>dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, y, z)), ]</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="Rmodels.html#cb189-1"></a>  <span class="co"># ?complete.cases</span></span>
+<span id="cb189-2"><a href="Rmodels.html#cb189-2"></a>  dat[<span class="kw">with</span>(dat, <span class="kw">complete.cases</span>(x, y, z)), ]</span></code></pre></div>
 <pre><code>##   x y z
 ## 1 1 3 6
 ## 3 3 1 2
 ## 5 5 5 3</code></pre>
-<p>To compare models, we must fit them to the same data. This is why we need <code>na.omit()</code>.
-Now let’s update our first model using <code>na.omit()</code>:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="Rmodels.html#cb191-1"></a>  sat_mod &lt;-<span class="st"> </span></span>
-<span id="cb191-2"><a href="Rmodels.html#cb191-2"></a><span class="st">      </span>sat_mod <span class="op">%&gt;%</span></span>
-<span id="cb191-3"><a href="Rmodels.html#cb191-3"></a><span class="st">      </span><span class="kw">update</span>(<span class="dt">data =</span> <span class="kw">na.omit</span>(states_data))</span>
-<span id="cb191-4"><a href="Rmodels.html#cb191-4"></a></span>
-<span id="cb191-5"><a href="Rmodels.html#cb191-5"></a>  <span class="co"># compare using an F-test with the anova() function</span></span>
-<span id="cb191-6"><a href="Rmodels.html#cb191-6"></a>  <span class="kw">anova</span>(sat_mod, sat_voting_mod)</span></code></pre></div>
+<p>To compare models, we must fit them to the same data. This is why we need <code>na.omit()</code>. Now let’s update our first model using <code>na.omit()</code>:</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="Rmodels.html#cb191-1"></a>  <span class="co"># update model using `na.omit()`</span></span>
+<span id="cb191-2"><a href="Rmodels.html#cb191-2"></a>  sat_mod &lt;-<span class="st"> </span></span>
+<span id="cb191-3"><a href="Rmodels.html#cb191-3"></a><span class="st">      </span>sat_mod <span class="op">%&gt;%</span></span>
+<span id="cb191-4"><a href="Rmodels.html#cb191-4"></a><span class="st">      </span><span class="kw">update</span>(<span class="dt">data =</span> <span class="kw">na.omit</span>(states_data))</span>
+<span id="cb191-5"><a href="Rmodels.html#cb191-5"></a></span>
+<span id="cb191-6"><a href="Rmodels.html#cb191-6"></a>  <span class="co"># compare using an F-test with the anova() function</span></span>
+<span id="cb191-7"><a href="Rmodels.html#cb191-7"></a>  <span class="kw">anova</span>(sat_mod, sat_voting_mod)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: csat ~ 1 + expense
@@ -1459,17 +1440,17 @@ Now let’s update our first model using <code>na.omit()</code>:</p>
 <div id="exercise-0-1" class="section level3">
 <h3>Exercise 0</h3>
 <p><strong>Ordinary least squares regression</strong></p>
-<p>Use the <em>states.rds</em> data set. Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (<code>metro</code>). Be sure to</p>
+<p>Use the <code>states.rds</code> data set. Fit a model predicting energy consumed per capita (<code>energy</code>) from the percentage of residents living in metropolitan areas (<code>metro</code>). Be sure to</p>
 <ol style="list-style-type: decimal">
-<li>Examine/plot the data before fitting the model</li>
+<li>Examine/plot the data before fitting the model.</li>
 </ol>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="Rmodels.html#cb193-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Print and interpret the model <code>summary()</code></li>
+<li>Print and interpret the model <code>summary()</code>.</li>
 </ol>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="Rmodels.html#cb194-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Plot the model using <code>qplot()</code> to look for deviations from modeling assumptions</li>
+<li>Plot the model using <code>qplot()</code> to look for deviations from modeling assumptions.</li>
 </ol>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="Rmodels.html#cb195-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
@@ -1479,9 +1460,9 @@ Now let’s update our first model using <code>na.omit()</code>:</p>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
 <div class="alert alert-danger">
-<p>Use the <em>states.rds</em> data set.</p>
+<p>Use the <code>states.rds</code> data set.</p>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="Rmodels.html#cb197-1"></a>  states &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/states.rds&quot;</span>)</span></code></pre></div>
-<p>Fit a model predicting energy consumed per capita (energy) from the percentage of residents living in metropolitan areas (metro). Be sure to:</p>
+<p>Fit a model predicting energy consumed per capita (<code>energy</code>) from the percentage of residents living in metropolitan areas (<code>metro</code>). Be sure to:</p>
 <ol style="list-style-type: decimal">
 <li>Examine/plot the data before fitting the model.</li>
 </ol>
@@ -1609,8 +1590,8 @@ Now let’s update our first model using <code>na.omit()</code>:</p>
 </div>
 <div id="modeling-interactions" class="section level3">
 <h3>Modeling interactions</h3>
-<p>Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: Does the association between expense and SAT scores depend on the median income in the state?</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="Rmodels.html#cb215-1"></a>  <span class="co"># Add the interaction to the model</span></span>
+<p>Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: does the association between expense and SAT scores depend on the median income in the state?</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="Rmodels.html#cb215-1"></a>  <span class="co"># add the interaction to the model</span></span>
 <span id="cb215-2"><a href="Rmodels.html#cb215-2"></a>  sat_expense_by_percent &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>expense <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>expense <span class="op">:</span><span class="st"> </span>income, <span class="dt">data =</span> states_data)</span>
 <span id="cb215-3"><a href="Rmodels.html#cb215-3"></a></span>
 <span id="cb215-4"><a href="Rmodels.html#cb215-4"></a>  <span class="co"># same as above, but shorter syntax</span></span>
@@ -1626,33 +1607,42 @@ Now let’s update our first model using <code>na.omit()</code>:</p>
 </div>
 <div id="regression-with-categorical-predictors" class="section level3">
 <h3>Regression with categorical predictors</h3>
-<p>Let’s try to predict SAT scores from <code>region</code>, a categorical variable.
-Note that you must make sure R does not think your categorical variable is numeric.</p>
+<p>Let’s try to predict SAT scores (<code>csat</code>) from geographical region (<code>region</code>), a categorical variable. Note that you must make sure R does not think your categorical variable is numeric.</p>
 <div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="Rmodels.html#cb217-1"></a>  <span class="co"># make sure R knows region is categorical</span></span>
 <span id="cb217-2"><a href="Rmodels.html#cb217-2"></a>  <span class="kw">str</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
 <pre><code>##  Factor w/ 4 levels &quot;West&quot;,&quot;N. East&quot;,..: 3 1 1 3 1 1 2 3 NA 3 ...</code></pre>
 <p>Here, R is already treating <code>region</code> as categorical — that is, in R parlance, a “factor” variable. If <code>region</code> were not already a factor, we could make it so like this:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="Rmodels.html#cb219-1"></a>  states_data &lt;-<span class="st"> </span>states_data <span class="op">%&gt;%</span></span>
-<span id="cb219-2"><a href="Rmodels.html#cb219-2"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">factor</span>(region))</span>
-<span id="cb219-3"><a href="Rmodels.html#cb219-3"></a></span>
-<span id="cb219-4"><a href="Rmodels.html#cb219-4"></a>  <span class="co"># arguments to the factor() function</span></span>
-<span id="cb219-5"><a href="Rmodels.html#cb219-5"></a>  <span class="co"># factor(x, levels, labels)</span></span>
-<span id="cb219-6"><a href="Rmodels.html#cb219-6"></a></span>
-<span id="cb219-7"><a href="Rmodels.html#cb219-7"></a>  <span class="kw">levels</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="Rmodels.html#cb219-1"></a>  <span class="co"># convert `region` to a factor</span></span>
+<span id="cb219-2"><a href="Rmodels.html#cb219-2"></a>  states_data &lt;-<span class="st"> </span>states_data <span class="op">%&gt;%</span></span>
+<span id="cb219-3"><a href="Rmodels.html#cb219-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">factor</span>(region))</span>
+<span id="cb219-4"><a href="Rmodels.html#cb219-4"></a></span>
+<span id="cb219-5"><a href="Rmodels.html#cb219-5"></a>  <span class="co"># arguments to the factor() function:</span></span>
+<span id="cb219-6"><a href="Rmodels.html#cb219-6"></a>  <span class="co"># factor(x, levels, labels)</span></span>
+<span id="cb219-7"><a href="Rmodels.html#cb219-7"></a></span>
+<span id="cb219-8"><a href="Rmodels.html#cb219-8"></a>  <span class="co"># examine factor levels</span></span>
+<span id="cb219-9"><a href="Rmodels.html#cb219-9"></a>  <span class="kw">levels</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
 <pre><code>## [1] &quot;West&quot;    &quot;N. East&quot; &quot;South&quot;   &quot;Midwest&quot;</code></pre>
 <p>Now let’s add <code>region</code> to the model:</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="Rmodels.html#cb221-1"></a>  <span class="co"># add region to the model</span></span>
 <span id="cb221-2"><a href="Rmodels.html#cb221-2"></a>  sat_region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states_data) </span>
 <span id="cb221-3"><a href="Rmodels.html#cb221-3"></a></span>
 <span id="cb221-4"><a href="Rmodels.html#cb221-4"></a>  <span class="co"># show the results</span></span>
-<span id="cb221-5"><a href="Rmodels.html#cb221-5"></a>  <span class="kw">summary</span>(sat_region) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="co"># show the regression coefficients table</span></span></code></pre></div>
+<span id="cb221-5"><a href="Rmodels.html#cb221-5"></a>  <span class="kw">summary</span>(sat_region) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="co"># show only the regression coefficients table</span></span></code></pre></div>
 <pre><code>##                Estimate Std. Error    t value     Pr(&gt;|t|)
 ## (Intercept)   946.30769   14.79582 63.9577807 1.352577e-46
 ## regionN. East -56.75214   23.13285 -2.4533141 1.800383e-02
 ## regionSouth   -16.30769   19.91948 -0.8186806 4.171898e-01
 ## regionMidwest  63.77564   21.35592  2.9863209 4.514152e-03</code></pre>
 <p>We can get an omnibus F-test for <code>region</code> by using the <code>anova()</code> method:</p>
-<pre class="[r]"><code>  anova(sat_region) # show ANOVA table</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="Rmodels.html#cb223-1"></a>  <span class="kw">anova</span>(sat_region) <span class="co"># show ANOVA table</span></span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: csat
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## region     3  82049 27349.8  9.6102 4.859e-05 ***
+## Residuals 46 130912  2845.9                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>So, make sure to tell R which variables are categorical by converting them to factors!</p>
 </div>
 <div id="setting-factor-reference-groups-contrasts" class="section level3">
@@ -1660,38 +1650,40 @@ Note that you must make sure R does not think your categorical variable is numer
 <p><strong>Contrasts</strong> is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.</p>
 <p>The default contrasts in R are “treatment” contrasts (aka “dummy coding”), where each level within a factor is identified within a matrix of binary <code>0</code> / <code>1</code> variables, with the first level chosen as the reference category. They’re called “treatment” contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.</p>
 <p>First, let’s examine the default contrasts for <code>region</code>:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="Rmodels.html#cb224-1"></a>  <span class="co"># default treatment (dummy) contrasts</span></span>
-<span id="cb224-2"><a href="Rmodels.html#cb224-2"></a>  <span class="kw">contrasts</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="Rmodels.html#cb225-1"></a>  <span class="co"># default treatment (dummy) contrasts</span></span>
+<span id="cb225-2"><a href="Rmodels.html#cb225-2"></a>  <span class="kw">contrasts</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
 <pre><code>##         N. East South Midwest
 ## West          0     0       0
 ## N. East       1     0       0
 ## South         0     1       0
 ## Midwest       0     0       1</code></pre>
 <p>We can see that the reference level is <code>West</code>. How can we change this? Let’s use the <code>relevel()</code> function:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="Rmodels.html#cb226-1"></a>  <span class="co"># change the reference group</span></span>
-<span id="cb226-2"><a href="Rmodels.html#cb226-2"></a>  states_data &lt;-<span class="st"> </span>states_data <span class="op">%&gt;%</span></span>
-<span id="cb226-3"><a href="Rmodels.html#cb226-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">relevel</span>(region, <span class="dt">ref =</span> <span class="st">&quot;Midwest&quot;</span>))</span>
-<span id="cb226-4"><a href="Rmodels.html#cb226-4"></a></span>
-<span id="cb226-5"><a href="Rmodels.html#cb226-5"></a>  <span class="co"># check the reference group has changed</span></span>
-<span id="cb226-6"><a href="Rmodels.html#cb226-6"></a>  <span class="kw">contrasts</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="Rmodels.html#cb227-1"></a>  <span class="co"># change the reference group</span></span>
+<span id="cb227-2"><a href="Rmodels.html#cb227-2"></a>  states_data &lt;-<span class="st"> </span>states_data <span class="op">%&gt;%</span></span>
+<span id="cb227-3"><a href="Rmodels.html#cb227-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">relevel</span>(region, <span class="dt">ref =</span> <span class="st">&quot;Midwest&quot;</span>))</span>
+<span id="cb227-4"><a href="Rmodels.html#cb227-4"></a></span>
+<span id="cb227-5"><a href="Rmodels.html#cb227-5"></a>  <span class="co"># check the reference group has changed</span></span>
+<span id="cb227-6"><a href="Rmodels.html#cb227-6"></a>  <span class="kw">contrasts</span>(states_data<span class="op">$</span>region)</span></code></pre></div>
 <pre><code>##         West N. East South
 ## Midwest    0       0     0
 ## West       1       0     0
 ## N. East    0       1     0
 ## South      0       0     1</code></pre>
 <p>Now the reference level has changed to <code>Midwest</code>. Let’s refit the model with the releveled <code>region</code> variable:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="Rmodels.html#cb228-1"></a>  <span class="co"># refit the model</span></span>
-<span id="cb228-2"><a href="Rmodels.html#cb228-2"></a>  mod_region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states_data)</span>
-<span id="cb228-3"><a href="Rmodels.html#cb228-3"></a>  <span class="kw">summary</span>(mod_region) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="Rmodels.html#cb229-1"></a>  <span class="co"># refit the model</span></span>
+<span id="cb229-2"><a href="Rmodels.html#cb229-2"></a>  mod_region &lt;-<span class="st"> </span><span class="kw">lm</span>(csat <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states_data)</span>
+<span id="cb229-3"><a href="Rmodels.html#cb229-3"></a></span>
+<span id="cb229-4"><a href="Rmodels.html#cb229-4"></a>  <span class="co"># print summary coefficients table</span></span>
+<span id="cb229-5"><a href="Rmodels.html#cb229-5"></a>  <span class="kw">summary</span>(mod_region) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
 <pre><code>##                 Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept)   1010.08333   15.39998 65.589930 4.296307e-47
 ## regionWest     -63.77564   21.35592 -2.986321 4.514152e-03
 ## regionN. East -120.52778   23.52385 -5.123641 5.798399e-06
 ## regionSouth    -80.08333   20.37225 -3.931000 2.826007e-04</code></pre>
 <p>Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare particular levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the <code>emmeans()</code> post-estimation function from the <code>emmeans</code> package to do the calculations for us:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="Rmodels.html#cb230-1"></a>  <span class="co"># get all pairwise contrasts between means</span></span>
-<span id="cb230-2"><a href="Rmodels.html#cb230-2"></a>  mod_region <span class="op">%&gt;%</span></span>
-<span id="cb230-3"><a href="Rmodels.html#cb230-3"></a><span class="st">      </span><span class="kw">emmeans</span>(<span class="dt">specs =</span> pairwise <span class="op">~</span><span class="st"> </span>region)</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="Rmodels.html#cb231-1"></a>  <span class="co"># get all pairwise contrasts between means</span></span>
+<span id="cb231-2"><a href="Rmodels.html#cb231-2"></a>  mod_region <span class="op">%&gt;%</span></span>
+<span id="cb231-3"><a href="Rmodels.html#cb231-3"></a><span class="st">      </span><span class="kw">emmeans</span>(<span class="dt">specs =</span> pairwise <span class="op">~</span><span class="st"> </span>region)</span></code></pre></div>
 <pre><code>## $emmeans
 ##  region  emmean   SE df lower.CL upper.CL
 ##  Midwest   1010 15.4 46      979     1041
@@ -1719,11 +1711,11 @@ Note that you must make sure R does not think your categorical variable is numer
 <ol style="list-style-type: decimal">
 <li>Add on to the regression equation that you created in Exercise 1 by generating an interaction term and testing the interaction.</li>
 </ol>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="Rmodels.html#cb232-1"></a><span class="co">## </span></span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Try adding region to the model. Are there significant differences across the four regions?</li>
-</ol>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="Rmodels.html#cb233-1"></a><span class="co">## </span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Try adding <code>region</code> to the model. Are there significant differences across the four regions?</li>
+</ol>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="Rmodels.html#cb234-1"></a><span class="co">## </span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 1 Solution</b></span></summary>
 <div class="alert alert-danger">
@@ -1731,12 +1723,12 @@ Note that you must make sure R does not think your categorical variable is numer
 <ol style="list-style-type: decimal">
 <li>Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.</li>
 </ol>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="Rmodels.html#cb234-1"></a>  mod_en_metro_by_waste &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste, <span class="dt">data =</span> states)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="Rmodels.html#cb235-1"></a>  mod_en_metro_by_waste &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste, <span class="dt">data =</span> states)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Try adding a region to the model. Are there significant differences across the four regions?</li>
+<li>Try adding <code>region</code> to the model. Are there significant differences across the four regions?</li>
 </ol>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="Rmodels.html#cb235-1"></a>  mod_en_region &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states)</span>
-<span id="cb235-2"><a href="Rmodels.html#cb235-2"></a>  <span class="kw">anova</span>(mod_en_metro_by_waste, mod_en_region)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="Rmodels.html#cb236-1"></a>  mod_en_region &lt;-<span class="st"> </span><span class="kw">lm</span>(energy <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>metro <span class="op">*</span><span class="st"> </span>waste <span class="op">+</span><span class="st"> </span>region, <span class="dt">data =</span> states)</span>
+<span id="cb236-2"><a href="Rmodels.html#cb236-2"></a>  <span class="kw">anova</span>(mod_en_metro_by_waste, mod_en_region)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: energy ~ 1 + metro * waste
@@ -1760,17 +1752,17 @@ Note that you must make sure R does not think your categorical variable is numer
 </div>
 <div id="logistic-regression" class="section level3">
 <h3>Logistic regression</h3>
-<p>This far we have used the <code>lm()</code> function to fit our regression models. <code>lm()</code> is great, but limited — in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the <code>glm()</code> function.</p>
+<p>Thus far we have used the <code>lm()</code> function to fit our regression models. <code>lm()</code> is great, but limited — in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the <code>glm()</code> function.</p>
 <p>For these models we will use a different dataset, drawn from the National Health Interview Survey. From the <a href="http://www.cdc.gov/nchs/nhis.htm">CDC website</a>:</p>
 <blockquote>
 <p>The National Health Interview Survey (NHIS) has monitored the health of the nation since 1957. NHIS data on a broad range of health topics are collected through personal household interviews. For over 50 years, the U.S. Census Bureau has been the data collection agent for the National Health Interview Survey. Survey results have been instrumental in providing data to track health status, health care access, and progress toward achieving national health objectives.</p>
 </blockquote>
 <p>Load the National Health Interview Survey data:</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="Rmodels.html#cb237-1"></a>  NH11 &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/NatHealth2011.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="Rmodels.html#cb238-1"></a>  NH11 &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/NatHealth2011.rds&quot;</span>)</span></code></pre></div>
 </div>
 <div id="logistic-regression-example" class="section level3">
 <h3>Logistic regression example</h3>
-<p>Motivation for a logistic regression model — with a binary response:</p>
+<p>Some motivations for using a logistic regression model, rather than a linear model, when we have a binary response:</p>
 <ol style="list-style-type: decimal">
 <li>Errors will not be normally distributed</li>
 <li>Variance will not be homoskedastic</li>
@@ -1778,23 +1770,21 @@ Note that you must make sure R does not think your categorical variable is numer
 </ol>
 <p><img src="R/Rmodels/images/logistic.png" /></p>
 <p>Anatomy of a generalized linear model:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="Rmodels.html#cb238-1"></a>  <span class="co"># OLS model using lm()</span></span>
-<span id="cb238-2"><a href="Rmodels.html#cb238-2"></a>  <span class="kw">lm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </span>
-<span id="cb238-3"><a href="Rmodels.html#cb238-3"></a>     <span class="dt">data =</span> mydata)</span>
-<span id="cb238-4"><a href="Rmodels.html#cb238-4"></a></span>
-<span id="cb238-5"><a href="Rmodels.html#cb238-5"></a>  <span class="co"># OLS model using glm()</span></span>
-<span id="cb238-6"><a href="Rmodels.html#cb238-6"></a>  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </span>
-<span id="cb238-7"><a href="Rmodels.html#cb238-7"></a>      <span class="dt">data =</span> mydata, </span>
-<span id="cb238-8"><a href="Rmodels.html#cb238-8"></a>      <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb238-9"><a href="Rmodels.html#cb238-9"></a> </span>
-<span id="cb238-10"><a href="Rmodels.html#cb238-10"></a>  <span class="co"># logistic model using glm()</span></span>
-<span id="cb238-11"><a href="Rmodels.html#cb238-11"></a>  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </span>
-<span id="cb238-12"><a href="Rmodels.html#cb238-12"></a>      <span class="dt">data =</span> mydata, </span>
-<span id="cb238-13"><a href="Rmodels.html#cb238-13"></a>      <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
-<p>The <code>family</code> argument sets the error distribution for the model, while the <code>link</code> function
-argument relates the predictors to the expected value of the outcome.</p>
-<p>Let’s predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi.
-Here’s the theoretical model:</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="Rmodels.html#cb239-1"></a>  <span class="co"># OLS model using lm()</span></span>
+<span id="cb239-2"><a href="Rmodels.html#cb239-2"></a>  <span class="kw">lm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </span>
+<span id="cb239-3"><a href="Rmodels.html#cb239-3"></a>     <span class="dt">data =</span> mydata)</span>
+<span id="cb239-4"><a href="Rmodels.html#cb239-4"></a></span>
+<span id="cb239-5"><a href="Rmodels.html#cb239-5"></a>  <span class="co"># OLS model using glm()</span></span>
+<span id="cb239-6"><a href="Rmodels.html#cb239-6"></a>  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </span>
+<span id="cb239-7"><a href="Rmodels.html#cb239-7"></a>      <span class="dt">data =</span> mydata, </span>
+<span id="cb239-8"><a href="Rmodels.html#cb239-8"></a>      <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb239-9"><a href="Rmodels.html#cb239-9"></a> </span>
+<span id="cb239-10"><a href="Rmodels.html#cb239-10"></a>  <span class="co"># logistic model using glm()</span></span>
+<span id="cb239-11"><a href="Rmodels.html#cb239-11"></a>  <span class="kw">glm</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2, </span>
+<span id="cb239-12"><a href="Rmodels.html#cb239-12"></a>      <span class="dt">data =</span> mydata, </span>
+<span id="cb239-13"><a href="Rmodels.html#cb239-13"></a>      <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
+<p>The <code>family</code> argument sets the error distribution for the model, while the <code>link</code> function argument relates the predictors to the expected value of the outcome.</p>
+<p>Let’s predict the probability of being diagnosed with hypertension based on age, sex, sleep, and bmi. Here’s the theoretical model:</p>
 <div class="alert alert-secondary">
 <p><span class="math display">\[
 logit(p(hypertension_i = 1)) = \beta_{0}1 + \beta_1age_i + \beta_2sex_i + \beta_3sleep_i + \beta_4bmi_i 
@@ -1807,21 +1797,22 @@ logit(p(hypertension_i = 1)) = ln \left( \frac{p(hypertension_i = 1)}{1-p(hypert
 \]</span></p>
 </div>
 <p>And here’s how we fit this model in R. First, let’s clean up the hypertension outcome by making it binary:</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="Rmodels.html#cb239-1"></a>  <span class="kw">str</span>(NH11<span class="op">$</span>hypev) <span class="co"># check stucture of hypev</span></span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="Rmodels.html#cb240-1"></a>  <span class="kw">str</span>(NH11<span class="op">$</span>hypev) <span class="co"># check stucture of hypev</span></span></code></pre></div>
 <pre><code>##  Factor w/ 5 levels &quot;1 Yes&quot;,&quot;2 No&quot;,..: 2 2 1 2 2 1 2 2 1 2 ...</code></pre>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="Rmodels.html#cb241-1"></a>  <span class="kw">levels</span>(NH11<span class="op">$</span>hypev) <span class="co"># check levels of hypev</span></span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="Rmodels.html#cb242-1"></a>  <span class="kw">levels</span>(NH11<span class="op">$</span>hypev) <span class="co"># check levels of hypev</span></span></code></pre></div>
 <pre><code>## [1] &quot;1 Yes&quot;             &quot;2 No&quot;              &quot;7 Refused&quot;        
 ## [4] &quot;8 Not ascertained&quot; &quot;9 Don&#39;t know&quot;</code></pre>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="Rmodels.html#cb243-1"></a>  <span class="co"># collapse all missing values to NA</span></span>
-<span id="cb243-2"><a href="Rmodels.html#cb243-2"></a>  NH11 &lt;-<span class="st"> </span>NH11 <span class="op">%&gt;%</span></span>
-<span id="cb243-3"><a href="Rmodels.html#cb243-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">hypev =</span> <span class="kw">factor</span>(hypev, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;2 No&quot;</span>, <span class="st">&quot;1 Yes&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="Rmodels.html#cb244-1"></a>  <span class="co"># collapse all missing values to NA</span></span>
+<span id="cb244-2"><a href="Rmodels.html#cb244-2"></a>  NH11 &lt;-<span class="st"> </span>NH11 <span class="op">%&gt;%</span></span>
+<span id="cb244-3"><a href="Rmodels.html#cb244-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">hypev =</span> <span class="kw">factor</span>(hypev, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;2 No&quot;</span>, <span class="st">&quot;1 Yes&quot;</span>)))</span></code></pre></div>
 <p>Now let’s use <code>glm()</code> to estimate the model:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="Rmodels.html#cb244-1"></a>  <span class="co"># run our regression model</span></span>
-<span id="cb244-2"><a href="Rmodels.html#cb244-2"></a>  hyp_out &lt;-<span class="st"> </span><span class="kw">glm</span>(hypev <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sleep <span class="op">+</span><span class="st"> </span>bmi,</span>
-<span id="cb244-3"><a href="Rmodels.html#cb244-3"></a>                 <span class="dt">data =</span> NH11, </span>
-<span id="cb244-4"><a href="Rmodels.html#cb244-4"></a>                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb244-5"><a href="Rmodels.html#cb244-5"></a></span>
-<span id="cb244-6"><a href="Rmodels.html#cb244-6"></a>  <span class="kw">summary</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="Rmodels.html#cb245-1"></a>  <span class="co"># run our regression model</span></span>
+<span id="cb245-2"><a href="Rmodels.html#cb245-2"></a>  hyp_out &lt;-<span class="st"> </span><span class="kw">glm</span>(hypev <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sleep <span class="op">+</span><span class="st"> </span>bmi,</span>
+<span id="cb245-3"><a href="Rmodels.html#cb245-3"></a>                 <span class="dt">data =</span> NH11, </span>
+<span id="cb245-4"><a href="Rmodels.html#cb245-4"></a>                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb245-5"><a href="Rmodels.html#cb245-5"></a>  </span>
+<span id="cb245-6"><a href="Rmodels.html#cb245-6"></a>  <span class="co"># summary model coefficients table</span></span>
+<span id="cb245-7"><a href="Rmodels.html#cb245-7"></a>  <span class="kw">summary</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
 <pre><code>##                 Estimate   Std. Error    z value     Pr(&gt;|z|)
 ## (Intercept) -4.269466028 0.0564947294 -75.572820 0.000000e+00
 ## age_p        0.060699303 0.0008227207  73.778743 0.000000e+00
@@ -1831,18 +1822,14 @@ logit(p(hypertension_i = 1)) = ln \left( \frac{p(hypertension_i = 1)}{1-p(hypert
 </div>
 <div id="odds-ratios" class="section level3">
 <h3>Odds ratios</h3>
-<p>Generalized linear models use link functions to relate the average value of the response to the predictors,
-so raw coefficients are difficult to interpret. For example, the <code>age</code> coefficient of .06 in the previous
-model tells us that for every one unit increase in <code>age</code>, the log odds of hypertension diagnosis increases
-by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!</p>
-<p>One solution is to transform the coefficients to make them easier to interpret.
-Here we transform them into odds ratios by exponentiating:</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="Rmodels.html#cb246-1"></a>  <span class="co"># point estimates</span></span>
-<span id="cb246-2"><a href="Rmodels.html#cb246-2"></a>  <span class="kw">coef</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
+<p>Generalized linear models use link functions to relate the average value of the response to the predictors, so raw coefficients are difficult to interpret. For example, the <code>age</code> coefficient of 0.06 in the previous model tells us that for every one unit increase in <code>age</code>, the log odds of hypertension diagnosis increases by 0.06. Since most of us are not used to thinking in log odds this is not too helpful!</p>
+<p>One solution is to transform the coefficients to make them easier to interpret. Here we transform them into odds ratios by exponentiating:</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="Rmodels.html#cb247-1"></a>  <span class="co"># point estimates</span></span>
+<span id="cb247-2"><a href="Rmodels.html#cb247-2"></a>  <span class="kw">coef</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
 <pre><code>## (Intercept)       age_p sex2 Female       sleep         bmi 
 ##  0.01398925  1.06257935  0.86586602  0.99298892  1.01874523</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="Rmodels.html#cb248-1"></a>  <span class="co"># confidence intervals</span></span>
-<span id="cb248-2"><a href="Rmodels.html#cb248-2"></a>  <span class="kw">confint</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="Rmodels.html#cb249-1"></a>  <span class="co"># confidence intervals</span></span>
+<span id="cb249-2"><a href="Rmodels.html#cb249-2"></a>  <span class="kw">confint</span>(hyp_out) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
 <pre><code>##                  2.5 %     97.5 %
 ## (Intercept) 0.01251677 0.01561971
 ## age_p       1.06087385 1.06430082
@@ -1853,20 +1840,23 @@ Here we transform them into odds ratios by exponentiating:</p>
 <div id="predicted-marginal-means" class="section level3">
 <h3>Predicted marginal means</h3>
 <p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called “least-squares means” or “estimated marginal means”). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="Rmodels.html#cb250-1"></a>  hyp_out <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb250-2"><a href="Rmodels.html#cb250-2"></a><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></span>
-<span id="cb250-3"><a href="Rmodels.html#cb250-3"></a><span class="st">      </span><span class="kw">plot</span>(<span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># &quot;response&quot; refers to the probability scale</span></span></code></pre></div>
-<p><img src="R/Rmodels/figures/unnamed-chunk-129-1.png" width="672" /></p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="Rmodels.html#cb251-1"></a>  <span class="co"># generate a sequence of ages at which to get predictions of the outcome</span></span>
-<span id="cb251-2"><a href="Rmodels.html#cb251-2"></a>  age_years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)</span>
-<span id="cb251-3"><a href="Rmodels.html#cb251-3"></a>  age_years</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="Rmodels.html#cb251-1"></a>  <span class="co"># get predicted marginal means</span></span>
+<span id="cb251-2"><a href="Rmodels.html#cb251-2"></a>  hyp_out <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb251-3"><a href="Rmodels.html#cb251-3"></a><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></span>
+<span id="cb251-4"><a href="Rmodels.html#cb251-4"></a><span class="st">      </span><span class="kw">plot</span>(<span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># &quot;response&quot; refers to the probability scale</span></span></code></pre></div>
+<p><img src="R/Rmodels/figures/unnamed-chunk-130-1.png" width="672" /></p>
+<p>By default, <code>allEffects()</code> will produce predictions for all levels of factor variables, while for continuous variables it will chose 5 representative values based on quantiles. We can easily override this behavior using the <code>xlevels</code> argument and get predictions at any values of a continuous variable.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="Rmodels.html#cb252-1"></a>  <span class="co"># generate a sequence of ages at which to get predictions of the outcome</span></span>
+<span id="cb252-2"><a href="Rmodels.html#cb252-2"></a>  age_years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dt">by =</span> <span class="dv">5</span>)</span>
+<span id="cb252-3"><a href="Rmodels.html#cb252-3"></a>  age_years</span></code></pre></div>
 <pre><code>##  [1] 20 25 30 35 40 45 50 55 60 65 70 75 80</code></pre>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="Rmodels.html#cb253-1"></a>  eff_df &lt;-<span class="st"> </span></span>
-<span id="cb253-2"><a href="Rmodels.html#cb253-2"></a><span class="st">      </span>hyp_out <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb253-3"><a href="Rmodels.html#cb253-3"></a><span class="st">      </span><span class="kw">allEffects</span>(<span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">age_p =</span> age_years)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># override defaults for age</span></span>
-<span id="cb253-4"><a href="Rmodels.html#cb253-4"></a><span class="st">      </span><span class="kw">as.data.frame</span>() <span class="co"># get confidence intervals</span></span>
-<span id="cb253-5"><a href="Rmodels.html#cb253-5"></a>  </span>
-<span id="cb253-6"><a href="Rmodels.html#cb253-6"></a>  eff_df</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="Rmodels.html#cb254-1"></a>  <span class="co"># get predicted marginal means</span></span>
+<span id="cb254-2"><a href="Rmodels.html#cb254-2"></a>  eff_df &lt;-<span class="st"> </span></span>
+<span id="cb254-3"><a href="Rmodels.html#cb254-3"></a><span class="st">      </span>hyp_out <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb254-4"><a href="Rmodels.html#cb254-4"></a><span class="st">      </span><span class="kw">allEffects</span>(<span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">age_p =</span> age_years)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># override defaults for age</span></span>
+<span id="cb254-5"><a href="Rmodels.html#cb254-5"></a><span class="st">      </span><span class="kw">as.data.frame</span>() <span class="co"># get confidence intervals</span></span>
+<span id="cb254-6"><a href="Rmodels.html#cb254-6"></a>  </span>
+<span id="cb254-7"><a href="Rmodels.html#cb254-7"></a>  eff_df</span></code></pre></div>
 <pre><code>## $age_p
 ##    age_p        fit          se      lower      upper
 ## 1     20 0.06690384 0.001915704 0.06324553 0.07075778
@@ -1907,15 +1897,15 @@ Here we transform them into odds ratios by exponentiating:</p>
 <div id="exercise-2" class="section level3">
 <h3>Exercise 2</h3>
 <p><strong>Logistic regression</strong></p>
-<p>Use the <code>NH11</code> data set that we loaded earlier.</p>
+<p>Use the <code>NH11</code> data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.</p>
 <ol style="list-style-type: decimal">
 <li>Use <code>glm()</code> to conduct a logistic regression to predict ever worked (<code>everwrk</code>) using age (<code>age_p</code>) and marital status (<code>r_maritl</code>). Make sure you only keep the following two levels for <code>everwrk</code> (<code>1 Yes</code> and <code>2 No</code>). Hint: use the <code>factor()</code> function. Also, make sure to drop any <code>r_maritl</code> levels that do not contain observations. Hint: see <code>?droplevels</code>.</li>
 </ol>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="Rmodels.html#cb255-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="Rmodels.html#cb256-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code></li>
 </ol>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="Rmodels.html#cb256-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="Rmodels.html#cb257-1"></a><span class="co">## </span></span></code></pre></div>
 <p>Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.</p>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
@@ -1924,17 +1914,17 @@ Here we transform them into odds ratios by exponentiating:</p>
 <ol style="list-style-type: decimal">
 <li>Use <code>glm()</code> to conduct a logistic regression to predict ever worked (<code>everwrk</code>) using age (<code>age_p</code>) and marital status (<code>r_maritl</code>). Make sure you only keep the following two levels for <code>everwrk</code> (<code>1 Yes</code> and <code>2 No</code>). Hint: use the <code>factor()</code> function. Also, make sure to drop any <code>r_maritl</code> levels that do not contain observations. Hint: see <code>?droplevels</code>.</li>
 </ol>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="Rmodels.html#cb257-1"></a>  NH11 &lt;-<span class="st"> </span></span>
-<span id="cb257-2"><a href="Rmodels.html#cb257-2"></a><span class="st">      </span>NH11 <span class="op">%&gt;%</span></span>
-<span id="cb257-3"><a href="Rmodels.html#cb257-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">everwrk =</span> <span class="kw">factor</span>(everwrk, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;1 Yes&quot;</span>, <span class="st">&quot;2 No&quot;</span>)),</span>
-<span id="cb257-4"><a href="Rmodels.html#cb257-4"></a>             <span class="dt">r_maritl =</span> <span class="kw">droplevels</span>(r_maritl)</span>
-<span id="cb257-5"><a href="Rmodels.html#cb257-5"></a>             )</span>
-<span id="cb257-6"><a href="Rmodels.html#cb257-6"></a></span>
-<span id="cb257-7"><a href="Rmodels.html#cb257-7"></a>  mod_wk_age_mar &lt;-<span class="st"> </span><span class="kw">glm</span>(everwrk <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>r_maritl, </span>
-<span id="cb257-8"><a href="Rmodels.html#cb257-8"></a>                        <span class="dt">data =</span> NH11,</span>
-<span id="cb257-9"><a href="Rmodels.html#cb257-9"></a>                        <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb257-10"><a href="Rmodels.html#cb257-10"></a></span>
-<span id="cb257-11"><a href="Rmodels.html#cb257-11"></a>  <span class="kw">summary</span>(mod_wk_age_mar)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="Rmodels.html#cb258-1"></a>  NH11 &lt;-<span class="st"> </span></span>
+<span id="cb258-2"><a href="Rmodels.html#cb258-2"></a><span class="st">      </span>NH11 <span class="op">%&gt;%</span></span>
+<span id="cb258-3"><a href="Rmodels.html#cb258-3"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">everwrk =</span> <span class="kw">factor</span>(everwrk, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;1 Yes&quot;</span>, <span class="st">&quot;2 No&quot;</span>)),</span>
+<span id="cb258-4"><a href="Rmodels.html#cb258-4"></a>             <span class="dt">r_maritl =</span> <span class="kw">droplevels</span>(r_maritl)</span>
+<span id="cb258-5"><a href="Rmodels.html#cb258-5"></a>             )</span>
+<span id="cb258-6"><a href="Rmodels.html#cb258-6"></a></span>
+<span id="cb258-7"><a href="Rmodels.html#cb258-7"></a>  mod_wk_age_mar &lt;-<span class="st"> </span><span class="kw">glm</span>(everwrk <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>age_p <span class="op">+</span><span class="st"> </span>r_maritl, </span>
+<span id="cb258-8"><a href="Rmodels.html#cb258-8"></a>                        <span class="dt">data =</span> NH11,</span>
+<span id="cb258-9"><a href="Rmodels.html#cb258-9"></a>                        <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb258-10"><a href="Rmodels.html#cb258-10"></a></span>
+<span id="cb258-11"><a href="Rmodels.html#cb258-11"></a>  <span class="kw">summary</span>(mod_wk_age_mar)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = everwrk ~ 1 + age_p + r_maritl, family = binomial(link = &quot;logit&quot;), 
@@ -1979,9 +1969,9 @@ Here we transform them into odds ratios by exponentiating:</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code>.</li>
 </ol>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="Rmodels.html#cb259-1"></a>  mod_wk_age_mar <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb259-2"><a href="Rmodels.html#cb259-2"></a><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></span>
-<span id="cb259-3"><a href="Rmodels.html#cb259-3"></a><span class="st">      </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="Rmodels.html#cb260-1"></a>  mod_wk_age_mar <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb260-2"><a href="Rmodels.html#cb260-2"></a><span class="st">      </span><span class="kw">allEffects</span>() <span class="op">%&gt;%</span></span>
+<span id="cb260-3"><a href="Rmodels.html#cb260-3"></a><span class="st">      </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
 <pre><code>## $age_p
 ##   age_p        fit          se      lower      upper
 ## 1    20 0.27587439 0.011448539 0.25400910 0.29886780
@@ -2033,13 +2023,13 @@ Here we transform them into odds ratios by exponentiating:</p>
 <li><strong>Fixed-effects</strong> – observed levels are of direct interest (.e.g, sex, political party…)</li>
 <li><strong>Random-effects</strong> – observed levels not of direct interest: goal is to make inferences to a population represented by observed levels</li>
 <li>In R, the <code>lme4</code> package is the most popular for mixed effects models</li>
-<li>Use the <code>lmer()</code> function for liner mixed models, <code>glmer()</code> for generalized linear mixed models</li>
+<li>Use the <code>lmer()</code> function for linear mixed models, <code>glmer()</code> for generalized linear mixed models</li>
 </ul></li>
 </ul>
 </div>
 <div id="the-exam-data" class="section level3">
 <h3>The Exam data</h3>
-<p>The Exam data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:</p>
+<p>The <code>Exam.rds</code> data set contains exam scores of 4,059 students from 65 schools in Inner London. The variable names are as follows:</p>
 <table>
 <thead>
 <tr class="header">
@@ -2066,23 +2056,24 @@ Here we transform them into odds ratios by exponentiating:</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="Rmodels.html#cb261-1"></a>  Exam &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/Exam.rds&quot;</span>)</span></code></pre></div>
+<p>Let’s read in the data:</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="Rmodels.html#cb262-1"></a>  exam &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;dataSets/Exam.rds&quot;</span>)</span></code></pre></div>
 </div>
 <div id="the-null-model-icc" class="section level3">
 <h3>The null model &amp; ICC</h3>
 <p>Before we fit our first model, let’s take a look at the R syntax for multilevel models:</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="Rmodels.html#cb262-1"></a>  <span class="co"># anatomy of lmer() function</span></span>
-<span id="cb262-2"><a href="Rmodels.html#cb262-2"></a>  <span class="kw">lmer</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>grouping_variable), </span>
-<span id="cb262-3"><a href="Rmodels.html#cb262-3"></a>       <span class="dt">data =</span> mydata)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="Rmodels.html#cb263-1"></a>  <span class="co"># anatomy of lmer() function</span></span>
+<span id="cb263-2"><a href="Rmodels.html#cb263-2"></a>  <span class="kw">lmer</span>(outcome <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>pred1 <span class="op">+</span><span class="st"> </span>pred2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>grouping_variable), </span>
+<span id="cb263-3"><a href="Rmodels.html#cb263-3"></a>       <span class="dt">data =</span> mydata)</span></code></pre></div>
 <p>Notice the formula section within the brackets: <code>(1 | grouping_variable)</code>. This part of the formula tells R about the hierarchical structure of the model. In this case, it says we have a model with random intercepts (<code>1</code>) grouped by (<code>|</code>) a <code>grouping_variable</code>.</p>
 <p>As a preliminary modeling step, it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors) and then calculating the intra-class correlation (ICC).</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="Rmodels.html#cb263-1"></a>  <span class="co"># null model, grouping by school but not fixed effects.</span></span>
-<span id="cb263-2"><a href="Rmodels.html#cb263-2"></a>  Norm1 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school), </span>
-<span id="cb263-3"><a href="Rmodels.html#cb263-3"></a>               <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam))</span>
-<span id="cb263-4"><a href="Rmodels.html#cb263-4"></a>  <span class="kw">summary</span>(Norm1)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="Rmodels.html#cb264-1"></a>  <span class="co"># null model, grouping by school but not fixed effects.</span></span>
+<span id="cb264-2"><a href="Rmodels.html#cb264-2"></a>  Norm1 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school), </span>
+<span id="cb264-3"><a href="Rmodels.html#cb264-3"></a>               <span class="dt">data =</span> <span class="kw">na.omit</span>(exam))</span>
+<span id="cb264-4"><a href="Rmodels.html#cb264-4"></a>  <span class="kw">summary</span>(Norm1)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: normexam ~ 1 + (1 | school)
-##    Data: na.omit(Exam)
+##    Data: na.omit(exam)
 ## 
 ## REML criterion at convergence: 9962.9
 ## 
@@ -2111,12 +2102,13 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 \]</span></p>
 </div>
 <p>where <span class="math inline">\(U_{0j}\)</span> is the random intercept for the <span class="math inline">\(j\)</span><sup>th</sup> <code>school</code>. Let’s implement this in R using <code>lmer()</code>:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="Rmodels.html#cb265-1"></a>  Norm2 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school),</span>
-<span id="cb265-2"><a href="Rmodels.html#cb265-2"></a>               <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam)) </span>
-<span id="cb265-3"><a href="Rmodels.html#cb265-3"></a>  <span class="kw">summary</span>(Norm2) </span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="Rmodels.html#cb266-1"></a>  <span class="co"># model with exam scores regressed on student&#39;s standardized tests scores</span></span>
+<span id="cb266-2"><a href="Rmodels.html#cb266-2"></a>  Norm2 &lt;-<span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school),</span>
+<span id="cb266-3"><a href="Rmodels.html#cb266-3"></a>               <span class="dt">data =</span> <span class="kw">na.omit</span>(exam)) </span>
+<span id="cb266-4"><a href="Rmodels.html#cb266-4"></a>  <span class="kw">summary</span>(Norm2) </span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: normexam ~ 1 + standLRT + (1 | school)
-##    Data: na.omit(Exam)
+##    Data: na.omit(exam)
 ## 
 ## REML criterion at convergence: 8483.5
 ## 
@@ -2142,8 +2134,9 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 <div id="multiple-degree-of-freedom-comparisons" class="section level3">
 <h3>Multiple degree of freedom comparisons</h3>
 <p>As with <code>lm()</code> and <code>glm()</code> models, you can compare the two <code>lmer()</code> models using the <code>anova()</code> function. With mixed effects models, this will produce a likelihood ratio test.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="Rmodels.html#cb267-1"></a>  <span class="kw">anova</span>(Norm1, Norm2)</span></code></pre></div>
-<pre><code>## Data: na.omit(Exam)
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="Rmodels.html#cb268-1"></a>  <span class="co"># likelihood ratio test of two nested models</span></span>
+<span id="cb268-2"><a href="Rmodels.html#cb268-2"></a>  <span class="kw">anova</span>(Norm1, Norm2)</span></code></pre></div>
+<pre><code>## Data: na.omit(exam)
 ## Models:
 ## Norm1: normexam ~ 1 + (1 | school)
 ## Norm2: normexam ~ 1 + standLRT + (1 | school)
@@ -2155,13 +2148,14 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 </div>
 <div id="random-slopes" class="section level3">
 <h3>Random slopes</h3>
-<p>Add a random effect of students’ standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="Rmodels.html#cb269-1"></a>  Norm3 &lt;-<span class="st"> </span><span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">|</span><span class="st"> </span>school), </span>
-<span id="cb269-2"><a href="Rmodels.html#cb269-2"></a>                <span class="dt">data =</span> <span class="kw">na.omit</span>(Exam)) </span>
-<span id="cb269-3"><a href="Rmodels.html#cb269-3"></a>  <span class="kw">summary</span>(Norm3) </span></code></pre></div>
+<p>We can add a random effect of students’ standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="Rmodels.html#cb270-1"></a>  <span class="co"># add random effect of students&#39; standardized test scores to model</span></span>
+<span id="cb270-2"><a href="Rmodels.html#cb270-2"></a>  Norm3 &lt;-<span class="st"> </span><span class="kw">lmer</span>(normexam <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>standLRT <span class="op">|</span><span class="st"> </span>school), </span>
+<span id="cb270-3"><a href="Rmodels.html#cb270-3"></a>                <span class="dt">data =</span> <span class="kw">na.omit</span>(exam)) </span>
+<span id="cb270-4"><a href="Rmodels.html#cb270-4"></a>  <span class="kw">summary</span>(Norm3) </span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: normexam ~ 1 + standLRT + (1 + standLRT | school)
-##    Data: na.omit(Exam)
+##    Data: na.omit(exam)
 ## 
 ## REML criterion at convergence: 8442.8
 ## 
@@ -2188,8 +2182,9 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 <div id="test-the-significance-of-the-random-slope" class="section level3">
 <h3>Test the significance of the random slope</h3>
 <p>To test the significance of a random slope just compare models with and without the random slope term using a likelihood ratio test:</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="Rmodels.html#cb271-1"></a>  <span class="kw">anova</span>(Norm2, Norm3) </span></code></pre></div>
-<pre><code>## Data: na.omit(Exam)
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="Rmodels.html#cb272-1"></a>  <span class="co"># likelihood ratio test for random slope term</span></span>
+<span id="cb272-2"><a href="Rmodels.html#cb272-2"></a>  <span class="kw">anova</span>(Norm2, Norm3) </span></code></pre></div>
+<pre><code>## Data: na.omit(exam)
 ## Models:
 ## Norm2: normexam ~ 1 + standLRT + (1 | school)
 ## Norm3: normexam ~ 1 + standLRT + (1 + standLRT | school)
@@ -2203,8 +2198,8 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 <h3>Exercise 3</h3>
 <p><strong>Multilevel modeling</strong></p>
 <p>Use the <code>bh1996</code> dataset:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="Rmodels.html#cb273-1"></a><span class="co">## install.packages(&quot;multilevel&quot;)</span></span>
-<span id="cb273-2"><a href="Rmodels.html#cb273-2"></a><span class="kw">data</span>(bh1996, <span class="dt">package =</span> <span class="st">&quot;multilevel&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="Rmodels.html#cb274-1"></a><span class="co">## install.packages(&quot;multilevel&quot;)</span></span>
+<span id="cb274-2"><a href="Rmodels.html#cb274-2"></a><span class="kw">data</span>(bh1996, <span class="dt">package =</span> <span class="st">&quot;multilevel&quot;</span>)</span></code></pre></div>
 <p>From the data documentation:</p>
 <blockquote>
 <p>Variables are Leadership Climate (<code>LEAD</code>), Well-Being (<code>WBEING</code>), and Work Hours (<code>HRS</code>). The group identifier is named <code>GRP</code>.</p>
@@ -2212,25 +2207,25 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 <ol style="list-style-type: decimal">
 <li>Create a null model predicting wellbeing (<code>WBEING</code>)</li>
 </ol>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="Rmodels.html#cb274-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="Rmodels.html#cb275-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Calculate the ICC for your null model</li>
 </ol>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="Rmodels.html#cb275-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="Rmodels.html#cb276-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Run a second multi-level model that adds two individual-level predictors, average number of hours worked (<code>HRS</code>) and leadership skills (<code>LEAD</code>) to the model and interpret your output.</li>
 </ol>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="Rmodels.html#cb276-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="Rmodels.html#cb277-1"></a><span class="co">## </span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Now, add a random effect of average number of hours worked (<code>HRS</code>) to the model and interpret your output. Test the significance of this random term.</li>
 </ol>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="Rmodels.html#cb277-1"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="Rmodels.html#cb278-1"></a><span class="co">## </span></span></code></pre></div>
 <details>
 <summary><span style="color:red"><b>Click for Exercise 3 Solution</b></span></summary>
 <div class="alert alert-danger">
 <p>Use the dataset <code>bh1996</code>:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="Rmodels.html#cb278-1"></a>  <span class="co"># install.packages(&quot;multilevel&quot;)</span></span>
-<span id="cb278-2"><a href="Rmodels.html#cb278-2"></a>  <span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="Rmodels.html#cb279-1"></a>  <span class="co"># install.packages(&quot;multilevel&quot;)</span></span>
+<span id="cb279-2"><a href="Rmodels.html#cb279-2"></a>  <span class="kw">data</span>(bh1996, <span class="dt">package=</span><span class="st">&quot;multilevel&quot;</span>)</span></code></pre></div>
 <p>From the data documentation:</p>
 <blockquote>
 <p>Variables are Leadership Climate (<code>LEAD</code>), Well-Being (<code>WBEING</code>), and Work Hours (<code>HRS</code>). The group identifier is named <code>GRP</code>.</p>
@@ -2238,8 +2233,8 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 <ol style="list-style-type: decimal">
 <li>Create a null model predicting wellbeing (<code>WBEING</code>).</li>
 </ol>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="Rmodels.html#cb279-1"></a>  mod_grp0 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</span>
-<span id="cb279-2"><a href="Rmodels.html#cb279-2"></a>  <span class="kw">summary</span>(mod_grp0)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="Rmodels.html#cb280-1"></a>  mod_grp0 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</span>
+<span id="cb280-2"><a href="Rmodels.html#cb280-2"></a>  <span class="kw">summary</span>(mod_grp0)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: WBEING ~ 1 + (1 | GRP)
 ##    Data: na.omit(bh1996)
@@ -2259,11 +2254,16 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 ## Fixed effects:
 ##             Estimate Std. Error t value
 ## (Intercept)   2.7743     0.0222   124.9</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Calculate the ICC for your null model</li>
+</ol>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="Rmodels.html#cb282-1"></a>  <span class="fl">0.0358</span> <span class="op">/</span><span class="st"> </span>(<span class="fl">0.0358</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.7895</span>)</span></code></pre></div>
+<pre><code>## [1] 0.04337817</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Run a second multi-level model that adds two individual-level predictors, average number of hours worked (<code>HRS</code>) and leadership skills (<code>LEAD</code>) to the model and interpret your output.</li>
 </ol>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="Rmodels.html#cb281-1"></a>  mod_grp1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</span>
-<span id="cb281-2"><a href="Rmodels.html#cb281-2"></a>  <span class="kw">summary</span>(mod_grp1)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="Rmodels.html#cb284-1"></a>  mod_grp1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</span>
+<span id="cb284-2"><a href="Rmodels.html#cb284-2"></a>  <span class="kw">summary</span>(mod_grp1)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: WBEING ~ 1 + HRS + LEAD + (1 | GRP)
 ##    Data: na.omit(bh1996)
@@ -2290,11 +2290,11 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 ##      (Intr) HRS   
 ## HRS  -0.800       
 ## LEAD -0.635  0.121</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Now, add a random effect of average number of hours worked (<code>HRS</code>) to the model and interpret your output. Test the significance of this random term.</li>
 </ol>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="Rmodels.html#cb283-1"></a>  mod_grp2 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</span>
-<span id="cb283-2"><a href="Rmodels.html#cb283-2"></a>  <span class="kw">anova</span>(mod_grp1, mod_grp2)</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="Rmodels.html#cb286-1"></a>  mod_grp2 &lt;-<span class="st"> </span><span class="kw">lmer</span>(WBEING <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">+</span><span class="st"> </span>LEAD <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>HRS <span class="op">|</span><span class="st"> </span>GRP), <span class="dt">data =</span> <span class="kw">na.omit</span>(bh1996))</span>
+<span id="cb286-2"><a href="Rmodels.html#cb286-2"></a>  <span class="kw">anova</span>(mod_grp1, mod_grp2)</span></code></pre></div>
 <pre><code>## Data: na.omit(bh1996)
 ## Models:
 ## mod_grp1: WBEING ~ 1 + HRS + LEAD + (1 | GRP)
