@@ -30,6 +30,10 @@
 
 * ## Setup
 *
+* ### Software and Materials
+*
+* Follow the [Stata Installation](./StataInstall.html) instructions and ensure that you can successfully start Stata.
+
 * ### Class structure and organization 
 *
 * * Informal --- Ask questions at any time. Really!

@@ -12,6 +12,12 @@
 
 * ## Setup
 *
+* ### Software and Materials
+*
+* Follow the [Stata Installation](./StataInstall.html) instructions and ensure that you can successfully start Stata.
+*
+* A handy set of [Stata cheat-sheets](Stata/StataIntro/stata-cheat-sheets.pdf) is available to help you look up and remember command syntax. 
+
 * ### Class Structure and organization 
 *
 * * Informal --- Ask questions at any time. Really!

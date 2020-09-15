@@ -7,7 +7,11 @@
 * * Creating summarized data sets
 *
 * ## Setup 
+
+* ### Software and Materials
 *
+* Follow the [Stata Installation](./StataInstall.html) instructions and ensure that you can successfully start Stata.
+
 * ### Class structure and organization 
 *
 * * Please feel free to ask questions at any point if they are relevant to the current topic (or if you are lost!)
