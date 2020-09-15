@@ -173,12 +173,13 @@ map(boy_file_names, excel_sheets)
 #
 # 1.  The first argument to `str_subset()` is character vector we want to search in. 
 # 2.  The second argument is a *regular expression* matching the pattern we want to retain.
-#
+
+# example syntax
+str_subset(character_vector, regex_pattern)
+
 # If you are not familiar with regular expressions (regex), <http://www.regexr.com/> is a good place to start. Regex is essentially just a programmatic way of doing operations like "find" or "find and replace" in MS Word or Excel.
 #
 # Now that we know how to filter character vectors using `str_subset()` we can identify the correct sheet in a particular Excel file. For example,
-
-# str_subset(character_vector, regex_pattern)
 
 # we can do this by nesting functions
 str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")
@@ -205,6 +206,7 @@ excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
 #
 # Anatomy of a function:
 
+# general function syntax
 function_name <- function(arg1, arg2, ....) {
   
     body of function # where stuff happens 
@@ -214,12 +216,14 @@ function_name <- function(arg1, arg2, ....) {
 
 # Simple examples:
 
+# one argument
 myfun <- function(x) {
   x^2
 }
 
 myfun(1:10)
 
+# two arguments
 myfun2 <- function(x, y) {
   z <- x^2 + y
   return(z)
@@ -227,13 +231,16 @@ myfun2 <- function(x, y) {
 
 myfun2(x=1:10, y=42)
 
-# Examples using the Excel data:
+# Example using the Excel data:
 
+# function to extract different sheet names using regex
 get_data_sheet_name <- function(file, term){
   excel_sheets(file) %>% str_subset(pattern = term)
 }
 
-# the goal is generalization - we can now extract any Table
+# The goal is generalization --- we can now extract any sheet name using this one function:
+
+# extract different sheet names using regex
 get_data_sheet_name(boy_file_names[1], term = "Table 1")
 get_data_sheet_name(boy_file_names[1], term = "Table 2")
 

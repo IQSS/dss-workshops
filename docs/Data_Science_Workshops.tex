@@ -8107,14 +8107,19 @@ strings. Here we want to detect the pattern ``Table 1'', and only return element
   The second argument is a \emph{regular expression} matching the pattern we want to retain.
 \end{enumerate}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# example syntax}
+\KeywordTok{str\_subset}\NormalTok{(character\_vector, regex\_pattern)}
+\end{Highlighting}
+\end{Shaded}
+
 If you are not familiar with regular expressions (regex), \url{http://www.regexr.com/} is a good place to start. Regex is essentially just a programmatic way of doing operations like ``find'' or ``find and replace'' in MS Word or Excel.
 
 Now that we know how to filter character vectors using \texttt{str\_subset()} we can identify the correct sheet in a particular Excel file. For example,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# str\_subset(character\_vector, regex\_pattern)}
-
 \CommentTok{\# we can do this by nesting functions}
 \KeywordTok{str\_subset}\NormalTok{(}\KeywordTok{excel\_sheets}\NormalTok{(boy\_file\_names[}\DecValTok{1}\NormalTok{]), }\DataTypeTok{pattern =} \StringTok{"Table 1"}\NormalTok{)}
 \end{Highlighting}
@@ -8170,6 +8175,7 @@ Anatomy of a function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# general function syntax}
 \NormalTok{function\_name \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(arg1, arg2, ....) \{}
   
 \NormalTok{    body of }\ControlFlowTok{function} \CommentTok{\# where stuff happens }
@@ -8183,6 +8189,7 @@ Simple examples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# one argument}
 \NormalTok{myfun \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
 \NormalTok{  x}\OperatorTok{\^{}}\DecValTok{2}
 \NormalTok{\}}
@@ -8197,6 +8204,7 @@ Simple examples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# two arguments}
 \NormalTok{myfun2 \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y) \{}
 \NormalTok{  z \textless{}{-}}\StringTok{ }\NormalTok{x}\OperatorTok{\^{}}\DecValTok{2} \OperatorTok{+}\StringTok{ }\NormalTok{y}
   \KeywordTok{return}\NormalTok{(z)}
@@ -8210,15 +8218,22 @@ Simple examples:
 ##  [1]  43  46  51  58  67  78  91 106 123 142
 \end{verbatim}
 
-Examples using the Excel data:
+Example using the Excel data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# function to extract different sheet names using regex}
 \NormalTok{get\_data\_sheet\_name \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(file, term)\{}
   \KeywordTok{excel\_sheets}\NormalTok{(file) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{str\_subset}\NormalTok{(}\DataTypeTok{pattern =}\NormalTok{ term)}
 \NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{\# the goal is generalization {-} we can now extract any Table}
+The goal is generalization --- we can now extract any sheet name using this one function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# extract different sheet names using regex}
 \KeywordTok{get\_data\_sheet\_name}\NormalTok{(boy\_file\_names[}\DecValTok{1}\NormalTok{], }\DataTypeTok{term =} \StringTok{"Table 1"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -9505,7 +9520,7 @@ We can use the \texttt{imap()} function --- which stands for `index' mapping ---
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/RDataWrangling/figures/unnamed-chunk-284-1.pdf}
+\includegraphics{R/RDataWrangling/figures/unnamed-chunk-286-1.pdf}
 
 \end{alert}
 
