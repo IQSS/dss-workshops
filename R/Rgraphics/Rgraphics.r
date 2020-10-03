@@ -56,6 +56,8 @@ library(scales)
 # install.packages("ggrepel") 
 library(ggrepel)
 
+# You may want to also explore the wider `ggplot2` ecosystem, which includes 70+ packages that extend the functionality of the base package in many different ways: <https://exts.ggplot2.tidyverse.org/gallery/>.
+
 # ### Goals
 #
 # <div class="alert alert-success">

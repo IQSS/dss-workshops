@@ -143,7 +143,7 @@
 
 \title{Data Science Workshops}
 \author{}
-\date{\vspace{-2.5em}September 2020}
+\date{\vspace{-2.5em}October 2020}
 
 \begin{document}
 \maketitle
@@ -5910,6 +5910,8 @@ The \texttt{ggplot2} package is contained within \texttt{tidyverse}, but we also
 \KeywordTok{library}\NormalTok{(ggrepel)}
 \end{Highlighting}
 \end{Shaded}
+
+You may want to also explore the wider \texttt{ggplot2} ecosystem, which includes 70+ packages that extend the functionality of the base package in many different ways: \url{https://exts.ggplot2.tidyverse.org/gallery/}.
 
 \hypertarget{goals-2}{%
 \subsection{Goals}\label{goals-2}}
@@ -11831,19 +11833,19 @@ The records we retrieved from \url{https://www.harvardartmuseums.org/browse} are
 \end{Shaded}
 
 \begin{verbatim}
-##                        copyright  contextualtextcount  ...                        seeAlso                         people
-## 0                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+##                        copyright  contextualtextcount  ...                        seeAlso                        details
+## 0  © Berenice Abbott/Commerce...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 1                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
-## 2                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
-## 3  © Artists Rights Society (...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
-## 4  © Günther Uecker / Artists...                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
-## 5                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
-## 6                    © Roni Horn                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
-## 7             © 2004 Glenn Ligon                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
-## 8                           None                    0  ...  [{'id': 'https://iiif.harv...  [{'role': 'Artist', 'birth...
-## 9                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 2                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 3                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 4                           None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 5                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 6                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 7                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 8                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
+## 9  Art © Elizabeth Catlett/Li...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 
-## [10 rows x 62 columns]
+## [10 rows x 63 columns]
 \end{verbatim}
 
 and write the data to a file.
@@ -11892,57 +11894,57 @@ Now that we know the web service works, and how to make requests in Python, we c
 \end{Shaded}
 
 \begin{verbatim}
-##                         copyright  contextualtextcount  ...                         people                        details
-## 0                            None                    0  ...                            NaN                            NaN
-## 1                            None                    0  ...                            NaN                            NaN
-## 2                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 3   © Artists Rights Society (...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 4   © Günther Uecker / Artists...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 5                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 6                     © Roni Horn                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 7              © 2004 Glenn Ligon                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 8                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 9                            None                    0  ...                            NaN                            NaN
-## 10                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 11                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 12                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 13                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 14                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 15  © Estate of Alfred Stiegli...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 16                           None                    0  ...                            NaN                            NaN
-## 17                           None                    0  ...                            NaN                            NaN
-## 18                           None                    0  ...                            NaN                            NaN
-## 19                           None                    0  ...                            NaN                            NaN
-## 20                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 21  © Estate of Alfred Stiegli...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 22                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 23                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 24                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 25                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 26  © Estate of Margaret Bourk...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 27                           None                    0  ...                            NaN  {'coins': {'reverseinscrip...
-## 28                           None                    0  ...                            NaN                            NaN
-## 29                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 30                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 31                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 32                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 33                           None                    0  ...                            NaN                            NaN
-## 34                           None                    0  ...                            NaN                            NaN
-## 35                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 36                  © Sunil Gupta                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 37  © Estate of THeordore Rosz...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 38                           None                    0  ...                            NaN                            NaN
-## 39                           None                    0  ...                            NaN                            NaN
-## 40                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 41                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 42                           None                    1  ...                            NaN  {'technical': [{'text': 'I...
-## 43  © Artists Rights Society (...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 44                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 45                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 46                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 47                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 48  © Estate of Alfred Stiegli...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 49                  © Moyra Davey                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+##                         copyright  contextualtextcount  ...                        seeAlso                        details
+## 0   © Berenice Abbott/Commerce...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 1                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 2                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 3                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 4                            None                    1  ...  [{'id': 'https://iiif.harv...                            NaN
+## 5                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 6                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 7                            None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 8                            None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
+## 9   Art © Elizabeth Catlett/Li...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 10                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 11                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 12                  © Sunil Gupta                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 13                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 14                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 15                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 16   © Vik Muniz / Artist Righ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 17                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 18                           None                    0  ...  [{'id': 'https://iiif.harv...  {'coins': {'reverseinscrip...
+## 19                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 20  © Günther Uecker / Artists...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 21                           None                    0  ...  [{'id': 'https://iiif.harv...  {'coins': {'reverseinscrip...
+## 22                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 23                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 24  © The Estate of Diane Arbu...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 25  © Jasper Johns and ULAE/Li...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 26                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 27                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 28                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 29                           None                    1  ...  [{'id': 'https://iiif.harv...  {'technical': [{'text': 'X...
+## 30  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 31  © Artists Rights Society (...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 32                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 33                           None                    0  ...  [{'id': 'https://iiif.harv...  {'coins': {'reverseinscrip...
+## 34                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 35                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 36  © Estate of Alfred Stiegli...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 37                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 38                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 39  © Candida Höfer / Artists ...                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 40                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 41                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 42                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 43                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 44                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 45                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 46                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 47                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 48                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
+## 49                           None                    0  ...  [{'id': 'https://iiif.harv...                            NaN
 ## 
 ## [50 rows x 63 columns]
 \end{verbatim}
@@ -12363,15 +12365,14 @@ Finally, we can iterate over the elements we want and extract them.
 \end{Shaded}
 
 \begin{verbatim}
-## {'date': 'Thursday, September 24, 2020',
-##  'description': 'A. Cassandra Albinson and curatorial fellow Natalia Ángeles '
-##                 'Vieyra will discuss works by impressionist artist Camille '
-##                 'Pissarro.',
-##  'figcaption': 'Camille Pissarro, Danish, Mardi Gras on the Boulevards, 1897. '
-##                'Oil on canvas. Harvard Art Museums/Fogg Museum, Bequest from '
-##                'the Collection of Maurice Wertheim, Class of 1906, 1951.58.',
-##  'time': '12:00pm - 1:00pm',
-##  'title': 'Coffee with Curators, for Friends and Fellows of the Museums'}
+## {'date': 'Saturday, October 3, 2020',
+##  'description': 'Take a virtual trip to the sea to discover merpeople in the '
+##                 'collections in this family-friendly talk.',
+##  'figcaption': 'Dante Gabriel Rossetti, British, A Sea-Spell, 1875–77. Oil on '
+##                'canvas. Harvard Art Museums/Fogg Museum, Gift of Grenville L. '
+##                'Winthrop, Class of 1886, 1939.92.',
+##  'time': '10:00am - 10:30am',
+##  'title': 'Creature Feature: Merpeople!'}
 \end{verbatim}
 
 \hypertarget{iterating-to-retrieve-content-from-a-list-of-html-elements}{%
