@@ -56,8 +56,6 @@ library(scales)
 # install.packages("ggrepel") 
 library(ggrepel)
 
-# You may want to also explore the wider `ggplot2` ecosystem, which includes 70+ packages that extend the functionality of the base package in many different ways: <https://exts.ggplot2.tidyverse.org/gallery/>.
-
 # ### Goals
 #
 # <div class="alert alert-success">
@@ -79,12 +77,16 @@ library(ggrepel)
 # * theme system for polishing plot appearance
 # * many users, active mailing list
 #
-# That said, there are some things you cannot (or should not) do with `ggplot2`:
+# That said, there are some things you cannot do with `ggplot2`:
 #
-# * 3-dimensional graphics (see the `rgl` package)
-# * Graph-theory type graphs (nodes/edges layout; see the `igraph` package)
+# * 3-dimensional graphics (see `rayshader` or the `rgl` package)
+# * Graph-theory type graphs (see `ggraph` or the `igraph` package)
 # * Interactive graphics (see the `ggvis` package)
-
+#
+# ### `ggplot2` ecosystem
+#
+# The `ggplot2` package has spawned a whole ecosystem of packages that extend the functionality of the base package. There are currently 80+ packages that offer many different options, including animated graphs (`gganimate`), interactive graphs (`ggvis`), network graphs (`ggraph`), 3D graphs (`rayshader`), adding results from statistical tests (`ggstatsplot`), and additional themes (`ggthemes`). A gallery of some of the available extensions can be found here: <https://exts.ggplot2.tidyverse.org/gallery/>.
+#
 # ### What is the Grammar Of Graphics?
 #
 # The basic idea: independently specify plot building blocks and combine them to create just about any kind of graphical display you want. Building blocks of a graph include the following (**bold denotes essential elements**):
