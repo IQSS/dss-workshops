@@ -254,7 +254,7 @@ map(boy_file_names,      # list object
     get_data_sheet_name, # our function
     term = "Table 1")    # argument to our function `get_data_sheet_name()`
 
-# ## Reading Excel data files
+# ### Reading Excel data files
 #
 # Now that we know the correct worksheet from each file, we can actually read those data into R. We can do that using the `read_excel()` function.
 #
