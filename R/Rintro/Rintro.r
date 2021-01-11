@@ -377,7 +377,8 @@ library(rmarkdown)
 # Read in the baby names data if you haven't already
 baby_names <- read_csv("babyNames.csv")
 
-# Filter data, keeping "Alex" and "Mark" in year 1992, record in baby_names_alexmark
+# Filter data, keeping "Alex" and "Mark" in year 1992, and
+# assign to a new object "baby_names_alexmark" 
 # Use logical operators to specify the filtering condition
 baby_names_alexmark <- filter(baby_names, 
              Year == 1992 & (Name == "Alex" | Name == "Mark"))
@@ -502,8 +503,10 @@ sum(x > 7)
 #
 # There is no need to load any additional packages as the operator is made available via the `magrittr` package installed as part of `tidyverse`. Let's rewrite the sequence of commands to output ordered counts for names "Alex" or "Mark".
 
-# Filter data keeping rows for "Alex" and "Mark" during year 1992, record in baby_names_alexmark
+# Filter data, keeping "Alex" and "Mark" in year 1992, and
+# assign to a new object "baby_names_alexmark"
 # Arrange the result in a descending order by Count
+
 # unpiped version
 baby_names_alexmark <- filter(baby_names, Year == 1992 & (Name == "Alex" | Name == "Mark"))
 arrange(baby_names_alexmark, desc(Count))
@@ -564,7 +567,8 @@ baby_names %>%
 #
 # For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example, we can plot the number of babies given the name "Diana" over time like this:
 
-# Filter data keeping rows for name "Diana" and assign to a new object called baby_names_diana
+# Filter data keeping rows for name "Diana" and 
+# assign to a new object called "baby_names_diana"
 baby_names_diana <- filter(baby_names, Name == "Diana")
 
 # Use qplot() function to plot Counts (y) by Year (x)
@@ -573,7 +577,8 @@ qplot(x = Year, y = Count,
 
 # Interestingly, there are usually some gender-atypical names, even for very strongly gendered names like "Diana". Splitting these trends out by `Sex` is very easy:
 
-# Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.
+# Use qplot() function to plot Counts (y) by Year (x). 
+# Split trends by Sex using color.
 qplot(x = Year, y = Count, color = Sex,
       data = baby_names_diana)
 
@@ -654,7 +659,8 @@ qplot(x = Year, y = Count, color = Sex,
 #
 # The `mutate()` function makes it easy to add or modify the columns of a `data.frame`. For example, we can use it to rescale the count of each name in each year:
 
-# Use piping to add a new column to the data, called Count_1k, that rescales counts to thousands
+# Use piping to add a new column to the data, called Count_1k, 
+# which rescales counts to thousands
 baby_names <- baby_names %>% mutate(Count_1k = Count/1000)
 head(baby_names) 
 
@@ -668,7 +674,8 @@ head(baby_names)
 #
 # Here's the code that implements the calculation:
 
-# Group baby_names by Year and Sex and rank Count_1k within each group (calling the resulting new column "Rank"). 
+# Group baby_names by Year and Sex and rank Count_1k,
+# within each group (calling the resulting new column "Rank"). 
 # Remember to ungroup at the end!
 baby_names <-
   baby_names %>%
@@ -682,7 +689,8 @@ head(baby_names)
 #
 # It's often necessary to create a new variable that is a recoded version of an existing variable. For example, we might want to take our `Count_1k` variable and create a new variable that divides it into `low`, `medium`, and `high` categories. To do this, we can use the `case_when()` function within the `mutate()` function:
 
-# Use case_when() to recode the newly created Rank column into low (<=10), high (>40), and medium (all others).
+# Use case_when() to recode the newly created Rank column into:
+# low (<=10), high (>40), and medium (all others).
 # Call the resulting column "Count_levels".
 baby_names <-
   baby_names %>%
@@ -823,8 +831,9 @@ baby_names %>%
 #
 # Here's the code that implements the calculation:
 
-# Group baby_names by Year and calculate the sum of Count (record in a column called Total). 
-# Assign the result to bn_by_year and remember to ungroup!
+# Group baby_names by Year and calculate the sum of Count 
+# Call the resulting column "Total" 
+# Assign the result to an object called "bn_by_year" and remember to ungroup!
 bn_by_year <-
   baby_names %>%
   group_by(Year) %>%
@@ -914,7 +923,8 @@ write_rds(baby_names, "babyNames.rds")
 # ### Saving multiple datasets
 
 ls() # list objects in our workspace
-# Use save() function from the base R package to record some objects into a file named "myDataFiles.RData"
+# Use save() function from the `base` R package to record some objects
+# into a file named "myDataFiles.RData"
 save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")  
 
 # Load the "myDataFiles.RData"

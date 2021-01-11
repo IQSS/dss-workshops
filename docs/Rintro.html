@@ -1142,12 +1142,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>To demonstrate these techniques we’ll try to determine whether “Alex”" or “Mark” was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to <code>1992</code> and Name is either “Alex” or “Mark”.</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="Rintro.html#cb57-1"></a><span class="co"># Read in the baby names data if you haven&#39;t already</span></span>
 <span id="cb57-2"><a href="Rintro.html#cb57-2"></a>baby_names &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;babyNames.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="Rintro.html#cb58-1"></a><span class="co"># Filter data, keeping &quot;Alex&quot; and &quot;Mark&quot; in year 1992, record in baby_names_alexmark</span></span>
-<span id="cb58-2"><a href="Rintro.html#cb58-2"></a><span class="co"># Use logical operators to specify the filtering condition</span></span>
-<span id="cb58-3"><a href="Rintro.html#cb58-3"></a>baby_names_alexmark &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, </span>
-<span id="cb58-4"><a href="Rintro.html#cb58-4"></a>             Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))</span>
-<span id="cb58-5"><a href="Rintro.html#cb58-5"></a></span>
-<span id="cb58-6"><a href="Rintro.html#cb58-6"></a><span class="kw">print</span>(baby_names_alexmark) <span class="co"># explicit printing</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="Rintro.html#cb58-1"></a><span class="co"># Filter data, keeping &quot;Alex&quot; and &quot;Mark&quot; in year 1992, and</span></span>
+<span id="cb58-2"><a href="Rintro.html#cb58-2"></a><span class="co"># assign to a new object &quot;baby_names_alexmark&quot; </span></span>
+<span id="cb58-3"><a href="Rintro.html#cb58-3"></a><span class="co"># Use logical operators to specify the filtering condition</span></span>
+<span id="cb58-4"><a href="Rintro.html#cb58-4"></a>baby_names_alexmark &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, </span>
+<span id="cb58-5"><a href="Rintro.html#cb58-5"></a>             Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))</span>
+<span id="cb58-6"><a href="Rintro.html#cb58-6"></a></span>
+<span id="cb58-7"><a href="Rintro.html#cb58-7"></a><span class="kw">print</span>(baby_names_alexmark) <span class="co"># explicit printing</span></span></code></pre></div>
 <pre><code>## # A tibble: 4 x 4
 ##   Name  Sex   Count  Year
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1325,11 +1326,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>There is one very special operator in R called a <strong>pipe</strong> operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.</p>
 <p><img src="R/Rintro/images/magrittr.png" /></p>
 <p>There is no need to load any additional packages as the operator is made available via the <code>magrittr</code> package installed as part of <code>tidyverse</code>. Let’s rewrite the sequence of commands to output ordered counts for names “Alex” or “Mark”.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="Rintro.html#cb91-1"></a><span class="co"># Filter data keeping rows for &quot;Alex&quot; and &quot;Mark&quot; during year 1992, record in baby_names_alexmark</span></span>
-<span id="cb91-2"><a href="Rintro.html#cb91-2"></a><span class="co"># Arrange the result in a descending order by Count</span></span>
-<span id="cb91-3"><a href="Rintro.html#cb91-3"></a><span class="co"># unpiped version</span></span>
-<span id="cb91-4"><a href="Rintro.html#cb91-4"></a>baby_names_alexmark &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))</span>
-<span id="cb91-5"><a href="Rintro.html#cb91-5"></a><span class="kw">arrange</span>(baby_names_alexmark, <span class="kw">desc</span>(Count))</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="Rintro.html#cb91-1"></a><span class="co"># Filter data, keeping &quot;Alex&quot; and &quot;Mark&quot; in year 1992, and</span></span>
+<span id="cb91-2"><a href="Rintro.html#cb91-2"></a><span class="co"># assign to a new object &quot;baby_names_alexmark&quot;</span></span>
+<span id="cb91-3"><a href="Rintro.html#cb91-3"></a><span class="co"># Arrange the result in a descending order by Count</span></span>
+<span id="cb91-4"><a href="Rintro.html#cb91-4"></a></span>
+<span id="cb91-5"><a href="Rintro.html#cb91-5"></a><span class="co"># unpiped version</span></span>
+<span id="cb91-6"><a href="Rintro.html#cb91-6"></a>baby_names_alexmark &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Year <span class="op">==</span><span class="st"> </span><span class="dv">1992</span> <span class="op">&amp;</span><span class="st"> </span>(Name <span class="op">==</span><span class="st"> &quot;Alex&quot;</span> <span class="op">|</span><span class="st"> </span>Name <span class="op">==</span><span class="st"> &quot;Mark&quot;</span>))</span>
+<span id="cb91-7"><a href="Rintro.html#cb91-7"></a><span class="kw">arrange</span>(baby_names_alexmark, <span class="kw">desc</span>(Count))</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 4
 ##   Name  Sex   Count  Year
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1404,16 +1407,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>It can be difficult to spot trends when looking at summary tables. Plotting the data makes it easier to identify interesting patterns.</p>
 <p>R has decent plotting tools built-in – see e.g., <code>help(plot)</code>. However, again, we will make use of a <em>contributed package</em> from <code>tidyverse</code> called <code>ggplot2</code>.</p>
 <p>For quick and simple plots we can use the <code>qplot()</code> function from <code>ggplot2</code>. For example, we can plot the number of babies given the name “Diana” over time like this:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="Rintro.html#cb99-1"></a><span class="co"># Filter data keeping rows for name &quot;Diana&quot; and assign to a new object called baby_names_diana</span></span>
-<span id="cb99-2"><a href="Rintro.html#cb99-2"></a>baby_names_diana &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Name <span class="op">==</span><span class="st"> &quot;Diana&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="Rintro.html#cb99-1"></a><span class="co"># Filter data keeping rows for name &quot;Diana&quot; and </span></span>
+<span id="cb99-2"><a href="Rintro.html#cb99-2"></a><span class="co"># assign to a new object called &quot;baby_names_diana&quot;</span></span>
+<span id="cb99-3"><a href="Rintro.html#cb99-3"></a>baby_names_diana &lt;-<span class="st"> </span><span class="kw">filter</span>(baby_names, Name <span class="op">==</span><span class="st"> &quot;Diana&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="Rintro.html#cb100-1"></a><span class="co"># Use qplot() function to plot Counts (y) by Year (x)</span></span>
 <span id="cb100-2"><a href="Rintro.html#cb100-2"></a><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count,</span>
 <span id="cb100-3"><a href="Rintro.html#cb100-3"></a>     <span class="dt">data =</span> baby_names_diana)</span></code></pre></div>
 <p><img src="R/Rintro/figures/unnamed-chunk-42-1.png" width="672" /></p>
 <p>Interestingly, there are usually some gender-atypical names, even for very strongly gendered names like “Diana”. Splitting these trends out by <code>Sex</code> is very easy:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="Rintro.html#cb101-1"></a><span class="co"># Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.</span></span>
-<span id="cb101-2"><a href="Rintro.html#cb101-2"></a><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex,</span>
-<span id="cb101-3"><a href="Rintro.html#cb101-3"></a>      <span class="dt">data =</span> baby_names_diana)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="Rintro.html#cb101-1"></a><span class="co"># Use qplot() function to plot Counts (y) by Year (x). </span></span>
+<span id="cb101-2"><a href="Rintro.html#cb101-2"></a><span class="co"># Split trends by Sex using color.</span></span>
+<span id="cb101-3"><a href="Rintro.html#cb101-3"></a><span class="kw">qplot</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count, <span class="dt">color =</span> Sex,</span>
+<span id="cb101-4"><a href="Rintro.html#cb101-4"></a>      <span class="dt">data =</span> baby_names_diana)</span></code></pre></div>
 <p><img src="R/Rintro/figures/unnamed-chunk-43-1.png" width="672" /></p>
 <div id="exercise-3" class="section level3">
 <h3>Exercise 3</h3>
@@ -1463,9 +1468,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h3>Create or modify columns</h3>
 <p>So far we’ve used <code>Count</code> as a measure of popularity. A better approach is to use proportion to avoid confounding popularity with the number of babies born in a given year.</p>
 <p>The <code>mutate()</code> function makes it easy to add or modify the columns of a <code>data.frame</code>. For example, we can use it to rescale the count of each name in each year:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="Rintro.html#cb110-1"></a><span class="co"># Use piping to add a new column to the data, called Count_1k, that rescales counts to thousands</span></span>
-<span id="cb110-2"><a href="Rintro.html#cb110-2"></a>baby_names &lt;-<span class="st"> </span>baby_names <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Count_1k =</span> Count<span class="op">/</span><span class="dv">1000</span>)</span>
-<span id="cb110-3"><a href="Rintro.html#cb110-3"></a><span class="kw">head</span>(baby_names) </span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="Rintro.html#cb110-1"></a><span class="co"># Use piping to add a new column to the data, called Count_1k, </span></span>
+<span id="cb110-2"><a href="Rintro.html#cb110-2"></a><span class="co"># which rescales counts to thousands</span></span>
+<span id="cb110-3"><a href="Rintro.html#cb110-3"></a>baby_names &lt;-<span class="st"> </span>baby_names <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Count_1k =</span> Count<span class="op">/</span><span class="dv">1000</span>)</span>
+<span id="cb110-4"><a href="Rintro.html#cb110-4"></a><span class="kw">head</span>(baby_names) </span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
 ##   Name  Sex   Count  Year Count_1k
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
@@ -1482,15 +1488,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="R/Rintro/images/mutate_group_by.png" /></p>
 <p>Note that the <code>group_by()</code> function converts a <strong>data frame</strong> into a <strong>grouped data frame</strong> — that is, a data frame with metadata identifying the groups. The data remain grouped until you change the groups by running <code>group_by()</code> again or remove the grouping metadata using <code>ungroup()</code>.</p>
 <p>Here’s the code that implements the calculation:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="Rintro.html#cb112-1"></a><span class="co"># Group baby_names by Year and Sex and rank Count_1k within each group (calling the resulting new column &quot;Rank&quot;). </span></span>
-<span id="cb112-2"><a href="Rintro.html#cb112-2"></a><span class="co"># Remember to ungroup at the end!</span></span>
-<span id="cb112-3"><a href="Rintro.html#cb112-3"></a>baby_names &lt;-</span>
-<span id="cb112-4"><a href="Rintro.html#cb112-4"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
-<span id="cb112-5"><a href="Rintro.html#cb112-5"></a><span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span></span>
-<span id="cb112-6"><a href="Rintro.html#cb112-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(Count_1k)) <span class="op">%&gt;%</span></span>
-<span id="cb112-7"><a href="Rintro.html#cb112-7"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
-<span id="cb112-8"><a href="Rintro.html#cb112-8"></a></span>
-<span id="cb112-9"><a href="Rintro.html#cb112-9"></a><span class="kw">head</span>(baby_names)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="Rintro.html#cb112-1"></a><span class="co"># Group baby_names by Year and Sex and rank Count_1k,</span></span>
+<span id="cb112-2"><a href="Rintro.html#cb112-2"></a><span class="co"># within each group (calling the resulting new column &quot;Rank&quot;). </span></span>
+<span id="cb112-3"><a href="Rintro.html#cb112-3"></a><span class="co"># Remember to ungroup at the end!</span></span>
+<span id="cb112-4"><a href="Rintro.html#cb112-4"></a>baby_names &lt;-</span>
+<span id="cb112-5"><a href="Rintro.html#cb112-5"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
+<span id="cb112-6"><a href="Rintro.html#cb112-6"></a><span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span></span>
+<span id="cb112-7"><a href="Rintro.html#cb112-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(Count_1k)) <span class="op">%&gt;%</span></span>
+<span id="cb112-8"><a href="Rintro.html#cb112-8"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
+<span id="cb112-9"><a href="Rintro.html#cb112-9"></a></span>
+<span id="cb112-10"><a href="Rintro.html#cb112-10"></a><span class="kw">head</span>(baby_names)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 6
 ##   Name  Sex   Count  Year Count_1k  Rank
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
@@ -1504,17 +1511,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="recoding-variables" class="section level3">
 <h3>Recoding variables</h3>
 <p>It’s often necessary to create a new variable that is a recoded version of an existing variable. For example, we might want to take our <code>Count_1k</code> variable and create a new variable that divides it into <code>low</code>, <code>medium</code>, and <code>high</code> categories. To do this, we can use the <code>case_when()</code> function within the <code>mutate()</code> function:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="Rintro.html#cb114-1"></a><span class="co"># Use case_when() to recode the newly created Rank column into low (&lt;=10), high (&gt;40), and medium (all others).</span></span>
-<span id="cb114-2"><a href="Rintro.html#cb114-2"></a><span class="co"># Call the resulting column &quot;Count_levels&quot;.</span></span>
-<span id="cb114-3"><a href="Rintro.html#cb114-3"></a>baby_names &lt;-</span>
-<span id="cb114-4"><a href="Rintro.html#cb114-4"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
-<span id="cb114-5"><a href="Rintro.html#cb114-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Count_levels =</span> <span class="kw">case_when</span>(</span>
-<span id="cb114-6"><a href="Rintro.html#cb114-6"></a>                            Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>                  <span class="op">~</span><span class="st"> &quot;low&quot;</span>,</span>
-<span id="cb114-7"><a href="Rintro.html#cb114-7"></a>                            Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">&amp;</span><span class="st"> </span>Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span> <span class="op">~</span><span class="st"> &quot;medium&quot;</span>,</span>
-<span id="cb114-8"><a href="Rintro.html#cb114-8"></a>                            Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">40</span>                  <span class="op">~</span><span class="st"> &quot;high&quot;</span></span>
-<span id="cb114-9"><a href="Rintro.html#cb114-9"></a>                            ))</span>
-<span id="cb114-10"><a href="Rintro.html#cb114-10"></a></span>
-<span id="cb114-11"><a href="Rintro.html#cb114-11"></a><span class="kw">head</span>(baby_names)                            </span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="Rintro.html#cb114-1"></a><span class="co"># Use case_when() to recode the newly created Rank column into:</span></span>
+<span id="cb114-2"><a href="Rintro.html#cb114-2"></a><span class="co"># low (&lt;=10), high (&gt;40), and medium (all others).</span></span>
+<span id="cb114-3"><a href="Rintro.html#cb114-3"></a><span class="co"># Call the resulting column &quot;Count_levels&quot;.</span></span>
+<span id="cb114-4"><a href="Rintro.html#cb114-4"></a>baby_names &lt;-</span>
+<span id="cb114-5"><a href="Rintro.html#cb114-5"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
+<span id="cb114-6"><a href="Rintro.html#cb114-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Count_levels =</span> <span class="kw">case_when</span>(</span>
+<span id="cb114-7"><a href="Rintro.html#cb114-7"></a>                            Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>                  <span class="op">~</span><span class="st"> &quot;low&quot;</span>,</span>
+<span id="cb114-8"><a href="Rintro.html#cb114-8"></a>                            Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">&amp;</span><span class="st"> </span>Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span> <span class="op">~</span><span class="st"> &quot;medium&quot;</span>,</span>
+<span id="cb114-9"><a href="Rintro.html#cb114-9"></a>                            Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">40</span>                  <span class="op">~</span><span class="st"> &quot;high&quot;</span></span>
+<span id="cb114-10"><a href="Rintro.html#cb114-10"></a>                            ))</span>
+<span id="cb114-11"><a href="Rintro.html#cb114-11"></a></span>
+<span id="cb114-12"><a href="Rintro.html#cb114-12"></a><span class="kw">head</span>(baby_names)                            </span></code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ##   Name  Sex   Count  Year Count_1k  Rank Count_levels
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
@@ -1647,15 +1655,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="R/Rintro/images/summarize_group_by.png" /></p>
 <p>Note that, unlike with the <code>mutate()</code> function, the <code>summarize()</code> function returns a data frame with fewer rows than the original, because of aggregation.</p>
 <p>Here’s the code that implements the calculation:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="Rintro.html#cb132-1"></a><span class="co"># Group baby_names by Year and calculate the sum of Count (record in a column called Total). </span></span>
-<span id="cb132-2"><a href="Rintro.html#cb132-2"></a><span class="co"># Assign the result to bn_by_year and remember to ungroup!</span></span>
-<span id="cb132-3"><a href="Rintro.html#cb132-3"></a>bn_by_year &lt;-</span>
-<span id="cb132-4"><a href="Rintro.html#cb132-4"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
-<span id="cb132-5"><a href="Rintro.html#cb132-5"></a><span class="st">  </span><span class="kw">group_by</span>(Year) <span class="op">%&gt;%</span></span>
-<span id="cb132-6"><a href="Rintro.html#cb132-6"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Total =</span> <span class="kw">sum</span>(Count)) <span class="op">%&gt;%</span></span>
-<span id="cb132-7"><a href="Rintro.html#cb132-7"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
-<span id="cb132-8"><a href="Rintro.html#cb132-8"></a></span>
-<span id="cb132-9"><a href="Rintro.html#cb132-9"></a><span class="kw">head</span>(bn_by_year)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="Rintro.html#cb132-1"></a><span class="co"># Group baby_names by Year and calculate the sum of Count </span></span>
+<span id="cb132-2"><a href="Rintro.html#cb132-2"></a><span class="co"># Call the resulting column &quot;Total&quot; </span></span>
+<span id="cb132-3"><a href="Rintro.html#cb132-3"></a><span class="co"># Assign the result to an object called &quot;bn_by_year&quot; and remember to ungroup!</span></span>
+<span id="cb132-4"><a href="Rintro.html#cb132-4"></a>bn_by_year &lt;-</span>
+<span id="cb132-5"><a href="Rintro.html#cb132-5"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
+<span id="cb132-6"><a href="Rintro.html#cb132-6"></a><span class="st">  </span><span class="kw">group_by</span>(Year) <span class="op">%&gt;%</span></span>
+<span id="cb132-7"><a href="Rintro.html#cb132-7"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Total =</span> <span class="kw">sum</span>(Count)) <span class="op">%&gt;%</span></span>
+<span id="cb132-8"><a href="Rintro.html#cb132-8"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
+<span id="cb132-9"><a href="Rintro.html#cb132-9"></a></span>
+<span id="cb132-10"><a href="Rintro.html#cb132-10"></a><span class="kw">head</span>(bn_by_year)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##    Year   Total
 ##   &lt;dbl&gt;   &lt;dbl&gt;
@@ -1735,8 +1744,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="saving-multiple-datasets" class="section level3">
 <h3>Saving multiple datasets</h3>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="Rintro.html#cb143-1"></a><span class="kw">ls</span>() <span class="co"># list objects in our workspace</span></span>
-<span id="cb143-2"><a href="Rintro.html#cb143-2"></a><span class="co"># Use save() function from the base R package to record some objects into a file named &quot;myDataFiles.RData&quot;</span></span>
-<span id="cb143-3"><a href="Rintro.html#cb143-3"></a><span class="kw">save</span>(baby_names_diana, bn_by_year, baby_names_subset, <span class="dt">file=</span><span class="st">&quot;myDataFiles.RData&quot;</span>)  </span></code></pre></div>
+<span id="cb143-2"><a href="Rintro.html#cb143-2"></a><span class="co"># Use save() function from the `base` R package to record some objects</span></span>
+<span id="cb143-3"><a href="Rintro.html#cb143-3"></a><span class="co"># into a file named &quot;myDataFiles.RData&quot;</span></span>
+<span id="cb143-4"><a href="Rintro.html#cb143-4"></a><span class="kw">save</span>(baby_names_diana, bn_by_year, baby_names_subset, <span class="dt">file=</span><span class="st">&quot;myDataFiles.RData&quot;</span>)  </span></code></pre></div>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="Rintro.html#cb144-1"></a><span class="co"># Load the &quot;myDataFiles.RData&quot;</span></span>
 <span id="cb144-2"><a href="Rintro.html#cb144-2"></a><span class="co"># load(&quot;myDataFiles.RData&quot;) </span></span></code></pre></div>
 </div>

@@ -352,7 +352,8 @@ To demonstrate these techniques we'll try to determine whether "Alex"" or "Mark"
 ```
 
 ```{r}
-# Filter data, keeping "Alex" and "Mark" in year 1992, record in baby_names_alexmark
+# Filter data, keeping "Alex" and "Mark" in year 1992, and
+# assign to a new object "baby_names_alexmark" 
 # Use logical operators to specify the filtering condition
 
 
@@ -466,8 +467,10 @@ There is one very special operator in R called a **pipe** operator that looks li
 There is no need to load any additional packages as the operator is made available via the `magrittr` package installed as part of `tidyverse`. Let's rewrite the sequence of commands to output ordered counts for names "Alex" or "Mark".
 
 ```{r}
-# Filter data keeping rows for "Alex" and "Mark" during year 1992, record in baby_names_alexmark
+# Filter data, keeping "Alex" and "Mark" in year 1992, and
+# assign to a new object "baby_names_alexmark"
 # Arrange the result in a descending order by Count
+
 # unpiped version
 
 
@@ -521,7 +524,8 @@ R has decent plotting tools built-in -- see e.g., `help(plot)`. However, again, 
 For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example, we can plot the number of babies given the name "Diana" over time like this:
 
 ```{r}
-# Filter data keeping rows for name "Diana" and assign to a new object called baby_names_diana
+# Filter data keeping rows for name "Diana" and 
+# assign to a new object called "baby_names_diana"
 
 ```
 
@@ -533,7 +537,8 @@ For quick and simple plots we can use the `qplot()` function from `ggplot2`. For
 Interestingly, there are usually some gender-atypical names, even for very strongly gendered names like "Diana". Splitting these trends out by `Sex` is very easy:
 
 ```{r}
-# Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.
+# Use qplot() function to plot Counts (y) by Year (x). 
+# Split trends by Sex using color.
 
 ```
 
@@ -586,7 +591,8 @@ So far we've used `Count` as a measure of popularity. A better approach is to us
 The `mutate()` function makes it easy to add or modify the columns of a `data.frame`. For example, we can use it to rescale the count of each name in each year:
 
 ```{r}
-# Use piping to add a new column to the data, called Count_1k, that rescales counts to thousands
+# Use piping to add a new column to the data, called Count_1k, 
+# which rescales counts to thousands
 
 ```
 
@@ -601,7 +607,8 @@ Note that the `group_by()` function converts a **data frame** into a **grouped d
 Here's the code that implements the calculation:
 
 ```{r}
-# Group baby_names by Year and Sex and rank Count_1k within each group (calling the resulting new column "Rank"). 
+# Group baby_names by Year and Sex and rank Count_1k,
+# within each group (calling the resulting new column "Rank"). 
 # Remember to ungroup at the end!
 
 
@@ -612,7 +619,8 @@ Here's the code that implements the calculation:
 It's often necessary to create a new variable that is a recoded version of an existing variable. For example, we might want to take our `Count_1k` variable and create a new variable that divides it into `low`, `medium`, and `high` categories. To do this, we can use the `case_when()` function within the `mutate()` function:
 
 ```{r}
-# Use case_when() to recode the newly created Rank column into low (<=10), high (>40), and medium (all others).
+# Use case_when() to recode the newly created Rank column into:
+# low (<=10), high (>40), and medium (all others).
 # Call the resulting column "Count_levels".
 
 
@@ -682,8 +690,9 @@ Note that, unlike with the `mutate()` function, the `summarize()` function retur
 Here's the code that implements the calculation:
 
 ```{r}
-# Group baby_names by Year and calculate the sum of Count (record in a column called Total). 
-# Assign the result to bn_by_year and remember to ungroup!
+# Group baby_names by Year and calculate the sum of Count 
+# Call the resulting column "Total" 
+# Assign the result to an object called "bn_by_year" and remember to ungroup!
 
 
 ```
@@ -738,7 +747,9 @@ You might find functions `write_csv()` and `write_rds()` from package `readr` ha
 
 ```{r, eval=FALSE}
 # list objects in our workspace
-# Use save() function from the base R package to record some objects into a file named "myDataFiles.RData"
+# Use save() function from the `base` R package to record some objects
+# into a file named "myDataFiles.RData"
+
 ```
 
 ```{r, eval=FALSE}

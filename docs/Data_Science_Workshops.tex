@@ -2150,7 +2150,8 @@ To demonstrate these techniques we'll try to determine whether ``Alex''" or ``Ma
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Filter data, keeping "Alex" and "Mark" in year 1992, record in baby\_names\_alexmark}
+\CommentTok{\# Filter data, keeping "Alex" and "Mark" in year 1992, and}
+\CommentTok{\# assign to a new object "baby\_names\_alexmark" }
 \CommentTok{\# Use logical operators to specify the filtering condition}
 \NormalTok{baby\_names\_alexmark \textless{}{-}}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby\_names, }
 \NormalTok{             Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{\&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
@@ -2467,8 +2468,10 @@ There is no need to load any additional packages as the operator is made availab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Filter data keeping rows for "Alex" and "Mark" during year 1992, record in baby\_names\_alexmark}
+\CommentTok{\# Filter data, keeping "Alex" and "Mark" in year 1992, and}
+\CommentTok{\# assign to a new object "baby\_names\_alexmark"}
 \CommentTok{\# Arrange the result in a descending order by Count}
+
 \CommentTok{\# unpiped version}
 \NormalTok{baby\_names\_alexmark \textless{}{-}}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby\_names, Year }\OperatorTok{==}\StringTok{ }\DecValTok{1992} \OperatorTok{\&}\StringTok{ }\NormalTok{(Name }\OperatorTok{==}\StringTok{ "Alex"} \OperatorTok{|}\StringTok{ }\NormalTok{Name }\OperatorTok{==}\StringTok{ "Mark"}\NormalTok{))}
 \KeywordTok{arrange}\NormalTok{(baby\_names\_alexmark, }\KeywordTok{desc}\NormalTok{(Count))}
@@ -2588,7 +2591,8 @@ For quick and simple plots we can use the \texttt{qplot()} function from \texttt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Filter data keeping rows for name "Diana" and assign to a new object called baby\_names\_diana}
+\CommentTok{\# Filter data keeping rows for name "Diana" and }
+\CommentTok{\# assign to a new object called "baby\_names\_diana"}
 \NormalTok{baby\_names\_diana \textless{}{-}}\StringTok{ }\KeywordTok{filter}\NormalTok{(baby\_names, Name }\OperatorTok{==}\StringTok{ "Diana"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2607,7 +2611,8 @@ Interestingly, there are usually some gender-atypical names, even for very stron
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Use qplot() function to plot Counts (y) by Year (x). Split trends by Sex using color.}
+\CommentTok{\# Use qplot() function to plot Counts (y) by Year (x). }
+\CommentTok{\# Split trends by Sex using color.}
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Count, }\DataTypeTok{color =}\NormalTok{ Sex,}
       \DataTypeTok{data =}\NormalTok{ baby\_names\_diana)}
 \end{Highlighting}
@@ -2727,7 +2732,8 @@ The \texttt{mutate()} function makes it easy to add or modify the columns of a \
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Use piping to add a new column to the data, called Count\_1k, that rescales counts to thousands}
+\CommentTok{\# Use piping to add a new column to the data, called Count\_1k, }
+\CommentTok{\# which rescales counts to thousands}
 \NormalTok{baby\_names \textless{}{-}}\StringTok{ }\NormalTok{baby\_names }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Count\_1k =}\NormalTok{ Count}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(baby\_names) }
 \end{Highlighting}
@@ -2758,7 +2764,8 @@ Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Group baby\_names by Year and Sex and rank Count\_1k within each group (calling the resulting new column "Rank"). }
+\CommentTok{\# Group baby\_names by Year and Sex and rank Count\_1k,}
+\CommentTok{\# within each group (calling the resulting new column "Rank"). }
 \CommentTok{\# Remember to ungroup at the end!}
 \NormalTok{baby\_names \textless{}{-}}
 \StringTok{  }\NormalTok{baby\_names }\OperatorTok{\%\textgreater{}\%}
@@ -2789,7 +2796,8 @@ It's often necessary to create a new variable that is a recoded version of an ex
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Use case\_when() to recode the newly created Rank column into low (\textless{}=10), high (\textgreater{}40), and medium (all others).}
+\CommentTok{\# Use case\_when() to recode the newly created Rank column into:}
+\CommentTok{\# low (\textless{}=10), high (\textgreater{}40), and medium (all others).}
 \CommentTok{\# Call the resulting column "Count\_levels".}
 \NormalTok{baby\_names \textless{}{-}}
 \StringTok{  }\NormalTok{baby\_names }\OperatorTok{\%\textgreater{}\%}
@@ -3034,8 +3042,9 @@ Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Group baby\_names by Year and calculate the sum of Count (record in a column called Total). }
-\CommentTok{\# Assign the result to bn\_by\_year and remember to ungroup!}
+\CommentTok{\# Group baby\_names by Year and calculate the sum of Count }
+\CommentTok{\# Call the resulting column "Total" }
+\CommentTok{\# Assign the result to an object called "bn\_by\_year" and remember to ungroup!}
 \NormalTok{bn\_by\_year \textless{}{-}}
 \StringTok{  }\NormalTok{baby\_names }\OperatorTok{\%\textgreater{}\%}
 \StringTok{  }\KeywordTok{group\_by}\NormalTok{(Year) }\OperatorTok{\%\textgreater{}\%}
@@ -3185,7 +3194,8 @@ You might find functions \texttt{write\_csv()} and \texttt{write\_rds()} from pa
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ls}\NormalTok{() }\CommentTok{\# list objects in our workspace}
-\CommentTok{\# Use save() function from the base R package to record some objects into a file named "myDataFiles.RData"}
+\CommentTok{\# Use save() function from the \textasciigrave{}base\textasciigrave{} R package to record some objects}
+\CommentTok{\# into a file named "myDataFiles.RData"}
 \KeywordTok{save}\NormalTok{(baby\_names\_diana, bn\_by\_year, baby\_names\_subset, }\DataTypeTok{file=}\StringTok{"myDataFiles.RData"}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
@@ -11666,8 +11676,8 @@ Now that we know the web service works, and how to make requests in Python, we c
 ## 10                           None                    0  ...                            NaN                            NaN
 ## 11                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
 ## 12                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 13  © Succession H. Matisse / ...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
-## 14                           None                    0  ...                            NaN                            NaN
+## 13                           None                    0  ...                            NaN                            NaN
+## 14  © Succession H. Matisse / ...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
 ## 15                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
 ## 16                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
 ## 17  © Aperture Foundation Inc....                    0  ...  [{'role': 'Artist', 'birth...                            NaN
