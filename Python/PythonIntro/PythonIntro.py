@@ -208,10 +208,13 @@ alice_file = open("Alice_in_wonderland.txt")
 
 help(alice_file.read)
 
-# Since `alice_file.read` looks promising, we will invoke this method and see what it does.
+# Since `alice_file.read` looks promising, we will invoke this method and see what it does:
 
 alice_txt = alice_file.read()
-print(alice_txt[:500]) # the [:500] gets the first 500 character -- more on this later.
+
+# Now let's print the first 500 characters:
+
+print(alice_txt[:500]) # the [:500] gets the first 500 characters -- more on this later.
 
 # That's all there is to it! We've read the contents of `Alice_in_wonderland.txt` and stored this text in a Python object we named `alice_txt`. Now let's start to explore this object, and learn some more things about Python along the way.
 
@@ -283,7 +286,7 @@ y[2:5] # returns a list with elements 3, "D", 5
 y[-1] # returns last element - the number 6 
 y[-4: ] # returns a list with last 4 elements
 
-alice_words[11:20] # returns a list with words 11 through 19
+alice_words[10:18] # returns a list with words 11 through 19
 alice_words[-10: ] # returns a list with the last 10 words
 
 # ### Using sets to count unique items
@@ -380,10 +383,10 @@ len(alice_chapters)
 
 # Since the first element contains the material *before* the first chapter, this tells us there are twelve chapters in the book.
 #
-# We can also count the number of times the "Bunny" and "Duck" characters appear in a given Chapter, say Chapter 2:
+# We can also count the number of times the "Mouse" and "Duck" characters appear in a given Chapter, say Chapter 2:
 
-bunny_count_ch2 = alice_chapters[2].count("Bunny")
-print(bunny_count_ch2)
+mouse_count_ch2 = alice_chapters[2].count("Mouse")
+print(mouse_count_ch2)
 
 duck_count_ch2 = alice_chapters[2].count("Duck")
 print(duck_count_ch2)
@@ -391,12 +394,12 @@ print(duck_count_ch2)
 # By combining choice statements with logical and/or relational operators, we can then determine which of these two characters
 # appears more often in Chapter 2:
 
-if bunny_count_ch2 < duck_count_ch2:
-    print("Bunny count is less than Duck count in Chapter II.")
-elif bunny_count_ch2 > duck_count_ch2:
-    print("Bunny count is larger than Duck count in Chapter II.")
+if mouse_count_ch2 < duck_count_ch2:
+    print("Mouse count is less than Duck count in Chapter II.")
+elif mouse_count_ch2 > duck_count_ch2:
+    print("Mouse count is larger than Duck count in Chapter II.")
 else:
-    print("Bunny count is equal to Duck count in Chapter II.")
+    print("Mouse count is equal to Duck count in Chapter II.")
 
 # We can count paragraphs in a similar way to chapters. Paragraphs are indicated by a blank line, i.e., two newlines in a row. When working with strings we can represent newlines with `\n`. Paragraphs are indicated by two new lines, and so our basic paragraph separator is `\n\n`. We can see this separator by looking at the content.
 
