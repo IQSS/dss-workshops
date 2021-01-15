@@ -286,7 +286,7 @@ y[2:5] # returns a list with elements 3, "D", 5
 y[-1] # returns last element - the number 6 
 y[-4: ] # returns a list with last 4 elements
 
-alice_words[10:18] # returns a list with words 11 through 19
+alice_words[10:19] # returns a list with words 11 through 19
 alice_words[-10: ] # returns a list with the last 10 words
 
 # ### Using sets to count unique items

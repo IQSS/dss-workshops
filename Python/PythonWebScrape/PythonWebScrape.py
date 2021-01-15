@@ -285,13 +285,15 @@ exhibit1 = exhibit1.json()
 # Questions #3+4 (loop solution):
 firstFivePages = []
 for page in range(1, 6):
-    records_per_page = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records']
+    records_per_page = requests.get(exhibit_url, \
+        params = {'type': 'past-exhibition', 'page': page}).json()['records']
     firstFivePages.extend(records_per_page)
 firstFivePages_records = pd.DataFrame.from_records(firstFivePages)
 print(firstFivePages_records)
 
 # Questions #3+4 (list comprehension solution):
-first5Pages = [requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
+first5Pages = [requests.get(exhibit_url, \
+    params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
 from itertools import chain
 first5Pages = list(chain.from_iterable(first5Pages))
 import pandas as pd
@@ -371,13 +373,13 @@ html.open_in_browser(events_html, encoding = 'UTF-8')
 
 events_list_html = events_html.xpath('//*[@id="events_list"]/article')
 
-# Let's just extract the second element in our events list.
+# Let's just extract the third element in our events list.
 
-second_event_html = events_list_html[1]
+third_event_html = events_list_html[2]
 
-# Once again, we can use a web browser to inspect the HTML we're currently working with - from the second event - and to figure out what we want to extract from it. 
+# Once again, we can use a web browser to inspect the HTML we're currently working with - from the third event - and to figure out what we want to extract from it. 
 
-html.open_in_browser(second_event_html, encoding = 'UTF-8')
+html.open_in_browser(third_event_html, encoding = 'UTF-8')
 
 # As before, we can use our browser to find the xpath of the elements we want.
 #
@@ -396,17 +398,17 @@ elements_we_want = {'figcaption': 'div/figure/div/figcaption',
 
 # Finally, we can iterate over the elements we want and extract them.
 
-second_event_values = {}
+third_event_values = {}
 for key in elements_we_want.keys():
-    element = second_event_html.xpath(elements_we_want[key])[0]
-    second_event_values[key] = element.text_content().strip()
+    element = third_event_html.xpath(elements_we_want[key])[0]
+    third_event_values[key] = element.text_content().strip()
 
-print(second_event_values)
+print(third_event_values)
 
 
 # ### Iterating to retrieve content from a list of HTML elements
 #
-# So far we've retrieved information only for the second event. To
+# So far we've retrieved information only for the third event. To
 # retrieve data for all the events listed on the page we need to iterate
 # over the events. If we are very lucky, each event will have exactly
 # the same information structured in exactly the same way and we can
