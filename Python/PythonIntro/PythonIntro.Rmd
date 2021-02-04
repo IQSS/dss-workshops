@@ -350,7 +350,7 @@ According to our above computation, there are about 26 thousand total words in t
 
 ```{python}
 # set example
-mylist = {1, 5, 9, 9, 4, 5}
+mylist = [1, 5, 9, 9, 4, 5]
 set(mylist)
 ```
 
@@ -383,7 +383,7 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
 ##
 ```
 
-2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`. HINT: you can split on newlines using the `\n` separator.
+2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`. HINT: you can split on newlines using the `splitlines()` method.
 
 ```{python}
 ##
@@ -393,18 +393,17 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
   <div class="alert alert-danger">
 
-1. Open the Characters.txt file and read its contents.
+1. Open the `Characters.txt` file and read its contents.
 
 ```{python}
 characters_file = open("Characters.txt")
 characters_txt = characters_file.read()
 ```
 
-2. Split text on newlines to produce a list with one element per line. 
-   Store the result as "alice_characters".
+2. Split text on newlines to produce a list with one element per line. Store the result as `alice_characters`. HINT: you can split on newlines using the `splitlines()` method.
 
 ```{python}
-alice_characters = characters_txt.split(sep="\n")
+alice_characters = characters_txt.splitlines()
 alice_characters
 ```
 </div>
@@ -527,16 +526,13 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 ##
 ```
 
-3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of
-   the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test
-   whether EITHER of the above conditions are true. HINT: use the `len()` function.
+3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test whether EITHER of the above conditions are true. HINT: use the `len()` function.
 
 ```{python}
 ##
 ```
 
-4. (BONUS, optional): Sort the list you created in step 2 alphabetically,
-    and then extract the last element.
+4. (BONUS, optional): Sort the list you created in step 2 alphabetically, and then extract the last element.
 
 ```{python}
 ##
@@ -558,16 +554,13 @@ len(alice_characters)
 print(alice_characters[0])
 ```
 
-3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of
-   the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test
-   whether EITHER of the above conditions are true. HINT: use the `len()` function.
+3. Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test whether EITHER of the above conditions are true. HINT: use the `len()` function.
 
 ```{python}
 len(alice_characters[2]) == len(alice_characters[7]) or len(alice_characters[2]) >= len(alice_characters[5])
 ```
 
-4. (BONUS, optional): Sort the list you created in step 2 alphabetically,
-   and then extract the last element.
+4. (BONUS, optional): Sort the list you created in step 2 alphabetically, and then extract the last element.
 
 ```{python}
 alice_characters.sort()
@@ -717,35 +710,25 @@ print(mydict)
 
 Now that we know how to iterate using for-loops, the possibilities really start to open up. For example, we can use these techniques to count the number of times each character appears in the story.
 
-1. Make sure you have both the text and the list of characters.
-
-Open and read both "Alice_in_wonderland.txt" and
-"Characters.txt" if you have not already done so.
+1. Make sure you have both the text and the list of characters. Open and read both `Alice_in_wonderland.txt` and `Characters.txt` if you have not already done so.
 
 ```{python}
 ##
 ```
 
-2. Which chapter has the most words?
-
-Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
-For each chapter, split it into words and calculate the length.
+2. Which chapter has the most words? Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters. For each chapter, split it into words and calculate the length.
 
 ```{python}
 ##
 ```
 
-3. How many times is each character mentioned in the text?
-
-Iterate over the list of characters using a for-loop. 
-For each character, call the count method with that character as the argument.
+3. How many times is each character mentioned in the text? Iterate over the list of characters using a for-loop. For each character, call the count method with that character as the argument.
 
 ```{python}
 ##
 ```
 
-4. (BONUS, optional): Put the character counts computed 
-   above in a dictionary with character names as the keys and 
+4. (BONUS, optional): Put the character counts computed above in a dictionary with character names as the keys and 
    counts as the values.
 
 ```{python}
@@ -756,17 +739,14 @@ For each character, call the count method with that character as the argument.
   <summary><span style="color:red"><b>Click for Exercise 2 Solution</b></span></summary>
   <div class="alert alert-danger">
 
-1. Make sure you have both the text and the list of characters.
-   Open and read both "Alice_in_wonderland.txt" and "Characters.txt" if you have not already done so.
+1. Make sure you have both the text and the list of characters. Open and read both `Alice_in_wonderland.txt` and `Characters.txt` if you have not already done so.
 
 ```{python}
 characters_txt = open("Characters.txt").read()
 alice_txt = open("Alice_in_wonderland.txt").read()
 ```
 
-2. Which chapter has the most words?
-   Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters.
-   For each chapter, split it into words and calculate the length.
+2. Which chapter has the most words? Split the text into chapters (i.e., split on "CHAPTER ") and use a for-loop to iterate over the chapters. For each chapter, split it into words and calculate the length.
 
 ```{python}
 words_per_chapter = []
@@ -777,24 +757,21 @@ for chapter in alice_chapters:
 print(words_per_chapter)
 ```
 
-3. How many times is each character mentioned in the text?
-   Iterate over the list of characters using a for-loop. 
-   For each character, call the count method with that character as the argument.
+3. How many times is each character mentioned in the text? Iterate over the list of characters using a for-loop. For each character, call the count method with that character as the argument.
 
 ```{python}
 num_per_character = []
 
-for character in characters_txt.split(sep="\n"):
+for character in characters_txt.splitlines():
     num_per_character.append(alice_txt.count(character))
 
 print(num_per_character)
 ```
 
-4. (BONUS, optional): Put the character counts computed above in a 
-   dictionary with character names as the keys and counts as the values.
+4. (BONUS, optional): Put the character counts computed above in a dictionary with character names as the keys and counts as the values.
 
 ```{python}
-characters = characters_txt.split(sep="\n")
+characters = characters_txt.splitlines()
 dict(zip(characters, num_per_character))
 ```
 </div>

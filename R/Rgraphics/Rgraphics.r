@@ -36,10 +36,9 @@
 #
 # Start RStudio and create a new project:
 #
-# * On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
-# * In Rstudio go to `File -> New Project`.
-# * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
-# * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
+# 1. On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio. 
+# 2. In RStudio go to `File -> New Project`. Choose `Existing Directory` and browse to the workshop materials directory on your desktop. This will create an `.Rproj` file for your project and will automaticly change your working directory to the workshop materials directory. 
+# 3. Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 #
 # ### Packages
 #

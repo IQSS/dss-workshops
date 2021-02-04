@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>R Introduction | Data Science Workshops</title>
   <meta name="description" content="R Introduction | Data Science Workshops" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="R Introduction | Data Science Workshops" />
   <meta property="og:type" content="book" />
@@ -31,7 +31,7 @@
   
 <link rel="prev" href="Rinstall.html"/>
 <link rel="next" href="Rmodels.html"/>
-<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -928,12 +928,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="launch-a-session" class="section level3">
 <h3>Launch a session</h3>
 <p>Start RStudio and create a new project:</p>
-<ul>
-<li>On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.</li>
-<li>In RStudio go to <code>File -&gt; New Project</code>.</li>
-<li>Choose <code>Existing Directory</code> and browse to the workshop materials directory on your desktop.</li>
+<ol style="list-style-type: decimal">
+<li>On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio.</li>
+<li>In RStudio go to <code>File -&gt; New Project</code>. Choose <code>Existing Directory</code> and browse to the workshop materials directory on your desktop. This will create an <code>.Rproj</code> file for your project and will automaticly change your working directory to the workshop materials directory.</li>
 <li>Choose <code>File -&gt; Open File</code> and select the file with the word “BLANK” in the name.</li>
-</ul>
+</ol>
 </div>
 <div id="exercise-0" class="section level3">
 <h3>Exercise 0</h3>
@@ -1101,7 +1100,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="Rintro.html#cb51-1"></a><span class="co">##</span></span></code></pre></div></li>
 <li><p>Read the baby names data using the <code>read_csv()</code> function and assign the result with the name <code>baby_names</code>.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="Rintro.html#cb52-1"></a><span class="co">##</span></span></code></pre></div></li>
-<li><p>BONUS (optional): Save the <code>baby_names</code> data as a Stata data set <code>babynames.dta</code> and as an R data set <code>babynames.rds</code>.</p>
+<li><p>BONUS (optional): Save the <code>baby_names</code> data as an R data set <code>babynames.rds</code>.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="Rintro.html#cb53-1"></a><span class="co">##</span></span></code></pre></div></li>
 </ol>
 <details>
@@ -1112,10 +1111,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="Rintro.html#cb54-1"></a>?read_csv</span></code></pre></div></li>
 <li><p>Read the baby names data using the <code>read_csv()</code> function and assign the result with the name <code>baby_names</code>.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="Rintro.html#cb55-1"></a>baby_names &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;babyNames.csv&quot;</span>)</span></code></pre></div></li>
-<li><p>BONUS (optional): Save the <code>baby_names</code> data as a Stata data set <code>babynames.dta</code> and as an R data set <code>babynames.rds</code>.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="Rintro.html#cb56-1"></a><span class="kw">write_dta</span>(baby_names, <span class="dt">version =</span> <span class="dv">15</span>, <span class="dt">path =</span> “babynames.dta”)</span>
-<span id="cb56-2"><a href="Rintro.html#cb56-2"></a></span>
-<span id="cb56-3"><a href="Rintro.html#cb56-3"></a><span class="kw">write_rds</span>(baby_names, <span class="dt">file =</span> “babynames.rds”)</span></code></pre></div></li>
+<li><p>BONUS (optional): Save the <code>baby_names</code> data as an R data set <code>babynames.rds</code>.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="Rintro.html#cb56-1"></a><span class="kw">write_rds</span>(baby_names, <span class="dt">file =</span> “babynames.rds”)</span></code></pre></div></li>
 </ol>
 </div>
 </details>
@@ -1323,7 +1320,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="pipe-operator" class="section level3">
 <h3>Pipe operator</h3>
-<p>There is one very special operator in R called a <strong>pipe</strong> operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.</p>
+<p>There is one very special operator in R called a <strong>pipe</strong> operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is <code>ctrl + shift + M</code>.</p>
 <p><img src="R/Rintro/images/magrittr.png" /></p>
 <p>There is no need to load any additional packages as the operator is made available via the <code>magrittr</code> package installed as part of <code>tidyverse</code>. Let’s rewrite the sequence of commands to output ordered counts for names “Alex” or “Mark”.</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="Rintro.html#cb91-1"></a><span class="co"># Filter data, keeping &quot;Alex&quot; and &quot;Mark&quot; in year 1992, and</span></span>
@@ -1488,25 +1485,25 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="R/Rintro/images/mutate_group_by.png" /></p>
 <p>Note that the <code>group_by()</code> function converts a <strong>data frame</strong> into a <strong>grouped data frame</strong> — that is, a data frame with metadata identifying the groups. The data remain grouped until you change the groups by running <code>group_by()</code> again or remove the grouping metadata using <code>ungroup()</code>.</p>
 <p>Here’s the code that implements the calculation:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="Rintro.html#cb112-1"></a><span class="co"># Group baby_names by Year and Sex and rank Count_1k,</span></span>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="Rintro.html#cb112-1"></a><span class="co"># Group baby_names by Year and Sex and rank Count_1k in descending order,</span></span>
 <span id="cb112-2"><a href="Rintro.html#cb112-2"></a><span class="co"># within each group (calling the resulting new column &quot;Rank&quot;). </span></span>
 <span id="cb112-3"><a href="Rintro.html#cb112-3"></a><span class="co"># Remember to ungroup at the end!</span></span>
 <span id="cb112-4"><a href="Rintro.html#cb112-4"></a>baby_names &lt;-</span>
 <span id="cb112-5"><a href="Rintro.html#cb112-5"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
 <span id="cb112-6"><a href="Rintro.html#cb112-6"></a><span class="st">  </span><span class="kw">group_by</span>(Year, Sex) <span class="op">%&gt;%</span></span>
-<span id="cb112-7"><a href="Rintro.html#cb112-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(Count_1k)) <span class="op">%&gt;%</span></span>
+<span id="cb112-7"><a href="Rintro.html#cb112-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rank =</span> <span class="kw">rank</span>(<span class="kw">desc</span>(Count_1k))) <span class="op">%&gt;%</span></span>
 <span id="cb112-8"><a href="Rintro.html#cb112-8"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
 <span id="cb112-9"><a href="Rintro.html#cb112-9"></a></span>
 <span id="cb112-10"><a href="Rintro.html#cb112-10"></a><span class="kw">head</span>(baby_names)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 6
 ##   Name  Sex   Count  Year Count_1k  Rank
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-## 1 Mary  Girls 51474  1960     51.5  7331
-## 2 Susan Girls 39200  1960     39.2  7330
-## 3 Linda Girls 37314  1960     37.3  7329
-## 4 Karen Girls 36376  1960     36.4  7328
-## 5 Donna Girls 34133  1960     34.1  7327
-## 6 Lisa  Girls 33702  1960     33.7  7326</code></pre>
+## 1 Mary  Girls 51474  1960     51.5     1
+## 2 Susan Girls 39200  1960     39.2     2
+## 3 Linda Girls 37314  1960     37.3     3
+## 4 Karen Girls 36376  1960     36.4     4
+## 5 Donna Girls 34133  1960     34.1     5
+## 6 Lisa  Girls 33702  1960     33.7     6</code></pre>
 </div>
 <div id="recoding-variables" class="section level3">
 <h3>Recoding variables</h3>
@@ -1517,21 +1514,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb114-4"><a href="Rintro.html#cb114-4"></a>baby_names &lt;-</span>
 <span id="cb114-5"><a href="Rintro.html#cb114-5"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
 <span id="cb114-6"><a href="Rintro.html#cb114-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Count_levels =</span> <span class="kw">case_when</span>(</span>
-<span id="cb114-7"><a href="Rintro.html#cb114-7"></a>                            Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>                  <span class="op">~</span><span class="st"> &quot;low&quot;</span>,</span>
-<span id="cb114-8"><a href="Rintro.html#cb114-8"></a>                            Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">&amp;</span><span class="st"> </span>Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span> <span class="op">~</span><span class="st"> &quot;medium&quot;</span>,</span>
-<span id="cb114-9"><a href="Rintro.html#cb114-9"></a>                            Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">40</span>                  <span class="op">~</span><span class="st"> &quot;high&quot;</span></span>
-<span id="cb114-10"><a href="Rintro.html#cb114-10"></a>                            ))</span>
+<span id="cb114-7"><a href="Rintro.html#cb114-7"></a>                                  Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>                  <span class="op">~</span><span class="st"> &quot;low&quot;</span>,</span>
+<span id="cb114-8"><a href="Rintro.html#cb114-8"></a>                                  Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">&amp;</span><span class="st"> </span>Count_1k <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span> <span class="op">~</span><span class="st"> &quot;medium&quot;</span>,</span>
+<span id="cb114-9"><a href="Rintro.html#cb114-9"></a>                                  Count_1k  <span class="op">&gt;</span><span class="st"> </span><span class="dv">40</span>                  <span class="op">~</span><span class="st"> &quot;high&quot;</span></span>
+<span id="cb114-10"><a href="Rintro.html#cb114-10"></a>                                  ))</span>
 <span id="cb114-11"><a href="Rintro.html#cb114-11"></a></span>
 <span id="cb114-12"><a href="Rintro.html#cb114-12"></a><span class="kw">head</span>(baby_names)                            </span></code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ##   Name  Sex   Count  Year Count_1k  Rank Count_levels
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
-## 1 Mary  Girls 51474  1960     51.5  7331 high        
-## 2 Susan Girls 39200  1960     39.2  7330 medium      
-## 3 Linda Girls 37314  1960     37.3  7329 medium      
-## 4 Karen Girls 36376  1960     36.4  7328 medium      
-## 5 Donna Girls 34133  1960     34.1  7327 medium      
-## 6 Lisa  Girls 33702  1960     33.7  7326 medium</code></pre>
+## 1 Mary  Girls 51474  1960     51.5     1 high        
+## 2 Susan Girls 39200  1960     39.2     2 medium      
+## 3 Linda Girls 37314  1960     37.3     3 medium      
+## 4 Karen Girls 36376  1960     36.4     4 medium      
+## 5 Donna Girls 34133  1960     34.1     5 medium      
+## 6 Lisa  Girls 33702  1960     33.7     6 medium</code></pre>
 </div>
 <div id="exercise-4" class="section level3">
 <h3>Exercise 4</h3>
@@ -1564,12 +1561,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 8
 ##   Name  Sex   Count  Year Count_1k  Rank Count_levels Proportion
 ##   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
-## 1 Mary  Girls 51474  1960     51.5  7331 high             0.0255
-## 2 Susan Girls 39200  1960     39.2  7330 medium           0.0194
-## 3 Linda Girls 37314  1960     37.3  7329 medium           0.0185
-## 4 Karen Girls 36376  1960     36.4  7328 medium           0.0180
-## 5 Donna Girls 34133  1960     34.1  7327 medium           0.0169
-## 6 Lisa  Girls 33702  1960     33.7  7326 medium           0.0167</code></pre></li>
+## 1 Mary  Girls 51474  1960     51.5     1 high             0.0255
+## 2 Susan Girls 39200  1960     39.2     2 medium           0.0194
+## 3 Linda Girls 37314  1960     37.3     3 medium           0.0185
+## 4 Karen Girls 36376  1960     36.4     4 medium           0.0180
+## 5 Donna Girls 34133  1960     34.1     5 medium           0.0169
+## 6 Lisa  Girls 33702  1960     33.7     6 medium           0.0167</code></pre></li>
 <li><p>Use <code>mutate()</code> and <code>group_by()</code> to create a column named <code>Rank</code> where <code>Rank = rank(desc(Count))</code> for each <code>Year X Sex</code> group.</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="Rintro.html#cb123-1"></a>baby_names &lt;-<span class="st"> </span></span>
 <span id="cb123-2"><a href="Rintro.html#cb123-2"></a><span class="st">  </span>baby_names <span class="op">%&gt;%</span></span>
@@ -1642,8 +1639,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>You may have noticed that the percentage of babies given the most popular name of the year appears to have decreased over time. We can compute a more robust measure of the popularity of the most popular names by calculating the number of babies given one of the top 10 girl or boy names of the year.</p>
 <p>To compute this measure we need to operate within groups, as we did using <code>mutate()</code> above, but this time we need to collapse each group into a single summary statistic. We can achieve this using the <code>summarize()</code> function.</p>
-<p>First, let’s see how this function works without grouping. The following code outputs the total number of girls and boys in the data:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="Rintro.html#cb130-1"></a><span class="co"># Use summarize() to output the total number of boys and girls in the sample</span></span>
+<p>First, let’s see how this function works without grouping. The following code outputs the total number of girl’s and boy’s names in the data:</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="Rintro.html#cb130-1"></a><span class="co"># Use summarize() to output the total number of boy&#39;s and girl&#39;s names in the sample</span></span>
 <span id="cb130-2"><a href="Rintro.html#cb130-2"></a>baby_names <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb130-3"><a href="Rintro.html#cb130-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Girls_n =</span> <span class="kw">sum</span>(Sex<span class="op">==</span><span class="st">&quot;Girls&quot;</span>),</span>
 <span id="cb130-4"><a href="Rintro.html#cb130-4"></a>            <span class="dt">Boys_n =</span> <span class="kw">sum</span>(Sex<span class="op">==</span><span class="st">&quot;Boys&quot;</span>))</span></code></pre></div>

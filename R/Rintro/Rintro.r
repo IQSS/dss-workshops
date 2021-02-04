@@ -131,10 +131,9 @@ knitr::opts_knit$set(root.dir="R/Rintro") # base.url = "/" # base.dir="R/Rintro"
 #
 # Start RStudio and create a new project:
 #
-# * On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
-# * In RStudio go to `File -> New Project`.
-# * Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
-# * Choose `File -> Open File` and select the file with the word "BLANK" in the name.
+# 1. On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio. 
+# 2. In RStudio go to `File -> New Project`. Choose `Existing Directory` and browse to the workshop materials directory on your desktop. This will create an `.Rproj` file for your project and will automaticly change your working directory to the workshop materials directory. 
+# 3. Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 
 # ### Exercise 0
 #
@@ -318,7 +317,7 @@ library(rmarkdown)
 #     ##
 #     ```
 #
-#  3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` and as an R data set `babynames.rds`.
+#  3. BONUS (optional): Save the `baby_names` data as an R data set `babynames.rds`.
 #     ```{r}
 #     ##
 #     ```
@@ -339,11 +338,9 @@ library(rmarkdown)
 #     baby_names <- read_csv("babyNames.csv")
 #     ```
 #
-# 3. BONUS (optional): Save the `baby_names` data as a Stata data set `babynames.dta` and as an R data set `babynames.rds`.
+# 3. BONUS (optional): Save the `baby_names` data as an R data set `babynames.rds`.
 #  
 #     ```{r, eval=FALSE} 
-#     write_dta(baby_names, version = 15, path = “babynames.dta”)
-#      
 #     write_rds(baby_names, file = “babynames.rds”)
 #     ```
 # </div>
@@ -497,7 +494,7 @@ sum(x > 7)
 
 # ### Pipe operator
 #
-# There is one very special operator in R called a **pipe** operator that looks like this: `%>%`. It allows us to "chain" several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.
+# There is one very special operator in R called a **pipe** operator that looks like this: `%>%`. It allows us to "chain" several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is `ctrl + shift + M`.
 #
 # ![](R/Rintro/images/magrittr.png)
 #
@@ -674,13 +671,13 @@ head(baby_names)
 #
 # Here's the code that implements the calculation:
 
-# Group baby_names by Year and Sex and rank Count_1k,
+# Group baby_names by Year and Sex and rank Count_1k in descending order,
 # within each group (calling the resulting new column "Rank"). 
 # Remember to ungroup at the end!
 baby_names <-
   baby_names %>%
   group_by(Year, Sex) %>%
-  mutate(Rank = rank(Count_1k)) %>%
+  mutate(Rank = rank(desc(Count_1k))) %>%
   ungroup()
 
 head(baby_names)
@@ -695,10 +692,10 @@ head(baby_names)
 baby_names <-
   baby_names %>%
   mutate(Count_levels = case_when(
-                            Count_1k <= 10                  ~ "low",
-                            Count_1k  > 10 & Count_1k <= 40 ~ "medium",
-                            Count_1k  > 40                  ~ "high"
-                            ))
+                                  Count_1k <= 10                  ~ "low",
+                                  Count_1k  > 10 & Count_1k <= 40 ~ "medium",
+                                  Count_1k  > 40                  ~ "high"
+                                  ))
 
 head(baby_names)                            
 
@@ -816,9 +813,9 @@ head(baby_names)
 #
 # To compute this measure we need to operate within groups, as we did using `mutate()` above, but this time we need to collapse each group into a single summary statistic. We can achieve this using the `summarize()` function. 
 #
-# First, let's see how this function works without grouping. The following code outputs the total number of girls and boys in the data:
+# First, let's see how this function works without grouping. The following code outputs the total number of girl's and boy's names in the data:
 
-# Use summarize() to output the total number of boys and girls in the sample
+# Use summarize() to output the total number of boy's and girl's names in the sample
 baby_names %>% 
   summarize(Girls_n = sum(Sex=="Girls"),
             Boys_n = sum(Sex=="Boys"))

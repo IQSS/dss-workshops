@@ -3,20 +3,13 @@
 
 ### Ex 0: prototype
 
-Use the `states.rds` data set.
-
-```{r}
-  states <- read_rds("dataSets/states.rds")
-```
-
-Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to:
+Use the `states` data set. Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to:
 
 1.  Examine/plot the data before fitting the model.
 
 ```{r}
-  states_en_met <- 
-      states %>% 
-      select(metro, energy)
+  states_en_met <- states %>% 
+      select(energy, metro)
 
   summary(states_en_met)
   cor(states_en_met, use = "pairwise")
@@ -26,34 +19,28 @@ Fit a model predicting energy consumed per capita (`energy`) from the percentage
 2.  Print and interpret the model `summary()`.
 
 ```{r}
-  mod_en_met <- lm(energy ~ metro, data = states)
+  mod_en_met <- lm(energy ~ metro, data = states_en_met)
   summary(mod_en_met)
 ```
 
-3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
+3.  Plot the model using `plot()` to look for deviations from modeling assumptions.
 
 ```{r}
-    # standardized residuals versus fitted values plot
-  qplot(x = fitted(mod_en_met), y = rstandard(mod_en_met), geom = "point") +
-      geom_smooth(se = FALSE) +
-      labs(x = "Fitted Values", y = "Standardized Residuals")
+  par(mfrow = c(2, 2))
 
-  # Quantile-quantile plot of standardized residuals
-  qplot(sample = rstandard(mod_en_met), geom = c("qq", "qq_line")) + 
-      labs(x = "Theoretical Quantiles", y = "Standardized Residuals")
+  plot(mod_en_met)
 ```
 
 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 
 ```{r}
-  states_en_met_pop_wst <- 
-      states %>%
+  states_en_met_pop_wst <- states %>%
       select(energy, metro, pop, waste)
 
   summary(states_en_met_pop_wst)
   cor(states_en_met_pop_wst, use = "pairwise")
 
-  mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states)
+  mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states_en_met_pop_wst)
   summary(mod_en_met_pop_waste)
   anova(mod_en_met, mod_en_met_pop_waste)
 ```
@@ -79,12 +66,11 @@ Use the `states` data set.
 
 Use the `NH11` data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
-1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
+1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`2 No` and `1 Yes`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
 ```{r}
-  NH11 <- 
-      NH11 %>%
-      mutate(everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
+  NH11 <- NH11 %>%
+      mutate(everwrk = factor(everwrk, levels = c("2 No", "1 Yes")),
              r_maritl = droplevels(r_maritl)
              )
 

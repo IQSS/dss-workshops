@@ -58,10 +58,9 @@ We will not spend much time *interpreting* the models we fit, since this is not 
 
 Start RStudio and create a new project:
 
-* On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
-* In Rstudio go to `File -> New Project`.
-* Choose `Existing Directory` and browse to the workshop materials directory on your desktop.
-* Choose `File -> Open File` and select the file with the word "BLANK" in the name.
+1. On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio. 
+2. In RStudio go to `File -> New Project`. Choose `Existing Directory` and browse to the workshop materials directory on your desktop. This will create an `.Rproj` file for your project and will automaticly change your working directory to the workshop materials directory. 
+3. Choose `File -> Open File` and select the file with the word "BLANK" in the name.
 
 ### Packages
 
@@ -132,10 +131,10 @@ We're going to use the `states` data first, which originally appeared in *Statis
 
 ```{r}
   # read the states data
-  states_data <- read_rds("dataSets/states.rds")
+  states <- read_rds("dataSets/states.rds")
 
   # look at the last few rows
-  tail(states_data)
+  tail(states)
 ```
 
 Here's a table that describes what each variable in the dataset represents:
@@ -160,14 +159,13 @@ Start by examining the data to check for problems.
 
 ```{r}
   # summary of expense and csat columns, all rows
-  sts_ex_sat <- 
-      states_data %>% 
+  states_ex_sat <- states %>% 
       select(expense, csat)
   
-  summary(sts_ex_sat)
+  summary(states_ex_sat)
 
   # correlation between expense and csat
-  cor(sts_ex_sat, use = "pairwise") 
+  cor(states_ex_sat, use = "pairwise") 
 ```
 
 ### Plot the data
@@ -176,7 +174,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 
 ```{r}
   # scatter plot of expense vs csat
-  qplot(x = expense, y = csat, geom = "point", data = sts_ex_sat)
+  qplot(x = expense, y = csat, geom = "point", data = states_ex_sat)
 ```
 
 Obviously, in a real project, you would want to spend more time investigating the data,
@@ -218,7 +216,7 @@ We can use `lm()` to fit this model:
 ```{r}
   # fit our regression model
   sat_mod <- lm(csat ~ 1 + expense, # regression formula
-                data = states_data) # data 
+                data = states) # data 
 
   # look at the basic printed output
   sat_mod
@@ -243,7 +241,7 @@ If we just want to inspect the coefficients, we can further pipe the summary out
 Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?
 
 ```{r}
-  lm(csat ~ 1 + expense + percent, data = states_data) %>% 
+  lm(csat ~ 1 + expense + percent, data = states) %>% 
   summary() 
 ```
 
@@ -362,60 +360,48 @@ OLS regression relies on several assumptions, including:
 Investigate assumptions #7 and #8 visually by plotting your model:
 
 ```{r}
-  # standardized residuals versus fitted values plot
-  qplot(x = fitted(sat_mod), y = rstandard(sat_mod), geom = "point") +
-      geom_smooth(se = FALSE) +
-      labs(x = "Fitted Values", y = "Standardized residuals")
+  # split plotting area into 2 x 2 grid
+  par(mfrow = c(2, 2))
 
-  # Quantile-quantile plot of standardized residuals
-  qplot(sample = rstandard(sat_mod), geom = c("qq", "qq_line")) + 
-      labs(x = "Theoretical Quantiles", y = "Standardized residuals")
+  # plot model diagnostics
+  plot(sat_mod)
 ```
 
 ### Comparing models
 
-Do congressional voting patterns predict SAT scores over and above expense? Fit two models and compare them:
+Do congressional voting patterns predict SAT scores over and above expense? To find out, let's fit two models and compare them. First, let's create a new cleaned dataset that omits missing values in the variables we will use.
+
+```{r}
+# drop missing values for the 4 variables of interest
+states_voting_cleaned <- states %>%
+    select(csat, expense, house, senate) %>%
+    drop_na()
+```
+
+The `drop_na()` function omits rows with missing values --- that is, it performs *listwise deletion* of observations. In some situations, we may need more flexibility. If, for example, we only want to exclude rows that have missing data for a subset of variables, we could do the following:
+
+```{r, eval=FALSE}
+  # pseudocode
+  df <- df %>%
+    filter(!na.omit(var_name))
+```
+
+Now that we have a dataset with complete cases, let's fit a more elaborate model:
 
 ```{r}
   # fit another model, adding house and senate as predictors
   sat_voting_mod <- lm(csat ~ 1 + expense + house + senate,
-                        data = na.omit(states_data))
+                       data = states_voting_cleaned)
 
   summary(sat_voting_mod) %>% coef()
 ```
 
-Why are we using `na.omit()`? Let's see what `na.omit()` does by creating some fake data:
+To compare models, *we must fit them to the same data*. This is why we needed to clean the dataset. Now let's update our first model to use these cleaned data:
 
 ```{r}
-  # fake data
-  dat <- data.frame(
-    x = 1:5,
-    y = c(3, 2, 1, NA, 5),
-    z = c(6, NA, 2, 7, 3))
-  dat
-```
-
-We can see that there are missing values on rows 2 and 4. Now let's use `na.omit()` on these data:
-
-```{r}
-  # listwise deletion of observations
-  na.omit(dat) 
-```
-
-Here, the rows with missing values have been omitted --- so, `na.omit()` performs *listwise deletion* of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the `complete.cases()` function:
-
-```{r}
-  # ?complete.cases
-  dat[with(dat, complete.cases(x, y, z)), ]
-```
-
-To compare models, we must fit them to the same data. This is why we need `na.omit()`. Now let's update our first model using `na.omit()`:
-
-```{r}
-  # update model using `na.omit()`
-  sat_mod <- 
-      sat_mod %>%
-      update(data = na.omit(states_data))
+  # update model using the cleaned data
+  sat_mod <- sat_mod %>%
+      update(data = states_voting_cleaned)
 
   # compare using an F-test with the anova() function
   anova(sat_mod, sat_voting_mod)
@@ -425,7 +411,7 @@ To compare models, we must fit them to the same data. This is why we need `na.om
 
 **Ordinary least squares regression**
 
-Use the `states.rds` data set. Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to
+Use the `states` data set. Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to:
 
 1.  Examine/plot the data before fitting the model.
 ```{r}
@@ -437,7 +423,7 @@ Use the `states.rds` data set. Fit a model predicting energy consumed per capita
 ## 
 ```
 
-3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
+3.  Plot the model using `plot()` to look for deviations from modeling assumptions.
 ```{r}
 ## 
 ```
@@ -451,20 +437,13 @@ Use the `states.rds` data set. Fit a model predicting energy consumed per capita
   <summary><span style="color:red"><b>Click for Exercise 0 Solution</b></span></summary>
   <div class="alert alert-danger">
 
-Use the `states.rds` data set.
-
-```{r}
-  states <- read_rds("dataSets/states.rds")
-```
-
-Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to:
+Use the `states` data set. Fit a model predicting energy consumed per capita (`energy`) from the percentage of residents living in metropolitan areas (`metro`). Be sure to:
 
 1.  Examine/plot the data before fitting the model.
 
 ```{r}
-  states_en_met <- 
-      states %>% 
-      select(metro, energy)
+  states_en_met <- states %>% 
+      select(energy, metro)
 
   summary(states_en_met)
   cor(states_en_met, use = "pairwise")
@@ -474,34 +453,28 @@ Fit a model predicting energy consumed per capita (`energy`) from the percentage
 2.  Print and interpret the model `summary()`.
 
 ```{r}
-  mod_en_met <- lm(energy ~ metro, data = states)
+  mod_en_met <- lm(energy ~ metro, data = states_en_met)
   summary(mod_en_met)
 ```
 
-3.  Plot the model using `qplot()` to look for deviations from modeling assumptions.
+3.  Plot the model using `plot()` to look for deviations from modeling assumptions.
 
 ```{r}
-    # standardized residuals versus fitted values plot
-  qplot(x = fitted(mod_en_met), y = rstandard(mod_en_met), geom = "point") +
-      geom_smooth(se = FALSE) +
-      labs(x = "Fitted Values", y = "Standardized Residuals")
+  par(mfrow = c(2, 2))
 
-  # Quantile-quantile plot of standardized residuals
-  qplot(sample = rstandard(mod_en_met), geom = c("qq", "qq_line")) + 
-      labs(x = "Theoretical Quantiles", y = "Standardized Residuals")
+  plot(mod_en_met)
 ```
 
 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 
 ```{r}
-  states_en_met_pop_wst <- 
-      states %>%
+  states_en_met_pop_wst <- states %>%
       select(energy, metro, pop, waste)
 
   summary(states_en_met_pop_wst)
   cor(states_en_met_pop_wst, use = "pairwise")
 
-  mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states)
+  mod_en_met_pop_waste <- lm(energy ~ 1 + metro + pop + waste, data = states_en_met_pop_wst)
   summary(mod_en_met_pop_waste)
   anova(mod_en_met, mod_en_met_pop_waste)
 ```
@@ -524,14 +497,14 @@ Fit a model predicting energy consumed per capita (`energy`) from the percentage
 Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: does the association between expense and SAT scores depend on the median income in the state?
 
 ```{r}
-  # add the interaction to the model
-  sat_expense_by_percent <- lm(csat ~ 1 + expense + income + expense : income, data = states_data)
+  # add the interaction to a model
+  sat_expense_by_income <- lm(csat ~ 1 + expense + income + expense : income, data = states)
 
   # same as above, but shorter syntax
-  sat_expense_by_percent <- lm(csat ~ 1 + expense * income, data = states_data) 
+  sat_expense_by_income <- lm(csat ~ 1 + expense * income, data = states) 
 
   # show the regression coefficients table
-  summary(sat_expense_by_percent) %>% coef() 
+  summary(sat_expense_by_income) %>% coef() 
 ```
 
 ### Regression with categorical predictors
@@ -540,28 +513,28 @@ Let's try to predict SAT scores (`csat`) from geographical region (`region`), a 
 
 ```{r}
   # make sure R knows region is categorical
-  str(states_data$region)
+  str(states$region)
 ```
 
 Here, R is already treating `region` as categorical --- that is, in R parlance, a "factor" variable. If `region` were not already a factor, we could make it so like this:
 
 ```{r}
   # convert `region` to a factor
-  states_data <- states_data %>%
+  states <- states %>%
       mutate(region = factor(region))
 
   # arguments to the factor() function:
   # factor(x, levels, labels)
 
   # examine factor levels
-  levels(states_data$region)
+  levels(states$region)
 ```
 
 Now let's add `region` to the model:
 
 ```{r}
   # add region to the model
-  sat_region <- lm(csat ~ 1 + region, data = states_data) 
+  sat_region <- lm(csat ~ 1 + region, data = states) 
 
   # show the results
   summary(sat_region) %>% coef() # show only the regression coefficients table
@@ -586,25 +559,25 @@ First, let's examine the default contrasts for `region`:
 
 ```{r}
   # default treatment (dummy) contrasts
-  contrasts(states_data$region)
+  contrasts(states$region)
 ```
 
 We can see that the reference level is `West`. How can we change this? Let's use the `relevel()` function:
 
 ```{r}
   # change the reference group
-  states_data <- states_data %>%
+  states <- states %>%
       mutate(region = relevel(region, ref = "Midwest"))
 
   # check the reference group has changed
-  contrasts(states_data$region)
+  contrasts(states$region)
 ```
 
 Now the reference level has changed to `Midwest`. Let's refit the model with the releveled `region` variable:
 
 ```{r}
   # refit the model
-  mod_region <- lm(csat ~ 1 + region, data = states_data)
+  mod_region <- lm(csat ~ 1 + region, data = states)
 
   # print summary coefficients table
   summary(mod_region) %>% coef()
@@ -683,11 +656,14 @@ Load the National Health Interview Survey data:
 
 ### Logistic regression example
 
-Some motivations for using a logistic regression model, rather than a linear model, when we have a binary response:
+If we were to use a linear model, rather than a logistic model, when we have a binary response we would find that:
 
-1. Errors will not be normally distributed
-2. Variance will not be homoskedastic
-3. Predictions should be constrained to be on the interval [0, 1]
+1. Explanatory variables will not be linearly related to the outcome
+2. Residuals will not be normally distributed
+3. Variance will not be homoskedastic
+4. Predictions will not be constrained to be on the interval [0, 1]
+
+Though, some of these issues can be dealt with by estimating a linear probability model with robust standard errors.
 
 ![](R/Rmodels/images/logistic.png)
 
@@ -798,7 +774,7 @@ By default, `allEffects()` will produce predictions for all levels of factor var
 
 Use the `NH11` data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
-1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
+1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`2 No` and `1 Yes`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 ```{r}
 ## 
 ```
@@ -816,12 +792,11 @@ Note that the data are not perfectly clean and ready to be modeled. You will nee
 
 Use the `NH11` data set that we loaded earlier. Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.
 
-1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`1 Yes` and `2 No`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
+1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`2 No` and `1 Yes`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
 ```{r}
-  NH11 <- 
-      NH11 %>%
-      mutate(everwrk = factor(everwrk, levels = c("1 Yes", "2 No")),
+  NH11 <- NH11 %>%
+      mutate(everwrk = factor(everwrk, levels = c("2 No", "1 Yes")),
              r_maritl = droplevels(r_maritl)
              )
 

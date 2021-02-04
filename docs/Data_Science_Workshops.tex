@@ -143,7 +143,7 @@
 
 \title{Data Science Workshops}
 \author{}
-\date{\vspace{-2.5em}January 2021}
+\date{\vspace{-2.5em}February 2021}
 
 \begin{document}
 \maketitle
@@ -1713,17 +1713,16 @@ Here are some resources for learning more about RStudio and RMarkdown:
 
 Start RStudio and create a new project:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
+  On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio.
 \item
-  In RStudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
-\item
-  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
+  In RStudio go to \texttt{File\ -\textgreater{}\ New\ Project}. Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop. This will create an \texttt{.Rproj} file for your project and will automaticly change your working directory to the workshop materials directory.
 \item
   Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
-\end{itemize}
+\end{enumerate}
 
 \hypertarget{exercise-0}{%
 \subsection{Exercise 0}\label{exercise-0}}
@@ -2067,7 +2066,7 @@ Make sure you have installed the \texttt{tidyverse} suite of packages and attach
 \end{Highlighting}
 \end{Shaded}
 \item
-  BONUS (optional): Save the \texttt{baby\_names} data as a Stata data set \texttt{babynames.dta} and as an R data set \texttt{babynames.rds}.
+  BONUS (optional): Save the \texttt{baby\_names} data as an R data set \texttt{babynames.rds}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2097,12 +2096,10 @@ Make sure you have installed the \texttt{tidyverse} suite of packages and attach
 \end{Highlighting}
 \end{Shaded}
 \item
-  BONUS (optional): Save the \texttt{baby\_names} data as a Stata data set \texttt{babynames.dta} and as an R data set \texttt{babynames.rds}.
+  BONUS (optional): Save the \texttt{baby\_names} data as an R data set \texttt{babynames.rds}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{write\_dta}\NormalTok{(baby\_names, }\DataTypeTok{version =} \DecValTok{15}\NormalTok{, }\DataTypeTok{path =}\NormalTok{ “babynames.dta”)}
-
 \KeywordTok{write\_rds}\NormalTok{(baby\_names, }\DataTypeTok{file =}\NormalTok{ “babynames.rds”)}
 \end{Highlighting}
 \end{Shaded}
@@ -2460,7 +2457,7 @@ Read in the ``babyNames.csv'' file if you have not already done so, assigning th
 \hypertarget{pipe-operator}{%
 \subsection{Pipe operator}\label{pipe-operator}}
 
-There is one very special operator in R called a \textbf{pipe} operator that looks like this: \texttt{\%\textgreater{}\%}. It allows us to ``chain'' several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below.
+There is one very special operator in R called a \textbf{pipe} operator that looks like this: \texttt{\%\textgreater{}\%}. It allows us to ``chain'' several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is \texttt{ctrl\ +\ shift\ +\ M}.
 
 \includegraphics{R/Rintro/images/magrittr.png}
 
@@ -2764,13 +2761,13 @@ Here's the code that implements the calculation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Group baby\_names by Year and Sex and rank Count\_1k,}
+\CommentTok{\# Group baby\_names by Year and Sex and rank Count\_1k in descending order,}
 \CommentTok{\# within each group (calling the resulting new column "Rank"). }
 \CommentTok{\# Remember to ungroup at the end!}
 \NormalTok{baby\_names \textless{}{-}}
 \StringTok{  }\NormalTok{baby\_names }\OperatorTok{\%\textgreater{}\%}
 \StringTok{  }\KeywordTok{group\_by}\NormalTok{(Year, Sex) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(Count\_1k)) }\OperatorTok{\%\textgreater{}\%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Rank =} \KeywordTok{rank}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Count\_1k))) }\OperatorTok{\%\textgreater{}\%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
 
 \KeywordTok{head}\NormalTok{(baby\_names)}
@@ -2781,12 +2778,12 @@ Here's the code that implements the calculation:
 ## # A tibble: 6 x 6
 ##   Name  Sex   Count  Year Count_1k  Rank
 ##   <chr> <chr> <dbl> <dbl>    <dbl> <dbl>
-## 1 Mary  Girls 51474  1960     51.5  7331
-## 2 Susan Girls 39200  1960     39.2  7330
-## 3 Linda Girls 37314  1960     37.3  7329
-## 4 Karen Girls 36376  1960     36.4  7328
-## 5 Donna Girls 34133  1960     34.1  7327
-## 6 Lisa  Girls 33702  1960     33.7  7326
+## 1 Mary  Girls 51474  1960     51.5     1
+## 2 Susan Girls 39200  1960     39.2     2
+## 3 Linda Girls 37314  1960     37.3     3
+## 4 Karen Girls 36376  1960     36.4     4
+## 5 Donna Girls 34133  1960     34.1     5
+## 6 Lisa  Girls 33702  1960     33.7     6
 \end{verbatim}
 
 \hypertarget{recoding-variables}{%
@@ -2802,10 +2799,10 @@ It's often necessary to create a new variable that is a recoded version of an ex
 \NormalTok{baby\_names \textless{}{-}}
 \StringTok{  }\NormalTok{baby\_names }\OperatorTok{\%\textgreater{}\%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Count\_levels =} \KeywordTok{case\_when}\NormalTok{(}
-\NormalTok{                            Count\_1k }\OperatorTok{\textless{}=}\StringTok{ }\DecValTok{10}                  \OperatorTok{\textasciitilde{}}\StringTok{ "low"}\NormalTok{,}
-\NormalTok{                            Count\_1k  }\OperatorTok{\textgreater{}}\StringTok{ }\DecValTok{10} \OperatorTok{\&}\StringTok{ }\NormalTok{Count\_1k }\OperatorTok{\textless{}=}\StringTok{ }\DecValTok{40} \OperatorTok{\textasciitilde{}}\StringTok{ "medium"}\NormalTok{,}
-\NormalTok{                            Count\_1k  }\OperatorTok{\textgreater{}}\StringTok{ }\DecValTok{40}                  \OperatorTok{\textasciitilde{}}\StringTok{ "high"}
-\NormalTok{                            ))}
+\NormalTok{                                  Count\_1k }\OperatorTok{\textless{}=}\StringTok{ }\DecValTok{10}                  \OperatorTok{\textasciitilde{}}\StringTok{ "low"}\NormalTok{,}
+\NormalTok{                                  Count\_1k  }\OperatorTok{\textgreater{}}\StringTok{ }\DecValTok{10} \OperatorTok{\&}\StringTok{ }\NormalTok{Count\_1k }\OperatorTok{\textless{}=}\StringTok{ }\DecValTok{40} \OperatorTok{\textasciitilde{}}\StringTok{ "medium"}\NormalTok{,}
+\NormalTok{                                  Count\_1k  }\OperatorTok{\textgreater{}}\StringTok{ }\DecValTok{40}                  \OperatorTok{\textasciitilde{}}\StringTok{ "high"}
+\NormalTok{                                  ))}
 
 \KeywordTok{head}\NormalTok{(baby\_names)                            }
 \end{Highlighting}
@@ -2815,12 +2812,12 @@ It's often necessary to create a new variable that is a recoded version of an ex
 ## # A tibble: 6 x 7
 ##   Name  Sex   Count  Year Count_1k  Rank Count_levels
 ##   <chr> <chr> <dbl> <dbl>    <dbl> <dbl> <chr>       
-## 1 Mary  Girls 51474  1960     51.5  7331 high        
-## 2 Susan Girls 39200  1960     39.2  7330 medium      
-## 3 Linda Girls 37314  1960     37.3  7329 medium      
-## 4 Karen Girls 36376  1960     36.4  7328 medium      
-## 5 Donna Girls 34133  1960     34.1  7327 medium      
-## 6 Lisa  Girls 33702  1960     33.7  7326 medium
+## 1 Mary  Girls 51474  1960     51.5     1 high        
+## 2 Susan Girls 39200  1960     39.2     2 medium      
+## 3 Linda Girls 37314  1960     37.3     3 medium      
+## 4 Karen Girls 36376  1960     36.4     4 medium      
+## 5 Donna Girls 34133  1960     34.1     5 medium      
+## 6 Lisa  Girls 33702  1960     33.7     6 medium
 \end{verbatim}
 
 \hypertarget{exercise-4}{%
@@ -2897,12 +2894,12 @@ In this exercise your goal is to identify the most popular names for each year.
 ## # A tibble: 6 x 8
 ##   Name  Sex   Count  Year Count_1k  Rank Count_levels Proportion
 ##   <chr> <chr> <dbl> <dbl>    <dbl> <dbl> <chr>             <dbl>
-## 1 Mary  Girls 51474  1960     51.5  7331 high             0.0255
-## 2 Susan Girls 39200  1960     39.2  7330 medium           0.0194
-## 3 Linda Girls 37314  1960     37.3  7329 medium           0.0185
-## 4 Karen Girls 36376  1960     36.4  7328 medium           0.0180
-## 5 Donna Girls 34133  1960     34.1  7327 medium           0.0169
-## 6 Lisa  Girls 33702  1960     33.7  7326 medium           0.0167
+## 1 Mary  Girls 51474  1960     51.5     1 high             0.0255
+## 2 Susan Girls 39200  1960     39.2     2 medium           0.0194
+## 3 Linda Girls 37314  1960     37.3     3 medium           0.0185
+## 4 Karen Girls 36376  1960     36.4     4 medium           0.0180
+## 5 Donna Girls 34133  1960     34.1     5 medium           0.0169
+## 6 Lisa  Girls 33702  1960     33.7     6 medium           0.0167
 \end{verbatim}
 \item
   Use \texttt{mutate()} and \texttt{group\_by()} to create a column named \texttt{Rank} where \texttt{Rank\ =\ rank(desc(Count))} for each \texttt{Year\ X\ Sex} group.
@@ -3014,11 +3011,11 @@ You may have noticed that the percentage of babies given the most popular name o
 
 To compute this measure we need to operate within groups, as we did using \texttt{mutate()} above, but this time we need to collapse each group into a single summary statistic. We can achieve this using the \texttt{summarize()} function.
 
-First, let's see how this function works without grouping. The following code outputs the total number of girls and boys in the data:
+First, let's see how this function works without grouping. The following code outputs the total number of girl's and boy's names in the data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Use summarize() to output the total number of boys and girls in the sample}
+\CommentTok{\# Use summarize() to output the total number of boy\textquotesingle{}s and girl\textquotesingle{}s names in the sample}
 \NormalTok{baby\_names }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
 \StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Girls\_n =} \KeywordTok{sum}\NormalTok{(Sex}\OperatorTok{==}\StringTok{"Girls"}\NormalTok{),}
             \DataTypeTok{Boys\_n =} \KeywordTok{sum}\NormalTok{(Sex}\OperatorTok{==}\StringTok{"Boys"}\NormalTok{))}
@@ -3394,17 +3391,16 @@ We will not spend much time \emph{interpreting} the models we fit, since this is
 
 Start RStudio and create a new project:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
+  On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio.
 \item
-  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
-\item
-  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
+  In RStudio go to \texttt{File\ -\textgreater{}\ New\ Project}. Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop. This will create an \texttt{.Rproj} file for your project and will automaticly change your working directory to the workshop materials directory.
 \item
   Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
-\end{itemize}
+\end{enumerate}
 
 \hypertarget{packages}{%
 \subsection{Packages}\label{packages}}
@@ -3501,10 +3497,10 @@ We're going to use the \texttt{states} data first, which originally appeared in 
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# read the states data}
-\NormalTok{  states\_data \textless{}{-}}\StringTok{ }\KeywordTok{read\_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{)}
+\NormalTok{  states \textless{}{-}}\StringTok{ }\KeywordTok{read\_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{)}
 
   \CommentTok{\# look at the last few rows}
-  \KeywordTok{tail}\NormalTok{(states\_data)}
+  \KeywordTok{tail}\NormalTok{(states)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3550,11 +3546,10 @@ Start by examining the data to check for problems.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# summary of expense and csat columns, all rows}
-\NormalTok{  sts\_ex\_sat \textless{}{-}}\StringTok{ }
-\StringTok{      }\NormalTok{states\_data }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+\NormalTok{  states\_ex\_sat \textless{}{-}}\StringTok{ }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
 \StringTok{      }\KeywordTok{select}\NormalTok{(expense, csat)}
   
-  \KeywordTok{summary}\NormalTok{(sts\_ex\_sat)}
+  \KeywordTok{summary}\NormalTok{(states\_ex\_sat)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3571,7 +3566,7 @@ Start by examining the data to check for problems.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# correlation between expense and csat}
-  \KeywordTok{cor}\NormalTok{(sts\_ex\_sat, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{) }
+  \KeywordTok{cor}\NormalTok{(states\_ex\_sat, }\DataTypeTok{use =} \StringTok{"pairwise"}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -3589,7 +3584,7 @@ Plot the data to look for multivariate outliers, non-linear relationships etc.
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# scatter plot of expense vs csat}
-  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ expense, }\DataTypeTok{y =}\NormalTok{ csat, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ sts\_ex\_sat)}
+  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ expense, }\DataTypeTok{y =}\NormalTok{ csat, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ states\_ex\_sat)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3641,7 +3636,7 @@ We can use \texttt{lm()} to fit this model:
 \begin{Highlighting}[]
   \CommentTok{\# fit our regression model}
 \NormalTok{  sat\_mod \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense, }\CommentTok{\# regression formula}
-                \DataTypeTok{data =}\NormalTok{ states\_data) }\CommentTok{\# data }
+                \DataTypeTok{data =}\NormalTok{ states) }\CommentTok{\# data }
 
   \CommentTok{\# look at the basic printed output}
 \NormalTok{  sat\_mod}
@@ -3651,7 +3646,7 @@ We can use \texttt{lm()} to fit this model:
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = csat ~ 1 + expense, data = states_data)
+## lm(formula = csat ~ 1 + expense, data = states)
 ## 
 ## Coefficients:
 ## (Intercept)      expense  
@@ -3670,7 +3665,7 @@ The default printed output from the fitted model is very austere --- just point 
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = csat ~ 1 + expense, data = states_data)
+## lm(formula = csat ~ 1 + expense, data = states)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -3710,7 +3705,7 @@ Many people find it surprising that the per-capita expenditure on students is ne
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{percent, }\DataTypeTok{data =}\NormalTok{ states\_data) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+  \KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{percent, }\DataTypeTok{data =}\NormalTok{ states) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
 \StringTok{  }\KeywordTok{summary}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
@@ -3718,7 +3713,7 @@ Many people find it surprising that the per-capita expenditure on students is ne
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = csat ~ 1 + expense + percent, data = states_data)
+## lm(formula = csat ~ 1 + expense + percent, data = states)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
@@ -3821,7 +3816,7 @@ We can see that 12 different things are stored within a fitted model of class \t
 ##   ..- attr(*, "class")= chr "qr"
 ##  $ df.residual  : int 49
 ##  $ xlevels      : Named list()
-##  $ call         : language lm(formula = csat ~ 1 + expense, data = states_data)
+##  $ call         : language lm(formula = csat ~ 1 + expense, data = states)
 ##  $ terms        :Classes 'terms', 'formula'  language csat ~ 1 + expense
 ##   .. ..- attr(*, "variables")= language list(csat, expense)
 ##   .. ..- attr(*, "factors")= int [1:2, 1] 0 1
@@ -3892,7 +3887,7 @@ There are 44 methods available for the \texttt{lm} class. We've already seen the
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = csat ~ 1 + expense, data = states_data)
+## lm(formula = csat ~ 1 + expense, data = states)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -4009,7 +4004,7 @@ Function methods always take the form \texttt{generic.method()}. Let's look at a
 ##  [95] summary.rlang_trace*           summary.rlm*                  
 ##  [97] summary.shingle*               summary.srcfile               
 ##  [99] summary.srcref                 summary.stepfun               
-##  [ reached getOption("max.print") -- omitted 37 entries ]
+##  [ reached getOption("max.print") -- omitted 38 entries ]
 ## see '?methods' for accessing help and source code
 \end{verbatim}
 
@@ -4070,110 +4065,67 @@ Investigate assumptions \#7 and \#8 visually by plotting your model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \CommentTok{\# standardized residuals versus fitted values plot}
-  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fitted}\NormalTok{(sat\_mod), }\DataTypeTok{y =} \KeywordTok{rstandard}\NormalTok{(sat\_mod), }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
+  \CommentTok{\# split plotting area into 2 x 2 grid}
+  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+
+  \CommentTok{\# plot model diagnostics}
+  \KeywordTok{plot}\NormalTok{(sat\_mod)}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{R/Rmodels/figures/unnamed-chunk-97-1.pdf}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{\# Quantile{-}quantile plot of standardized residuals}
-  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{sample =} \KeywordTok{rstandard}\NormalTok{(sat\_mod), }\DataTypeTok{geom =} \KeywordTok{c}\NormalTok{(}\StringTok{"qq"}\NormalTok{, }\StringTok{"qq\_line"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{R/Rmodels/figures/unnamed-chunk-97-2.pdf}
-
 \hypertarget{comparing-models}{%
 \subsection{Comparing models}\label{comparing-models}}
 
-Do congressional voting patterns predict SAT scores over and above expense? Fit two models and compare them:
+Do congressional voting patterns predict SAT scores over and above expense? To find out, let's fit two models and compare them. First, let's create a new cleaned dataset that omits missing values in the variables we will use.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# drop missing values for the 4 variables of interest}
+\NormalTok{states\_voting\_cleaned \textless{}{-}}\StringTok{ }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(csat, expense, house, senate) }\OperatorTok{\%\textgreater{}\%}
+\StringTok{    }\KeywordTok{drop\_na}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{drop\_na()} function omits rows with missing values --- that is, it performs \emph{listwise deletion} of observations. In some situations, we may need more flexibility. If, for example, we only want to exclude rows that have missing data for a subset of variables, we could do the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\# pseudocode}
+\NormalTok{  df \textless{}{-}}\StringTok{ }\NormalTok{df }\OperatorTok{\%\textgreater{}\%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{na.omit}\NormalTok{(var\_name))}
+\end{Highlighting}
+\end{Shaded}
+
+Now that we have a dataset with complete cases, let's fit a more elaborate model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# fit another model, adding house and senate as predictors}
 \NormalTok{  sat\_voting\_mod \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{house }\OperatorTok{+}\StringTok{ }\NormalTok{senate,}
-                        \DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states\_data))}
+                       \DataTypeTok{data =}\NormalTok{ states\_voting\_cleaned)}
 
   \KeywordTok{summary}\NormalTok{(sat\_voting\_mod) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                  Estimate   Std. Error    t value     Pr(>|t|)
-## (Intercept) 1082.93438041 38.633812740 28.0307405 1.067795e-29
-## expense       -0.01870832  0.009691494 -1.9303852 6.001998e-02
-## house         -1.44243754  0.600478382 -2.4021473 2.058666e-02
-## senate         0.49817861  0.513561356  0.9700469 3.373256e-01
+##                  Estimate   Std. Error   t value     Pr(>|t|)
+## (Intercept) 1086.08037734 35.677308643 30.441769 3.964376e-32
+## expense       -0.01997159  0.007781131 -2.566670 1.358758e-02
+## house         -1.42370479  0.519352260 -2.741309 8.686069e-03
+## senate         0.53984781  0.473469183  1.140196 2.601066e-01
 \end{verbatim}
 
-Why are we using \texttt{na.omit()}? Let's see what \texttt{na.omit()} does by creating some fake data:
+To compare models, \emph{we must fit them to the same data}. This is why we needed to clean the dataset. Now let's update our first model to use these cleaned data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \CommentTok{\# fake data}
-\NormalTok{  dat \textless{}{-}}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
-    \DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{,}
-    \DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{5}\NormalTok{),}
-    \DataTypeTok{z =} \KeywordTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{))}
-\NormalTok{  dat}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   x  y  z
-## 1 1  3  6
-## 2 2  2 NA
-## 3 3  1  2
-## 4 4 NA  7
-## 5 5  5  3
-\end{verbatim}
-
-We can see that there are missing values on rows 2 and 4. Now let's use \texttt{na.omit()} on these data:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{\# listwise deletion of observations}
-  \KeywordTok{na.omit}\NormalTok{(dat) }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   x y z
-## 1 1 3 6
-## 3 3 1 2
-## 5 5 5 3
-\end{verbatim}
-
-Here, the rows with missing values have been omitted --- so, \texttt{na.omit()} performs \emph{listwise deletion} of observations. For more flexibility, for example if we only want to exclude rows that have missing data for some subset of variables, we can use the \texttt{complete.cases()} function:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{\# ?complete.cases}
-\NormalTok{  dat[}\KeywordTok{with}\NormalTok{(dat, }\KeywordTok{complete.cases}\NormalTok{(x, y, z)), ]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   x y z
-## 1 1 3 6
-## 3 3 1 2
-## 5 5 5 3
-\end{verbatim}
-
-To compare models, we must fit them to the same data. This is why we need \texttt{na.omit()}. Now let's update our first model using \texttt{na.omit()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{\# update model using \textasciigrave{}na.omit()\textasciigrave{}}
-\NormalTok{  sat\_mod \textless{}{-}}\StringTok{ }
-\StringTok{      }\NormalTok{sat\_mod }\OperatorTok{\%\textgreater{}\%}
-\StringTok{      }\KeywordTok{update}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{na.omit}\NormalTok{(states\_data))}
+  \CommentTok{\# update model using the cleaned data}
+\NormalTok{  sat\_mod \textless{}{-}}\StringTok{ }\NormalTok{sat\_mod }\OperatorTok{\%\textgreater{}\%}
+\StringTok{      }\KeywordTok{update}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ states\_voting\_cleaned)}
 
   \CommentTok{\# compare using an F{-}test with the anova() function}
   \KeywordTok{anova}\NormalTok{(sat\_mod, sat\_voting\_mod)}
@@ -4186,8 +4138,8 @@ To compare models, we must fit them to the same data. This is why we need \textt
 ## Model 1: csat ~ 1 + expense
 ## Model 2: csat ~ 1 + expense + house + senate
 ##   Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
-## 1     46 169050                              
-## 2     44 149284  2     19766 2.9128 0.06486 .
+## 1     48 175049                              
+## 2     46 149497  2     25552 3.9312 0.02654 *
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
@@ -4197,7 +4149,7 @@ To compare models, we must fit them to the same data. This is why we need \textt
 
 \textbf{Ordinary least squares regression}
 
-Use the \texttt{states.rds} data set. Fit a model predicting energy consumed per capita (\texttt{energy}) from the percentage of residents living in metropolitan areas (\texttt{metro}). Be sure to
+Use the \texttt{states} data set. Fit a model predicting energy consumed per capita (\texttt{energy}) from the percentage of residents living in metropolitan areas (\texttt{metro}). Be sure to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4231,7 +4183,7 @@ Use the \texttt{states.rds} data set. Fit a model predicting energy consumed per
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Plot the model using \texttt{qplot()} to look for deviations from modeling assumptions.
+  Plot the model using \texttt{plot()} to look for deviations from modeling assumptions.
 \end{enumerate}
 
 \begin{Shaded}
@@ -4256,15 +4208,7 @@ Use the \texttt{states.rds} data set. Fit a model predicting energy consumed per
 
 {Click for Exercise 0 Solution}
 
-Use the \texttt{states.rds} data set.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{  states \textless{}{-}}\StringTok{ }\KeywordTok{read\_rds}\NormalTok{(}\StringTok{"dataSets/states.rds"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Fit a model predicting energy consumed per capita (\texttt{energy}) from the percentage of residents living in metropolitan areas (\texttt{metro}). Be sure to:
+Use the \texttt{states} data set. Fit a model predicting energy consumed per capita (\texttt{energy}) from the percentage of residents living in metropolitan areas (\texttt{metro}). Be sure to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4275,23 +4219,22 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  states\_en\_met \textless{}{-}}\StringTok{ }
-\StringTok{      }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{      }\KeywordTok{select}\NormalTok{(metro, energy)}
+\NormalTok{  states\_en\_met \textless{}{-}}\StringTok{ }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+\StringTok{      }\KeywordTok{select}\NormalTok{(energy, metro)}
 
   \KeywordTok{summary}\NormalTok{(states\_en\_met)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##      metro            energy     
-##  Min.   : 20.40   Min.   :200.0  
-##  1st Qu.: 46.98   1st Qu.:285.0  
-##  Median : 67.55   Median :320.0  
-##  Mean   : 64.07   Mean   :354.5  
-##  3rd Qu.: 81.58   3rd Qu.:371.5  
-##  Max.   :100.00   Max.   :991.0  
-##  NA's   :1        NA's   :1
+##      energy          metro       
+##  Min.   :200.0   Min.   : 20.40  
+##  1st Qu.:285.0   1st Qu.: 46.98  
+##  Median :320.0   Median : 67.55  
+##  Mean   :354.5   Mean   : 64.07  
+##  3rd Qu.:371.5   3rd Qu.: 81.58  
+##  Max.   :991.0   Max.   :100.00  
+##  NA's   :1       NA's   :1
 \end{verbatim}
 
 \begin{Shaded}
@@ -4301,9 +4244,9 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 \end{Shaded}
 
 \begin{verbatim}
-##             metro     energy
-## metro   1.0000000 -0.3397445
-## energy -0.3397445  1.0000000
+##            energy      metro
+## energy  1.0000000 -0.3397445
+## metro  -0.3397445  1.0000000
 \end{verbatim}
 
 \begin{Shaded}
@@ -4312,7 +4255,7 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-108-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-106-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4324,7 +4267,7 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod\_en\_met \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{metro, }\DataTypeTok{data =}\NormalTok{ states)}
+\NormalTok{  mod\_en\_met \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{metro, }\DataTypeTok{data =}\NormalTok{ states\_en\_met)}
   \KeywordTok{summary}\NormalTok{(mod\_en\_met)}
 \end{Highlighting}
 \end{Shaded}
@@ -4332,7 +4275,7 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = energy ~ metro, data = states)
+## lm(formula = energy ~ metro, data = states_en_met)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
@@ -4356,29 +4299,18 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Plot the model using \texttt{qplot()} to look for deviations from modeling assumptions.
+  Plot the model using \texttt{plot()} to look for deviations from modeling assumptions.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-    \CommentTok{\# standardized residuals versus fitted values plot}
-  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fitted}\NormalTok{(mod\_en\_met), }\DataTypeTok{y =} \KeywordTok{rstandard}\NormalTok{(mod\_en\_met), }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Fitted Values"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized Residuals"}\NormalTok{)}
+  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+
+  \KeywordTok{plot}\NormalTok{(mod\_en\_met)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-110-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \CommentTok{\# Quantile{-}quantile plot of standardized residuals}
-  \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{sample =} \KeywordTok{rstandard}\NormalTok{(mod\_en\_met), }\DataTypeTok{geom =} \KeywordTok{c}\NormalTok{(}\StringTok{"qq"}\NormalTok{, }\StringTok{"qq\_line"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Theoretical Quantiles"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Standardized Residuals"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{R/Rmodels/figures/unnamed-chunk-110-2.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-108-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4390,8 +4322,7 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  states\_en\_met\_pop\_wst \textless{}{-}}\StringTok{ }
-\StringTok{      }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}
+\NormalTok{  states\_en\_met\_pop\_wst \textless{}{-}}\StringTok{ }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}
 \StringTok{      }\KeywordTok{select}\NormalTok{(energy, metro, pop, waste)}
 
   \KeywordTok{summary}\NormalTok{(states\_en\_met\_pop\_wst)}
@@ -4425,7 +4356,7 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  mod\_en\_met\_pop\_waste \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{metro }\OperatorTok{+}\StringTok{ }\NormalTok{pop }\OperatorTok{+}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states)}
+\NormalTok{  mod\_en\_met\_pop\_waste \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(energy }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{metro }\OperatorTok{+}\StringTok{ }\NormalTok{pop }\OperatorTok{+}\StringTok{ }\NormalTok{waste, }\DataTypeTok{data =}\NormalTok{ states\_en\_met\_pop\_wst)}
   \KeywordTok{summary}\NormalTok{(mod\_en\_met\_pop\_waste)}
 \end{Highlighting}
 \end{Shaded}
@@ -4433,7 +4364,7 @@ Fit a model predicting energy consumed per capita (\texttt{energy}) from the per
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = energy ~ 1 + metro + pop + waste, data = states)
+## lm(formula = energy ~ 1 + metro + pop + waste, data = states_en_met_pop_wst)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
@@ -4493,14 +4424,14 @@ Interactions allow us assess the extent to which the association between one pre
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \CommentTok{\# add the interaction to the model}
-\NormalTok{  sat\_expense\_by\_percent \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states\_data)}
+  \CommentTok{\# add the interaction to a model}
+\NormalTok{  sat\_expense\_by\_income \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{+}\StringTok{ }\NormalTok{income }\OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{:}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states)}
 
   \CommentTok{\# same as above, but shorter syntax}
-\NormalTok{  sat\_expense\_by\_percent \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states\_data) }
+\NormalTok{  sat\_expense\_by\_income \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{expense }\OperatorTok{*}\StringTok{ }\NormalTok{income, }\DataTypeTok{data =}\NormalTok{ states) }
 
   \CommentTok{\# show the regression coefficients table}
-  \KeywordTok{summary}\NormalTok{(sat\_expense\_by\_percent) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }
+  \KeywordTok{summary}\NormalTok{(sat\_expense\_by\_income) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
@@ -4520,7 +4451,7 @@ Let's try to predict SAT scores (\texttt{csat}) from geographical region (\textt
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# make sure R knows region is categorical}
-  \KeywordTok{str}\NormalTok{(states\_data}\OperatorTok{$}\NormalTok{region)}
+  \KeywordTok{str}\NormalTok{(states}\OperatorTok{$}\NormalTok{region)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4533,14 +4464,14 @@ Here, R is already treating \texttt{region} as categorical --- that is, in R par
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# convert \textasciigrave{}region\textasciigrave{} to a factor}
-\NormalTok{  states\_data \textless{}{-}}\StringTok{ }\NormalTok{states\_data }\OperatorTok{\%\textgreater{}\%}
+\NormalTok{  states \textless{}{-}}\StringTok{ }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}
 \StringTok{      }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{region =} \KeywordTok{factor}\NormalTok{(region))}
 
   \CommentTok{\# arguments to the factor() function:}
   \CommentTok{\# factor(x, levels, labels)}
 
   \CommentTok{\# examine factor levels}
-  \KeywordTok{levels}\NormalTok{(states\_data}\OperatorTok{$}\NormalTok{region)}
+  \KeywordTok{levels}\NormalTok{(states}\OperatorTok{$}\NormalTok{region)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4553,7 +4484,7 @@ Now let's add \texttt{region} to the model:
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# add region to the model}
-\NormalTok{  sat\_region \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states\_data) }
+\NormalTok{  sat\_region \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states) }
 
   \CommentTok{\# show the results}
   \KeywordTok{summary}\NormalTok{(sat\_region) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{coef}\NormalTok{() }\CommentTok{\# show only the regression coefficients table}
@@ -4601,7 +4532,7 @@ First, let's examine the default contrasts for \texttt{region}:
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# default treatment (dummy) contrasts}
-  \KeywordTok{contrasts}\NormalTok{(states\_data}\OperatorTok{$}\NormalTok{region)}
+  \KeywordTok{contrasts}\NormalTok{(states}\OperatorTok{$}\NormalTok{region)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4618,11 +4549,11 @@ We can see that the reference level is \texttt{West}. How can we change this? Le
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# change the reference group}
-\NormalTok{  states\_data \textless{}{-}}\StringTok{ }\NormalTok{states\_data }\OperatorTok{\%\textgreater{}\%}
+\NormalTok{  states \textless{}{-}}\StringTok{ }\NormalTok{states }\OperatorTok{\%\textgreater{}\%}
 \StringTok{      }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{region =} \KeywordTok{relevel}\NormalTok{(region, }\DataTypeTok{ref =} \StringTok{"Midwest"}\NormalTok{))}
 
   \CommentTok{\# check the reference group has changed}
-  \KeywordTok{contrasts}\NormalTok{(states\_data}\OperatorTok{$}\NormalTok{region)}
+  \KeywordTok{contrasts}\NormalTok{(states}\OperatorTok{$}\NormalTok{region)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4639,7 +4570,7 @@ Now the reference level has changed to \texttt{Midwest}. Let's refit the model w
 \begin{Shaded}
 \begin{Highlighting}[]
   \CommentTok{\# refit the model}
-\NormalTok{  mod\_region \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states\_data)}
+\NormalTok{  mod\_region \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(csat }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{region, }\DataTypeTok{data =}\NormalTok{ states)}
 
   \CommentTok{\# print summary coefficients table}
   \KeywordTok{summary}\NormalTok{(mod\_region) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{coef}\NormalTok{()}
@@ -4800,18 +4731,22 @@ Load the National Health Interview Survey data:
 \hypertarget{logistic-regression-example}{%
 \subsection{Logistic regression example}\label{logistic-regression-example}}
 
-Some motivations for using a logistic regression model, rather than a linear model, when we have a binary response:
+If we were to use a linear model, rather than a logistic model, when we have a binary response we would find that:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Errors will not be normally distributed
+  Explanatory variables will not be linearly related to the outcome
+\item
+  Residuals will not be normally distributed
 \item
   Variance will not be homoskedastic
 \item
-  Predictions should be constrained to be on the interval {[}0, 1{]}
+  Predictions will not be constrained to be on the interval {[}0, 1{]}
 \end{enumerate}
+
+Though, some of these issues can be dealt with by estimating a linear probability model with robust standard errors.
 
 \includegraphics{R/Rmodels/images/logistic.png}
 
@@ -4952,7 +4887,7 @@ Instead of reporting odds ratios, we may want to calculate predicted marginal me
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rmodels/figures/unnamed-chunk-130-1.pdf}
+\includegraphics{R/Rmodels/figures/unnamed-chunk-128-1.pdf}
 
 By default, \texttt{allEffects()} will produce predictions for all levels of factor variables, while for continuous variables it will chose 5 representative values based on quantiles. We can easily override this behavior using the \texttt{xlevels} argument and get predictions at any values of a continuous variable.
 
@@ -5030,7 +4965,7 @@ Use the \texttt{NH11} data set that we loaded earlier. Note that the data are no
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use \texttt{glm()} to conduct a logistic regression to predict ever worked (\texttt{everwrk}) using age (\texttt{age\_p}) and marital status (\texttt{r\_maritl}). Make sure you only keep the following two levels for \texttt{everwrk} (\texttt{1\ Yes} and \texttt{2\ No}). Hint: use the \texttt{factor()} function. Also, make sure to drop any \texttt{r\_maritl} levels that do not contain observations. Hint: see \texttt{?droplevels}.
+  Use \texttt{glm()} to conduct a logistic regression to predict ever worked (\texttt{everwrk}) using age (\texttt{age\_p}) and marital status (\texttt{r\_maritl}). Make sure you only keep the following two levels for \texttt{everwrk} (\texttt{2\ No} and \texttt{1\ Yes}). Hint: use the \texttt{factor()} function. Also, make sure to drop any \texttt{r\_maritl} levels that do not contain observations. Hint: see \texttt{?droplevels}.
 \end{enumerate}
 
 \begin{Shaded}
@@ -5063,14 +4998,13 @@ Use the \texttt{NH11} data set that we loaded earlier. Note that the data are no
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use \texttt{glm()} to conduct a logistic regression to predict ever worked (\texttt{everwrk}) using age (\texttt{age\_p}) and marital status (\texttt{r\_maritl}). Make sure you only keep the following two levels for \texttt{everwrk} (\texttt{1\ Yes} and \texttt{2\ No}). Hint: use the \texttt{factor()} function. Also, make sure to drop any \texttt{r\_maritl} levels that do not contain observations. Hint: see \texttt{?droplevels}.
+  Use \texttt{glm()} to conduct a logistic regression to predict ever worked (\texttt{everwrk}) using age (\texttt{age\_p}) and marital status (\texttt{r\_maritl}). Make sure you only keep the following two levels for \texttt{everwrk} (\texttt{2\ No} and \texttt{1\ Yes}). Hint: use the \texttt{factor()} function. Also, make sure to drop any \texttt{r\_maritl} levels that do not contain observations. Hint: see \texttt{?droplevels}.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  NH11 \textless{}{-}}\StringTok{ }
-\StringTok{      }\NormalTok{NH11 }\OperatorTok{\%\textgreater{}\%}
-\StringTok{      }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"1 Yes"}\NormalTok{, }\StringTok{"2 No"}\NormalTok{)),}
+\NormalTok{  NH11 \textless{}{-}}\StringTok{ }\NormalTok{NH11 }\OperatorTok{\%\textgreater{}\%}
+\StringTok{      }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{everwrk =} \KeywordTok{factor}\NormalTok{(everwrk, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"2 No"}\NormalTok{, }\StringTok{"1 Yes"}\NormalTok{)),}
              \DataTypeTok{r\_maritl =} \KeywordTok{droplevels}\NormalTok{(r\_maritl)}
 \NormalTok{             )}
 
@@ -5090,19 +5024,19 @@ Use the \texttt{NH11} data set that we loaded earlier. Note that the data are no
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.0436  -0.5650  -0.4391  -0.3370   2.7308  
+## -2.7308   0.3370   0.4391   0.5650   1.0436  
 ## 
 ## Coefficients:
 ##                                              Estimate Std. Error z value
-## (Intercept)                                 -0.440248   0.093538  -4.707
-## age_p                                       -0.029812   0.001645 -18.118
-## r_maritl2 Married - spouse not in household  0.049675   0.217310   0.229
-## r_maritl4 Widowed                            0.683618   0.084335   8.106
-## r_maritl5 Divorced                          -0.730115   0.111681  -6.538
-## r_maritl6 Separated                         -0.128091   0.151366  -0.846
-## r_maritl7 Never married                      0.343611   0.069222   4.964
-## r_maritl8 Living with partner               -0.443583   0.137770  -3.220
-## r_maritl9 Unknown marital status             0.395480   0.492967   0.802
+## (Intercept)                                  0.440248   0.093538   4.707
+## age_p                                        0.029812   0.001645  18.118
+## r_maritl2 Married - spouse not in household -0.049675   0.217310  -0.229
+## r_maritl4 Widowed                           -0.683618   0.084335  -8.106
+## r_maritl5 Divorced                           0.730115   0.111681   6.538
+## r_maritl6 Separated                          0.128091   0.151366   0.846
+## r_maritl7 Never married                     -0.343611   0.069222  -4.964
+## r_maritl8 Living with partner                0.443583   0.137770   3.220
+## r_maritl9 Unknown marital status            -0.395480   0.492967  -0.802
 ##                                             Pr(>|z|)    
 ## (Intercept)                                 2.52e-06 ***
 ## age_p                                        < 2e-16 ***
@@ -5144,32 +5078,23 @@ Use the \texttt{NH11} data set that we loaded earlier. Note that the data are no
 
 \begin{verbatim}
 ## $age_p
-##   age_p        fit          se      lower      upper
-## 1    20 0.27587439 0.011448539 0.25400910 0.29886780
-## 2    30 0.22043363 0.007483648 0.20611629 0.23545053
-## 3    50 0.13477473 0.003183752 0.12865574 0.14113761
-## 4    70 0.07902788 0.003053617 0.07324630 0.08522385
-## 5    80 0.05987515 0.003123927 0.05403759 0.06629914
+##   age_p       fit          se     lower     upper
+## 1    20 0.7241256 0.011448539 0.7011322 0.7459909
+## 2    30 0.7795664 0.007483648 0.7645495 0.7938837
+## 3    50 0.8652253 0.003183752 0.8588624 0.8713443
+## 4    70 0.9209721 0.003053617 0.9147761 0.9267537
+## 5    80 0.9401248 0.003123927 0.9337009 0.9459624
 ## 
 ## $r_maritl
-##                              r_maritl        fit          se      lower
-## 1     1 Married - spouse in household 0.10822000 0.004259644 0.10014980
-## 2 2 Married - spouse not in household 0.11310823 0.021393167 0.07746061
-## 3                           4 Widowed 0.19381087 0.010634762 0.17381358
-## 4                          5 Divorced 0.05524394 0.005361664 0.04562877
-## 5                         6 Separated 0.09646417 0.012707502 0.07426824
-## 6                     7 Never married 0.14611000 0.007459212 0.13208775
-## 7               8 Living with partner 0.07224958 0.008904955 0.05662466
-## 8            9 Unknown marital status 0.15270076 0.063528455 0.06440837
-##        upper
-## 1 0.11685606
-## 2 0.16227532
-## 3 0.21550873
-## 4 0.06674358
-## 5 0.12440219
-## 6 0.16134411
-## 7 0.09176661
-## 8 0.32055728
+##                              r_maritl       fit          se     lower     upper
+## 1     1 Married - spouse in household 0.8917800 0.004259644 0.8831439 0.8998502
+## 2 2 Married - spouse not in household 0.8868918 0.021393167 0.8377247 0.9225394
+## 3                           4 Widowed 0.8061891 0.010634762 0.7844913 0.8261864
+## 4                          5 Divorced 0.9447561 0.005361664 0.9332564 0.9543712
+## 5                         6 Separated 0.9035358 0.012707502 0.8755978 0.9257318
+## 6                     7 Never married 0.8538900 0.007459212 0.8386559 0.8679122
+## 7               8 Living with partner 0.9277504 0.008904955 0.9082334 0.9433753
+## 8            9 Unknown marital status 0.8472992 0.063528455 0.6794427 0.9355916
 \end{verbatim}
 
 \hypertarget{multilevel-modeling}{%
@@ -5741,17 +5666,16 @@ This is an intermediate R course:
 
 Start RStudio and create a new project:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
+  On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio.
 \item
-  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
-\item
-  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
+  In RStudio go to \texttt{File\ -\textgreater{}\ New\ Project}. Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop. This will create an \texttt{.Rproj} file for your project and will automaticly change your working directory to the workshop materials directory.
 \item
   Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
-\end{itemize}
+\end{enumerate}
 
 \hypertarget{packages-1}{%
 \subsection{Packages}\label{packages-1}}
@@ -6032,7 +5956,7 @@ Let's look at data on housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-157-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-155-1.pdf}
 
 \textbf{Step 2:} specify aesthetic mappings (how you want to map variables to visual aspects):
 
@@ -6043,7 +5967,7 @@ Let's look at data on housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-158-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-156-1.pdf}
 
 \textbf{Step 3:} add new layers of geometric objects that will show up on the plot:
 
@@ -6056,7 +5980,7 @@ Let's look at data on housing prices.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-159-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-157-1.pdf}
 
 \hypertarget{lines-prediction-line}{%
 \subsubsection{Lines (prediction line)}\label{lines-prediction-line}}
@@ -6078,7 +6002,7 @@ A plot constructed with \texttt{ggplot()} can have more than one geom. In that c
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-160-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-158-1.pdf}
 
 \hypertarget{smoothers}{%
 \subsubsection{Smoothers}\label{smoothers}}
@@ -6094,7 +6018,7 @@ Not all geometric objects are simple shapes; the smooth geom includes a line and
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-161-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-159-1.pdf}
 
 \hypertarget{text-label-points}{%
 \subsubsection{Text (label points)}\label{text-label-points}}
@@ -6109,7 +6033,7 @@ Each geom accepts a particular set of mappings; for example \texttt{geom\_text()
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-162-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-160-1.pdf}
 
 But what if we want to include points and labels? We can use \texttt{geom\_text\_repel()} to keep labels from overlapping the points and each other.
 
@@ -6122,7 +6046,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-163-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-161-1.pdf}
 
 \hypertarget{aesthetic-mapping-vs-assignment}{%
 \subsection{Aesthetic mapping VS assignment}\label{aesthetic-mapping-vs-assignment}}
@@ -6142,7 +6066,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-164-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-162-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6160,7 +6084,7 @@ But what if we want to include points and labels? We can use \texttt{geom\_text\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-165-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-163-1.pdf}
 
 This sometimes leads to confusion, as in this example:
 
@@ -6172,7 +6096,7 @@ This sometimes leads to confusion, as in this example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-166-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-164-1.pdf}
 
 \hypertarget{mapping-variables-to-other-aesthetics}{%
 \subsection{Mapping variables to other aesthetics}\label{mapping-variables-to-other-aesthetics}}
@@ -6187,7 +6111,7 @@ Other aesthetics are mapped in the same way as x and y in the previous example.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-167-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-165-1.pdf}
 
 \hypertarget{exercise-0-2}{%
 \subsection{Exercise 0}\label{exercise-0-2}}
@@ -6289,7 +6213,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-174-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-172-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6306,7 +6230,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-175-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-173-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6323,7 +6247,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-176-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-174-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6340,7 +6264,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-177-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-175-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6357,7 +6281,7 @@ These data consist of \emph{Human Development Index} and \emph{Corruption Percep
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-178-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-176-1.pdf}
 
 \hypertarget{statistical-transformations}{%
 \section{Statistical transformations}\label{statistical-transformations}}
@@ -6425,7 +6349,7 @@ For example, here is the default histogram of \texttt{Home\_Value}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-181-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-179-1.pdf}
 
 We can change the boundaries for the bins by passing the \texttt{breaks} argument through \texttt{geom\_histogram()} to the \texttt{stat\_bin()} function:
 
@@ -6436,7 +6360,7 @@ We can change the boundaries for the bins by passing the \texttt{breaks} argumen
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-182-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-180-1.pdf}
 
 For reference, here is a list of geometric objects and their default statistics \url{https://ggplot2.tidyverse.org/reference/}.
 
@@ -6492,7 +6416,7 @@ What is the problem with the previous plot? Basically, we take binned and summar
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-185-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-183-1.pdf}
 
 \hypertarget{exercise-1-2}{%
 \subsection{Exercise 1}\label{exercise-1-2}}
@@ -6596,7 +6520,7 @@ What is the problem with the previous plot? Basically, we take binned and summar
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-190-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6614,7 +6538,7 @@ What is the problem with the previous plot? Basically, we take binned and summar
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-191-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6632,7 +6556,7 @@ What is the problem with the previous plot? Basically, we take binned and summar
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-194-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-192-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6650,7 +6574,7 @@ What is the problem with the previous plot? Basically, we take binned and summar
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-195-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-193-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6668,7 +6592,7 @@ What is the problem with the previous plot? Basically, we take binned and summar
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-196-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-194-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6686,7 +6610,7 @@ What is the problem with the previous plot? Basically, we take binned and summar
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-197-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-195-1.pdf}
 
 \hypertarget{scales}{%
 \section{Scales}\label{scales}}
@@ -6757,7 +6681,7 @@ Now modify the breaks and shorten the labels for the color scales:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-199-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-197-1.pdf}
 
 Next change the low and high values to blue and red:
 
@@ -6772,7 +6696,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-200-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-198-1.pdf}
 
 \hypertarget{using-different-color-scales}{%
 \subsection{Using different color scales}\label{using-different-color-scales}}
@@ -6793,7 +6717,7 @@ Next change the low and high values to blue and red:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-201-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-199-1.pdf}
 
 \hypertarget{available-scales}{%
 \subsection{Available scales}\label{available-scales}}
@@ -6885,7 +6809,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-205-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-203-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6905,7 +6829,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-206-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-204-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6926,7 +6850,7 @@ Note that in RStudio you can type \texttt{scale\_} followed by \texttt{tab} to g
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-207-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-205-1.pdf}
 
 \hypertarget{faceting}{%
 \section{Faceting}\label{faceting}}
@@ -6966,7 +6890,7 @@ Start by using a technique we already know; map \texttt{State} to color:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-208-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-206-1.pdf}
 
 There are two problems here; there are too many states to distinguish each one by color, and the lines obscure one another.
 
@@ -6984,7 +6908,7 @@ We can remedy the deficiencies of the previous plot by faceting by \texttt{State
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-209-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-207-1.pdf}
 
 \hypertarget{themes}{%
 \section{Themes}\label{themes}}
@@ -7027,7 +6951,7 @@ Here are a couple of examples:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-210-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-208-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7036,7 +6960,7 @@ Here are a couple of examples:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-211-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-209-1.pdf}
 
 You can see a list of available built-in themes here: \url{https://ggplot2.tidyverse.org/reference/}.
 
@@ -7054,7 +6978,7 @@ Specific theme elements can be overridden using \texttt{theme()}. For example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-212-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-210-1.pdf}
 
 All theme options are documented in \texttt{?theme}. We can also see the existing default values using:
 
@@ -7083,7 +7007,7 @@ You can create new themes, as in the following example:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-214-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-212-1.pdf}
 
 \hypertarget{saving-plots}{%
 \section{Saving plots}\label{saving-plots}}
@@ -7146,7 +7070,7 @@ Now let's assign the color aesthetic to the line geom for each variable:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-217-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-215-1.pdf}
 
 \textbf{Right way}
 
@@ -7177,7 +7101,7 @@ Now we can map all our variables to the color aesthetic simultaneously, and \tex
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-219-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-217-1.pdf}
 
 \hypertarget{exercise-3-2}{%
 \subsection{Exercise 3}\label{exercise-3-2}}
@@ -7335,7 +7259,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-228-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-226-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7352,7 +7276,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-229-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-227-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7369,7 +7293,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-230-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-228-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7386,7 +7310,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-231-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-229-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7403,7 +7327,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-232-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-230-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7422,7 +7346,7 @@ For this exercise, we're going to use the built-in \texttt{midwest} dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-233-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-231-1.pdf}
 
 Here's the complete code for the Exercise 3 plot:
 
@@ -7439,7 +7363,7 @@ Here's the complete code for the Exercise 3 plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/Rgraphics/figures/unnamed-chunk-234-1.pdf}
+\includegraphics{R/Rgraphics/figures/unnamed-chunk-232-1.pdf}
 
 \hypertarget{wrap-up-3}{%
 \section{Wrap-up}\label{wrap-up-3}}
@@ -7554,17 +7478,16 @@ This is an intermediate / advanced R course:
 
 Start RStudio and create a new project:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  On Windows click the start button and search for RStudio. On Mac RStudio will be in your applications folder.
+  On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio.
 \item
-  In Rstudio go to \texttt{File\ -\textgreater{}\ New\ Project}.
-\item
-  Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop.
+  In RStudio go to \texttt{File\ -\textgreater{}\ New\ Project}. Choose \texttt{Existing\ Directory} and browse to the workshop materials directory on your desktop. This will create an \texttt{.Rproj} file for your project and will automaticly change your working directory to the workshop materials directory.
 \item
   Choose \texttt{File\ -\textgreater{}\ Open\ File} and select the file with the word ``BLANK'' in the name.
-\end{itemize}
+\end{enumerate}
 
 \hypertarget{packages-2}{%
 \subsection{Packages}\label{packages-2}}
@@ -9337,7 +9260,7 @@ We can use the \texttt{imap()} function --- which stands for `index' mapping ---
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R/RDataWrangling/figures/unnamed-chunk-286-1.pdf}
+\includegraphics{R/RDataWrangling/figures/unnamed-chunk-284-1.pdf}
 
 \hypertarget{complete-code}{%
 \section{Complete code}\label{complete-code}}
@@ -10246,7 +10169,7 @@ According to our above computation, there are about 26 thousand total words in t
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# set example}
-\NormalTok{mylist }\OperatorTok{=}\NormalTok{ \{}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{\}}
+\NormalTok{mylist }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{]}
 \BuiltInTok{set}\NormalTok{(mylist)}
 \end{Highlighting}
 \end{Shaded}
@@ -10308,7 +10231,7 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Split text on newlines to produce a list with one element per line. Store the result as \texttt{alice\_characters}. HINT: you can split on newlines using the \texttt{\textbackslash{}n} separator.
+  Split text on newlines to produce a list with one element per line. Store the result as \texttt{alice\_characters}. HINT: you can split on newlines using the \texttt{splitlines()} method.
 \end{enumerate}
 
 \begin{Shaded}
@@ -10323,7 +10246,7 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Open the Characters.txt file and read its contents.
+  Open the \texttt{Characters.txt} file and read its contents.
 \end{enumerate}
 
 \begin{Shaded}
@@ -10338,19 +10261,18 @@ NOTE: we will not always explicitly demonstrate everything you need to know in o
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Split text on newlines to produce a list with one element per line.
-  Store the result as ``alice\_characters''.
+  Split text on newlines to produce a list with one element per line. Store the result as \texttt{alice\_characters}. HINT: you can split on newlines using the \texttt{splitlines()} method.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{alice\_characters }\OperatorTok{=}\NormalTok{ characters\_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{alice\_characters }\OperatorTok{=}\NormalTok{ characters\_txt.splitlines()}
 \NormalTok{alice\_characters}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## ['Alice', 'White Rabbit', 'Mouse', 'Dodo', 'Lory', 'Eaglet', 'Duck', 'Pat', 'Bill the Lizard', 'Puppy', 'Caterpillar', 'Duchess', 'Cheshire Cat', 'March Hare', 'Hatter', 'Dormouse', 'Queen of Hearts', 'Knave of Hearts', 'King of Hearts', 'Gryphon', 'Mock Turtle', '']
+## ['Alice', 'White Rabbit', 'Mouse', 'Dodo', 'Lory', 'Eaglet', 'Duck', 'Pat', 'Bill the Lizard', 'Puppy', 'Caterpillar', 'Duchess', 'Cheshire Cat', 'March Hare', 'Hatter', 'Dormouse', 'Queen of Hearts', 'Knave of Hearts', 'King of Hearts', 'Gryphon', 'Mock Turtle']
 \end{verbatim}
 
 \hypertarget{control-flow}{%
@@ -10594,9 +10516,7 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of
-  the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test
-  whether EITHER of the above conditions are true. HINT: use the \texttt{len()} function.
+  Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test whether EITHER of the above conditions are true. HINT: use the \texttt{len()} function.
 \end{enumerate}
 
 \begin{Shaded}
@@ -10610,8 +10530,7 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 \setcounter{enumi}{3}
 \tightlist
 \item
-  (BONUS, optional): Sort the list you created in step 2 alphabetically,
-  and then extract the last element.
+  (BONUS, optional): Sort the list you created in step 2 alphabetically, and then extract the last element.
 \end{enumerate}
 
 \begin{Shaded}
@@ -10636,7 +10555,7 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 \end{Shaded}
 
 \begin{verbatim}
-## 22
+## 21
 \end{verbatim}
 
 \begin{enumerate}
@@ -10662,9 +10581,7 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of
-  the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test
-  whether EITHER of the above conditions are true. HINT: use the \texttt{len()} function.
+  Test whether the length of the 3rd and 8th character's names are equal. Test whether the length of the 3rd character's name is greater than or equal to the length of the 6th character's name. Now test whether EITHER of the above conditions are true. HINT: use the \texttt{len()} function.
 \end{enumerate}
 
 \begin{Shaded}
@@ -10682,8 +10599,7 @@ So far we've learned that there are 12 chapters, around 830 paragraphs, and abou
 \setcounter{enumi}{3}
 \tightlist
 \item
-  (BONUS, optional): Sort the list you created in step 2 alphabetically,
-  and then extract the last element.
+  (BONUS, optional): Sort the list you created in step 2 alphabetically, and then extract the last element.
 \end{enumerate}
 
 \begin{Shaded}
@@ -10965,11 +10881,8 @@ Now that we know how to iterate using for-loops, the possibilities really start 
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Make sure you have both the text and the list of characters.
+  Make sure you have both the text and the list of characters. Open and read both \texttt{Alice\_in\_wonderland.txt} and \texttt{Characters.txt} if you have not already done so.
 \end{enumerate}
-
-Open and read both ``Alice\_in\_wonderland.txt'' and
-``Characters.txt'' if you have not already done so.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10982,11 +10895,8 @@ Open and read both ``Alice\_in\_wonderland.txt'' and
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Which chapter has the most words?
+  Which chapter has the most words? Split the text into chapters (i.e., split on ``CHAPTER'') and use a for-loop to iterate over the chapters. For each chapter, split it into words and calculate the length.
 \end{enumerate}
-
-Split the text into chapters (i.e., split on ``CHAPTER'') and use a for-loop to iterate over the chapters.
-For each chapter, split it into words and calculate the length.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10999,11 +10909,8 @@ For each chapter, split it into words and calculate the length.
 \setcounter{enumi}{2}
 \tightlist
 \item
-  How many times is each character mentioned in the text?
+  How many times is each character mentioned in the text? Iterate over the list of characters using a for-loop. For each character, call the count method with that character as the argument.
 \end{enumerate}
-
-Iterate over the list of characters using a for-loop.
-For each character, call the count method with that character as the argument.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11016,8 +10923,7 @@ For each character, call the count method with that character as the argument.
 \setcounter{enumi}{3}
 \tightlist
 \item
-  (BONUS, optional): Put the character counts computed
-  above in a dictionary with character names as the keys and
+  (BONUS, optional): Put the character counts computed above in a dictionary with character names as the keys and
   counts as the values.
 \end{enumerate}
 
@@ -11033,8 +10939,7 @@ For each character, call the count method with that character as the argument.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Make sure you have both the text and the list of characters.
-  Open and read both ``Alice\_in\_wonderland.txt'' and ``Characters.txt'' if you have not already done so.
+  Make sure you have both the text and the list of characters. Open and read both \texttt{Alice\_in\_wonderland.txt} and \texttt{Characters.txt} if you have not already done so.
 \end{enumerate}
 
 \begin{Shaded}
@@ -11049,9 +10954,7 @@ For each character, call the count method with that character as the argument.
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Which chapter has the most words?
-  Split the text into chapters (i.e., split on ``CHAPTER'') and use a for-loop to iterate over the chapters.
-  For each chapter, split it into words and calculate the length.
+  Which chapter has the most words? Split the text into chapters (i.e., split on ``CHAPTER'') and use a for-loop to iterate over the chapters. For each chapter, split it into words and calculate the length.
 \end{enumerate}
 
 \begin{Shaded}
@@ -11074,16 +10977,14 @@ For each character, call the count method with that character as the argument.
 \setcounter{enumi}{2}
 \tightlist
 \item
-  How many times is each character mentioned in the text?
-  Iterate over the list of characters using a for-loop.
-  For each character, call the count method with that character as the argument.
+  How many times is each character mentioned in the text? Iterate over the list of characters using a for-loop. For each character, call the count method with that character as the argument.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{num\_per\_character }\OperatorTok{=}\NormalTok{ []}
 
-\ControlFlowTok{for}\NormalTok{ character }\KeywordTok{in}\NormalTok{ characters\_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{):}
+\ControlFlowTok{for}\NormalTok{ character }\KeywordTok{in}\NormalTok{ characters\_txt.splitlines():}
 \NormalTok{    num\_per\_character.append(alice\_txt.count(character))}
 
 \BuiltInTok{print}\NormalTok{(num\_per\_character)}
@@ -11091,7 +10992,7 @@ For each character, call the count method with that character as the argument.
 \end{Shaded}
 
 \begin{verbatim}
-## [395, 20, 30, 13, 7, 3, 3, 3, 0, 0, 27, 42, 4, 30, 55, 40, 3, 3, 0, 55, 53, 144403]
+## [395, 20, 30, 13, 7, 3, 3, 3, 0, 0, 27, 42, 4, 30, 55, 40, 3, 3, 0, 55, 53]
 \end{verbatim}
 
 \begin{enumerate}
@@ -11099,19 +11000,18 @@ For each character, call the count method with that character as the argument.
 \setcounter{enumi}{3}
 \tightlist
 \item
-  (BONUS, optional): Put the character counts computed above in a
-  dictionary with character names as the keys and counts as the values.
+  (BONUS, optional): Put the character counts computed above in a dictionary with character names as the keys and counts as the values.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{characters }\OperatorTok{=}\NormalTok{ characters\_txt.split(sep}\OperatorTok{=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{characters }\OperatorTok{=}\NormalTok{ characters\_txt.splitlines()}
 \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(characters, num\_per\_character))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## {'Alice': 395, 'White Rabbit': 20, 'Mouse': 30, 'Dodo': 13, 'Lory': 7, 'Eaglet': 3, 'Duck': 3, 'Pat': 3, 'Bill the Lizard': 0, 'Puppy': 0, 'Caterpillar': 27, 'Duchess': 42, 'Cheshire Cat': 4, 'March Hare': 30, 'Hatter': 55, 'Dormouse': 40, 'Queen of Hearts': 3, 'Knave of Hearts': 3, 'King of Hearts': 0, 'Gryphon': 55, 'Mock Turtle': 53, '': 144403}
+## {'Alice': 395, 'White Rabbit': 20, 'Mouse': 30, 'Dodo': 13, 'Lory': 7, 'Eaglet': 3, 'Duck': 3, 'Pat': 3, 'Bill the Lizard': 0, 'Puppy': 0, 'Caterpillar': 27, 'Duchess': 42, 'Cheshire Cat': 4, 'March Hare': 30, 'Hatter': 55, 'Dormouse': 40, 'Queen of Hearts': 3, 'Knave of Hearts': 3, 'King of Hearts': 0, 'Gryphon': 55, 'Mock Turtle': 53}
 \end{verbatim}
 
 \hypertarget{importing-packages}{%
@@ -11386,7 +11286,7 @@ No two websites are identical --- websites are built for different purposes by d
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Use requests to extract information from structured JSON / XML files
+  Use requests to extract information from structured JSON files
 \item
   Use requests to extract information from HTML
 \item
@@ -11451,11 +11351,11 @@ When you type a web address into your browser:
 
 We wish to extract information from \url{https://www.harvardartmuseums.org/collections}. Like most modern web pages, a lot goes on behind the scenes to produce the page we see in our browser. Our goal is to pull back the curtain to see what the website does when we interact with it. Once we see how the website works we can start retrieving data from it.
 
-If we are lucky we'll find a resource that returns the data we're looking for in a structured format like \href{https://json.org/}{JSON} or \href{https://en.wikipedia.org/wiki/XML}{XML}.
+If we are lucky we'll find a resource that returns the data we're looking for in a structured format like \href{https://json.org/}{JSON}.
 
 \includegraphics{Python/PythonWebScrape/images/json-format.png}
 
-This is useful because it is very easy to convert data from JSON or XML into a spreadsheet type format --- like a csv or Excel file.
+This is useful because it is very easy to convert data from JSON into a spreadsheet type format --- like a csv or Excel file.
 
 \hypertarget{examine-the-websites-structure}{%
 \subsection{Examine the website's structure}\label{examine-the-websites-structure}}
@@ -11601,19 +11501,19 @@ The records we retrieved from \url{https://www.harvardartmuseums.org/browse} are
 \end{Shaded}
 
 \begin{verbatim}
-##                        copyright  contextualtextcount  ...                     dimensions                        seeAlso
-## 0                           None                    0  ...                        31.37 g  [{'id': 'https://iiif.harv...
-## 1             © 2004 Glenn Ligon                    0  ...  sheet: 40.5 x 30.4 cm (15 ...  [{'id': 'https://iiif.harv...
-## 2                           None                    0  ...  sheet: 12.8 x 32.7 cm (5 1...  [{'id': 'https://iiif.harv...
-## 3         © Maria M. Campos-Pons                    0  ...  each: 50.8 x 61 cm (20 x 2...  [{'id': 'https://iiif.harv...
-## 4                           None                    1  ...  14.3 x 10.2 x 10.3 cm (5 5...  [{'id': 'https://iiif.harv...
-## 5                           None                    0  ...  8.3 x 7 cm (3 1/4 x 2 3/4 ...  [{'id': 'https://iiif.harv...
-## 6  © Artists Rights Society (...                    0  ...  sheet: 31.7 x 23 cm (12 1/...  [{'id': 'https://iiif.harv...
-## 7  © Artists Rights Society (...                    0  ...  23 x 17.1 cm (9 1/16 x 6 3...  [{'id': 'https://iiif.harv...
-## 8  © Jess - The Jess Collins ...                    0  ...  including mount: 51 x 40.7...  [{'id': 'https://iiif.harv...
-## 9                           None                    0  ...  Paper: H. 36.8 cm x W. 24 ...  [{'id': 'https://iiif.harv...
+##                        copyright  contextualtextcount  ...                         colors                         people
+## 0                           None                    0  ...                            NaN                            NaN
+## 1                           None                    0  ...  [{'color': '#af7d4b', 'spe...  [{'role': 'Artist', 'birth...
+## 2  © William Kentridge. Court...                    0  ...  [{'color': '#fae1e1', 'spe...  [{'role': 'Artist', 'birth...
+## 3  © Jess - The Jess Collins ...                    0  ...  [{'color': '#967d64', 'spe...  [{'role': 'Artist', 'birth...
+## 4  © Artists Rights Society (...                    0  ...  [{'color': '#e1e1e1', 'spe...  [{'role': 'Artist', 'birth...
+## 5              © Richard Misrach                    0  ...                            NaN  [{'role': 'Artist', 'birth...
+## 6                           None                    0  ...  [{'color': '#4b3232', 'spe...  [{'role': 'Artist', 'birth...
+## 7                           None                    0  ...  [{'color': '#c8c8af', 'spe...  [{'role': 'Artist', 'birth...
+## 8                           None                    0  ...  [{'color': '#fae1c8', 'spe...  [{'role': 'Artist', 'birth...
+## 9                           None                    0  ...  [{'color': '#af7d4b', 'spe...  [{'role': 'Artist', 'birth...
 ## 
-## [10 rows x 63 columns]
+## [10 rows x 62 columns]
 \end{verbatim}
 
 and write the data to a file.
@@ -11662,57 +11562,57 @@ Now that we know the web service works, and how to make requests in Python, we c
 \end{Shaded}
 
 \begin{verbatim}
-##                         copyright  contextualtextcount  ...                     dimensions                        seeAlso
-## 0                            None                    0  ...                        31.37 g  [{'id': 'https://iiif.harv...
-## 1              © 2004 Glenn Ligon                    0  ...  sheet: 40.5 x 30.4 cm (15 ...  [{'id': 'https://iiif.harv...
-## 2                            None                    0  ...  sheet: 12.8 x 32.7 cm (5 1...  [{'id': 'https://iiif.harv...
-## 3          © Maria M. Campos-Pons                    0  ...  each: 50.8 x 61 cm (20 x 2...  [{'id': 'https://iiif.harv...
-## 4                            None                    1  ...  14.3 x 10.2 x 10.3 cm (5 5...  [{'id': 'https://iiif.harv...
-## 5                            None                    0  ...  8.3 x 7 cm (3 1/4 x 2 3/4 ...  [{'id': 'https://iiif.harv...
-## 6   © Artists Rights Society (...                    0  ...  sheet: 31.7 x 23 cm (12 1/...  [{'id': 'https://iiif.harv...
-## 7   © Artists Rights Society (...                    0  ...  23 x 17.1 cm (9 1/16 x 6 3...  [{'id': 'https://iiif.harv...
-## 8   © Jess - The Jess Collins ...                    0  ...  including mount: 51 x 40.7...  [{'id': 'https://iiif.harv...
-## 9                            None                    0  ...  Paper: H. 36.8 cm x W. 24 ...  [{'id': 'https://iiif.harv...
-## 10                           None                    0  ...  painting proper: H. 170.9 ...  [{'id': 'https://iiif.harv...
-## 11                           None                    0  ...  cut to plate: 17 x 23.3 cm...  [{'id': 'https://iiif.harv...
-## 12                           None                    0  ...  87.6 x 61.9 cm (34 1/2 x 2...  [{'id': 'https://iiif.harv...
-## 13                           None                    0  ...  sight: 26.2 x 19.7 cm (10 ...  [{'id': 'https://iiif.harv...
-## 14                           None                    1  ...  h. 41.9 cm x diam. 28.5 cm...  [{'id': 'https://iiif.harv...
-## 15                 © Martin Kline                    0  ...  157.5 x 124.5 x 12.7 cm (6...  [{'id': 'https://iiif.harv...
-## 16                © Cai Guo-Qiang                    0  ...  301.2 x 403 cm (118 9/16 x...  [{'id': 'https://iiif.harv...
-## 17                           None                    0  ...  plate: 13.11 x 20.11 cm (5...  [{'id': 'https://iiif.harv...
-## 18                           None                    0  ...  plate: 11.9 x 31 cm (4 11/...  [{'id': 'https://iiif.harv...
-## 19                           None                    0  ...  sheet: 40.5 x 28 cm (15 15...  [{'id': 'https://iiif.harv...
-## 20                           None                    0  ...    actual: 6.5 cm (2 9/16 in.)  [{'id': 'https://iiif.harv...
-## 21                           None                    0  ...  20 x 16.4 cm (7 7/8 x 6 7/...  [{'id': 'https://iiif.harv...
-## 22                           None                    1  ...  5.9 x 23.2 cm (2 5/16 x 9 ...  [{'id': 'https://iiif.harv...
-## 23                           None                    0  ...  8.4 × 8.3 cm (3 5/16 × 3 1...  [{'id': 'https://iiif.harv...
-## 24                    © Sarah Sze                    0  ...  sight: 76.2 x 43.2 x 45.7 ...  [{'id': 'https://iiif.harv...
-## 25                           None                    0  ...  51.3 x 56.7 cm (20 3/16 x ...  [{'id': 'https://iiif.harv...
-## 26                           None                    0  ...  H. 64 x W. 19 x D. 15.5 cm...  [{'id': 'https://iiif.harv...
-## 27                           None                    0  ...  H. 69.7 x W. 30.4 x D. 15....  [{'id': 'https://iiif.harv...
-## 28                           None                    0  ...  61.3 x 81.1 cm (24 1/8 x 3...  [{'id': 'https://iiif.harv...
-## 29                           None                    0  ...  plate: 31.9 x 24.9 cm (12 ...  [{'id': 'https://iiif.harv...
-## 30                           None                    0  ...  30.8 cm h x 18 cm diam. (1...  [{'id': 'https://iiif.harv...
-## 31  © The Easton Foundation / ...                    0  ...  88.9 x 68.6 x 53.3 cm (35 ...  [{'id': 'https://iiif.harv...
-## 32  © Edward J. Ruscha IV/Gago...                    0  ...  152.4 x 154.9 cm (60 x 61 ...  [{'id': 'https://iiif.harv...
-## 33                           None                    0  ...  H. 62.4 x W. 21.5 x D. 19....  [{'id': 'https://iiif.harv...
-## 34                           None                    0  ...  image: 33 x 25 cm (13 x 9 ...  [{'id': 'https://iiif.harv...
-## 35                           None                    0  ...  H. 5.0 x Diam. 8.1 cm (1 1...  [{'id': 'https://iiif.harv...
-## 36                           None                    1  ...  10 x 17 x 0.1 cm (3 15/16 ...  [{'id': 'https://iiif.harv...
-## 37                           None                    1  ...  8.8 x 3.5 x 1.7 cm (3 7/16...  [{'id': 'https://iiif.harv...
-## 38                           None                    0  ...  87.6 x 61.9 cm (34 1/2 x 2...  [{'id': 'https://iiif.harv...
-## 39                           None                    0  ...  sheet cut to image: 23.3 x...  [{'id': 'https://iiif.harv...
-## 40                           None                    0  ...  folio: 18.2 x 25.9 cm (7 3...  [{'id': 'https://iiif.harv...
-## 41                           None                    0  ...  image: 11.9 x 16.7 cm (4 1...  [{'id': 'https://iiif.harv...
-## 42                           None                    0  ...  12.1 x 3.2 x 6.3 cm (4 3/4...  [{'id': 'https://iiif.harv...
-## 43                           None                    0  ...  maximum, including cover: ...  [{'id': 'https://iiif.harv...
-## 44                           None                    0  ...  max.: H. 18 × W. 26.2 × D....  [{'id': 'https://iiif.harv...
-## 45                           None                    0  ...  sheet: 76.1 x 50.7 cm (29 ...  [{'id': 'https://iiif.harv...
-## 46                           None                    1  ...  h. 67.8 cm x w. 14 cm x d....  [{'id': 'https://iiif.harv...
-## 47                           None                    1  ...  12.1 x 5.3 x 3.6 cm (4 3/4...  [{'id': 'https://iiif.harv...
-## 48                           None                    0  ...  H. 109.5 x W. 75 x D. 47 c...  [{'id': 'https://iiif.harv...
-## 49                           None                    0  ...  image: 21 x 27.6 cm (8 1/4...  [{'id': 'https://iiif.harv...
+##                         copyright  contextualtextcount  ...                         people                        details
+## 0                            None                    0  ...                            NaN                            NaN
+## 1                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 2   © William Kentridge. Court...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 3   © Jess - The Jess Collins ...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 4   © Artists Rights Society (...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 5               © Richard Misrach                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 6                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 7                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 8                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 9                            None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 10                           None                    0  ...                            NaN                            NaN
+## 11                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 12                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 13                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 14                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 15                © Cai Guo-Qiang                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 16                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 17                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 18                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 19                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 20                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 21                           None                    1  ...                            NaN  {'technical': [{'text': 'I...
+## 22                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 23                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 24                           None                    0  ...                            NaN                            NaN
+## 25          © 2020 Allan McCollum                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 26                           None                    0  ...                            NaN  {'coins': {'reverseinscrip...
+## 27                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 28                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 29                           None                    1  ...                            NaN  {'technical': [{'text': 'I...
+## 30  Art © Nancy Graves Foundat...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 31  © Jenny Holzer / Artists R...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 32  © Estate of Alfred Stiegli...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 33                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 34                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 35                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 36                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 37                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 38                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 39               © Georg Baselitz                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 40                           None                    1  ...                            NaN  {'technical': [{'text': 'X...
+## 41                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 42  © Sunil Gupta, courtesy se...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 43   © Vik Muniz / Artist Righ...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 44  © Estate of Margaret Bourk...                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 45                           None                    0  ...                            NaN                            NaN
+## 46                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 47                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
+## 48                           None                    0  ...                            NaN                            NaN
+## 49                           None                    0  ...  [{'role': 'Artist', 'birth...                            NaN
 ## 
 ## [50 rows x 63 columns]
 \end{verbatim}
@@ -11792,14 +11692,14 @@ Question \#1:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{museum\_domain }\OperatorTok{=} \StringTok{"https://www.harvardartmuseums.org"}
-\NormalTok{exhibit\_path }\OperatorTok{=} \StringTok{"search/load\_next"}
+\NormalTok{exhibit\_path }\OperatorTok{=} \StringTok{"search/load\_more"}
 \NormalTok{exhibit\_url }\OperatorTok{=}\NormalTok{ museum\_domain }\OperatorTok{+} \StringTok{"/"} \OperatorTok{+}\NormalTok{ exhibit\_path}
 \BuiltInTok{print}\NormalTok{(exhibit\_url)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## 'https://www.harvardartmuseums.org/search/load_next'
+## 'https://www.harvardartmuseums.org/search/load_more'
 \end{verbatim}
 
 Question \#2:
@@ -11883,7 +11783,7 @@ Questions \#3+4 (loop solution):
 ## 40                           None  [{'date': '1989-08-01', 'c...  ...                            NaN                            NaN
 ## 41  This multi-component insta...  [{'date': '2014-03-31', 'c...  ...                            NaN                            NaN
 ## 42                           None  [{'date': '2009-11-30', 'c...  ...                            NaN                            NaN
-## 43  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Rothko S...
+## 43  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Mark Rot...
 ## 44                           None  [{'date': '2014-11-10', 'c...  ...                            NaN                            NaN
 ## 45  In the Japanese context, a...  [{'date': '2012-07-17', 'c...  ...                            NaN                            NaN
 ## 46  World’s Fairs were created...  [{'date': '2005-12-21', 'c...  ...                            NaN                            NaN
@@ -11953,7 +11853,7 @@ Questions \#3+4 (list comprehension solution):
 ## 40                           None  [{'date': '1989-08-01', 'c...  ...                            NaN                            NaN
 ## 41  This multi-component insta...  [{'date': '2014-03-31', 'c...  ...                            NaN                            NaN
 ## 42                           None  [{'date': '2009-11-30', 'c...  ...                            NaN                            NaN
-## 43  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Rothko S...
+## 43  Harvard Art Museums’ new p...  [{'date': '2012-06-29', 'c...  ...                            NaN  [{'description': 'Mark Rot...
 ## 44                           None  [{'date': '2014-11-10', 'c...  ...                            NaN                            NaN
 ## 45  In the Japanese context, a...  [{'date': '2012-07-17', 'c...  ...                            NaN                            NaN
 ## 46  World’s Fairs were created...  [{'date': '2005-12-21', 'c...  ...                            NaN                            NaN
@@ -11982,7 +11882,7 @@ Questions \#3+4 (list comprehension solution):
   Convert from a dictionary to a .csv file
 \end{enumerate}
 
-As we've seen, you can often inspect network traffic or other sources to locate the source of the data you are interested in and the API used to retrieve it. You should always start by looking for these shortcuts and using them where possible. If you are really lucky, you'll find a shortcut that returns the data as JSON or XML. If you are not quite so lucky, you will have to parse HTML to retrieve the information you need.
+As we've seen, you can often inspect network traffic or other sources to locate the source of the data you are interested in and the API used to retrieve it. You should always start by looking for these shortcuts and using them where possible. If you are really lucky, you'll find a shortcut that returns the data as JSON. If you are not quite so lucky, you will have to parse HTML to retrieve the information you need.
 
 \hypertarget{document-object-model-dom}{%
 \subsection{Document Object Model (DOM)}\label{document-object-model-dom}}
@@ -12078,19 +11978,19 @@ Next we can use Python to extract the element of interest:
 \end{Highlighting}
 \end{Shaded}
 
-Let's just extract the third element in our events list.
+Let's just extract the second element in our events list.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{third\_event\_html }\OperatorTok{=}\NormalTok{ events\_list\_html[}\DecValTok{2}\NormalTok{]}
+\NormalTok{second\_event\_html }\OperatorTok{=}\NormalTok{ events\_list\_html[}\DecValTok{1}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
-Once again, we can use a web browser to inspect the HTML we're currently working with - from the third event - and to figure out what we want to extract from it.
+Once again, we can use a web browser to inspect the HTML we're currently working with - from the second event - and to figure out what we want to extract from it.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{html.open\_in\_browser(third\_event\_html, encoding }\OperatorTok{=} \StringTok{\textquotesingle{}UTF{-}8\textquotesingle{}}\NormalTok{)}
+\NormalTok{html.open\_in\_browser(second\_event\_html, encoding }\OperatorTok{=} \StringTok{\textquotesingle{}UTF{-}8\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12117,31 +12017,33 @@ Finally, we can iterate over the elements we want and extract them.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{third\_event\_values }\OperatorTok{=}\NormalTok{ \{\}}
+\NormalTok{second\_event\_values }\OperatorTok{=}\NormalTok{ \{\}}
 \ControlFlowTok{for}\NormalTok{ key }\KeywordTok{in}\NormalTok{ elements\_we\_want.keys():}
-\NormalTok{    element }\OperatorTok{=}\NormalTok{ third\_event\_html.xpath(elements\_we\_want[key])[}\DecValTok{0}\NormalTok{]}
-\NormalTok{    third\_event\_values[key] }\OperatorTok{=}\NormalTok{ element.text\_content().strip()}
+\NormalTok{    element }\OperatorTok{=}\NormalTok{ second\_event\_html.xpath(elements\_we\_want[key])[}\DecValTok{0}\NormalTok{]}
+\NormalTok{    second\_event\_values[key] }\OperatorTok{=}\NormalTok{ element.text\_content().strip()}
 
-\BuiltInTok{print}\NormalTok{(third\_event\_values)}
+\BuiltInTok{print}\NormalTok{(second\_event\_values)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## {'date': 'Thursday, January 28, 2021',
-##  'description': 'With supreme economy and enviable elegance, Pablo Picasso’s '
-##                 'Pierrot speaks about the purpose of art in a time of crisis.',
-##  'figcaption': 'Pablo Ruiz Picasso, Spanish, Pierrot, 1918. Graphite on '
-##                'off-white wove paper. Harvard Art Museums/Fogg Museum, Bequest '
-##                'of Meta and Paul J. Sachs, 1965.317. © Estate of Pablo '
-##                'Picasso/Artists Rights Society (ARS), New York.',
-##  'time': '2:00pm - 2:30pm',
-##  'title': 'Art Talk Live: Feeling Funny—Picasso in 1918'}
+## {'date': 'Tuesday, February 9, 2021',
+##  'description': 'Curator Rachel Saunders discusses the film Edo Avant-Garde '
+##                 'with director Linda Hoaglund.',
+##  'figcaption': 'Still from Edo Avant-Garde (2019). Master of the I’nen Seal '
+##                '(1600–1630), Sōtatsu school, Trees, Japanese, Edo period, '
+##                'mid-17th century. Pair of six-panel folding screens; ink, '
+##                'colors, and gold on paper. Freer Gallery of Art, Washington, '
+##                'D.C., Charles Lang Freer Endowment, F1962.30. Image courtesy '
+##                'of Linda Hoaglund.',
+##  'time': '7:00pm - 8:00pm',
+##  'title': 'Edo Avant-Garde'}
 \end{verbatim}
 
 \hypertarget{iterating-to-retrieve-content-from-a-list-of-html-elements}{%
 \subsection{Iterating to retrieve content from a list of HTML elements}\label{iterating-to-retrieve-content-from-a-list-of-html-elements}}
 
-So far we've retrieved information only for the third event. To
+So far we've retrieved information only for the second event. To
 retrieve data for all the events listed on the page we need to iterate
 over the events. If we are very lucky, each event will have exactly
 the same information structured in exactly the same way and we can
