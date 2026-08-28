@@ -15,6 +15,11 @@ jobs:
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: "1.9.38"
+      # The R pages come from the committed freeze. The Python pages need Quarto's Jupyter tooling even when
+      # nothing executes (the web-scraping page has execution disabled and so no freeze), so install the
+      # repository's locked Python environment; _environment points Quarto at it.
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
       - run: quarto render
       - uses: lycheeverse/lychee-action@v2
         with:

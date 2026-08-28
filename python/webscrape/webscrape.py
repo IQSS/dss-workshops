@@ -613,7 +613,7 @@ print(all_levels_facilities)
 #
 # ### Feedback
 #
-# These workshops are a work in progress, please provide any feedback to: help@iq.harvard.edu
+# These workshops are a work in progress. Suggestions and feedback are welcome: use the Request help button at the top of the page.
 #
 # ### Resources
 #

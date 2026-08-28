@@ -945,7 +945,7 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 #
 # ### Feedback
 #
-# These workshops are a work-in-progress, please provide any feedback to: help@iq.harvard.edu
+# These workshops are a work in progress. Suggestions and feedback are welcome: use the Request help button at the top of the page.
 #
 # ### Resources
 #
@@ -956,6 +956,7 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 #
 # * Software (all free!):
 #     + R and R package download: <http://cran.r-project.org>
+#     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>

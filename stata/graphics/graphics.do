@@ -489,7 +489,7 @@ twoway (scatter C_UNEMP C_SSLOW if T_UNEMP>15 & C_SSLOW>25, mlabel(CITY) by(C_SO
 *
 * ### Feedback
 *
-* These workshops are a work in progress, please provide any feedback to: help@iq.harvard.edu
+* These workshops are a work in progress. Suggestions and feedback are welcome: use the Request help button at the top of the page.
 *
 * ### Resources
 *
