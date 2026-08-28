@@ -1,0 +1,63 @@
+<script>
+// Light / Dark / System switch, built on Quarto's own light-dark mechanism (Quarto 1.7+ with
+// respect-user-color-scheme: true). Quarto stores an explicit choice in localStorage["quarto-color-scheme"]
+// ("default" = light, "alternate" = dark) and, when nothing is stored, follows prefers-color-scheme and
+// tracks OS changes live. "System" here therefore means: remove the stored choice and apply the OS preference.
+(function () {
+  const KEY = "quarto-color-scheme";
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const stored = () => { try { return window.localStorage.getItem(KEY); } catch { return null; } };
+  const mode = () => { const s = stored(); return s === "alternate" ? "dark" : s === "default" ? "light" : "system"; };
+  const isDark = () => document.body.classList.contains("quarto-dark");
+  const apply = (dark) => {
+    if (isDark() === dark) return;
+    if (typeof window.quartoToggleColorScheme === "function") { window.quartoToggleColorScheme(); }
+  };
+  const choose = (m) => {
+    const dark = m === "dark" ? true : m === "light" ? false : mq.matches;
+    apply(dark);
+    try {
+      if (m === "system") { window.localStorage.removeItem(KEY); }
+      else { window.localStorage.setItem(KEY, dark ? "alternate" : "default"); }
+    } catch {}
+    mark();
+  };
+  const items = [["light", "Light", "bi-sun"], ["dark", "Dark", "bi-moon"], ["system", "System", "bi-circle-half"]];
+  let menu;
+  const mark = () => {
+    if (!menu) return;
+    const m = mode();
+    menu.querySelectorAll("[data-mode]").forEach((a) => {
+      const on = a.dataset.mode === m;
+      a.classList.toggle("active", on);
+      a.setAttribute("aria-current", on ? "true" : "false");
+    });
+    const icon = menu.parentElement.querySelector(".dss-switch-icon");
+    if (icon) icon.className = "bi dss-switch-icon " + items.find((i) => i[0] === m)[2];
+  };
+  const build = () => {
+    const nav = document.querySelector(".navbar .navbar-nav.ms-auto") || document.querySelector(".navbar .navbar-nav");
+    if (!nav || nav.querySelector(".dss-theme-switch")) return;
+    const li = document.createElement("li");
+    li.className = "nav-item dropdown dss-theme-switch";
+    li.innerHTML =
+      '<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Colour scheme" title="Colour scheme">' +
+      '<i class="bi dss-switch-icon bi-circle-half"></i></a>' +
+      '<ul class="dropdown-menu dropdown-menu-end">' +
+      items.map(([m, label, icon]) => '<li><a class="dropdown-item" href="#" data-mode="' + m + '"><i class="bi ' + icon + '"></i> ' + label + "</a></li>").join("") +
+      "</ul>";
+    nav.appendChild(li);
+    menu = li.querySelector(".dropdown-menu");
+    menu.addEventListener("click", (e) => {
+      const a = e.target.closest("[data-mode]");
+      if (!a) return;
+      e.preventDefault();
+      choose(a.dataset.mode);
+    });
+    mark();
+  };
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", build); } else { build(); }
+  // Quarto's listener re-applies the OS preference on change when nothing is stored; keep the tick in step.
+  mq.addEventListener("change", () => setTimeout(mark, 0));
+})();
+</script>
