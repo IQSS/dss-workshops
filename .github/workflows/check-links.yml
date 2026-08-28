@@ -1,0 +1,22 @@
+# Monthly: render from the freeze and check every external link on the site, so dead hosts surface before a
+# learner finds them. Manual runs allowed.
+name: Check links
+
+on:
+  schedule:
+    - cron: "17 6 1 * *"
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.9.38"
+      - run: quarto render
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --accept 200,206,403,429 --exclude 'localhost|127\.0\.0\.1' '_site/**/*.html'
+          fail: true
