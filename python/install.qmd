@@ -10,17 +10,18 @@ aliases:
 
 :::
 
-Before starting any of our Python workshops, it is necessary to complete 2 tasks. Please make sure both of these tasks are completed **before** you attend your workshop, as, depending on your internet speed, they may take a long time.
+Before starting any of our Python workshops, it is necessary to complete 3 tasks. Please make sure all of them are completed **before** you attend your workshop, as, depending on your internet speed, they may take a long time.
 
 1. download and unzip **class materials**
-2. download and install **Anaconda Python 3 distribution**
+2. download and install **Positron**
+3. download and install **uv**, which then installs Python and the workshop's packages
 
 ![](images/install/install_software_Python.png)
 
 ## Troubleshooting session
 
 We will hold a troubleshooting session to help with setup during the 20 minutes prior to the start of the workshop. 
-**If you are unable to complete all four tasks by yourself, please join us at the workshop location for this session.**
+**If you are unable to complete all three tasks by yourself, please join us at the workshop location for this session.**
 Once the workshop starts we will **NOT** be able to give you one-to-one assistance with troubleshooting installation problems. Likewise, if you arrive late, please do **NOT** expect one-to-one assistance for anything covered at the beginning of the workshop.
 
 ## Materials
@@ -39,31 +40,49 @@ It will be useful when you view the above materials for you to see the different
 
 ## Software
 
-The **Anaconda Python distribution** is designed with data science in mind and contains a curated set of 270+ pre-installed Python packages. It is essential that you have the Anaconda Python distribution pre-installed so that we can start the workshop on time. It is also important that you have the **latest version** of the distribution, which currently is:
+We write and run Python in [Positron](https://positron.posit.co/), a free data science IDE from Posit (our R workshops use it too), and we let [uv](https://docs.astral.sh/uv/) install Python itself and the packages each workshop needs, so that everyone has the same setup. The versions these materials were last tested with:
 
-* Anaconda Python distribution version **2020.11**, which contains Python version **3.8.5**.
+* Positron version **{{< var positron.version >}}**
+* uv version **{{< var uv.version >}}**, installing Python **{{< var python.version >}}**
 
-**macOS:** 
+### Positron
 
-* Install Anaconda Python 3 by downloading and running [this .pkg file](https://repo.anaconda.com/archive/Anaconda3-2020.07-MacOSX-x86_64.pkg). Accept the defaults proposed by the Anaconda installer.
+Download and run the installer for your system from [positron.posit.co/download](https://positron.posit.co/download).
 
-**Windows:** 
+### uv
 
-* Install Anaconda Python 3 by downloading and running [this .exe file](https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe). Accept the defaults proposed by the Anaconda installer.
+* **macOS and Linux:** open the Terminal application, paste this line, and press enter; then close and reopen the Terminal.
 
-**Linux:** 
+  ```sh
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
 
-* Install Anaconda Python 3 by downloading and running [this .sh file](https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh). Accept the defaults proposed by the Anaconda installer.
+* **Windows:** open PowerShell, paste this line, and press enter; then close and reopen PowerShell.
+
+  ```powershell
+  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+  ```
+
+Check it with `uv --version`, which should print a version number.
+
+### Python and the packages
+
+uv installs these per workshop, from the materials folder, so nothing you do here affects other Python projects on your computer:
+
+1. Start Positron and go to `File -> Open Folder`; choose the workshop materials folder you unzipped (for the introduction, `intro`).
+2. Open a terminal inside Positron (`Terminal -> New Terminal`) and run:
+
+   ```sh
+   uv sync
+   ```
+
+   This installs Python {{< var python.version >}} if you do not have it, and the packages listed in the folder's `pyproject.toml`, into a `.venv` folder inside the materials folder. It takes a minute or two the first time.
 
 ::: {.callout-tip}
 
-**Success? After installing, please start the `Anaconda Navigator` program. If you were successful with the installation, you should see a window similar to this:**
+**Success? The interpreter shown at the top right of Positron's window should be the Python from `.venv` (click it and choose that one if not). Open the file with the word "BLANK" in its name and run its first cell with `Shift+Enter`: if a number or some text appears under the cell, you are ready.**
 
 :::
-
-![](images/install/Anaconda_navigator.png)
-
-To check that the installation is working correctly, click the `Launch` button under `JupyterLab`. A JupyterLab window should open in your web browser.
 
 ::: {.callout-important}
 
@@ -71,25 +90,13 @@ To check that the installation is working correctly, click the `Launch` button u
 
 :::
 
-## Jupyter notebook interfaces
+## Notebooks in Positron
 
-We will be using Jupyter Notebooks to run our Python code. [Jupyter Notebooks](https://jupyter-notebook.readthedocs.io/en/stable/) are documents that combine text, code, images, math, and rich media and can be viewed in a browser. There are two main ways to interact with Jupyter Notebooks:
+We run the workshop code in Jupyter notebooks (`.ipynb` files): documents that combine text, code, and the code's output. Positron opens them directly in its notebook editor; there is nothing else to install.
 
-1. using **JupyterLab**, a modern "extensible environment for interactive and reproducible computing" that runs in your web browser.
-2. using **Jupyter Notebook**, an older browser-based application.
-
-Compared to Jupyter Notebook,  JupyterLab provides a more modern, richer and more robust coding environment. For this reason, **we strongly recommend that you use JupyterLab to interact with notebooks**.
-
-### Launch JupyterLab
-
-Here's how to start JupyterLab and open a notebook within this interface (**recommended**):
-
-1. Start the `Anaconda Navigator` program
-2. Click the `Launch` button under `JupyterLab`
-3. A browser window will open with your computer's files listed on the left hand side of the page. Navigate to the folder with the workshop materials that you downloaded to your desktop and double-click on the folder
-4. Within the workshop materials folder, double-click on the file with the word "BLANK" in the name (`*_BLANK.ipynb`). (If a pop-up window asks you to `Select Kernel` choose `Python 3` kernel.) The Jupyter Notebook should now open on the right hand side of the page.
-
-If you have technical difficulty with JupyterLab you can try the older Jupyter Notebook as a fallback by clicking the `Launch` button under `Jupyter Notebook` in step 2.
+1. In the Explorer on the left, click a notebook (the one with `BLANK` in its name is the one to type along in).
+2. The kernel picker at the top right should show the Python from `.venv`; choose it if it does not.
+3. A notebook is a list of *cells*. To execute a cell, select it and press `Shift+Enter`; to add one, use the `+ Code` or `+ Markdown` button.
 
 ## Resources
 

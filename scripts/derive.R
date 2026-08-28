@@ -8,7 +8,8 @@
 #   intro_BLANK.qmd      the same with the code removed and the comments kept, to type along in
 #   intro_SOLUTIONS.qmd  the exercise solutions only
 #   intro.R | .py | .do  the code, with the prose as comments (# for R and Python, * for Stata)
-#   intro.ipynb          a notebook (nbformat 4, written here; R and Python pages only)
+#   intro.ipynb, intro_BLANK.ipynb, intro_SOLUTIONS.ipynb  notebooks (nbformat 4, written here; R and Python)
+#   pyproject.toml       Python pages: what `uv sync` installs (Python and the workshop's packages)
 #   images/              the page's images, so the standalone files render
 # and dist/materials-<lang>-<slug>.zip: the materials directory, zipped (dist/ is gitignored).
 #
@@ -194,7 +195,23 @@ if (dir.exists(img_src)) {
   invisible(file.copy(list.files(img_src, full.names = TRUE), file.path(mat, "images"), overwrite = TRUE))
 }
 
-if (!is.null(kernel)) writeLines(notebook_of(compact(body)), file.path(mat, paste0(slug, ".ipynb")))
+if (!is.null(kernel)) {
+  writeLines(notebook_of(compact(body)), file.path(mat, paste0(slug, ".ipynb")))
+  writeLines(notebook_of(compact(blank_body(without))), file.path(mat, paste0(slug, "_BLANK.ipynb")))
+  writeLines(notebook_of(compact(sol_out)), file.path(mat, paste0(slug, "_SOLUTIONS.ipynb")))
+}
+
+# Python materials carry a pyproject.toml: `uv sync` in the folder installs Python and the packages the
+# workshop uses (decision 2: Positron with uv). One line per workshop here.
+if (engine == "python") {
+  deps <- list(intro = c("numpy"), webscrape = c("pandas", "requests", "lxml"))[[slug]]
+  if (is.null(deps)) deps <- character()
+  writeLines(c("[project]", sprintf("name = \"dss-python-%s\"", slug), "version = \"2026.8\"",
+               "description = \"Python and the packages for the DSS workshop; run `uv sync` in this folder.\"",
+               "requires-python = \">=3.14\"",
+               sprintf("dependencies = [%s]", paste(sprintf("\"%s\"", c("ipykernel", deps)), collapse = ", "))),
+             file.path(mat, "pyproject.toml"))
+}
 
 dir.create("dist", showWarnings = FALSE)
 zipfile <- file.path(getwd(), "dist", sprintf("materials-%s-%s.zip", lang, slug))
