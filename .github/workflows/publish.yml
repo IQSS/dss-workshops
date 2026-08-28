@@ -1,7 +1,7 @@
 # Render the site from the committed _freeze/ (no R, Python, or Stata on the runner) and publish it to the
 # gh-pages branch; on a version tag, also zip every workshop's materials directory and attach the zips to a
 # GitHub release, so https://github.com/IQSS/dss-workshops/releases/latest/download/materials-<lang>-<slug>.zip
-# is a stable download link.
+# is a stable download link. Each zip unpacks to <lang>-<slug>/, so downloads of two workshops never collide.
 name: Publish
 
 on:
@@ -40,7 +40,8 @@ jobs:
           for page in */*.qmd; do
             lang=$(dirname "$page"); slug=$(basename "$page" .qmd)
             [ -d "$lang/$slug" ] || continue
-            (cd "$lang" && zip -qr "../dist/materials-$lang-$slug.zip" "$slug" -x '*.DS_Store')
+            rm -rf stage && mkdir stage && cp -r "$lang/$slug" "stage/$lang-$slug"
+            (cd stage && zip -qr "../dist/materials-$lang-$slug.zip" "$lang-$slug" -x '*.DS_Store' -x '*/.venv/*')
           done
           ls -la dist
       - name: Attach to the release

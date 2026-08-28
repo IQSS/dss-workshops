@@ -16,7 +16,7 @@
 #
 # ### Software and Materials
 #
-# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start RStudio.
+# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start Positron.
 #
 # ### Class Structure
 #
@@ -33,11 +33,11 @@
 #
 # ### Launch an R session
 #
-# Start RStudio and create a new project:
+# Start Positron and open the workshop materials folder:
 #
-# 1. On Mac, RStudio will be in your applications folder. On Windows, click the start button and search for RStudio. 
-# 2. In RStudio go to `File -> New Project`. Choose `Existing Directory` and browse to the workshop materials directory on your desktop. This will create an `.Rproj` file for your project and will automaticly change your working directory to the workshop materials directory. 
-# 3. Choose `File -> Open File` and select the file with the word "BLANK" in the name.
+# 1. On Mac, Positron will be in your Applications folder. On Windows, click the start button and search for Positron.
+# 2. In Positron go to `File -> Open Folder` and choose the workshop materials folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
+# 3. In the Explorer, click the file with the word "BLANK" in the name to open it.
 #
 # ### Packages
 #
@@ -282,7 +282,7 @@ p1 +
 dat <- read_csv("dataSets/EconomistData.csv")
 
 #
-# Original sources for these data are <http://www.transparency.org/content/download/64476/1031428> and <http://hdrstats.undp.org/en/indicators/display_cf_xls_indicator.cfm?indicator_id=103106&lang=en>
+# Original sources for these data are <http://www.transparency.org/content/download/64476/1031428> and <https://hdr.undp.org/data-center>
 #
 # These data consist of *Human Development Index* and *Corruption Perception Index* scores for several countries.
 #

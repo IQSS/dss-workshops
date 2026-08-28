@@ -1,0 +1,92 @@
+---
+title: "Python Web-Scraping (exercise solutions)"
+jupyter: python3
+format: html
+execute:
+  enabled: false   # the examples target harvardartmuseums.org as it was in 2021; see the note on the page
+---
+
+## Exercise 0 solution
+
+Question #1: 
+```{python}
+museum_domain = "https://www.harvardartmuseums.org"
+exhibit_path = "search/load_more"
+exhibit_url = museum_domain + "/" + exhibit_path
+print(exhibit_url)
+```
+
+Question #2:
+```{python}
+import requests
+from pprint import pprint as print 
+exhibit1 = requests.get(exhibit_url, params = {'type': 'past-exhibition', 'page': 1})
+print(exhibit1.headers["Content-Type"])
+exhibit1 = exhibit1.json()
+# print(exhibit1)
+```
+
+Questions #3+4 (loop solution):
+```{python}
+firstFivePages = []
+for page in range(1, 6):
+    records_per_page = requests.get(exhibit_url, \
+        params = {'type': 'past-exhibition', 'page': page}).json()['records']
+    firstFivePages.extend(records_per_page)
+firstFivePages_records = pd.DataFrame.from_records(firstFivePages)
+print(firstFivePages_records)
+```
+
+Questions #3+4 (list comprehension solution):
+```{python}
+first5Pages = [requests.get(exhibit_url, \
+    params = {'type': 'past-exhibition', 'page': page}).json()['records'] for page in range(1, 6)]
+from itertools import chain
+first5Pages = list(chain.from_iterable(first5Pages))
+import pandas as pd
+first5Pages_records = pd.DataFrame.from_records(first5Pages)
+print(first5Pages_records)
+```
+
+## Exercise 1 solution
+
+Question #2:
+```{python}
+from lxml import html
+floor_plan = requests.get('https://www.harvardartmuseums.org/visit/floor-plan')
+floor_plan_html = html.fromstring(floor_plan.text)
+```
+
+Question #3:
+```{python}
+level_one = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul')[0]
+print(type(level_one))
+print(len(level_one))
+```
+
+```{python}
+level_one_facilities = floor_plan_html.xpath('/html/body/main/section/ul/li[5]/div[2]/ul/li')
+print(len(level_one_facilities))
+```
+
+```{python}
+print([facility.text_content() for facility in level_one_facilities])
+```
+
+Question #4:
+```{python}
+all_levels = floor_plan_html.xpath('/html/body/main/section/ul/li')
+print(len(all_levels))
+```
+
+```{python}
+all_levels_facilities = []
+for level in all_levels:
+    level_facilities = []
+    level_facilities_collection = level.xpath('div[2]/ul/li')
+    for level_facility in level_facilities_collection:
+        level_facilities.append(level_facility.text_content())
+    all_levels_facilities.append(level_facilities)
+print(all_levels_facilities)
+```
+

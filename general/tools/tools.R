@@ -576,7 +576,8 @@
 #
 # | Editor               | Features  | Ease of use | Language |
 # |:-------------------- |:--------- |:----------- |:-------- |
-# | RStudio              | Excellent | Easy        | R        |
+# | Positron             | Excellent | Easy        | R, Python |
+# | RStudio              | Excellent | Easy        | R, Python |
 # | Spyder               | Excellent | Easy        | Python   |
 # | Stata do file editor | OK        | Easy        | Stata    |
 # | SPSS syntax editor   | OK        | Easy        | SPSS     |
@@ -589,8 +590,7 @@
 # |:------------ |:--------- |:----------- |:---------------- |
 # | Vim          | Excellent | Hard        | Good             |
 # | Emacs        | Excellent | Hard        | Excellent        |
-# | VS code      | Excellent | Easy        | Very good        |
-# | Atom         | Good      | Moderate    | Good             |
+# | VS Code      | Excellent | Easy        | Very good        |
 # | Eclipse      | Excellent | Easy        | Good             |
 # | Sublime Text | Good      | Easy        | Good             |
 # | Notepad++    | OK        | Easy        | OK               |

@@ -239,7 +239,7 @@ help(package = "stats")
 #
 #     * CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
 #     * Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
-#     * Github: <http://rpkg.gepuro.net/>
+#     * Github: <https://r-universe.dev/search>
 #     * R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
 #
 # 3. If you know the type of analysis you want to perform, you can Google "CRAN Task Views", where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to know which packages are popular, you can look at <https://r-pkg.org>.
@@ -291,7 +291,7 @@ library(rmarkdown)
 #
 # ### Baby names data
 #
-# As an example project we will analyze the popularity of baby names in the US from 1960 through 2017. The data were retrieved from <https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-level-data>.
+# As an example project we will analyze the popularity of baby names in the US from 1960 through 2017. The data were retrieved from <https://www.ssa.gov/oact/babynames/limits.html>.
 #
 # Here are the questions we will use R to answer:
 #
@@ -960,6 +960,7 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 #
 # * Software (all free!):
 #     + R and R package download: <http://cran.r-project.org>
+#     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>
 #     + RStudio download: <https://posit.co/download/rstudio-desktop/>
 #     + ESS (Emacs R package): <http://ess.r-project.org/>

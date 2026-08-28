@@ -164,7 +164,7 @@ pwd
 * 2. change working directory 
 *
 
-cd C:\Users\yiw640\Desktop\StataIntro\
+cd C:\Users\yourname\Desktop\stata-intro\
 
 *
 * #### A note about file path names
@@ -700,7 +700,7 @@ oneway workload marital
 *     + RCS consulting email: <mailto:research@hbs.edu>
 *
 * * Stata
-*     + UCLA website: <http://www.ats.ucla.edu/stat/Stata/>
+*     + UCLA website: <https://stats.oarc.ucla.edu/stata/>
 *     + Stata website: <http://www.stata.com/help.cgi?contents>
 *     + Email list: <http://www.stata.com/statalist/>
 *     

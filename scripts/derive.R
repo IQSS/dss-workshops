@@ -11,7 +11,7 @@
 #   intro.ipynb, intro_BLANK.ipynb, intro_SOLUTIONS.ipynb  notebooks (nbformat 4, written here; R and Python)
 #   pyproject.toml       Python pages: what `uv sync` installs (Python and the workshop's packages)
 #   images/              the page's images, so the standalone files render
-# and dist/materials-<lang>-<slug>.zip: the materials directory, zipped (dist/ is gitignored).
+# and dist/materials-<lang>-<slug>.zip: the materials directory, zipped as <lang>-<slug>/ (dist/ is gitignored).
 #
 # Rules, taken from the 2021 hand-made files: the BLANK drops every solution block and every code line,
 # keeps comment lines, promotes a trailing comment (`x <- 1  # note`) to a line of its own, drops the bare
@@ -216,8 +216,12 @@ if (engine == "python") {
 dir.create("dist", showWarnings = FALSE)
 zipfile <- file.path(getwd(), "dist", sprintf("materials-%s-%s.zip", lang, slug))
 if (file.exists(zipfile)) unlink(zipfile)
-old <- setwd(lang); on.exit(setwd(old), add = TRUE)
-z <- system2("zip", c("-qr", shQuote(zipfile), slug, "-x", "'*.DS_Store'"), stdout = TRUE, stderr = TRUE)
+# The zip unpacks to <lang>-<slug>/ (r-intro/, python-intro/), so two workshops' downloads never collide on a desktop.
+stage <- tempfile("materials-"); dir.create(stage)
+invisible(file.copy(mat, stage, recursive = TRUE))
+invisible(file.rename(file.path(stage, slug), file.path(stage, paste(lang, slug, sep = "-"))))
+old <- setwd(stage); on.exit({ setwd(old); unlink(stage, recursive = TRUE) }, add = TRUE)
+z <- system2("zip", c("-qr", shQuote(zipfile), paste(lang, slug, sep = "-"), "-x", "'*.DS_Store'", "-x", "'*/.venv/*'"), stdout = TRUE, stderr = TRUE)
 setwd(old)
 if (!file.exists(zipfile)) stop("zip failed:\n", paste(z, collapse = "\n"))
 
