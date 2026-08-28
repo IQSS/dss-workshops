@@ -960,6 +960,3 @@ data(bh1996, package = "multilevel")
 #     + Data Science Services: <https://www.iq.harvard.edu/data-science-services>
 #     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 #
-# * HBS
-#     + Research Computing Services: <https://www.hbs.edu/research-computing-services/>
-#     + RCS consulting email: <mailto:research@hbs.edu>

@@ -498,10 +498,6 @@ twoway (scatter C_UNEMP C_SSLOW if T_UNEMP>15 & C_SSLOW>25, mlabel(CITY) by(C_SO
 *     + Data Science Services: <https://www.iq.harvard.edu/data-science-services>
 *     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 *
-* * HBS
-*     + Research Computing Services: <https://www.hbs.edu/research-computing-services/>
-*     + RCS consulting email: <mailto:research@hbs.edu>
-*
 * * Stata
 *     + UCLA website: <https://stats.oarc.ucla.edu/stata/>
 *     + Stata website: <http://www.stata.com/help.cgi?contents>

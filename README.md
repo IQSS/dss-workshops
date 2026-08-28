@@ -1,4 +1,4 @@
-# dss-workshops-2026
+# dss-workshops
 
 The workshops of IQSS Data Science Services as one Quarto website: R, Python,
 Stata, and the tools around them, one page per workshop with materials to

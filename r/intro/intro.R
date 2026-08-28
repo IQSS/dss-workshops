@@ -954,12 +954,9 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 #     + Data Science Services: <https://www.iq.harvard.edu/data-science-services>
 #     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 #
-# * HBS
-#     + Research Computing Services: <https://www.hbs.edu/research-computing-services/>
-#     + RCS consulting email: <mailto:research@hbs.edu>
-#
 # * Software (all free!):
 #     + R and R package download: <http://cran.r-project.org>
+#     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>
 #     + RStudio download: <https://posit.co/download/rstudio-desktop/>

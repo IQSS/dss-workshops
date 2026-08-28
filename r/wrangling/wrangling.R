@@ -810,9 +810,6 @@ boysNames <- bind_rows(boysNames)
 #     + Data Science Services: <https://www.iq.harvard.edu/data-science-services>
 #     + Research Computing Environment: <https://iqss.github.io/dss-rce/>
 #
-# * HBS
-#     + Research Computing Services: <https://www.hbs.edu/research-computing-services/>
-#     + RCS consulting email: <mailto:research@hbs.edu>
 #     
 # * R
 #     + Learn from the best: <http://adv-r.had.co.nz/>; <http://r4ds.had.co.nz/>
