@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Science Tools – DSS Workshops</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../site_libs/quarto-contrib/quarto-project/IQSS/dss-theme/assets/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-138cfacccce021be8eb5eb777bfed91a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-847ec195759a7581c7281f1884439573.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-138cfacccce021be8eb5eb777bfed91a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<meta name="theme-color" content="#3C72B4">
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://www.iq.harvard.edu/data-science-services" class="navbar-brand navbar-brand-logo">
+    <img src="../site_libs/quarto-contrib/quarto-project/IQSS/dss-theme/assets/dss-logo.svg" alt="" class="navbar-logo light-content">
+    <img src="../site_libs/quarto-contrib/quarto-project/IQSS/dss-theme/assets/dss-logo-dark.svg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://iqss.github.io/dss-training/"> 
+<span class="menu-text">Training materials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.iq.harvard.edu/data-science-services"> 
+<span class="menu-text">Data Science Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.iq.harvard.edu/data-science-services/contact-us"> 
+<span class="menu-text">Request help</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../general/tools.html">Any language</a></li><li class="breadcrumb-item"><a href="../general/tools.html">Data Science Tools</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Science Workshops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R workshops</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r/install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Installation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r/models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Regression Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r/graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r/wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Data Wrangling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python workshops</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Installation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../python/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stata</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Stata workshops</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata/install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Stata Installation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Stata Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Any language</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/tools.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Data Science Tools</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tools-for-working-with-data" id="toc-tools-for-working-with-data" class="nav-link active" data-scroll-target="#tools-for-working-with-data">Tools for working with data</a></li>
+  <li><a href="#the-puzzle-pieces" id="toc-the-puzzle-pieces" class="nav-link" data-scroll-target="#the-puzzle-pieces">The puzzle pieces</a>
+  <ul class="collapse">
+  <li><a href="#data-analysis-building-blocks" id="toc-data-analysis-building-blocks" class="nav-link" data-scroll-target="#data-analysis-building-blocks">Data analysis building blocks</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#old-school-example" id="toc-old-school-example" class="nav-link" data-scroll-target="#old-school-example">Old-school example</a></li>
+  <li><a href="#something-old-something-new" id="toc-something-old-something-new" class="nav-link" data-scroll-target="#something-old-something-new">Something old &amp; something new</a></li>
+  <li><a href="#a-modern-version" id="toc-a-modern-version" class="nav-link" data-scroll-target="#a-modern-version">A modern version</a></li>
+  </ul></li>
+  <li><a href="#data-storage-retrieval" id="toc-data-storage-retrieval" class="nav-link" data-scroll-target="#data-storage-retrieval">Data storage &amp; retrieval</a>
+  <ul class="collapse">
+  <li><a href="#text-files" id="toc-text-files" class="nav-link" data-scroll-target="#text-files">Text files</a></li>
+  <li><a href="#binary-files" id="toc-binary-files" class="nav-link" data-scroll-target="#binary-files">Binary files</a></li>
+  <li><a href="#databases" id="toc-databases" class="nav-link" data-scroll-target="#databases">Databases</a></li>
+  <li><a href="#distributed-file-storage" id="toc-distributed-file-storage" class="nav-link" data-scroll-target="#distributed-file-storage">Distributed file storage</a></li>
+  </ul></li>
+  <li><a href="#programming-languages-statistics-packages" id="toc-programming-languages-statistics-packages" class="nav-link" data-scroll-target="#programming-languages-statistics-packages">Programming languages &amp; statistics packages</a>
+  <ul class="collapse">
+  <li><a href="#programming-language-features" id="toc-programming-language-features" class="nav-link" data-scroll-target="#programming-language-features">Programming language features</a></li>
+  <li><a href="#program-comparison" id="toc-program-comparison" class="nav-link" data-scroll-target="#program-comparison">Program comparison</a></li>
+  <li><a href="#examples-read-data-from-a-file-summarize" id="toc-examples-read-data-from-a-file-summarize" class="nav-link" data-scroll-target="#examples-read-data-from-a-file-summarize">Examples: Read data from a file &amp; summarize</a></li>
+  <li><a href="#examples-fit-a-linear-regression" id="toc-examples-fit-a-linear-regression" class="nav-link" data-scroll-target="#examples-fit-a-linear-regression">Examples: Fit a linear regression</a></li>
+  <li><a href="#examples-extract-links-for-.html-file" id="toc-examples-extract-links-for-.html-file" class="nav-link" data-scroll-target="#examples-extract-links-for-.html-file">Examples: Extract links for .html file</a></li>
+  </ul></li>
+  <li><a href="#creating-reports" id="toc-creating-reports" class="nav-link" data-scroll-target="#creating-reports">Creating reports</a>
+  <ul class="collapse">
+  <li><a href="#markup-languages" id="toc-markup-languages" class="nav-link" data-scroll-target="#markup-languages">Markup languages</a></li>
+  <li><a href="#word-processors" id="toc-word-processors" class="nav-link" data-scroll-target="#word-processors">Word processors</a></li>
+  </ul></li>
+  <li><a href="#text-editors-integrated-development-environments" id="toc-text-editors-integrated-development-environments" class="nav-link" data-scroll-target="#text-editors-integrated-development-environments">Text editors &amp; Integrated Development Environments</a>
+  <ul class="collapse">
+  <li><a href="#language-specific-editors-ides" id="toc-language-specific-editors-ides" class="nav-link" data-scroll-target="#language-specific-editors-ides">Language specific editors &amp; IDEs</a></li>
+  <li><a href="#general-purpose-editors-ides" id="toc-general-purpose-editors-ides" class="nav-link" data-scroll-target="#general-purpose-editors-ides">General purpose editors &amp; IDEs</a></li>
+  </ul></li>
+  <li><a href="#literate-programming-notebooks" id="toc-literate-programming-notebooks" class="nav-link" data-scroll-target="#literate-programming-notebooks">Literate programming &amp; notebooks</a>
+  <ul class="collapse">
+  <li><a href="#literate-programming" id="toc-literate-programming" class="nav-link" data-scroll-target="#literate-programming">Literate programming</a></li>
+  <li><a href="#notebooks" id="toc-notebooks" class="nav-link" data-scroll-target="#notebooks">Notebooks</a></li>
+  </ul></li>
+  <li><a href="#big-data-annoying-data-computationally-intensive-methods" id="toc-big-data-annoying-data-computationally-intensive-methods" class="nav-link" data-scroll-target="#big-data-annoying-data-computationally-intensive-methods">Big data, annoying data, &amp; computationally intensive methods</a>
+  <ul class="collapse">
+  <li><a href="#computing-clusters-at-harvard" id="toc-computing-clusters-at-harvard" class="nav-link" data-scroll-target="#computing-clusters-at-harvard">Computing clusters at Harvard</a></li>
+  </ul></li>
+  <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up">Wrap up</a>
+  <ul class="collapse">
+  <li><a href="#feedback" id="toc-feedback" class="nav-link" data-scroll-target="#feedback">Feedback</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../general/tools.html">Any language</a></li><li class="breadcrumb-item"><a href="../general/tools.html">Data Science Tools</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Data Science Tools</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Topics</strong></p>
+<ul>
+<li>Data science tool selection</li>
+<li>Data analysis pipelines</li>
+<li>Programming languages comparison</li>
+<li>Text editor and IDE comparison</li>
+<li>Tools for creating reports</li>
+</ul>
+<section id="tools-for-working-with-data" class="level2">
+<h2 class="anchored" data-anchor-id="tools-for-working-with-data">Tools for working with data</h2>
+<p>Working with data effectively requires learning at least one programming or scripting language. You can get by without this, but it would be like trying to cook with only a butter knife; not recommended! Compared to using a menu-driven interface (e.g., SPSS or SAS) or a spreadsheet (e.g., Excel), using a programming language allows you to:</p>
+<ul>
+<li>reproduce results,</li>
+<li>correct errors and update output,</li>
+<li>reuse code,</li>
+<li>collaborate with others,</li>
+<li>automate repetitive tasks, and</li>
+<li>generate manuscripts, reports, and other documents from your code.</li>
+</ul>
+<p>So, you need to learn a programming language for working with data, but which one should you learn? Since you’ll be writing code you’ll want to set up a comfortable environment for writing and editing that code. Which text editors are good for this? You’ll probably also want to learn at least one markup language (e.g., LaTeX, Markdown) so that you can create reproducible manuscripts. What tools are good for this? These questions will guide our discussion, the goal of which is to help you decide which tools you should invest time in learning.</p>
+</section>
+<section id="the-puzzle-pieces" class="level2">
+<h2 class="anchored" data-anchor-id="the-puzzle-pieces">The puzzle pieces</h2>
+<p>As we’ve noted, working effectively with data requires using a number of tools.</p>
+<section id="data-analysis-building-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="data-analysis-building-blocks">Data analysis building blocks</h3>
+<p>The basic pieces are:</p>
+<ul>
+<li>a data storage and retrieval system,</li>
+<li>an editor for writing code,</li>
+<li>an interpreter or compiler for executing that code,</li>
+<li>a system for presenting results, and</li>
+<li>some “glue” to make all the pieces work together.</li>
+</ul>
+</section>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p>Before looking in detail at each of these building blocks we’ll look at a few examples to get an intuitive feel for the basic elements.</p>
+<section id="old-school-example" class="level3">
+<h3 class="anchored" data-anchor-id="old-school-example">Old-school example</h3>
+<p>In this example we’re going to process data in a text file in a way that would be familiar to a statistician working forty years ago. Surprisingly, it’s not much different from the way we would do it today. Programs come and go, but the basic ideas remain pretty much the same!</p>
+<p>Specifically, we’ll process the data in <code>1980_census.txt</code> by writing <strong>fortran</strong> code in the <strong>vi</strong> text editor and running it through the <strong>fortran</strong> compiler. Then we’ll take the results and put them in to a <strong>TeX</strong> file, again using the <strong>vi</strong> editor to create the report. For “glue” we will use a terminal emulator running the bash shell. All of these tools were available in 1980, though some features have been added since that time.</p>
+<p>OLD SCHOOL DEMO:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 20%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">example</th>
+<th style="text-align: left;">data storage</th>
+<th style="text-align: left;">editor</th>
+<th style="text-align: left;">program</th>
+<th style="text-align: left;">report tool</th>
+<th style="text-align: left;">glue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">old school</td>
+<td style="text-align: left;">ASCII text file</td>
+<td style="text-align: left;">vi</td>
+<td style="text-align: left;">fortran</td>
+<td style="text-align: left;">TeX</td>
+<td style="text-align: left;">Bourne (compatible) shell</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="something-old-something-new" class="level3">
+<h3 class="anchored" data-anchor-id="something-old-something-new">Something old &amp; something new</h3>
+<p>Next we’re going to do the same basic process, this time using a modern text editor (<strong>Atom</strong>), a different programming language (<strong>Python</strong>), and a modern report generation system (<strong>LaTeX</strong> processed via <strong>XeLaTeX</strong>). For the glue we’re still going to use a shell.</p>
+<p>OLD AND NEW DEMO:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 19%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 14%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">example</th>
+<th style="text-align: left;">data storage</th>
+<th style="text-align: left;">editor</th>
+<th style="text-align: left;">program</th>
+<th style="text-align: left;">report tool</th>
+<th style="text-align: left;">glue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">old school</td>
+<td style="text-align: left;">ASCII text file</td>
+<td style="text-align: left;">vi</td>
+<td style="text-align: left;">fortran</td>
+<td style="text-align: left;">TeX</td>
+<td style="text-align: left;">Bourne (compatible) shell</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">old and new</td>
+<td style="text-align: left;">ASCII text file</td>
+<td style="text-align: left;">Atom</td>
+<td style="text-align: left;">python</td>
+<td style="text-align: left;">LaTeX</td>
+<td style="text-align: left;">Bash shell</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a-modern-version" class="level3">
+<h3 class="anchored" data-anchor-id="a-modern-version">A modern version</h3>
+<p>Finally, we’ll produce the same report using modern tools. Remember, the process is basically the same: we’re just using different tools.</p>
+<p>MODERN DEMO:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 19%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 14%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">example</th>
+<th style="text-align: left;">data storage</th>
+<th style="text-align: left;">editor</th>
+<th style="text-align: left;">program</th>
+<th style="text-align: left;">report tool</th>
+<th style="text-align: left;">glue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">old school</td>
+<td style="text-align: left;">ASCII text file</td>
+<td style="text-align: left;">vi</td>
+<td style="text-align: left;">fortran</td>
+<td style="text-align: left;">TeX</td>
+<td style="text-align: left;">Bourne (compatable) shell</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">old and new</td>
+<td style="text-align: left;">ASCII text file</td>
+<td style="text-align: left;">Atom</td>
+<td style="text-align: left;">python</td>
+<td style="text-align: left;">LaTeX</td>
+<td style="text-align: left;">Bash shell</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">modern</td>
+<td style="text-align: left;">SQLite database</td>
+<td style="text-align: left;">Rstudio</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: left;">R Markdown</td>
+<td style="text-align: left;">Rstudio</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="data-storage-retrieval" class="level2">
+<h2 class="anchored" data-anchor-id="data-storage-retrieval">Data storage &amp; retrieval</h2>
+<p>Data storage and retrieval is a fairly dry topic, so we won’t spend too much time on it. There are roughly four types of technology for storing and retrieving data.</p>
+<section id="text-files" class="level3">
+<h3 class="anchored" data-anchor-id="text-files">Text files</h3>
+<p>Storing data in text files (e.g., comma separated values, other delimited text formats) is simple and makes the data easy to access from just about any program. It is also good for archiving data since no specialized software is needed to read it. The main downsides are that retrieval is slow and often all-or-nothing, and the fact that storing metadata in plain text files is cumbersome.</p>
+</section>
+<section id="binary-files" class="level3">
+<h3 class="anchored" data-anchor-id="binary-files">Binary files</h3>
+<p>Many statistics packages and programming languages have a “native” binary data storage format. For example, Stata stores data in <code>.dta</code> files, and R stores data in <code>.rds</code> or <code>.Rdata</code> files. These storage formats usually more efficient than text files, and usually provide faster read/write access. They usually include a mechanism for storing metadata. The down side is that specialized software is required to read them (will Stata exist in 50 years? Are you sure?) and the ability to read them using other programs may be limited.</p>
+</section>
+<section id="databases" class="level3">
+<h3 class="anchored" data-anchor-id="databases">Databases</h3>
+<p>Storing data in a database requires more up-front planning and set up, but has several advantages. Databases provide fast selective retrieval and facilitate efficient storage and flexible retrieval.</p>
+</section>
+<section id="distributed-file-storage" class="level3">
+<h3 class="anchored" data-anchor-id="distributed-file-storage">Distributed file storage</h3>
+<p>Data that is too large to fit on a single hard drive may be stored and analyzed on a distributed file system or database such as the <em>Hadoop Distributed File System</em> or <em>Cassandra</em>. When working with data on this scale considerable infrastructure and specialized tools will be required.</p>
+</section>
+</section>
+<section id="programming-languages-statistics-packages" class="level2">
+<h2 class="anchored" data-anchor-id="programming-languages-statistics-packages">Programming languages &amp; statistics packages</h2>
+<p>There are tens of programs for statistics and data science available. Here we will focus only on the more popular programs that offer a wide range of features. Note that for specific applications a specialized program may be better, e.g., many people use Mplus for structural equation models and another program for everything else.</p>
+<section id="programming-language-features" class="level3">
+<h3 class="anchored" data-anchor-id="programming-language-features">Programming language features</h3>
+<p>Things we want a statistics program to do include:</p>
+<ul>
+<li>read/write data from/to a variety of data storage systems,</li>
+<li>manipulate data,</li>
+<li>perform statistical methods,</li>
+<li>visualize data and results,</li>
+<li>export results in a variety of formats,</li>
+<li>be easy to use,</li>
+<li>be well documented,</li>
+<li>have a large user community.</li>
+</ul>
+<p>Note that this list is deceptively simple; each item may include a diversity of complicated features. For example,“read/write data from/to a variety of data storage systems” may include reading from databases, image files, .pdf files, .html and .xml files from a website, and any number of proprietary data storage formats.</p>
+</section>
+<section id="program-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="program-comparison">Program comparison</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Program</th>
+<th style="text-align: left;">Statistics</th>
+<th style="text-align: left;">Visualization</th>
+<th style="text-align: left;">Machine learning</th>
+<th style="text-align: left;">Ease of use</th>
+<th style="text-align: left;">Power/flexibility</th>
+<th style="text-align: left;">Fun</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Stata</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Servicable</td>
+<td style="text-align: left;">Limited</td>
+<td style="text-align: left;">Very easy</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Some</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SPSS</td>
+<td style="text-align: left;">OK</td>
+<td style="text-align: left;">Servicable</td>
+<td style="text-align: left;">Limited</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">None</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAS</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Not great</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">None</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Matlab</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Some</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Python</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Julia</td>
+<td style="text-align: left;">OK</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Hard</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="examples-read-data-from-a-file-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="examples-read-data-from-a-file-summarize">Examples: Read data from a file &amp; summarize</h3>
+<p>In this example we will compare the syntax for reading and summarizing data stored in a file.</p>
+<ul>
+<li>Stata</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>import delimited <span class="kw">using</span> <span class="st">"https://github.com/IQSS/dss-workshops/raw/main/general/tools/dataSets/EconomistData.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">sum</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>set more off
+ "EconomistData.csv"
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=gasp -Dswing.aatext=true -Dsun.java2d.opengl=true
+(6 vars, 173 obs)
+sum
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+          v1 |        173          87    50.08493          1        173
+     country |          0
+     hdirank |        173    95.28324    55.00767          1        187
+         hdi |        173    .6580867    .1755888       .286       .943
+         cpi |        173    4.052023    2.116782        1.5        9.5
+-------------+---------------------------------------------------------
+      region |          0</code></pre>
+<ul>
+<li>R</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cpi <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://github.com/IQSS/dss-workshops/raw/main/general/tools/dataSets/EconomistData.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cpi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>      X              Country       HDI.Rank           HDI        
+Min.   :  1   Afghanistan:  1   Min.   :  1.00   Min.   :0.2860  
+1st Qu.: 44   Albania    :  1   1st Qu.: 47.00   1st Qu.:0.5090  
+Median : 87   Algeria    :  1   Median : 96.00   Median :0.6980  
+Mean   : 87   Angola     :  1   Mean   : 95.28   Mean   :0.6581  
+3rd Qu.:130   Argentina  :  1   3rd Qu.:143.00   3rd Qu.:0.7930  
+Max.   :173   Armenia    :  1   Max.   :187.00   Max.   :0.9430  
+              (Other)    :167                                    
+     CPI                      Region  
+Min.   :1.500   Americas         :31  
+1st Qu.:2.500   Asia Pacific     :30  
+Median :3.200   East EU Cemt Asia:18  
+Mean   :4.052   EU W. Europe     :30  
+3rd Qu.:5.100   MENA             :18  
+Max.   :9.500   SSA              :46</code></pre>
+<ul>
+<li>Matlab</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">tmpfile</span> <span class="op">=</span> <span class="va">websave</span>(<span class="va">tempname</span>()<span class="op">,</span> <span class="ss">'https://github.com/IQSS/dss-workshops/raw/main/general/tools/dataSets/EconomistData.csv'</span>)<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">cpi</span> <span class="op">=</span> <span class="va">readtable</span>(<span class="va">tmpfile</span>)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">summary</span>(<span class="va">cpi</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>tmpfile = websave(tempname(), 'https://github.com/IQSS/dss-workshops/raw/main/general/tools/dataSets/EconomistData.csv');
+cpi = readtable(tmpfile);
+summary(cpi)
+
+Variables:
+
+    Var1: 173×1 cell array of character vectors
+
+    Country: 173×1 cell array of character vectors
+
+    HDI_Rank: 173×1 double
+
+        Description:  Original column heading: 'HDI.Rank'
+        Values:
+
+            Min         1       
+            Median     96       
+            Max       187       
+
+    HDI: 173×1 double
+
+        Values:
+
+            Min       0.286
+            Median    0.698
+            Max       0.943
+
+    CPI: 173×1 double
+
+        Values:
+
+            Min       1.5  
+            Median    3.2  
+            Max       9.5  
+
+    Region: 173×1 cell array of character vectors
+'org_babel_eoe'
+
+ans =
+
+    'org_babel_eoe'</code></pre>
+<ul>
+<li>Python</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cpi <span class="op">=</span> pd.read_csv(<span class="st">'https://github.com/IQSS/dss-workshops/raw/main/general/tools/dataSets/EconomistData.csv'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cpi.describe(include <span class="op">=</span> <span class="st">'all'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Python 3.6.2 (default, Jul 20 2017, 03:52:27) 
+[GCC 7.1.1 20170630] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+        Unnamed: 0 Country    HDI.Rank         HDI         CPI Region
+count   173.000000     173  173.000000  173.000000  173.000000    173
+unique         NaN     173         NaN         NaN         NaN      6
+top            NaN    Oman         NaN         NaN         NaN    SSA
+freq           NaN       1         NaN         NaN         NaN     46
+mean     87.000000     NaN   95.283237    0.658087    4.052023    NaN
+std      50.084928     NaN   55.007670    0.175589    2.116782    NaN
+min       1.000000     NaN    1.000000    0.286000    1.500000    NaN
+25%      44.000000     NaN   47.000000    0.509000    2.500000    NaN
+50%      87.000000     NaN   96.000000    0.698000    3.200000    NaN
+75%     130.000000     NaN  143.000000    0.793000    5.100000    NaN
+max     173.000000     NaN  187.000000    0.943000    9.500000    NaN</code></pre>
+</section>
+<section id="examples-fit-a-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="examples-fit-a-linear-regression">Examples: Fit a linear regression</h3>
+<p>Fitting statistical models is pretty straight-forward in all popular programs.</p>
+<ul>
+<li>Stata</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> hdi cpi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>regress hdi cpi
+
+      Source |       SS           df       MS      Number of obs   =       173
+-------------+----------------------------------   F(1, 171)       =    168.85
+       Model |  2.63475703         1  2.63475703   Prob &gt; F        =    0.0000
+    Residual |   2.6682467       171  .015603782   R-squared       =    0.4968
+-------------+----------------------------------   Adj R-squared   =    0.4939
+       Total |  5.30300372       172  .030831417   Root MSE        =    .12492
+
+------------------------------------------------------------------------------
+         hdi |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         cpi |   .0584696   .0044996    12.99   0.000     .0495876    .0673515
+       _cons |   .4211666   .0205577    20.49   0.000     .3805871    .4617462
+------------------------------------------------------------------------------</code></pre>
+<ul>
+<li>R</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(HDI <span class="sc">~</span> CPI, <span class="at">data =</span> cpi))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Call:
+lm(formula = HDI ~ CPI, data = cpi)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.28452 -0.08380  0.01372  0.09157  0.24104 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.42117    0.02056   20.49   &lt;2e-16 ***
+CPI          0.05847    0.00450   12.99   &lt;2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1249 on 171 degrees of freedom
+Multiple R-squared:  0.4968,    Adjusted R-squared:  0.4939 
+F-statistic: 168.9 on 1 and 171 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li>Matlab</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">fitlm</span>(<span class="va">cpi</span><span class="op">,</span> <span class="ss">'HDI~CPI'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>fitlm(cpi, 'HDI~CPI')
+
+ans = 
+
+
+Linear regression model:
+    HDI ~ 1 + CPI
+
+Estimated Coefficients:
+                   Estimate       SE        tStat       pValue  
+                   ________    _________    ______    __________
+
+    (Intercept)    0.42117      0.020558    20.487    6.7008e-48
+    CPI            0.05847     0.0044996    12.994    2.6908e-27
+
+
+Number of observations: 173, Error degrees of freedom: 171
+Root Mean Squared Error: 0.125
+R-squared: 0.497,  Adjusted R-Squared 0.494
+F-statistic vs. constant model: 169, p-value = 2.69e-27
+'org_babel_eoe'
+
+ans =
+
+    'org_babel_eoe'</code></pre>
+<ul>
+<li>Python</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> model</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> cpi[[<span class="st">'CPI'</span>]]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> cpi[[<span class="st">'HDI'</span>]]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>model.OLS(Y, X).fit().summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>&lt;class 'statsmodels.iolib.summary.Summary'&gt;
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                    HDI   R-squared:                       0.885
+Model:                            OLS   Adj. R-squared:                  0.884
+Method:                 Least Squares   F-statistic:                     1325.
+Date:                Thu, 31 Aug 2017   Prob (F-statistic):           9.89e-83
+Time:                        23:16:45   Log-Likelihood:                 8.1584
+No. Observations:                 173   AIC:                            -14.32
+Df Residuals:                     172   BIC:                            -11.16
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+CPI            0.1402      0.004     36.401      0.000       0.133       0.148
+==============================================================================
+Omnibus:                       10.423   Durbin-Watson:                   1.616
+Prob(Omnibus):                  0.005   Jarque-Bera (JB):               11.099
+Skew:                          -0.599   Prob(JB):                      0.00389
+Kurtosis:                       2.674   Cond. No.                         1.00
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""</code></pre>
+</section>
+<section id="examples-extract-links-for-.html-file" class="level3">
+<h3 class="anchored" data-anchor-id="examples-extract-links-for-.html-file">Examples: Extract links for .html file</h3>
+<p>Retrieving data from a website is a common task. Here we parse a simple web page containing links to files we wish to download.</p>
+<ul>
+<li>Stata</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>disp <span class="st">"Ha ha ha! No, you do not want to use Stata for this!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>disp "Ha ha ha! No, you do not want to use Stata for this!"
+Ha ha ha! No, you do not want to use Stata for this!</code></pre>
+<ul>
+<li>R</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>index_page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"http://tutorials.iq.harvard.edu/example_data/baby_names/EW/"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>all_anchors <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(index_page, <span class="st">"//a"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>all_hrefs <span class="ot">&lt;-</span> <span class="fu">xml_attr</span>(all_anchors, <span class="st">"href"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>data_hrefs <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">.csv$"</span>, all_hrefs, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>data_links <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"http://tutorials.iq.harvard.edu/example_data/baby_names/EW/"</span>, data_hrefs)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>data_links</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code> [1] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv" 
+ [2] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv" 
+ [3] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv" 
+ [4] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1999.csv" 
+ [5] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2000.csv" 
+ [6] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2001.csv" 
+ [7] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2002.csv" 
+ [8] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2003.csv" 
+ [9] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2004.csv" 
+[10] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2005.csv" 
+[11] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2006.csv" 
+[12] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2007.csv" 
+[13] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2008.csv" 
+[14] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2009.csv" 
+[15] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2010.csv" 
+[16] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2011.csv" 
+[17] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2012.csv" 
+[18] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2013.csv" 
+[19] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2014.csv" 
+[20] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2015.csv" 
+[21] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1996.csv"
+[22] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1997.csv"
+[23] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1998.csv"
+[24] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1999.csv"
+[25] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2000.csv"
+[26] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2001.csv"
+[27] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2002.csv"
+[28] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2003.csv"
+[29] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2004.csv"
+[30] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2005.csv"
+[31] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2006.csv"
+[32] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2007.csv"
+[33] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2008.csv"
+[34] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2009.csv"
+[35] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2010.csv"
+[36] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2011.csv"
+[37] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2012.csv"
+[38] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv"
+[39] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv"
+[40] "http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv"</code></pre>
+<ul>
+<li>Matlab</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="va">index_page</span> <span class="op">=</span> <span class="va">urlread</span>(<span class="ss">'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'</span>)<span class="op">;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="va">all_hrefs</span> <span class="op">=</span> <span class="va">regexp</span>(<span class="va">index_page</span><span class="op">,</span> <span class="ss">'&lt;a href="([^"]*\.csv)"&gt;'</span><span class="op">,</span> <span class="ss">'tokens'</span>)<span class="op">';</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="va">all_hrefs</span> <span class="op">=</span> [<span class="va">all_hrefs</span>{<span class="op">:</span>}]<span class="op">';</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="va">all_links</span> <span class="op">=</span> <span class="va">strcat</span>(<span class="ss">'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'</span><span class="op">,</span> <span class="va">all_hrefs</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>index_page = urlread('http://tutorials.iq.harvard.edu/example_data/baby_names/EW/');
+all_hrefs = regexp(index_page, '&lt;a href="([^"]*\.csv)"&gt;', 'tokens')';
+all_hrefs = [all_hrefs{:}]';
+all_links = strcat('http://tutorials.iq.harvard.edu/example_data/baby_names/EW/', all_hrefs)
+
+all_links =
+
+  40×1 cell array
+
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1999.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2000.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2001.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2002.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2003.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2004.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2005.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2006.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2007.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2008.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2009.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2010.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2011.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2012.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2013.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2014.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2015.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1996.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1997.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1998.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1999.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2000.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2001.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2002.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2003.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2004.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2005.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2006.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2007.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2008.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2009.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2010.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2011.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2012.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv'
+    'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv'
+'org_babel_eoe'
+
+ans =
+
+    'org_babel_eoe'</code></pre>
+<ul>
+<li>Python</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lxml <span class="im">import</span> etree</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>index_text <span class="op">=</span> requests.get(<span class="st">'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'</span>).text</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>index_page <span class="op">=</span> etree.HTML(index_text)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>all_hrefs <span class="op">=</span> [a.values() <span class="cf">for</span> a <span class="kw">in</span> index_page.findall(<span class="st">".//a"</span>)]</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>data_links <span class="op">=</span> [<span class="st">'http://tutorials.iq.harvard.edu/example_data/baby_names/EW/'</span> <span class="op">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>              href[<span class="dv">0</span>] <span class="cf">for</span> href <span class="kw">in</span> all_hrefs <span class="cf">if</span> <span class="st">'csv'</span> <span class="kw">in</span> href[<span class="dv">0</span>]]</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> link <span class="kw">in</span> data_links:</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(link)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1996.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1997.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1998.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_1999.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2000.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2001.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2002.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2003.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2004.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2005.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2006.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2007.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2008.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2009.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2010.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2011.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2012.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2013.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2014.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/boys_2015.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1996.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1997.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1998.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_1999.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2000.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2001.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2002.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2003.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2004.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2005.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2006.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2007.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2008.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2009.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2010.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2011.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2012.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2013.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2014.csv
+http://tutorials.iq.harvard.edu/example_data/baby_names/EW/girls_2015.csv</code></pre>
+</section>
+</section>
+<section id="creating-reports" class="level2">
+<h2 class="anchored" data-anchor-id="creating-reports">Creating reports</h2>
+<p>Once you’ve analyzed your data you’ll most likely want to communicate your results. For short informal projects this might take the form of a blog post or an email to your colleagues. For larger more formal projects you’ll likely want to prepare a substantial report or manuscript for disseminating your findings via a journal publication or other means. Other common means of reporting research findings include posters or slides for a conference talk.</p>
+<p>Regardless of the type of report, you may choose to use either a <em>markup language</em> or a WYSIWYG application like Microsoft Word/Powerpoint of a desktop publishing application such as Adobe InDesign.</p>
+<section id="markup-languages" class="level3">
+<h3 class="anchored" data-anchor-id="markup-languages">Markup languages</h3>
+<p>A markup language is a system for producing a formatted document from a text file using information by the markup. A major advantage of markup languages is that the formatting instructions can be easily generated by the program you use for analyzing your data.</p>
+<p>Markup languages include <em>HTML</em>, <em>LaTeX</em>, <em>Markdown</em> and many others. <em>LaTeX</em> and <em>Markdown</em> are currently popular among data scientists, although others are used as well.</p>
+<p><em>Markdown</em> is easy to write and designed to be human-readable. It is newer and somewhat less feature-full compared to LaTeX. It’s main advantage is simplicity. <em>LaTeX</em> is more verbose but provides for just about any feature you’ll ever need.</p>
+<p>MARKDOWN DEMO LATEX DEMO</p>
+</section>
+<section id="word-processors" class="level3">
+<h3 class="anchored" data-anchor-id="word-processors">Word processors</h3>
+<p>Modern word processors are largely just graphical user interfaces that write a markup language (usually XML) for you. They are commonly used for creating reports, but care must be taken when doing so.</p>
+<p>If you use a word processor to produce your reports you should</p>
+<ul>
+<li>use the structured outline feature,</li>
+<li>link rather than embed external resources (figures, tables, etc.),</li>
+<li>use cross-referencing features, and</li>
+<li>use a bibliography management system.</li>
+</ul>
+<p>WORD PROCESSOR DEMO</p>
+</section>
+</section>
+<section id="text-editors-integrated-development-environments" class="level2">
+<h2 class="anchored" data-anchor-id="text-editors-integrated-development-environments">Text editors &amp; Integrated Development Environments</h2>
+<p>A text editor edits text obviously. But that is not all! At a minimum, a text editor will also have a mechanism for reading and writing text files. Most text editors do much more than this.</p>
+<p>An IDE provides tools for working with code, such as syntax highlighting, code completion, jump-to-definition, execute/compile, package management, refactoring, etc. Of course an IDE includes a text editor.</p>
+<p>Editors and IDE’s are not really separate categories; as you add features to a text editor it becomes more like an IDE, and a simple IDE may provide little more than a text editor. For example, Emacs is commonly referred to as a text editor, but it provides nearly every feature you would expect an IDE to have.</p>
+<p>A more useful distinction is between language-specific editors/IDEs and general purpose editors/IDEs. The former are typically easier to set up since they come pre-configured for use with a specific language. General purpose editors/IDEs typically provide language support via <em>plugins</em> and may require extensive configuration for each language.</p>
+<section id="language-specific-editors-ides" class="level3">
+<h3 class="anchored" data-anchor-id="language-specific-editors-ides">Language specific editors &amp; IDEs</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Editor</th>
+<th style="text-align: left;">Features</th>
+<th style="text-align: left;">Ease of use</th>
+<th style="text-align: left;">Language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">RStudio</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">R</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spyder</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">Python</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Stata do file editor</td>
+<td style="text-align: left;">OK</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">Stata</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SPSS syntax editor</td>
+<td style="text-align: left;">OK</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">SPSS</td>
+</tr>
+</tbody>
+</table>
+<p>LANGUAGE SPECIFIC IDE DEMO</p>
+</section>
+<section id="general-purpose-editors-ides" class="level3">
+<h3 class="anchored" data-anchor-id="general-purpose-editors-ides">General purpose editors &amp; IDEs</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Editor</th>
+<th style="text-align: left;">Features</th>
+<th style="text-align: left;">Ease of use</th>
+<th style="text-align: left;">Language support</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Vim</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Hard</td>
+<td style="text-align: left;">Good</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Emacs</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Hard</td>
+<td style="text-align: left;">Excellent</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VS code</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">Very good</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Atom</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">Good</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Eclipse</td>
+<td style="text-align: left;">Excellent</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">Good</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sublime Text</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">Good</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Notepad++</td>
+<td style="text-align: left;">OK</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">OK</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Textmate</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">Good</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kate</td>
+<td style="text-align: left;">OK</td>
+<td style="text-align: left;">Easy</td>
+<td style="text-align: left;">Good</td>
+</tr>
+</tbody>
+</table>
+<p>GENERAL PURPOSE EDITOR DEMO</p>
+</section>
+</section>
+<section id="literate-programming-notebooks" class="level2">
+<h2 class="anchored" data-anchor-id="literate-programming-notebooks">Literate programming &amp; notebooks</h2>
+<p>In one of the Early demos we say an example of embedding R code in a markdown document. A closely related approach is to create a <em>notebook</em> that includes the prose of the report, the code used for the analysis, and the results produced by that code.</p>
+<section id="literate-programming" class="level3">
+<h3 class="anchored" data-anchor-id="literate-programming">Literate programming</h3>
+<p>Literate programming is the practice of embedding computer code in a natural language document. For example, using <em>RMarkdown</em> we can embed R code in a report authored using Markdown. Python and Stata have their own versions of literate programming using Markdown.</p>
+</section>
+<section id="notebooks" class="level3">
+<h3 class="anchored" data-anchor-id="notebooks">Notebooks</h3>
+<p>Notebooks go one step farther, and include the output produced by the original program directly in the notebook. Examples include <em>Jupyter</em>, <em>Appache Zeppelin</em>, and <em>Emacs Org Mode</em>.</p>
+<p>NOTEBOOKS DEMO</p>
+</section>
+</section>
+<section id="big-data-annoying-data-computationally-intensive-methods" class="level2">
+<h2 class="anchored" data-anchor-id="big-data-annoying-data-computationally-intensive-methods">Big data, annoying data, &amp; computationally intensive methods</h2>
+<p>Thus far we’ve discussed popular programming languages, data storage and retrieval options, text editors, and reporting technology. These are the basic building blocks I recommend using just about any time you find yourself working with data. There are times however when more is needed. For example, you may wish to use distributed computing for large or resource intensive computations.</p>
+<section id="computing-clusters-at-harvard" class="level3">
+<h3 class="anchored" data-anchor-id="computing-clusters-at-harvard">Computing clusters at Harvard</h3>
+<p>Harvard provides a number of computing clusters, including Odyssey and the Research Computing Environment. Using these systems will be much easier if you know the basic tools well. After all, you’re still going to need data storage/retrieval, you’ll still need a text editor write code, and a programming language to write it in. My advice is to master these basics, and learn the rest as you need it.</p>
+</section>
+</section>
+<section id="wrap-up" class="level2">
+<h2 class="anchored" data-anchor-id="wrap-up">Wrap up</h2>
+<section id="feedback" class="level3">
+<h3 class="anchored" data-anchor-id="feedback">Feedback</h3>
+<p>These workshops are a work-in-progress, please provide any feedback to: help@iq.harvard.edu</p>
+</section>
+<section id="resources" class="level3">
+<h3 class="anchored" data-anchor-id="resources">Resources</h3>
+<ul>
+<li>IQSS
+<ul>
+<li>Training materials: <a href="https://iqss.github.io/dss-training/" class="uri">https://iqss.github.io/dss-training/</a></li>
+<li>Data Science Services: <a href="https://www.iq.harvard.edu/data-science-services" class="uri">https://www.iq.harvard.edu/data-science-services</a></li>
+<li>Research Computing Environment: <a href="https://iqss.github.io/dss-rce/" class="uri">https://iqss.github.io/dss-rce/</a></li>
+</ul></li>
+<li>HBS
+<ul>
+<li>Research Computing Services: <a href="https://www.hbs.edu/research-computing-services/" class="uri">https://www.hbs.edu/research-computing-services/</a></li>
+<li>RCS consulting email: <a href="mailto:research@hbs.edu" class="uri">mailto:research@hbs.edu</a></li>
+</ul></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+// Light / Dark / System switch, built on Quarto's own light-dark mechanism (Quarto 1.7+ with
+// respect-user-color-scheme: true). Quarto stores an explicit choice in localStorage["quarto-color-scheme"]
+// ("default" = light, "alternate" = dark) and, when nothing is stored, follows prefers-color-scheme and
+// tracks OS changes live. "System" here therefore means: remove the stored choice and apply the OS preference.
+(function () {
+  const KEY = "quarto-color-scheme";
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const stored = () => { try { return window.localStorage.getItem(KEY); } catch { return null; } };
+  const mode = () => { const s = stored(); return s === "alternate" ? "dark" : s === "default" ? "light" : "system"; };
+  const isDark = () => document.body.classList.contains("quarto-dark");
+  const apply = (dark) => {
+    if (isDark() === dark) return;
+    if (typeof window.quartoToggleColorScheme === "function") { window.quartoToggleColorScheme(); }
+  };
+  const choose = (m) => {
+    const dark = m === "dark" ? true : m === "light" ? false : mq.matches;
+    apply(dark);
+    try {
+      if (m === "system") { window.localStorage.removeItem(KEY); }
+      else { window.localStorage.setItem(KEY, dark ? "alternate" : "default"); }
+    } catch {}
+    mark();
+  };
+  const items = [["light", "Light", "bi-sun"], ["dark", "Dark", "bi-moon"], ["system", "System", "bi-circle-half"]];
+  let menu;
+  const mark = () => {
+    if (!menu) return;
+    const m = mode();
+    menu.querySelectorAll("[data-mode]").forEach((a) => {
+      const on = a.dataset.mode === m;
+      a.classList.toggle("active", on);
+      a.setAttribute("aria-current", on ? "true" : "false");
+    });
+    const icon = menu.parentElement.querySelector(".dss-switch-icon");
+    if (icon) icon.className = "bi dss-switch-icon " + items.find((i) => i[0] === m)[2];
+  };
+  const build = () => {
+    const nav = document.querySelector(".navbar .navbar-nav.ms-auto") || document.querySelector(".navbar .navbar-nav");
+    if (!nav || nav.querySelector(".dss-theme-switch")) return;
+    const li = document.createElement("li");
+    li.className = "nav-item dropdown dss-theme-switch";
+    li.innerHTML =
+      '<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Colour scheme" title="Colour scheme">' +
+      '<i class="bi dss-switch-icon bi-circle-half"></i></a>' +
+      '<ul class="dropdown-menu dropdown-menu-end">' +
+      items.map(([m, label, icon]) => '<li><a class="dropdown-item" href="#" data-mode="' + m + '"><i class="bi ' + icon + '"></i> ' + label + "</a></li>").join("") +
+      "</ul>";
+    nav.appendChild(li);
+    menu = li.querySelector(".dropdown-menu");
+    menu.addEventListener("click", (e) => {
+      const a = e.target.closest("[data-mode]");
+      if (!a) return;
+      e.preventDefault();
+      choose(a.dataset.mode);
+    });
+    mark();
+  };
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", build); } else { build(); }
+  // Quarto's listener re-applies the OS preference on change when nothing is stored; keep the tick in step.
+  mq.addEventListener("change", () => setTimeout(mark, 0));
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/iqss\.github\.io\/dss-workshops-2026\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Data Science Services · Institute for Quantitative Social Science · Harvard University</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.iq.harvard.edu/data-science-services">
+<p>Data Science Services</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.iq.harvard.edu/data-science-services/contact-us">
+<p>Request help</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.iq.harvard.edu/">
+<p>IQSS</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
