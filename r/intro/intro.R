@@ -959,6 +959,7 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 #     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>
 #     + Positron download: <https://positron.posit.co/download>
+#     + Positron download: <https://positron.posit.co/download>
 #     + RStudio download: <https://posit.co/download/rstudio-desktop/>
 #     + ESS (Emacs R package): <http://ess.r-project.org/>
 #
@@ -968,7 +969,6 @@ save(baby_names_diana, bn_by_year, baby_names_subset, file="myDataFiles.RData")
 # * Online tutorials
 #     + <https://swirlstats.com/>
 #     + <https://r4ds.had.co.nz/>
-#     + <https://hbs-rcs.github.io/R_Intro-gapminder/base-r/>
 #     + <https://www.pluralsight.com/search?q=R>
 #     + <https://www.datacamp.com/> 
 #     + <https://rmarkdown.rstudio.com/lesson-1.html>
