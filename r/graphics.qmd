@@ -11,6 +11,12 @@ execute:
 #| include: false
 options(max.print = 100)
 knitr::opts_knit$set(root.dir = "graphics")  # the materials directory: code paths as learners see them
+# Figures for a page in light or dark (2026-08-29): no device background; text, axes, and points in a grey that reads on either ground.
+knitr::opts_chunk$set(dev.args = list(bg = "transparent"))
+setHook("before.plot.new", function() par(fg = "#7b8698", col = "#7b8698", col.axis = "#7b8698", col.lab = "#7b8698", col.main = "#7b8698", col.sub = "#7b8698"))
+setHook(packageEvent("ggplot2", "attach"), function(...) ggplot2::theme_update(
+  plot.background = ggplot2::element_blank(), legend.background = ggplot2::element_blank(),
+  text = ggplot2::element_text(colour = "#7b8698"), axis.text = ggplot2::element_text(colour = "#7b8698")))
 ```
 
 **Topics**
