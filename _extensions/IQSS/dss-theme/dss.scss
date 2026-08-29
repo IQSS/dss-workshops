@@ -30,7 +30,7 @@ $dss-orange: #bf5803 !default;
 $dss-light: #f5f5f5 !default;
 $dss-muted: #5c677a !default;
 $dss-rule: #e3e6ea !default;
-$dss-callout-tint: 5% !default;   // behind a callout body: this much of its colour on the page ground (the title strip is Quarto's own tint)
+$dss-callout-tint: 10% !default;   // a callout box: this much of its colour on the page ground (the tint Quarto itself uses for a title strip)
 
 /*-- scss:rules --*/
 // Reserve the scrollbar's space always: Quarto's search overlay hides page scrolling, and without this the
@@ -75,11 +75,11 @@ footer.footer .nav-footer { padding-left: 28px; padding-right: 28px; } // Quarto
 // Callouts and code.
 .callout { border-radius: 4px; }
 .callout .callout-header, .callout .callout-title-container { font-weight: 500; }
-// Callouts (Steve, 2026-08-28, chosen from a mockup of the options): Quarto's default appearance, a tinted title
-// strip (untitled boxes get their kind as the title: Note, Important), with the body tinted at half the strip and
+// Callouts (Steve, 2026-08-29, chosen from a mockup of the options): Quarto's simple appearance (the rule down the
+// left edge, no title strip; untitled boxes stay untitled) with the whole box washed in the callout's colour and the
 // the grey outer border gone, so a box reads as a box, as the 2021 alert boxes did.
 @each $k, $c in (note: $callout-color-note, tip: $callout-color-tip, warning: $callout-color-warning, important: $callout-color-important, caution: $callout-color-caution) {
-  div.callout-#{$k}.callout-style-default { background: mix($c, $body-bg, $dss-callout-tint); border-right-color: transparent; border-top-color: transparent; border-bottom-color: transparent; }
+  div.callout-#{$k}.callout-style-simple { background: mix($c, $body-bg, $dss-callout-tint); border-right-color: transparent; border-top-color: transparent; border-bottom-color: transparent; }
 }
 pre.sourceCode, div.sourceCode { border-radius: 4px; }
 code { font-size: 0.9em; }
