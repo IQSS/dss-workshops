@@ -736,7 +736,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    https www.harvardartmuseums.org  browse  load_amount=10&amp;offset=0</code></pre>
 <p>It is often convenient to create variables containing the domain(s) and path(s) you’ll be working with, as this allows you to swap out paths and parameters as needed. Note that the path is separated from the domain with <code>/</code> and the parameters are separated from the path with <code>?</code>. If there are multiple parameters they are separated from each other with a <code>&amp;</code>.</p>
 <p>For example, we can define the domain and path of the collections URL as follows:</p>
-<div id="977cd5dd" class="cell">
+<div id="b888cf08" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>museum_domain <span class="op">=</span> <span class="st">'https://www.harvardartmuseums.org'</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>collection_path <span class="op">=</span> <span class="st">'browse'</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -748,7 +748,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Note that we omit the parameters here because it is usually easier to pass them as a <code>dict</code> when using the <code>requests</code> library in Python. This will become clearer shortly.</p>
 <p>Now that we’ve constructed the URL we wish to interact with, we’re ready to make our first request in Python.</p>
-<div id="49fcd803" class="cell">
+<div id="b3227d35" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>collections1 <span class="op">=</span> requests.get(</span>
@@ -762,11 +762,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="parsing-json-data" class="level3">
 <h3 class="anchored" data-anchor-id="parsing-json-data">Parsing JSON data</h3>
 <p>We already know from inspecting network traffic in our web browser that this URL returns JSON, but we can use Python to verify this assumption.</p>
-<div id="4a28de21" class="cell">
+<div id="ab8cb725" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>collections1.headers[<span class="st">'Content-Type'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Since JSON is a structured data format, parsing it into Python data structures is easy. In fact, there’s a method for that!</p>
-<div id="fd8d2dff" class="cell">
+<div id="2eedafc6" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>collections1 <span class="op">=</span> collections1.json()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print(collections1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -776,17 +776,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="organizing-saving-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="organizing-saving-the-data">Organizing &amp; saving the data</h3>
 <p>The records we retrieved from <a href="https://www.harvardartmuseums.org/browse" class="uri">https://www.harvardartmuseums.org/browse</a> are arranged as a list of dictionaries. We can easily select the fields of arrange these data into a pandas <code>DataFrame</code> to facilitate subsequent analysis.</p>
-<div id="a0c37a0e" class="cell">
+<div id="f0bc0e9e" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="80a17ff6" class="cell">
+<div id="f4633d98" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>records1 <span class="op">=</span> pd.DataFrame.from_records(collections1[<span class="st">'records'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="aa0c82ed" class="cell">
+<div id="1e2a33a8" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(records1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>and write the data to a file.</p>
-<div id="8f8e47c8" class="cell">
+<div id="d01ff167" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>records1.to_csv(<span class="st">"records1.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -794,22 +794,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="iterating-to-retrieve-all-the-data">Iterating to retrieve all the data</h3>
 <p>Of course we don’t want just the first page of collections. How can we retrieve all of them?</p>
 <p>Now that we know the web service works, and how to make requests in Python, we can iterate in the usual way.</p>
-<div id="4fd9a220" class="cell">
+<div id="9ffb2bb1" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> []</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">10</span>):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    param_values <span class="op">=</span> {<span class="st">'load_amount'</span>: <span class="dv">10</span>, <span class="st">'offset'</span>: offset}</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    current_request <span class="op">=</span> requests.get(collection_url, params <span class="op">=</span> param_values)</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    records.extend(current_request.json()[<span class="st">'records'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="82da0e82" class="cell">
+<div id="fb89d0cd" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">## convert list of dicts to a `DataFrame`</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>records_final <span class="op">=</span> pd.DataFrame.from_records(records)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="9aac5e2c" class="cell">
+<div id="f509b491" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write the data to a file.</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>records_final.to_csv(<span class="st">"records_final.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="f7bfa8c9" class="cell">
+<div id="0771833d" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(records_final)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -820,25 +820,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Using a web browser (Firefox or Chrome recommended) inspect the page at <a href="https://www.harvardartmuseums.org/exhibitions" class="uri">https://www.harvardartmuseums.org/exhibitions</a>. Examine the network traffic as you interact with the page. Try to find where the data displayed on that page comes from.</li>
 </ol>
-<div id="bc310a45" class="cell">
+<div id="70c66319" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Make a <code>get</code> request in Python to retrieve the data from the URL identified in step1.</li>
 </ol>
-<div id="c9d0f1d3" class="cell">
+<div id="1ec38fb0" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
 <li>Write a <em>loop</em> or <em>list comprehension</em> in Python to retrieve data for the first 5 pages of exhibitions data.</li>
 </ol>
-<div id="c945a1b3" class="cell">
+<div id="dfb9aca2" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="4" type="1">
 <li>Bonus (optional): Convert the data you retrieved into a pandas <code>DataFrame</code> and save it to a <code>.csv</code> file.</li>
 </ol>
-<div id="41112f36" class="cell">
+<div id="f4396747" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-simple callout-tip callout-titled" title="Exercise 0 solution">
@@ -854,14 +854,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Question #1:</p>
-<div id="52f16fa2" class="cell">
+<div id="05325048" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>museum_domain <span class="op">=</span> <span class="st">"https://www.harvardartmuseums.org"</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>exhibit_path <span class="op">=</span> <span class="st">"search/load_more"</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>exhibit_url <span class="op">=</span> museum_domain <span class="op">+</span> <span class="st">"/"</span> <span class="op">+</span> exhibit_path</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(exhibit_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Question #2:</p>
-<div id="d4c49ff1" class="cell">
+<div id="6322a912" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pprint <span class="im">import</span> pprint <span class="im">as</span> <span class="bu">print</span> </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>exhibit1 <span class="op">=</span> requests.get(exhibit_url, params <span class="op">=</span> {<span class="st">'type'</span>: <span class="st">'past-exhibition'</span>, <span class="st">'page'</span>: <span class="dv">1</span>})</span>
@@ -870,7 +870,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print(exhibit1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Questions #3+4 (loop solution):</p>
-<div id="40dd51cf" class="cell">
+<div id="bb8e4ca9" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>firstFivePages <span class="op">=</span> []</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    records_per_page <span class="op">=</span> requests.get(exhibit_url, <span class="op">\</span></span>
@@ -880,7 +880,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(firstFivePages_records)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Questions #3+4 (list comprehension solution):</p>
-<div id="cbad55e1" class="cell">
+<div id="95e84b01" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>first5Pages <span class="op">=</span> [requests.get(exhibit_url, <span class="op">\</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> {<span class="st">'type'</span>: <span class="st">'past-exhibition'</span>, <span class="st">'page'</span>: page}).json()[<span class="st">'records'</span>] <span class="cf">for</span> page <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)]</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> chain</span>
@@ -922,7 +922,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="retrieving-html">Retrieving HTML</h3>
 <p>When I inspect the network traffic while interacting with <a href="https://www.harvardartmuseums.org/calendar" class="uri">https://www.harvardartmuseums.org/calendar</a> I don’t see any requests that return JSON data. The best we can do appears to be to return HTML.</p>
 <p>To retrieve data on the events listed in the calender, the first step is the same as before: we make a <code>get</code> request.</p>
-<div id="7ca51ec1" class="cell">
+<div id="c2eeb3ef" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>calendar_path <span class="op">=</span> <span class="st">'calendar'</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>calendar_url <span class="op">=</span> (museum_domain <span class="co"># recall that we defined museum_domain earlier</span></span>
@@ -934,7 +934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>events <span class="op">=</span> requests.get(calendar_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As before, we can check the headers to see what type of content we received in response to our request.</p>
-<div id="c1802f3f" class="cell">
+<div id="340d2dca" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>events.headers[<span class="st">'Content-Type'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -942,7 +942,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="parsing-html-using-the-lxml-library">Parsing HTML using the lxml library</h3>
 <p>Like JSON, HTML is structured; unlike JSON, it is designed to be rendered into a human-readable page rather than simply to store and exchange data in a computer-readable format. Consequently, parsing HTML and extracting information from it is somewhat more difficult than parsing JSON.</p>
 <p>While JSON parsing is built into the Python <code>requests</code> library, parsing HTML requires a separate library. I recommend using the HTML parser from the <code>lxml</code> library; others prefer an alternative called <code>beautifulsoup4</code>.</p>
-<div id="9bd971bc" class="cell">
+<div id="9d039c89" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert a html text representation (`events.text`) into </span></span>
@@ -954,7 +954,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="using-xpath-to-extract-content-from-html">Using XPath to extract content from HTML</h3>
 <p><code>XPath</code> is a tool for identifying particular elements within a HTML document. The developer tools built into modern web browsers make it easy to generate <code>XPath</code>s that can be used to identify the elements of a web page that we wish to extract.</p>
 <p>We can open the HTML document we retrieved and inspect it using our web browser.</p>
-<div id="10b32043" class="cell" data-results="hide">
+<div id="8d4f4715" class="cell" data-results="hide">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>html.open_in_browser(events_html, encoding <span class="op">=</span> <span class="st">'UTF-8'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="images/webscrape/dev_tools_right_click.png" class="img-fluid"></p>
@@ -962,22 +962,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Once we identify the element containing the information of interest we can use our web browser to copy the <code>XPath</code> that uniquely identifies that element.</p>
 <p><img src="images/webscrape/dev_tools_xpath.png" class="img-fluid"></p>
 <p>Next we can use Python to extract the element of interest:</p>
-<div id="272dece6" class="cell">
+<div id="de85e710" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>events_list_html <span class="op">=</span> events_html.xpath(<span class="st">'//*[@id="events_list"]/article'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s just extract the second element in our events list.</p>
-<div id="fbae0a01" class="cell">
+<div id="625dd796" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>second_event_html <span class="op">=</span> events_list_html[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Once again, we can use a web browser to inspect the HTML we’re currently working with - from the second event - and to figure out what we want to extract from it.</p>
-<div id="9b5746ed" class="cell" data-results="hide">
+<div id="8f5c8d17" class="cell" data-results="hide">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>html.open_in_browser(second_event_html, encoding <span class="op">=</span> <span class="st">'UTF-8'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As before, we can use our browser to find the xpath of the elements we want.</p>
 <p><img src="images/webscrape/dev_tools_figcaption.png" class="img-fluid"></p>
 <p>(Note that the <code>html.open_in_browser</code> function adds enclosing <code>html</code> and <code>body</code> tags in order to create a complete web page for viewing. This requires that we adjust the <code>xpath</code> accordingly.)</p>
 <p>By repeating this process for each element we want, we can build a list of the xpaths to those elements.</p>
-<div id="4a53b7fa" class="cell">
+<div id="6fee1ed9" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>elements_we_want <span class="op">=</span> {<span class="st">'figcaption'</span>: <span class="st">'div/figure/div/figcaption'</span>,</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'date'</span>: <span class="st">'div/div/header/time'</span>,</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'title'</span>: <span class="st">'div/div/header/h2/a'</span>,</span>
@@ -986,7 +986,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Finally, we can iterate over the elements we want and extract them.</p>
-<div id="82fb8cbe" class="cell">
+<div id="56939337" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>second_event_values <span class="op">=</span> {}</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    element <span class="op">=</span> second_event_html.xpath(elements_we_want[key])[<span class="dv">0</span>]</span>
@@ -1000,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>So far we’ve retrieved information only for the second event. To retrieve data for all the events listed on the page we need to iterate over the events. If we are very lucky, each event will have exactly the same information structured in exactly the same way and we can simply extend the code we wrote above to iterate over the events list.</p>
 <p>Unfortunately, not all these elements are available for every event, so we need to take care to handle the case where one or more of these elements is not available. We can do that by <strong>defining a function</strong> that tries to retrieve a value and returns an empty string if it fails.</p>
 <p>If you’re not familiar with Python functions, here’s the basic syntax:</p>
-<div id="c9e4fa5d" class="cell">
+<div id="534c09cf" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anatomy of a function</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> name_of_function(arg1, arg2, ...argn):  <span class="co"># define the function name and arguments</span></span>
@@ -1008,7 +1008,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">&lt;</span>result<span class="op">&gt;</span>      <span class="co"># output result of calculations</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here’s an example of a simple function:</p>
-<div id="fe852c5a" class="cell">
+<div id="1ad3d9ae" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square_fun(x):</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> x<span class="op">**</span><span class="dv">2</span> <span class="co"># exponentiation</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
@@ -1016,7 +1016,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>square_fun(<span class="dv">4</span>)    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here’s a function to perform our actual task:</p>
-<div id="7b420ad8" class="cell">
+<div id="d6bb8166" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_event_info(event, path):</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        info <span class="op">=</span> event.xpath(path)[<span class="dv">0</span>].text_content().strip()</span>
@@ -1025,7 +1025,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> info</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Armed with this function, we can iterate over the list of events and extract the available information for each one.</p>
-<div id="535cd599" class="cell">
+<div id="7ebdbcc5" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>all_event_values <span class="op">=</span> {}</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> elements_we_want.keys():</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    key_values <span class="op">=</span> []</span>
@@ -1034,7 +1034,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    all_event_values[key] <span class="op">=</span> key_values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For convenience we can arrange these values in a pandas <code>DataFrame</code> and save them as .csv files, just as we did with our exhibitions data earlier.</p>
-<div id="7b643011" class="cell">
+<div id="2405b8ec" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>all_event_values <span class="op">=</span> pd.DataFrame.from_dict(all_event_values)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>all_event_values.to_csv(<span class="st">"all_event_values.csv"</span>)</span>
@@ -1050,19 +1050,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Using a web browser (Firefox or Chrome recommended) inspect the page at <a href="https://www.harvardartmuseums.org/visit/floor-plan" class="uri">https://www.harvardartmuseums.org/visit/floor-plan</a>. Copy the <code>XPath</code> to the element containing the list of level information. (HINT: the element if interest is a <code>ul</code>, i.e., <code>unordered list</code>.)</p></li>
 <li><p>Make a <code>get</code> request in Python to retrieve the web page at <a href="https://www.harvardartmuseums.org/visit/floor-plan" class="uri">https://www.harvardartmuseums.org/visit/floor-plan</a>. Extract the content from your request object and parse it using <code>html.fromstring</code> from the <code>lxml</code> library.</p></li>
 </ol>
-<div id="6e3905ff" class="cell">
+<div id="c99f5e74" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
 <li>Use your web browser to find the <code>XPath</code>s to the facilities housed on level one. Use Python to extract the text from those <code>Xpath</code>s.</li>
 </ol>
-<div id="7ef0e921" class="cell">
+<div id="dba6df00" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="4" type="1">
 <li>Bonus (optional): Write a <em>for loop</em> or <em>list comprehension</em> in Python to retrieve data for all the levels.</li>
 </ol>
-<div id="302c47c3" class="cell">
+<div id="70d60d40" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-simple callout-tip callout-titled" title="Exercise 1 solution">
@@ -1078,30 +1078,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Question #2:</p>
-<div id="18076fd2" class="cell">
+<div id="c6214297" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lxml <span class="im">import</span> html</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>floor_plan <span class="op">=</span> requests.get(<span class="st">'https://www.harvardartmuseums.org/visit/floor-plan'</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>floor_plan_html <span class="op">=</span> html.fromstring(floor_plan.text)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Question #3:</p>
-<div id="94a6ffe0" class="cell">
+<div id="6e59155a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>level_one <span class="op">=</span> floor_plan_html.xpath(<span class="st">'/html/body/main/section/ul/li[5]/div[2]/ul'</span>)[<span class="dv">0</span>]</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(level_one))</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="52e702ee" class="cell">
+<div id="a11a2d58" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>level_one_facilities <span class="op">=</span> floor_plan_html.xpath(<span class="st">'/html/body/main/section/ul/li[5]/div[2]/ul/li'</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(level_one_facilities))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="65e020c5" class="cell">
+<div id="f3042bc7" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([facility.text_content() <span class="cf">for</span> facility <span class="kw">in</span> level_one_facilities])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Question #4:</p>
-<div id="1c057d40" class="cell">
+<div id="8ebe7a18" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>all_levels <span class="op">=</span> floor_plan_html.xpath(<span class="st">'/html/body/main/section/ul/li'</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(all_levels))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a3343fe7" class="cell">
+<div id="b68117b0" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>all_levels_facilities <span class="op">=</span> []</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> level <span class="kw">in</span> all_levels:</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    level_facilities <span class="op">=</span> []</span>
