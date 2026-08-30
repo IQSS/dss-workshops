@@ -16,7 +16,4 @@ Rscript scripts/derive.R r/intro.qmd  # regenerate a workshop's download files a
 R chapters execute through `renv` (`renv::restore()` once, after cloning).
 `_freeze/` holds the render cache, so a plain `quarto render` needs no
 language runtime until a chapter's code changes. On this machine `_site` is
-a symlink outside Dropbox (see `AGENTS.md`).
-
-Layout and working rules: `AGENTS.md`. Where things stand: `STATUS.md`.
-Open work: `TASKS.md`.
+a symlink outside Dropbox.
