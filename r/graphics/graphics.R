@@ -151,7 +151,7 @@ library(ggrepel)
 # | `geom_smooth()`  | Conditional means |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
 # | `geom_label()`   | Text              |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
 #
-# You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>. Or, simply type `geom_<tab>` in any good R IDE (such as Rstudio) to see a list of functions starting with `geom_`.
+# You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>. Or, simply type `geom_<tab>` in any good R IDE (such as Positron) to see a list of functions starting with `geom_`.
 #
 # #### Points (scatterplot)
 #
@@ -602,7 +602,7 @@ p3 +
 # |                   | `date`       | `scale_x_date()`            |
 # |                   | `datetime`   | `scale_y_datetime()`        |
 #
-# Note that in RStudio you can type `scale_` followed by `tab` to get the whole list of available scales. For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>.
+# Note that in Positron you can type `scale_` followed by `tab` to get the whole list of available scales. For a complete list of available scales see <https://ggplot2.tidyverse.org/reference/>.
 #
 # ### Exercise 2
 #

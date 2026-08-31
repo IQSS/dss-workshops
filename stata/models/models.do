@@ -321,7 +321,7 @@ use dataSets/states.dta
 
 gen sat_binary = .
 replace sat_binary = 0 if csat < 1000
-replace sat_binary = 1 if csat >= 1000
+replace sat_binary = 1 if csat >= 1000 & csat < .
 
 *
 * ### Run summary statistics 

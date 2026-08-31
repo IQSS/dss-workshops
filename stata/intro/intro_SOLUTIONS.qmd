@@ -80,7 +80,7 @@ summarize income if marital == 1
 
 ```{stata}
 gen overwork = .
-replace overwork = 1 if workperweek > 40
+replace overwork = 1 if workperweek >  40 & workperweek < .
 replace overwork = 0 if workperweek <= 40
 tab overwork
 ```
@@ -112,9 +112,9 @@ label values overwork overworklabel
 
 ```{stata}
 gen work_family = .
-replace work_family = 2 if B3A > B3B
-replace work_family = 1 if B3A < B3B
-replace work_family = 0 if B3A == B3B
+replace work_family = 2 if B3A >  B3B & B3A < . & B3B < .
+replace work_family = 1 if B3A <  B3B & B3A < . & B3B < .
+replace work_family = 0 if B3A == B3B & B3A < .
 ```
 
 8. Save the changes to `newtalent.dta`:

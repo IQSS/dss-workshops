@@ -45,8 +45,6 @@
 #
 # Specifically, we'll process the data in `1980_census.txt` by writing **fortran** code in the **vi** text editor and running it through the **fortran** compiler. Then we'll take the results and put them in to a **TeX** file, again using the **vi** editor to create the report. For "glue" we will use a terminal emulator running the bash shell. All of these tools were available in 1980, though some features have been added since that time.
 #
-# OLD SCHOOL DEMO:
-#
 # | example    | data storage    | editor | program | report tool | glue                      |
 # |:---------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
 # | old school | ASCII text file | vi     | fortran | TeX         | Bourne (compatible) shell |
@@ -54,8 +52,6 @@
 # ### Something old & something new
 #
 # Next we're going to do the same basic process, this time using a modern text editor (**Atom**), a different programming language (**Python**), and a modern report generation system (**LaTeX** processed via **XeLaTeX**). For the glue we're still going to use a shell.
-#
-# OLD AND NEW DEMO:
 #
 # | example     | data storage    | editor | program | report tool | glue                      |
 # |:----------- |:--------------- |:------ |:------- |:----------- |:------------------------- |
@@ -65,8 +61,6 @@
 # ### A modern version
 #
 # Finally, we'll produce the same report using modern tools. Remember, the process is basically the same: we're just using different tools.
-#
-# MODERN DEMO:
 #
 # | example     | data storage    | editor  | program | report tool | glue                      |
 # |:----------- |:--------------- |:------- |:------- |:----------- |:------------------------- |
@@ -139,8 +133,6 @@
 #
 # *Markdown* is easy to write and designed to be human-readable. It is newer and somewhat less feature-full compared to LaTeX. It's main advantage is simplicity. *LaTeX* is more verbose but provides for just about any feature you'll ever need.
 #
-# MARKDOWN DEMO LATEX DEMO
-#
 # ### Word processors
 #
 # Modern word processors are largely just graphical user interfaces that write a markup language (usually XML) for you. They are commonly used for creating reports, but care must be taken when doing so.
@@ -151,8 +143,6 @@
 # * link rather than embed external resources (figures, tables, etc.),
 # * use cross-referencing features, and
 # * use a bibliography management system.
-#
-# WORD PROCESSOR DEMO
 #
 # ## Text editors & Integrated Development Environments
 #
@@ -174,8 +164,6 @@
 # | Stata do file editor | OK        | Easy        | Stata    |
 # | SPSS syntax editor   | OK        | Easy        | SPSS     |
 #
-# LANGUAGE SPECIFIC IDE DEMO
-#
 # ### General purpose editors & IDEs
 #
 # | Editor       | Features  | Ease of use | Language support |
@@ -189,8 +177,6 @@
 # | Textmate     | Good      | Moderate    | Good             |
 # | Kate         | OK        | Easy        | Good             |
 #
-# GENERAL PURPOSE EDITOR DEMO
-#
 # ## Literate programming & notebooks
 #
 # In one of the Early demos we say an example of embedding R code in a markdown document. A closely related approach is to create a *notebook* that includes the prose of the report, the code used for the analysis, and the results produced by that code.
@@ -202,8 +188,6 @@
 # ### Notebooks
 #
 # Notebooks go one step farther, and include the output produced by the original program directly in the notebook. Examples include *Jupyter*, *Appache Zeppelin*, and *Emacs Org Mode*.
-#
-# NOTEBOOKS DEMO
 #
 # ## Big data, annoying data, & computationally intensive methods
 #

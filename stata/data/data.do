@@ -95,10 +95,12 @@ gen hapnew = .
 //set to 0 if happy equals 1
 replace hapnew=0 if happy==1 
 
-//set to 1 if happy both and hapmar are greater than 3
-replace hapnew=1 if happy>3 & hapmar>3
+//set to 1 if both happy and hapmar are greater than 3.
+//The `< .` guards matter: missing is larger than any number in Stata,
+//so without them missing values would count as "greater than 3".
+replace hapnew=1 if happy>3 & hapmar>3 & happy<. & hapmar<.
 
-// tabulate the new 
+// tabulate the new variable
 tab hapnew
 
 *
@@ -185,7 +187,7 @@ describe income
 label list income
 recode income (99=.) (98=.)
 gen highincome =0 if income != .
-replace highincome=1 if income>19
+replace highincome=1 if income>19 & income < .
 sum highincome
 
 *

@@ -456,11 +456,15 @@ label values sex mySexLabel
 // generate a column of missings
 gen age_wealth = .
 
-// Next, start adding your qualifications
-replace age_wealth=1 if age < 30 & inc < 10
-replace age_wealth=2 if age < 30 & inc > 10
-replace age_wealth=3 if age > 30 & inc < 10
-replace age_wealth=4 if age > 30 & inc > 10
+// Next, start adding your qualifications.
+// Note the `< .` guards: Stata treats missing as larger than any number,
+// so `age > 30` on its own would also be true for anyone whose age is
+// missing. Note too that the cut-points use `<` and `>=` so that someone
+// aged exactly 30, or with an income of exactly 10, still gets a category.
+replace age_wealth=1 if age <  30 & inc <  10 & age < . & inc < .
+replace age_wealth=2 if age <  30 & inc >= 10 & age < . & inc < .
+replace age_wealth=3 if age >= 30 & inc <  10 & age < . & inc < .
+replace age_wealth=4 if age >= 30 & inc >= 10 & age < . & inc < .
 
 *
 * ### Exercise 2
@@ -536,7 +540,7 @@ summarize income if marital == 1
 *
 
 gen overwork = .
-replace overwork = 1 if workperweek > 40
+replace overwork = 1 if workperweek >  40 & workperweek < .
 replace overwork = 0 if workperweek <= 40
 tab overwork
 
@@ -568,9 +572,9 @@ label values overwork overworklabel
 *
 
 gen work_family = .
-replace work_family = 2 if B3A > B3B
-replace work_family = 1 if B3A < B3B
-replace work_family = 0 if B3A == B3B
+replace work_family = 2 if B3A >  B3B & B3A < . & B3B < .
+replace work_family = 1 if B3A <  B3B & B3A < . & B3B < .
+replace work_family = 0 if B3A == B3B & B3A < .
 
 *
 * 8. Save the changes to `newtalent.dta`:
