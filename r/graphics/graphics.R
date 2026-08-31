@@ -41,11 +41,10 @@
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load these packages into the search path of our R session.
+# You should have already installed the `tidyverse` suite of packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
 #
 
 library(tidyverse)
-library(rmarkdown)
 
 #
 # The `ggplot2` package is contained within `tidyverse`, but we also want to install two additional packages, `scales` and `ggrepel`, which provide additional functionality.
@@ -75,17 +74,17 @@ library(ggrepel)
 # * consistent underlying `grammar of graphics` (Wilkinson, 2005)
 # * very flexible --- plot specification at a high level of abstraction
 # * theme system for polishing plot appearance
-# * many users, active mailing list
+# * many users, and an active community on Posit Community and Stack Overflow
 #
 # That said, there are some things you cannot do with `ggplot2`:
 #
 # * 3-dimensional graphics (see `rayshader` or the `rgl` package)
 # * Graph-theory type graphs (see `ggraph` or the `igraph` package)
-# * Interactive graphics (see the `ggvis` package)
+# * Interactive graphics (see the `plotly` or `ggiraph` packages)
 #
 # ### `ggplot2` ecosystem
 #
-# The `ggplot2` package has spawned a whole ecosystem of packages that extend the functionality of the base package. There are currently 80+ packages that offer many different options, including animated graphs (`gganimate`), interactive graphs (`ggvis`), network graphs (`ggraph`), 3D graphs (`rayshader`), adding results from statistical tests (`ggstatsplot`), and additional themes (`ggthemes`). A gallery of some of the available extensions can be found here: <https://exts.ggplot2.tidyverse.org/gallery/>.
+# The `ggplot2` package has spawned a whole ecosystem of packages that extend the functionality of the base package. There are currently 80+ packages that offer many different options, including animated graphs (`gganimate`), interactive graphs (`plotly`, `ggiraph`), network graphs (`ggraph`), 3D graphs (`rayshader`), adding results from statistical tests (`ggstatsplot`), and additional themes (`ggthemes`). A gallery of some of the available extensions can be found here: <https://exts.ggplot2.tidyverse.org/gallery/>.
 #
 # ### What is the Grammar Of Graphics?
 #
@@ -282,7 +281,7 @@ p1 +
 dat <- read_csv("dataSets/EconomistData.csv")
 
 #
-# Original sources for these data are <http://www.transparency.org/content/download/64476/1031428> and <https://hdr.undp.org/data-center>
+# Original sources for these data are Transparency International's Corruption Perceptions Index (<https://www.transparency.org/en/cpi>) and the UNDP Human Development Report (<https://hdr.undp.org/data-center>)
 #
 # These data consist of *Human Development Index* and *Corruption Perception Index* scores for several countries.
 #
@@ -387,7 +386,7 @@ p2 + geom_histogram()
 #
 
 # change bin boundaries for histogram
-p2 + geom_histogram(breaks = seq(0, 875000, by = 250))
+p2 + geom_histogram(breaks = seq(0, 875000, by = 25000))
 
 #
 # For reference, here is a list of geometric objects and their default statistics <https://ggplot2.tidyverse.org/reference/>.
@@ -416,7 +415,7 @@ head(housing_sum)
 ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
   geom_bar()
 
-## Error: stat_count() must not be used with a y aesthetic.  
+## Error in `geom_bar()`: `stat_count()` can only have an `x` or `y` aesthetic.  
 
 #
 # What is the problem with the previous plot? Basically, we take binned and summarized data and ask `ggplot()` to bin and summarize it again (`geom_bar()` defaults to `stat = stat_count`). Obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function. The `identity` function returns the same output as the input.
@@ -597,8 +596,8 @@ p3 +
 # |                   |              |                             |
 # | `scale_x_`        | `continuous` | `scale_x_continuous()`      |
 # | `scale_y_`        | `discrete`   | `scale_y_discrete()`        |
-# |                   | `reverse`    | `scale_x_log()`             |
-# |                   | `log`        | `scale_y_reverse()`         |
+# |                   | `reverse`    | `scale_x_log10()`           |
+# |                   | `log10`      | `scale_y_reverse()`         |
 # |                   | `date`       | `scale_x_date()`            |
 # |                   | `datetime`   | `scale_y_datetime()`        |
 #

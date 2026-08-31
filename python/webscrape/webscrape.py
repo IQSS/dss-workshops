@@ -497,7 +497,7 @@ square_fun(4)
 def get_event_info(event, path):
     try:
         info = event.xpath(path)[0].text_content().strip()
-    except:
+    except IndexError:   # this event does not have that element
         info = ''
     return info
 

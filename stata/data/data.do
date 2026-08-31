@@ -67,7 +67,7 @@ use dataSets/gss.dta
 * **GOAL: You'll learn how to generate new variables or recode existing variables.** In particular, we will learn to use: 
 *
 * 1. `generate` (`gen`) to create new variables
-* 2. `egenerate` (`egen`) to create new variables using more complicated calculations than `gen` allows
+* 2. `egen` (the "extensions" to `generate`) to create new variables using more complicated calculations than `gen` allows
 * 3. `replace` to replace existing variables
 * 4. `recode` to change existing categorical variables
 *
@@ -84,7 +84,7 @@ use dataSets/gss.dta
 * | <        | less than                |
 * | <=       | less than or equal to    |
 * | &        | and                      |
-* | |        | or                       |
+* | \|       | or                       |
 *
 * For example:
 *
@@ -146,9 +146,10 @@ tab compuser
 egen countmiss = rowmiss(age-wifeft)
 codebook countmiss
 
-// compare values on multiple variables
-egen ftdiff = diff(wkftwife wkfthusb)
-codebook ftdiff
+// the largest value across several variables, and their row mean
+egen ftmax = rowmax(wkftwife wkfthusb)
+egen ftmean = rowmean(wkftwife wkfthusb)
+codebook ftmax ftmean
 
 *
 * You will need to refer to the documentation to discover what else `egen` can do: type `help egen` in Stata to get a complete list of available functions.
@@ -457,7 +458,7 @@ clear
 *
 * Before you `collapse`:
 *
-* * Save your current dataset and then save it again under a new name (this will prevent `collapse` from writing over your original data
+* * Save your current dataset and then save it again under a new name (this will prevent `collapse` from writing over your original data)
 * * Consider issues of missing data. Do you want Stata to use all possible observations? If not, the `cw` (casewise) option will make casewise deletions
 *
 

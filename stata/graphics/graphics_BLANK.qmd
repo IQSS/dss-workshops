@@ -152,7 +152,7 @@ This is an intermediate-level Stata graphics workshop
     + `xlabel("insert x axis label")`
     + `ylabel("insert y axis label")`
 * Tell Stata how to scale each axis
-    + `xlabel("start\#(increment)end\#")`
+    + `xlabel(#(#)#)` --- start, increment, end
     + `xlabel(0(5)100)` This would label x-axis from 0-100 in increments of 5
 
 **Axis labels example**
@@ -418,10 +418,11 @@ This is an intermediate-level Stata graphics workshop
 
 :::
 
-* From Stata, right click on image and select "save as" or try syntax:
-    + `graph export myfig.esp, replace`
-* In Microsoft Word: insert -> picture -> from file
-    + Or, right click on graph in Stata and copy and paste into MS Word
+* From Stata, right click on the image and select "Save as...", or use the `graph export` command, which takes the format from the file extension:
+    + `graph export myfig.pdf, replace` --- vector, best for print and for LaTeX
+    + `graph export myfig.png, width(2000) replace` --- raster, best for the web and for slides; set `width()` explicitly or you get a small image
+    + `graph export myfig.svg, replace` --- vector, for the web
+* To place a graph in a document, insert the exported file rather than pasting the image, so that re-exporting the graph updates the document.
 
 ## Wrap-up
 

@@ -84,7 +84,7 @@ Now we can read in the `gss.dta` dataset:
 **GOAL: You'll learn how to generate new variables or recode existing variables.** In particular, we will learn to use: 
 
 1. `generate` (`gen`) to create new variables
-2. `egenerate` (`egen`) to create new variables using more complicated calculations than `gen` allows
+2. `egen` (the "extensions" to `generate`) to create new variables using more complicated calculations than `gen` allows
 3. `replace` to replace existing variables
 4. `recode` to change existing categorical variables
 
@@ -103,7 +103,7 @@ The `generate` command creates a new variables. Often, this is used in combinati
 | <        | less than                |
 | <=       | less than or equal to    |
 | &        | and                      |
-| |        | or                       |
+| \|       | or                       |
 
 For example:
 
@@ -157,7 +157,7 @@ Here are some additional examples of `egen` in action:
 ```{stata}
 // assess how much missing data each participant has:
 
-// compare values on multiple variables
+// the largest value across several variables, and their row mean
 
 ```
 
@@ -398,7 +398,7 @@ Stata allows you to specify merges like `merge m:m id` using `newdata.dta`, but 
 
 Before you `collapse`:
 
-* Save your current dataset and then save it again under a new name (this will prevent `collapse` from writing over your original data
+* Save your current dataset and then save it again under a new name (this will prevent `collapse` from writing over your original data)
 * Consider issues of missing data. Do you want Stata to use all possible observations? If not, the `cw` (casewise) option will make casewise deletions
 
 ```{stata}

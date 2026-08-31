@@ -52,11 +52,10 @@
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load these packages into the search path of our R session.
+# You should have already installed the `tidyverse` suite of packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
 #
 
 library(tidyverse)
-library(rmarkdown)
 
 #
 # Finally, lets install some packages that will help with modeling:
@@ -269,7 +268,7 @@ outcome ~ pred1 + pred2 + pred3
   methods(class = class(sat_mod))
 
 #
-# There are 44 methods available for the `lm` class. We've already seen the `summary()` method for `lm`, which is always a good place to start after fitting a model:
+# There are dozens of methods available for the `lm` class --- the exact number depends on which packages you have attached, since a package can add methods for a class it did not define. We've already seen the `summary()` method for `lm`, which is always a good place to start after fitting a model:
 #
 
   # summary table
@@ -301,7 +300,7 @@ outcome ~ pred1 + pred2 + pred3
   methods("summary")
 
 #
-# There are 137 `summary()` methods and counting! 
+# There are well over a hundred `summary()` methods, and the list grows with every package you attach! 
 #
 # It's always worth examining whether the class of model you've fitted has a method for a particular generic extractor function. Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 #
@@ -321,7 +320,7 @@ outcome ~ pred1 + pred2 + pred3
 # | `coef()`      | `lme4`    | empirical Bayes estimates (mixed models only)           |
 # | `allEffects()`| `effects` | predicted marginal means                                |
 # | `emmeans()`   | `emmeans` | predicted marginal means & marginal effects             |
-# | `margins()`   | `margins` | predicted marginal means & marginal effects             |
+# | `avg_predictions()`, `avg_slopes()` | `marginaleffects` | predicted marginal means & marginal effects |
 #
 # ### OLS regression assumptions
 #
@@ -361,9 +360,13 @@ states_voting_cleaned <- states %>%
 #
 
 #| eval: false
-  # pseudocode
+  # keep only rows where `var_name` is not missing
   df <- df %>%
-    filter(!na.omit(var_name))
+    filter(!is.na(var_name))
+
+  # or, equivalently, with tidyr
+  df <- df %>%
+    drop_na(var_name)
 
 #
 # Now that we have a dataset with complete cases, let's fit a more elaborate model:
@@ -567,7 +570,7 @@ states_voting_cleaned <- states %>%
 #
 # Use the `states` data set.
 #
-# 1.  Add on to the regression equation that you created in Exercise 1 by generating an interaction term and testing the interaction.
+# 1.  Add on to the regression equation that you created in Exercise 0 by generating an interaction term and testing the interaction.
 
 ## 
 
@@ -579,7 +582,7 @@ states_voting_cleaned <- states %>%
 #
 # Use the `states` data set.
 #
-# 1.  Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.
+# 1.  Add on to the regression equation that you created in Exercise 0 by generating an interaction term and testing the interaction.
 #
 
   mod_en_metro_by_waste <- lm(energy ~ 1 + metro * waste, data = states)

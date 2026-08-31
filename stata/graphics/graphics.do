@@ -87,7 +87,7 @@
 cd "~/StataGraphics/dataSets"
 
 // Step 2: call up our dataset:
-use TimePollPubSchools.dta
+use TimePollPubSchools.dta, clear
 
 *
 * ### Single continuous variable
@@ -132,7 +132,7 @@ hist F1, bin(10) percent title("TITLE") ///
 *     + `xlabel("insert x axis label")`
 *     + `ylabel("insert y axis label")`
 * * Tell Stata how to scale each axis
-*     + `xlabel("start\#(increment)end\#")`
+*     + `xlabel(#(#)#)` --- start, increment, end
 *     + `xlabel(0(5)100)` This would label x-axis from 0-100 in increments of 5
 *
 * **Axis labels example**
@@ -362,7 +362,7 @@ twoway (scatter T_PERCAP T_VIOLNT) ///
 *
 
 twoway (scatter T_PERCAP T_VIOLNT if T_VIOLNT==1976, ///
-    mlabel("CITY")) (scatter T_PERCAP T_VIOLNT), ///
+    mlabel(CITY)) (scatter T_PERCAP T_VIOLNT), ///
     title("Comparison of Per Capita Income" ///
           "and Violent Crime Rate at Tract level") ///
     xlabel(0(200)2400) note("Source: National Neighborhood" ///
@@ -378,14 +378,14 @@ twoway (scatter T_PERCAP T_VIOLNT if T_VIOLNT==1976, ///
 *
 
 webuse uslifeexp, clear
-twoway (line le_wm year, mcolor("red")) ///
-       (line le_bm year, mcolor("green"))
+twoway (line le_wmale year, lcolor("red")) ///
+       (line le_bmale year, lcolor("green"))
 
 *
 * ![](images/linegraph1.png)
 *
 
-twoway (line (le_wfemale le_wmale le_bf le_bm) year, ///
+twoway (line le_wfemale le_wmale le_bfemale le_bmale year, ///
        lpattern(dot solid dot solid))
 
 *
@@ -472,18 +472,19 @@ twoway scatter C_UNEMP C_SSLOW, by(C_SOUTH) mcolor("orange") msymbol(diamond)
 * 6.  Notice in your scatterplot that is broken down by `C_SOUTH` that there is an outlier in the upper right hand corner of the "Not South" graph. Add the city name label to this marker.
 *
 
-twoway scatter C_UNEMP C_SSLOW, by(C_SOUTH) if C_UNEMP>25 mcolor("orange") msymbol(diamond) mlabel(CITY)
-twoway (scatter C_UNEMP C_SSLOW if T_UNEMP>15 & C_SSLOW>25, mlabel(CITY) by(C_SOUTH)) (scatter C_UNEMP C_SSLOW, by(C_SOUTH))
+twoway scatter C_UNEMP C_SSLOW if C_UNEMP>25 & C_UNEMP<., by(C_SOUTH) mcolor("orange") msymbol(diamond) mlabel(CITY)
+twoway (scatter C_UNEMP C_SSLOW if C_UNEMP>15 & C_SSLOW>25 & C_UNEMP<., mlabel(CITY)) (scatter C_UNEMP C_SSLOW), by(C_SOUTH)
 
 *
 * ## Exporting graphs
 *
 * **GOAL: To learn how to export graphs in Stata.**
 *
-* * From Stata, right click on image and select "save as" or try syntax:
-*     + `graph export myfig.esp, replace`
-* * In Microsoft Word: insert -> picture -> from file
-*     + Or, right click on graph in Stata and copy and paste into MS Word
+* * From Stata, right click on the image and select "Save as...", or use the `graph export` command, which takes the format from the file extension:
+*     + `graph export myfig.pdf, replace` --- vector, best for print and for LaTeX
+*     + `graph export myfig.png, width(2000) replace` --- raster, best for the web and for slides; set `width()` explicitly or you get a small image
+*     + `graph export myfig.svg, replace` --- vector, for the web
+* * To place a graph in a document, insert the exported file rather than pasting the image, so that re-exporting the graph updates the document.
 *
 * ## Wrap-up
 *

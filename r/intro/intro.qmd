@@ -286,12 +286,11 @@ A typical workflow for using `tidyverse` packages looks like this:
 
 ![](images/tidy_workflow.png)
 
-You should have already installed the `tidyverse` and `rmarkdown` packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load these packages into the search path of our R session.
+You should have already installed the `tidyverse` suite of packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
 
 ```{r}
-# Load packages tidyverse and rmarkdown using library() function
+# Load the tidyverse using the library() function
 library(tidyverse)
-library(rmarkdown)
 ```
 
 ### Readers for common file types
@@ -301,8 +300,9 @@ To read data from a file, you have to know what kind of file it is. The table be
 | Data Type                 | Function        |
 |:--------------------------|:----------------|
 | comma separated           | `read_csv()`    |
-| tab separated             | `read_delim()`  |
-| other delimited formats   | `read_table()`  |
+| tab separated             | `read_tsv()`    |
+| other delimited formats   | `read_delim()`  |
+| whitespace separated      | `read_table()`  |
 | fixed width               | `read_fwf()`    |
 
 **Note** You may notice that there exist similar functions in one of the built-in packages in R called `utils`, e.g., `read.csv` and `read.delim`. These are legacy functions that tend to be slower and less robust than the `readr` functions. One way to tell them apart is that the faster more robust versions use underscores in their names (e.g., `read_csv`) while the older functions use dots (e.g., `read.csv`). Our advice is to use the more robust newer versions, i.e., the ones with underscores.
@@ -391,7 +391,7 @@ R has decent data manipulation tools built-in -- see e.g., `help(Extract)`. But,
 
 One way to find the year in which your name was the most popular is to filter out just the rows corresponding to your name, and then arrange (sort) by `Count`. 
 
-To demonstrate these techniques we'll try to determine whether "Alex"" or "Mark" was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to `1992` and Name is either "Alex" or "Mark".
+To demonstrate these techniques we'll try to determine whether "Alex" or "Mark" was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to `1992` and Name is either "Alex" or "Mark".
 
 ```{r}
 # Read in the baby names data if you haven't already
@@ -533,7 +533,7 @@ filter(baby_names_boys_1999, Count == max(Count))
 
 ### Pipe operator
 
-There is one very special operator in R called a **pipe** operator that looks like this: `%>%`. It allows us to "chain" several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is `ctrl + shift + M`.
+There is one very special operator in R called a **pipe** operator that looks like this: `%>%`. It allows us to "chain" several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is `Ctrl + Shift + M` (`Cmd + Shift + M` on a Mac).
 
 ![](images/magrittr.png)
 

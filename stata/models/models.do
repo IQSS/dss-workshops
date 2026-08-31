@@ -187,7 +187,7 @@ histogram resid, normal
 rvfplot, yline(0)
 
 *
-* Type `-help regress postestimation` --- for more information about model diagnostics. If assumptions are not met, alter the specification and refit the model.  
+* Type `help regress postestimation` for more information about model diagnostics. If assumptions are not met, alter the specification and refit the model.  
 *
 * ### Interactions
 *
@@ -397,16 +397,16 @@ sum age tvhours income
 * **GOAL: To learn how to store and export Stata models.** In particular:
 *
 * 1. How to store results from models
-* 2. How to compare models 
-* 2. How to export Stata model output to Excel 
+* 2. How to compare models
+* 3. How to export Stata model output
 *
 * ### Storing results
 *  
 * Stata offers several user-friendly options for storing and viewing regression output from multiple models. First, download the necessary packages:
 *
 
-// install outreg2 package
-findit outreg2
+// install the outreg2 package
+ssc install outreg2, replace
 
 *
 * Then store the results of some regression models using the `estimates` command and `store` option:
@@ -641,8 +641,8 @@ margins
 * 2. Obtain predictive margins of `sex` and `marital`.
 *
 
-margins, sex 
-margins, marital
+margins sex
+margins marital
 
 *
 * 3. Obtain predictive margins of `rincome` from 10000 to 30000, with an interval of 5000.
@@ -768,7 +768,7 @@ margins, dydx(degree)
 * 2. Obtain Predictive Margins of `degree` at Representative values of `tvhours` from 0 to 10 hours, on a 1 hour interval. Examine how the marginal effect of `degree` differs across the range of `tvhours` (i.e., obtain Marginal Effects at Representative values).
 *
 
-margins degree, at(tvhours=(0 1 2 3 4 5 6 7 8 9 10) vsquish 
+margins degree, at(tvhours=(0 1 2 3 4 5 6 7 8 9 10)) vsquish 
 margins, dydx(degree) at(tvhours=(0 1 2 3 4 5 6 7 8 9 10)) vsquish 
 
 *
