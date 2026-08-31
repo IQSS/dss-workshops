@@ -1196,11 +1196,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">// generate a column of missings</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> age_wealth = .</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Next, start adding your qualifications</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=1 <span class="kw">if</span> age &lt; 30 &amp; inc &lt; 10</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=2 <span class="kw">if</span> age &lt; 30 &amp; inc &gt; 10</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=3 <span class="kw">if</span> age &gt; 30 &amp; inc &lt; 10</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=4 <span class="kw">if</span> age &gt; 30 &amp; inc &gt; 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Next, start adding your qualifications.</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Note the `&lt; .` guards: Stata treats missing as larger than any number,</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">// so `age &gt; 30` on its own would also be true for anyone whose age is</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">// missing. Note too that the cut-points use `&lt;` and `&gt;=` so that someone</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">// aged exactly 30, or with an income of exactly 10, still gets a category.</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=1 <span class="kw">if</span> age &lt;  30 &amp; inc &lt;  10 &amp; age &lt; . &amp; inc &lt; .</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=2 <span class="kw">if</span> age &lt;  30 &amp; inc &gt;= 10 &amp; age &lt; . &amp; inc &lt; .</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=3 <span class="kw">if</span> age &gt;= 30 &amp; inc &lt;  10 &amp; age &lt; . &amp; inc &lt; .</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> age_wealth=4 <span class="kw">if</span> age &gt;= 30 &amp; inc &gt;= 10 &amp; age &lt; . &amp; inc &lt; .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exercise-2" class="level3">
@@ -1287,7 +1291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> overwork = .</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> overwork = 1 <span class="kw">if</span> workperweek &gt; 40</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> overwork = 1 <span class="kw">if</span> workperweek &gt;  40 &amp; workperweek &lt; .</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> overwork = 0 <span class="kw">if</span> workperweek &lt;= 40</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> overwork</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1319,9 +1323,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> work_family = .</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> work_family = 2 <span class="kw">if</span> B3A &gt; B3B</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> work_family = 1 <span class="kw">if</span> B3A &lt; B3B</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> work_family = 0 <span class="kw">if</span> B3A == B3B</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> work_family = 2 <span class="kw">if</span> B3A &gt;  B3B &amp; B3A &lt; . &amp; B3B &lt; .</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> work_family = 1 <span class="kw">if</span> B3A &lt;  B3B &amp; B3A &lt; . &amp; B3B &lt; .</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> work_family = 0 <span class="kw">if</span> B3A == B3B &amp; B3A &lt; .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="8" type="1">
 <li>Save the changes to <code>newtalent.dta</code>:</li>
