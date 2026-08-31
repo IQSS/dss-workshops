@@ -692,7 +692,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cd <span class="st">"~/StataGraphics/dataSets"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Step 2: call up our dataset:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> TimePollPubSchools.dta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> TimePollPubSchools.dta, <span class="kw">clear</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="single-continuous-variable" class="level3">
@@ -750,7 +750,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>Tell Stata how to scale each axis
 <ul>
-<li><code>xlabel("start\#(increment)end\#")</code></li>
+<li><code>xlabel(#(#)#)</code> — start, increment, end</li>
 <li><code>xlabel(0(5)100)</code> This would label x-axis from 0-100 in increments of 5</li>
 </ul></li>
 </ul>
@@ -1008,7 +1008,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Overlaying points &amp; labels</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">scatter</span> T_PERCAP T_VIOLNT <span class="kw">if</span> T_VIOLNT==1976, <span class="co">///</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="bn">mlabel</span>(<span class="st">"CITY"</span>)) (<span class="kw">scatter</span> T_PERCAP T_VIOLNT), <span class="co">///</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="bn">mlabel</span>(CITY)) (<span class="kw">scatter</span> T_PERCAP T_VIOLNT), <span class="co">///</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="bn">title</span>(<span class="st">"Comparison of Per Capita Income"</span> <span class="co">///</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">"and Violent Crime Rate at Tract level"</span>) <span class="co">///</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xlabel</span>(0(200)2400) <span class="kw">note</span>(<span class="st">"Source: National Neighborhood"</span> <span class="co">///</span></span>
@@ -1029,12 +1029,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">webuse</span> uslifeexp, <span class="kw">clear</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">line</span> le_wm <span class="fu">year</span>, mcolor(<span class="st">"red"</span>)) <span class="co">///</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>       (<span class="kw">line</span> le_bm <span class="fu">year</span>, mcolor(<span class="st">"green"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">line</span> le_wmale <span class="fu">year</span>, lcolor(<span class="st">"red"</span>)) <span class="co">///</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>       (<span class="kw">line</span> le_bmale <span class="fu">year</span>, lcolor(<span class="st">"green"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="images/graphics/linegraph1.png" class="img-fluid"></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">line</span> (le_wfemale le_wmale le_bf le_bm) <span class="fu">year</span>, <span class="co">///</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">line</span> le_wfemale le_wmale le_bfemale le_bmale <span class="fu">year</span>, <span class="co">///</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       lpattern(<span class="bn">dot</span> solid <span class="bn">dot</span> solid))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="images/graphics/linegraph2.png" class="img-fluid"></p>
@@ -1131,8 +1131,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Notice in your scatterplot that is broken down by <code>C_SOUTH</code> that there is an outlier in the upper right hand corner of the “Not South” graph. Add the city name label to this marker.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> <span class="kw">scatter</span> C_UNEMP C_SSLOW, <span class="kw">by</span>(C_SOUTH) <span class="kw">if</span> C_UNEMP&gt;25 mcolor(<span class="st">"orange"</span>) <span class="bn">msymbol</span>(diamond) <span class="bn">mlabel</span>(CITY)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">scatter</span> C_UNEMP C_SSLOW <span class="kw">if</span> T_UNEMP&gt;15 &amp; C_SSLOW&gt;25, <span class="bn">mlabel</span>(CITY) <span class="kw">by</span>(C_SOUTH)) (<span class="kw">scatter</span> C_UNEMP C_SSLOW, <span class="kw">by</span>(C_SOUTH))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> <span class="kw">scatter</span> C_UNEMP C_SSLOW <span class="kw">if</span> C_UNEMP&gt;25 &amp; C_UNEMP&lt;., <span class="kw">by</span>(C_SOUTH) mcolor(<span class="st">"orange"</span>) <span class="bn">msymbol</span>(diamond) <span class="bn">mlabel</span>(CITY)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">scatter</span> C_UNEMP C_SSLOW <span class="kw">if</span> C_UNEMP&gt;15 &amp; C_SSLOW&gt;25 &amp; C_UNEMP&lt;., <span class="bn">mlabel</span>(CITY)) (<span class="kw">scatter</span> C_UNEMP C_SSLOW), <span class="kw">by</span>(C_SOUTH)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1152,14 +1152,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ul>
-<li>From Stata, right click on image and select “save as” or try syntax:
+<li>From Stata, right click on the image and select “Save as…”, or use the <code>graph export</code> command, which takes the format from the file extension:
 <ul>
-<li><code>graph export myfig.esp, replace</code></li>
+<li><code>graph export myfig.pdf, replace</code> — vector, best for print and for LaTeX</li>
+<li><code>graph export myfig.png, width(2000) replace</code> — raster, best for the web and for slides; set <code>width()</code> explicitly or you get a small image</li>
+<li><code>graph export myfig.svg, replace</code> — vector, for the web</li>
 </ul></li>
-<li>In Microsoft Word: insert -&gt; picture -&gt; from file
-<ul>
-<li>Or, right click on graph in Stata and copy and paste into MS Word</li>
-</ul></li>
+<li>To place a graph in a document, insert the exported file rather than pasting the image, so that re-exporting the graph updates the document.</li>
 </ul>
 </section>
 <section id="wrap-up" class="level2">

@@ -947,11 +947,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/intro/tidy_data.png" class="img-fluid"></p>
 <p>A typical workflow for using <code>tidyverse</code> packages looks like this:</p>
 <p><img src="images/intro/tidy_workflow.png" class="img-fluid"></p>
-<p>You should have already installed the <code>tidyverse</code> and <code>rmarkdown</code> packages onto your computer before the workshop — see <a href="../r/install.html">R Installation</a>. Now let’s load these packages into the search path of our R session.</p>
+<p>You should have already installed the <code>tidyverse</code> suite of packages onto your computer before the workshop — see <a href="../r/install.html">R Installation</a>. Now let’s load it into the search path of our R session.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages tidyverse and rmarkdown using library() function</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tidyverse using the library() function</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="readers-for-common-file-types" class="level3">
@@ -971,13 +970,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">tab separated</td>
-<td style="text-align: left;"><code>read_delim()</code></td>
+<td style="text-align: left;"><code>read_tsv()</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">other delimited formats</td>
-<td style="text-align: left;"><code>read_table()</code></td>
+<td style="text-align: left;"><code>read_delim()</code></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">whitespace separated</td>
+<td style="text-align: left;"><code>read_table()</code></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">fixed width</td>
 <td style="text-align: left;"><code>read_fwf()</code></td>
 </tr>
@@ -1077,7 +1080,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="filter-select-arrange" class="level3">
 <h3 class="anchored" data-anchor-id="filter-select-arrange">Filter, select, &amp; arrange</h3>
 <p>One way to find the year in which your name was the most popular is to filter out just the rows corresponding to your name, and then arrange (sort) by <code>Count</code>.</p>
-<p>To demonstrate these techniques we’ll try to determine whether “Alex”” or “Mark” was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to <code>1992</code> and Name is either “Alex” or “Mark”.</p>
+<p>To demonstrate these techniques we’ll try to determine whether “Alex” or “Mark” was more popular in 1992. We start by filtering the data so that we keep only rows where Year is equal to <code>1992</code> and Name is either “Alex” or “Mark”.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the baby names data if you haven't already</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>baby_names <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"babyNames.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1337,7 +1340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pipe-operator" class="level3">
 <h3 class="anchored" data-anchor-id="pipe-operator">Pipe operator</h3>
-<p>There is one very special operator in R called a <strong>pipe</strong> operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is <code>ctrl + shift + M</code>.</p>
+<p>There is one very special operator in R called a <strong>pipe</strong> operator that looks like this: <code>%&gt;%</code>. It allows us to “chain” several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is <code>Ctrl + Shift + M</code> (<code>Cmd + Shift + M</code> on a Mac).</p>
 <p><img src="images/intro/magrittr.png" class="img-fluid"></p>
 <p>There is no need to load any additional packages as the operator is made available via the <code>magrittr</code> package installed as part of <code>tidyverse</code>. Let’s rewrite the sequence of commands to output ordered counts for names “Alex” or “Mark”.</p>
 <div class="cell">

@@ -678,10 +678,9 @@ window.Quarto = {
 </section>
 <section id="packages" class="level3">
 <h3 class="anchored" data-anchor-id="packages">Packages</h3>
-<p>You should have already installed the <code>tidyverse</code> and <code>rmarkdown</code> packages onto your computer before the workshop — see <a href="../r/install.html">R Installation</a>. Now let’s load these packages into the search path of our R session.</p>
+<p>You should have already installed the <code>tidyverse</code> suite of packages onto your computer before the workshop — see <a href="../r/install.html">R Installation</a>. Now let’s load it into the search path of our R session.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Finally, lets install some packages that will help with modeling:</p>
 <div class="cell">
@@ -1113,7 +1112,7 @@ F-statistic: 88.01 on 2 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 see '?methods' for accessing help and source code</code></pre>
 </div>
 </div>
-<p>There are 44 methods available for the <code>lm</code> class. We’ve already seen the <code>summary()</code> method for <code>lm</code>, which is always a good place to start after fitting a model:</p>
+<p>There are dozens of methods available for the <code>lm</code> class — the exact number depends on which packages you have attached, since a package can add methods for a class it did not define. We’ve already seen the <code>summary()</code> method for <code>lm</code>, which is always a good place to start after fitting a model:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># summary table</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_mod) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1224,7 +1223,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 see '?methods' for accessing help and source code</code></pre>
 </div>
 </div>
-<p>There are 137 <code>summary()</code> methods and counting!</p>
+<p>There are well over a hundred <code>summary()</code> methods, and the list grows with every package you attach!</p>
 <p>It’s always worth examining whether the class of model you’ve fitted has a method for a particular generic extractor function. Here’s a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1311,8 +1310,8 @@ see '?methods' for accessing help and source code</code></pre>
 <td style="text-align: left;">predicted marginal means &amp; marginal effects</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>margins()</code></td>
-<td style="text-align: left;"><code>margins</code></td>
+<td style="text-align: left;"><code>avg_predictions()</code>, <code>avg_slopes()</code></td>
+<td style="text-align: left;"><code>marginaleffects</code></td>
 <td style="text-align: left;">predicted marginal means &amp; marginal effects</td>
 </tr>
 </tbody>
@@ -1358,9 +1357,13 @@ see '?methods' for accessing help and source code</code></pre>
 </div>
 <p>The <code>drop_na()</code> function omits rows with missing values — that is, it performs <em>listwise deletion</em> of observations. In some situations, we may need more flexibility. If, for example, we only want to exclude rows that have missing data for a subset of variables, we could do the following:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># pseudocode</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># keep only rows where `var_name` is not missing</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">na.omit</span>(var_name))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(var_name))</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or, equivalently, with tidyr</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(var_name)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now that we have a dataset with complete cases, let’s fit a more elaborate model:</p>
 <div class="cell">
@@ -1756,7 +1759,7 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 <p><strong>Interactions &amp; factors</strong></p>
 <p>Use the <code>states</code> data set.</p>
 <ol type="1">
-<li>Add on to the regression equation that you created in Exercise 1 by generating an interaction term and testing the interaction.</li>
+<li>Add on to the regression equation that you created in Exercise 0 by generating an interaction term and testing the interaction.</li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1781,7 +1784,7 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 <div class="callout-body-container callout-body">
 <p>Use the <code>states</code> data set.</p>
 <ol type="1">
-<li>Add on to the regression equation that you created in exercise 1 by generating an interaction term and testing the interaction.</li>
+<li>Add on to the regression equation that you created in Exercise 0 by generating an interaction term and testing the interaction.</li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>  mod_en_metro_by_waste <span class="ot">&lt;-</span> <span class="fu">lm</span>(energy <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> metro <span class="sc">*</span> waste, <span class="at">data =</span> states)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

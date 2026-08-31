@@ -840,7 +840,7 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">rvfplot</span>, <span class="kw">yline</span>(0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Type <code>-help regress postestimation</code> — for more information about model diagnostics. If assumptions are not met, alter the specification and refit the model.</p>
+<p>Type <code>help regress postestimation</code> for more information about model diagnostics. If assumptions are not met, alter the specification and refit the model.</p>
 </section>
 <section id="interactions" class="level3">
 <h3 class="anchored" data-anchor-id="interactions">Interactions</h3>
@@ -1095,7 +1095,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <ol type="1">
 <li>How to store results from models</li>
 <li>How to compare models</li>
-<li>How to export Stata model output to Excel</li>
+<li>How to export Stata model output</li>
 </ol>
 </div>
 </div>
@@ -1104,8 +1104,8 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <h3 class="anchored" data-anchor-id="storing-results">Storing results</h3>
 <p>Stata offers several user-friendly options for storing and viewing regression output from multiple models. First, download the necessary packages:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">// install outreg2 package</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">findit</span> outreg2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">// install the outreg2 package</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install outreg2, <span class="kw">replace</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then store the results of some regression models using the <code>estimates</code> command and <code>store</code> option:</p>
 <div class="cell">
@@ -1369,8 +1369,8 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <li>Obtain predictive margins of <code>sex</code> and <code>marital</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>margins, sex </span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>margins, marital</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>margins sex</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>margins marital</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
 <li>Obtain predictive margins of <code>rincome</code> from 10000 to 30000, with an interval of 5000.</li>
@@ -1511,7 +1511,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <li>Obtain Predictive Margins of <code>degree</code> at Representative values of <code>tvhours</code> from 0 to 10 hours, on a 1 hour interval. Examine how the marginal effect of <code>degree</code> differs across the range of <code>tvhours</code> (i.e., obtain Marginal Effects at Representative values).</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>margins degree, <span class="fu">at</span>(tvhours=(0 1 2 3 4 5 6 7 8 9 10) vsquish </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>margins degree, <span class="fu">at</span>(tvhours=(0 1 2 3 4 5 6 7 8 9 10)) vsquish </span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(degree) <span class="fu">at</span>(tvhours=(0 1 2 3 4 5 6 7 8 9 10)) vsquish </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">

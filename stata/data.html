@@ -661,7 +661,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>GOAL: You’ll learn how to generate new variables or recode existing variables.</strong> In particular, we will learn to use:</p>
 <ol type="1">
 <li><code>generate</code> (<code>gen</code>) to create new variables</li>
-<li><code>egenerate</code> (<code>egen</code>) to create new variables using more complicated calculations than <code>gen</code> allows</li>
+<li><code>egen</code> (the “extensions” to <code>generate</code>) to create new variables using more complicated calculations than <code>gen</code> allows</li>
 <li><code>replace</code> to replace existing variables</li>
 <li><code>recode</code> to change existing categorical variables</li>
 </ol>
@@ -708,8 +708,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">and</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">|</td>
+<td style="text-align: left;">or</td>
 </tr>
 </tbody>
 </table>
@@ -795,9 +795,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">egen</span> countmiss = <span class="fu">rowmiss</span>(age-wifeft)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">codebook</span> countmiss</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// compare values on multiple variables</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">egen</span> ftdiff = <span class="fu">diff</span>(wkftwife wkfthusb)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">codebook</span> ftdiff</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// the largest value across several variables, and their row mean</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">egen</span> ftmax = <span class="fu">rowmax</span>(wkftwife wkfthusb)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">egen</span> ftmean = <span class="fu">rowmean</span>(wkftwife wkfthusb)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">codebook</span> ftmax ftmean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You will need to refer to the documentation to discover what else <code>egen</code> can do: type <code>help egen</code> in Stata to get a complete list of available functions.</p>
 </section>
@@ -1223,7 +1224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Before you <code>collapse</code>:</p>
 <ul>
-<li>Save your current dataset and then save it again under a new name (this will prevent <code>collapse</code> from writing over your original data</li>
+<li>Save your current dataset and then save it again under a new name (this will prevent <code>collapse</code> from writing over your original data)</li>
 <li>Consider issues of missing data. Do you want Stata to use all possible observations? If not, the <code>cw</code> (casewise) option will make casewise deletions</li>
 </ul>
 <div class="cell">

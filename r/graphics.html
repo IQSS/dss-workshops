@@ -635,10 +635,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="packages" class="level3">
 <h3 class="anchored" data-anchor-id="packages">Packages</h3>
-<p>You should have already installed the <code>tidyverse</code> and <code>rmarkdown</code> packages onto your computer before the workshop — see <a href="../r/install.html">R Installation</a>. Now let’s load these packages into the search path of our R session.</p>
+<p>You should have already installed the <code>tidyverse</code> suite of packages onto your computer before the workshop — see <a href="../r/install.html">R Installation</a>. Now let’s load it into the search path of our R session.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <code>ggplot2</code> package is contained within <code>tidyverse</code>, but we also want to install two additional packages, <code>scales</code> and <code>ggrepel</code>, which provide additional functionality.</p>
 <div class="cell">
@@ -677,17 +676,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>consistent underlying <code>grammar of graphics</code> (Wilkinson, 2005)</li>
 <li>very flexible — plot specification at a high level of abstraction</li>
 <li>theme system for polishing plot appearance</li>
-<li>many users, active mailing list</li>
+<li>many users, and an active community on Posit Community and Stack Overflow</li>
 </ul>
 <p>That said, there are some things you cannot do with <code>ggplot2</code>:</p>
 <ul>
 <li>3-dimensional graphics (see <code>rayshader</code> or the <code>rgl</code> package)</li>
 <li>Graph-theory type graphs (see <code>ggraph</code> or the <code>igraph</code> package)</li>
-<li>Interactive graphics (see the <code>ggvis</code> package)</li>
+<li>Interactive graphics (see the <code>plotly</code> or <code>ggiraph</code> packages)</li>
 </ul>
 <section id="ggplot2-ecosystem" class="level3">
 <h3 class="anchored" data-anchor-id="ggplot2-ecosystem"><code>ggplot2</code> ecosystem</h3>
-<p>The <code>ggplot2</code> package has spawned a whole ecosystem of packages that extend the functionality of the base package. There are currently 80+ packages that offer many different options, including animated graphs (<code>gganimate</code>), interactive graphs (<code>ggvis</code>), network graphs (<code>ggraph</code>), 3D graphs (<code>rayshader</code>), adding results from statistical tests (<code>ggstatsplot</code>), and additional themes (<code>ggthemes</code>). A gallery of some of the available extensions can be found here: <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a>.</p>
+<p>The <code>ggplot2</code> package has spawned a whole ecosystem of packages that extend the functionality of the base package. There are currently 80+ packages that offer many different options, including animated graphs (<code>gganimate</code>), interactive graphs (<code>plotly</code>, <code>ggiraph</code>), network graphs (<code>ggraph</code>), 3D graphs (<code>rayshader</code>), adding results from statistical tests (<code>ggstatsplot</code>), and additional themes (<code>ggthemes</code>). A gallery of some of the available extensions can be found here: <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a>.</p>
 </section>
 <section id="what-is-the-grammar-of-graphics" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-the-grammar-of-graphics">What is the Grammar Of Graphics?</h3>
@@ -993,7 +992,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dataSets/EconomistData.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Original sources for these data are <a href="http://www.transparency.org/content/download/64476/1031428" class="uri">http://www.transparency.org/content/download/64476/1031428</a> and <a href="https://hdr.undp.org/data-center" class="uri">https://hdr.undp.org/data-center</a></p>
+<p>Original sources for these data are Transparency International’s Corruption Perceptions Index (<a href="https://www.transparency.org/en/cpi" class="uri">https://www.transparency.org/en/cpi</a>) and the UNDP Human Development Report (<a href="https://hdr.undp.org/data-center" class="uri">https://hdr.undp.org/data-center</a>)</p>
 <p>These data consist of <em>Human Development Index</em> and <em>Corruption Perception Index</em> scores for several countries.</p>
 <ol type="1">
 <li>Create a scatter plot with <code>CPI</code> on the x axis and <code>HDI</code> on the y axis.</li>
@@ -1165,7 +1164,7 @@ NULL</code></pre>
 <p>We can change the boundaries for the bins by passing the <code>breaks</code> argument through <code>geom_histogram()</code> to the <code>stat_bin()</code> function:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change bin boundaries for histogram</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">875000</span>, <span class="at">by =</span> <span class="dv">250</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">875000</span>, <span class="at">by =</span> <span class="dv">25000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1206,7 +1205,7 @@ NULL</code></pre>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(housing_sum, <span class="fu">aes</span>(<span class="at">x =</span> State, <span class="at">y =</span> Home_Value_Mean)) <span class="sc">+</span> </span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Error: stat_count() must not be used with a y aesthetic.  </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in `geom_bar()`: `stat_count()` can only have an `x` or `y` aesthetic.  </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>What is the problem with the previous plot? Basically, we take binned and summarized data and ask <code>ggplot()</code> to bin and summarize it again (<code>geom_bar()</code> defaults to <code>stat = stat_count</code>). Obviously this will not work. We can fix it by telling <code>geom_bar()</code> to use a different statistical transformation function. The <code>identity</code> function returns the same output as the input.</p>
 <div class="cell">
@@ -1524,11 +1523,11 @@ NULL</code></pre>
 <tr class="even">
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><code>reverse</code></td>
-<td style="text-align: left;"><code>scale_x_log()</code></td>
+<td style="text-align: left;"><code>scale_x_log10()</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><code>log</code></td>
+<td style="text-align: left;"><code>log10</code></td>
 <td style="text-align: left;"><code>scale_y_reverse()</code></td>
 </tr>
 <tr class="even">
