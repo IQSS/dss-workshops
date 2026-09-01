@@ -921,7 +921,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] "Table 1 - Top 100 boys, E&amp;W"</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or, we can do this by piping functions</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">str_subset</span>(<span class="at">pattern =</span> <span class="st">"Table 1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(boy_file_names[<span class="dv">1</span>]) <span class="sc">|&gt;</span> <span class="fu">str_subset</span>(<span class="at">pattern =</span> <span class="st">"Table 1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Table 1 - Top 100 boys, E&amp;W"</code></pre>
 </div>
@@ -978,7 +978,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function to extract different sheet names using regex</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>get_data_sheet_name <span class="ot">&lt;-</span> <span class="cf">function</span>(file, term){</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">excel_sheets</span>(file) <span class="sc">%&gt;%</span> <span class="fu">str_subset</span>(<span class="at">pattern =</span> term)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">excel_sheets</span>(file) <span class="sc">|&gt;</span> <span class="fu">str_subset</span>(<span class="at">pattern =</span> term)</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The goal is generalization — we can now extract any sheet name using this one function:</p>
@@ -1140,7 +1140,7 @@ $ Count...7 &lt;dbl&gt; NA, 1519, 1385, 1337, 1259, 1222, 1192, 1186, 1135, 1128
 <li>Test your function by using it to read <em>one</em> of the boys names Excel files.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_boys_names</span>(boy_file_names[<span class="dv">1</span>], <span class="at">sheet_name =</span> <span class="st">"Table 1"</span>) <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_boys_names</span>(boy_file_names[<span class="dv">1</span>], <span class="at">sheet_name =</span> <span class="st">"Table 1"</span>) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 59
 Columns: 7
@@ -1510,7 +1510,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 # ℹ 49 more rows</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove rows with missing values</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>boysNames[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> boysNames[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>boysNames[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> boysNames[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> <span class="fu">drop_na</span>()</span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>boysNames[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1694,8 +1694,8 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>cleanupNamesData <span class="ot">&lt;-</span> <span class="cf">function</span>(file){</span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  subsetted_file <span class="ot">&lt;-</span> file <span class="sc">%&gt;%</span></span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"Name|Count"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  subsetted_file <span class="ot">&lt;-</span> file <span class="sc">|&gt;</span></span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"Name|Count"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span>
 <span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># B) subsets two separate data frames, with first and second set of `Name` and `Count` columns </span></span>
@@ -1709,7 +1709,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 <span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb82-18"><a href="#cb82-18" aria-hidden="true" tabindex="-1"></a><span class="co"># D) once you've written the function, test it out on *one* of the data frames in the list</span></span>
-<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a>boysNames[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>() <span class="co"># before cleanup</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a>boysNames[[<span class="dv">2</span>]] <span class="sc">|&gt;</span> <span class="fu">glimpse</span>() <span class="co"># before cleanup</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 61
 Columns: 4
@@ -1718,7 +1718,7 @@ $ Count...3 &lt;dbl&gt; NA, 10145, 9853, 9479, 9047, 7698, 7443, 6367, 5809, 563
 $ Name...7  &lt;chr&gt; NA, "SEAN", "DYLAN", "DOMINIC", "LOUIS", "RHYS", "NICHOLAS",…
 $ Count...8 &lt;dbl&gt; NA, 1388, 1380, 1359, 1325, 1291, 1274, 1244, 1241, 1158, 11…</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>boysNames[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span> <span class="fu">cleanupNamesData</span>() <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>() <span class="co"># after cleanup</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>boysNames[[<span class="dv">2</span>]] <span class="sc">|&gt;</span> <span class="fu">cleanupNamesData</span>() <span class="sc">|&gt;</span> <span class="fu">glimpse</span>() <span class="co"># after cleanup</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 100
 Columns: 2
@@ -1760,7 +1760,7 @@ $ Count &lt;dbl&gt; 10145, 9853, 9479, 9047, 7698, 7443, 6367, 5809, 5631, 5404,
 <p>Right now we have a list of data frames; one for each year. This is not a bad way to go. It has the advantage of making it easy to work with individual years; it has the disadvantage of making it more difficult to examine questions that require data from multiple years. To make the arrangement of the data clearer it helps to name each element of the list with the year it corresponds to.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># our unnamed list of data frames</span></span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boysNames) <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boysNames) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 6
  $ : tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
@@ -1821,7 +1821,7 @@ $ Count &lt;dbl&gt; 10145, 9853, 9479, 9047, 7698, 7443, 6367, 5809, 5631, 5404,
 <p>Now when we view our list of data frames again we can see that year information has been added to each element as a name just after the <code>$</code> extractor:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view named list of data frames</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boysNames) <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boysNames) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 6
  $ 1996: tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
@@ -1940,9 +1940,9 @@ $ Year  &lt;int&gt; 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 
 <li>What were the five most popular names in 2013?</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>boysNames <span class="sc">%&gt;%</span> </span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Count)) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>boysNames <span class="sc">|&gt;</span> </span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Count)) <span class="sc">|&gt;</span></span>
 <span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
@@ -1989,7 +1989,7 @@ $ Year  &lt;int&gt; 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 
 <span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co"># function to extract sheet names from an Excel file</span></span>
 <span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>get_data_sheet_name <span class="ot">&lt;-</span> <span class="cf">function</span>(file, term){</span>
-<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">excel_sheets</span>(file) <span class="sc">%&gt;%</span> <span class="fu">str_subset</span>(<span class="at">pattern =</span> term)</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">excel_sheets</span>(file) <span class="sc">|&gt;</span> <span class="fu">str_subset</span>(<span class="at">pattern =</span> term)</span>
 <span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a><span class="co"># function to read in arbirary sheets from an Excel file</span></span>
@@ -2012,8 +2012,8 @@ $ Year  &lt;int&gt; 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 1996, 
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>cleanupNamesData <span class="ot">&lt;-</span> <span class="cf">function</span>(file){</span>
 <span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A) subset data to include only those columns that include the term `Name` and `Count`</span></span>
-<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  subsetted_file <span class="ot">&lt;-</span> file <span class="sc">%&gt;%</span></span>
-<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"Name|Count"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  subsetted_file <span class="ot">&lt;-</span> file <span class="sc">|&gt;</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"Name|Count"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span>
 <span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># B) subsets two separate data frames, with first and second set of `Name` and `Count` columns </span></span>

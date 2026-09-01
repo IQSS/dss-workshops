@@ -842,7 +842,7 @@ window.Quarto = {
 <p>Start by examining the data to check for problems.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># summary of expense and csat columns, all rows</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  states_ex_sat <span class="ot">&lt;-</span> states <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  states_ex_sat <span class="ot">&lt;-</span> states <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(expense, csat)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(states_ex_sat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -966,7 +966,7 @@ F-statistic: 13.61 on 1 and 49 DF,  p-value: 0.0005631</code></pre>
 <p>If we just want to inspect the coefficients, we can further pipe the summary output into the function <code>coef()</code> to obtain just the table of coefficients.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show only the regression coefficients table </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_mod) <span class="sc">%&gt;%</span> <span class="fu">coef</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_mod) <span class="sc">|&gt;</span> <span class="fu">coef</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 Estimate   Std. Error   t value     Pr(&gt;|t|)
 (Intercept) 1060.73244395 32.700896736 32.437412 8.878411e-35
@@ -977,7 +977,7 @@ expense       -0.02227565  0.006037115 -3.689783 5.630902e-04</code></pre>
 <h3 class="anchored" data-anchor-id="why-is-the-association-between-expense-sat-scores-negative">Why is the association between expense &amp; SAT scores <em>negative</em>?</h3>
 <p>Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(csat <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> expense <span class="sc">+</span> percent, <span class="at">data =</span> states) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(csat <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> expense <span class="sc">+</span> percent, <span class="at">data =</span> states) <span class="sc">|&gt;</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1351,18 +1351,18 @@ see '?methods' for accessing help and source code</code></pre>
 <p>Do congressional voting patterns predict SAT scores over and above expense? To find out, let’s fit two models and compare them. First, let’s create a new cleaned dataset that omits missing values in the variables we will use.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop missing values for the 4 variables of interest</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>states_voting_cleaned <span class="ot">&lt;-</span> states <span class="sc">%&gt;%</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(csat, expense, house, senate) <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>states_voting_cleaned <span class="ot">&lt;-</span> states <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(csat, expense, house, senate) <span class="sc">|&gt;</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <code>drop_na()</code> function omits rows with missing values — that is, it performs <em>listwise deletion</em> of observations. In some situations, we may need more flexibility. If, for example, we only want to exclude rows that have missing data for a subset of variables, we could do the following:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># keep only rows where `var_name` is not missing</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(var_name))</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or, equivalently, with tidyr</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(var_name)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now that we have a dataset with complete cases, let’s fit a more elaborate model:</p>
@@ -1371,7 +1371,7 @@ see '?methods' for accessing help and source code</code></pre>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  sat_voting_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(csat <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> expense <span class="sc">+</span> house <span class="sc">+</span> senate,</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> states_voting_cleaned)</span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_voting_mod) <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_voting_mod) <span class="sc">|&gt;</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 Estimate   Std. Error   t value     Pr(&gt;|t|)
 (Intercept) 1086.08037734 35.677308643 30.441769 3.964376e-32
@@ -1383,7 +1383,7 @@ senate         0.53984781  0.473469183  1.140196 2.601066e-01</code></pre>
 <p>To compare models, <em>we must fit them to the same data</em>. This is why we needed to clean the dataset. Now let’s update our first model to use these cleaned data:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># update model using the cleaned data</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  sat_mod <span class="ot">&lt;-</span> sat_mod <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  sat_mod <span class="ot">&lt;-</span> sat_mod <span class="sc">|&gt;</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">update</span>(<span class="at">data =</span> states_voting_cleaned)</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># compare using an F-test with the anova() function</span></span>
@@ -1446,7 +1446,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Examine/plot the data before fitting the model.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>  states_en_met <span class="ot">&lt;-</span> states <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>  states_en_met <span class="ot">&lt;-</span> states <span class="sc">|&gt;</span> </span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(energy, metro)</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(states_en_met)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1522,7 +1522,7 @@ F-statistic: 6.263 on 1 and 48 DF,  p-value: 0.01578</code></pre>
 <li>Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with <code>metro</code> as the only predictor?</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>  states_en_met_pop_wst <span class="ot">&lt;-</span> states <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>  states_en_met_pop_wst <span class="ot">&lt;-</span> states <span class="sc">|&gt;</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(energy, metro, pop, waste)</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(states_en_met_pop_wst)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1613,7 +1613,7 @@ Model 2: energy ~ 1 + metro + pop + waste
 <span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  sat_expense_by_income <span class="ot">&lt;-</span> <span class="fu">lm</span>(csat <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> expense <span class="sc">*</span> income, <span class="at">data =</span> states) </span>
 <span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show the regression coefficients table</span></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_expense_by_income) <span class="sc">%&gt;%</span> <span class="fu">coef</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_expense_by_income) <span class="sc">|&gt;</span> <span class="fu">coef</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                    Estimate   Std. Error   t value     Pr(&gt;|t|)
 (Intercept)     1.380364e+03 1.720863e+02  8.021351 2.367069e-10
@@ -1636,7 +1636,7 @@ expense:income  1.384647e-03 8.635529e-04  1.603431 1.155395e-01</code></pre>
 <p>Here, R is already treating <code>region</code> as categorical — that is, in R parlance, a “factor” variable. If <code>region</code> were not already a factor, we could make it so like this:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert `region` to a factor</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  states <span class="ot">&lt;-</span> states <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  states <span class="ot">&lt;-</span> states <span class="sc">|&gt;</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">factor</span>(region))</span>
 <span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># arguments to the factor() function:</span></span>
@@ -1654,7 +1654,7 @@ expense:income  1.384647e-03 8.635529e-04  1.603431 1.155395e-01</code></pre>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  sat_region <span class="ot">&lt;-</span> <span class="fu">lm</span>(csat <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> region, <span class="at">data =</span> states) </span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show the results</span></span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_region) <span class="sc">%&gt;%</span> <span class="fu">coef</span>() <span class="co"># show only the regression coefficients table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(sat_region) <span class="sc">|&gt;</span> <span class="fu">coef</span>() <span class="co"># show only the regression coefficients table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Estimate Std. Error    t value     Pr(&gt;|t|)
 (Intercept)   946.30769   14.79582 63.9577807 1.352577e-46
@@ -1698,7 +1698,7 @@ Midwest       0     0       1</code></pre>
 <p>We can see that the reference level is <code>West</code>. How can we change this? Let’s use the <code>relevel()</code> function:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># change the reference group</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  states <span class="ot">&lt;-</span> states <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  states <span class="ot">&lt;-</span> states <span class="sc">|&gt;</span></span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">relevel</span>(region, <span class="at">ref =</span> <span class="st">"Midwest"</span>))</span>
 <span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check the reference group has changed</span></span>
@@ -1717,7 +1717,7 @@ South      0       0     1</code></pre>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  mod_region <span class="ot">&lt;-</span> <span class="fu">lm</span>(csat <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> region, <span class="at">data =</span> states)</span>
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print summary coefficients table</span></span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_region) <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_region) <span class="sc">|&gt;</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Estimate Std. Error   t value     Pr(&gt;|t|)
 (Intercept)   1010.08333   15.39998 65.589930 4.296307e-47
@@ -1729,7 +1729,7 @@ regionSouth    -80.08333   20.37225 -3.931000 2.826007e-04</code></pre>
 <p>Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare particular levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the <code>emmeans()</code> post-estimation function from the <code>emmeans</code> package to do the calculations for us:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get all pairwise contrasts between means</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  mod_region <span class="sc">%&gt;%</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  mod_region <span class="sc">|&gt;</span></span>
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">emmeans</span>(<span class="at">specs =</span> pairwise <span class="sc">~</span> region)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$emmeans
@@ -1905,7 +1905,7 @@ logit(p(hypertension_i = 1)) = ln \left( \frac{p(hypertension_i = 1)}{1-p(hypert
 [4] "8 Not ascertained" "9 Don't know"     </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># collapse all missing values to NA</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  NH11 <span class="ot">&lt;-</span> NH11 <span class="sc">%&gt;%</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  NH11 <span class="ot">&lt;-</span> NH11 <span class="sc">|&gt;</span></span>
 <span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">hypev =</span> <span class="fu">factor</span>(hypev, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"2 No"</span>, <span class="st">"1 Yes"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now let’s use <code>glm()</code> to estimate the model:</p>
@@ -1916,7 +1916,7 @@ logit(p(hypertension_i = 1)) = ln \left( \frac{p(hypertension_i = 1)}{1-p(hypert
 <span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
 <span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># summary model coefficients table</span></span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(hyp_out) <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(hyp_out) <span class="sc">|&gt;</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Estimate   Std. Error    z value     Pr(&gt;|z|)
 (Intercept) -4.269466028 0.0564947294 -75.572820 0.000000e+00
@@ -1933,13 +1933,13 @@ bmi          0.018571704 0.0009510828  19.526906 6.485172e-85</code></pre>
 <p>One solution is to transform the coefficients to make them easier to interpret. Here we transform them into odds ratios by exponentiating:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># point estimates</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>(hyp_out) <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>(hyp_out) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)       age_p sex2 Female       sleep         bmi 
  0.01398925  1.06257935  0.86586602  0.99298892  1.01874523 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># confidence intervals</span></span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">confint</span>(hyp_out) <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">confint</span>(hyp_out) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 2.5 %     97.5 %
 (Intercept) 0.01251677 0.01561971
@@ -1955,8 +1955,8 @@ bmi         1.01685145 1.02065009</code></pre>
 <p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called “least-squares means” or “estimated marginal means”). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get predicted marginal means</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  hyp_out <span class="sc">%&gt;%</span> </span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  hyp_out <span class="sc">|&gt;</span> </span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>() <span class="sc">|&gt;</span></span>
 <span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot</span>(<span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># "response" refers to the probability scale</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -1976,8 +1976,8 @@ bmi         1.01685145 1.02065009</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get predicted marginal means</span></span>
 <span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  eff_df <span class="ot">&lt;-</span> </span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>      hyp_out <span class="sc">%&gt;%</span> </span>
-<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>(<span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">age_p =</span> age_years)) <span class="sc">%&gt;%</span> <span class="co"># override defaults for age</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>      hyp_out <span class="sc">|&gt;</span> </span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>(<span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">age_p =</span> age_years)) <span class="sc">|&gt;</span> <span class="co"># override defaults for age</span></span>
 <span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.data.frame</span>() <span class="co"># get confidence intervals</span></span>
 <span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>  eff_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2055,7 +2055,7 @@ $bmi
 <li>Use <code>glm()</code> to conduct a logistic regression to predict ever worked (<code>everwrk</code>) using age (<code>age_p</code>) and marital status (<code>r_maritl</code>). Make sure you only keep the following two levels for <code>everwrk</code> (<code>2 No</code> and <code>1 Yes</code>). Hint: use the <code>factor()</code> function. Also, make sure to drop any <code>r_maritl</code> levels that do not contain observations. Hint: see <code>?droplevels</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>  NH11 <span class="ot">&lt;-</span> NH11 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>  NH11 <span class="ot">&lt;-</span> NH11 <span class="sc">|&gt;</span></span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">everwrk =</span> <span class="fu">factor</span>(everwrk, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"2 No"</span>, <span class="st">"1 Yes"</span>)),</span>
 <span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">r_maritl =</span> <span class="fu">droplevels</span>(r_maritl)</span>
 <span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>             )</span>
@@ -2109,8 +2109,8 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>  mod_wk_age_mar <span class="sc">%&gt;%</span> </span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>  mod_wk_age_mar <span class="sc">|&gt;</span> </span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>() <span class="sc">|&gt;</span></span>
 <span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.data.frame</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$age_p
