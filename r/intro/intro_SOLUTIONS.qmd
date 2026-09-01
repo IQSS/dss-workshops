@@ -86,8 +86,8 @@ Rewrite the solution to Exercise 2.1 using pipes.
 ```{r}
 # Use filter to extract data for your name (or another name of your choice)
 # Arrange the data by Count
-baby_names %>% 
-    filter(Name == "George") %>%
+baby_names |> 
+    filter(Name == "George") |>
     arrange(desc(Count))
 ```
 
@@ -123,9 +123,9 @@ qplot(x = Year, y = Count, color = Sex, data = baby_names_george, geom = "line")
 
 ```{r}
 baby_names <- 
-  baby_names %>%
-  group_by(Year, Sex) %>%
-  mutate(Proportion = Count/sum(Count)) %>%
+  baby_names |>
+  group_by(Year, Sex) |>
+  mutate(Proportion = Count/sum(Count)) |>
   ungroup()
 
 head(baby_names) 
@@ -135,9 +135,9 @@ head(baby_names)
 
 ```{r}
 baby_names <- 
-  baby_names %>%
-  group_by(Year, Sex) %>%
-  mutate(Rank = rank(desc(Count))) %>%
+  baby_names |>
+  group_by(Year, Sex) |>
+  mutate(Rank = rank(desc(Count))) |>
   ungroup()
 
 head(baby_names)
@@ -147,8 +147,8 @@ head(baby_names)
 
 ```{r}
 top1 <- 
-  baby_names %>%
-  filter(Rank == 1) %>%
+  baby_names |>
+  filter(Rank == 1) |>
   select(Year, Name, Sex, Proportion)
 
 head(top1)
@@ -184,8 +184,8 @@ filter(girls_and_boys, Rank == 1)
 
 ```{r}
 most_popular <- 
-  baby_names %>% 
-  group_by(Year, Sex) %>%
+  baby_names |> 
+  group_by(Year, Sex) |>
   filter(Rank <= 10)
 
 head(most_popular, n = 10)
@@ -195,7 +195,7 @@ head(most_popular, n = 10)
 
 ```{r}
 top10 <- 
-  most_popular %>% # it is already grouped by Year and Sex
+  most_popular |> # it is already grouped by Year and Sex
   summarize(TotalProportion = sum(Proportion))
 ```
 

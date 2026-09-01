@@ -142,7 +142,7 @@ list.files("dataSets")
 #
 
   # summary of expense and csat columns, all rows
-  states_ex_sat <- states %>% 
+  states_ex_sat <- states |> 
       select(expense, csat)
   
   summary(states_ex_sat)
@@ -212,7 +212,7 @@ outcome ~ pred1 + pred2 + pred3
 #
 
   # show only the regression coefficients table 
-  summary(sat_mod) %>% coef() 
+  summary(sat_mod) |> coef() 
 
 #
 # ### Why is the association between expense & SAT scores *negative*?
@@ -220,7 +220,7 @@ outcome ~ pred1 + pred2 + pred3
 # Many people find it surprising that the per-capita expenditure on students is negatively related to SAT scores. The beauty of multiple regression is that we can try to pull these apart. What would the association between expense and SAT scores be if there were no difference among the states in the percentage of students taking the SAT?
 #
 
-  lm(csat ~ 1 + expense + percent, data = states) %>% 
+  lm(csat ~ 1 + expense + percent, data = states) |> 
   summary() 
 
 #
@@ -351,8 +351,8 @@ outcome ~ pred1 + pred2 + pred3
 #
 
 # drop missing values for the 4 variables of interest
-states_voting_cleaned <- states %>%
-    select(csat, expense, house, senate) %>%
+states_voting_cleaned <- states |>
+    select(csat, expense, house, senate) |>
     drop_na()
 
 #
@@ -361,11 +361,11 @@ states_voting_cleaned <- states %>%
 
 #| eval: false
   # keep only rows where `var_name` is not missing
-  df <- df %>%
+  df <- df |>
     filter(!is.na(var_name))
 
   # or, equivalently, with tidyr
-  df <- df %>%
+  df <- df |>
     drop_na(var_name)
 
 #
@@ -376,14 +376,14 @@ states_voting_cleaned <- states %>%
   sat_voting_mod <- lm(csat ~ 1 + expense + house + senate,
                        data = states_voting_cleaned)
 
-  summary(sat_voting_mod) %>% coef()
+  summary(sat_voting_mod) |> coef()
 
 #
 # To compare models, *we must fit them to the same data*. This is why we needed to clean the dataset. Now let's update our first model to use these cleaned data:
 #
 
   # update model using the cleaned data
-  sat_mod <- sat_mod %>%
+  sat_mod <- sat_mod |>
       update(data = states_voting_cleaned)
 
   # compare using an F-test with the anova() function
@@ -421,7 +421,7 @@ states_voting_cleaned <- states %>%
 # 1.  Examine/plot the data before fitting the model.
 #
 
-  states_en_met <- states %>% 
+  states_en_met <- states |> 
       select(energy, metro)
 
   summary(states_en_met)
@@ -447,7 +447,7 @@ states_voting_cleaned <- states %>%
 # 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 #
 
-  states_en_met_pop_wst <- states %>%
+  states_en_met_pop_wst <- states |>
       select(energy, metro, pop, waste)
 
   summary(states_en_met_pop_wst)
@@ -478,7 +478,7 @@ states_voting_cleaned <- states %>%
   sat_expense_by_income <- lm(csat ~ 1 + expense * income, data = states) 
 
   # show the regression coefficients table
-  summary(sat_expense_by_income) %>% coef() 
+  summary(sat_expense_by_income) |> coef() 
 
 #
 # ### Regression with categorical predictors
@@ -494,7 +494,7 @@ states_voting_cleaned <- states %>%
 #
 
   # convert `region` to a factor
-  states <- states %>%
+  states <- states |>
       mutate(region = factor(region))
 
   # arguments to the factor() function:
@@ -511,7 +511,7 @@ states_voting_cleaned <- states %>%
   sat_region <- lm(csat ~ 1 + region, data = states) 
 
   # show the results
-  summary(sat_region) %>% coef() # show only the regression coefficients table
+  summary(sat_region) |> coef() # show only the regression coefficients table
 
 #
 # We can get an omnibus F-test for `region` by using the `anova()` method:
@@ -539,7 +539,7 @@ states_voting_cleaned <- states %>%
 #
 
   # change the reference group
-  states <- states %>%
+  states <- states |>
       mutate(region = relevel(region, ref = "Midwest"))
 
   # check the reference group has changed
@@ -553,14 +553,14 @@ states_voting_cleaned <- states %>%
   mod_region <- lm(csat ~ 1 + region, data = states)
 
   # print summary coefficients table
-  summary(mod_region) %>% coef()
+  summary(mod_region) |> coef()
 
 #
 # Often, we may want to get all possible pairwise comparisons among the various levels of a factor variable, rather than just compare particular levels to a single reference level. We could of course just keep changing the reference level and refitting the model, but this would be tedious. Instead, we can use the `emmeans()` post-estimation function from the `emmeans` package to do the calculations for us:
 #
 
   # get all pairwise contrasts between means
-  mod_region %>%
+  mod_region |>
       emmeans(specs = pairwise ~ region)
 
 #
@@ -670,7 +670,7 @@ states_voting_cleaned <- states %>%
   levels(NH11$hypev) # check levels of hypev
 
   # collapse all missing values to NA
-  NH11 <- NH11 %>%
+  NH11 <- NH11 |>
       mutate(hypev = factor(hypev, levels=c("2 No", "1 Yes")))
 
 #
@@ -683,7 +683,7 @@ states_voting_cleaned <- states %>%
                  family = binomial(link = "logit"))
   
   # summary model coefficients table
-  summary(hyp_out) %>% coef()
+  summary(hyp_out) |> coef()
 
 #
 # ### Odds ratios
@@ -694,10 +694,10 @@ states_voting_cleaned <- states %>%
 #
 
   # point estimates
-  coef(hyp_out) %>% exp()
+  coef(hyp_out) |> exp()
   
   # confidence intervals
-  confint(hyp_out) %>% exp()
+  confint(hyp_out) |> exp()
 
 #
 # ### Predicted marginal means
@@ -706,8 +706,8 @@ states_voting_cleaned <- states %>%
 #
 
   # get predicted marginal means
-  hyp_out %>% 
-      allEffects() %>%
+  hyp_out |> 
+      allEffects() |>
       plot(type = "response") # "response" refers to the probability scale
 
 #
@@ -720,8 +720,8 @@ states_voting_cleaned <- states %>%
   
   # get predicted marginal means
   eff_df <- 
-      hyp_out %>% 
-      allEffects(xlevels = list(age_p = age_years)) %>% # override defaults for age
+      hyp_out |> 
+      allEffects(xlevels = list(age_p = age_years)) |> # override defaults for age
       as.data.frame() # get confidence intervals
   
   eff_df
@@ -750,7 +750,7 @@ states_voting_cleaned <- states %>%
 # 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`2 No` and `1 Yes`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 #
 
-  NH11 <- NH11 %>%
+  NH11 <- NH11 |>
       mutate(everwrk = factor(everwrk, levels = c("2 No", "1 Yes")),
              r_maritl = droplevels(r_maritl)
              )
@@ -765,8 +765,8 @@ states_voting_cleaned <- states %>%
 # 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`.
 #
 
-  mod_wk_age_mar %>% 
-      allEffects() %>%
+  mod_wk_age_mar |> 
+      allEffects() |>
       as.data.frame()
 
 #

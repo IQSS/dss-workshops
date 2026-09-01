@@ -34,7 +34,7 @@ read_boys_names <- function(file, sheet_name) {
 2. Test your function by using it to read *one* of the boys names Excel files.
 
 ```{r}
-read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
+read_boys_names(boy_file_names[1], sheet_name = "Table 1") |> glimpse()
 ```
 
 3. Use the `map()` function to create a list of data frames called `boysNames` from all the Excel files, using the function you wrote in step 1.
@@ -73,8 +73,8 @@ boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 cleanupNamesData <- function(file){
 
   # A) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
-  subsetted_file <- file %>%
-    select(matches("Name|Count")) %>%
+  subsetted_file <- file |>
+    select(matches("Name|Count")) |>
     drop_na()
 
   # B) subsets two separate data frames, with first and second set of `Name` and `Count` columns 
@@ -88,8 +88,8 @@ cleanupNamesData <- function(file){
 }
 
 # D) once you've written the function, test it out on *one* of the data frames in the list
-boysNames[[2]] %>% glimpse() # before cleanup
-boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
+boysNames[[2]] |> glimpse() # before cleanup
+boysNames[[2]] |> cleanupNamesData() |> glimpse() # after cleanup
 ```
 
 2. Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
@@ -121,9 +121,9 @@ write_csv(boysNames, "dataSets/all/boys_names.csv")
 3. What were the five most popular names in 2013?   
 
 ```{r}
-boysNames %>% 
-  filter(Year == 2013) %>%
-  arrange(desc(Count)) %>%
+boysNames |> 
+  filter(Year == 2013) |>
+  arrange(desc(Count)) |>
   head()
 ```
 

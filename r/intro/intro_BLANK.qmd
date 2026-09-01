@@ -321,7 +321,7 @@ Make sure you have installed the `tidyverse` suite of packages and attached them
 1. Filtering data by choosing rows --- using the `filter()` function
 2. Selecting data by choosing columns --- using the `select()` function
 3. Arranging data by reordering rows --- using the `arrange()` function
-4. Using the pipe `%>%` operator to simplify sequential operations
+4. Using the pipe `|>` operator to simplify sequential operations
 
 :::
 
@@ -447,11 +447,9 @@ Read in the "babyNames.csv" file if you have not already done so, assigning the 
 
 ### Pipe operator
 
-There is one very special operator in R called a **pipe** operator that looks like this: `%>%`. It allows us to "chain" several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is `Ctrl + Shift + M` (`Cmd + Shift + M` on a Mac).
+There is one very special operator in R called a **pipe** operator that looks like this: `|>`. It allows us to "chain" several function calls and, as each function returns an object, feed it into the next call in a single statement, without needing extra variables to store the intermediate results. The point of the pipe is to help you write code in a way that is easier to read and understand as we will see below. The keyboard shortcut for the pipe is `Ctrl + Shift + M` (`Cmd + Shift + M` on a Mac).
 
-![](images/magrittr.png)
-
-There is no need to load any additional packages as the operator is made available via the `magrittr` package installed as part of `tidyverse`. Let's rewrite the sequence of commands to output ordered counts for names "Alex" or "Mark".
+The pipe is built into R itself, so there is no package to load in order to use it. Let's rewrite the sequence of commands to output ordered counts for names "Alex" or "Mark".
 
 ```{r}
 # Filter data, keeping "Alex" and "Mark" in year 1992, and
@@ -467,7 +465,7 @@ There is no need to load any additional packages as the operator is made availab
 
 ```
 
-Hint: try pronouncing "then" whenever you see `%>%`. Using pseudocode, we can see what the pipe is doing:
+Hint: try pronouncing "then" whenever you see `|>`. Using pseudocode, we can see what the pipe is doing:
 
 ```{r}
 #| eval: false
@@ -479,11 +477,29 @@ Hint: try pronouncing "then" whenever you see `%>%`. Using pseudocode, we can se
 
 ```
 
+Note the parentheses on the right-hand side: `|>` always pipes into a function *call*, so write `glimpse()` rather than `glimpse`.
+
 Advantages of using the pipe:
 
 1. We can avoid creating intermediate variables, such as `baby_names_alexmark`
 2. Less to type 
 3. Easier to read and follow the logic (especially avoiding using nested functions)
+
+#### You will also meet `%>%`
+
+R gained a pipe of its own only in version 4.1, released in 2021. Before that, the same idea was provided by the `%>%` operator from the `magrittr` package, which comes with the `tidyverse`.
+
+![](images/magrittr.png)
+
+You will meet `%>%` constantly --- in older scripts, in books, and in most of the answers you find online --- so it is worth being able to read it. For everything we do in these workshops the two behave identically:
+
+```{r}
+#| eval: false
+# the magrittr pipe
+# the base R pipe
+```
+
+Read `%>%` as "then", exactly as you would read `|>`. We teach `|>` because it is part of R itself, so it works in any script whether or not you have loaded a package. The two differ in some advanced details --- `%>%` lets you write a `.` to control *where* the piped value lands, for instance --- but not in anything these workshops ask you to do.
 
 ### Exercise 2.2
 
@@ -508,6 +524,12 @@ It can be difficult to spot trends when looking at summary tables. Plotting the 
 R has decent plotting tools built-in -- see e.g., `help(plot)`. However, again, we will make use of a *contributed package* from `tidyverse` called `ggplot2`.
 
 For quick and simple plots we can use the `qplot()` function from `ggplot2`. For example, we can plot the number of babies given the name "Diana" over time like this:
+
+::: {.callout-note}
+
+When you run this, R will tell you that `qplot()` was deprecated in ggplot2 3.4.0. The function still works, and we use it here because it draws a useful plot in a single line. The fuller `ggplot()` syntax --- which is what you will want for anything you intend to publish, and which gives you control over every part of a graph --- is the subject of our [R Graphics](https://iqss.github.io/dss-workshops/r/graphics.html) workshop.
+
+:::
 
 ```{r}
 # Filter data keeping rows for name "Diana" and 

@@ -13,7 +13,7 @@ Use the `states` data set. Fit a model predicting energy consumed per capita (`e
 1.  Examine/plot the data before fitting the model.
 
 ```{r}
-  states_en_met <- states %>% 
+  states_en_met <- states |> 
       select(energy, metro)
 
   summary(states_en_met)
@@ -39,7 +39,7 @@ Use the `states` data set. Fit a model predicting energy consumed per capita (`e
 4. Select one or more additional predictors to add to your model and repeat steps 1-3. Is this model significantly better than the model with `metro` as the only predictor?
 
 ```{r}
-  states_en_met_pop_wst <- states %>%
+  states_en_met_pop_wst <- states |>
       select(energy, metro, pop, waste)
 
   summary(states_en_met_pop_wst)
@@ -74,7 +74,7 @@ Use the `NH11` data set that we loaded earlier. Note that the data are not perfe
 1.  Use `glm()` to conduct a logistic regression to predict ever worked (`everwrk`) using age (`age_p`) and marital status (`r_maritl`). Make sure you only keep the following two levels for `everwrk` (`2 No` and `1 Yes`). Hint: use the `factor()` function. Also, make sure to drop any `r_maritl` levels that do not contain observations. Hint: see `?droplevels`.
 
 ```{r}
-  NH11 <- NH11 %>%
+  NH11 <- NH11 |>
       mutate(everwrk = factor(everwrk, levels = c("2 No", "1 Yes")),
              r_maritl = droplevels(r_maritl)
              )
@@ -89,8 +89,8 @@ Use the `NH11` data set that we loaded earlier. Note that the data are not perfe
 2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`.
 
 ```{r}
-  mod_wk_age_mar %>% 
-      allEffects() %>%
+  mod_wk_age_mar |> 
+      allEffects() |>
       as.data.frame()
 ```
 

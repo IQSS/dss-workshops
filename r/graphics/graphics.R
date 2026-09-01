@@ -165,7 +165,7 @@ housing <- read_csv("dataSets/landdata-states.csv")
 head(housing[1:5]) # view first 5 columns
 
 # create a subset for 1st quarter 2001
-hp2001Q1 <- housing %>% filter(Date == 2001.25)
+hp2001Q1 <- housing |> filter(Date == 2001.25)
 
 #
 # **Step 1:** create a blank canvas by specifying data:
@@ -196,7 +196,7 @@ ggplot(data = hp2001Q1, mapping = aes(x = Land_Value, y = Structure_Cost)) +
 #
 
 # get predicted values from a linear regression
-hp2001Q1$pred_SC <- lm(Structure_Cost ~ log(Land_Value), data = hp2001Q1) %>%
+hp2001Q1$pred_SC <- lm(Structure_Cost ~ log(Land_Value), data = hp2001Q1) |>
   predict()
 
 # here we store the 'base plot' - without geometric objects - in the object 'p1'
@@ -398,9 +398,9 @@ p2 + geom_histogram(breaks = seq(0, 875000, by = 25000))
 
 # create new variable that is the mean of 'Home Value' for each 'State'
 housing_sum <- 
-  housing %>%
-  group_by(State) %>%
-  summarize(Home_Value_Mean = mean(Home_Value)) %>%
+  housing |>
+  group_by(State) |>
+  summarize(Home_Value_Mean = mean(Home_Value)) |>
   ungroup()
 
 head(housing_sum)
@@ -776,10 +776,10 @@ ggsave(filename = "myplot.pdf", plot = p5, device = "pdf",
 
 # get summary home and land value data
 housing_byyear <- 
-  housing %>%
-  group_by(Date) %>%
+  housing |>
+  group_by(Date) |>
   summarize(Home_Value_Mean = mean(Home_Value),
-            Land_Value_Mean = mean(Land_Value)) %>%
+            Land_Value_Mean = mean(Land_Value)) |>
   ungroup()
 
 #
@@ -805,7 +805,7 @@ ggplot(housing_byyear, aes(x=Date)) +
 
 # reshape data from wide to long
 home_land_byyear <- 
-    housing_byyear %>%
+    housing_byyear |>
     pivot_longer(cols = c(Home_Value_Mean, Land_Value_Mean),
                  names_to = "type",
                  values_to = "value")

@@ -189,7 +189,7 @@ str_subset(character_vector, regex_pattern)
 str_subset(excel_sheets(boy_file_names[1]), pattern = "Table 1")
 
 # or, we can do this by piping functions
-excel_sheets(boy_file_names[1]) %>% str_subset(pattern = "Table 1")
+excel_sheets(boy_file_names[1]) |> str_subset(pattern = "Table 1")
 
 #
 # ### Writing your own functions
@@ -246,7 +246,7 @@ myfun2(x=1:10, y=42)
 
 # function to extract different sheet names using regex
 get_data_sheet_name <- function(file, term){
-  excel_sheets(file) %>% str_subset(pattern = term)
+  excel_sheets(file) |> str_subset(pattern = term)
 }
 
 #
@@ -321,7 +321,7 @@ read_boys_names <- function(file, sheet_name) {
 # 2. Test your function by using it to read *one* of the boys names Excel files.
 #
 
-read_boys_names(boy_file_names[1], sheet_name = "Table 1") %>% glimpse()
+read_boys_names(boy_file_names[1], sheet_name = "Table 1") |> glimpse()
 
 #
 # 3. Use the `map()` function to create a list of data frames called `boysNames` from all the Excel files, using the function you wrote in step 1.
@@ -489,7 +489,7 @@ class(mylist[[2]]) # a character vector
 boysNames[[1]]
 
 # remove rows with missing values
-boysNames[[1]] <- boysNames[[1]] %>% drop_na()
+boysNames[[1]] <- boysNames[[1]] |> drop_na()
 
 boysNames[[1]]
 
@@ -583,8 +583,8 @@ bind_rows(first_columns, second_columns)
 cleanupNamesData <- function(file){
 
   # A) subsets data to include only those columns that include the term `Name` and `Count` and apply listwise deletion
-  subsetted_file <- file %>%
-    select(matches("Name|Count")) %>%
+  subsetted_file <- file |>
+    select(matches("Name|Count")) |>
     drop_na()
 
   # B) subsets two separate data frames, with first and second set of `Name` and `Count` columns 
@@ -598,8 +598,8 @@ cleanupNamesData <- function(file){
 }
 
 # D) once you've written the function, test it out on *one* of the data frames in the list
-boysNames[[2]] %>% glimpse() # before cleanup
-boysNames[[2]] %>% cleanupNamesData() %>% glimpse() # after cleanup
+boysNames[[2]] |> glimpse() # before cleanup
+boysNames[[2]] |> cleanupNamesData() |> glimpse() # after cleanup
 
 #
 # 2. Your task now is to use the `map()` function to apply each of these transformations to all the elements in `boysNames`. 
@@ -624,7 +624,7 @@ boysNames <- map(boysNames, cleanupNamesData)
 #
 
 # our unnamed list of data frames
-head(boysNames) %>% glimpse()
+head(boysNames) |> glimpse()
 
 # the file names containing the 'year' information
 head(boy_file_names)
@@ -653,7 +653,7 @@ names(boysNames) # check assignment by returning the years as list names
 #
 
 # view named list of data frames
-head(boysNames) %>% glimpse() 
+head(boysNames) |> glimpse() 
 
 #
 # ### One big data frame
@@ -714,9 +714,9 @@ write_csv(boysNames, "dataSets/all/boys_names.csv")
 # 3. What were the five most popular names in 2013?   
 #
 
-boysNames %>% 
-  filter(Year == 2013) %>%
-  arrange(desc(Count)) %>%
+boysNames |> 
+  filter(Year == 2013) |>
+  arrange(desc(Count)) |>
   head()
 
 #
@@ -740,7 +740,7 @@ boy_file_names <- list.files("dataSets/boys", full.names = TRUE)
 
 # function to extract sheet names from an Excel file
 get_data_sheet_name <- function(file, term){
-  excel_sheets(file) %>% str_subset(pattern = term)
+  excel_sheets(file) |> str_subset(pattern = term)
 }
 
 # function to read in arbirary sheets from an Excel file
@@ -763,8 +763,8 @@ boysNames <- map(boy_file_names, read_boys_names, sheet_name = "Table 1")
 cleanupNamesData <- function(file){
   
   # A) subset data to include only those columns that include the term `Name` and `Count`
-  subsetted_file <- file %>%
-    select(matches("Name|Count")) %>%
+  subsetted_file <- file |>
+    select(matches("Name|Count")) |>
     drop_na()
 
   # B) subsets two separate data frames, with first and second set of `Name` and `Count` columns 
