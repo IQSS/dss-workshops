@@ -687,11 +687,11 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("lme4")</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)  <span class="co"># for mixed models</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("emmeans")</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)  <span class="co"># for marginal effects</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("marginaleffects")</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)  <span class="co"># for predictions, comparisons and marginal effects</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("effects")</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)  <span class="co"># for predicted marginal means</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("emmeans")</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)  <span class="co"># for contrasts among the levels of a factor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -1102,13 +1102,14 @@ F-statistic: 88.01 on 2 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] add1           alias          anova          case.names     coerce        
  [6] confint        cooks.distance deviance       dfbeta         dfbetas       
-[11] dffits         drop1          dummy.coef     Effect         effects       
-[16] emm_basis      extractAIC     family         formula        fortify       
+[11] dffits         drop1          dummy.coef     effects        emm_basis     
+[16] extractAIC     family         formula        fortify        get_predict   
 [21] hatvalues      influence      initialize     kappa          labels        
 [26] logLik         model.frame    model.matrix   nobs           plot          
 [31] predict        print          proj           qqnorm         qr            
-[36] recover_data   residuals      rstandard      rstudent       show          
-[41] simulate       slotsFromS3    summary        variable.names vcov          
+[36] recover_data   residuals      rstandard      rstudent       set_coef      
+[41] show           simulate       slotsFromS3    summary        variable.names
+[46] vcov          
 see '?methods' for accessing help and source code</code></pre>
 </div>
 </div>
@@ -1169,57 +1170,56 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># methods for generic `summary()` function</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">methods</span>(<span class="st">"summary"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] summary,ANY-method                  summary,DBIObject-method           
-  [3] summary,diagonalMatrix-method       summary,sparseMatrix-method        
-  [5] summary.aareg*                      summary.allFit*                    
-  [7] summary.aov                         summary.aovlist*                   
-  [9] summary.aspell*                     summary.cch*                       
- [11] summary.check_packages_in_dir*      summary.connection                 
- [13] summary.corAR1*                     summary.corARMA*                   
- [15] summary.corCAR1*                    summary.corCompSymm*               
- [17] summary.corExp*                     summary.corGaus*                   
- [19] summary.corIdent*                   summary.corLin*                    
- [21] summary.corNatural*                 summary.corRatio*                  
- [23] summary.corSpher*                   summary.corStruct*                 
- [25] summary.corSymm*                    summary.coxph*                     
- [27] summary.coxph.penal*                summary.data.frame                 
- [29] summary.Date                        summary.DBIrepdesign*              
- [31] summary.DBIsvydesign*               summary.default                    
- [33] summary.difftime                    summary.Duration*                  
- [35] summary.ecdf*                       summary.eff*                       
- [37] summary.efflatent*                  summary.efflist*                   
- [39] summary.effpoly*                    summary.emm_list*                  
- [41] summary.emmGrid*                    summary.factor                     
- [43] summary.free1way*                   summary.get_predicted*             
- [45] summary.ggplot2::ggplot*            summary.glht_list*                 
- [47] summary.glm                         summary.gls*                       
- [49] summary.hcl_palettes*               summary.infl*                      
- [51] summary.Interval*                   summary.lm                         
- [53] summary.lme*                        summary.lmList*                    
- [55] summary.lmList4*                    summary.loess*                     
- [57] summary.loglm*                      summary.manova                     
- [59] summary.matrix                      summary.merMod*                    
- [61] summary.MIresult*                   summary.mlm*                       
- [63] summary.mlm.efflist*                summary.modelStruct*               
- [65] summary.multiframe*                 summary.multinom*                  
- [67] summary.negbin*                     summary.nls*                       
- [69] summary.nlsList*                    summary.nnet*                      
- [71] summary.packageStatus*              summary.pdBlocked*                 
- [73] summary.pdCompSymm*                 summary.pdDiag*                    
- [75] summary.pdIdent*                    summary.pdLogChol*                 
- [77] summary.pdMat*                      summary.pdNatural*                 
- [79] summary.pdSymm*                     summary.Period*                    
- [81] summary.polr*                       summary.POSIXct                    
- [83] summary.POSIXlt                     summary.ppr*                       
- [85] summary.pps*                        summary.prcomp*                    
- [87] summary.prcomplist*                 summary.predictorefflist*          
- [89] summary.princomp*                   summary.proc_time                  
- [91] summary.pyears*                     summary.ratetable*                 
- [93] summary.reStruct*                   summary.rlang_error*               
- [95] summary.rlang_message*              summary.rlang_trace*               
- [97] summary.rlang_warning*              summary.rlang:::list_of_conditions*
- [99] summary.rlm*                        summary.shingle*                   
- [ reached 'max' / getOption("max.print") -- omitted 42 entries ]
+<pre><code> [1] summary,ANY-method                  summary,diagonalMatrix-method      
+ [3] summary,sparseMatrix-method         summary.allFit*                    
+ [5] summary.aov                         summary.aovlist*                   
+ [7] summary.aspell*                     summary.check_packages_in_dir*     
+ [9] summary.connection                  summary.corAR1*                    
+[11] summary.corARMA*                    summary.corCAR1*                   
+[13] summary.corCompSymm*                summary.corExp*                    
+[15] summary.corGaus*                    summary.corIdent*                  
+[17] summary.corLin*                     summary.corNatural*                
+[19] summary.corRatio*                   summary.corSpher*                  
+[21] summary.corStruct*                  summary.corSymm*                   
+[23] summary.data.frame                  summary.Date                       
+[25] summary.default                     summary.difftime                   
+[27] summary.Duration*                   summary.ecdf*                      
+[29] summary.emm_list*                   summary.emmGrid*                   
+[31] summary.factor                      summary.free1way*                  
+[33] summary.ggplot2::ggplot*            summary.glht_list*                 
+[35] summary.glm                         summary.gls*                       
+[37] summary.infl*                       summary.Interval*                  
+[39] summary.lm                          summary.lme*                       
+[41] summary.lmList*                     summary.lmList4*                   
+[43] summary.loess*                      summary.loglm*                     
+[45] summary.manova                      summary.matrix                     
+[47] summary.merMod*                     summary.mlm*                       
+[49] summary.modelStruct*                summary.negbin*                    
+[51] summary.nls*                        summary.nlsList*                   
+[53] summary.packageStatus*              summary.pdBlocked*                 
+[55] summary.pdCompSymm*                 summary.pdDiag*                    
+[57] summary.pdIdent*                    summary.pdLogChol*                 
+[59] summary.pdMat*                      summary.pdNatural*                 
+[61] summary.pdSymm*                     summary.Period*                    
+[63] summary.polr*                       summary.POSIXct                    
+[65] summary.POSIXlt                     summary.ppr*                       
+[67] summary.prcomp*                     summary.prcomplist*                
+[69] summary.princomp*                   summary.proc_time                  
+[71] summary.reStruct*                   summary.rlang_error*               
+[73] summary.rlang_message*              summary.rlang_trace*               
+[75] summary.rlang_warning*              summary.rlang:::list_of_conditions*
+[77] summary.rlm*                        summary.shingle*                   
+[79] summary.srcfile                     summary.srcref                     
+[81] summary.stepfun                     summary.stl*                       
+[83] summary.summary_eml*                summary.summary_emm*               
+[85] summary.summary.merMod*             summary.table                      
+[87] summary.trellis*                    summary.tukeysmooth*               
+[89] summary.varComb*                    summary.varConstPower*             
+[91] summary.varConstProp*               summary.varExp*                    
+[93] summary.varFixed*                   summary.varFunc*                   
+[95] summary.varIdent*                   summary.varPower*                  
+[97] summary.vctrs_sclr*                 summary.vctrs_vctr*                
+[99] summary.warnings                   
 see '?methods' for accessing help and source code</code></pre>
 </div>
 </div>
@@ -1300,19 +1300,19 @@ see '?methods' for accessing help and source code</code></pre>
 <td style="text-align: left;">empirical Bayes estimates (mixed models only)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>allEffects()</code></td>
-<td style="text-align: left;"><code>effects</code></td>
-<td style="text-align: left;">predicted marginal means</td>
+<td style="text-align: left;"><code>avg_predictions()</code></td>
+<td style="text-align: left;"><code>marginaleffects</code></td>
+<td style="text-align: left;">predicted values, averaged over the sample</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>emmeans()</code></td>
-<td style="text-align: left;"><code>emmeans</code></td>
-<td style="text-align: left;">predicted marginal means &amp; marginal effects</td>
+<td style="text-align: left;"><code>avg_slopes()</code></td>
+<td style="text-align: left;"><code>marginaleffects</code></td>
+<td style="text-align: left;">marginal effects (slopes)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>avg_predictions()</code>, <code>avg_slopes()</code></td>
-<td style="text-align: left;"><code>marginaleffects</code></td>
-<td style="text-align: left;">predicted marginal means &amp; marginal effects</td>
+<td style="text-align: left;"><code>emmeans()</code></td>
+<td style="text-align: left;"><code>emmeans</code></td>
+<td style="text-align: left;">contrasts among the levels of a factor</td>
 </tr>
 </tbody>
 </table>
@@ -1753,6 +1753,17 @@ $contrasts
 P value adjustment: tukey method for comparing a family of 4 estimates </code></pre>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><code>emmeans</code> (“estimated marginal means”) is built around comparing the levels of factors, and it comes from the world of designed experiments — balanced factorial designs, where you want every pairwise contrast and a correction for having made many of them at once. That is what it is doing above, and it is the right tool for that job.</p>
+<p>For everything else in this workshop — asking what the model predicts for particular values of the predictors — we use <code>marginaleffects</code>, which is built around observational data and answers the question by averaging over the sample you actually have rather than over a balanced design you do not.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="exercise-1" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
@@ -1822,7 +1833,7 @@ Model 2: energy ~ 1 + metro * waste + region
 <ol type="1">
 <li>The <code>family</code> and <code>link</code> components of the <code>glm()</code> function call</li>
 <li>Transforming model coefficients into odds ratios</li>
-<li>Transforming model coefficients into predicted marginal means</li>
+<li>Turning model coefficients into predicted probabilities</li>
 </ol>
 </div>
 </div>
@@ -1952,72 +1963,81 @@ bmi         1.01685145 1.02065009</code></pre>
 </section>
 <section id="predicted-marginal-means" class="level3">
 <h3 class="anchored" data-anchor-id="predicted-marginal-means">Predicted marginal means</h3>
-<p>Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called “least-squares means” or “estimated marginal means”). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the <code>effects</code> package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).</p>
+<p>Instead of reporting odds ratios, we may want to ask what the model predicts on the scale we actually care about — here, the <em>probability</em> of a hypertension diagnosis. These quantities go by several names: predicted marginal means, adjusted predictions, or predictive margins. We use the <code>marginaleffects</code> package, which puts them all on the response scale by default.</p>
+<p>The question to settle first is <em>what to do with the other predictors</em> while we vary the one we are interested in. <code>marginaleffects</code> answers it with a <strong>counterfactual grid</strong>: it takes the people in the data as they are, sets the predictor of interest to a value, and predicts for everyone — then repeats for the next value, and averages within each. So the number you get is “what would the average probability be if everyone in this sample were 50”, not “what is the probability for one made-up average person”.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get predicted marginal means</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  hyp_out <span class="sc">|&gt;</span> </span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>() <span class="sc">|&gt;</span></span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot</span>(<span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># "response" refers to the probability scale</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the average predicted probability at each level of sex, holding</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># everyone's other characteristics as they actually are</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">avg_predictions</span>(hyp_out, <span class="at">variables =</span> <span class="st">"sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+      sex Estimate Std. Error     z Pr(&gt;|z|)   S 2.5 % 97.5 %
+ 1 Male      0.337    0.00345  97.7   &lt;0.001 Inf 0.331  0.344
+ 2 Female    0.313    0.00305 102.4   &lt;0.001 Inf 0.307  0.319
+
+Type: response</code></pre>
+</div>
+</div>
+<p>For a continuous predictor we have to say which values to visit, since the model cannot try all of them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate a sequence of ages at which to get predictions of the outcome</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  age_years <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  age_years</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 20 25 30 35 40 45 50 55 60 65 70 75 80</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the counterfactual grid: every person in the data, at every one of those ages</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">avg_predictions</span>(hyp_out, <span class="at">variables =</span> <span class="fu">list</span>(<span class="at">age_p =</span> age_years))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ age_p Estimate Std. Error     z Pr(&gt;|z|)     S  2.5 % 97.5 %
+    20    0.069    0.00194  35.6   &lt;0.001 918.7 0.0652 0.0728
+    25    0.091    0.00220  41.4   &lt;0.001   Inf 0.0867 0.0953
+    30    0.119    0.00242  49.2   &lt;0.001   Inf 0.1143 0.1238
+    35    0.154    0.00259  59.6   &lt;0.001   Inf 0.1491 0.1593
+    40    0.197    0.00269  73.3   &lt;0.001   Inf 0.1920 0.2026
+    45    0.249    0.00276  90.3   &lt;0.001   Inf 0.2435 0.2543
+    50    0.309    0.00285 108.3   &lt;0.001   Inf 0.3032 0.3144
+    55    0.376    0.00308 122.1   &lt;0.001   Inf 0.3699 0.3819
+    60    0.448    0.00348 128.7   &lt;0.001   Inf 0.4413 0.4550
+    65    0.523    0.00400 130.7   &lt;0.001   Inf 0.5149 0.5306
+    70    0.596    0.00450 132.6   &lt;0.001   Inf 0.5877 0.6053
+    75    0.666    0.00484 137.5   &lt;0.001   Inf 0.6567 0.6757
+ [ reached 'max' / getOption("max.print") -- omitted 1 rows ]
+
+Type: response</code></pre>
+</div>
+</div>
+<p><code>plot_predictions()</code> draws the same quantity:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># predicted probability of hypertension across the age range</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_predictions</span>(hyp_out, <span class="at">condition =</span> <span class="st">"age_p"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="models_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="models_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>By default, <code>allEffects()</code> will produce predictions for all levels of factor variables, while for continuous variables it will chose 5 representative values based on quantiles. We can easily override this behavior using the <code>xlevels</code> argument and get predictions at any values of a continuous variable.</p>
+<p>If instead of the <em>level</em> of the response you want the <em>change</em> in it — how much the probability moves per unit of a predictor — that is a marginal effect, and <code>avg_slopes()</code> computes it the same way:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate a sequence of ages at which to get predictions of the outcome</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  age_years <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  age_years</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># average marginal effect of each predictor, on the probability scale</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">avg_slopes</span>(hyp_out)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 20 25 30 35 40 45 50 55 60 65 70 75 80</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get predicted marginal means</span></span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  eff_df <span class="ot">&lt;-</span> </span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>      hyp_out <span class="sc">|&gt;</span> </span>
-<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>(<span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">age_p =</span> age_years)) <span class="sc">|&gt;</span> <span class="co"># override defaults for age</span></span>
-<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.data.frame</span>() <span class="co"># get confidence intervals</span></span>
-<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>  eff_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$age_p
-   age_p        fit          se      lower      upper
-1     20 0.06690384 0.001915704 0.06324553 0.07075778
-2     25 0.08852692 0.002181618 0.08434323 0.09289708
-3     30 0.11626770 0.002418813 0.11161020 0.12109307
-4     35 0.15125876 0.002603243 0.14622690 0.15643204
-5     40 0.19446321 0.002722428 0.18918282 0.19985467
-6     45 0.24642528 0.002796260 0.24098582 0.25194677
-7     50 0.30698073 0.002895857 0.30133437 0.31268554
-8     55 0.37501156 0.003124112 0.36890868 0.38115441
-9     60 0.44836479 0.003531792 0.44145305 0.45529654
-10    65 0.52403564 0.004052454 0.51608756 0.53197156
-11    70 0.59861876 0.004545531 0.58967801 0.60749436
-12    75 0.66889903 0.004880732 0.65926418 0.67839434
-13    80 0.73237506 0.004986539 0.72248912 0.74203457
+<pre><code>
+  Term          Contrast Estimate Std. Error      z Pr(&gt;|z|)     S    2.5 %
+ age_p dY/dX              0.01047   0.000094 111.40   &lt;0.001   Inf  0.01029
+ bmi   dY/dX              0.00320   0.000161  19.90   &lt;0.001 290.4  0.00289
+ sex   2 Female - 1 Male -0.02485   0.004620  -5.38   &lt;0.001  23.7 -0.03391
+ sleep dY/dX             -0.00121   0.000283  -4.29   &lt;0.001  15.8 -0.00177
+   97.5 %
+  0.01065
+  0.00352
+ -0.01579
+ -0.00066
 
-$sex
-       sex       fit          se     lower     upper
-1   1 Male 0.2994186 0.004188707 0.2912739 0.3076922
-2 2 Female 0.2701044 0.003715028 0.2628852 0.2774472
-
-$sleep
-  sleep       fit          se     lower     upper
-1     3 0.2899941 0.003276427 0.2836147 0.2964575
-2    30 0.2524895 0.007427001 0.2382124 0.2673219
-3    50 0.2268657 0.012446183 0.2034008 0.2521806
-4    80 0.1919843 0.018549461 0.1582199 0.2309771
-5   100 0.1710955 0.021584286 0.1328287 0.2176200
-
-$bmi
-  bmi       fit          se     lower     upper
-1  10 0.2144084 0.004121590 0.2064409 0.2225972
-2  30 0.2835093 0.002849407 0.2779580 0.2891272
-3  60 0.4085485 0.007450161 0.3940311 0.4232272
-4  80 0.5003663 0.012139141 0.4765911 0.5241398
-5 100 0.5921593 0.016180071 0.5601051 0.6234481</code></pre>
+Type: response</code></pre>
 </div>
 </div>
 </section>
@@ -2029,13 +2049,13 @@ $bmi
 <li>Use <code>glm()</code> to conduct a logistic regression to predict ever worked (<code>everwrk</code>) using age (<code>age_p</code>) and marital status (<code>r_maritl</code>). Make sure you only keep the following two levels for <code>everwrk</code> (<code>2 No</code> and <code>1 Yes</code>). Hint: use the <code>factor()</code> function. Also, make sure to drop any <code>r_maritl</code> levels that do not contain observations. Hint: see <code>?droplevels</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
-<li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code></li>
+<li>Predict the probability of working for each level of marital status. Hint: use <code>avg_predictions()</code></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note that the data are not perfectly clean and ready to be modeled. You will need to clean up at least some of the variables before fitting the model.</p>
 <div class="callout callout-style-simple callout-tip callout-titled" title="Exercise 2 solution">
@@ -2055,16 +2075,16 @@ $bmi
 <li>Use <code>glm()</code> to conduct a logistic regression to predict ever worked (<code>everwrk</code>) using age (<code>age_p</code>) and marital status (<code>r_maritl</code>). Make sure you only keep the following two levels for <code>everwrk</code> (<code>2 No</code> and <code>1 Yes</code>). Hint: use the <code>factor()</code> function. Also, make sure to drop any <code>r_maritl</code> levels that do not contain observations. Hint: see <code>?droplevels</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>  NH11 <span class="ot">&lt;-</span> NH11 <span class="sc">|&gt;</span></span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">everwrk =</span> <span class="fu">factor</span>(everwrk, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"2 No"</span>, <span class="st">"1 Yes"</span>)),</span>
-<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">r_maritl =</span> <span class="fu">droplevels</span>(r_maritl)</span>
-<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>             )</span>
-<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>  mod_wk_age_mar <span class="ot">&lt;-</span> <span class="fu">glm</span>(everwrk <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age_p <span class="sc">+</span> r_maritl, </span>
-<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> NH11,</span>
-<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_wk_age_mar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>  NH11 <span class="ot">&lt;-</span> NH11 <span class="sc">|&gt;</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">everwrk =</span> <span class="fu">factor</span>(everwrk, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"2 No"</span>, <span class="st">"1 Yes"</span>)),</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">r_maritl =</span> <span class="fu">droplevels</span>(r_maritl)</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>  mod_wk_age_mar <span class="ot">&lt;-</span> <span class="fu">glm</span>(everwrk <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age_p <span class="sc">+</span> r_maritl, </span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> NH11,</span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_wk_age_mar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2106,31 +2126,32 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
-<li>Predict the probability of working for each level of marital status. Hint: use <code>allEffects()</code>.</li>
+<li>Predict the probability of working for each level of marital status. Hint: use <code>avg_predictions()</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>  mod_wk_age_mar <span class="sc">|&gt;</span> </span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">allEffects</span>() <span class="sc">|&gt;</span></span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.data.frame</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">avg_predictions</span>(mod_wk_age_mar, <span class="at">variables =</span> <span class="st">"r_maritl"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>$age_p
-  age_p       fit          se     lower     upper
-1    20 0.7241256 0.011448539 0.7011322 0.7459909
-2    30 0.7795664 0.007483648 0.7645495 0.7938837
-3    50 0.8652253 0.003183752 0.8588624 0.8713443
-4    70 0.9209721 0.003053617 0.9147761 0.9267537
-5    80 0.9401248 0.003123927 0.9337009 0.9459624
+<pre><code>
+                            r_maritl Estimate Std. Error     z Pr(&gt;|z|)      S
+ 1 Married - spouse in household        0.878    0.00449 195.6   &lt;0.001    Inf
+ 2 Married - spouse not in household    0.872    0.02268  38.5   &lt;0.001 1073.0
+ 4 Widowed                              0.789    0.01146  68.9   &lt;0.001    Inf
+ 5 Divorced                             0.936    0.00611 153.1   &lt;0.001    Inf
+ 6 Separated                            0.890    0.01362  65.3   &lt;0.001    Inf
+ 7 Never married                        0.838    0.00667 125.6   &lt;0.001    Inf
+ 8 Living with partner                  0.917    0.00960  95.5   &lt;0.001    Inf
+ 9 Unknown marital status               0.831    0.06526  12.7   &lt;0.001  121.0
+ 2.5 % 97.5 %
+ 0.869  0.886
+ 0.828  0.917
+ 0.767  0.812
+ 0.924  0.948
+ 0.864  0.917
+ 0.825  0.851
+ 0.898  0.935
+ 0.703  0.959
 
-$r_maritl
-                             r_maritl       fit          se     lower     upper
-1     1 Married - spouse in household 0.8917800 0.004259644 0.8831439 0.8998502
-2 2 Married - spouse not in household 0.8868918 0.021393167 0.8377247 0.9225394
-3                           4 Widowed 0.8061891 0.010634762 0.7844913 0.8261864
-4                          5 Divorced 0.9447561 0.005361664 0.9332564 0.9543712
-5                         6 Separated 0.9035358 0.012707502 0.8755978 0.9257318
-6                     7 Never married 0.8538900 0.007459212 0.8386559 0.8679122
-7               8 Living with partner 0.9277504 0.008904955 0.9082334 0.9433753
-8            9 Unknown marital status 0.8472992 0.063528455 0.6794427 0.9355916</code></pre>
+Type: response</code></pre>
 </div>
 </div>
 </div>
@@ -2200,24 +2221,24 @@ $r_maritl
 </table>
 <p>Let’s read in the data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>  exam <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"dataSets/Exam.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>  exam <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"dataSets/Exam.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="the-null-model-icc" class="level3">
 <h3 class="anchored" data-anchor-id="the-null-model-icc">The null model &amp; ICC</h3>
 <p>Before we fit our first model, let’s take a look at the R syntax for multilevel models:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># anatomy of lmer() function</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lmer</span>(outcome <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> pred1 <span class="sc">+</span> pred2 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> grouping_variable), </span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> mydata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># anatomy of lmer() function</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lmer</span>(outcome <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> pred1 <span class="sc">+</span> pred2 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> grouping_variable), </span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> mydata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Notice the formula section within the brackets: <code>(1 | grouping_variable)</code>. This part of the formula tells R about the hierarchical structure of the model. In this case, it says we have a model with random intercepts (<code>1</code>) grouped by (<code>|</code>) a <code>grouping_variable</code>.</p>
 <p>As a preliminary modeling step, it is often useful to partition the variance in the dependent variable into the various levels. This can be accomplished by running a null model (i.e., a model with a random effects grouping structure, but no fixed-effects predictors) and then calculating the intra-class correlation (ICC).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># null model, grouping by school but not fixed effects.</span></span>
-<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>  Norm1 <span class="ot">&lt;-</span><span class="fu">lmer</span>(normexam <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school), </span>
-<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">na.omit</span>(exam))</span>
-<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(Norm1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># null model, grouping by school but not fixed effects.</span></span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  Norm1 <span class="ot">&lt;-</span><span class="fu">lmer</span>(normexam <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school), </span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">na.omit</span>(exam))</span>
+<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(Norm1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: normexam ~ 1 + (1 | school)
@@ -2260,10 +2281,10 @@ examscores_{ij} = \mu1 + \beta_1testscores_{ij} + U_{0j} + \epsilon_{ij}
 </div>
 <p>where <span class="math inline">\(U_{0j}\)</span> is the random intercept for the <span class="math inline">\(j\)</span><sup>th</sup> <code>school</code>. Let’s implement this in R using <code>lmer()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># model with exam scores regressed on student's standardized tests scores</span></span>
-<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  Norm2 <span class="ot">&lt;-</span><span class="fu">lmer</span>(normexam <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> standLRT <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school),</span>
-<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">na.omit</span>(exam)) </span>
-<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(Norm2) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># model with exam scores regressed on student's standardized tests scores</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>  Norm2 <span class="ot">&lt;-</span><span class="fu">lmer</span>(normexam <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> standLRT <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school),</span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">na.omit</span>(exam)) </span>
+<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(Norm2) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: normexam ~ 1 + standLRT + (1 | school)
@@ -2296,8 +2317,8 @@ standLRT 0.007 </code></pre>
 <h3 class="anchored" data-anchor-id="multiple-degree-of-freedom-comparisons">Multiple degree of freedom comparisons</h3>
 <p>As with <code>lm()</code> and <code>glm()</code> models, you can compare the two <code>lmer()</code> models using the <code>anova()</code> function. With mixed effects models, this will produce a likelihood ratio test.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># likelihood ratio test of two nested models</span></span>
-<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova</span>(Norm1, Norm2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># likelihood ratio test of two nested models</span></span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova</span>(Norm1, Norm2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data: na.omit(exam)
 Models:
@@ -2315,10 +2336,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 class="anchored" data-anchor-id="random-slopes">Random slopes</h3>
 <p>We can add a random effect of students’ standardized test scores as well. Now in addition to estimating the distribution of intercepts across schools, we also estimate the distribution of the slope of exam on standardized test.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add random effect of students' standardized test scores to model</span></span>
-<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>  Norm3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(normexam <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> standLRT <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> standLRT <span class="sc">|</span> school), </span>
-<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> <span class="fu">na.omit</span>(exam)) </span>
-<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(Norm3) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add random effect of students' standardized test scores to model</span></span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>  Norm3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(normexam <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> standLRT <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> standLRT <span class="sc">|</span> school), </span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> <span class="fu">na.omit</span>(exam)) </span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(Norm3) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: normexam ~ 1 + standLRT + (1 + standLRT | school)
@@ -2352,8 +2373,8 @@ standLRT 0.360 </code></pre>
 <h3 class="anchored" data-anchor-id="test-the-significance-of-the-random-slope">Test the significance of the random slope</h3>
 <p>To test the significance of a random slope just compare models with and without the random slope term using a likelihood ratio test:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># likelihood ratio test for random slope term</span></span>
-<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova</span>(Norm2, Norm3) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># likelihood ratio test for random slope term</span></span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova</span>(Norm2, Norm3) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data: na.omit(exam)
 Models:
@@ -2372,8 +2393,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p><strong>Multilevel modeling</strong></p>
 <p>Use the <code>bh1996</code> dataset:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages("multilevel")</span></span>
-<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bh1996, <span class="at">package =</span> <span class="st">"multilevel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages("multilevel")</span></span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bh1996, <span class="at">package =</span> <span class="st">"multilevel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>From the data documentation:</p>
 <blockquote class="blockquote">
@@ -2383,25 +2404,25 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Create a null model predicting wellbeing (<code>WBEING</code>)</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Calculate the ICC for your null model</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
 <li>Run a second multi-level model that adds two individual-level predictors, average number of hours worked (<code>HRS</code>) and leadership skills (<code>LEAD</code>) to the model and interpret your output.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="4" type="1">
 <li>Now, add a random effect of average number of hours worked (<code>HRS</code>) to the model and interpret your output. Test the significance of this random term.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-simple callout-tip callout-titled" title="Exercise 3 solution">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -2417,8 +2438,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="callout-body-container callout-body">
 <p>Use the dataset <code>bh1996</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># install.packages("multilevel")</span></span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data</span>(bh1996, <span class="at">package=</span><span class="st">"multilevel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># install.packages("multilevel")</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data</span>(bh1996, <span class="at">package=</span><span class="st">"multilevel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>From the data documentation:</p>
 <blockquote class="blockquote">
@@ -2428,8 +2449,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Create a null model predicting wellbeing (<code>WBEING</code>).</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>  mod_grp0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WBEING <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> GRP), <span class="at">data =</span> <span class="fu">na.omit</span>(bh1996))</span>
-<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_grp0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>  mod_grp0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WBEING <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> GRP), <span class="at">data =</span> <span class="fu">na.omit</span>(bh1996))</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_grp0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: WBEING ~ 1 + (1 | GRP)
@@ -2456,7 +2477,7 @@ Fixed effects:
 <li>Calculate the ICC for your null model</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.0358</span> <span class="sc">/</span> (<span class="fl">0.0358</span> <span class="sc">+</span> <span class="fl">0.7895</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.0358</span> <span class="sc">/</span> (<span class="fl">0.0358</span> <span class="sc">+</span> <span class="fl">0.7895</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04337817</code></pre>
 </div>
@@ -2465,8 +2486,8 @@ Fixed effects:
 <li>Run a second multi-level model that adds two individual-level predictors, average number of hours worked (<code>HRS</code>) and leadership skills (<code>LEAD</code>) to the model and interpret your output.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>  mod_grp1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WBEING <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> HRS <span class="sc">+</span> LEAD <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> GRP), <span class="at">data =</span> <span class="fu">na.omit</span>(bh1996))</span>
-<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_grp1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>  mod_grp1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WBEING <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> HRS <span class="sc">+</span> LEAD <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> GRP), <span class="at">data =</span> <span class="fu">na.omit</span>(bh1996))</span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod_grp1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: WBEING ~ 1 + HRS + LEAD + (1 | GRP)
@@ -2500,8 +2521,8 @@ LEAD -0.635  0.121</code></pre>
 <li>Now, add a random effect of average number of hours worked (<code>HRS</code>) to the model and interpret your output. Test the significance of this random term.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>  mod_grp2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WBEING <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> HRS <span class="sc">+</span> LEAD <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> HRS <span class="sc">|</span> GRP), <span class="at">data =</span> <span class="fu">na.omit</span>(bh1996))</span>
-<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova</span>(mod_grp1, mod_grp2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>  mod_grp2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WBEING <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> HRS <span class="sc">+</span> LEAD <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> HRS <span class="sc">|</span> GRP), <span class="at">data =</span> <span class="fu">na.omit</span>(bh1996))</span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova</span>(mod_grp1, mod_grp2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data: na.omit(bh1996)
 Models:
