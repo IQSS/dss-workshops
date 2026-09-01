@@ -617,9 +617,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="workshop-outline" class="level3">
 <h3 class="anchored" data-anchor-id="workshop-outline">Workshop Outline</h3>
 <p><strong>Example data</strong></p>
-<p>The UK <a href="https://www.ons.gov.uk">Office for National Statistics</a> provides yearly data on the most popular boys names going back to 1996. The data is provided separately for boys and girls and is stored in Excel spreadsheets.</p>
+<p>The UK <a href="https://www.ons.gov.uk">Office for National Statistics</a> publishes the most popular boys’ names in England and Wales every year, separately for boys and girls, in Excel spreadsheets. We will work with the twenty files covering <strong>1996 to 2015</strong>, exactly as they came from the ONS website.</p>
 <p><strong>Overall Goal</strong></p>
-<p>Our mission is to extract and graph the <strong>top 100</strong> boys names in England and Wales for every year since 1996.</p>
+<p>Our mission is to extract and graph the <strong>top 100</strong> boys names in England and Wales for every year from <strong>1996 to 2015</strong>.</p>
 <center>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -666,7 +666,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Steps to accomplish the goal of extracting and graphing the <em>top 100</em> boys names in England and Wales for every year since 1996:</strong></p>
+<p><strong>Steps to accomplish the goal of extracting and graphing the <em>top 100</em> boys names in England and Wales for every year from 1996 to 2015:</strong></p>
 <ol start="0" type="1">
 <li><p><strong>Explore example data to highlight problems (already done!)</strong></p></li>
 <li><p><strong>Reading data from multiple Excel worksheets into R data frames</strong></p>
@@ -711,6 +711,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>As you can see, the data is in quite a messy state. Note that this is not a contrived example; this is exactly the way the data came to us from the UK government website! Let’s start cleaning and organizing it.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The ONS still publishes these figures every year, but the format has moved on: from 2022 the worksheet is named <code>Table_1</code> rather than <code>Table 1</code>, and by the 2025 edition the table has been flattened into a single list of ranks 1 to 100 instead of two blocks side by side. We keep the 1996–2015 files because that heterogeneity is the thing being taught here — and the change is itself the lesson, since code written against one year’s layout will not survive the publisher tidying up.</p>
+</div>
+</div>
+</div>
 <p>Each Excel file contains a worksheet with the boy names data we want. Each file also contains additional supplemental worksheets that we are not currently interested in. As noted above, the worksheet of interest differs from year to year, but always has “Table 1” in the sheet name.</p>
 <p>The first step is to get a character vector of file names.</p>
 <div class="cell">
