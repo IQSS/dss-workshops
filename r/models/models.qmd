@@ -74,11 +74,11 @@ Finally, lets install some packages that will help with modeling:
 # install.packages("lme4")
 library(lme4)  # for mixed models
 
-# install.packages("emmeans")
-library(emmeans)  # for marginal effects
+# install.packages("marginaleffects")
+library(marginaleffects)  # for predictions, comparisons and marginal effects
 
-# install.packages("effects")
-library(effects)  # for predicted marginal means
+# install.packages("emmeans")
+library(emmeans)  # for contrasts among the levels of a factor
 ```
 
 ## Modeling workflow
@@ -340,9 +340,9 @@ It's always worth examining whether the class of model you've fitted has a metho
 | `fixef()`     | `lme4`    | fixed effect point estimates (mixed models only)        |
 | `ranef()`     | `lme4`    | random effect point estimates (mixed models only)       |
 | `coef()`      | `lme4`    | empirical Bayes estimates (mixed models only)           |
-| `allEffects()`| `effects` | predicted marginal means                                |
-| `emmeans()`   | `emmeans` | predicted marginal means & marginal effects             |
-| `avg_predictions()`, `avg_slopes()` | `marginaleffects` | predicted marginal means & marginal effects |
+| `avg_predictions()` | `marginaleffects` | predicted values, averaged over the sample |
+| `avg_slopes()`      | `marginaleffects` | marginal effects (slopes)                  |
+| `emmeans()`         | `emmeans`         | contrasts among the levels of a factor     |
 
 ### OLS regression assumptions
 
@@ -594,6 +594,21 @@ Often, we may want to get all possible pairwise comparisons among the various le
       emmeans(specs = pairwise ~ region)
 ```
 
+::: {.callout-note}
+
+`emmeans` ("estimated marginal means") is built around comparing the levels of
+factors, and it comes from the world of designed experiments --- balanced
+factorial designs, where you want every pairwise contrast and a correction for
+having made many of them at once. That is what it is doing above, and it is the
+right tool for that job.
+
+For everything else in this workshop --- asking what the model predicts for
+particular values of the predictors --- we use `marginaleffects`, which is built
+around observational data and answers the question by averaging over the sample
+you actually have rather than over a balanced design you do not.
+
+:::
+
 ### Exercise 1
 
 **Interactions & factors**
@@ -637,7 +652,7 @@ Use the `states` data set.
 
 1. The `family` and `link` components of the `glm()` function call
 2. Transforming model coefficients into odds ratios
-3. Transforming model coefficients into predicted marginal means
+3. Turning model coefficients into predicted probabilities
 
 :::
 
@@ -748,29 +763,39 @@ One solution is to transform the coefficients to make them easier to interpret. 
 
 ### Predicted marginal means
 
-Instead of reporting odds ratios, we may want to calculate predicted marginal means (sometimes called "least-squares means" or "estimated marginal means"). These are average values of the outcome at particular levels of the predictors. For ease of interpretation, we want these marginal means to be on the response scale (i.e., the probability scale). We can use the `effects` package to compute these quantities of interest for us (by default, the numerical output will be on the response scale).
+Instead of reporting odds ratios, we may want to ask what the model predicts on the scale we actually care about --- here, the *probability* of a hypertension diagnosis. These quantities go by several names: predicted marginal means, adjusted predictions, or predictive margins. We use the `marginaleffects` package, which puts them all on the response scale by default.
+
+The question to settle first is *what to do with the other predictors* while we vary the one we are interested in. `marginaleffects` answers it with a **counterfactual grid**: it takes the people in the data as they are, sets the predictor of interest to a value, and predicts for everyone --- then repeats for the next value, and averages within each. So the number you get is "what would the average probability be if everyone in this sample were 50", not "what is the probability for one made-up average person".
 
 ```{r}
-  # get predicted marginal means
-  hyp_out |> 
-      allEffects() |>
-      plot(type = "response") # "response" refers to the probability scale
+  # the average predicted probability at each level of sex, holding
+  # everyone's other characteristics as they actually are
+  avg_predictions(hyp_out, variables = "sex")
 ```
 
-By default, `allEffects()` will produce predictions for all levels of factor variables, while for continuous variables it will chose 5 representative values based on quantiles. We can easily override this behavior using the `xlevels` argument and get predictions at any values of a continuous variable. 
+For a continuous predictor we have to say which values to visit, since the model cannot try all of them:
 
 ```{r}
   # generate a sequence of ages at which to get predictions of the outcome
   age_years <- seq(20, 80, by = 5)
   age_years
-  
-  # get predicted marginal means
-  eff_df <- 
-      hyp_out |> 
-      allEffects(xlevels = list(age_p = age_years)) |> # override defaults for age
-      as.data.frame() # get confidence intervals
-  
-  eff_df
+
+  # the counterfactual grid: every person in the data, at every one of those ages
+  avg_predictions(hyp_out, variables = list(age_p = age_years))
+```
+
+`plot_predictions()` draws the same quantity:
+
+```{r}
+  # predicted probability of hypertension across the age range
+  plot_predictions(hyp_out, condition = "age_p")
+```
+
+If instead of the *level* of the response you want the *change* in it --- how much the probability moves per unit of a predictor --- that is a marginal effect, and `avg_slopes()` computes it the same way:
+
+```{r}
+  # average marginal effect of each predictor, on the probability scale
+  avg_slopes(hyp_out)
 ```
 
 ### Exercise 2 
@@ -784,7 +809,7 @@ Use the `NH11` data set that we loaded earlier. Note that the data are not perfe
 ## 
 ```
 
-2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`
+2.  Predict the probability of working for each level of marital status. Hint: use `avg_predictions()`
 ```{r}
 ## 
 ```
@@ -810,12 +835,10 @@ Use the `NH11` data set that we loaded earlier. Note that the data are not perfe
   summary(mod_wk_age_mar)
 ```
 
-2.  Predict the probability of working for each level of marital status. Hint: use `allEffects()`.
+2.  Predict the probability of working for each level of marital status. Hint: use `avg_predictions()`.
 
 ```{r}
-  mod_wk_age_mar |> 
-      allEffects() |>
-      as.data.frame()
+  avg_predictions(mod_wk_age_mar, variables = "r_maritl")
 ```
 
 :::
