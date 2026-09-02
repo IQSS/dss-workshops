@@ -20,6 +20,10 @@
 # Findings go to both the step log and the run summary. The summary is the readable one, but it
 # cannot be fetched from the API, which is how the first failing run left nothing to look at.
 #
+# It fails only on deprecations it has not been told about. .drift-accepted lists the ones already
+# ruled on, each with the decision and its date; without it this job would fail every quarter on
+# qplot, which is kept deliberately, and an alarm that always fires gets ignored.
+#
 # Stata is excluded: it is licensed per machine and cannot run on a hosted runner, so stata/ keeps
 # its committed freeze and is checked by hand at the annual bump
 # (dss-training-ops/docs/notes/annual-bump.md).
@@ -73,13 +77,32 @@ jobs:
 
       - name: Report
         run: |
-          grep -hoiE "[^<>]{0,80}(is deprecated|was deprecated|deprecated in|superseded|defunct)[^<>]{0,120}" \
-            _site/r/*.html _site/python/*.html render.log 2>/dev/null \
-            | sed 's/&quot;/"/g; s/&#39;/'"'"'/g' | sort -u > findings.txt || true
+          # Only the render log. The rendered HTML also contains our own prose about
+          # deprecations -- the note on the qplot page, for one -- which the first
+          # version of this step dutifully reported as a finding.
+          grep -hoiE ".{0,80}(is deprecated|was deprecated|deprecated in|superseded|defunct).{0,120}" \
+            render.log 2>/dev/null | sed 's/&quot;/"/g' | sort -u > raw.txt || true
+
+          # Quarto's own Node tooling and the runner's package manager emit deprecation
+          # warnings of their own, which say nothing about the materials.
+          grep -viE "url\.parse|punycode|gdebi|node_modules|npm warn" raw.txt > candidates.txt || true
+
+          # Deprecations already ruled on. .drift-accepted carries one extended regex
+          # per line, with the decision and its date in the comments above it.
+          cp candidates.txt findings.txt
+          accepted=0
+          if [ -f .drift-accepted ]; then
+            grep -vE '^[[:space:]]*(#|$)' .drift-accepted > accepted.txt || true
+            if [ -s accepted.txt ]; then
+              grep -cEf accepted.txt candidates.txt > /dev/null 2>&1 && \
+                accepted=$(grep -cEf accepted.txt candidates.txt) || accepted=0
+              grep -vEf accepted.txt candidates.txt > findings.txt || true
+            fi
+          fi
 
           echo "--- findings ---"
           cat findings.txt || true
-          echo "--- end findings ---"
+          echo "--- end findings ($accepted accepted and ignored) ---"
 
           {
             echo "## Drift check"
@@ -87,19 +110,22 @@ jobs:
             echo "Render outcome: **${{ steps.render.outcome }}**"
             echo
             if [ -s findings.txt ]; then
-              echo "### Deprecations raised on re-execution"
+              echo "### New deprecations"
               echo
               echo '```'
               head -40 findings.txt
               echo '```'
             else
-              echo "No deprecations raised."
+              echo "No new deprecations."
+            fi
+            if [ "$accepted" -gt 0 ]; then
+              echo
+              echo "$accepted known deprecation(s) ignored, per \`.drift-accepted\`."
             fi
             echo
             echo "Publishing is unaffected — the site still renders from the committed freeze."
-            echo "To act on this, re-render locally where R, Python and Stata are installed, run"
-            echo "\`scripts/derive.R\` for any page touched, commit the freeze, and tag so the"
-            echo "materials rebuild. See dss-training-ops/docs/notes/annual-bump.md."
+            echo "To act on this, re-render locally where the languages are installed, commit the"
+            echo "freeze, and see dss-training-ops/docs/notes/annual-bump.md."
             if [ "${{ steps.render.outcome }}" = "failure" ]; then
               echo
               echo "<details><summary>Render log, last 60 lines</summary>"
@@ -117,7 +143,7 @@ jobs:
             exit 1
           fi
           if [ -s findings.txt ]; then
-            echo "::error::$(wc -l < findings.txt) deprecation(s) raised; see the run summary."
+            echo "::error::$(wc -l < findings.txt) new deprecation(s); see the run summary."
             exit 1
           fi
-          echo "Nothing to report."
+          echo "Nothing new to report."
