@@ -17,7 +17,8 @@
 #                                 own console. This is what would have caught ggplot2's
 #                                 size -> linewidth change on its own.
 #
-# Everything worth reading is written to the run summary, which the notification links to.
+# Findings go to both the step log and the run summary. The summary is the readable one, but it
+# cannot be fetched from the API, which is how the first failing run left nothing to look at.
 #
 # Stata is excluded: it is licensed per machine and cannot run on a hosted runner, so stata/ keeps
 # its committed freeze and is checked by hand at the annual bump
@@ -52,12 +53,14 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv sync --frozen
 
-      # Show the warnings the site hides. The point of this job is the things `warning: false`
-      # keeps off the page.
+      # Show the warnings the site hides. warning: false sits in each page's YAML
+      # front matter, not in _quarto.yml -- the first version of this job edited
+      # _quarto.yml and so unhid nothing.
       - name: Unhide warnings and messages
         run: |
-          sed -i 's/^  warning: false$/  warning: true/' _quarto.yml
-          sed -i 's/^  message: false$/  message: true/' _quarto.yml
+          sed -i 's/^  warning: false$/  warning: true/; s/^  message: false$/  message: true/' \
+            r/*.qmd python/*.qmd
+          grep -c 'warning: true' r/*.qmd python/*.qmd || true
 
       # Force execution of everything that can run here; Stata keeps its freeze.
       - name: Drop the R and Python freezes
@@ -73,6 +76,10 @@ jobs:
           grep -hoiE "[^<>]{0,80}(is deprecated|was deprecated|deprecated in|superseded|defunct)[^<>]{0,120}" \
             _site/r/*.html _site/python/*.html render.log 2>/dev/null \
             | sed 's/&quot;/"/g; s/&#39;/'"'"'/g' | sort -u > findings.txt || true
+
+          echo "--- findings ---"
+          cat findings.txt || true
+          echo "--- end findings ---"
 
           {
             echo "## Drift check"
