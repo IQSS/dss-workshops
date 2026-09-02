@@ -143,11 +143,11 @@ library(ggrepel)
 # | `geom_`          | Usage             | Aesthetics                                                                      |
 # |:-----------------|:------------------|:-----------------------------------------------------------------------------------------|
 # | `geom_point()`   | Scatter plot      |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`shape`,`size`,`stroke`                    |
-# | `geom_line()`    | Line plot         |**`x`**,**`y`**,`alpha`,`color`,`linetype`,`size`                                         |
-# | `geom_bar()`     | Bar chart         |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`                          |
+# | `geom_line()`    | Line plot         |**`x`**,**`y`**,`alpha`,`color`,`linetype`,`linewidth`                                         |
+# | `geom_bar()`     | Bar chart         |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`linewidth`                          |
 # | `geom_boxplot()` | Boxplot           |**`x`**,**`lower`**,**`upper`**,**`middle`**,**`ymin`**,**`ymax`**,`alpha`,`color`,`fill` |
-# | `geom_density()` | Density plot      |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
-# | `geom_smooth()`  | Conditional means |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`size`,`weight`                 |
+# | `geom_density()` | Density plot      |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`linewidth`,`weight`                 |
+# | `geom_smooth()`  | Conditional means |**`x`**,**`y`**,`alpha`,`color`,`fill`,`group`,`linetype`,`linewidth`,`weight`                 |
 # | `geom_label()`   | Text              |**`x`**,**`y`**,**`label`**,`alpha`,`angle`,`color`,`family`,`fontface`,`size`            |
 #
 # You can get a list of all available geometric objects and their associated aesthetics at <https://ggplot2.tidyverse.org/reference/>. Or, simply type `geom_<tab>` in any good R IDE (such as Positron) to see a list of functions starting with `geom_`.
@@ -736,7 +736,7 @@ theme_get()
 #
 
 theme_new <- theme_bw() +
-  theme(plot.background = element_rect(size = 1, color = "blue", fill = "black"),
+  theme(plot.background = element_rect(linewidth = 1, color = "blue", fill = "black"),
         text = element_text(size = 12, color = "ivory"),
         axis.text.y = element_text(colour = "purple"),
         axis.text.x = element_text(colour = "red"),
