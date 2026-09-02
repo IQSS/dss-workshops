@@ -1,0 +1,116 @@
+# Re-execute the R and Python pages on a schedule and report what changed underneath them.
+#
+# Publishing renders from the committed _freeze/, because no runner has R, Python or Stata. That
+# keeps publishing fast and deterministic, but it also means the site can go on serving output that
+# current packages would no longer produce. This job is the counterweight: once a quarter it
+# installs the locked environments, throws the R and Python freezes away, and re-executes every
+# chunk.
+#
+# It commits nothing and opens nothing. Re-rendering rewrites figure PNGs even when nothing
+# meaningful changed, so a pull request would be noise every quarter, and the maintainer did not
+# want public issues. Instead the job FAILS when there is something to look at, and GitHub emails
+# the failure. The two things it fails on:
+#
+#   1. the render failed        - a package changed in a way the materials do not survive
+#   2. a deprecation was raised - the pages set `warning: false`, so these are invisible on the
+#                                 site while a learner running the same chunk meets them in their
+#                                 own console. This is what would have caught ggplot2's
+#                                 size -> linewidth change on its own.
+#
+# Everything worth reading is written to the run summary, which the notification links to.
+#
+# Stata is excluded: it is licensed per machine and cannot run on a hosted runner, so stata/ keeps
+# its committed freeze and is checked by hand at the annual bump
+# (dss-training-ops/docs/notes/annual-bump.md).
+
+name: Drift check
+
+on:
+  schedule:
+    - cron: "0 6 1 1,4,7,10 *"   # 06:00 UTC on the first of January, April, July and October
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reexecute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.9.38"
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-renv@v2
+
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+
+      # Show the warnings the site hides. The point of this job is the things `warning: false`
+      # keeps off the page.
+      - name: Unhide warnings and messages
+        run: |
+          sed -i 's/^  warning: false$/  warning: true/' _quarto.yml
+          sed -i 's/^  message: false$/  message: true/' _quarto.yml
+
+      # Force execution of everything that can run here; Stata keeps its freeze.
+      - name: Drop the R and Python freezes
+        run: rm -rf _freeze/r _freeze/python
+
+      - name: Re-execute
+        id: render
+        continue-on-error: true
+        run: quarto render 2>&1 | tee render.log
+
+      - name: Report
+        run: |
+          grep -hoiE "[^<>]{0,80}(is deprecated|was deprecated|deprecated in|superseded|defunct)[^<>]{0,120}" \
+            _site/r/*.html _site/python/*.html render.log 2>/dev/null \
+            | sed 's/&quot;/"/g; s/&#39;/'"'"'/g' | sort -u > findings.txt || true
+
+          {
+            echo "## Drift check"
+            echo
+            echo "Render outcome: **${{ steps.render.outcome }}**"
+            echo
+            if [ -s findings.txt ]; then
+              echo "### Deprecations raised on re-execution"
+              echo
+              echo '```'
+              head -40 findings.txt
+              echo '```'
+            else
+              echo "No deprecations raised."
+            fi
+            echo
+            echo "Publishing is unaffected — the site still renders from the committed freeze."
+            echo "To act on this, re-render locally where R, Python and Stata are installed, run"
+            echo "\`scripts/derive.R\` for any page touched, commit the freeze, and tag so the"
+            echo "materials rebuild. See dss-training-ops/docs/notes/annual-bump.md."
+            if [ "${{ steps.render.outcome }}" = "failure" ]; then
+              echo
+              echo "<details><summary>Render log, last 60 lines</summary>"
+              echo
+              echo '```'
+              tail -60 render.log
+              echo '```'
+              echo
+              echo "</details>"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "${{ steps.render.outcome }}" = "failure" ]; then
+            echo "::error::Re-execution failed; see the run summary."
+            exit 1
+          fi
+          if [ -s findings.txt ]; then
+            echo "::error::$(wc -l < findings.txt) deprecation(s) raised; see the run summary."
+            exit 1
+          fi
+          echo "Nothing to report."
