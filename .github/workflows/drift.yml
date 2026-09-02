@@ -77,14 +77,10 @@ jobs:
 
       - name: Report
         run: |
-          # Only the render log. The rendered HTML also contains our own prose about
-          # deprecations -- the note on the qplot page, for one -- which the first
-          # version of this step dutifully reported as a finding.
-          grep -hoiE ".{0,80}(is deprecated|was deprecated|deprecated in|superseded|defunct).{0,120}" \
-            render.log 2>/dev/null | sed 's/&quot;/"/g' | sort -u > raw.txt || true
+          python3 .github/drift-scan.py _site render.log > raw.txt || true
 
-          # Quarto's own Node tooling and the runner's package manager emit deprecation
-          # warnings of their own, which say nothing about the materials.
+          # Quarto's Node tooling and the runner's package manager raise deprecations
+          # of their own, which say nothing about the materials.
           grep -viE "url\.parse|punycode|gdebi|node_modules|npm warn" raw.txt > candidates.txt || true
 
           # Deprecations already ruled on. .drift-accepted carries one extended regex
@@ -94,8 +90,7 @@ jobs:
           if [ -f .drift-accepted ]; then
             grep -vE '^[[:space:]]*(#|$)' .drift-accepted > accepted.txt || true
             if [ -s accepted.txt ]; then
-              grep -cEf accepted.txt candidates.txt > /dev/null 2>&1 && \
-                accepted=$(grep -cEf accepted.txt candidates.txt) || accepted=0
+              accepted=$(grep -cEf accepted.txt candidates.txt || true)
               grep -vEf accepted.txt candidates.txt > findings.txt || true
             fi
           fi
