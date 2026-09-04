@@ -110,6 +110,20 @@ body.nav-fixed { padding-top: 112px; }
   &:hover { background: darken($dss-orange, 6%); color: #fff; }
 }
 .navbar .quarto-color-scheme-toggle { display: none !important; }
+// dss-switch.html builds the switch and appends it once the body has parsed. The navbar's right-hand
+// group is right-aligned, so an item arriving at its end pushes every link already there 37px to the
+// left -- the Request help button visibly jumps on a hard refresh. Reserve the slot until the switch
+// occupies it. 37px measured against the built switch; the reservation drops away the moment it
+// exists, so a wrong number costs a smaller jump rather than a permanent gap.
+.navbar .navbar-nav.ms-auto::after { content: ""; flex: 0 0 37px; }
+.navbar .navbar-nav.ms-auto:has(.dss-theme-switch)::after { display: none; }
+
+// Bootstrap Icons is a separate webfont that Quarto loads as a file, so until it arrives every .bi
+// glyph is zero-width and the text around it re-flows when it lands: the chevrons in the left nav and
+// the issue link in the right one. The glyphs are drawn on a 1em square, so reserving 1em costs
+// nothing -- of 43 icons on a workshop page it changed exactly one, by a pixel.
+.bi { display: inline-block; width: 1em; text-align: center; }
+
 .navbar .dss-theme-switch .nav-link { margin-left: 6px; padding-left: 8px; padding-right: 8px; }
 .navbar .dss-theme-switch .dss-switch-icon { font-size: 15px; vertical-align: -1px; }
 .navbar .dss-theme-switch .dropdown-toggle::after { display: none; }
