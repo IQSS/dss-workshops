@@ -56,6 +56,16 @@ footer.footer .nav-footer { padding-left: 28px; padding-right: 28px; } // Quarto
 .navbar { border-bottom: 1px solid $dss-rule; padding-top: 14px; padding-bottom: 14px; }
 .navbar .navbar-brand img.navbar-logo, .navbar img.navbar-logo { max-height: 72px !important; height: 72px; width: auto; }
 .navbar .navbar-nav .nav-link { font-weight: 500; font-size: 14px; color: $body-color; }
+
+// The pinned navbar is position: fixed, so the body reserves its height as padding. Quarto's own
+// stylesheet reserves 64px, which is right for its default navbar and wrong for this one: the 72px
+// wordmark makes the header 111.6px tall (72 logo + 10.6 Bootstrap .navbar-brand padding + 28 navbar
+// padding + 1 border). Quarto's JS measures the header after load and writes the true value inline,
+// so until it runs the page paints 48px too high and then everything drops — the title, the body and
+// both sidebars — on every load that is not served from cache. Reserving the real height here means
+// the first paint is already correct and the JS only confirms it. Keep in step with the logo height
+// and the navbar padding above; if it drifts the symptom is a smaller jump, never a broken layout.
+body.nav-fixed { padding-top: 112px; }
 .navbar .navbar-nav .nav-link[href="https://www.iq.harvard.edu/data-science-services/contact-us"] {
   background: $dss-orange; color: #fff; border-radius: 3px; padding: 8px 14px; margin-left: 8px;
   &:hover { background: darken($dss-orange, 6%); color: #fff; }
