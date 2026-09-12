@@ -13,15 +13,20 @@ $headings-font-weight: 400 !default;
 $font-size-base: 1rem !default;
 $body-color: #1e1e1e !default;
 $pre-color: $body-color !default;   // output blocks; Bootstrap's default is $body-emphasis-color, black in both modes
-$body-bg: #ffffff !default;
+// The ground is paper rather than white (0.7.0, Steve): a white page reads as too bright to work on.
+// One warmth for the whole surface -- ground, navbar, footer -- with the panel tone and the rule
+// stepped off it by the same amounts the old gray pair sat off white, so nothing reads half-changed.
+// Chosen from a swatch page that repainted real pages; it is the tone the console drawing calls paper.
+// dss-dark.scss is a separate set of tokens and is untouched.
+$body-bg: #f7f4ec !default;
 $primary: #3c72b4 !default;
 $link-color: #3c72b4 !default;
-$navbar-bg: #ffffff !default;
+$navbar-bg: #f7f4ec !default;
 $navbar-fg: #1e1e1e !default;
 $navbar-hl: #3c72b4 !default;
-$footer-bg: #ffffff !default;
+$footer-bg: #f7f4ec !default;
 $footer-fg: #5c677a !default;
-$code-block-bg: #f5f5f5 !default;
+$code-block-bg: #ece9e1 !default;
 $code-color: #234a75 !default;
 $callout-color-note: #3c72b4 !default;
 $callout-color-tip: #2f8a8a !default;
@@ -31,9 +36,9 @@ $callout-color-caution: #7a5c93 !default;
 
 $dss-blue: #3c72b4 !default;
 $dss-orange: #bf5803 !default;
-$dss-light: #f5f5f5 !default;
+$dss-light: #ece9e1 !default;
 $dss-muted: #5c677a !default;
-$dss-rule: #e3e6ea !default;
+$dss-rule: #dcd9d2 !default;
 $dss-callout-tint: 10% !default;   // a callout box: this much of its color on the page ground (the tint Quarto itself uses for a title strip)
 
 /*-- scss:rules --*/
@@ -147,7 +152,11 @@ body.nav-fixed { padding-top: 112px; }
 // glyph is zero-width and the text around it re-flows when it lands: the chevrons in the left nav and
 // the issue link in the right one. The glyphs are drawn on a 1em square, so reserving 1em costs
 // nothing -- of 43 icons on a workshop page it changed exactly one, by a pixel.
-.bi { display: inline-block; width: 1em; text-align: center; }
+// content-box, because Bootstrap makes everything border-box: Quarto spaces the Report an issue icon
+// from its text with padding-right on the icon, and under border-box that padding sits inside the
+// reserved 1em, so the glyph overflowed it and sat on the first letter (0.6.7). With content-box the
+// 1em is the glyph and the padding is added outside it, before and after the font arrives alike.
+.bi { display: inline-block; width: 1em; box-sizing: content-box; text-align: center; }
 
 .navbar .dss-theme-switch .nav-link { margin-left: 6px; padding-left: 8px; padding-right: 8px; }
 .navbar .dss-theme-switch .dss-switch-icon { font-size: 15px; vertical-align: -1px; }
