@@ -81,9 +81,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-10a8614d5edbcfb62f4247fcc5f226a6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ba686918b879777e5912dbe1a545fe5e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-10a8614d5edbcfb62f4247fcc5f226a6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-08ee8a756545d45ae79d04a038e7d566.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-58eb8971e32fb2b5faf6ff551ffe7aef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-08ee8a756545d45ae79d04a038e7d566.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -540,7 +540,7 @@ window.Quarto = {
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a>
   <ul class="collapse">
   <li><a href="#software-and-materials" id="toc-software-and-materials" class="nav-link" data-scroll-target="#software-and-materials">Software and Materials</a></li>
-  <li><a href="#class-structure-and-organization" id="toc-class-structure-and-organization" class="nav-link" data-scroll-target="#class-structure-and-organization">Class structure and organization</a></li>
+  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
   </ul></li>
@@ -667,16 +667,11 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <section id="software-and-materials" class="level3">
 <h3 class="anchored" data-anchor-id="software-and-materials">Software and Materials</h3>
-<p>Follow the <a href="../stata/install.html">Stata Installation</a> instructions and ensure that you can successfully start Stata.</p>
+<p>Follow the <a href="../stata/install.html">Stata Installation</a> instructions and ensure that you can successfully start Stata. Download the <a href="https://github.com/IQSS/dss-workshops/releases/latest/download/materials-stata-models.zip">materials for this workshop</a>, unzip them, and move the <code>stata-models</code> folder to your desktop.</p>
 </section>
-<section id="class-structure-and-organization" class="level3">
-<h3 class="anchored" data-anchor-id="class-structure-and-organization">Class structure and organization</h3>
-<ul>
-<li>Informal — Ask questions at any time. Really!</li>
-<li>Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!</li>
-<li>If you are using a laptop, you will need to adjust file paths accordingly</li>
-<li>Make comments in your do-file - save on flash drive or email to yourself</li>
-</ul>
+<section id="getting-help" class="level3">
+<h3 class="anchored" data-anchor-id="getting-help">Getting help</h3>
+<p>These notes are self-paced. If you get stuck, use the Request help button at the top of the page.</p>
 </section>
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
@@ -684,7 +679,7 @@ window.Quarto = {
 <ul>
 <li>Assumes basic knowledge of Stata</li>
 <li>Not appropriate for people already well familiar with modeling in Stata</li>
-<li>If you are catching on before the rest of the class, experiment with command features described in help files</li>
+<li>If you want to go further, experiment with command features described in help files</li>
 </ul>
 </section>
 <section id="goals" class="level3">
@@ -716,7 +711,7 @@ window.Quarto = {
 <ol type="1">
 <li>Pre-estimation</li>
 <li>Estimation</li>
-<li>Post-estimaton</li>
+<li>Post-estimation</li>
 </ol>
 <p>At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis), but the process is sequential — we move through the stages in order (though often many times in one project!)</p>
 <p><img src="images/models/Stata_model_pipeline.png" class="img-fluid"></p>
@@ -741,22 +736,22 @@ window.Quarto = {
 </section>
 <section id="set-working-directory" class="level3">
 <h3 class="anchored" data-anchor-id="set-working-directory">Set working directory</h3>
-<p>Files are located in the <code>dataSets</code> folder in <code>StataMod</code>. Start by telling Stata where to look for these:</p>
+<p>Files are located in the <code>dataSets</code> folder in <code>stata-models</code>. Start by telling Stata where to look for these:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// change directory</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cd <span class="st">"~/Desktop/Stata/StataMod"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cd <span class="st">"~/Desktop/stata-models"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Use <code>dir</code> to see what is in the directory:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">dir</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cd dataSets</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ot">dir</span> dataSets</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="load-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-the-data">Load the data</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// use the states data set</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/states.dta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/states.dta, <span class="kw">clear</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="examine-descriptive-statistics" class="level3">
@@ -925,11 +920,12 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 <li>Before running the regression, examine descriptive statistics of the variables and generate a few scatterplots.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">sum</span> happy educ rincome </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> sex </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> marital </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">scatter</span> happy rincome</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">sum</span> happy educ rincome</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> sex</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> marital</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="kw">scatter</span> happy rincome</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Run your regression model.</li>
@@ -941,8 +937,9 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 <li>Examine the plausibility of the assumptions of normality and homoscedasticity.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">hist</span> happy, <span class="fu">normal</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">rvfplot</span>,<span class="kw">yline</span>(0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> <span class="kw">resid</span>, residual</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">hist</span> <span class="kw">resid</span>, <span class="fu">normal</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">rvfplot</span>,<span class="kw">yline</span>(0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="4" type="1">
 <li>Add on to the regression equation by generating an interaction term between <code>sex</code> and <code>educ</code> and testing the interaction.</li>
@@ -979,7 +976,7 @@ SATscores_i = \beta_01 + \beta_1expenditures_i + \beta_2income_i +\beta_3SATperc
 <h3 class="anchored" data-anchor-id="load-the-dataset">Load the dataset</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">// use the states data set</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/states.dta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/states.dta, <span class="kw">clear</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="recode-the-outcome-variable" class="level3">
@@ -1039,7 +1036,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <section id="exercise-1" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
 <p><strong>Regression with binary outcomes</strong></p>
-<p>Use the data file, <code>gss.dta</code>. Examine how age of a respondent (<code>age</code>), highest year of school completed (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>) relate to whether someone uses internet (<code>usenet</code>).</p>
+<p>Use the data file, <code>gss.dta</code>. Examine how age of a respondent (<code>age</code>), highest degree (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>) relate to whether someone uses internet (<code>usenet</code>).</p>
 <ol type="1">
 <li>Load the dataset.</li>
 </ol>
@@ -1064,12 +1061,12 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Use the data file, <code>gss.dta</code>. Examine how age of a respondent (<code>age</code>), highest year of school completed (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>) relate to whether someone uses internet (<code>usenet</code>).</p>
+<p>Use the data file, <code>gss.dta</code>. Examine how age of a respondent (<code>age</code>), highest degree (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>) relate to whether someone uses internet (<code>usenet</code>).</p>
 <ol type="1">
 <li>Load the dataset.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> gss.dta, <span class="kw">clear</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Run summary statistics, delete subjects who did not provide an answer to the <code>usenet</code> question.</li>
@@ -1112,11 +1109,15 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <p>Then store the results of some regression models using the <code>estimates</code> command and <code>store</code> option:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">// fit two regression models and store the results</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> Model1</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high i.region</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> Model2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/states.dta, <span class="kw">clear</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">// `if region &lt; .` fits Model1 to the same observations as Model2</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">// (one observation has no region), which lrtest needs below</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high <span class="kw">if</span> region &lt; .</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> Model1</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> csat expense income <span class="kw">percent</span> high i.region</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> Model2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The stored models can be recalled by name using the <code>estimates</code> command and <code>replay</code> option:</p>
 <div class="cell">
@@ -1126,7 +1127,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 </section>
 <section id="comparing-models" class="level3">
 <h3 class="anchored" data-anchor-id="comparing-models">Comparing models</h3>
-<p>The stored models can be compared by name using the <code>estimates</code> command and <code>table</code> option. For a more formal comparison, the <code>lrtest</code> command can be used to perform a likelihhod ratio test:</p>
+<p>The stored models can be compared by name using the <code>estimates</code> command and <code>table</code> option. For a more formal comparison, the <code>lrtest</code> command can be used to perform a likelihood ratio test:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">// compare Model1 and Model2 coefficients</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">table</span> Model1 Model2</span>
@@ -1141,10 +1142,12 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>outreg2 [Model1 Model2] <span class="kw">using</span> csatprediction.xls, <span class="kw">replace</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Stata 17 and later can do the same with the built-in <code>etable</code> command: <code>etable, estimates(Model1 Model2) export(csatprediction.xlsx, replace)</code>.</p>
 </section>
 <section id="exercise-2" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
 <p><strong>Exporting &amp; saving results</strong></p>
+<p>Use the data file, <code>gss.dta</code>, again without the subjects who did not provide an answer to the <code>usenet</code> question.</p>
 <ol type="1">
 <li>Fit the logistic model and save it as <code>Model1</code>.</li>
 </ol>
@@ -1179,8 +1182,10 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <li>Fit the logistic model and save it as <code>Model1</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> Model1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> usenet == 9</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> Model1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Add another predictor (<code>hrs1</code>) in the model and save the new model as <code>Model2</code> and compare between <code>Model1</code> and <code>Model2</code>.</li>
@@ -1222,12 +1227,12 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 </div>
 <p>The default summary model output that Stata produces is useful and intuitive for relatively simple models, especially if the outcome is continuous. For more complex models, especially non-linear models or those with interactions, the default output only reports a small subset of information from the model and/or presents results on an unintuitive scale. For such models, it is often easier to interpret <strong>margins</strong> — specifically, <em>margins of responses</em> or <em>margins of changes in responses</em>. Margins are statistics calculated from predictions of a previously fit model at fixed values of some covariates and averaging over the remaining covariates. Margins answers the question, <strong>“What does my model have to say about such-and-such a group or such-and-such a person?”</strong>. It answers this question:</p>
 <ol type="1">
-<li>Either conditionally –— based on fixed values of covariates (e.g., the mean) -—- or averaged over the observations in the data.</li>
-<li>In terms of the response given covariate levels (<strong>margins of responses</strong>), or any other response you can calculate as a function of your estimated parameters -—- linear responses, probabilities, hazards, survival times, odds ratios, risk differences. (a.k.a. <em>predictive margins</em>, or <em>adjusted predictions</em>, or <em>estimated marginal means</em>, or <em>least-squares means</em>).</li>
+<li>Either conditionally — based on fixed values of covariates (e.g., the mean) — or averaged over the observations in the data.</li>
+<li>In terms of the response given covariate levels (<strong>margins of responses</strong>), or any other response you can calculate as a function of your estimated parameters — linear responses, probabilities, hazards, survival times, odds ratios, risk differences. (a.k.a. <em>predictive margins</em>, or <em>adjusted predictions</em>, or <em>estimated marginal means</em>, or <em>least-squares means</em>).</li>
 <li>In terms of the <em>change</em> in the response for a <em>change</em> in covariate levels (<strong>margins of changes in responses</strong>). (a.k.a. <em>marginal effects</em> or <em>partial effects</em>).</li>
 <li>Providing standard errors, test statistics, and confidence intervals and those statistics can take the covariates as given or adjust for sampling.</li>
 </ol>
-<p>To calculate such effects in Stata, we need a flexible way of obtaining quantities of interest from the model. This is generally done using a <a href="https://www.stata.com/manuals13/u20.pdf">post-estimation tool</a>. The main post-estimation tool Stata has in its arsenal is the <code>margins</code> command. This is a very flexible tool for producing a variety of quantities of interest from almost all model types that Stata supports. In particular, <code>margins</code> can calculate:</p>
+<p>To calculate such effects in Stata, we need a flexible way of obtaining quantities of interest from the model. This is generally done using a <a href="https://www.stata.com/manuals/u20.pdf">post-estimation tool</a>. The main post-estimation tool Stata has in its arsenal is the <code>margins</code> command. This is a very flexible tool for producing a variety of quantities of interest from almost all model types that Stata supports. In particular, <code>margins</code> can calculate:</p>
 <ol type="1">
 <li>Different types of <em>margins of responses</em>:
 <ul>
@@ -1235,7 +1240,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <li><strong>PMM: Predictive Margins at the Means</strong> (expected response for a person with average characteristics)</li>
 <li><strong>PMR: Predictive Margins at Representative values</strong> (expected response across a range of covariate values)</li>
 </ul></li>
-<li>Difference types of <em>margins of changes in responses</em>:
+<li>Different types of <em>margins of changes in responses</em>:
 <ul>
 <li><strong>AME: Average Marginal Effects</strong> (average of the changes in responses among actual people in the data)</li>
 <li><strong>MEM: Marginal Effects at the Means</strong> (expected change in response for a person with average characteristics)</li>
@@ -1267,7 +1272,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <h3 class="anchored" data-anchor-id="the-dataset-2">The dataset</h3>
 <p>The case study examples use the <code>nhanesII</code> dataset (Second National Health and Nutrition Examination Survey), which was conducted in the mid to late 1970s. More on the study can be found at https://wwwn.cdc.gov/nchs/nhanes/nhanes2/. Let’s load the data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/nhanesII.dta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/nhanesII.dta, <span class="kw">clear</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="fit-a-model" class="level3">
@@ -1336,7 +1341,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>##</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
-<li>Obtain predictive margins of <code>rincome</code> from 10000 to 30000, with an interval of 5000.</li>
+<li>Obtain predictive margins of <code>rincome</code> from 9 to 15, with an interval of 2. <code>rincome</code> holds income categories, not dollars: 9 is 10,000 to 12,499 dollars and 15 is 25,000 to 29,999 dollars (type <code>label list rincome</code> to see them all).</li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>##</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1364,8 +1369,9 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <li>Fit an OLS regression model to predict general happiness (<code>happy</code>) based on respondent’s sex (<code>sex</code>), marital status (<code>marital</code>), highest year of school completed (<code>educ</code>), and respondent’s income for last year (<code>rincome</code>). Obtain average predictive margins for <code>happy</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> happy i.sex educ i.marital rincome</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>margins </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> happy i.sex educ i.marital rincome</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>margins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Obtain predictive margins of <code>sex</code> and <code>marital</code>.</li>
@@ -1375,10 +1381,10 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>margins marital</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
-<li>Obtain predictive margins of <code>rincome</code> from 10000 to 30000, with an interval of 5000.</li>
+<li>Obtain predictive margins of <code>rincome</code> from 9 to 15, with an interval of 2. <code>rincome</code> holds income categories, not dollars: 9 is 10,000 to 12,499 dollars and 15 is 25,000 to 29,999 dollars (type <code>label list rincome</code> to see them all).</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>margins, <span class="fu">at</span>(rincome=(10000(5000)30000))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>margins, <span class="fu">at</span>(rincome=(9(2)15))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="4" type="1">
 <li>Create a <code>marginsplot</code> and interpret the results.</li>
@@ -1413,19 +1419,20 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <h3 class="anchored" data-anchor-id="the-dataset-3">The dataset</h3>
 <p>We will be using the same dataset as the previous example: the Second National Health and Nutrition Examination Survey (NHANES II). Let’s load the data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/nhanesII.dta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/nhanesII.dta, <span class="kw">clear</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="fit-a-model-1" class="level3">
 <h3 class="anchored" data-anchor-id="fit-a-model-1">Fit a model</h3>
 <p>We will predict the probability of someone having diabetes (<code>diabetes</code>), as a function of race (<code>black</code>), sex (<code>female</code>), and age (<code>age</code>), using logistic regression.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> diabetes <span class="bn">black</span> female age, <span class="kw">nolog</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">// the i. prefix marks black and female as categorical, which margins needs</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> diabetes i.<span class="bn">black</span> i.female age, <span class="kw">nolog</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="ame-average-marginal-effects" class="level3">
 <h3 class="anchored" data-anchor-id="ame-average-marginal-effects">AME: Average Marginal Effects</h3>
-<p>We can first obtain the Average Predictive Margins of race (<code>black</code>) and sex (<code>female</code>). Then, we can use the <code>dydx</code> command to estimate changes in the response when the levels of race and sex change. Since, by default, these changes are averaged over each person in the dataset, we obtain Average Marginal Effects. As the current model is logistic, margins automatically back-transforms the APMs and AMEs from the estimation scale (i.e., the log odds scale) to the response scale (i.e., the probability scale).</p>
+<p>We can first obtain the Average Predictive Margins of race (<code>black</code>) and sex (<code>female</code>). Then, we can use the <code>dydx</code> option to estimate changes in the response when the levels of race and sex change. Since, by default, these changes are averaged over each person in the dataset, we obtain Average Marginal Effects. As the current model is logistic, margins automatically back-transforms the APMs and AMEs from the estimation scale (i.e., the log odds scale) to the response scale (i.e., the probability scale).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">// obtain Average Predictive Margins </span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>margins <span class="bn">black</span> female </span>
@@ -1436,7 +1443,7 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 </section>
 <section id="mem-marginal-effects-at-the-mean" class="level3">
 <h3 class="anchored" data-anchor-id="mem-marginal-effects-at-the-mean">MEM: Marginal Effects at the Mean</h3>
-<p>By default, <code>margins</code> with the <code>dydx</code> command reports the average of the changes in the probability of the response among actual people in the data. But we can also get margins to report the expected change in the probability of the response for a person with average characteristics by using the <code>atmeans</code> option.</p>
+<p>By default, <code>margins</code> with the <code>dydx</code> option reports the average of the changes in the probability of the response among actual people in the data. But we can also get margins to report the expected change in the probability of the response for a person with average characteristics by using the <code>atmeans</code> option.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">// obtain Predictive Margins at the Means</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>margins <span class="bn">black</span> female, atmeans</span>
@@ -1468,9 +1475,9 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 <section id="exercise-4" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4">Exercise 4</h3>
 <p><strong>Margins of changes in responses</strong></p>
-<p>Open the datafile <code>gss.dta</code>.</p>
+<p>Open the datafile <code>gss.dta</code> and, as in Exercise 1, delete subjects who did not provide an answer to the <code>usenet</code> question.</p>
 <ol type="1">
-<li>Fit a logistic model to examine how whether someone uses internet (<code>usenet</code>) is related to age of the respondent (<code>age</code>), highest year of school completed (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>). Obtain Average Predictive Margins and Average Marginal Effects for <code>degree</code>.</li>
+<li>Fit a logistic model to examine how whether someone uses internet (<code>usenet</code>) is related to age of the respondent (<code>age</code>), highest degree (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>). Obtain Average Predictive Margins and Average Marginal Effects for <code>degree</code>.</li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>## </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1499,15 +1506,17 @@ logit(p(SAT1000_i = 1)) = ln \left( \frac{p(SAT1000_i = 1)}{1-p(SAT1000_i = 1)} 
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Open the datafile <code>gss.dta</code>.</p>
+<p>Open the datafile <code>gss.dta</code> and, as in Exercise 1, delete subjects who did not provide an answer to the <code>usenet</code> question.</p>
 <ol type="1">
-<li>Fit a logistic model to examine how whether someone uses internet (<code>usenet</code>) is related to age of the respondent (<code>age</code>), highest year of school completed (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>). Obtain Average Predictive Margins and Average Marginal Effects for <code>degree</code>.</li>
+<li>Fit a logistic model to examine how whether someone uses internet (<code>usenet</code>) is related to age of the respondent (<code>age</code>), highest degree (<code>degree</code>), hours per day watching TV (<code>tvhours</code>), and total family income for last year (<code>income</code>). Obtain Average Predictive Margins and Average Marginal Effects for <code>degree</code>.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income </span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>margins degree</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(degree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> dataSets/gss.dta, <span class="kw">clear</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> usenet == 9</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> usenet age i.degree tvhours income</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>margins degree</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(degree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Obtain Predictive Margins of <code>degree</code> at Representative values of <code>tvhours</code> from 0 to 10 hours, on a 1 hour interval. Examine how the marginal effect of <code>degree</code> differs across the range of <code>tvhours</code> (i.e., obtain Marginal Effects at Representative values).</li>
