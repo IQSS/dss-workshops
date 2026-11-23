@@ -16,21 +16,18 @@
 *
 * ### Software and Materials
 *
-* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata.
+* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-stata-data.zip), unzip them, and move the `stata-data` folder to your desktop.
 *
-* ### Class structure and organization 
+* ### Getting help
 *
-* * Please feel free to ask questions at any point if they are relevant to the current topic (or if you are lost!)
-* * Collaboration is encouraged - please introduce yourself to your neighbors!
-* * If you are using a laptop, you will need to adjust file paths accordingly
-* * Make comments in your do-file - save on flash drive or email to yourself
+* These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 *
 * ### Prerequisites
 *
 * * This is an introduction to data management in Stata
 * * Assumes basic knowledge of Stata
 * * Not appropriate for people already familiar with Stata
-* * If you are catching on before the rest of the class, experiment with command features described in help files
+* * If you want to go further, experiment with command features described in help files
 *
 * ### Goals
 *
@@ -43,13 +40,13 @@
 *
 * ## Opening Files
 *
-* **GOAL: To understand the working directory of Stata, how to change working directory, and open files from the working directory.** In particular:  
+* **GOAL: To understand the working directory of Stata, how to change working directory, and open files from the working directory.**
 *
-* Look at bottom left hand corner of Stata screen, this is the directory Stata is currently reading from. Files are located in the `StataDatMan` folder in your user directory. Let's start by telling Stata where to look for these:
+* Look at bottom left hand corner of Stata screen, this is the directory Stata is currently reading from. Files are located in the `stata-data` folder on your desktop. Let's start by telling Stata where to look for these:
 *
 
 // change directory
-cd "~/Desktop/dss-workshops/Stata/StataDatMan"
+cd "~/Desktop/stata-data"
 
 // Use dir to see what is in the directory:
 dir
@@ -95,10 +92,11 @@ gen hapnew = .
 //set to 0 if happy equals 1
 replace hapnew=0 if happy==1 
 
-//set to 1 if both happy and hapmar are greater than 3.
-//The `< .` guards matter: missing is larger than any number in Stata,
-//so without them missing values would count as "greater than 3".
-replace hapnew=1 if happy>3 & hapmar>3 & happy<. & hapmar<.
+//set to 1 if both happy and hapmar are greater than 1.
+//The `< 8` guards matter: these data code "don't know" as 8 and "no answer" as 9,
+//and missing is larger than any number in Stata, so without them
+//all of those would count as "greater than 1".
+replace hapnew=1 if happy>1 & hapmar>1 & happy<8 & hapmar<8
 
 // tabulate the new variable
 tab hapnew
@@ -124,7 +122,7 @@ tab wrkstat
 * | Rule          | Example      | Meaning                  |                          
 * |:--------------|:-------------|:-------------------------|
 * | \#=\#         | 3=1          | 3 recoded to 1           |                          
-* | \#\#=\#       | 2.=9         | 2 and . recoded to 9     |                          
+* | \# \#=\#      | 2 .=9        | 2 and . recoded to 9     |                          
 * | \#/\#=\#      | 1/5=4        | 1 through 5 recoded to 4 |
 * | nonmissing=\# | nonmiss=8    | nonmissing recoded to 8  |                          
 * | missing=\#    | miss=9       | missing recoded to 9     |                          
@@ -246,7 +244,7 @@ mvdecode _all, mv(999)
 *
 * To be able to perform any mathematical operations, your variables need to be in a numeric format. Stata can store numbers with differing levels of precision, as described in the table below:
 *
-* | type   | Minimum                         | Maximum                        | being 0              | bytes |
+* | type   | Minimum                         | Maximum                        | Closest to 0 without being 0 | bytes |
 * |:-------|:--------------------------------|:-------------------------------|:---------------------|:------|
 * | byte   | -127                            | 100                            | +/-1                 | 1     |
 * | int    | -32,767                         | 32,740                         | +/-1                 | 2     |
@@ -304,7 +302,7 @@ list date1 in 1/5
 *
 
 // format so humans can read the date
-format date1 %d
+format date1 %td
 list date1 in 1/5
 // format with detail
 format date1 %tdMonth_dd,_CCYY
@@ -327,7 +325,7 @@ list date1 in 1/5
 ##
 
 *
-* 3.  Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last `by` example for inspiration).
+* 3.  Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (use the `bysort` prefix, covered in [Stata Introduction](https://iqss.github.io/dss-workshops/stata/intro.html)).
 *
 
 ##
@@ -356,7 +354,7 @@ describe marital marstring mardstring marital_s marital_n
 sum marital marstring mardstring marital_s marital_n
 
 *
-* 3.  Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (see the last `by` example for inspiration).
+* 3.  Create a new variable that associates each individual with the average number of hours worked among individuals with matching educational degrees (use the `bysort` prefix, covered in [Stata Introduction](https://iqss.github.io/dss-workshops/stata/intro.html)).
 *
 
 bysort degree: egen hrsdegree = mean(hrs1)
@@ -384,7 +382,7 @@ list
 webuse odd
 list
 // Append even data to the end of the odd data
-append using "http://www.stata-press.com/data/r14/even"
+append using "https://www.stata-press.com/data/r19/even"
 list
 clear
 
@@ -393,7 +391,7 @@ clear
 *
 
 webuse odd
-append using "http://www.stata-press.com/data/r14/even", generate(observesource)
+append using "https://www.stata-press.com/data/r19/even", generate(observesource)
 list
 clear
 
@@ -423,13 +421,13 @@ webuse autoexpense
 list
 
 webuse autosize
-merge 1:1 make using "http://www.stata-press.com/data/r14/autoexpense"
+merge 1:1 make using "https://www.stata-press.com/data/r19/autoexpense"
 list
 clear
 
 // keep only the matches (AKA "inner join")
 webuse autosize, clear
-merge 1:1 make using "http://www.stata-press.com/data/r14/autoexpense", keep(match) nogen
+merge 1:1 make using "https://www.stata-press.com/data/r19/autoexpense", keep(match) nogen
 list
 clear
 
@@ -446,7 +444,7 @@ clear
 *
 * ### Many-to-many merges - joinby command 
 *
-* Stata allows you to specify merges like `merge m:m id` using `newdata.dta`, but it is difficult to imagine a situation where this would be useful. If you are thinking about using `merge m:m` chances are good that you actually need `joinby`. Please refer to the `joinby` help page for details. 
+* Stata allows you to specify merges like `merge m:m id using newdata.dta`, but it is difficult to imagine a situation where this would be useful. If you are thinking about using `merge m:m` chances are good that you actually need `joinby`. Please refer to the `joinby` help page for details. 
 *
 * ### Collapse
 *
@@ -466,7 +464,7 @@ clear
 clear
 webuse college
 list
-// mean and sd by hospital
+// mean and sd by year
 collapse (mean) mean_gpa = gpa mean_hour = hour (sd) sd_gpa = gpa sd_hour = hour, by(year)
 list
 clear
@@ -498,7 +496,7 @@ clear
 ##
 
 *
-* 4.  Open the `gss.dta` dataset and create a new dataset that summarizes the mean and standard deviation of income based on individuals' degree status (`degree`). In the process of creating this new dataset, rename your three new variables.
+* 4.  Open the `gss.dta` dataset and create a new dataset that summarizes the mean and standard deviation of income based on individuals' marital status (`marital`). In the process of creating this new dataset, rename your two new variables.
 *
 
 ##
@@ -529,7 +527,7 @@ use dataSets/gssAppend.dta, clear
 append using dataSets/gssAddObserve, generate(observe) 
 
 *
-* 4.  Open the `gss.dta` dataset and create a new dataset that summarizes the mean and standard deviation of income based on individuals' degree status (`degree`). In the process of creating this new dataset, rename your three new variables.
+* 4.  Open the `gss.dta` dataset and create a new dataset that summarizes the mean and standard deviation of income based on individuals' marital status (`marital`). In the process of creating this new dataset, rename your two new variables.
 *
 
 use dataSets/gss.dta, clear

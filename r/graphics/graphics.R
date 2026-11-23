@@ -8,7 +8,7 @@
 # * Aesthetic mapping versus assignment
 # * Statistical transformations
 # * Add and modify scales and legends
-# * Statify plots using facets
+# * Stratify plots using facets
 # * Manipulate plot labels
 # * Change and create plot themes
 #
@@ -16,13 +16,11 @@
 #
 # ### Software and Materials
 #
-# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start Positron.
+# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start Positron. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-r-graphics.zip), unzip them, and move the `r-graphics` folder to your desktop.
 #
-# ### Class Structure
+# ### Getting help
 #
-# Informal - Ask questions at any time. Really!
-#
-# Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 #
 # ### Prerequisites
 #
@@ -36,24 +34,21 @@
 # Start Positron and open the workshop materials folder:
 #
 # 1. On Mac, Positron will be in your Applications folder. On Windows, click the start button and search for Positron.
-# 2. In Positron go to `File -> Open Folder` and choose the workshop materials folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
-# 3. In the Explorer, click the file with the word "BLANK" in the name to open it.
+# 2. In Positron go to `File -> Open Folder` and choose the `r-graphics` folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
+# 3. In the Explorer, click `graphics_BLANK.qmd` to open it.
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` suite of packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
+# You should have already installed the `tidyverse` suite of packages onto your computer --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
 #
 
 library(tidyverse)
 
 #
-# The `ggplot2` package is contained within `tidyverse`, but we also want to install two additional packages, `scales` and `ggrepel`, which provide additional functionality.
+# The `ggplot2` package is contained within `tidyverse`, but we also want to load two additional packages, `scales` and `ggrepel`, which provide additional functionality (both are covered on the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) page).
 #
 
-# install.packages("scales")
 library(scales)
-
-# install.packages("ggrepel") 
 library(ggrepel)
 
 #
@@ -84,7 +79,7 @@ library(ggrepel)
 #
 # ### `ggplot2` ecosystem
 #
-# The `ggplot2` package has spawned a whole ecosystem of packages that extend the functionality of the base package. There are currently 80+ packages that offer many different options, including animated graphs (`gganimate`), interactive graphs (`plotly`, `ggiraph`), network graphs (`ggraph`), 3D graphs (`rayshader`), adding results from statistical tests (`ggstatsplot`), and additional themes (`ggthemes`). A gallery of some of the available extensions can be found here: <https://exts.ggplot2.tidyverse.org/gallery/>.
+# The `ggplot2` package has spawned a whole ecosystem of packages that extend the functionality of the base package. There are well over a hundred packages that offer many different options, including animated graphs (`gganimate`), interactive graphs (`plotly`, `ggiraph`), network graphs (`ggraph`), 3D graphs (`rayshader`), adding results from statistical tests (`ggstatsplot`), and additional themes (`ggthemes`). A gallery of some of the available extensions can be found here: <https://exts.ggplot2.tidyverse.org/gallery/>.
 #
 # ### What is the Grammar Of Graphics?
 #
@@ -295,7 +290,7 @@ dat <- read_csv("dataSets/EconomistData.csv")
 ## 
 
 #
-# 3.  Map the color of the the points to `Region`.
+# 3.  Map the color of the points to `Region`.
 
 ## 
 
@@ -324,7 +319,7 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
   geom_point(color = "blue")
 
 #
-# 3.  Map the color of the the points to `Region`.
+# 3.  Map the color of the points to `Region`.
 #
 
 ggplot(dat, aes(x = CPI, y = HDI)) +
@@ -372,7 +367,7 @@ args(geom_histogram)
 args(stat_bin)
 
 #
-# The tenth argument is `breaks`, which allows us to supply a numeric vector of bin boundaries. Notice that this argument is *not* available in `geom_histogram()`, but we can still supply the argument and it will be passed to `stat_bin()` through the `...` argument.
+# One of these arguments is `breaks`, which allows us to supply a numeric vector of bin boundaries. Notice that this argument is *not* available in `geom_histogram()`, but we can still supply the argument and it will be passed to `stat_bin()` through the `...` argument.
 #
 # For example, here is the default histogram of `Home_Value`:
 #
@@ -389,7 +384,7 @@ p2 + geom_histogram()
 p2 + geom_histogram(breaks = seq(0, 875000, by = 25000))
 
 #
-# For reference, here is a list of geometric objects and their default statistics <https://ggplot2.tidyverse.org/reference/>.
+# For reference, here is a list of geometric objects: <https://ggplot2.tidyverse.org/reference/index.html#geoms>. Each geom's help page shows its default statistic.
 #
 # ### Changing the transformation
 #
@@ -415,7 +410,11 @@ head(housing_sum)
 ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
   geom_bar()
 
-## Error in `geom_bar()`: `stat_count()` can only have an `x` or `y` aesthetic.  
+## Error in `geom_bar()`:
+## ! Problem while computing stat.
+## ℹ Error occurred in the 1st layer.
+## Caused by error in `setup_params()`:
+## ! `stat_count()` must only have an x or y aesthetic.
 
 #
 # What is the problem with the previous plot? Basically, we take binned and summarized data and ask `ggplot()` to bin and summarize it again (`geom_bar()` defaults to `stat = stat_count`). Obviously this will not work. We can fix it by telling `geom_bar()` to use a different statistical transformation function. The `identity` function returns the same output as the input.
@@ -425,6 +424,8 @@ ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) +
 ggplot(housing_sum, aes(x = State, y = Home_Value_Mean)) + 
   geom_bar(stat = "identity")
 
+#
+# Because this is such a common need, `ggplot2` also provides `geom_col()`, which is a shortcut for `geom_bar(stat = "identity")`.
 #
 # ### Exercise 1
 #
@@ -528,7 +529,7 @@ ggplot(dat, aes(x = CPI, y = HDI)) +
 # * **breaks:** the points along the scale where labels should appear
 # * **labels:** the labels that appear at each break
 #
-# Specific scale functions may have additional arguments; for example, the `scale_color_continuous()` function has arguments `low` and `high` for setting the colors at the low and high end of the scale.
+# Specific scale functions may have additional arguments; for example, the `scale_color_gradient()` function has arguments `low` and `high` for setting the colors at the low and high end of the scale.
 #
 # ### Scale modification examples
 #
@@ -551,15 +552,15 @@ p3 +
                          labels = c("'76", "'94", "'13"))
 
 #
-# Next change the low and high values to blue and red:
+# Next use `scale_color_gradient()` to change the low and high values to blue and red:
 #
 
 # modify color scale low and high values
 p3 +
-  scale_color_continuous(name="",
-                         breaks = c(1976, 1994, 2013),
-                         labels = c("'76", "'94", "'13"),
-                         low = "blue", high = "red")
+  scale_color_gradient(name="",
+                       breaks = c(1976, 1994, 2013),
+                       labels = c("'76", "'94", "'13"),
+                       low = "blue", high = "red")
 
 
 #
@@ -585,19 +586,19 @@ p3 +
 #
 # | `scale_`          | Types        |  Examples                   |
 # |:------------------|:-------------|:----------------------------|
-# | `scale_color_`    | `identity`   | `scale_fill_continuous()`   |
-# | `scale_fill_`     | `manual`     | `scale_color_discrete()`    |
-# | `scale_size_`     | `continuous` | `scale_size_manual()`       |
-# |                   | `discrete`   | `scale_size_discrete()`     |
+# | `scale_color_`    | `identity`   | `scale_color_identity()`    |
+# | `scale_fill_`     | `manual`     | `scale_fill_manual()`       |
+# | `scale_size_`     | `continuous` | `scale_size_continuous()`   |
+# |                   | `discrete`   | `scale_color_discrete()`    |
 # |                   |              |                             |
 # | `scale_shape_`    | `discrete`   | `scale_shape_discrete()`    |
-# | `scale_linetype_` | `identity`   | `scale_shape_manual()`      |
-# |                   | `manual`     | `scale_linetype_discrete()` |
+# | `scale_linetype_` | `identity`   | `scale_linetype_identity()` |
+# |                   | `manual`     | `scale_shape_manual()`      |
 # |                   |              |                             |
 # | `scale_x_`        | `continuous` | `scale_x_continuous()`      |
 # | `scale_y_`        | `discrete`   | `scale_y_discrete()`        |
-# |                   | `reverse`    | `scale_x_log10()`           |
-# |                   | `log10`      | `scale_y_reverse()`         |
+# |                   | `reverse`    | `scale_y_reverse()`         |
+# |                   | `log10`      | `scale_x_log10()`           |
 # |                   | `date`       | `scale_x_date()`            |
 # |                   | `datetime`   | `scale_y_datetime()`        |
 #
@@ -610,7 +611,7 @@ p3 +
 ## 
 
 #
-# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_continous`, `?scale_y_continuous`, and `?scale_color_discrete`.
+# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_continuous`, `?scale_y_continuous`, and `?scale_color_discrete`.
 
 ## 
 
@@ -627,7 +628,7 @@ ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
   geom_point()
 
 #
-# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_continous`, `?scale_y_continuous`, and `?scale_color_discrete`.
+# 2.  Modify the x, y, and color scales so that they have more easily-understood names (e.g., spell out "Human development Index" instead of `HDI`). Hint: see `?scale_x_continuous`, `?scale_y_continuous`, and `?scale_color_discrete`.
 #
 
 ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
@@ -710,7 +711,7 @@ p4 + theme_linedraw()
 p4 + theme_light()
 
 #
-# You can see a list of available built-in themes here: <https://ggplot2.tidyverse.org/reference/>.
+# You can see a list of available built-in themes here: <https://ggplot2.tidyverse.org/reference/ggtheme.html>.
 #
 # ### Overriding theme defaults
 #
@@ -727,7 +728,7 @@ p4 + theme_minimal() +
 #
 
 #| eval: false
-theme_get()
+get_theme()
 
 #
 # ### Creating & saving new themes
@@ -748,12 +749,12 @@ p4 + theme_new
 #
 # ## Saving plots
 #
-# We can save a plot to either a vector (e.g., pdf, eps, ps, svg) or raster (e.g., jpg, png, tiff, bmp, wmf) graphics file using the `ggsave()` function:
+# We can save a plot to either a vector (e.g., pdf, eps, ps, svg) or raster (e.g., jpg, png, tiff, bmp) graphics file using the `ggsave()` function:
 #
 
 #| eval: false
 # save plot output to a file
-ggsave(filename = "myplot.pdf", plot = p5, device = "pdf", 
+ggsave(filename = "myplot.pdf", plot = p4, device = "pdf",
        height = 6, width = 6, units = "in")
 
 #
@@ -796,9 +797,11 @@ ggplot(housing_byyear, aes(x=Date)) +
 #
 # To avoid these pitfalls, we need to **map** our data to the color aesthetic. We can do this by **reshaping** our data from **wide format** to **long format**. Here is the logic behind this process:
 #
-# <center>
+# <div style="text-align: center;">
+#
 # ![](images/wide_vs_long.png)
-# </center>
+#
+# </div>
 #
 # Here's the code that implements this transformation using `pivot_longer()`:
 #

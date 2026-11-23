@@ -97,11 +97,10 @@ Use the `NH11` data set that we loaded earlier. Note that the data are not perfe
 Use the dataset `bh1996`:
 
 ```{r}
-  # install.packages("multilevel")
   data(bh1996, package="multilevel")
 ```
 
-From the data documentation:
+A summary of the data documentation:
 
 > Variables are Leadership Climate (`LEAD`), Well-Being (`WBEING`), and Work Hours (`HRS`). The group identifier is named `GRP`.
 
@@ -118,14 +117,14 @@ From the data documentation:
   0.0358 / (0.0358 + 0.7895)
 ```
 
-3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
+3.  Run a second multi-level model that adds two individual-level predictors, number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
 ```{r}
   mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp1)
 ```
 
-4.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
+4.  Now, add a random effect of number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
 ```{r}
   mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = na.omit(bh1996))

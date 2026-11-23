@@ -13,14 +13,11 @@
 *
 * ### Software and Materials
 *
-* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata.
+* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-stata-graphics.zip), unzip them, and move the `stata-graphics` folder to your desktop.
 *
-* ### Class structure and organization
+* ### Getting help
 *
-* * Please feel free to ask questions at any point if they are relevant to the current topic (or if you are lost!)
-* * Collaboration is encouraged - please introduce yourself to your neighbors!
-* * If you are using a laptop, you will need to adjust file paths accordingly
-* * Make comments in your Do-file - save on flash drive or email to yourself
+* These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 *
 * ### Prerequisites
 *
@@ -28,7 +25,7 @@
 *
 * * Assumes basic knowledge of Stata
 * * Not appropriate for people already well familiar with graphing in Stata
-* * If you are catching on before the rest of the class, experiment with command features described in help files
+* * If you want to go further, experiment with command features described in help files
 *
 * ### Goals
 *
@@ -80,11 +77,11 @@
 *     + Based on survey of 1,000 adults in U.S.
 *     + Conducted in August 2010
 *     + Questions regarding feelings about parental involvement, teachers union, current potential for reform
-* * Open Stata and call up the datafile for today
+* * Open Stata and call up the datafile
 *
 
 // Step 1: tell Stata where to find data:
-cd "~/StataGraphics/dataSets"
+cd "~/Desktop/stata-graphics/dataSets"
 
 // Step 2: call up our dataset:
 use TimePollPubSchools.dta, clear
@@ -129,8 +126,8 @@ hist F1, bin(10) percent title("TITLE") ///
 *     + `xtitle("")`
 *     + `ytitle("")`
 * * Add labels to X or Y axis:
-*     + `xlabel("insert x axis label")`
-*     + `ylabel("insert y axis label")`
+*     + `xlabel(# "insert x axis label")`
+*     + `ylabel(# "insert y axis label")`
 * * Tell Stata how to scale each axis
 *     + `xlabel(#(#)#)` --- start, increment, end
 *     + `xlabel(0(5)100)` This would label x-axis from 0-100 in increments of 5
@@ -258,7 +255,7 @@ hist Q11, discrete
 * 8.  Format this graph so that the axes have proper titles and labels. Also, add an appropriate title to the overall graph. Add a note stating the source of the data.
 *
 
-hist Q11, title("School grading breakdown of Time Poll Sample") xtitle("Grades") ytitle("Percent") xlabel(1 "A" 2 "B" 3 "C" 4 "D" 5 "F") note("Notes: Data is based on a survey of 1000 adults in U.S. conducted in 2010")
+hist Q11, discrete percent title("School grading breakdown of Time Poll Sample") xtitle("Grades") ytitle("Percent") xlabel(1 "A" 2 "B" 3 "C" 4 "D" 5 "F") note("Notes: Data is based on a survey of 1000 adults in U.S. conducted in 2010")
 
 *
 * ## Bivariate graphics
@@ -472,7 +469,7 @@ twoway scatter C_UNEMP C_SSLOW, by(C_SOUTH) mcolor("orange") msymbol(diamond)
 * 6.  Notice in your scatterplot that is broken down by `C_SOUTH` that there is an outlier in the upper right hand corner of the "Not South" graph. Add the city name label to this marker.
 *
 
-twoway scatter C_UNEMP C_SSLOW if C_UNEMP>25 & C_UNEMP<., by(C_SOUTH) mcolor("orange") msymbol(diamond) mlabel(CITY)
+twoway scatter C_UNEMP C_SSLOW if C_UNEMP>15 & C_UNEMP<., by(C_SOUTH) mcolor("orange") msymbol(diamond) mlabel(CITY)
 twoway (scatter C_UNEMP C_SSLOW if C_UNEMP>15 & C_SSLOW>25 & C_UNEMP<., mlabel(CITY)) (scatter C_UNEMP C_SSLOW), by(C_SOUTH)
 
 *

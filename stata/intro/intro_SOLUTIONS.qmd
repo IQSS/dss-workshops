@@ -39,10 +39,10 @@ sum income
 codebook job
 ```
 
-3. Produce a histogram of hours worked (`workload`) and add a normal curve:
+3. Produce a histogram of hours worked (`workperweek`) and add a normal curve:
 
 ```{stata}
-hist workload, normal 
+hist workperweek, normal
 ```
 
 4. Summarize the total household income last year (`income`) by marital status (`marital`):
@@ -54,7 +54,7 @@ bysort marital: sum income
 5. Cross-tabulate marital status (`marital`) with respondents' type of main job (`job`):
 
 ```{stata}
-bysort job: tab marital  
+tab marital job
 ```
 
 ## Exercise 2 solution
@@ -94,7 +94,7 @@ replace marital_dummy = 0 if marital != 1 & marital != 2
 tab marital_dummy
 ```
 
-5. Rename the `Sex` variable and give it a more intuitive name:
+5. Rename the sex/gender variable (`I3`) and give it a more intuitive name:
 
 ```{stata}
 rename I3 Sex
@@ -127,7 +127,7 @@ save newtalent.dta, replace
 
 Open the `newtalent.dta` data, use the basic data management tools we have learned to conduct bivariate analysis. 
 
-1.  Test the relationship between two variables `sex` and type of main job (`job`):
+1.  Test the relationship between two variables `Sex` and type of main job (`job`):
 
 ```{stata}
 use newtalent.dta, clear 
@@ -135,15 +135,15 @@ use newtalent.dta, clear
 tab Sex job, chi2 
 ```
 
-2.  Test if there is a significant difference in hours worked per week (`workload`) and `sex`:
+2.  Test if there is a significant difference in hours worked per week (`workperweek`) and `Sex`:
 
 ```{stata}
-ttest workload, by(Sex)
+ttest workperweek, by(Sex)
 ```
 
-3.  Test if there is a significant difference in hours worked per week (`workload`) and marital status (`marital`):
+3.  Test if there is a significant difference in hours worked per week (`workperweek`) and marital status (`marital`):
 
 ```{stata}
-oneway workload marital 
+oneway workperweek marital
 ```
 

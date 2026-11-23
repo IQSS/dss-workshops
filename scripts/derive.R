@@ -202,13 +202,15 @@ if (!is.null(kernel)) {
 }
 
 # Python materials carry a pyproject.toml: `uv sync` in the folder installs Python and the packages the
-# workshop uses (decision 2: Positron with uv). One line per workshop here.
+# workshop uses (decision 2: Positron with uv). One line per workshop here. requires-python pins the minor
+# version the install page names (python.version in _variables.yml), so uv does not fetch a newer Python the
+# materials were never tested with; bump both together.
 if (engine == "python") {
   deps <- list(intro = c("numpy"), webscrape = c("pandas", "requests", "lxml"))[[slug]]
   if (is.null(deps)) deps <- character()
   writeLines(c("[project]", sprintf("name = \"dss-python-%s\"", slug), "version = \"2026.8\"",
                "description = \"Python and the packages for the DSS workshop; run `uv sync` in this folder.\"",
-               "requires-python = \">=3.14\"",
+               "requires-python = \"==3.14.*\"",
                sprintf("dependencies = [%s]", paste(sprintf("\"%s\"", c("ipykernel", deps)), collapse = ", "))),
              file.path(mat, "pyproject.toml"))
 }

@@ -3,7 +3,7 @@
 The workshops of IQSS Data Science Services as one Quarto website: R, Python,
 Stata, and the tools around them, one page per workshop with materials to
 download and exercises with solutions. Rebuilt in 2026 from the 2021
-materials on current R, RStudio, Python, and Stata. For the DSS team that
+materials on current R, Positron, Python, and Stata. For the DSS team that
 writes and teaches them, and for anyone who wants to build the site.
 
 ## Build
@@ -14,6 +14,7 @@ Rscript scripts/derive.R r/intro.qmd  # regenerate a workshop's download files a
 ```
 
 R chapters execute through `renv` (`renv::restore()` once, after cloning).
-`_freeze/` holds the render cache, so a plain `quarto render` needs no
-language runtime until a chapter's code changes. On this machine `_site` is
-a symlink outside Dropbox.
+`_freeze/` holds the render cache and `_quarto.yml` sets `freeze: true`, so
+a plain `quarto render` never executes code and needs no language runtime.
+After changing a chapter's code, render that page on its own
+(`quarto render r/intro.qmd`) to refresh its freeze, and commit `_freeze/`.

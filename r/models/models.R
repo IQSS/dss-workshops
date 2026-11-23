@@ -14,13 +14,11 @@
 #
 # ### Software and Materials
 #
-# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start Positron.
+# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start Positron. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-r-models.zip), unzip them, and move the `r-models` folder to your desktop.
 #
-# ### Class Structure
+# ### Getting help
 #
-# Informal - Ask questions at any time. Really!
-#
-# Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 #
 # ### Prerequisites
 #
@@ -47,27 +45,22 @@
 # Start Positron and open the workshop materials folder:
 #
 # 1. On Mac, Positron will be in your Applications folder. On Windows, click the start button and search for Positron.
-# 2. In Positron go to `File -> Open Folder` and choose the workshop materials folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
-# 3. In the Explorer, click the file with the word "BLANK" in the name to open it.
+# 2. In Positron go to `File -> Open Folder` and choose the `r-models` folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
+# 3. In the Explorer, click `models_BLANK.qmd` to open it.
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` suite of packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
+# You should have already installed the `tidyverse` suite of packages onto your computer --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
 #
 
 library(tidyverse)
 
 #
-# Finally, lets install some packages that will help with modeling:
+# Finally, lets load some packages that will help with modeling (all are covered on the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) page):
 #
 
-# install.packages("lme4")
 library(lme4)  # for mixed models
-
-# install.packages("marginaleffects")
 library(marginaleffects)  # for predictions, comparisons and marginal effects
-
-# install.packages("emmeans")
 library(emmeans)  # for contrasts among the levels of a factor
 
 #
@@ -77,7 +70,7 @@ library(emmeans)  # for contrasts among the levels of a factor
 #
 # 1. Pre-estimation
 # 2. Estimation
-# 3. Post-estimaton
+# 3. Post-estimation
 #
 # At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis), but the process is sequential --- we move through the stages in order (though often many times in one project!)
 #
@@ -87,7 +80,7 @@ library(emmeans)  # for contrasts among the levels of a factor
 #
 # ## R modeling ecosystem
 #
-# There are literally hundreds of R packages that provide model fitting functionality. We're going to focus on just two during this workshop --- `stats`, from Base R, and `lme4`. It's a good idea to look at [CRAN Task Views](https://cran.r-project.org/web/views/) when trying to find a modeling package for your needs, as they provide an extensive curated list. But, here's a more digestible table showing some of the most popular packages for particular types of model. Where a row lists several, they are alternatives rather than successors --- `tidymodels` and `mlr3` are the ecosystems most people starting today are pointed at, while `caret` and `mlr` remain maintained and are what a great deal of existing code uses.
+# There are literally hundreds of R packages that provide model fitting functionality. We're going to focus on just two during this workshop --- `stats`, from Base R, and `lme4`. It's a good idea to look at [CRAN Task Views](https://cran.r-project.org/web/views/) when trying to find a modeling package for your needs, as they provide an extensive curated list. But, here's a more digestible table showing some of the most popular packages for particular types of model. Where a row lists several, they are alternatives rather than successors --- `tidymodels` and `mlr3` are the ecosystems most people starting today are pointed at, while `caret` and `mlr` are still on CRAN and are what a great deal of existing code uses.
 #
 # | Models              | Packages                                                  |
 # |:--------------------|:----------------------------------------------------------|
@@ -160,6 +153,8 @@ list.files("dataSets")
   qplot(x = expense, y = csat, geom = "point", data = states_ex_sat)
 
 #
+# When you run this, R will tell you that `qplot()` was deprecated in ggplot2 3.4.0. The function still works, and we use it here because it draws a useful plot in a single line. The fuller `ggplot()` syntax is the subject of our [R Graphics](https://iqss.github.io/dss-workshops/r/graphics.html) workshop.
+#
 # Obviously, in a real project, you would want to spend more time investigating the data,
 # but we'll now move on to modeling.
 #
@@ -172,7 +167,7 @@ list.files("dataSets")
 # 3. Function methods
 # 4. Model comparison
 #
-# Once the data have been inspected and cleaned, we can start estimating models. The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes. Typically, for these outcomes, we'd use a model estimated using Ordinary Least Lquares (OLS), which in R can be fit with the `lm()` (linear model) function.
+# Once the data have been inspected and cleaned, we can start estimating models. The simplest models (but those with the most assumptions) are those for continuous and unbounded outcomes. Typically, for these outcomes, we'd use a model estimated using Ordinary Least Squares (OLS), which in R can be fit with the `lm()` (linear model) function.
 #
 # To fit a model in R, we first have to convert our theoretical model into a `formula` --- a symbolic representation of the model in R syntax:
 #
@@ -300,7 +295,7 @@ outcome ~ pred1 + pred2 + pred3
   methods("summary")
 
 #
-# There are well over a hundred `summary()` methods, and the list grows with every package you attach! 
+# There are around a hundred `summary()` methods, and the list grows with every package you attach! 
 #
 # It's always worth examining whether the class of model you've fitted has a method for a particular generic extractor function. Here's a summary table of some of the most often used extractor functions, which have methods for a wide range of model classes. These are post-estimation tools you will want in your toolbox:
 #
@@ -468,7 +463,7 @@ states_voting_cleaned <- states |>
 #
 # ### Modeling interactions
 #
-# Interactions allow us assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: does the association between expense and SAT scores depend on the median income in the state?
+# Interactions allow us to assess the extent to which the association between one predictor and the outcome depends on a second predictor. For example: does the association between expense and SAT scores depend on the median income in the state?
 #
 
   # add the interaction to a model
@@ -524,7 +519,7 @@ states_voting_cleaned <- states |>
 #
 # ### Setting factor reference groups & contrasts
 #
-# **Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical sofware use contrasts, but each software has different defaults and their own way of overriding these.
+# **Contrasts** is the umbrella term used to describe the process of testing linear combinations of parameters from regression models. All statistical software use contrasts, but each software has different defaults and their own way of overriding these.
 #
 # The default contrasts in R are "treatment" contrasts (aka "dummy coding"), where each level within a factor is identified within a matrix of binary `0` / `1` variables, with the first level chosen as the reference category. They're called "treatment" contrasts, because of the typical use case where there is one control group (the reference group) and one or more treatment groups that are to be compared to the controls. It is easy to change the default contrasts to something other than treatment contrasts, though this is rarely needed. More often, we may want to change the reference group in treatment contrasts or get all sets of pairwise contrasts between factor levels.
 #
@@ -618,7 +613,7 @@ states_voting_cleaned <- states |>
 #
 # Thus far we have used the `lm()` function to fit our regression models. `lm()` is great, but limited --- in particular it only fits models for continuous dependent variables. For categorical dependent variables we can use the `glm()` function.
 #
-# For these models we will use a different dataset, drawn from the National Health Interview Survey. From the [CDC website](http://www.cdc.gov/nchs/nhis.htm):
+# For these models we will use a different dataset, drawn from the National Health Interview Survey. The [CDC website](https://www.cdc.gov/nchs/nhis/index.html) described the survey like this in 2012:
 #
 # > The National Health Interview Survey (NHIS) has monitored the health of the nation since 1957. NHIS data on a broad range of health topics are collected through personal household interviews. For over 50 years, the U.S. Census Bureau has been the data collection agent for the National Health Interview Survey. Survey results have been instrumental in providing data to track health status, health care access, and progress toward achieving national health objectives.
 #
@@ -677,7 +672,7 @@ states_voting_cleaned <- states |>
 # And here's how we fit this model in R. First, let's clean up the hypertension outcome by making it binary:
 #
 
-  str(NH11$hypev) # check stucture of hypev
+  str(NH11$hypev) # check structure of hypev
   levels(NH11$hypev) # check levels of hypev
 
   # collapse all missing values to NA
@@ -734,7 +729,7 @@ states_voting_cleaned <- states |>
   avg_predictions(hyp_out, variables = list(age_p = age_years))
 
 #
-# `plot_predictions()` draws the same quantity:
+# `plot_predictions()` with the `condition` argument draws a related but different quantity. It plots the predicted probability across the age range with the other predictors held at their mean or mode, not averaged over the people in the sample:
 #
 
   # predicted probability of hypertension across the age range
@@ -802,7 +797,7 @@ states_voting_cleaned <- states |>
 # * Multi-level (AKA hierarchical) models are a type of **mixed-effects** model
 # * They are used to model data that are clustered (i.e., non-independent)
 # * Mixed-effects models include two types of predictors: **fixed-effects** and **random effects**
-#   + **Fixed-effects** -- observed levels are of direct interest (.e.g, sex, political party...)
+#   + **Fixed-effects** -- observed levels are of direct interest (e.g., sex, political party...)
 #   + **Random-effects** -- observed levels not of direct interest: goal is to make inferences to a population represented by observed levels
 #   + In R, the `lme4` package is the most popular for mixed effects models
 #   + Use the `lmer()` function for linear mixed models, `glmer()` for generalized linear mixed models
@@ -903,11 +898,10 @@ states_voting_cleaned <- states |>
 # Use the `bh1996` dataset: 
 #
 
-## install.packages("multilevel")
 data(bh1996, package = "multilevel")
 
 #
-# From the data documentation:
+# A summary of the data documentation:
 #
 # > Variables are Leadership Climate (`LEAD`), Well-Being (`WBEING`), and Work Hours (`HRS`). The group identifier is named `GRP`.
 #
@@ -921,12 +915,12 @@ data(bh1996, package = "multilevel")
 ## 
 
 #
-# 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
+# 3.  Run a second multi-level model that adds two individual-level predictors, number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 
 ## 
 
 #
-# 4.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
+# 4.  Now, add a random effect of number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 
 ## 
 
@@ -934,11 +928,10 @@ data(bh1996, package = "multilevel")
 # Use the dataset `bh1996`:
 #
 
-  # install.packages("multilevel")
   data(bh1996, package="multilevel")
 
 #
-# From the data documentation:
+# A summary of the data documentation:
 #
 # > Variables are Leadership Climate (`LEAD`), Well-Being (`WBEING`), and Work Hours (`HRS`). The group identifier is named `GRP`.
 #
@@ -955,14 +948,14 @@ data(bh1996, package = "multilevel")
   0.0358 / (0.0358 + 0.7895)
 
 #
-# 3.  Run a second multi-level model that adds two individual-level predictors, average number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
+# 3.  Run a second multi-level model that adds two individual-level predictors, number of hours worked (`HRS`) and leadership skills (`LEAD`) to the model and interpret your output.
 #
 
   mod_grp1 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 | GRP), data = na.omit(bh1996))
   summary(mod_grp1)
 
 #
-# 4.  Now, add a random effect of average number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
+# 4.  Now, add a random effect of number of hours worked (`HRS`) to the model and interpret your output. Test the significance of this random term.
 #
 
   mod_grp2 <- lmer(WBEING ~ 1 + HRS + LEAD + (1 + HRS | GRP), data = na.omit(bh1996))

@@ -34,15 +34,13 @@ setHook(packageEvent("ggplot2", "attach"), function(...) ggplot2::theme_update(
 
 ### Software and Materials
 
-Follow the [R Installation](install.qmd) instructions and ensure that you can successfully start Positron.
+Follow the [R Installation](install.qmd) instructions and ensure that you can successfully start Positron. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-r-intro.zip), unzip them, and move the `r-intro` folder to your desktop.
 
 A handy [base R cheat-sheet](intro/base-r-cheat-sheet.pdf) is available to help you look up and remember basic syntax. In addition, a [data transformation cheat-sheet](intro/data-transformation-cheat-sheet.pdf) provides a convenient summary of data manipulation syntax.
 
-### Class Structure
+### Getting help
 
-Informal - Ask questions at any time. Really!
-
-Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 
 ### Prerequisites
 
@@ -63,9 +61,9 @@ We will learn about the R language by analyzing a dataset of baby names. In part
 3. Foundations of the language (objects, assignment, functions)
 4. The `tidyverse` package ecosystem for data science
 5. Basic data manipulation useful for cleaning datasets
-7. Working with grouped data
-8. Aggregating data to create summaries
-9. Saving objects, data, and scripts
+6. Working with grouped data
+7. Aggregating data to create summaries
+8. Saving objects, data, and scripts
 
 This workshop will not cover how to iterate over collections of data, create your own functions, produce publication quality graphics, or fit models to data. These topics are covered in our [R Data Wrangling](wrangling.qmd), [R Graphics](graphics.qmd), and [R Regression Models](models.qmd) workshops.
 
@@ -100,7 +98,7 @@ This workshop will not cover how to iterate over collections of data, create you
 * Extremely flexible: can be used to manipulate, analyze, and visualize any kind of data
 * Cutting edge statistical tools
 * Publication quality graphics
-* 16,000+ add on packages covering all aspects of statistics and machine learning
+* 25,000+ add on packages covering all aspects of statistics and machine learning
 * Active community of users
 
 ### How does R work?
@@ -140,10 +138,12 @@ There are also several different **formats** available for writing code in R. Th
 
 1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In R this is done by writing code in a text file with a `.R` or `.r` extension. Writing source code has the great advantage of being simple. Source code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
 
-2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embedding R code in a document that is authored using *Markdown* and which has a `.Rmd` extension. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
+2.  **Literate programming:** the practice of embedding computer code in a natural language document. In R this is often done using [**Rmarkdown**](https://rmarkdown.rstudio.com/), which involves embedding R code in a document that is authored using *Markdown* and which has a `.Rmd` extension. The materials for these workshops use [Quarto](https://quarto.org/), which works the same way as R Markdown in files with a `.qmd` extension. *Markdown* is easy to write and designed to be human-readable. Markdown is the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Many researchers use Markdown to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
 
-Here are some resources for learning more about Positron, RStudio, and R Markdown: 
+Here are some resources for learning more about Positron, RStudio, Quarto, and R Markdown:
 
+* <https://positron.posit.co/welcome.html>
+* <https://quarto.org/docs/get-started/hello/positron.html>
 * <https://rmarkdown.rstudio.com/authoring_quick_tour.html>
 * <https://cran.r-project.org/web/packages/rmarkdown/vignettes/rmarkdown.html>
 * <https://posit.co/resources/cheatsheets/>
@@ -153,8 +153,9 @@ Here are some resources for learning more about Positron, RStudio, and R Markdow
 Start Positron and open the workshop materials folder:
 
 1. On Mac, Positron will be in your Applications folder. On Windows, click the start button and search for Positron.
-2. In Positron go to `File -> Open Folder` and choose the workshop materials folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
-3. In the Explorer, click the file with the word "BLANK" in the name to open it.
+2. In Positron go to `File -> Open Folder` and choose the `r-intro` folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
+3. In the Explorer, click `intro_BLANK.qmd` to open it.
+4. To run a line of code, put the cursor on it and press `Ctrl + Enter` (`Cmd + Enter` on a Mac); to run a whole chunk of code, put the cursor inside it and press `Ctrl + Shift + Enter` (`Cmd + Shift + Enter` on a Mac).
 
 ### Exercise 0
 
@@ -174,7 +175,7 @@ Also keep in mind that we are living in a golden age of tab completion. If you d
 ##
 ```
 
- 3. R includes extensive documentation, including a manual named "An introduction to R". Use Positron's Help pane to locate this manual.
+ 3. R includes extensive documentation, including a manual named "An introduction to R". Run `help.start()` in the Console to open R's main help page in Positron's Help pane, and locate this manual.
 
 ::: {.callout-tip collapse="true" title="Exercise 0 solution"}
 
@@ -194,11 +195,11 @@ sqrt(10)
 10^(1/2)
 ```
 
-3. R includes extensive documentation, including a manual named "An introduction to R". Use Positron's Help pane to locate this manual.
+3. R includes extensive documentation, including a manual named "An introduction to R". Run `help.start()` in the Console to open R's main help page in Positron's Help pane, and locate this manual.
 
 ```{r}
-# Go to the main help page by running 'help.start() or using the GUI
-# menu, find and click on the link to "An Introduction to R".
+# Go to the main help page by running help.start() in the Console. It opens
+# in the Help pane; find and click on the link to "An Introduction to R".
 ```
 
 :::
@@ -271,7 +272,7 @@ help(package = "stats")
     * CRAN: <https://cran.r-project.org/web/packages/available_packages_by_name.html> 
     * Bioconductor: <https://www.bioconductor.org/packages/release/bioc/>
     * Github: <https://r-universe.dev/search>
-    * R-Forge: <https://r-forge.r-project.org/R/?group_id=1326>
+    * R-Forge: <https://r-forge.r-project.org/>
 
 3. If you know the type of analysis you want to perform, you can Google "CRAN Task Views", where there are curated lists of packages <https://cran.r-project.org/web/views/>. If you want to know which packages are popular, you can look at <https://r-pkg.org>.
 
@@ -281,7 +282,7 @@ R has data reading functionality built-in -- see e.g., `help(read.table)`. Howev
 
 ### Installing & using packages
 
-R is a modular environment that is extended by the use of **packages**. Packages are collections of functions or commands that are designed to perform specific tasks (e.g., fit a type of regression model). A large number of contributed packages are available (> 16,000). 
+R is a modular environment that is extended by the use of **packages**. Packages are collections of functions or commands that are designed to perform specific tasks (e.g., fit a type of regression model). A large number of contributed packages are available (> 25,000). 
 
 Using an R package is a **two step process**:
 
@@ -299,7 +300,7 @@ A typical workflow for using `tidyverse` packages looks like this:
 
 ![](images/intro/tidy_workflow.png)
 
-You should have already installed the `tidyverse` suite of packages onto your computer before the workshop --- see [R Installation](install.qmd). Now let's load it into the search path of our R session.
+You should have already installed the `tidyverse` suite of packages onto your computer --- see [R Installation](install.qmd). Now let's load it into the search path of our R session.
 
 ```{r}
 # Load the tidyverse using the library() function
@@ -781,7 +782,7 @@ head(baby_names)
 It's often necessary to create a new variable that is a recoded version of an existing variable. For example, we might want to take our `Count_1k` variable and create a new variable that divides it into `low`, `medium`, and `high` categories. To do this, we can use the `case_when()` function within the `mutate()` function:
 
 ```{r}
-# Use case_when() to recode the newly created Rank column into:
+# Use case_when() to recode the Count_1k column into:
 # low (<=10), high (>40), and medium (all others).
 # Call the resulting column "Count_levels".
 baby_names <-

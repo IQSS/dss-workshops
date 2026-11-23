@@ -19,16 +19,13 @@
 *
 * ### Software and Materials
 *
-* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata.
+* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-stata-intro.zip), unzip them, and move the `stata-intro` folder to your desktop.
 *
 * A handy set of [Stata cheat-sheets](stata-cheat-sheets.pdf) is available to help you look up and remember command syntax. 
 *
-* ### Class Structure and organization 
+* ### Getting help
 *
-* * Informal --- Ask questions at any time. Really!
-* * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
-* * If you are using a laptop, you will need to adjust file paths accordingly
-* * Make comments in your Do-file - save on flash drive or email to yourself
+* These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 *
 * ### Prerequisites
 *
@@ -54,7 +51,7 @@
 * **GOAL: To learn the basics about Stata, how to interact with Stata, and how to read in and save data.** In particular:
 *
 * 1. What is Stata, why use Stata, and advantages of using Stata 
-* 2. Three ways of interacing with Stata 
+* 2. Three ways of interacting with Stata
 * 3. Set the working directory
 * 4. Read, save, and write data 
 *
@@ -81,7 +78,7 @@
 *
 * ![](images/StataInterface.png)
 *
-* * Review and Variable windows can be closed (user preference)
+* * History and Variables windows can be closed (user preference)
 * * Command window can be shortened (recommended)
 *
 * #### GUI and command window
@@ -106,7 +103,7 @@
 * Here are some resources for learning more about Stata and do-files: 
 *
 * * <https://www.stata.com/>
-* * <https://www.stata.com/manuals13/gsw13.pdf>
+* * <https://www.stata.com/manuals/gsw13.pdf>
 * * <https://sociology.fas.harvard.edu/files/sociology/files/creating_a_do_file.pdf>
 *
 * ### Stata help
@@ -123,7 +120,7 @@
 *
 * ### Exercise 0
 *
-* Launch the Stata program (MP or SE, does not matter unless doing computationally intensive work)
+* Launch the Stata program (MP, SE, or BE, does not matter unless doing computationally intensive work)
 *  * Open up a new do-file
 *  * Run our first Stata code!
 *
@@ -164,7 +161,7 @@ pwd
 * 2. change working directory 
 *
 
-cd C:\Users\yourname\Desktop\stata-intro\
+cd "~/Desktop/stata-intro/dataSets"
 
 *
 * #### A note about file path names
@@ -222,17 +219,18 @@ export excel gss_new, replace
 *
 * What if my data is from another statistical software program?
 *
-* * SPSS/PASW will allow you to save your data as a Stata file
+* * Stata can read SPSS and SAS files directly with `import spss` and `import sas`
+* * SPSS will also allow you to save your data as a Stata file
 *     + Go to: file -> save as -> Stata (use most recent version available)
 *     + Then you can just go into Stata and open it
-* * Another option is `StatTransfer`, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more.
+* * Another option is `Stat/Transfer`, a program that converts data from/to many common formats, including SAS, SPSS, Stata, and many more.
 *
 * ## Statistics & graphs
 *
 * **GOAL: To learn the basic commands to review, inspect, and plot data in Stata.** In particular:
 *
 * 1. Learn more about the variables in our dataset --- using the `describe`, `codebook`, and `browse` commands 
-* 2. Produce univariate distributions using `histogram`, and bivariate distribution using `scatterplot` 
+* 2. Produce univariate distributions using `histogram`, and bivariate distribution using `scatter`
 * 3. Tabulate or summarize your data within certain groups using `bysort` 
 *
 * The most frequently used commands for reviewing and inspecting data are summarized below: 
@@ -297,7 +295,7 @@ graph matrix educ age inc
 *
 * Sometimes, you'd like to generate output based on different categories of a grouping variable, for example: 
 *
-* 1. you want to know the distribution of happiness seperately for men and women: tabulate `happy` by `sex`: 
+* 1. you want to know the distribution of happiness separately for men and women: tabulate `happy` by `sex`: 
 *
 
 bysort sex: tab happy
@@ -318,9 +316,9 @@ bysort marital: sum educ
 * | Variable name | Label                                                                |
 * |:--------------|:---------------------------------------------------------------------|
 * | job           | type of main job                                                     |
-* | workload      | how long hours do you work per week                                  |
+* | workperweek   | how long hours do you work per week                                  |
 * | otherjob      | do you have other paid jobs beside main job                          |
-* | schedule      | which best describes your work schedule                              |
+* | workschedule  | which best describes your work schedule                              |
 * | fulltime      | Does your employer consider you a full-time or part-time employee    |
 * | B3A           | How important are the following to you? Your work                    |
 * | B3B           | How important are the following to you? Your family                  |
@@ -343,7 +341,7 @@ bysort marital: sum educ
 ##
 
 *
-* 3. Produce a histogram of hours worked (`workload`) and add a normal curve: 
+* 3. Produce a histogram of hours worked (`workperweek`) and add a normal curve:
 *
 
 ##
@@ -376,10 +374,10 @@ sum income
 codebook job
 
 *
-* 3. Produce a histogram of hours worked (`workload`) and add a normal curve:
+* 3. Produce a histogram of hours worked (`workperweek`) and add a normal curve:
 *
 
-hist workload, normal 
+hist workperweek, normal
 
 *
 * 4. Summarize the total household income last year (`income`) by marital status (`marital`):
@@ -391,7 +389,7 @@ bysort marital: sum income
 * 5. Cross-tabulate marital status (`marital`) with respondents' type of main job (`job`):
 *
 
-bysort job: tab marital  
+tab marital job
 
 *
 * ## Basic data management
@@ -408,7 +406,10 @@ bysort job: tab marital
 * It's good practice to ALWAYS label every variable, no matter how insignificant it may seem.
 *
 
-// Labelling and renaming 
+// open the gss.dta data set again
+use gss.dta, clear
+
+// Labeling and renaming
 // Label variable inc "household income"
 label var inc "household income"
 
@@ -495,7 +496,7 @@ replace age_wealth=4 if age >= 30 & inc >= 10 & age < . & inc < .
 ##
 
 *
-* 5. Rename the `Sex` variable and give it a more intuitive name:
+* 5. Rename the sex/gender variable (`I3`) and give it a more intuitive name:
 *
 
 ##
@@ -554,7 +555,7 @@ replace marital_dummy = 0 if marital != 1 & marital != 2
 tab marital_dummy
 
 *
-* 5. Rename the `Sex` variable and give it a more intuitive name:
+* 5. Rename the sex/gender variable (`I3`) and give it a more intuitive name:
 *
 
 rename I3 Sex
@@ -602,7 +603,10 @@ save newtalent.dta, replace
 * * These commands also can run a Chi-square test using the `chi2` option:
 *
 
-tab sex happy, chi2 
+// open the gss.dta data set again
+use gss.dta, clear
+
+tab sex happy, chi2
 
 *
 * The first command below conducts a Chi-square test for a 2x2 table, while the second and third commands run the test for 3x2 and 2x3 tables, respectively.
@@ -620,7 +624,7 @@ tabi 33 48 26 \ 37 52 38, chi2
 * Types of t-test: 
 *
 * * Independent group t-test: designed to compare means of same variable between two groups. For example, test GRE scores between students from two countries
-* * Other t-tests: single sample t-test; paired t-test. More details see: https://www.stata.com/manuals13/rttest.pdf
+* * Other t-tests: single sample t-test; paired t-test. More details see: https://www.stata.com/manuals/rttest.pdf
 *
 * In our example, we conduct an independent group t-test to compare mean income (`inc`) between males and females (`sex`):
 *
@@ -636,29 +640,29 @@ ttest inc, by(sex)
 oneway inc region 
 
 *
-* Now we find evidence that the means are different, but perhaps we are interested only in testing whether the means for the North (region==1) and South (region==4) are different. We also use one-way ANOVA, which in this case would be equivelant to the independent group t-test:
+* Now we find evidence that the means are different, but perhaps we are interested only in testing whether the means for the North (region=="north") and South (region=="south") are different. We also use one-way ANOVA, which in this case would be equivalent to the independent group t-test:
 *
 
-oneway inc region if region==1 | region==4
+oneway inc region if region=="north" | region=="south"
 
 *
 * ### Exercise 3
 *
 * Open the `newtalent.dta` data, use the basic data management tools we have learned to conduct bivariate analysis. 
 *
-* 1.  Test the relationship between two variables `sex` and type of main job (`job`):
+* 1.  Test the relationship between two variables `Sex` and type of main job (`job`):
 *
 
 ##
 
 *
-* 2.  Test if there is a significant difference in hours worked per week (`workload`) and `sex`: 
+* 2.  Test if there is a significant difference in hours worked per week (`workperweek`) and `Sex`: 
 *
 
 ##
 
 *
-* 3.  Test if there is a significant difference in hours worked per week (`workload`) and marital status (`marital`): 
+* 3.  Test if there is a significant difference in hours worked per week (`workperweek`) and marital status (`marital`): 
 *
 
 ##
@@ -666,7 +670,7 @@ oneway inc region if region==1 | region==4
 *
 * Open the `newtalent.dta` data, use the basic data management tools we have learned to conduct bivariate analysis. 
 *
-* 1.  Test the relationship between two variables `sex` and type of main job (`job`):
+* 1.  Test the relationship between two variables `Sex` and type of main job (`job`):
 *
 
 use newtalent.dta, clear 
@@ -674,16 +678,16 @@ use newtalent.dta, clear
 tab Sex job, chi2 
 
 *
-* 2.  Test if there is a significant difference in hours worked per week (`workload`) and `sex`:
+* 2.  Test if there is a significant difference in hours worked per week (`workperweek`) and `Sex`:
 *
 
-ttest workload, by(Sex)
+ttest workperweek, by(Sex)
 
 *
-* 3.  Test if there is a significant difference in hours worked per week (`workload`) and marital status (`marital`):
+* 3.  Test if there is a significant difference in hours worked per week (`workperweek`) and marital status (`marital`):
 *
 
-oneway workload marital 
+oneway workperweek marital
 
 *
 * ## Wrap-up

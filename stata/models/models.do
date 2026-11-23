@@ -35,14 +35,11 @@
 *
 * ### Software and Materials
 *
-* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata.
+* Follow the [Stata Installation](https://iqss.github.io/dss-workshops/stata/install.html) instructions and ensure that you can successfully start Stata. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-stata-models.zip), unzip them, and move the `stata-models` folder to your desktop.
 *
-* ### Class structure and organization 
+* ### Getting help
 *
-* * Informal --- Ask questions at any time. Really!
-* * Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
-* * If you are using a laptop, you will need to adjust file paths accordingly
-* * Make comments in your do-file - save on flash drive or email to yourself
+* These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 *
 * ### Prerequisites
 *
@@ -50,7 +47,7 @@
 *
 * * Assumes basic knowledge of Stata
 * * Not appropriate for people already well familiar with modeling in Stata
-* * If you are catching on before the rest of the class, experiment with command features described in help files
+* * If you want to go further, experiment with command features described in help files
 *
 * ### Goals
 *
@@ -69,7 +66,7 @@
 *
 * 1. Pre-estimation
 * 2. Estimation
-* 3. Post-estimaton
+* 3. Post-estimation
 *
 * At each stage, the goal is to complete a different task (e.g., to clean data, fit a model, test a hypothesis),
 * but the process is sequential --- we move through the stages in order (though often many times in one project!)
@@ -90,25 +87,25 @@
 *
 * ### Set working directory 
 *
-* Files are located in the `dataSets` folder in `StataMod`. Start by telling Stata where to look for these:
+* Files are located in the `dataSets` folder in `stata-models`. Start by telling Stata where to look for these:
 *
 
 // change directory
-cd "~/Desktop/Stata/StataMod"
+cd "~/Desktop/stata-models"
 
 *
 * Use `dir` to see what is in the directory:
 *
 
 dir
-cd dataSets
+dir dataSets
 
 *
 * ### Load the data
 *
 
 // use the states data set
-use dataSets/states.dta
+use dataSets/states.dta, clear
 
 *
 * ### Examine descriptive statistics 
@@ -270,9 +267,10 @@ regress csat i.region
 * 1.  Before running the regression, examine descriptive statistics of the variables and generate a few scatterplots.
 *
 
-sum happy educ rincome 
-tab sex 
-tab marital 
+use dataSets/gss.dta, clear
+sum happy educ rincome
+tab sex
+tab marital
 
 scatter happy rincome
 
@@ -286,7 +284,8 @@ regress happy i.sex educ i.marital rincome
 * 3.  Examine the plausibility of the assumptions of normality and homoscedasticity.
 *
 
-hist happy, normal 
+predict resid, residual
+hist resid, normal
 rvfplot,yline(0)
 
 *
@@ -311,7 +310,7 @@ regress happy i.sex##c.educ i.marital rincome
 *
 
 // use the states data set
-use dataSets/states.dta
+use dataSets/states.dta, clear
 
 *
 * ### Recode the outcome variable 
@@ -361,7 +360,7 @@ logit sat_binary density percent expense, or
 *
 * **Regression with binary outcomes**
 *
-* Use the data file, `gss.dta`. Examine how age of a respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`) relate to whether someone uses internet (`usenet`). 
+* Use the data file, `gss.dta`. Examine how age of a respondent (`age`), highest degree (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`) relate to whether someone uses internet (`usenet`). 
 *
 * 1.  Load the dataset. 
 *
@@ -375,12 +374,12 @@ logit sat_binary density percent expense, or
 ##
 
 *
-* Use the data file, `gss.dta`. Examine how age of a respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`) relate to whether someone uses internet (`usenet`).
+* Use the data file, `gss.dta`. Examine how age of a respondent (`age`), highest degree (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`) relate to whether someone uses internet (`usenet`).
 *
 * 1.  Load the dataset.
 *
 
-use gss.dta, clear 
+use dataSets/gss.dta, clear
 
 *
 * 2.  Run summary statistics, delete subjects who did not provide an answer to the `usenet` question.
@@ -413,7 +412,11 @@ ssc install outreg2, replace
 *
 
 // fit two regression models and store the results
-regress csat expense income percent high
+use dataSets/states.dta, clear
+
+// `if region < .` fits Model1 to the same observations as Model2
+// (one observation has no region), which lrtest needs below
+regress csat expense income percent high if region < .
 estimates store Model1
   
 regress csat expense income percent high i.region
@@ -429,7 +432,7 @@ estimates replay Model1
 *
 * ### Comparing models
 *
-* The stored models can be compared by name using the `estimates` command and `table` option. For a more formal comparison, the `lrtest` command can be used to perform a likelihhod ratio test:
+* The stored models can be compared by name using the `estimates` command and `table` option. For a more formal comparison, the `lrtest` command can be used to perform a likelihood ratio test:
 *
 
 // compare Model1 and Model2 coefficients
@@ -447,11 +450,15 @@ lrtest Model1 Model2
 outreg2 [Model1 Model2] using csatprediction.xls, replace
 
 *
+* Stata 17 and later can do the same with the built-in `etable` command: `etable, estimates(Model1 Model2) export(csatprediction.xlsx, replace)`.
+*
 * ### Exercise 2
 *
 * **Exporting & saving results**
 *
-* 1.  Fit the logistic model and save it as `Model1`. 
+* Use the data file, `gss.dta`, again without the subjects who did not provide an answer to the `usenet` question.
+*
+* 1.  Fit the logistic model and save it as `Model1`.
 *
 
 ##
@@ -472,7 +479,9 @@ outreg2 [Model1 Model2] using csatprediction.xls, replace
 * 1.  Fit the logistic model and save it as `Model1`.
 *
 
-logit usenet age i.degree tvhours income 
+use dataSets/gss.dta, clear
+drop if usenet == 9
+logit usenet age i.degree tvhours income
 est store Model1
 
 *
@@ -502,18 +511,18 @@ outreg2 using Mymodel.doc
 *
 * The default summary model output that Stata produces is useful and intuitive for relatively simple models, especially if the outcome is continuous. For more complex models, especially non-linear models or those with interactions, the default output only reports a small subset of information from the model and/or presents results on an unintuitive scale. For such models, it is often easier to interpret **margins** --- specifically, *margins of responses* or *margins of changes in responses*. Margins are statistics calculated from predictions of a previously fit model at fixed values of some covariates and averaging over the remaining covariates. Margins answers the question, **"What does my model have to say about such-and-such a group or such-and-such a person?"**. It answers this question:
 *
-* 1. Either conditionally --— based on fixed values of covariates (e.g., the mean) -—- or averaged over the observations in the data.
-* 2. In terms of the response given covariate levels (**margins of responses**), or any other response you can calculate as a function of your estimated parameters -—- linear responses, probabilities, hazards, survival times, odds ratios, risk differences. (a.k.a. *predictive margins*, or *adjusted predictions*, or *estimated marginal means*, or *least-squares means*).
+* 1. Either conditionally --- based on fixed values of covariates (e.g., the mean) --- or averaged over the observations in the data.
+* 2. In terms of the response given covariate levels (**margins of responses**), or any other response you can calculate as a function of your estimated parameters --- linear responses, probabilities, hazards, survival times, odds ratios, risk differences. (a.k.a. *predictive margins*, or *adjusted predictions*, or *estimated marginal means*, or *least-squares means*).
 * 3. In terms of the *change* in the response for a *change* in covariate levels (**margins of changes in responses**). (a.k.a. *marginal effects* or *partial effects*).
 * 4. Providing standard errors, test statistics, and confidence intervals and those statistics can take the covariates as given or adjust for sampling.
 *
-* To calculate such effects in Stata, we need a flexible way of obtaining quantities of interest from the model. This is generally done using a [post-estimation tool](https://www.stata.com/manuals13/u20.pdf). The main post-estimation tool Stata has in its arsenal is the `margins` command. This is a very flexible tool for producing a variety of quantities of interest from almost all model types that Stata supports. In particular, `margins` can calculate:
+* To calculate such effects in Stata, we need a flexible way of obtaining quantities of interest from the model. This is generally done using a [post-estimation tool](https://www.stata.com/manuals/u20.pdf). The main post-estimation tool Stata has in its arsenal is the `margins` command. This is a very flexible tool for producing a variety of quantities of interest from almost all model types that Stata supports. In particular, `margins` can calculate:
 *
 * 1. Different types of *margins of responses*:
 *     + **APM: Average Predictive Margins** (average of the responses among actual people in the data)
 *     + **PMM: Predictive Margins at the Means** (expected response for a person with average characteristics)
 *     + **PMR: Predictive Margins at Representative values** (expected response across a range of covariate values)
-* 2. Difference types of *margins of changes in responses*:
+* 2. Different types of *margins of changes in responses*:
 *     + **AME: Average Marginal Effects** (average of the changes in responses among actual people in the data)
 *     + **MEM: Marginal Effects at the Means** (expected change in response for a person with average characteristics)
 *     + **MER: Marginal Effects at Representative values** (expected change in response across a range of covariate values)
@@ -538,7 +547,7 @@ outreg2 using Mymodel.doc
 *   which was conducted in the mid to late 1970s. More on the study can be found at https://wwwn.cdc.gov/nchs/nhanes/nhanes2/. Let's load the data: 
 *     
 
-use dataSets/nhanesII.dta
+use dataSets/nhanesII.dta, clear
 
 *
 * ### Fit a model 
@@ -617,7 +626,7 @@ marginsplot
 ##
 
 *
-* 3. Obtain predictive margins of `rincome` from 10000 to 30000, with an interval of 5000. 
+* 3. Obtain predictive margins of `rincome` from 9 to 15, with an interval of 2. `rincome` holds income categories, not dollars: 9 is 10,000 to 12,499 dollars and 15 is 25,000 to 29,999 dollars (type `label list rincome` to see them all). 
 *
 
 ##
@@ -634,8 +643,9 @@ marginsplot
 * 1. Fit an OLS regression model to predict general happiness (`happy`) based on respondent's sex (`sex`), marital status (`marital`), highest year of school completed (`educ`), and respondent's income for last year (`rincome`). Obtain average predictive margins for `happy`.
 *
 
+use dataSets/gss.dta, clear
 regress happy i.sex educ i.marital rincome
-margins 
+margins
 
 *
 * 2. Obtain predictive margins of `sex` and `marital`.
@@ -645,10 +655,10 @@ margins sex
 margins marital
 
 *
-* 3. Obtain predictive margins of `rincome` from 10000 to 30000, with an interval of 5000.
+* 3. Obtain predictive margins of `rincome` from 9 to 15, with an interval of 2. `rincome` holds income categories, not dollars: 9 is 10,000 to 12,499 dollars and 15 is 25,000 to 29,999 dollars (type `label list rincome` to see them all).
 *
 
-margins, at(rincome=(10000(5000)30000))
+margins, at(rincome=(9(2)15))
 
 *
 * 4. Create a `marginsplot` and interpret the results.
@@ -673,7 +683,7 @@ marginsplot
 * We will be using the same dataset as the previous example: the Second National Health and Nutrition Examination Survey (NHANES II). Let's load the data: 
 *     
 
-use dataSets/nhanesII.dta
+use dataSets/nhanesII.dta, clear
 
 *
 * ### Fit a model 
@@ -681,12 +691,13 @@ use dataSets/nhanesII.dta
 * We will predict the probability of someone having diabetes (`diabetes`), as a function of race (`black`), sex (`female`), and age (`age`), using logistic regression.
 *
 
-logit diabetes black female age, nolog 
+// the i. prefix marks black and female as categorical, which margins needs
+logit diabetes i.black i.female age, nolog
 
 *
 * ### AME: Average Marginal Effects
 *
-* We can first obtain the Average Predictive Margins of race (`black`) and sex (`female`). Then, we can use the `dydx` command to estimate changes in the response when the levels of race and sex change. Since, by default, these changes are averaged over each person in the dataset, we obtain Average Marginal Effects. As the current model is logistic, margins automatically back-transforms the APMs and AMEs from the estimation scale (i.e., the log odds scale) to the response scale (i.e., the probability scale).
+* We can first obtain the Average Predictive Margins of race (`black`) and sex (`female`). Then, we can use the `dydx` option to estimate changes in the response when the levels of race and sex change. Since, by default, these changes are averaged over each person in the dataset, we obtain Average Marginal Effects. As the current model is logistic, margins automatically back-transforms the APMs and AMEs from the estimation scale (i.e., the log odds scale) to the response scale (i.e., the probability scale).
 *
 
 // obtain Average Predictive Margins 
@@ -698,7 +709,7 @@ margins, dydx(black female)
 *
 * ### MEM: Marginal Effects at the Mean 
 *
-* By default, `margins` with the `dydx` command reports the average of the changes in the probability of the response among actual people in the data. But we can also get margins to report the expected change in the probability of the response for a person with average characteristics by using the `atmeans` option.
+* By default, `margins` with the `dydx` option reports the average of the changes in the probability of the response among actual people in the data. But we can also get margins to report the expected change in the probability of the response for a person with average characteristics by using the `atmeans` option.
 *
 
 // obtain Predictive Margins at the Means
@@ -734,9 +745,9 @@ marginsplot
 *
 * **Margins of changes in responses**
 *   
-* Open the datafile `gss.dta`.
+* Open the datafile `gss.dta` and, as in Exercise 1, delete subjects who did not provide an answer to the `usenet` question.
 *
-* 1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.
+* 1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest degree (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.
 *
 
 ## 
@@ -754,12 +765,14 @@ marginsplot
 ##
 
 *
-* Open the datafile `gss.dta`.
+* Open the datafile `gss.dta` and, as in Exercise 1, delete subjects who did not provide an answer to the `usenet` question.
 *
-* 1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.
+* 1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest degree (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.
 *
 
-logit usenet age i.degree tvhours income 
+use dataSets/gss.dta, clear
+drop if usenet == 9
+logit usenet age i.degree tvhours income
 
 margins degree
 margins, dydx(degree)
