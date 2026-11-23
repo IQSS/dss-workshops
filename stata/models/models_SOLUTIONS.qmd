@@ -16,9 +16,10 @@ Fit an OLS regression model to predict general happiness (`happy`) based on resp
 1.  Before running the regression, examine descriptive statistics of the variables and generate a few scatterplots.
 
 ```{stata}
-sum happy educ rincome 
-tab sex 
-tab marital 
+use dataSets/gss.dta, clear
+sum happy educ rincome
+tab sex
+tab marital
 
 scatter happy rincome
 ```
@@ -32,7 +33,8 @@ regress happy i.sex educ i.marital rincome
 3.  Examine the plausibility of the assumptions of normality and homoscedasticity.
 
 ```{stata}
-hist happy, normal 
+predict resid, residual
+hist resid, normal
 rvfplot,yline(0)
 ```
 
@@ -44,12 +46,12 @@ regress happy i.sex##c.educ i.marital rincome
 
 ## Exercise 1 solution
 
-Use the data file, `gss.dta`. Examine how age of a respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`) relate to whether someone uses internet (`usenet`).
+Use the data file, `gss.dta`. Examine how age of a respondent (`age`), highest degree (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`) relate to whether someone uses internet (`usenet`).
 
 1.  Load the dataset.
 
 ```{stata}
-use gss.dta, clear 
+use dataSets/gss.dta, clear
 ```
 
 2.  Run summary statistics, delete subjects who did not provide an answer to the `usenet` question.
@@ -66,7 +68,9 @@ sum age tvhours income
 1.  Fit the logistic model and save it as `Model1`.
 
 ```{stata}
-logit usenet age i.degree tvhours income 
+use dataSets/gss.dta, clear
+drop if usenet == 9
+logit usenet age i.degree tvhours income
 est store Model1
 ```
 
@@ -93,8 +97,9 @@ Open the datafile `gss.dta`
 1. Fit an OLS regression model to predict general happiness (`happy`) based on respondent's sex (`sex`), marital status (`marital`), highest year of school completed (`educ`), and respondent's income for last year (`rincome`). Obtain average predictive margins for `happy`.
 
 ```{stata}
+use dataSets/gss.dta, clear
 regress happy i.sex educ i.marital rincome
-margins 
+margins
 ```
 
 2. Obtain predictive margins of `sex` and `marital`.
@@ -104,10 +109,10 @@ margins sex
 margins marital
 ```
 
-3. Obtain predictive margins of `rincome` from 10000 to 30000, with an interval of 5000.
+3. Obtain predictive margins of `rincome` from 9 to 15, with an interval of 2. `rincome` holds income categories, not dollars: 9 is 10,000 to 12,499 dollars and 15 is 25,000 to 29,999 dollars (type `label list rincome` to see them all).
 
 ```{stata}
-margins, at(rincome=(10000(5000)30000))
+margins, at(rincome=(9(2)15))
 ```
 
 4. Create a `marginsplot` and interpret the results.
@@ -118,12 +123,14 @@ marginsplot
 
 ## Exercise 4 solution
 
-Open the datafile `gss.dta`.
+Open the datafile `gss.dta` and, as in Exercise 1, delete subjects who did not provide an answer to the `usenet` question.
 
-1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest year of school completed (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.
+1. Fit a logistic model to examine how whether someone uses internet (`usenet`) is related to age of the respondent (`age`), highest degree (`degree`), hours per day watching TV (`tvhours`), and total family income for last year (`income`). Obtain Average Predictive Margins and Average Marginal Effects for `degree`.
 
 ```{stata}
-logit usenet age i.degree tvhours income 
+use dataSets/gss.dta, clear
+drop if usenet == 9
+logit usenet age i.degree tvhours income
 
 margins degree
 margins, dydx(degree)

@@ -22,15 +22,13 @@ execute:
 
 ### Software and Materials
 
-Follow the [Python Installation](https://iqss.github.io/dss-workshops/python/install.html) instructions and ensure that you can successfully start Positron.
+Follow the [Python Installation](https://iqss.github.io/dss-workshops/python/install.html) instructions and ensure that you can successfully start Positron. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-python-intro.zip), unzip them, and move the `python-intro` folder to your desktop.
 
 A handy [cheat-sheet](python-cheat-sheet-basic.pdf) is available to help you look up and remember basic syntax.
 
-### Class Structure
+### Getting help
 
-Informal - Ask questions at any time. Really!
-
-Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 
 ### Prerequisites
 
@@ -78,7 +76,7 @@ In particular, our goals are to learn about:
 * Python is an interpreted language, not a compiled one, meaning that all commands 
   typed on the keyboard are directly executed without requiring to build a complete 
   program (this is like R and unlike C, Fortran, Pascal, etc.)
-* Python has existed for about 30 years
+* Python has existed since the early 1990s
 * Python is modular --- most functionality is from add-on packages. So the language can
   be thought of as a *platform* for creating and running a large number of useful packages.
 
@@ -89,7 +87,7 @@ In particular, our goals are to learn about:
   make web sites, write games, and much more (Youtube and DropBox were written in Python)
 * Cutting edge machine learning tools
 * Publication quality graphics
-* 150,000+ add on packages covering all aspects of statistics and machine learning
+* Hundreds of thousands of add on packages covering all aspects of statistics and machine learning
 * Active community of users
 
 ### How does Python work?
@@ -134,21 +132,21 @@ There are different ways of interacting with Python. The two main ways are throu
 | Vim          | Excellent | Hard        | Good             |
 | Emacs        | Excellent | Hard        | Excellent        |
 
-2. **Notebooks:** Browser-based applications that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. One popular choice is [Jupyter Notebook](https://jupyter.org/); an open source notebook that has support for 40+ languages, but has limited features compared with the JupyterLab IDE. 
+2. **Notebooks:** Applications, often browser-based, that allow you to create and share documents that contain live code, equations, visualizations, and narrative text. One popular choice is [Jupyter Notebook](https://jupyter.org/); an open source notebook that has support for 40+ languages, but has limited features compared with the JupyterLab IDE. 
 
 #### Source code & literate programming
 
 There are also several different **formats** available for writing code in Python. 
 These basically boil down to a choice between:
 
-1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In Python this is done by writing code in a text file with a `.py` extension. Writing source code has the great advantage of being simple. Souce code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
+1. **Source code:** the practice of writing code, and possibly comments, in a plain text document. In Python this is done by writing code in a text file with a `.py` extension. Writing source code has the great advantage of being simple. Source code is the format of choice if you intend to run your code as a complete script - for example, from the command line.
 
-2.  **Literate programming:** the practice of embedding computer code in a natural language document. In Python this is often done using the aformentioned [Jupyter Notebook](https://jupyter.org/), which is a [JSON](https://www.json.org/json-en.html) document containing an ordered list of input/output cells which can contain code, text (using *Markdown*), mathematics, plots, and rich media, usually ending with the `.ipynb` extension. Jupyter Notebooks are easy to write, human-readable, and the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Researchers can use Notebooks to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
+2.  **Literate programming:** the practice of embedding computer code in a natural language document. In Python this is often done using the aforementioned [Jupyter Notebook](https://jupyter.org/), which is a [JSON](https://www.json.org/json-en.html) document containing an ordered list of input/output cells which can contain code, text (using *Markdown*), mathematics, plots, and rich media, usually ending with the `.ipynb` extension. Jupyter Notebooks are easy to write, human-readable, and the format of choice if you intend to run your code interactively, by running small pieces of code and looking at each output. Researchers can use Notebooks to write their journal papers, dissertations, and statistics/math class notes, since it is easy to convert into other formats later, such as HTML (for a webpage), MS Word, or PDF (via LaTeX). 
 
 Here are some resources for learning more about Jupyter Notebooks: 
 
 * <https://www.dataquest.io/blog/jupyter-notebook-tutorial/>
-* <https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook>
+* <https://positron.posit.co/positron-notebook-editor.html>
 * <https://realpython.com/jupyter-notebook-introduction/>
 
 ### Launch Positron
@@ -188,7 +186,7 @@ be modified by the user by specifying options.
 
 ### Assignment
 
-In Python we can assign an object (data structure) to an name using the `=` operator.
+In Python we can assign an object (data structure) to a name using the `=` operator.
 
 ```{python}
 # name = thing_to_assign
@@ -212,9 +210,9 @@ alice_file = open("Alice_in_wonderland.txt")
 
 ### Object methods
 
-The `alice_file` object provides *methods* that we can use to do things with it. Methods are invoked using syntax that looks like `ObjectName.method()`. You can see the methods available for acting on an object by typing the object's name followed by a `.` and pressing the `tab` key. For example, typing `alice_file.` and pressing `tab` will display a list of methods as shown below. 
+The `alice_file` object provides *methods* that we can use to do things with it. Methods are invoked using syntax that looks like `ObjectName.method()`. You can see the methods available for acting on an object by typing the object's name followed by a `.`. For example, typing `alice_file.` in a notebook cell will display a list of methods as shown below.
 
-![](images/notebook_file_completion.png).
+![](images/notebook_file_completion.png)
 
 Among the methods we have for doing things with our `alice_file` object is one named `read`. We can use the `help` function to learn more about it.
 
@@ -258,7 +256,7 @@ How do we figure out how to split strings in Python? We can ask Python what our 
 type(alice_txt)
 ```
 
-Python tells us that `alice_txt` is of type `str` (i.e., it is a string). We can find out what methods are available for working with strings by typing `alice_txt.` and pressing `tab`. We'll see that among the methods is one named `split`, as shown below.
+Python tells us that `alice_txt` is of type `str` (i.e., it is a string). We can find out what methods are available for working with strings by typing `alice_txt.` in a notebook cell. We'll see that among the methods is one named `split`, as shown below.
 
 ![](images/notebook_string_completion.png) 
 
@@ -277,7 +275,7 @@ type(alice_words)
 
 ### Working with lists
 
-The `split` method we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so its worth taking a few minutes to learn more about them.
+The `split` method we used to break up the text of *Alice in Wonderland* into words produced a *list*. A lot of the techniques we'll use later to analyze this text also produce lists, so it's worth taking a few minutes to learn more about them.
 
 Note that the displayed representation of lists and other data structures in Python often closely matches the syntax used to create them. For example, we can create a list using square brackets, just as we see when we print a list.
 
@@ -288,7 +286,7 @@ A *list* in Python is used to store a collection of items:
 y = [1, "b", 3, "D", 5, 6]
 ```
 
- As with other types in Python, you can get a list of methods by typing the name of the object followed by a `.` and pressing `tab`.
+ As with other types in Python, you can get a list of methods by typing the name of the object followed by a `.`.
 
 ### Extracting subsets from lists
 
@@ -400,11 +398,14 @@ The basic form is:
 
 ```{python}
 #| eval: false
-if (condition) true_action else false_action
+if condition:
+    true_action
+else:
+    false_action
 ```
 
-    If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`,
-    the optional `false_action` is evaluated.
+If `condition` is `True`, `true_action` is evaluated; if `condition` is `False`,
+the optional `false_action` is evaluated.
 
 The conditions that are evaluated use **logical and relational operators** to determine equivalence or make some other relational comparisons.
 
@@ -567,9 +568,11 @@ There are several ways to iterate in Python, of which we will focus on *for loop
 
 A *for loop* is a way of cycling through the elements of a collection and doing something with each one. The for loop logic is:
 
-<center>
+<div style="text-align: center;">
+
 ![](images/for_loop_pic_small.png)
-</center>
+
+</div>
 
 The for loop syntax is:
 
@@ -579,9 +582,11 @@ for <thing> in <collection>:
     do stuff with <thing>
 ```
 
-<center>
+<div style="text-align: center;">
+
 ![](images/python_for_loop_small.png)
-</center>
+
+</div>
 
 Notice that:
 
@@ -769,7 +774,7 @@ dict(zip(characters, num_per_character))
 
 Now that we know how to iterate over lists and calculate numbers for each element, we may wish to do some simple math using these numbers. For example, we may want to calculate the mean and standard deviation of the distribution of the number of paragraphs in each chapter. Python has a handful of math functions built-in (e.g., `min()` and `max()`) but built-in math support is pretty limited.
 
-When you find that something isn't available in Python itself, its time to look for a package that does it. Although it is somewhat overkill for simply calculating a mean we're going to use a popular package called `numpy` for this. The `numpy` package is listed in the materials folder's `pyproject.toml`, so `uv sync` has already installed it.
+When you find that something isn't available in Python itself, it's time to look for a package that does it. Although it is somewhat overkill for simply calculating a mean we're going to use a popular package called `numpy` for this. The `numpy` package is listed in the materials folder's `pyproject.toml`, so `uv sync` has already installed it.
 
 To use `numpy` or other packages, you must first import them. 
 

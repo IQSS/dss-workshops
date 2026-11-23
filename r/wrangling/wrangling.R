@@ -12,13 +12,11 @@
 #
 # ### Software and Materials
 #
-# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start Positron.
+# Follow the [R Installation](https://iqss.github.io/dss-workshops/r/install.html) instructions and ensure that you can successfully start Positron. Download the [materials for this workshop](https://github.com/IQSS/dss-workshops/releases/latest/download/materials-r-wrangling.zip), unzip them, and move the `r-wrangling` folder to your desktop.
 #
-# ### Class Structure
+# ### Getting help
 #
-# Informal - Ask questions at any time. Really!
-#
-# Collaboration is encouraged - please spend a minute introducing yourself to your neighbors!
+# These notes are self-paced. If you get stuck, use the Request help button at the top of the page.
 #
 # ### Prerequisites
 #
@@ -32,12 +30,12 @@
 # Start Positron and open the workshop materials folder:
 #
 # 1. On Mac, Positron will be in your Applications folder. On Windows, click the start button and search for Positron.
-# 2. In Positron go to `File -> Open Folder` and choose the workshop materials folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
-# 3. In the Explorer, click the file with the word "BLANK" in the name to open it.
+# 2. In Positron go to `File -> Open Folder` and choose the `r-wrangling` folder on your desktop. Positron makes it the working directory, which is where the data files are, and lists its files in the Explorer on the left.
+# 3. In the Explorer, click `wrangling_BLANK.qmd` to open it.
 #
 # ### Packages
 #
-# You should have already installed the `tidyverse` suite of packages onto your computer before the workshop --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
+# You should have already installed the `tidyverse` suite of packages onto your computer --- see [R Installation](https://iqss.github.io/dss-workshops/r/install.html). Now let's load it into the search path of our R session.
 #
 
 library(tidyverse)
@@ -54,9 +52,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 # Our mission is to extract and graph the **top 100** boys names in England and Wales for every year from **1996 to 2015**. 
 #
-# <center>
 # ![goal](images/goal.png)
-# </center>
 #
 # **Exercise 0: Problems with the data**
 #
@@ -64,7 +60,7 @@ library(readxl) # installed with tidyverse, but not loaded into R session
 #
 # 1. Locate the files named `1996boys_tcm77-254026.xlsx` and `2015boysnamesfinal.xlsx` and open them separately in a spreadsheet program. 
 #
-#   (If you don't have a spreadsheet program installed on your computer you can download one from https://www.libreoffice.org/download/download/). 
+#   (If you don't have a spreadsheet program installed on your computer you can download one from https://www.libreoffice.org/download/). 
 #
 #   What issues can you identify that might make working with these data difficult?
 #
@@ -188,7 +184,7 @@ map(boy_file_names, excel_sheets)
 str_subset(character_vector, regex_pattern)
 
 #
-# If you are not familiar with regular expressions (regex), <http://www.regexr.com/> is a good place to start. Regex is essentially just a programmatic way of doing operations like "find" or "find and replace" in MS Word or Excel.
+# If you are not familiar with regular expressions (regex), <https://regex101.com/> is a good place to start. Regex is essentially just a programmatic way of doing operations like "find" or "find and replace" in MS Word or Excel.
 #
 # Now that we know how to filter character vectors using `str_subset()` we can identify the correct sheet in a particular Excel file. For example,
 #
@@ -369,15 +365,11 @@ glimpse(boysNames[[20]])
 #
 # In short, we want to go from this:
 #
-# <center>
 # ![messy](images/messy.png)
-# </center>
 #
 # to this:
 #
-# <center>
 # ![tidy](images/clean.png)
-# </center>
 #
 # There are many ways to do this kind of data manipulation in R. We're going to use the `dplyr` and `tidyr` packages from within `tidyverse` to make our lives easier.
 #
@@ -406,9 +398,7 @@ boysNames[[1]]
 #
 # `NULL` is closely related to vectors and often serves the role of a zero length vector. 
 #
-# <center>
 # ![vector tree](images/summary_tree.png)
-# </center>
 #
 # From these two basic forms, the following six structures are derived:
 #
@@ -427,9 +417,7 @@ boysNames[[1]]
 #
 # There are four primary types of atomic vectors. Collectively, integer and double vectors are known as numeric vectors. You can query the **type** of an object using the `typeof()` function.
 #
-# <center>
 # ![atomic tree](images/summary_tree_atomic.png)
-# </center>
 #
 # | Type                    | Description                                          |
 # |:------------------------|:-----------------------------------------------------|
@@ -456,9 +444,7 @@ typeof(y) # the vector has been coerced to character
 #
 # Here's a symbolic representation using pepper! The pepper pot represents a list, while each pepper sachet denotes a list element. On the left, we see a list structure with multiple elements `x`, while in the middle we extract the first list element `x[1]` using single brackets, which keeps the list structure. On the upper right, we use double brackets to extract the first list element `x[[1]]` and *remove the list structure*. On the lower right, we extract the first item within the first list element `x[[1]][[1]]` (e.g., the first column within a data frame stored inside the list).
 #
-# <center>
 # ![list indexing](images/indexing_lists.png)
-# </center>
 #
 # Let's illustrate how this works with a practical example. Here's a list containing various data structures:
 #
@@ -543,9 +529,11 @@ boysNames[[1]]
 #
 # Our final task is to re-arrange the data so that it is all in a single table instead of in two side-by-side tables. For many similar tasks the `pivot_longer()` function in the `tidyr` package is useful, but in this case we will be better off using a combination of `select()` and `bind_rows()`. Here is the logic behind this step:
 #
-# <center>
+# <div style="text-align: center;">
+#
 # ![](images/wide_vs_long.png)
-# </center>
+#
+# </div>
 #
 # Here is the code that implements the transformation:
 #
@@ -668,11 +656,11 @@ head(boysNames) |> glimpse()
 #
 # While storing the data in separate data frames by year makes some sense, many operations will be easier if the data is simply stored in one big data frame. We have already seen how to turn a list of data frames into a single data frame using `bind_rows()`, but there is a problem; The year information is stored in the names of the list elements, and so flattening the data frames into one will result in losing the year information! Fortunately it is not too much trouble to add the year information to each data frame before flattening.
 #
-# We can use the `imap()` function --- which stands for 'index' mapping --- to do this operation. We know that the `mutate()` function can create a new column within a data frame. Here, we create a column called `Year` within each data frame (indexed by `.x`) that takes the name of each list element (indexed by `.y`), converts it from character (i.e., `"1996"`) to integer (i.e., `1996`), and repeats it along the rows of the data frame. 
+# We can use the `imap()` function --- which stands for 'index' mapping --- to do this operation. We know that the `mutate()` function can create a new column within a data frame. Here, we create a column called `Year` within each data frame (indexed by `x`) that takes the name of each list element (indexed by `y`), converts it from character (i.e., `"1996"`) to integer (i.e., `1996`), and repeats it along the rows of the data frame. The `\(x, y)` is shorthand for `function(x, y)`. 
 #
 
-# apply name of the list element (.y) as a new column in the data.frame (.x)
-boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
+# apply name of the list element (y) as a new column in the data.frame (x)
+boysNames <- imap(boysNames, \(x, y) mutate(x, Year = as.integer(y)))
 
 # examine the first data frame within the list
 boysNames[1]
@@ -725,7 +713,7 @@ write_csv(boysNames, "dataSets/all/boys_names.csv")
 boysNames |> 
   filter(Year == 2013) |>
   arrange(desc(Count)) |>
-  head()
+  head(n = 5)
 
 #
 # 4. How has the popularity of the name "ANDREW" changed over time?
@@ -751,7 +739,7 @@ get_data_sheet_name <- function(file, term){
   excel_sheets(file) |> str_subset(pattern = term)
 }
 
-# function to read in arbirary sheets from an Excel file
+# function to read in arbitrary sheets from an Excel file
 read_boys_names <- function(file, sheet_name) {
   read_excel(
     path = file,
@@ -797,8 +785,8 @@ Years <- str_extract(boy_file_names, pattern = "[0-9]{4}")
 # assign years to list names
 names(boysNames) <- Years
 
-# apply name of the list element (.y) as a new column in the data.frame (.x)
-boysNames <- imap(boysNames, ~ mutate(.x, Year = as.integer(.y)))
+# apply name of the list element (y) as a new column in the data.frame (x)
+boysNames <- imap(boysNames, \(x, y) mutate(x, Year = as.integer(y)))
 
 # convert list of data frames into single data frame
 boysNames <- bind_rows(boysNames)
